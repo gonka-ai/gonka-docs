@@ -29,18 +29,41 @@ multi-turn conversations easy, it's just as useful for single-turn tasks without
 
 An example Chat Completions API call looks like the following:
 
-```bash
-from openai import OpenAI
-client = OpenAI()
+=== "curl"
+    ```node title="place/holder"
+    import Name_Placeholder from "Name_Placeholder";
+    const Name_Placeholder = new Name_Placeholder();
+    const completion = await Name_Placeholder.chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+        {"role": "user", "content": "write a haiku about ai"}
+    ]
+    });
+    ```
 
-response = client.chat.completions.create(
-  model="gpt-4o-mini",
-  messages=[
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "What is a LLM?"}
-  ]
-)
-```
+=== "python"
+    ```node title="place/holder"
+    import Name_Placeholder from "Name_Placeholder";
+    const Name_Placeholder = new Name_Placeholder();
+    const completion = await Name_Placeholder.chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+        {"role": "user", "content": "write a haiku about ai"}
+    ]
+    });
+    ```
+
+=== "node.js"
+    ```node title="place/holder"
+    import Name_Placeholder from "Name_Placeholder";
+    const Name_Placeholder = new Name_Placeholder();
+    const completion = await Name_Placeholder.chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+        {"role": "user", "content": "write a haiku about ai"}
+    ]
+    });
+    ```
 
 To learn more, you can view the Chat Completions guide.
 

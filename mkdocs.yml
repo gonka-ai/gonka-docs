@@ -8,53 +8,22 @@ site_description: >-
 
 # Content
 nav:
-  - Home: index.md
-  - Capabilities:
-    - Text Generation Test: Capabilities/Text-generation.md
-  - CodeTuner for Cloud:
-      - Overview: cloud/overview.md
-      - Integration:
-          -  Common: cloud/integration/integration.md
-          - JVM Agent: cloud/integration/jvm-agent.md
-      - Usage: cloud/usage.md
-      - Release Notes:
-          -  Supported JAVA frameworks: cloud/release-notes/release-note-1.md
-  - CodeTuner for Mobile:
-      - Overview: mobile/overview.md
-      - Integration:
-          - Android:
-              - Build / Gradle: mobile/integration/android/gradle.md
-              - CICD / Gradle: mobile/integration/android/cicd.md
-              - CLI Tool: mobile/integration/android/cli-tool.md
-              - Integration FAQ: mobile/integration/android/integration-faq-android.md
-              - User Flow Annotation: mobile/integration/android/user-flow.md
-          - iOS:
-              - Build / Xcode: mobile/integration/ios/xcode.md
-              - Build / Bazel: mobile/integration/ios/bazel.md
-              - App Distribution: mobile/integration/ios/distribution.md
-      - Device Set-Up:
-          - Android: mobile/device-set-up/android.md
-          - iOS: mobile/device-set-up/ios.md
-      - Record + Upload:
-          - Android: mobile/record-n-upload/android.md
-          - iOS: mobile/record-n-upload/ios.md
-      - Release Notes:
-          - Frame Drop Visualization for Android: mobile/release-notes/Frame-Drop-Visualization-for-Android.md
-          - Product Analytic Tags: mobile/release-notes/Product-Analytic-Tags.md
-          - Quick Start Guide: mobile/release-notes/Quick-Start-Guide.md
-          - R1.4 - Annotations: mobile/release-notes/R1.4-Annotations.md
-          - R1.3 - Video: mobile/release-notes/R1.3-Video.md
-          - R1.2 - Admin: mobile/release-notes/R1.2-Admin.md
-          - R1.1 - New UX & UI: mobile/release-notes/R1.1-New-UX-&-UI.md
-
-
-  - Regression Analysis:
-      - Overview: ra/overview.md
-      - API: ra/api.md
-      - cURL example: ra/example.md
-
-
-
+  - Docs:
+      - Get Started:
+          - Overview: Getstarted/Overview.md
+          - Quickstart: Getstarted/Quickstart/Quickstart.md
+          - Models: Getstarted/Models/Models.md
+          - Terms & policies: Getstarted/Termsofuse.md
+      - Capabilities:
+          - Text Generation: Capabilities/Text-generation.md
+      - End points:
+          - Chat Completions:
+              - Overview: Endpoints/Chatcompletion/Overview.md
+              - Getting started: Endpoints/Chatcompletion/Getting-started.md
+              - Response Format: Endpoints/Chatcompletion/Chat-Completions-response-format.md  
+  - API Reference: API-Reference.md
+  - Log In: login.md
+  - Sign Up: signup.md
 
 # Visual
 theme:
@@ -139,7 +108,8 @@ plugins:
         'record-n-upload/ios.md': 'mobile/record-n-upload/ios.md'
         'device-set-up/ios.md': 'mobile/device-set-up/ios.md'
         'device-set-up/android.md': 'mobile/device-set-up/android.md'
-
+  - swagger-ui:
+      swagger_url: 'path/to/your/openapi.yaml'  # Update this with the correct path
 extra:
   social:
     - icon: fontawesome/brands/linkedin

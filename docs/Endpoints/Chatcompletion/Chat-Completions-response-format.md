@@ -29,9 +29,20 @@ An example Chat Completions API response looks as follows:
 
 The assistant's reply can be extracted with:
 
-```bash
-message = completion.choices[0].message.content
-```
+=== "curl"
+    ```
+    message = completion.choices[0].message.content
+    ```
+
+=== "python"
+    ```
+    message = completion.choices[0].message.content
+    ```
+
+=== "node.js"
+    ```
+    message = completion.choices[0].message.content
+    ```
 
 Every response will include a `finish_reason`. The possible values for `finish_reason` are:
 

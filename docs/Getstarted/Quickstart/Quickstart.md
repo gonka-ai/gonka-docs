@@ -5,11 +5,30 @@ semantic search, and speech recognition. Follow this guide to learn how to gener
 create vector embeddings for semantic search, and generate images from textual descriptions.
 
 ## Create and export an API key
-Create an API key in the dashboard here, which you’ll use to securely access the API. Store the key in a safe location, like a .zshrc file or 
-another text file on your computer. Once you’ve generated an API key, export it as an environment variable in your terminal.
+Create an API key in the dashboard here, which you’ll use to securely access the API. Store the key in a safe location, like a `.zshrc` file or another text file on your computer. Once you’ve generated an API key, export it as an environment variable in your terminal.
+
+=== "macOS / Linux"
+    ```macOS title="Export an envrionment variable on *nix systems"
+    export OPENAI_API_KEY="your_api_key_here"
+    ```
+
+=== "Windows"
+    ```Windows title="Export an envrionment variable in PowerShell"
+    setx OPENAI_API_KEY "your_api_key_here"
+    ```
 
 ## Make your first API request
 With your Name_Placeholder API key exported as an environment variable, you're ready to make your first API request. You can either use the REST API directly with the HTTP client of your choice, or use one of our official SDKs as shown below.
+
+=== "macOS / Linux"
+    ```macOS title="Export an envrionment variable on *nix systems"
+    export OPENAI_API_KEY="your_api_key_here"
+    ```
+
+=== "Windows"
+    ```Windows title="Export an envrionment variable in PowerShell"
+    setx OPENAI_API_KEY "your_api_key_here"
+    ```
 
 Execute the code with node example.mjs (or the equivalent command for Deno or Bun). In a few moments, you should see the output of your API 
 request!
@@ -18,7 +37,7 @@ request!
 
 Now that you've made your first Name_Placeholder request, you can explore the following resources:
 
-### Chat Completions
+### [Chat Completions](/Endpoints/Chatcompletion/Overview/)
 Learn more about generating text responses to natural language prompts
 
 ### [soon] Image Generation

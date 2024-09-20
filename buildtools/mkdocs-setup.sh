@@ -1,2 +1,2 @@
-pip install -r buildtools/requirements.txt
-pip install -e ps-plugin
+pip3 install -r buildtools/requirements.txt
+pip3 install -e ps-plugin

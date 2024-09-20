@@ -17,7 +17,7 @@ An example Chat Completions API response looks as follows:
   ],
   "created": 1677664795,
   "id": "chatcmpl-7QyqpwdfhqwajicIEznoc6Q47XAyW",
-  "model": "gpt-4o-mini",
+  "model": "llama3.1-8",
   "object": "chat.completion",
   "usage": {
     "completion_tokens": 17,
@@ -29,9 +29,20 @@ An example Chat Completions API response looks as follows:
 
 The assistant's reply can be extracted with:
 
-```bash
-message = completion.choices[0].message.content
-```
+=== "curl"
+    ```
+    message = completion.choices[0].message.content
+    ```
+
+=== "python"
+    ```
+    message = completion.choices[0].message.content
+    ```
+
+=== "node.js"
+    ```
+    message = completion.choices[0].message.content
+    ```
 
 Every response will include a `finish_reason`. The possible values for `finish_reason` are:
 

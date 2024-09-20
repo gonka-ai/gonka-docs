@@ -1,47 +1,31 @@
 # Models
 
 ## Flagship model
-### [llama3.1 8B](/Getstarted/Models/Models/#gpt-4o_2)
-The upgraded versions of the 8B and 70B models are multilingual and have a significantly longer context length of 128K, state-of-the-art tool use, and overall stronger reasoning capabilities. This enables Meta’s latest models to support advanced use cases, such as long-form text summarization, multilingual conversational agents, and coding assistants.
+### llama3.1 405B
+The flagship 405B model of Llama 3.1 boasts an impressive scale, designed for high-performance multilingual text generation and comprehension. With 405 billion parameters, it sets new benchmarks for quality and contextual accuracy in language tasks. This model is particularly effective in environments requiring nuanced understanding and generation, making it ideal for advanced applications in research and industry. Its extensive training on diverse data allows it to handle a wide range of languages and complex queries seamlessly.
 
 ## Models overview
-The Name_Placeholder API is powered by a diverse set of models with different capabilities and price points. You can also make customizations to our models for your specific use case with fine-tuning.
+The WeAI API is powered by a diverse set of open-source models, including LLaMA 3.1 (8B, 70B, and 405B) and Mistral AI. These models offer a range of capabilities to support various applications.
 
-### Model	Description
+## Models	Description
 
-#### [llama3.1 8B](/Getstarted/Models/Models/#gpt-4o_2)
-The upgraded versions of the 8B and 70B models are multilingual and have a significantly longer context length of 128K, state-of-the-art tool use, and overall stronger reasoning capabilities. This enables Meta’s latest models to support advanced use cases, such as long-form text summarization, multilingual conversational agents, and coding assistants.
+### llama3.1 8B
+The Llama 3.1 8B model is a lightweight, multilingual auto-regressive language model optimized for diverse dialogue applications. With 8 billion parameters, it leverages advanced training techniques like supervised fine-tuning and reinforcement learning from human feedback to deliver high-quality responses. Ideal for assistant-like tasks, it supports multiple languages including English, Spanish, and German, making it versatile for various commercial and research use cases.
 
-#### [llama3.1 70B](/Getstarted/Models/Models/#gpt-4o-mini_2)
-The upgraded versions of the 8B and 70B models are multilingual and have a significantly longer context length of 128K, state-of-the-art tool use, and overall stronger reasoning capabilities. This enables Meta’s latest models to support advanced use cases, such as long-form text summarization, multilingual conversational agents, and coding assistants. 
+### llama3.1 70B
+The 70B variant of Llama 3.1 offers a significant increase in capacity, providing enhanced contextual understanding and generation capabilities. With 70 billion parameters, this model excels in complex dialogue scenarios and is well-suited for applications requiring deeper conversational engagement. Its multilingual support ensures it can cater to a global audience, making it a robust choice for businesses and researchers aiming to develop sophisticated language-based solutions.
 
-#### [llama3.1 405B](/Getstarted/Models/Models/#o1-preview-and-o1-mini-beta)
-Llama 3.1 405B is the first openly available model that rivals the top AI models when it comes to state-of-the-art capabilities in general knowledge, steerability, math, tool use, and multilingual translation.
+### llama3.1 405B
+The flagship 405B model of Llama 3.1 boasts an impressive scale, designed for high-performance multilingual text generation and comprehension. With 405 billion parameters, it sets new benchmarks for quality and contextual accuracy in language tasks. This model is particularly effective in environments requiring nuanced understanding and generation, making it ideal for advanced applications in research and industry. Its extensive training on diverse data allows it to handle a wide range of languages and complex queries seamlessly.
 
-We have also published open source models including Point-E, Whisper, Jukebox, and CLIP.
+### Mistral Large 2
+The Mistral Large 2 model is engineered for high-complexity tasks, delivering top-tier reasoning capabilities. This multilingual model supports a wide range of languages, including European languages, Chinese, Japanese, Korean, Hindi, and Arabic. With an impressive context window of 128K tokens, it excels in handling extensive inputs. Additionally, it features native function calling and JSON output capabilities, making it highly effective for advanced coding tasks across 80+ programming languages.
 
-#### Continuous model upgrades
-`gpt-4o`, `gpt-4o-mini`, `gpt-4-turbo`, `gpt-4`, and `gpt-3.5-turbo` point to their respective latest model version. You can verify this by looking at the response object after sending a request. The response will include the specific model version used (e.g. `gpt-3.5-turbo-1106`). The `chatgpt-4o-latest` model version continuously points to the version of GPT-4o used in ChatGPT, and is updated frequently.
+### Mistral Small 24.09
+The Mistral Small 24.09 model stands out as an enterprise-grade solution in the small model category, renowned for its power and efficiency. Available under the Mistral Research License, it offers a 128K token context window, allowing for comprehensive processing of input data. This cost-effective and fast model is well-suited for a variety of applications, including translation, summarization, and sentiment analysis, making it an excellent choice for diverse use cases.
 
-With the exception of `chatgpt-4o-latest`, we offer pinned model versions that developers can continue using for at least three months after an updated model has been introduced. With the new cadence of model updates, we are also giving developers the ability to contribute evals to help us improve the model for different use cases. If you are interested, check out the OpenAI Evals repository.
+### Mistral NeMo
+Mistral NeMo is a cutting-edge 12B small model developed in collaboration with NVIDIA, setting new standards in its size category. It supports multiple languages, including European languages, Chinese, Japanese, Korean, Hindi, and Arabic. With a large context window of 128K tokens, this model excels in complex tasks while maintaining high performance. Licensed under Apache 2.0, Mistral NeMo is designed for versatility and robustness, making it ideal for a broad spectrum of applications.
 
-Learn more about model deprecation on our deprecation page.
-
-## llama3.1 8B
-The upgraded versions of the 8B and 70B models are multilingual and have a significantly longer context length of 128K, state-of-the-art tool use, and overall stronger reasoning capabilities. This enables Meta’s latest models to support advanced use cases, such as long-form text summarization, multilingual conversational agents, and coding assistants.
-
-!!! info
-    [1] Starting October 2nd, 2024, `gpt-4o` will point to the `gpt-4o-2024-08-06` snapshot.
-    
-    [2] We are releasing this model for developers and researchers to explore OpenAI's latest research. For production use, OpenAI recommends using dated GPT models, which are optimized for API usage.
-
-## llama3.1 70B
-The upgraded versions of the 8B and 70B models are multilingual and have a significantly longer context length of 128K, state-of-the-art tool use, and overall stronger reasoning capabilities. This enables Meta’s latest models to support advanced use cases, such as long-form text summarization, multilingual conversational agents, and coding assistants.
-
-## llama3.1 405B
-Llama 3.1 405B is the first openly available model that rivals the top AI models when it comes to state-of-the-art capabilities in general knowledge, steerability, math, tool use, and multilingual translation.
-
-There are two model types available today:
-
-- __o1-preview__: reasoning model designed to solve hard problems across domains.
-- __o1-mini__: faster and cheaper reasoning model particularly good at coding, math, and science.
+### Continuous model upgrades
+`Llama 3.1 (8B)`, `Llama 3.1 (70B)`, `Llama 3.1 (405B)`, `Mistral Large 2`, `Mistral Small 24.09`, and `Mistral NeMo` point to their respective latest model version. You can verify this by looking at the response object after sending a request. The response will include the specific model version used (e.g. `mistral-large-2407`).

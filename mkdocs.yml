@@ -1,10 +1,10 @@
 site_name: ""
-site_url: https://docs.productscience.app
-repo_url: https://docs.productscience.app
+site_url: https://weai.productscience.ai/
+repo_url: https://weai.productscience.ai/
 edit_uri: edit/main/docs
-copyright: Copyright Product Science Inc. All rights reserved.
+copyright: Copyright WeAI Inc. All rights reserved.
 site_description: >-
-  Learn to configure and use Product Science
+  Learn to configure and use WeAI
 
 # Content
 nav:
@@ -29,7 +29,6 @@ nav:
 theme:
   name: material
   custom_dir: overrides
-  logo: images/logo-text.svg
   favicon: images/Icon.png
   font:
     text: Manrope
@@ -87,30 +86,9 @@ plugins:
   - minify:
       minify_html: false
   - search
-  - macros:
-      modules: ["ps-plugin"]
   - mkdocs-video:
       is_video: true
       video_muted: true
       video_controls: true
       css_style:
         width: "50%"
-  - redirects:
-      redirect_maps:
-        'integration/android/gradle.md': 'mobile/integration/android/gradle.md'
-        'integration/android/cicd.md': 'mobile/integration/android/cicd.md'
-        'integration/android/cli-tool.md': 'mobile/integration/android/cli-tool.md'
-        'integration/android/integration-faq-android.md': 'mobile/integration/android/integration-faq-android.md'
-        'integration/android/user-flow.md': 'mobile/integration/android/user-flow.md'
-        'integration/ios/xcode.md': 'mobile/integration/ios/xcode.md'
-        'integration/ios/bazel.md': 'mobile/integration/ios/bazel.md'
-        'integration/ios/distribution.md': 'mobile/integration/ios/distribution.md'
-        'record-n-upload/ios.md': 'mobile/record-n-upload/ios.md'
-        'device-set-up/ios.md': 'mobile/device-set-up/ios.md'
-        'device-set-up/android.md': 'mobile/device-set-up/android.md'
-  - swagger-ui:
-      swagger_url: 'path/to/your/openapi.yaml'  # Update this with the correct path
-extra:
-  social:
-    - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/company/product-science-inc/

@@ -1,65 +1,82 @@
 # Developer quickstart
 
-The Name_Placeholder provides a simple interface to state-of-the-art AI models for natural language processing, image generation, 
-semantic search, and speech recognition. Follow this guide to learn how to generate human-like responses to natural language prompts,
-create vector embeddings for semantic search, and generate images from textual descriptions.
+The WeAI API provides a simple interface to state-of-the-art AI models for natural language processing. Follow this guide to learn how to generate human-like responses to natural language prompts.
 
 ## Create and export an API key
 Create an API key in the dashboard here, which you’ll use to securely access the API. Store the key in a safe location, like a `.zshrc` file or another text file on your computer. Once you’ve generated an API key, export it as an environment variable in your terminal.
 
 === "macOS / Linux"
     ```macOS title="Export an envrionment variable on *nix systems"
-    export OPENAI_API_KEY="your_api_key_here"
+    export WEAI_API_KEY="your_api_key_here"
     ```
 
 === "Windows"
     ```Windows title="Export an envrionment variable in PowerShell"
-    setx OPENAI_API_KEY "your_api_key_here"
+    setx WEAI_API_KEY "your_api_key_here"
     ```
 
 ## Make your first API request
-With your Name_Placeholder API key exported as an environment variable, you're ready to make your first API request. You can either use the REST API directly with the HTTP client of your choice, or use one of our official SDKs as shown below.
+With your WeAI API key exported as an environment variable, you're ready to make your first API request. You can either use the REST API directly with the HTTP client of your choice, or use one of our official SDKs as shown below.
 
-=== "macOS / Linux"
-    ```macOS title="Export an envrionment variable on *nix systems"
-    export OPENAI_API_KEY="your_api_key_here"
+=== "JavaScript"
+    ```JavaScript title="Install the OpenAI SDK with npm"
+    npm install openai
     ```
 
-=== "Windows"
-    ```Windows title="Export an envrionment variable in PowerShell"
-    setx OPENAI_API_KEY "your_api_key_here"
+=== "Python"
+    ```Python title="Install the WeAI SDK with pip"
+    pip install wenai"
     ```
 
-Execute the code with node example.mjs (or the equivalent command for Deno or Bun). In a few moments, you should see the output of your API 
-request!
+=== "curl"
+    ```curl title="Create a human-like response to a prompt"
+    curl "https://api.openai.com/v1/chat/completions" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    -d '{
+        "model": "gpt-4o-mini",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant."
+            },
+            {
+                "role": "user",
+                "content": "Write a haiku that explains the concept of recursion."
+            }
+        ]
+    }'"
+    ```
+
+Execute the code with node example.mjs (or the equivalent command for Deno or Bun). In a few moments, you should see the output of your API request!
 
 ## Next steps
 
-Now that you've made your first Name_Placeholder request, you can explore the following resources:
+Now that you've made your first WeAI request, you can explore the following resources:
 
 ### [Chat Completions](/Endpoints/Chatcompletion/Overview/)
 Learn more about generating text responses to natural language prompts
 
 ### [soon] Image Generation
-Generate images using our DALL·E model
+Generate images
 
 ### [soon] Embeddings
 Create vector representations of text, used for similarity search
 
 ### [soon] Text-to-speech
-Generate human-like voice recordings with our text-to-speech model
+Generate human-like voice recordings with text-to-speech model
 
 ### [soon] Speech-to-text
-Create transcriptions of voice recordings with our Whisper model
+Create transcriptions of voice recordings 
 
 ### [soon] Moderation
-Analyze and filter user-created content with our moderation model
+Analyze and filter user-created content
 
 ### [soon] Fine-tuning
-Fine-tune our models with your own data
+Fine-tune LLMs with your own data
 
 ### [soon] Batch
 Batch requests for async jobs
 
 ### [soon] Full API Reference
-View the full REST API reference for Name_Placeholder
+View the full REST API reference for WeAI

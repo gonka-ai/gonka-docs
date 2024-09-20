@@ -1,52 +1,91 @@
-# Name_placeholder developer platform
+#WeAI developer platform
 
 ## Developer quickstart
 
 Set up your environment and make your first API request in minutes.
 === "curl"
-    ```node title="place/holder"
-    import Name_Placeholder from "Name_Placeholder";
-    const Name_Placeholder = new Name_Placeholder();
-    const completion = await Name_Placeholder.chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-        {"role": "user", "content": "write a haiku about ai"}
-    ]
-    });
+    ```
+    curl https://weai.productscience.ai/v1/chat/completions
+    -H "Content-Type: application/json"
+    -H "Authorization: Bearer $WEAI_API_KEY"
+    -d '{
+            "model": "llama3.1",
+            "messages": [
+                {"role": "user", "content": "write a haiku about ai"}
+            ]
+    }'
     ```
 
 === "node.js"
-    ```node title="place/holder"
-    import Name_Placeholder from "Name_Placeholder";
-    const Name_Placeholder = new Name_Placeholder();
-    const completion = await Name_Placeholder.chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-        {"role": "user", "content": "write a haiku about ai"}
-    ]
+    ```
+    import WeAI from "weai";
+    const weai = new WeAI();
+    const completion = await weai.chat.completions.create({
+        model: "mistral-large-2407",
+        messages: [
+            {"role": "user", "content": "write a haiku about ai"}
+        ]
     });
+
     ```
 
 === "python"
-    ```python title="place/holder"
-    import Name_Placeholder from "Name_Placeholder";
-    const Name_Placeholder = new Name_Placeholder();
-    const completion = await Name_Placeholder.chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-        {"role": "user", "content": "write a haiku about ai"}
-    ]
-    });
+    ```
+    from weai import WeAI
+    client = WeAI()
+    completion = client.chat.completions.create(
+        model="mistral",
+        messages=[
+            {"role": "user", "content": "write a haiku about ai"}
+        ]
+    )
     ```
 
 ## Meet the models
 
+Here is a selection of open-source models, including LLaMA 3.1 in its various configurations—8B, 70B, and 405B—alongside Mistral AI. These models provide diverse capabilities suitable for a wide range of applications, from lightweight tasks to complex analyses.
+
 ### [llama3.1 8B](/Getstarted/Models/Models/#llama31-8b_2)
-The upgraded versions of the 8B and 70B models are multilingual and have a significantly longer context length of 128K, state-of-the-art tool use, and overall stronger reasoning capabilities. This enables Meta’s latest models to support advanced use cases, such as long-form text summarization, multilingual conversational agents, and coding assistants.
+Light-weight, ultra-fast model you can run anywhere.
+
+- Text input and output
+- 8 billion parameters
+- Optimized for quick tasks and minimal resource consumption
 
 ### [llama3.1 70B](/Getstarted/Models/Models/#llama31-70b_1)
-The upgraded versions of the 8B and 70B models are multilingual and have a significantly longer context length of 128K, state-of-the-art tool use, and overall stronger reasoning capabilities. This enables Meta’s latest models to support advanced use cases, such as long-form text summarization, multilingual conversational agents, and coding assistants.
+Highly performant, cost effective model that enables diverse use cases.
+
+- Text input and output
+- 70 billion parameters
+- Strikes a balance between performance and efficiency for a variety of applications
 
 ### [llama3.1 405B](/Getstarted/Models/Models/#llama31-405b_1)
+Flagship foundation model driving widest variety of use cases.
 
-Llama 3.1 405B is the first openly available model that rivals the top AI models when it comes to state-of-the-art capabilities in general knowledge, steerability, math, tool use, and multilingual translation.
+- Text input and output
+- 405 billion parameters
+- Ideal for complex, multi-step tasks and in-depth analysis
+
+### [Mistral Large 2](/Getstarted/Models/Models/#mistral-large-2)
+Top-tier reasoning for high-complexity tasks, for your most sophisticated needs.
+
+- Multi-lingual (incl. European languages, Chinese, Japanese, Korean, Hindi, Arabic)
+- Large context window of 128K tokens
+- Native function calling capacities and JSON outputs
+- High coding proficiency (80+ coding languages)
+
+### [Mistral Small 24.09](/Getstarted/Models/Models/#mistral-small-2409)
+Enterprise-grade small model.
+
+- The most powerful model in its size
+- Available under the Mistral Research License
+- 128k token context window
+- Cost-efficient and fast model for a wide array of use cases such as translation, summarization, and sentiment analysis
+
+### [Mistral NeMo](/Getstarted/Models/Models/#mistral-nemo)
+A state-of-the-art 12B small model built in collaboration with NVIDIA.
+
+- The most powerful model in its size category
+- Available under Apache 2.0 license
+- Multi-lingual (incl. European languages, Chinese, Japanese, Korean, Hindi, Arabic)
+- Large context window of 128K tokens

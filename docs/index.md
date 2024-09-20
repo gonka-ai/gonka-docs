@@ -1,3 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0; url=http://127.0.0.1:8000/Getstarted/Overview/">
+    <title>Redirecting...</title>
+    <style>
+        .md-sidebar {
+            display: none;
+        }
+        .md-main {
+            margin-left: auto;
+        }
+
+        /* Styles for mobile screens */
+        @media (max-width: 768px) {
+            .products-container {
+                display: block;
+            }
+            .product {
+                padding: 20px;
+            }
+        }
+
+        /* Styles for desktop screens */
+        @media (min-width: 769px) {
+            .products-container {
+                display: flex;
+            }
+            .product {
+                flex: 1;
+                padding: 30px 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Redirecting to the overview...</h1>
+</body>
+</html>
+
 <style>
 .md-sidebar {
     display: none;
@@ -29,7 +71,7 @@
 
 </style>
 
-# Decentralized AI Name_Placeholder
+# WeAI
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sagittis quam non lorem aliquet, sed laoreet nisl blandit. Aliquam tristique mi sit amet neque vestibulum, molestie elementum est suscipit. Phasellus commodo facilisis viverra. Suspendisse euismod augue massa. Nunc sit amet laoreet urna. Nullam at dictum purus, quis efficitur erat. Pellentesque hendrerit leo convallis sem eleifend, sit amet gravida dui consequat. Suspendisse placerat metus ante, et tincidunt urna vestibulum vitae. Aenean bibendum leo orci, ut porta urna finibus at. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed lobortis ante et nulla egestas, nec tincidunt nisl maximus. Vestibulum mollis nulla ligula, sit amet ultricies elit tempor nec.
 

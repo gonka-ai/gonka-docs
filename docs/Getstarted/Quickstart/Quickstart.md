@@ -30,7 +30,7 @@ With your WeAI API key exported as an environment variable, you're ready to make
 
 === "curl"
     ```curl title="Create a human-like response to a prompt"
-    curl "https://productscience.ai/weai/v1/chat/completions" \
+    curl "https://weai.productscience.ai/v1/chat/completions" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $WEAI_API_KEY" \
     -d '{

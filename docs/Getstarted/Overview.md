@@ -5,7 +5,7 @@
 Set up your environment and make your first API request in minutes.
 === "curl"
     ```
-    curl https://weai.productscience.ai/v1/chat/completions
+    curl https://productscience.ai/weai/v1/chat/completions
     -H "Content-Type: application/json"
     -H "Authorization: Bearer $WEAI_API_KEY"
     -d '{

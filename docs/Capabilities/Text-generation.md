@@ -23,7 +23,7 @@ An example Chat Completions API call looks like the following:
 
 === "curl"
     ```
-    curl https://weai.productscience.ai/v1/chat/completions \
+    curl https://productscience.ai/weai/v1/chat/completions \
       -H "Content-Type: application/json" \
       -H "Authorization: Bearer $WEAI_API_KEY" \
       -d '{
@@ -59,7 +59,7 @@ An example Chat Completions API call looks like the following:
 ```
 import WeAI from "weai";
 
-const openai = new WeAI();
+const weai = new WeAI();
 
 async function main() {
   const completion = await weai.chat.completions.create({
@@ -78,7 +78,7 @@ main();
 To learn more, you can view the Chat Completions guide.
 
 ## Prompt engineering
-An awareness of the best practices for working with WeAIopen-source models can make a significant difference in application performance. The failure modes that each exhibit and the ways of working around or correcting those failure modes are not always intuitive. There is an entire field related to working with language models which has come to be known as "prompt engineering", but as the field has progressed its scope has outgrown merely engineering the prompt into engineering systems that use model queries as components.
+An awareness of the best practices for working with WeAI open-source models can make a significant difference in application performance. The failure modes that each exhibit and the ways of working around or correcting those failure modes are not always intuitive. There is an entire field related to working with language models which has come to be known as "prompt engineering", but as the field has progressed its scope has outgrown merely engineering the prompt into engineering systems that use model queries as components.
 
 To learn more, read our guide on prompt engineering which covers methods to improve model reasoning, reduce the likelihood of model hallucinations, and more.
 

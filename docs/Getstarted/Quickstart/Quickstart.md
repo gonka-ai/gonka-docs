@@ -19,8 +19,8 @@ Create an API key in the dashboard here, which you’ll use to securely access t
 With your WeAI API key exported as an environment variable, you're ready to make your first API request. You can either use the REST API directly with the HTTP client of your choice, or use one of our official SDKs as shown below.
 
 === "JavaScript"
-    ```JavaScript title="Install the OpenAI SDK with npm"
-    npm install openai
+    ```JavaScript title="Install the WeAI SDK with npm"
+    npm install weai
     ```
 
 === "Python"
@@ -30,11 +30,11 @@ With your WeAI API key exported as an environment variable, you're ready to make
 
 === "curl"
     ```curl title="Create a human-like response to a prompt"
-    curl "https://api.openai.com/v1/chat/completions" \
+    curl "https://productscience.ai/weai/v1/chat/completions" \
     -H "Content-Type: application/json" \
-    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    -H "Authorization: Bearer $WEAI_API_KEY" \
     -d '{
-        "model": "gpt-4o-mini",
+        "model": "llama3.1-8",
         "messages": [
             {
                 "role": "system",

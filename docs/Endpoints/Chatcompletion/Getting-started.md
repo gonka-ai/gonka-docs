@@ -41,7 +41,7 @@ An example Chat Completions API call looks like the following:
 
 === "curl"
     ```
-    curl https://productscience.ai/weai//v1/chat/completions \
+    curl https://weai.productscience.ai/v1/chat/completions \
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer $WEAI_API_KEY" \
         -d '{

@@ -23,11 +23,11 @@ An example Chat Completions API call looks like the following:
 
 === "curl"
  ```
-curl https://api.openai.com/v1/chat/completions \
+curl https://api.weai.com/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Authorization: Bearer $WEAI_API_KEY" \
   -d '{
-    "model": "gpt-4o-mini",
+    "model": "llama3.1-8",
     "messages": [
       {
         "role": "system",

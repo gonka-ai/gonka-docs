@@ -23,22 +23,22 @@ An example Chat Completions API call looks like the following:
 
 === "curl"
 ```
-curl https://api.weai.com/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $WEAI_API_KEY" \
-  -d '{
-    "model": "llama3.1-8",
-    "messages": [
-      {
-        "role": "system",
-        "content": "You are a helpful assistant."
-      },
-      {
-        "role": "user",
-        "content": "What is a LLM?"
-      }
-    ]
-  }'
+  curl https://api.weai.com/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $WEAI_API_KEY" \
+    -d '{
+      "model": "llama3.1-8",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are a helpful assistant."
+        },
+        {
+          "role": "user",
+          "content": "What is a LLM?"
+        }
+      ]
+    }'
 ```
 
 === "python"

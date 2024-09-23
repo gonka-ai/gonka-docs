@@ -29,6 +29,7 @@ With the WeAI SDK installed, create a file called example.mjs and copy one of th
 
 === "Generate text"
 ```Generate text="Create a human-like response to a prompt"
+
 import OpenAI from "openai";
 const openai = new OpenAI();
 

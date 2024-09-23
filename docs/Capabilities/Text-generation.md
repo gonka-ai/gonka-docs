@@ -24,22 +24,22 @@ An example Chat Completions API call looks like the following:
 
 === "node.js"
     ```
-    import WeAI from "weai";
+    import OpenAI from "openai";
 
-    const weai = new WeAI();
+const openai = new OpenAI();
 
-    async function main() {
-    const completion = await weai.chat.completions.create({
-        messages: [{"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": "Who won the world series in 2020?"},
-            {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
-            {"role": "user", "content": "Where was it played?"}],
-        model: "llama3.1-8",
-    });
+async function main() {
+  const completion = await openai.chat.completions.create({
+    messages: [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "What is a LLM?"}
+      ],
+    model: "gpt-4o-mini",
+  });
 
-    console.log(completion.choices[0]);
-    }
-    main();
+  console.log(completion.choices[0]);
+}
+main();
     ```
 
 === "python"

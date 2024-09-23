@@ -20,10 +20,11 @@ With your WeAI API key exported as an environment variable, you're ready to make
 
 To use the WeAI API in server-side JavaScript environments like Node.js, Deno, or Bun, you can use the official WeAI SDK for TypeScript and JavaScript. Get started by installing the SDK using npm or your preferred package manager:
 
-"JavaScript"
-    ```JavaScript title="Install the WeAI SDK with npm"
+=== "JavaScript"
+```JavaScript title="Install the WeAI SDK with npm"
     npm install weai
-    ```
+```
+
 With the WEAI SDK installed, create a file called example.mjs and copy one of the following examples into it:
 
 "Generate text"

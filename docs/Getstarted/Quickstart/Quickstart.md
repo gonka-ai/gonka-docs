@@ -74,7 +74,7 @@ With the WeAI SDK installed, create a file called example.py and copy one of the
     
 On Unix-based systems, you can test out the WeAI REST API using curl. The following commands assume that you have exported the `WEAI_API_KEY` system environment variable as shown above.
 
-=== "curl"
+"curl"
     ```curl title="Create a human-like response to a prompt"
     curl "https://weai.productscience.ai/v1/chat/completions" \
     -H "Content-Type: application/json" \

@@ -28,23 +28,22 @@ npm install weai
 With the WeAI SDK installed, create a file called example.mjs and copy one of the following examples into it:
 
 === "Generate text"
-```Title="Create a human-like response to a prompt"
-
-import OpenAI from "openai";
-const openai = new OpenAI();
-
-const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        {
-            role: "user",
-            content: "Write a haiku about recursion in programming.",
-        },
-    ],
-});
-
-console.log(completion.choices[0].message);
+```Generate text title="Create a human-like response to a prompt"
+    import OpenAI from "openai";
+    const openai = new OpenAI();
+    
+    const completion = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            {
+                role: "user",
+                content: "Write a haiku about recursion in programming.",
+            },
+        ],
+    });
+    
+    console.log(completion.choices[0].message);
 ```
     
 To use the WeAI API in Python, you can use the official WeAI SDK for Python. Get started by installing the SDK using pip:    

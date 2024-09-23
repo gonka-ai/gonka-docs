@@ -24,19 +24,19 @@ An example Chat Completions API call looks like the following:
 
 === "node.js"
     ```
-        import WeAI from "weai";
-        const weai = new WeAI();
-        async function main() {
-        const completion = await weai.chat.completions.create({
-        messages: [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "What is a LLM?"}
-        ],
-        model: "llama3.1-8",
-        });
-        console.log(completion.choices[0]);
-        }
-        main();
+    import WeAI from "weai";
+    const weai = new WeAI();
+    async function main() {
+    const completion = await weai.chat.completions.create({
+    messages: [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "What is a LLM?"}
+    ],
+    model: "llama3.1-8",
+    });
+    console.log(completion.choices[0]);
+    }
+    main();
 ```
 
 === "python"

@@ -22,57 +22,57 @@ Chat models take a list of messages as input and return a model-generated messag
 An example Chat Completions API call looks like the following:
 
 === "curl"
-```
-  curl https://api.weai.com/v1/chat/completions \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer $WEAI_API_KEY" \
-    -d '{
-      "model": "llama3.1-8",
-      "messages": [
-        {
-          "role": "system",
-          "content": "You are a helpful assistant."
-        },
-        {
-          "role": "user",
-          "content": "What is a LLM?"
-        }
-      ]
-    }'
-```
+  ```
+    curl https://api.weai.com/v1/chat/completions \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $WEAI_API_KEY" \
+      -d '{
+        "model": "llama3.1-8",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a helpful assistant."
+          },
+          {
+            "role": "user",
+            "content": "What is a LLM?"
+          }
+        ]
+      }'
+  ```
 
 === "python"
-```
-from weai import WeAI
-client = WeAI()
-response = client.chat.completions.create(
-    model="llama3.1-8",
-    messages=[
-         {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": "What is a LLM?"}
-        ]
-    )
-```
+  ```
+  from weai import WeAI
+  client = WeAI()
+  response = client.chat.completions.create(
+      model="llama3.1-8",
+      messages=[
+           {"role": "system", "content": "You are a helpful assistant."},
+              {"role": "user", "content": "What is a LLM?"}
+          ]
+      )
+  ```
 
 === "node.js"
-```
-import WeAI from "weai";
-
-const weai = new WeAI();
-
-async function main() {
-  const completion = await weai.chat.completions.create({
-    messages: [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "What is a LLM?"}
-      ],
-    model: "llama3.1-8",
-  });
-
-  console.log(completion.choices[0]);
-}
-main();
-```
+  ```
+  import WeAI from "weai";
+  
+  const weai = new WeAI();
+  
+  async function main() {
+    const completion = await weai.chat.completions.create({
+      messages: [
+          {"role": "system", "content": "You are a helpful assistant."},
+          {"role": "user", "content": "What is a LLM?"}
+        ],
+      model: "llama3.1-8",
+    });
+  
+    console.log(completion.choices[0]);
+  }
+  main();
+  ```
 
 To learn more, you can view the Chat Completions guide.
 

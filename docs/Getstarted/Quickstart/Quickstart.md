@@ -50,7 +50,7 @@ To use the WeAI API in Python, you can use the official WeAI SDK for Python. Get
 
 === "Python"
 ```Python title="Install the WeAI SDK with pip"
-    pip install wenai
+pip install wenai
 ```
 
 With the WeAI SDK installed, create a file called example.py and copy one of the following examples into it:

@@ -22,13 +22,13 @@ To use the WeAI API in server-side JavaScript environments like Node.js, Deno, o
 
 === "JavaScript"
 ```JavaScript title="Install the WeAI SDK with npm"
-    npm install weai
+npm install weai
 ```
 
-With the WEAI SDK installed, create a file called example.mjs and copy one of the following examples into it:
+With the WeAI SDK installed, create a file called example.mjs and copy one of the following examples into it:
 
-"Generate text"
-    ```Generate text="Create a human-like response to a prompt"
+==="Generate text"
+```Generate text="Create a human-like response to a prompt"
         import OpenAI from "openai";
         const openai = new OpenAI();
         
@@ -44,7 +44,7 @@ With the WEAI SDK installed, create a file called example.mjs and copy one of th
         });
         
         console.log(completion.choices[0].message);
-    ```
+```
     
 To use the WeAI API in Python, you can use the official WeAI SDK for Python. Get started by installing the SDK using pip:    
 

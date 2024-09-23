@@ -21,24 +21,6 @@ Chat models take a list of messages as input and return a model-generated messag
 
 An example Chat Completions API call looks like the following:
 
-
-=== "node.js"
-    ```
-    import WeAI from "weai";
-    const weai = new WeAI();
-    async function main() {
-    const completion = await weai.chat.completions.create({
-    messages: [
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "What is a LLM?"}
-    ],
-    model: "llama3.1-8",
-    });
-    console.log(completion.choices[0]);
-    }
-    main();
-```
-
 === "python"
     ```
     from weai import WeAI
@@ -82,6 +64,23 @@ An example Chat Completions API call looks like the following:
             ]
         }'
     ```    
+    
+=== "node.js"
+    ```
+    import WeAI from "weai";
+    const weai = new WeAI();
+    async function main() {
+    const completion = await weai.chat.completions.create({
+    messages: [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "What is a LLM?"}
+    ],
+    model: "llama3.1-8",
+    });
+    console.log(completion.choices[0]);
+    }
+    main();
+```
 
 To learn more, you can view the Chat Completions guide.
 

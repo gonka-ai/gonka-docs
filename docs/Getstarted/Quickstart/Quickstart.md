@@ -18,15 +18,40 @@ Create an API key in the dashboard here, which you’ll use to securely access t
 ## Make your first API request
 With your WeAI API key exported as an environment variable, you're ready to make your first API request. You can either use the REST API directly with the HTTP client of your choice, or use one of our official SDKs as shown below.
 
+To use the WeAI API in server-side JavaScript environments like Node.js, Deno, or Bun, you can use the official WeAI SDK for TypeScript and JavaScript. Get started by installing the SDK using npm or your preferred package manager:
+
 === "JavaScript"
     ```JavaScript title="Install the WeAI SDK with npm"
     npm install weai
     ```
+With the WEAI SDK installed, create a file called example.mjs and copy one of the following examples into it:
+
+"Generate text"
+    ```macOS title="Create a human-like response to a prompt"
+        import OpenAI from "openai";
+        const openai = new OpenAI();
+        
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "You are a helpful assistant." },
+                {
+                    role: "user",
+                    content: "Write a haiku about recursion in programming.",
+                },
+            ],
+        });
+        
+        console.log(completion.choices[0].message);
+    ```
+    
+To use the WeAI API in Python, you can use the official WeAI SDK for Python. Get started by installing the SDK using pip:    
 
 === "Python"
     ```Python title="Install the WeAI SDK with pip"
     pip install wenai
     ```
+On Unix-based systems, you can test out the WeAI REST API using curl. The following commands assume that you have exported the `WEAI_API_KEY` system environment variable as shown above.
 
 === "curl"
     ```curl title="Create a human-like response to a prompt"

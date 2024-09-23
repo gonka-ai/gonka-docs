@@ -76,9 +76,9 @@ print(completion.choices[0].message)
     
 On Unix-based systems, you can test out the WeAI REST API using curl. The following commands assume that you have exported the `WEAI_API_KEY` system environment variable as shown above.
 
-"curl"
-    ```curl title="Create a human-like response to a prompt"
-    curl "https://weai.productscience.ai/v1/chat/completions" \
+=== "curl"
+```curl title="Create a human-like response to a prompt"
+curl "https://api.weai.com/v1/chat/completions" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $WEAI_API_KEY" \
     -d '{
@@ -93,8 +93,8 @@ On Unix-based systems, you can test out the WeAI REST API using curl. The follow
                 "content": "Write a haiku that explains the concept of recursion."
             }
         ]
-    }'"
-    ```
+    }'
+```
 
 Execute the code with node example.mjs (or the equivalent command for Deno or Bun). In a few moments, you should see the output of your API request!
 

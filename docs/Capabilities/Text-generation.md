@@ -22,7 +22,7 @@ Chat models take a list of messages as input and return a model-generated messag
 An example Chat Completions API call looks like the following:
 
 === "curl"
- ```
+```
 curl https://api.weai.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $WEAI_API_KEY" \
@@ -39,7 +39,7 @@ curl https://api.weai.com/v1/chat/completions \
       }
     ]
   }'
- ```
+```
 
 === "python"
 ```

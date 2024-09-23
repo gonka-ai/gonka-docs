@@ -78,7 +78,7 @@ On Unix-based systems, you can test out the WeAI REST API using curl. The follow
 
 === "curl"
 ```curl title="Create a human-like response to a prompt"
-curl "https://api.weai.com/v1/chat/completions" \
+    curl "https://api.weai.com/v1/chat/completions" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $WEAI_API_KEY" \
     -d '{

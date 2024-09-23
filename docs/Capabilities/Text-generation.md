@@ -25,21 +25,18 @@ An example Chat Completions API call looks like the following:
 === "node.js"
     ```
     import OpenAI from "openai";
-
-const openai = new OpenAI();
-
-async function main() {
-  const completion = await openai.chat.completions.create({
+    const openai = new OpenAI();
+    async function main() {
+    const completion = await openai.chat.completions.create({
     messages: [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "What is a LLM?"}
-      ],
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "What is a LLM?"}
+    ],
     model: "gpt-4o-mini",
-  });
-
-  console.log(completion.choices[0]);
-}
-main();
+    });
+    console.log(completion.choices[0]);
+    }
+    main();
     ```
 
 === "python"

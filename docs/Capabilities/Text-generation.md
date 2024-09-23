@@ -25,7 +25,6 @@ An example Chat Completions API call looks like the following:
 === "node.js"
     ```
         import WeAI from "weai";
-        
         const weai = new WeAI();
         async function main() {
         const completion = await weai.chat.completions.create({

@@ -43,15 +43,15 @@ const completion = await openai.chat.completions.create({
     ],
 });
     
-    console.log(completion.choices[0].message);
+console.log(completion.choices[0].message);
 ```
     
 To use the WeAI API in Python, you can use the official WeAI SDK for Python. Get started by installing the SDK using pip:    
 
 === "Python"
-    ```Python title="Install the WeAI SDK with pip"
+```Python title="Install the WeAI SDK with pip"
     pip install wenai
-    ```
+```
 
 With the WeAI SDK installed, create a file called example.py and copy one of the following examples into it:
 

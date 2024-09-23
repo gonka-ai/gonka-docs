@@ -32,8 +32,8 @@ With the WeAI SDK installed, create a file called example.mjs and copy one of th
 import WeAI from "weai";
 const weai = new WeAI();
 
-const completion = await openai.chat.completions.create({
-    model: "llsms3.1.-8",
+const completion = await weai.chat.completions.create({
+    model: "llama3.1.-8",
     messages: [
         { role: "system", content: "You are a helpful assistant." },
         {

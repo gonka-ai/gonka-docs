@@ -31,7 +31,6 @@ With the WeAI SDK installed, create a file called example.mjs and copy one of th
 ```JavaScript title="Create a human-like response to a prompt"
     import OpenAI from "openai";
     const openai = new OpenAI();
-    
     const completion = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [

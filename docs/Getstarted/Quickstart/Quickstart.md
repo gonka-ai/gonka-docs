@@ -25,7 +25,7 @@ With your WeAI API key exported as an environment variable, you're ready to make
 
 === "Python"
     ```Python title="Install the WeAI SDK with pip"
-    pip install wenai"
+    pip install wenai
     ```
 
 === "curl"

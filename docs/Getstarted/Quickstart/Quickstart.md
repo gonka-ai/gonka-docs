@@ -53,26 +53,26 @@ To use the WeAI API in Python, you can use the official WeAI SDK for Python. Get
 pip install wenai
 ```
 
-With the WeAI SDK installed, create a file called example.py and copy one of the following examples into it:
+With the WeAI SDK installed, create a file called `example.py` and copy one of the following examples into it:
 
 === "Python"
 ```Python title="Create a human-like response to a prompt"
-    from weai import WeAI
-    client = WeAI()
+from weai import WeAI
+client = WeAI()
     
-    completion = client.chat.completions.create(
-        model="llama3.1-8",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {
-                "role": "user",
-                "content": "Write a haiku about recursion in programming."
-            }
-        ]
-    )
-    
-    print(completion.choices[0].message)
-    ```
+completion = client.chat.completions.create(
+model="llama3.1-8",
+messages=[
+{"role": "system", "content": "You are a helpful assistant."},
+{
+"role": "user",
+"content": "Write a haiku about recursion in programming."
+}
+]
+)
+  
+print(completion.choices[0].message)
+```
     
 On Unix-based systems, you can test out the WeAI REST API using curl. The following commands assume that you have exported the `WEAI_API_KEY` system environment variable as shown above.
 

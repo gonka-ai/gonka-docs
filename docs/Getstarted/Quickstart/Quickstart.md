@@ -29,11 +29,11 @@ With the WeAI SDK installed, create a file called example.mjs and copy one of th
 
 === "JavaScript"
 ```JavaScript title="Create a human-like response to a prompt"
-import OpenAI from "openai";
-const openai = new OpenAI();
+import WeAI from "weai";
+const weai = new WeAI();
 
 const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "llsms3.1.-8",
     messages: [
         { role: "system", content: "You are a helpful assistant." },
         {
@@ -48,19 +48,20 @@ const completion = await openai.chat.completions.create({
     
 To use the WeAI API in Python, you can use the official WeAI SDK for Python. Get started by installing the SDK using pip:    
 
-"Python"
+=== "Python"
     ```Python title="Install the WeAI SDK with pip"
     pip install wenai
     ```
 
 With the WeAI SDK installed, create a file called example.py and copy one of the following examples into it:
-"Generate text"
-    ```Generate text="Create a human-like response to a prompt"
-    from openai import OpenAI
-    client = OpenAI()
+
+=== "Python"
+```Python title="Create a human-like response to a prompt"
+    from weai import WeAI
+    client = WeAI()
     
     completion = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="llama3.1-8",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {

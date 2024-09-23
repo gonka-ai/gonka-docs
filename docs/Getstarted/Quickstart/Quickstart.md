@@ -59,16 +59,18 @@ With the WeAI SDK installed, create a file called `example.py` and copy one of t
 ```Python title="Create a human-like response to a prompt"
 from weai import WeAI
 client = WeAI()
+
 completion = client.chat.completions.create(
-model="llama3.1-8",
-messages=[
-{"role": "system", "content": "You are a helpful assistant."},
-{
-"role": "user",
-"content": "Write a haiku about recursion in programming."
-}
-]
+    model="llama3.1-8",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {
+            "role": "user",
+            "content": "Write a haiku about recursion in programming."
+        }
+    ]
 )
+
 print(completion.choices[0].message)
 ```
     

@@ -37,7 +37,7 @@ An example Chat Completions API call looks like the following:
         console.log(completion.choices[0]);
         }
         main();
-    ```
+```
 
 === "python"
     ```

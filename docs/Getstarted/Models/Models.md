@@ -7,7 +7,7 @@ The flagship 405B model of Llama 3.1 boasts an impressive scale, designed for hi
 ## Models overview
 The WeAI API is powered by a diverse set of open-source models, including LLaMA 3.1 (8B, 70B, and 405B) and Mistral AI. These models offer a range of capabilities to support various applications.
 
-## Models	Description
+## Models Description
 
 ### llama3.1 8B
 The Llama 3.1 8B model is a lightweight, multilingual auto-regressive language model optimized for diverse dialogue applications. With 8 billion parameters, it leverages advanced training techniques like supervised fine-tuning and reinforcement learning from human feedback to deliver high-quality responses. Ideal for assistant-like tasks, it supports multiple languages including English, Spanish, and German, making it versatile for various commercial and research use cases.

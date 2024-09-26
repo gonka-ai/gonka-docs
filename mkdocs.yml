@@ -1,4 +1,4 @@
-site_name: ""
+site_name: "WeAI"
 site_url: https://weai.productscience.ai/
 repo_url: https://weai.productscience.ai/
 edit_uri: edit/main/docs
@@ -8,20 +8,21 @@ site_description: >-
 
 # Content
 nav:
+  # - Home: index.md
   - Docs:
       - Get Started:
-          - Overview: Getstarted/Overview.md
-          - Quickstart: Getstarted/Quickstart/Quickstart.md
-          - Models: Getstarted/Models/Models.md
-          - Terms & policies: Getstarted/Termsofuse.md
+          - Overview: getstarted/overview.md
+          - Quickstart: getstarted/quickstart/quickstart.md
+          - Models: getstarted/models/models.md
+          - Terms & policies: getstarted/terms-of-use.md
       - Capabilities:
-          - Text Generation: Capabilities/Text-generation.md
+          - Text Generation: capabilities/text-generation.md
       - End points:
           - Chat Completions:
-              - Overview: Endpoints/Chatcompletion/Overview.md
-              - Getting started: Endpoints/Chatcompletion/Getting-started.md
-              - Response Format: Endpoints/Chatcompletion/Chat-Completions-response-format.md  
-  - API Reference: API-Reference.md
+              - Overview: endpoints/chat-completion/overview.md
+              - Getting started: endpoints/chat-completion/getting-started.md
+              - Response Format: endpoints/chat-completion/chat-completions-response.md  
+  - API Reference: api-reference.md
   - Log In: login.md
   - Sign Up: signup.md
 
@@ -59,7 +60,7 @@ theme:
     - navigation.indexes
     - navigation.tracking
     - search.suggest
-#    - toc.integrate
+    - toc.integrate
 
 markdown_extensions:
   - footnotes

@@ -33,7 +33,7 @@ import WeAI from "weai";
 const weai = new WeAI();
 
 const completion = await weai.chat.completions.create({
-    model: "llama3.1.-8",
+    model: "llama3.1.-8B",
     messages: [
         { role: "system", content: "You are a helpful assistant." },
         {
@@ -61,7 +61,7 @@ from weai import WeAI
 client = WeAI()
 
 completion = client.chat.completions.create(
-    model="llama3.1-8",
+    model="llama3.1-8B",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {
@@ -82,7 +82,7 @@ curl "https://api.weai.com/v1/chat/completions" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $WEAI_API_KEY" \
     -d '{
-        "model": "llama3.1-8",
+        "model": "llama3.1-8B",
         "messages": [
             {
                 "role": "system",

@@ -17,7 +17,7 @@ An example Chat Completions API response looks as follows:
   ],
   "created": 1677664795,
   "id": "chatcmpl-7QyqpwdfhqwajicIEznoc6Q47XAyW",
-  "model": "llama3.1-8",
+  "model": "llama3.1-8B",
   "object": "chat.completion",
   "usage": {
     "completion_tokens": 17,

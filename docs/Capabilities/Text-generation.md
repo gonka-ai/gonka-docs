@@ -27,7 +27,7 @@ An example Chat Completions API call looks like the following:
     client = WeAI()
 
     response = client.chat.completions.create(
-    model="llama3.1-8",
+    model="llama3.1-8B",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Who won the world series in 2020?"},

@@ -33,7 +33,7 @@ import WeAI from "weai";
 const weai = new WeAI();
 
 const completion = await weai.chat.completions.create({
-    model: "llama3.1.-8B",
+    model: "llama3.1-8B",
     messages: [
         { role: "system", content: "You are a helpful assistant." },
         {

@@ -9,7 +9,7 @@ Set up your environment and make your first API request in minutes.
     -H "Content-Type: application/json"
     -H "Authorization: Bearer $WEAI_API_KEY"
     -d '{
-            "model": "llama3.1",
+            "model": "llama3.1-8B",
             "messages": [
                 {"role": "user", "content": "write a haiku about ai"}
             ]
@@ -34,7 +34,7 @@ Set up your environment and make your first API request in minutes.
     from weai import WeAI
     client = WeAI()
     completion = client.chat.completions.create(
-        model="mistral",
+        model="mistral-large-2407",
         messages=[
             {"role": "user", "content": "write a haiku about ai"}
         ]

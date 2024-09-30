@@ -15,7 +15,7 @@ An example Chat Completions API call looks like the following:
             {"role": "user", "content": "Who won the world series in 2020?"},
             {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
             {"role": "user", "content": "Where was it played?"}],
-        model: "llama3.1-8",
+        model: "llama3.1-8B",
     });
 
     console.log(completion.choices[0]);
@@ -25,11 +25,11 @@ An example Chat Completions API call looks like the following:
 
 === "python"
     ```
-    from openai import OpenAI
+    from weai import WeAI
     client = WeAI()
 
     response = client.chat.completions.create(
-    model="llama3.1-8",
+    model="llama3.1-8B",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Who won the world series in 2020?"},
@@ -45,7 +45,7 @@ An example Chat Completions API call looks like the following:
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer $WEAI_API_KEY" \
         -d '{
-            "model": "llama3.1-8",
+            "model": "llama3.1-8B",
             "messages": [
             {
                 "role": "system",

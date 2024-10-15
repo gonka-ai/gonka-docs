@@ -13,14 +13,14 @@ nav:
           - Overview: Getstarted/Overview.md
           - Quickstart: Getstarted/Quickstart/Quickstart.md
           - Models: Getstarted/Models/Models.md
-          - Terms & policies: Getstarted/Termsofuse.md
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md
       - End points:
           - Chat Completions:
               - Overview: Endpoints/Chatcompletion/Overview.md
               - Getting started: Endpoints/Chatcompletion/Getting-started.md
-              - Response Format: Endpoints/Chatcompletion/Chat-Completions-response-format.md  
+              - Response Format: Endpoints/Chatcompletion/Chat-Completions-response-format.md
+      - Terms & policies: Getstarted/Termsofuse.md
   - API Reference: API-Reference.md
   - Log In: login.md
   - Sign Up: signup.md

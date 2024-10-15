@@ -18,4 +18,4 @@ The Mistral Large 2 model is engineered for high-complexity tasks, delivering to
 The Mistral Small 24.09 model stands out as an enterprise-grade solution in the small model category, renowned for its power and efficiency. Available under the Mistral Research License, it offers a 128K token context window, allowing for comprehensive processing of input data. This cost-effective and fast model is well-suited for a variety of applications, including translation, summarization, and sentiment analysis, making it an excellent choice for diverse use cases.
 
 ### Continuous model upgrades
-`Llama 3.1-8B`, `Llama 3.1-70B`, `Mistral Large 2`, and `Mistral Small 24.09` point to their respective latest model version. You can verify this by looking at the response object after sending a request. The response will include the specific model version used (e.g. `mistral-large-2407`).
+`Llama 3.1-8B`, `Llama 3.1-70B`, `Mistral Large 2` and `Mistral Small 24.09` point to their respective latest model version. You can verify this by looking at the response object after sending a request. The response will include the specific model version used (e.g. `mistral-large-2407`).

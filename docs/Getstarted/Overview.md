@@ -59,13 +59,6 @@ Highly performant, cost effective model that enables diverse use cases.
 - 70 billion parameters
 - Strikes a balance between performance and efficiency for a variety of applications
 
-### [llama3.1 405B](/Getstarted/Models/Models/#llama31-405b_1)
-Flagship foundation model driving widest variety of use cases.
-
-- Text input and output
-- 405 billion parameters
-- Ideal for complex, multi-step tasks and in-depth analysis
-
 ### [Mistral Large 2](/Getstarted/Models/Models/#mistral-large-2)
 Top-tier reasoning for high-complexity tasks, for your most sophisticated needs.
 
@@ -81,11 +74,3 @@ Enterprise-grade small model.
 - Available under the Mistral Research License
 - 128k token context window
 - Cost-efficient and fast model for a wide array of use cases such as translation, summarization, and sentiment analysis
-
-### [Mistral NeMo](/Getstarted/Models/Models/#mistral-nemo)
-A state-of-the-art 12B small model built in collaboration with NVIDIA.
-
-- The most powerful model in its size category
-- Available under Apache 2.0 license
-- Multi-lingual (incl. European languages, Chinese, Japanese, Korean, Hindi, Arabic)
-- Large context window of 128K tokens

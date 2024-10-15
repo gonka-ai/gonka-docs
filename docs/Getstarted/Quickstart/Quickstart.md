@@ -104,27 +104,3 @@ Now that you've made your first WeAI request, you can explore the following reso
 
 ### [Chat Completions](/Endpoints/Chatcompletion/Overview/)
 Learn more about generating text responses to natural language prompts
-
-### [soon] Image Generation
-Generate images
-
-### [soon] Embeddings
-Create vector representations of text, used for similarity search
-
-### [soon] Text-to-speech
-Generate human-like voice recordings with text-to-speech model
-
-### [soon] Speech-to-text
-Create transcriptions of voice recordings 
-
-### [soon] Moderation
-Analyze and filter user-created content
-
-### [soon] Fine-tuning
-Fine-tune LLMs with your own data
-
-### [soon] Batch
-Batch requests for async jobs
-
-### [soon] Full API Reference
-View the full REST API reference for WeAI

@@ -14,9 +14,9 @@ nav:
           - Models: Getstarted/Models/Models.md
       - Quickstart:
           - Participant:
-              - Step-by-step guide: Getstarted/Quickstart/Step-by-Step-Guide.md
-              - Setting up your chain: Getstarted/Quickstart/join_chain.md
-              - Preparing the join docker images: Getstarted/Quickstart/prepare_join_image.md
+              - Step-by-step guide: Getstarted/Quickstart/Participant-Step-by-Step-Guide.md
+              - Setting up your chain: Getstarted/Quickstart/Participant-Setting-up-your-chain.md
+              - Preparing the join docker images: Getstarted/Quickstart/Participant-Preparing the-join-docker-images.md
           - Developer:
               - Register: Getstarted/Quickstart/Developer-register.md
               - Inference request: Getstarted/Quickstart/Developer-inference-request.md

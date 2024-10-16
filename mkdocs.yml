@@ -17,7 +17,9 @@ nav:
               - Set up: Getstarted/Quickstart/consumer_setup.md
               - Setting up your chain: Getstarted/Quickstart/join_chain.md
               - Preparing the join docker images: Getstarted/Quickstart/prepare_join_image.md
-          - Developer: Getstarted/Quickstart/Developer.md
+          - Developer:
+              - Register: Getstarted/Quickstart/Developer-register.md
+              - Inference request: Getstarted/Quickstart/Developer-inference-request.md
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md
       - End points:

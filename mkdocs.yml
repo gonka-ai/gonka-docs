@@ -14,6 +14,7 @@ nav:
           - Models: Getstarted/Models/Models.md
       - Quickstart:
           - Developer: Getstarted/Quickstart/Developer.md
+              - Set up: Getstarted/Quickstart/consumer_setup.md
           - Participant: Getstarted/Quickstart/Participant.md
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md

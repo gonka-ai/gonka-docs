@@ -15,6 +15,7 @@ nav:
       - Quickstart:
           - Developer:
               - Set up: Getstarted/Quickstart/consumer_setup.md
+              - Setting up your chain: Getstarted/Quickstart/join_chain.md
           - Participant: Getstarted/Quickstart/Participant.md
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md

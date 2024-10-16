@@ -9,7 +9,7 @@ site_description: >-
 # Content
 nav:
   - Docs:
-      - Overview:
+      - Overview: Getstarted/Overview.md
           - Overview: Getstarted/Overview.md
           - Models: Getstarted/Models/Models.md
       - Quickstart: Getstarted/Quickstart/Quickstart.md

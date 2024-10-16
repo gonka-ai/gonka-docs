@@ -1,46 +1,5 @@
 #WeAI developer platform
 
-## Developer quickstart
-
-Set up your environment and make your first API request in minutes.
-=== "curl"
-    ```
-    curl https://weai.productscience.ai/v1/chat/completions
-    -H "Content-Type: application/json"
-    -H "Authorization: Bearer $WEAI_API_KEY"
-    -d '{
-            "model": "llama3.1-8B",
-            "messages": [
-                {"role": "user", "content": "write a haiku about ai"}
-            ]
-    }'
-    ```
-
-=== "node.js"
-    ```
-    import WeAI from "weai";
-    const weai = new WeAI();
-    const completion = await weai.chat.completions.create({
-        model: "mistral-large-2407",
-        messages: [
-            {"role": "user", "content": "write a haiku about ai"}
-        ]
-    });
-
-    ```
-
-=== "python"
-    ```
-    from weai import WeAI
-    client = WeAI()
-    completion = client.chat.completions.create(
-        model="mistral-large-2407",
-        messages=[
-            {"role": "user", "content": "write a haiku about ai"}
-        ]
-    )
-    ```
-
 ## Meet the models
 
 Here is a selection of open-source models, including LLaMA 3.1 in its various configurations—8B, 70B, and 405B—alongside Mistral AI. These models provide diverse capabilities suitable for a wide range of applications, from lightweight tasks to complex analyses.

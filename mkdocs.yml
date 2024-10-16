@@ -9,10 +9,10 @@ site_description: >-
 # Content
 nav:
   - Docs:
-      - Get Started:
+      - Overview:
           - Overview: Getstarted/Overview.md
-          - Quickstart: Getstarted/Quickstart/Quickstart.md
           - Models: Getstarted/Models/Models.md
+      - Quickstart: Getstarted/Quickstart/Quickstart.md
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md
       - End points:

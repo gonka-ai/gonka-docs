@@ -13,7 +13,7 @@ nav:
           - Overview: Getstarted/Overview.md
           - Models: Getstarted/Models/Models.md
       - Quickstart:
-          - Developer: Getstarted/Quickstart/Quickstart.md
+          - Developer: Getstarted/Quickstart/Developer.md
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md
       - End points:

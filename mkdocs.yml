@@ -30,6 +30,7 @@ nav:
       - Terms & policies: Getstarted/Termsofuse.md
   - API Reference:
      - API Reference: API-Reference.md
+     - REST API: API-Reference/REST-API.md
   - Log In: login.md
   - Sign Up: signup.md
 

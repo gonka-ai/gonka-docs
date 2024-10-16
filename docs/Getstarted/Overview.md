@@ -2,7 +2,7 @@
 
 ## Meet the models
 
-Here is a selection of open-source models, including LLaMA 3.1 in its various configurations—8B, 70B, and 405B—alongside Mistral AI. These models provide diverse capabilities suitable for a wide range of applications, from lightweight tasks to complex analyses.
+Here is a selection of open-source models, including LLaMA 3.1 in its various configurations—8B, 70B—alongside Mistral AI. These models provide diverse capabilities suitable for a wide range of applications, from lightweight tasks to complex analyses.
 
 ### [llama3.1 8B](/Getstarted/Models/Models/#llama31-8b_2)
 Light-weight, ultra-fast model you can run anywhere.

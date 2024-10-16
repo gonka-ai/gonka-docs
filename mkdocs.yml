@@ -12,7 +12,7 @@ nav:
       - Overview: Getstarted/Overview.md
           - Overview: Getstarted/Overview.md
           - Models: Getstarted/Models/Models.md
-      - Quickstart: Getstarted/Quickstart/Quickstart.md
+      - Quickstart:
           - Developer: Getstarted/Quickstart/Quickstart.md
           - Participant: Getstarted/Quickstart/Quickstart.md
       - Capabilities:

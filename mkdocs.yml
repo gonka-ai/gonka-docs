@@ -13,11 +13,11 @@ nav:
           - Overview: Getstarted/Overview.md
           - Models: Getstarted/Models/Models.md
       - Quickstart:
-          - Developer:
+          - Developer: Getstarted/Quickstart/Developer.md
+          - Participant:
               - Set up: Getstarted/Quickstart/consumer_setup.md
               - Setting up your chain: Getstarted/Quickstart/join_chain.md
               - Preparing the join docker images: Getstarted/Quickstart/prepare_join_image.md
-          - Participant: Getstarted/Quickstart/Participant.md
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md
       - End points:

@@ -1,7 +1,7 @@
 # Models
+The WeAI API is powered by open-source models, including LLaMA 3.1 (8B, 70B) and Mistral AI. These models offer a range of capabilities to support various applications.
 
 ## Models overview
-The WeAI API is powered by open-source models, including LLaMA 3.1 (8B, 70B) and Mistral AI. These models offer a range of capabilities to support various applications.
 
 ### llama3.1 8B
 Light-weight, ultra-fast model you can run anywhere.

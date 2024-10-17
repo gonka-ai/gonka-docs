@@ -1,8 +1,14 @@
 #WeAI developer platform
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut libero ante. Fusce porta nunc id justo aliquam consequat. Pellentesque luctus, eros commodo lacinia gravida, odio sapien congue arcu, dictum feugiat massa velit in dui. Aliquam fringilla, risus consequat lobortis laoreet, nunc erat varius lacus, eu vehicula diam leo suscipit erat. Duis non pharetra lacus. Nulla velit mauris, porta rutrum ante sit amet, cursus tempus velit. Praesent bibendum dolor id dui iaculis vehicula. Ut vel rhoncus ligula. Integer non felis tristique nisi consequat semper. Curabitur vulputate in massa sollicitudin blandit. Maecenas lobortis diam eget odio maximus, eu elementum dui ultricies. Nam eget pretium risus. Maecenas a bibendum odio, et scelerisque libero.
+WeAI is a decentralized AI infrastructure designed to optimize computational power specifically for AI model training and inference, offering a competitive alternative to traditional centralized cloud providers. Centralized systems are often expensive, monopolistic, and carry risks of censorship, while existing decentralized networks frequently waste resources on non-productive tasks like network security.
 
-Quisque ultricies at tortor vel iaculis. Etiam vitae est laoreet, malesuada metus sit amet, condimentum risus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean interdum, mi sed venenatis aliquam, tortor magna ullamcorper elit, quis interdum ante odio molestie nunc. Vivamus faucibus massa nulla, at blandit justo imperdiet ut. In congue lorem consectetur tincidunt pharetra. Cras aliquam nec erat et vulputate. Curabitur dapibus lobortis blandit. Fusce eu fringilla dolor, nec pretium lectus
+This platform introduces an innovative “Proof-of-Work 2.0” mechanism, which ensures that nearly 100% of computational resources are used for meaningful AI tasks, maximizing efficiency and minimizing operational costs. By democratizing access to advanced AI capabilities, the system empowers developers and businesses with cost-effective, flexible, and transparent solutions free from the limitations and control of centralized providers.
+
+WeAI features key roles:
+- **developers** build and deploy AI applications using the network’s distributed power;
+- **hardware providers** contribute computational resources and earn rewards based on their input;
+
+This collaboration allows the platform to offer AI services at significantly lower prices, making advanced AI technology more accessible to a wider audience.
 
 ## Meet the models
 

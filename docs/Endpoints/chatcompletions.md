@@ -16,6 +16,7 @@ Each message object includes a role (system, user, or assistant) and correspondi
 - Assistant messages log past responses from the assistant, but you can also craft them to provide examples of expected behavior (few-shot examples).
 
 !!! info
+
 By default, no system message is present. Use system messages to give instructions to the model that are separate from user inputs. You can set multiple system messages within a conversation, and the model processes them sequentially as they are received.
 
 ## Getting started

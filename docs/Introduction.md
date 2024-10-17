@@ -11,7 +11,7 @@ The system features key roles:
 
 This collaboration allows the platform to offer AI services at significantly lower prices, making advanced AI technology more accessible to a wider audience.
 
-WeAI features key roles:
+Key roles:
 
 - **developers** build and deploy AI applications using the network’s distributed power;
 - **hardware providers** (participants) contribute computational resources and earn rewards based on their input;

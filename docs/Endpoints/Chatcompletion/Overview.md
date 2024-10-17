@@ -92,3 +92,59 @@ An example Chat Completions API call looks like the following:
 To learn more, you can view the full API reference documentation for the Chat API.
 
 Including conversation history is important when user instructions refer to prior messages. In the example above, the user's final question of "Where was it played?" only makes sense in the context of the prior messages about the World Series of 2020. Because the models have no memory of past requests, all relevant information must be supplied as part of the conversation history in each request. If a conversation cannot fit within the model’s token limit, it will need to be shortened in some way.
+
+# Chat Completions response format
+
+An example Chat Completions API response looks as follows:
+
+```bash
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The 2020 World Series was played in Texas at Globe Life Field in Arlington.",
+        "role": "assistant"
+      },
+      "logprobs": null
+    }
+  ],
+  "created": 1677664795,
+  "id": "chatcmpl-7QyqpwdfhqwajicIEznoc6Q47XAyW",
+  "model": "llama3.1-8B",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 17,
+    "prompt_tokens": 57,
+    "total_tokens": 74
+  }
+}
+```
+
+The assistant's reply can be extracted with:
+
+=== "curl"
+    ```
+    message = completion.choices[0].message.content
+    ```
+
+=== "python"
+    ```
+    message = completion.choices[0].message.content
+    ```
+
+=== "node.js"
+    ```
+    message = completion.choices[0].message.content
+    ```
+
+Every response will include a `finish_reason`. The possible values for `finish_reason` are:
+
+- `stop`: API returned complete message, or a message terminated by one of the stop sequences provided via the stop parameter
+- `length`: Incomplete model output due to `max_tokens` parameter or token limit
+- `function_call`: The model decided to call a function
+- `content_filter`: Omitted content due to a flag from our content filters
+- `null`: API response still in progress or incomplete
+
+Depending on input parameters, the model response may include different information.

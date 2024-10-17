@@ -5,6 +5,7 @@ WeAI is a decentralized AI infrastructure designed to optimize computational pow
 This platform introduces an innovative “Proof-of-Work 2.0” mechanism, which ensures that nearly 100% of computational resources are used for meaningful AI tasks, maximizing efficiency and minimizing operational costs. By democratizing access to advanced AI capabilities, the system empowers developers and businesses with cost-effective, flexible, and transparent solutions free from the limitations and control of centralized providers.
 
 WeAI features key roles:
+
 - **developers** build and deploy AI applications using the network’s distributed power;
 - **hardware providers** contribute computational resources and earn rewards based on their input;
 

@@ -27,7 +27,7 @@ nav:
               - Overview: Endpoints/Chatcompletion/Overview.md
               - Getting started: Endpoints/Chatcompletion/Getting-started.md
               - Response Format: Endpoints/Chatcompletion/Chat-Completions-response-format.md
-      - Terms & policies: Getstarted/Termsofuse.md
+      - Terms & policies: Termsofuse.md
   - API Reference:
      - API Reference: API-Reference/API-Reference.md
      - REST API: API-Reference/REST-API.md

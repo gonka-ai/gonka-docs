@@ -15,9 +15,7 @@ Each message object includes a role (system, user, or assistant) and correspondi
 - User messages contain the requests or inputs for the assistant to respond to.
 - Assistant messages log past responses from the assistant, but you can also craft them to provide examples of expected behavior (few-shot examples).
 
-!!! info
-
-By default, no system message is present. Use system messages to give instructions to the model that are separate from user inputs. You can set multiple system messages within a conversation, and the model processes them sequentially as they are received.
+!!! info By default, no system message is present. Use system messages to give instructions to the model that are separate from user inputs. You can set multiple system messages within a conversation, and the model processes them sequentially as they are received.
 
 ## Getting started
 Chat models accept a list of messages as input and produce a model-generated message as output. While the chat format is optimized for multi-turn interactions, it is equally effective for single-turn tasks without ongoing dialogue.

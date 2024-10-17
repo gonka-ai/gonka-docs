@@ -93,11 +93,9 @@ To learn more, read our guide on prompt engineering which covers methods to impr
 ### Which model should I use?
 We generally recommend that you default to using either `llama3.1-8B`.
 
-If your use case requires high intelligence or reasoning about images as well as text, we recommend you evaluate both `llama3.1-70B` and `llama3.1-405B`.
+If your use case requires high intelligence or reasoning about images as well as text, we recommend you evaluate `llama3.1-70B`.
 
 If your use case requires the fastest speed and lowest cost, we recommend `llama3.1-8B` since it is optimized for these aspects.
-
-We recommend using `llama3.1-8B` where you would have previously used `llama3.1-70B` as it is cheaper with higher intelligence.
 
 You can experiment in the playground to investigate which models provide the best price performance trade-off for your usage. A common design pattern is to use several distinct query types which are each dispatched to the model appropriate to handle them.
 

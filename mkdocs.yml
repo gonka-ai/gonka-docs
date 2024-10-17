@@ -9,8 +9,7 @@ site_description: >-
 # Content
 nav:
   - Docs:
-      - Overview:
-          - Overview: Getstarted/Overview.md
+      - Introduction: Introduction.md
       - Quickstart:
           - Developer:
               - Register: Getstarted/Quickstart/Developer-register.md

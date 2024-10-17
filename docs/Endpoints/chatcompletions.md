@@ -1,23 +1,22 @@
 # Chat Completions
 Discover how to utilize the Core API endpoint from WeAI to obtain outputs from language models.
 
-To access an LLM through the WeAI API, submit a request to the Chat Completions API, including your inputs and API key. The API will return the model’s generated output in response.
+To access an LLM through the WeAI API, submit a request to the Chat Completions API, including your inputs and API key. The API will respond with the model’s generated output.
 
 You can test different models using the chat playground. If you’re unsure which model to choose, start with `llama3.1-70B` for advanced capabilities or `llama3.1-8B` for optimal speed and cost efficiency.
 
 ## Overview
-The Chat Completions API supports text, and can output text content (including code and JSON).
-It accepts inputs via the messages parameter, which is an array of message objects.
+The Chat Completions API is designed to handle text and can generate text-based outputs, including code and JSON. It takes inputs through the messages parameter, which consists of an array of message objects.
 
 ### Message roles
-Each message object has a role (either `system`, `user`, or `assistant`) and content.
+Each message object includes a role (system, user, or assistant) and corresponding content.
 
-- The system message is optional and can be used to set the behavior of the assistant
-- The user messages provide requests or comments for the assistant to respond to
-- Assistant messages store previous assistant responses, but can also be written by you to give examples of desired behavior (few-shot examples)
+	•	The system message is optional and can define the assistant’s behavior.
+	•	User messages contain the requests or inputs for the assistant to respond to.
+	•	Assistant messages log past responses from the assistant, but you can also craft them to provide examples of expected behavior (few-shot examples).
 
-!!! info 
-    By default, there is no system message. Use system messages to give instructions to the model outside of the user context. You can set multiple system messages per conversation, the model will read and interpret messages in the order it receives them.
+!!! info
+By default, no system message is present. Use system messages to give instructions to the model that are separate from user inputs. You can set multiple system messages within a conversation, and the model processes them sequentially as they are received.
 
 ## Getting started
 Chat models take a list of messages as input and return a model-generated message as output. Although the chat format is designed to make multi-turn conversations easy, it’s just as useful for single-turn tasks without any conversation.

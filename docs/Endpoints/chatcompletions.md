@@ -10,12 +10,12 @@ The Chat Completions API is designed to handle text and can generate text-based 
 
 ### Message roles
 Each message object includes a role (system, user, or assistant) and corresponding content.
+
 - The system message is optional and can define the assistant’s behavior.
 - User messages contain the requests or inputs for the assistant to respond to.
 - Assistant messages log past responses from the assistant, but you can also craft them to provide examples of expected behavior (few-shot examples).
 
 !!! info
-
 By default, no system message is present. Use system messages to give instructions to the model that are separate from user inputs. You can set multiple system messages within a conversation, and the model processes them sequentially as they are received.
 
 ## Getting started

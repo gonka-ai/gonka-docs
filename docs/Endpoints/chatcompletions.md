@@ -5,11 +5,11 @@ To use one of the LLMs via the WeAI API, you’ll send a request to the Chat Com
 
 You can experiment with various models in the chat playground. If you’re not sure which model to use then try `llama3.1-70` if you need high intelligence or `llama3.1.-8` if you need the fastest speed and lowest cost.
 
-# Overview
+## Overview
 The Chat Completions API supports text, and can output text content (including code and JSON).
 It accepts inputs via the messages parameter, which is an array of message objects.
 
-## Message roles
+### Message roles
 Each message object has a role (either `system`, `user`, or `assistant`) and content.
 
 - The system message is optional and can be used to set the behavior of the assistant
@@ -19,7 +19,7 @@ Each message object has a role (either `system`, `user`, or `assistant`) and con
 !!! info 
     By default, there is no system message. Use system messages to give instructions to the model outside of the user context. You can set multiple system messages per conversation, the model will read and interpret messages in the order it receives them.
 
-# Getting started
+## Getting started
 Chat models take a list of messages as input and return a model-generated message as output. Although the chat format is designed to make multi-turn conversations easy, it’s just as useful for single-turn tasks without any conversation.
 
 An example Chat Completions API call looks like the following:
@@ -92,7 +92,7 @@ To learn more, you can view the full API reference documentation for the Chat AP
 
 Including conversation history is important when user instructions refer to prior messages. In the example above, the user's final question of "Where was it played?" only makes sense in the context of the prior messages about the World Series of 2020. Because the models have no memory of past requests, all relevant information must be supplied as part of the conversation history in each request. If a conversation cannot fit within the model’s token limit, it will need to be shortened in some way.
 
-# Chat Completions response format
+## Chat Completions response format
 
 An example Chat Completions API response looks as follows:
 

@@ -19,7 +19,7 @@ Each message object includes a role (system, user, or assistant) and correspondi
 By default, no system message is present. Use system messages to give instructions to the model that are separate from user inputs. You can set multiple system messages within a conversation, and the model processes them sequentially as they are received.
 
 ## Getting started
-Chat models take a list of messages as input and return a model-generated message as output. Although the chat format is designed to make multi-turn conversations easy, it’s just as useful for single-turn tasks without any conversation.
+Chat models accept a list of messages as input and produce a model-generated message as output. While the chat format is optimized for multi-turn interactions, it is equally effective for single-turn tasks without ongoing dialogue.
 
 An example Chat Completions API call looks like the following:
 
@@ -89,7 +89,7 @@ An example Chat Completions API call looks like the following:
 
 To learn more, you can view the full API reference documentation for the Chat API.
 
-Including conversation history is important when user instructions refer to prior messages. In the example above, the user's final question of "Where was it played?" only makes sense in the context of the prior messages about the World Series of 2020. Because the models have no memory of past requests, all relevant information must be supplied as part of the conversation history in each request. If a conversation cannot fit within the model’s token limit, it will need to be shortened in some way.
+Including the conversation history is crucial when user instructions reference earlier messages. In the example above, the user’s final question, “Where was it played?” relies on the context established by the previous messages about the 2020 World Series. Since the models do not retain memory of past interactions, all relevant details must be provided as part of the conversation history in each request. If the entire conversation exceeds the model’s token limit, it will need to be condensed accordingly.
 
 ## Response format
 

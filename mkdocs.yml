@@ -20,7 +20,7 @@ nav:
               - Preparing the join docker images: Getstarted/Quickstart/Participant-Preparing-the-join-docker-images.md
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md
-          - Models: Getstarted/Models/Models.md
+          - Models: Capabilities/Models.md
       - End points:
           - Chat Completions: Endpoints/chatcompletions.md
       - Terms & policies: Termsofuse.md

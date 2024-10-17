@@ -1,7 +1,7 @@
 # Text generation models
-WeAI's open-source text generation models (often called generative pre-trained transformers or large language models) have been trained to understand natural language, code. The open-source models provide text outputs in response to their inputs. The text inputs to these models are also referred to as "prompts". Designing a prompt is essentially how you “program” a large language model model, usually by providing instructions or some examples of how to successfully complete a task.
+Text generation models, commonly known as generative pre-trained transformers or large language models, are trained to interpret natural language and code. These models generate text outputs based on the inputs they receive, often referred to as “prompts.” Crafting a prompt is essentially the process of “programming” a language model, typically by giving instructions or examples that demonstrate how to complete a task successfully.
 
-Using WeAI's open-source text generation models, you can build applications to:
+Using open-source text generation models, you can build applications to:
 
 - Draft documents
 - Write computer code
@@ -12,9 +12,9 @@ Using WeAI's open-source text generation models, you can build applications to:
 - Translate languages
 - Simulate characters for games
 
-To use one of these models via the WeAI API, you’ll send a request to the Chat Completions API containing the inputs and your API key, and receive a response containing the model’s output.
+To access a model through the WeAI API, you send a request to the Chat Completions API with your inputs and API key, and you’ll receive a response with the model’s output.
 
-You can experiment with various models in the chat playground.
+You can test different models in the chat playground.
 
 ## Quickstart
 Chat models take a list of messages as input and return a model-generated message as output. Although the chat format is designed to make multi-turn conversations easy, it's just as useful for single-turn tasks without any conversation.

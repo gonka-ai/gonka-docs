@@ -11,17 +11,17 @@ nav:
   - Docs:
       - Overview:
           - Overview: Getstarted/Overview.md
-          - Models: Getstarted/Models/Models.md
       - Quickstart:
+          - Developer:
+              - Register: Getstarted/Quickstart/Developer-register.md
+              - Inference request: Getstarted/Quickstart/Developer-inference-request.md
           - Participant:
               - Step-by-step guide: Getstarted/Quickstart/Participant-Step-by-Step-Guide.md
               - Setting up your chain: Getstarted/Quickstart/Participant-Setting-up-your-chain.md
               - Preparing the join docker images: Getstarted/Quickstart/Participant-Preparing-the-join-docker-images.md
-          - Developer:
-              - Register: Getstarted/Quickstart/Developer-register.md
-              - Inference request: Getstarted/Quickstart/Developer-inference-request.md
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md
+          - Models: Getstarted/Models/Models.md
       - End points:
           - Chat Completions:
               - Overview: Endpoints/Chatcompletion/Overview.md

@@ -3,7 +3,7 @@ Learn how to use WeAI's Core API endpoint to get responses from language models.
 
 To use one of the LLMs via the WeAI API, you’ll send a request to the Chat Completions API containing the inputs and your API key, and receive a response containing the model’s output.
 
-You can experiment with various models in the chat playground. If you’re not sure which model to use then try `llama3.1-70` if you need high intelligence or `llama3.1.-8` if you need the fastest speed and lowest cost.
+You can experiment with various models in the chat playground. If you’re not sure which model to use then try `llama3.1-70B` if you need high intelligence or `llama3.1-8B` if you need the fastest speed and lowest cost.
 
 ## Overview
 The Chat Completions API supports text, and can output text content (including code and JSON).

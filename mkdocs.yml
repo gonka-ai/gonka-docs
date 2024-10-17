@@ -23,10 +23,7 @@ nav:
           - Text Generation: Capabilities/Text-generation.md
           - Models: Getstarted/Models/Models.md
       - End points:
-          - Chat Completions:
-              - Overview: Endpoints/Chatcompletion/Overview.md
-              - Getting started: Endpoints/Chatcompletion/Getting-started.md
-              - Response Format: Endpoints/Chatcompletion/Chat-Completions-response-format.md
+          - Chat Completions: Endpoints/chatcompletions.md
       - Terms & policies: Termsofuse.md
   - API Reference:
      - API Reference: API-Reference/API-Reference.md

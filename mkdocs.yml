@@ -16,6 +16,7 @@ nav:
               - Register: Getstarted/Quickstart/Developer-register.md
               - Inference request: Getstarted/Quickstart/Developer-inference-request.md
           - Participant:
+              - Overview: Getstarted/Quickstart/Participant.md
               - Step-by-step guide: Getstarted/Quickstart/Participant-Step-by-Step-Guide.md
               - Setting up your chain: Getstarted/Quickstart/Participant-Setting-up-your-chain.md
               - Preparing the join docker images: Getstarted/Quickstart/Participant-Preparing-the-join-docker-images.md

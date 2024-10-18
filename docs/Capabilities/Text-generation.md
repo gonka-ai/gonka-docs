@@ -86,26 +86,29 @@ An example call to the [Chat Completions](Endpoints/chatcompletions) API would l
 To learn more, you can view the [Chat Completions](Endpoints/chatcompletions) guide.
 
 ## Prompt engineering
-An awareness of the best practices for working with WeAI open-source models can make a significant difference in application performance. The failure modes that each exhibit and the ways of working around or correcting those failure modes are not always intuitive. There is an entire field related to working with language models which has come to be known as "prompt engineering", but as the field has progressed its scope has outgrown merely engineering the prompt into engineering systems that use model queries as components.
 
-To learn more, read our guide on prompt engineering which covers methods to improve model reasoning, reduce the likelihood of model hallucinations, and more.
+Understanding the best practices for using LLMs is crucial for optimizing application performance. Each model has specific failure modes, and knowing how to mitigate or address these issues is not always straightforward. The field of working with language models, originally called “prompt engineering,” has evolved beyond just designing prompts; it now encompasses developing systems that integrate model queries as components.
+
+For further details, explore our guide on prompt engineering, which explains techniques to enhance model reasoning, minimize the chances of hallucinations, and more.
 
 ## FAQ
-### Which model should I use?
-We generally recommend that you default to using either `llama3.1-8B`.
+### Which model should I choose?
 
-If your use case requires high intelligence or reasoning about images as well as text, we recommend you evaluate `llama3.1-70B`.
+We typically suggest defaulting to llama3.1-8B.
+If your application requires advanced intelligence, consider evaluating llama3.1-70B.
 
-If your use case requires the fastest speed and lowest cost, we recommend `llama3.1-8B` since it is optimized for these aspects.
+You can use the playground to experiment and find the best balance between price and performance for your needs. A common approach is to employ multiple query types, directing each to the model best suited for the task.
 
-You can experiment in the playground to investigate which models provide the best price performance trade-off for your usage. A common design pattern is to use several distinct query types which are each dispatched to the model appropriate to handle them.
+### How should I configure the temperature parameter?
 
-### How should I set the temperature parameter?
-You can think of temperature like randomness, with 0 being least random (or most deterministic) and 2 being most random (least deterministic). 
-When using low values for temperature (e.g. 0.2) the model responses will tend to be more consistent but may feel more robotic. Values higher than 1.0, especially values close to 2.0, can lead to erratic model outputs. If your goal is creative outputs, a combination of a slightly higher than normal temperature (e.g. 1.2) combined with a prompt specifically asking the model to be creative may be your best bet, but we encourage experimentation.
+The temperature parameter controls randomness, with 0 being the most deterministic and 2 being the least.
 
-### Is fine-tuning available for the latest models?
-See the fine-tuning guide for the latest information on which models are available for fine-tuning and how to get started.
+Setting a low temperature (e.g., 0.2) results in more consistent but potentially robotic responses. Higher values (e.g., above 1.0 and approaching 2.0) may cause the model’s output to become less predictable. For creative outputs, using a temperature around 1.2 and a prompt that explicitly encourages creativity can be effective, but experimentation is recommended.
 
-### How can I make my application more safe?
-If you want to add a moderation layer to the outputs of the Chat API, you can follow our moderation guide to prevent content that violates WeAI’s usage policies from being shown. We also encourage you to read our safety guide for more information on how to build safer systems.
+### Is fine-tuning supported for the latest models?
+
+Refer to the fine-tuning guide for the most up-to-date information on which models support fine-tuning and how to begin.
+
+### How can I enhance the safety of my application?
+
+To implement a moderation layer for Chat API outputs, you can follow our moderation guide, which helps filter content that may violate WeAI’s usage policies. We also recommend reviewing our safety guide for additional strategies to create safer systems.

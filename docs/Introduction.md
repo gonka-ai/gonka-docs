@@ -11,13 +11,6 @@ The system features key roles:
 
 This collaboration allows the platform to offer AI services at significantly lower prices, making advanced AI technology more accessible to a wider audience.
 
-Key roles:
-
-- **developers** build and deploy AI applications using the network’s distributed power;
-- **hardware providers** (participants) contribute computational resources and earn rewards based on their input;
-
-This collaboration allows the platform to offer AI services at significantly lower prices, making advanced AI technology more accessible to a wider audience.
-
 ## Meet the models
 
 Here is a selection of open-source models, including LLaMA 3.1 in its various configurations—8B, 70B—alongside Mistral AI. These models provide diverse capabilities suitable for a wide range of applications, from lightweight tasks to complex analyses.

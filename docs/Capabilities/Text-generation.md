@@ -83,7 +83,7 @@ An example call to the [Chat Completions](Endpoints/chatcompletions) API would l
     main();
     ```
 
-To learn more, you can view the Chat Completions guide.
+To learn more, you can view the [Chat Completions](Endpoints/chatcompletions) guide.
 
 ## Prompt engineering
 An awareness of the best practices for working with WeAI open-source models can make a significant difference in application performance. The failure modes that each exhibit and the ways of working around or correcting those failure modes are not always intuitive. There is an entire field related to working with language models which has come to be known as "prompt engineering", but as the field has progressed its scope has outgrown merely engineering the prompt into engineering systems that use model queries as components.

@@ -12,6 +12,7 @@ nav:
       - Introduction: Introduction.md
       - Quickstart:
           - Developer: 
+              - Overview: Getstarted/Quickstart/Developer.md
               - Register: Getstarted/Quickstart/Developer-register.md
               - Inference request: Getstarted/Quickstart/Developer-inference-request.md
           - Participant:

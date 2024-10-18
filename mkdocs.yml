@@ -97,3 +97,5 @@ plugins:
       video_controls: true
       css_style:
         width: "50%"
+        plugins:
+  - mkdocs-awesome-pages-plugin

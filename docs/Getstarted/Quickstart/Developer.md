@@ -1,4 +1,6 @@
-# Developer quickstart
+# Overview
+
+Developers build and deploy AI applications within the decentralized network, leveraging the distributed computational power to run their models. This approach provides developers greater flexibility and reduced costs, as cloud providers' limitations and pricing models or closed-source LLMs do not constrain them.
 
 The WeAI API provides a simple interface to state-of-the-art AI models for natural language processing. Follow this guide to learn how to generate human-like responses to natural language prompts.
 

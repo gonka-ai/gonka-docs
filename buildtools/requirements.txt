@@ -12,4 +12,3 @@ mike>=1.1.2
 mkdocs-macros-plugin
 requests
 mkdocs-redirects
-mkdocs-awesome-pages-plugin

@@ -1,20 +1,21 @@
 # Text generation models
-Text generation models, commonly known as generative pre-trained transformers or large language models, are trained to interpret natural language and code. These models generate text outputs based on the inputs they receive, often referred to as “prompts.” Crafting a prompt is essentially the process of “programming” a language model, typically by giving instructions or examples that demonstrate how to complete a task successfully.
 
-Using open-source text generation models, you can build applications to:
+Text generation models, also referred to as large language models or generative pre-trained transformers, are designed to understand and produce natural language and code. These models create text outputs based on the inputs they are given, often known as “prompts.” Structuring a prompt effectively is similar to “programming” the model by providing it with instructions or examples that outline the desired task.
 
-- Draft documents
-- Write computer code
-- Answer questions about a knowledge base
-- Analyze texts
-- Give software a natural language interface
-- Tutor in a range of subjects
-- Translate languages
-- Simulate characters for games
+By leveraging open-source text generation models, you can develop applications for various purposes, such as:
 
-To access a model through the WeAI API, you send a request to the Chat Completions API with your inputs and API key, and you’ll receive a response with the model’s output.
+- Composing documents
+- Generating computer code
+- Responding to questions based on a knowledge base
+- Analyzing textual content
+- Enabling natural language interfaces for software
+- Providing tutoring across different subjects
+- Translating languages
+- Simulating characters for interactive environments
 
-You can test different models in the chat playground.
+To use a model via the WeAI API, you submit a request through the Chat Completions API with your inputs and API key, receiving a response containing the model’s output.
+
+You can experiment with various models using the chat playground.
 
 ## Quickstart
 Chat models take a list of messages as input and return a model-generated message as output. Although the chat format is designed to make multi-turn conversations easy, it's just as useful for single-turn tasks without any conversation.

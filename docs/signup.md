@@ -2,12 +2,6 @@
 
 <div class="signup-form">
     <p>Join the waitlist! Sign up, and we’ll keep you in the loop when we launch to the wider audience</p>
-    <form action="/signup" method="post">
-        <label for="semail">Email:</label>
-        <input type="email" id="semail" name="semail" required>
-
-        <input type="submit" value="Sign Up">
-    </form>
 </div>
 
 <div class="signup-form" style="max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">

@@ -1,5 +1,7 @@
 # Sign Up
 
+Join the waitlist! Sign up, and we’ll keep you in the loop when we launch to the wider audience
+
 <div class="signup-form" style="max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
     <form id="signupForm">
         <div style="margin-bottom: 20px;">

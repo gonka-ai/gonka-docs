@@ -12,10 +12,10 @@
         </div>
 
         <div style="text-align: center;">
-            <input type="signup" value="signup" style="padding: 10px 20px; font-size: 1em; font-weight: bold; color: white; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
+            <input type="SignUp" value="signup" style="padding: 10px 20px; font-size: 1em; font-weight: bold; color: white; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
         </div>
     </form>
-    <div id="errorMessage" style="display:none; color: red; margin-top: 10px; text-align: center;">
+    <div id="errorMessage" style="display:none; color: green; margin-top: 10px; text-align: center;">
         You’re on the list! We’ll reach out as soon as we’re ready to roll out the service to everyone.
     </div>
 </div>

@@ -29,8 +29,6 @@ nav:
   - API Reference:
      - API Reference: API-Reference/API-Reference.md
      - REST API: API-Reference/REST-API.md
-  - Log In: login.md
-  - Sign Up: signup.md
 
 # Visual
 theme:
@@ -99,3 +97,7 @@ plugins:
       video_controls: true
       css_style:
         width: "50%"
+
+extra_javascript:
+  - buttons.js
+

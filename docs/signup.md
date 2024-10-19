@@ -19,7 +19,7 @@ Join the waitlist! Sign up, and we’ll keep you in the loop when we launch to t
 </div>
 
 <script>
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
+    document.getElementById("signupForm").addEventListener("submit", function(event) {
         event.preventDefault(); 
 
         document.getElementById("errorMessage").style.display = "block";

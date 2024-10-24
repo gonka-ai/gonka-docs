@@ -104,7 +104,7 @@ Execute the code with node example.mjs (or the equivalent command for Deno or Bu
 
 Now that you've made your first WeAI request, you can explore the following resources:
 
-- [Chat Completions](/Endpoints/chatcompletions.md): Learn more about generating text responses to natural language prompts
+- [Chat Completions](/Endpoints/chatcompletions): Learn more about generating text responses to natural language prompts
 - [Coming soon] Image Generation 
 - [Coming soon] Embeddings
 - [Coming soon] Text-to-speech

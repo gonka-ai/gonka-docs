@@ -23,9 +23,9 @@ nav:
       - Capabilities:
           - Text Generation: Capabilities/Text-generation.md
           - Models: Capabilities/Models.md
-      - End points:
+      - Endpoints:
           - Chat Completions: Endpoints/chatcompletions.md
-      - Terms & policies: Termsofuse.md
+      - Terms & Policies: Termsofuse.md
   - API Reference:
      - API Reference: API-Reference/API-Reference.md
      - REST API: API-Reference/REST-API.md

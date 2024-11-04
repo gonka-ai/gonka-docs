@@ -7,14 +7,21 @@ Join the waitlist! Sign up, and we’ll keep you in the loop when we launch to t
     <div id="hubspot-form" style="margin-bottom: 20px;"></div>
 
 <!-- HubSpot Form Script -->
-<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
 <script>
-  hbspt.forms.create({
-    portalId: "21332124",
-    formId: "bb643442-f16c-415c-904e-0af99c759f09",
-    target: "#hubspot-form"
-  });
+  var script = document.createElement('script');
+  script.src = "https://js.hsforms.net/forms/v2.js";
+  script.onload = function() {
+    if (window.hbspt) {
+      window.hbspt.forms.create({
+        portalId: "21332124",
+        formId: "bb643442-f16c-415c-904e-0af99c759f09",
+        target: "#hubspot-form"
+      });
+    }
+  };
+  document.body.appendChild(script);
 </script>
+
 
 <script>
     // JavaScript for existing email sign up form (optional if you keep the form)

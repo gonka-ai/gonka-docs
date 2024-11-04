@@ -26,4 +26,4 @@ inferenced signature send-request --account-address <account-address> --node-add
 ```
 
 !!! Note
-    in step 1 you provide account name and you'll obtain an account address to be used in step 2 (address starts with cosmos...). I will later make it so you can use account name for step 2 as well.
+    In step 1, the account name is provided, resulting in an account address (starting with “cosmos…”) that will be used in step 2.

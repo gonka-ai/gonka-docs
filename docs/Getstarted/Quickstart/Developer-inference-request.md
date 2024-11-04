@@ -25,5 +25,5 @@ inferenced create-client --node-address http://34.72.225.168:8080 <local-account
 inferenced signature send-request --account-address <account-address> --node-address http://34.72.225.168:8080 --file /root/inference-requests/request_payload.json
 ```
 
-!!!
-Note: in step 1 you provide account name and you'll obtain an account address to be used in step 2 (address starts with cosmos...). I will later make it so you can use account name for step 2 as well 
+!!! Note
+    in step 1 you provide account name and you'll obtain an account address to be used in step 2 (address starts with cosmos...). I will later make it so you can use account name for step 2 as well.

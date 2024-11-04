@@ -34,6 +34,7 @@ docker run -it --rm \
 ```
 
 **Steps**
+
 1. Create your account
 ```
 inferenced create-client --node-address http://34.72.225.168:8080 <local-account-name>

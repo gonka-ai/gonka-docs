@@ -8,7 +8,7 @@
 
 === "request_payload.json"
     ```
-    {
+{
   "temperature" : 0.8,
   "model" : "unsloth/llama-3-8b-Instruct",
   "messages": [{

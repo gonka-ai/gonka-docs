@@ -1,6 +1,5 @@
-**Developer instruction (inference consumer)**
-
-**Prerequisites**
+#Developer instruction (inference consumer)
+##Prerequisites**
 
 1. Install `inferenced` app
 2. Create `$HOME/.inference` folder (The keys will be stored there.)

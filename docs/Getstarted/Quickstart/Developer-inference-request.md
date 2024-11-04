@@ -4,7 +4,26 @@
 
 1. Install `inferenced` app
 2. Create `$HOME/.inference` folder (The keys will be stored there.)
-3. Create `$HOME/inference-requests` folder. Inside, you can place your requests. See the attached example: `request_payload.json`
+3. Create `$HOME/inference-requests` folder. Inside, you can place your requests. See the example below: `request_payload.json`
+
+=== "request_payload.json"
+    ```
+    {
+  "temperature" : 0.8,
+  "model" : "unsloth/llama-3-8b-Instruct",
+  "messages": [{
+      "role": "system",
+      "content": "Regardless of the language of the question, answer in english"
+    },
+    {
+        "role": "user",
+        "content": "When did Hawaii become a state?."
+    }
+  ],
+  "stream": true
+}
+    ```
+   
 4. Run our docker container in terminal mode to access `inferenced` binary
 
 ```

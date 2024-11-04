@@ -8,20 +8,20 @@
 
 === "request_payload.json"
     ```
-{
-  "temperature" : 0.8,
-  "model" : "unsloth/llama-3-8b-Instruct",
-  "messages": [{
-      "role": "system",
-      "content": "Regardless of the language of the question, answer in english"
-    },
     {
-        "role": "user",
-        "content": "When did Hawaii become a state?."
+      "temperature" : 0.8,
+      "model" : "unsloth/llama-3-8b-Instruct",
+      "messages": [{
+          "role": "system",
+          "content": "Regardless of the language of the question, answer in english"
+        },
+        {
+            "role": "user",
+            "content": "When did Hawaii become a state?."
+        }
+      ],
+      "stream": true
     }
-  ],
-  "stream": true
-}
     ```
    
 4. Run our docker container in terminal mode to access `inferenced` binary

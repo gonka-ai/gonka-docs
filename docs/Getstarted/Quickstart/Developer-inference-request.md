@@ -24,7 +24,7 @@
     }
     ```
    
-4.Run our docker container in terminal mode to access `inferenced` binary
+4. Run our docker container in terminal mode to access `inferenced` binary
 
 ```
 docker run -it --rm \

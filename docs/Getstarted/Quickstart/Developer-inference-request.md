@@ -39,10 +39,11 @@ docker run -it --rm \
 ```
 inferenced create-client --node-address http://34.72.225.168:8080 <local-account-name>
 ```
+
+!!! Note
+    In step 1, the account name is provided, resulting in an account address (starting with “cosmos…”) that will be used in step 2.
+    
 2. Send a signed inference request
 ```
 inferenced signature send-request --account-address <account-address> --node-address http://34.72.225.168:8080 --file /root/inference-requests/request_payload.json
 ```
-
-!!! Note
-    In step 1, the account name is provided, resulting in an account address (starting with “cosmos…”) that will be used in step 2.

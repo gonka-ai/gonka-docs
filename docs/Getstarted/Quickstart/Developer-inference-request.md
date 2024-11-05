@@ -2,7 +2,9 @@
 ##Prerequisites**
 
 1.Install `inferenced` app
-2.Create `$HOME/.inference` folder (The keys will be stored there.)
+
+2.Create `$HOME/.inference` folder (The keys will be stored there.
+
 3.Create `$HOME/inference-requests` folder. Inside, you can place your requests. See the example below.
 
 === "request_payload.json"

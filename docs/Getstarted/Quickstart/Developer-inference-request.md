@@ -1,5 +1,5 @@
 #Developer instruction (inference consumer)
-##Prerequisites**
+##Prerequisites
 
 1.Install `inferenced` app
 

@@ -1,4 +1,8 @@
-### **Step 1: Install the `inferenced` Binary**
+# [WIP] `inferenced`'s details
+
+This documents contains `inferenced`'s command to granularly manage developer account and make requests 
+
+### **Install the `inferenced` Binary**
 
 Before starting, ensure you have the `inferenced` binary installed on your local machine. If you haven’t installed it yet, follow these steps:
 1. **Download the binary** from our official repository or website (link provided by your team).
@@ -15,7 +19,7 @@ Now, you should be ready to use `inferenced` from your terminal.
 
 ---
 
-### **Step 2: Create a New Account Locally**
+### **Create a New Account Locally**
 
 To participate in the network, you need to create a local account. This will generate a public/private keypair and an account address.
 
@@ -36,7 +40,7 @@ To participate in the network, you need to create a local account. This will gen
 
 ---
 
-### **Step 3: Register Your Account and Get Test Tokens**
+### **Register Your Account and Get Test Tokens**
 
 Now that you have your account address and public key, you'll need to submit these to the API to get your account registered and receive some initial coins for making inference requests.
 
@@ -63,7 +67,7 @@ curl -X GET https://api.yourchain.com/v1/participants/{{your_account_address}}
 
 ---
 
-### **Step 4: Prepare and Sign an Inference Request**
+### **Prepare and Sign an Inference Request**
 
 Once your account is set up and funded, you can prepare an inference request, sign it locally using your private key, and then submit it to the inference API.
 
@@ -93,7 +97,7 @@ Once your account is set up and funded, you can prepare an inference request, si
 
 ---
 
-### **Step 5: Submit the Inference Request to the API**
+### **Submit the Inference Request to the API**
 
 Now that you have signed your payload, you’re ready to submit the inference request to the API.
 

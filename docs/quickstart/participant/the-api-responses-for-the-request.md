@@ -12,9 +12,12 @@
 ```
 The active-participant endpoint returns the following struct
 
+```
+{
 type ActiveParticipantWithProof struct {
    ActiveParticipants types.ActiveParticipants `json:"active_participants"`
    ProofOps           cryptotypes.ProofOps     `json:"proof_ops"`
    Validators         []*types2.Validator      `json:"validators"`
    Block              *types2.Block            `json:"block"`
 }
+```

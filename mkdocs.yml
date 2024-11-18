@@ -9,26 +9,23 @@ site_description: >-
 # Content
 nav:
   - Docs:
-      - Introduction: Introduction.md
+      - Introduction: introduction.md
       - Quickstart:
           - Developer: 
-              - Overview: Getstarted/Quickstart/Developer.md
-              - Register: Getstarted/Quickstart/Developer-register.md
-              - Inference request: Getstarted/Quickstart/Developer-inference-request.md
+              - Quickstart: quickstart/developer/quickstart.md
+              - Details: quickstart/developer/details.md
           - Participant:
-              - Overview: Getstarted/Quickstart/Participant.md
-              - Step-by-step guide: Getstarted/Quickstart/Participant-Step-by-Step-Guide.md
-              - Setting up your chain: Getstarted/Quickstart/Participant-Setting-up-your-chain.md
-              - Preparing the join docker images: Getstarted/Quickstart/Participant-Preparing-the-join-docker-images.md
+              - Quickstart: quickstart/participant/quickstart.md
+              - Setting up your chain: quickstart/participant/set-up-your-chain.md
       - Capabilities:
-          - Text Generation: Capabilities/Text-generation.md
-          - Models: Capabilities/Models.md
+          - Text Generation: capabilities/text-generation.md
+          - Models: capabilities/models.md
       - Endpoints:
-          - Chat Completions: Endpoints/chatcompletions.md
-      - Terms & Policies: Termsofuse.md
+          - Chat Completions: endpoints/chat-completions.md
+      - Terms & Policies: termsofuse.md
   - API Reference:
-     - API Reference: API-Reference/API-Reference.md
-     - REST API: API-Reference/REST-API.md
+     - API Reference: api-reference/api-reference.md
+     - REST API: api-reference/rest-api.md
 
 # Visual
 theme:
@@ -58,13 +55,13 @@ theme:
   features:
     - navigation.tabs
     - navigation.instant
+    - navigation.sections
     - navigation.expand
     - navigation.top
     - content.code.annotate
     - navigation.indexes
     - navigation.tracking
     - search.suggest
-#    - toc.integrate
 
 markdown_extensions:
   - footnotes

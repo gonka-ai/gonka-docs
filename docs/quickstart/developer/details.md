@@ -1,9 +1,3 @@
----
-
-### **Step-by-Step Guide for Local Setup, Account Registration, and Sending Inference Requests**
-
----
-
 ### **Step 1: Install the `inferenced` Binary**
 
 Before starting, ensure you have the `inferenced` binary installed on your local machine. If you haven’t installed it yet, follow these steps:

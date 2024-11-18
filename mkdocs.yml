@@ -17,6 +17,7 @@ nav:
           - Participant:
               - Quickstart: quickstart/participant/quickstart.md
               - Setting up your chain: quickstart/participant/set-up-your-chain.md
+              - The API responses for the request: quickstart/participant/The-API-responses-for-the-request.md
       - Capabilities:
           - Text Generation: capabilities/text-generation.md
           - Models: capabilities/models.md

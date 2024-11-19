@@ -16,7 +16,7 @@ nav:
               - Details: quickstart/developer/details.md
           - Participant:
               - Quickstart: quickstart/participant/quickstart.md
-              - The API responses for the request: quickstart/participant/the-api-responses-for-the-request.md
+              - Network Node API: quickstart/participant/network-node-api.md
       - Capabilities:
           - Text Generation: capabilities/text-generation.md
           - Models: capabilities/models.md

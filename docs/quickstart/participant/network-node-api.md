@@ -4,8 +4,6 @@ This section describes the **Network Node API**, providing examples and details 
 
 ---
 
-## You want to retrieve active participants with Merkle proof and signatures.
-
 ### Example Request
 
 ```bash
@@ -16,7 +14,7 @@ curl -X GET http://<your-api-url>/v1/active-participants/
 
 The /v1/active-participants endpoint returns a JSON object containing details about active participants, their weights, URLs, models, Merkle proofs, and validators. Here is a breakdown of the structure:
 
-#### Example response (Single active participant)
+#### **Example response (Single active participant)**
 
 ```
 {
@@ -29,7 +27,7 @@ The /v1/active-participants endpoint returns a JSON object containing details ab
 }
 ```
 
-#### Struct returned by the Endpoint
+#### **Struct returned by the Endpoint**
 ```
 type ActiveParticipantWithProof struct {
    ActiveParticipants types.ActiveParticipants `json:"active_participants"`
@@ -47,17 +45,17 @@ type ActiveParticipantWithProof struct {
 
 — `Block`: Contains metadata about the block.
 
-#### Dependencies:
+### Dependencies:
 
 — `cryptotypes`: github.com/cometbft/cometbft/proto/tendermint/crypto
 
 — `types2`: github.com/cometbft/cometbft/types
 
-#### Proof Details
+### Proof Details
 
 The result can be verified by combining ProofOps, validators, and the value.
 
-#### Example Proof for Value Verification:
+### Example Proof for Value Verification:
 
 The proof for a value stored under the key inference/ActiveParticipants/value/:
 ```
@@ -77,13 +75,13 @@ The proof for a value stored under the key inference/ActiveParticipants/value/:
 }
 ```
 
-### Key decoding:
+#### **Key decoding**
 
 — QWN0aXZlUGFydGljaXBhbnRzL3ZhbHVlLw== → ActiveParticipants/value/
 
 — aW5mZXJlbmNl → inference
 
-#### Additional Resources
+#### **Additional Resources**
 
 For further details, refer to the code implementation:
 [GitHub - server.go](https://github.com/product-science/inference-ignite/blob/5fcfe675b561b65db96a8abe00b675f371e65969/decentralized-api/server.go#L122)

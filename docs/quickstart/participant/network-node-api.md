@@ -45,7 +45,7 @@ type ActiveParticipantWithProof struct {
   ]
 }
 ```
-### Example Proof for Value Verification:
+#### Example Proof for Value Verification:
 
 The proof for a value stored under the key inference/ActiveParticipants/value/:
 ```
@@ -65,7 +65,7 @@ The proof for a value stored under the key inference/ActiveParticipants/value/:
 }
 ```
 
-### Dependencies:
+#### Dependencies:
 
 — `cryptotypes`: github.com/cometbft/cometbft/proto/tendermint/crypto
 

@@ -1,4 +1,5 @@
 # Network Node API
+## /v1/active-participants
 
 This section describes the **Network Node API**, providing examples and details on using the `/v1/active-participants` endpoint to retrieve Merkle proofs, signatures, and participant data.
 
@@ -7,25 +8,12 @@ This section describes the **Network Node API**, providing examples and details 
 ### Example Request
 
 ```bash
-curl -X GET http://<your-api-url>/v1/active-participants/
+curl -X GET http://<your-api-url>/v1/active-participants
 ```
 
 ### Explanation of results
 
 The /v1/active-participants endpoint returns a JSON object containing details about active participants, their weights, URLs, models, Merkle proofs, and validators. Here is a breakdown of the structure:
-
-#### **Example response (Single active participant)**
-
-```
-{
-  "index": "cosmos143hhxr09cteaxp53jtjw0lfys060tc842qwemw",
-  "weight": 526,
-  "inferenceUrl": "http://validator-api:8080",
-  "models": [
-    "unsloth/llama-3-8b-Instruct"
-  ]
-}
-```
 
 #### **Struct returned by the Endpoint**
 ```
@@ -45,16 +33,18 @@ type ActiveParticipantWithProof struct {
 
 — `Block`: Contains metadata about the block.
 
-### Dependencies:
+#### **Example response (Single active participant)**
 
-— `cryptotypes`: github.com/cometbft/cometbft/proto/tendermint/crypto
-
-— `types2`: github.com/cometbft/cometbft/types
-
-### Proof Details
-
-The result can be verified by combining ProofOps, validators, and the value.
-
+```
+{
+  "index": "cosmos143hhxr09cteaxp53jtjw0lfys060tc842qwemw",
+  "weight": 526,
+  "inferenceUrl": "http://validator-api:8080",
+  "models": [
+    "unsloth/llama-3-8b-Instruct"
+  ]
+}
+```
 ### Example Proof for Value Verification:
 
 The proof for a value stored under the key inference/ActiveParticipants/value/:
@@ -74,6 +64,12 @@ The proof for a value stored under the key inference/ActiveParticipants/value/:
   ]
 }
 ```
+
+### Dependencies:
+
+— `cryptotypes`: github.com/cometbft/cometbft/proto/tendermint/crypto
+
+— `types2`: github.com/cometbft/cometbft/types
 
 #### **Key decoding**
 

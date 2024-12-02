@@ -23,6 +23,7 @@ nav:
       - Endpoints:
           - Chat Completions: endpoints/chat-completions.md
       - Terms & Policies: termsofuse.md
+      - Hardware Specifications: hardware-specifications.md
   - API Reference:
      - API Reference: api-reference/api-reference.md
      - REST API: api-reference/rest-api.md

@@ -31,28 +31,31 @@ If you have Product Science account or Product Science has provided you with acc
 1. Run `gcloud auth login` and login with your account credentials
 2. Run `gcloud auth configure-docker`
 
+!!! note 
+    ## [TEMP] You can download all images from out local registry at `172.18.114.101:5556`:
+
+    ```bash
+    docker pull 172.18.114.101:5556/decentralized-ai/mlnode:debug
+    docker pull 172.18.114.101:5556/decentralized-ai/inferenced
+    docker pull 172.18.114.101:5556/decentralized-ai/api
+    
+    docker tag 172.18.114.101:5556/decentralized-ai/mlnode:debug gcr.io/decentralized-ai/mlnode:debug
+    docker tag 172.18.114.101:5556/decentralized-ai/inferenced gcr.io/decentralized-ai/inferenced
+    docker tag 172.18.114.101:5556/decentralized-ai/api gcr.io/decentralized-ai/api
+    ```
+
 
 ## Download Configuration Files
 
-Let's create a directory decentralized-ai which will contain all configuration files:
+Clone the repository with base deploy scripts:
 
 ```bash
-mkdir decentralized-ai
-cd decentralized-ai
-```
-
-Download configuration files:
-
-```bash
-curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/config.env -o config.env
-curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/launch_chain.sh -o launch_chain.sh
-curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/docker-compose-cloud.yml -o docker-compose-cloud.yml
-curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/node-config.json -o node-config.json
+git clone https://github.com/product-science/pivot-deploy.git -b main && \
+cd pivot-deploy/join
 ```
 
 - `config.env` - contains environment variables for the network node
-- `launch_chain.sh` - a script to launch the network node
-- `docker-compose-cloud.yml` - a docker compose file to launch the network node
+- `docker-compose-cloud-join.yml` - a docker compose file to launch the network node
 - `node-config.json` - a configuration file for the inference node which will be user by network node
 
 ## Setup Your Node 
@@ -60,8 +63,23 @@ curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/m
 Edit `config.env` file and set your node name, public URL and other parameters.
 
 - `KEY_NAME` - name of your node. It must be unique
-- `PORT` - port where your node will be available (default is 8080)
+- `PORT` - port where your node will be available at the machine (default is 8000)
 - `PUBLIC_URL` - public URL where your node will be available (e.g.: `http://<your-static-ip>:<port>`)
+
+The next variables are configuring the seed node and are optional to modify:
+- `SEED_API_URL` - URL of the seed node
+- `SEED_NODE_RPC_URL` - RPC URL of the seed node
+- `SEED_NODE_P2P_URL` - P2P URL of the seed node
+
+!!! note
+    ## Seed Node
+
+    Current list of seed nodes for testnet:
+    ```
+    http://36.189.234.237:19204
+    http://36.189.234.237:19210
+    http://36.189.234.237:19212
+    ```
 
 !!! note
     If you using a inference node not on the same machine you need to edit `node-config.json` file and specify the correct URL of the inference node. 
@@ -85,5 +103,6 @@ Edit `config.env` file and set your node name, public URL and other parameters.
 Run the following command to launch your node:
 
 ```bash
-./launch_chain.sh cloud
+docker compose -f docker-compose-cloud-join.yml up -d && \
+docker compose -f docker-compose-cloud-join.yml logs -f
 ```

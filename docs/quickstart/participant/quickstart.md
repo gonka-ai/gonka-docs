@@ -44,6 +44,16 @@ If you have Product Science account or Product Science has provided you with acc
     docker tag 172.18.114.101:5556/decentralized-ai/api gcr.io/decentralized-ai/api
     ```
 
+    Also please mount cache for the fast model deploy:
+    ```bash
+    [ -d "/mnt/shared" ] || sudo mkdir /mnt/shared
+    mountpoint -q /mnt/shared || sudo mount -t nfs 172.18.114.101:/mnt/shared /mnt/shared
+    sudo chmod -R 777 /mnt/shared
+    
+    mkdir ~/cache
+    ln -s /mnt/shared/huggingface/hub ~/cache/hub
+    ```
+
 
 ## Download Configuration Files
 
@@ -91,18 +101,13 @@ The next variables are configuring the seed node and are optional to modify:
     #   ...
     ```
 
-!!! note
-    During the test you can launch the network node with publicly available inference node. You can download config for this node via:
-
-    ```bash
-    curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/node-config-test.json -o node-config.json
-    ```
 
 ## Launch Your Node
 
 Run the following command to launch your node:
 
 ```bash
+source config.env && \
 docker compose -f docker-compose-cloud-join.yml up -d && \
 docker compose -f docker-compose-cloud-join.yml logs -f
 ```

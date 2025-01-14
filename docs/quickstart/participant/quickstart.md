@@ -49,9 +49,9 @@ If you have Product Science account or Product Science has provided you with acc
     [ -d "/mnt/shared" ] || sudo mkdir /mnt/shared
     mountpoint -q /mnt/shared || sudo mount -t nfs 172.18.114.101:/mnt/shared /mnt/shared
     sudo chmod -R 777 /mnt/shared
-    
-    mkdir ~/cache
-    ln -s /mnt/shared/huggingface/hub ~/cache/hub
+    sudo rm -rf ~/cache && \
+    sudo mkdir ~/cache && \
+    sudo cp -r /mnt/shared/huggingface/hub ~/cache/hub
     ```
 
 

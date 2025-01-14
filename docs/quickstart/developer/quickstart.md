@@ -9,7 +9,7 @@ This instruction describes how to create a user account and make an inference re
 ## Get `inferenced`
 
 To interact with the network, you need the `inferenced` CLI tool.  
-Currently, it’s available from the Docker image: `gcr.io/decentralized-ai/inferenced-join`.
+Currently, it’s available from the Docker image: `gcr.io/decentralized-ai/inferenced`.
 
 
 *  **[COMING SOON]** Install binary directly without Docker.
@@ -33,7 +33,7 @@ gcloud auth configure-docker
 
 4.	Pull the Docker Image
 ```
-docker pull gcr.io/decentralized-ai/inferenced-join
+docker pull gcr.io/decentralized-ai/inferenced
 ```
 
 ## Create a directory for credentials and requests
@@ -52,6 +52,22 @@ Notes:
 - All commands below assume you’re using `inferenced` from the Docker container.
 - If your `.inference` and `inference-requests` directories are not in the current directory, you need to modify the paths to the local volumes accordingly.
 
+!!! note
+    ## Seed Node
+
+    Current list of seed nodes for testnet:
+    ```
+    http://36.189.234.237:19204
+    http://36.189.234.237:19210
+    http://36.189.234.237:19212
+    ```
+
+## Choose a Seed Node and Account Name
+
+```bash
+export SEED_URL=http://36.189.234.237:19210 # or any other seed node
+export ACCOUNT_NAME=<account-name>
+```
 
 ## Create an account
 
@@ -60,22 +76,23 @@ You can create an account with the following command:
 docker run -it --rm \
     -v $(pwd)/.inference:/root/.inference \
     -v $(pwd)/inference-requests:/root/inference-requests \
-    gcr.io/decentralized-ai/inferenced-join \
+    gcr.io/decentralized-ai/inferenced \
     inferenced \
     create-client \
-    <account-name> \
-    --node-address http://34.72.225.168:8080
+    $ACCOUNT_NAME \
+    --node-address $SEED_URL
 ```
 
-- Replace `<account-name>` with your desired account name.
+- Replace `$ACCOUNT_NAME` with your desired account name.
+- Replace `$SEED_URL` with the seed node URL.
 
 This command will create a new account and save the keys to the `.inference` directory.
 
-Please save the `<account-address>` from the output lines:
+Please save the `ACCOUNT_ADDRESS` from the output lines:
 
 ```bash
-- address: <account-address>
-  name: <account-name>
+- address: ACCOUNT_ADDRESS
+  name: ACCOUNT_NAME
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"..."}'
   type: local
 ```
@@ -108,13 +125,14 @@ Then, run the following command to make the inference request:
 docker run -it --rm \
     -v $(pwd)/.inference:/root/.inference \
     -v $(pwd)/inference-requests:/root/inference-requests \
-    gcr.io/decentralized-ai/inferenced-join \
+    gcr.io/decentralized-ai/inferenced \
     inferenced \
     signature \
     send-request \
-    --account-address <account-address> \
-    --node-address http://34.72.225.168:8080 \
+    --account-address $ACCOUNT_ADDRESS \
+    --node-address $SEED_URL \
     --file /root/inference-requests/request_payload.json
 ```
 
-- Replace `<account-address>` with the account address obtained from the previous step.
+- Replace `$ACCOUNT_ADDRESS` with the account address obtained from the previous step.
+- Replace `$SEED_URL` with the seed node URL.

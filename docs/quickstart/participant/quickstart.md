@@ -46,13 +46,13 @@ Download configuration files:
 ```bash
 curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/config.env -o config.env
 curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/launch_chain.sh -o launch_chain.sh
-curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/docker-compose-cloud-join.yml -o docker-compose-cloud-join.yml
+curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/docker-compose-cloud.yml -o docker-compose-cloud.yml
 curl https://raw.githubusercontent.com/product-science/pivot-deploy/refs/heads/main/join/node-config.json -o node-config.json
 ```
 
 - `config.env` - contains environment variables for the network node
 - `launch_chain.sh` - a script to launch the network node
-- `docker-compose-cloud-join.yml` - a docker compose file to launch the network node
+- `docker-compose-cloud.yml` - a docker compose file to launch the network node
 - `node-config.json` - a configuration file for the inference node which will be user by network node
 
 ## Setup Your Node 
@@ -66,7 +66,7 @@ Edit `config.env` file and set your node name, public URL and other parameters.
 !!! note
     If you using a inference node not on the same machine you need to edit `node-config.json` file and specify the correct URL of the inference node. 
 
-    Also you need to remove block from `docker-compose-cloud-join.yml` file which starts inference node:
+    Also you need to remove block from `docker-compose-cloud.yml` file which starts inference node:
     ```yaml
     # inference-node:
     #   image: gcr.io/decentralized-ai/vllm:0.5.0.post1

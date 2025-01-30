@@ -61,7 +61,7 @@ curl -X POST https://your-node-url.com/v1/admin/unit-of-compute-price-proposal \
   }'
 ```
 
-### 2. Check Your Current Price Vote
+### 2. Check your current price vote
 
 ```
 GET /v1/admin/unit-of-compute-price-proposal
@@ -87,7 +87,7 @@ GET /v1/admin/unit-of-compute-price-proposal
 curl -X GET https://your-node-url.com/v1/admin/unit-of-compute-price-proposal
 ```
 
-### 3. Check the Current Unit-of-Compute Price & Model Pricing
+### 3. Check the current unit-of-compute price & model pricing
 
 **Endpoint**
 
@@ -136,7 +136,7 @@ CopyEdit
 curl -X GET https://your-node-url.com/v1/pricing
 ```
 
-### 4. Register a New Model
+### 4. Register a new model
 
 Registering a new model proposes how many units of compute each token for that model requires. Other participants subsequently **vote** to either approve or reject this estimation.
 
@@ -174,10 +174,10 @@ curl -X POST https://your-node-url.com/v1/admin/models \
 
 ---
 
-## Process Summary
+## Process summary
 1. **Submission:** Providers submit or update their price proposals via the POST endpoint.
-2. **Voting Window:** These submissions remain active throughout the epoch.
-3. **Vote Aggregation:** At epoch transition, the system aggregates all price proposals.
-4. **Weighted Median:** A weighted median is computed and set as the canonical price per unit of compute for the next epoch.
-5. **Continuation Default:** If a provider never votes, the most recently used epoch price (or the genesis parameter for the very first epoch) is used as their default vote.
-6. **Model Registration & Approval**: Users propose new models with their own unit-of-compute-per-token estimation. Participants then vote on these proposals before they become finalized.
+2. **Voting window:** These submissions remain active throughout the epoch.
+3. **Vote aggregation:** At epoch transition, the system aggregates all price proposals.
+4. **Weighted median:** A weighted median is computed and set as the canonical price per unit of compute for the next epoch.
+5. **Continuation default:** If a provider never votes, the most recently used epoch price (or the genesis parameter for the very first epoch) is used as their default vote.
+6. **Model registration & approval**: Users propose new models with their own unit-of-compute-per-token estimation. Participants then vote on these proposals before they become finalized.

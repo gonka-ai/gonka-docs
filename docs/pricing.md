@@ -48,7 +48,7 @@ POST /v1/admin/unit-of-compute-price-proposal
 | Field  | Type   | Description                                  |
 |--------|--------|----------------------------------------------|
 | `price`  | number | Your proposed price per unit of compute.     |
-| `denom`  | string | The denomination (e.g., `nicoin`, `micoin`, `uicoin`, `icoin`). |
+| `denom`  | string | The denomination (e.g., `icoin`, `micoin`, `uicoin`, `nicoin`). |
 
 **Example**
 

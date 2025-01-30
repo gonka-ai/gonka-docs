@@ -130,7 +130,7 @@ Within each item in `models`:
 
 **Example**
 
-```bash
+```title="bash"
 CopyEdit
 curl -X GET https://your-node-url.com/v1/pricing
 ```
@@ -141,7 +141,7 @@ Registering a new model proposes how many units of compute each token for that m
 
 **Endpoint**
 
-```bash
+```title="bash"
 POST /v1/admin/models
 ```
 

@@ -29,10 +29,13 @@ Use these endpoints to manage (send/update) your price proposal and to check you
 **1. Set or Update Your Price Vote**
 
 **Endpoint**
+
 ```
 POST /v1/admin/unit-of-compute-price-proposal
 ```
+
 **Body (JSON)**
+
 ```
 {
   "price": 1000,
@@ -46,6 +49,7 @@ POST /v1/admin/unit-of-compute-price-proposal
 | `denom`  | string | The denomination (e.g., `nicoin`, `micoin`, `uicoin`, `icoin`). |
 
 **Example**
+
 ```
 curl -X POST https://your-node-url.com/v1/admin/unit-of-compute-price-proposal \
   -H "Content-Type: application/json" \
@@ -56,11 +60,13 @@ curl -X POST https://your-node-url.com/v1/admin/unit-of-compute-price-proposal \
 ```
 
 **2. Check Your Current Price Vote**
+
 ```
 GET /v1/admin/unit-of-compute-price-proposal
 ```
 
 **Response (JSON)**
+
 ```
 {
   "price": 1000,
@@ -74,6 +80,7 @@ GET /v1/admin/unit-of-compute-price-proposal
 | `denom`  | string | The denomination used in your stored price vote. |
 
 **Example**
+
 ```
 curl -X GET https://your-node-url.com/v1/admin/unit-of-compute-price-proposal
 ```

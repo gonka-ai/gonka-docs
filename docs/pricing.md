@@ -19,8 +19,8 @@ If a provider **does not submit a vote**:
 You can propose your price in any of the following denominations (denoms):
 
 - `icoin`
-- `uicoin` (micro-coins)
 - `micoin` (milli-coins)
+- `uicoin` (micro-coins)
 - `nicoin` (nano-coins)
 
 ---

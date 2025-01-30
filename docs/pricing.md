@@ -3,9 +3,10 @@
 Our system uses a **universal measure of work** called a _unit of compute_. Whether performing inference or training, each operation’s resource usage can be **estimated** in terms of these units of compute.
 
 **Pricing** is determined by how many blockchain coins (e.g., `icoin`, `uicoin`, etc.) correspond to one unit of compute. To achieve a fair market price:
-1. Each inference provider **submits a vote** indicating how many coins per unit of compute they propose.
-2. The **weighted median** of these submissions is determined at the end of each epoch (when validators are rotated).
-3. That weighted median becomes the **common price** per unit of compute for the next epoch.
+
+- Each inference provider **submits a vote** indicating how many coins per unit of compute they propose.
+- The **weighted median** of these submissions is determined at the end of each epoch (when validators are rotated).
+- That weighted median becomes the **common price** per unit of compute for the next epoch.
 
 If a provider **does not submit a vote**:
 
@@ -16,6 +17,7 @@ If a provider **does not submit a vote**:
 
 ## Supported Denominations
 You can propose your price in any of the following denominations (denoms):
+
 - `icoin`
 - `uicoin` (micro-coins)
 - `micoin` (milli-coins)

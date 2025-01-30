@@ -15,7 +15,7 @@ If a provider **does not submit a vote**:
 
 ---
 
-## Supported Denominations
+## Supported denominations
 You can propose your price in any of the following denominations (denoms):
 
 - `icoin`
@@ -28,7 +28,7 @@ You can propose your price in any of the following denominations (denoms):
 ## API Endpoints
 Use these endpoints to manage (send/update) your price proposal and to check your current vote.
 
-**1. Set or Update Your Price Vote**
+### 1. Set or update your price vote
 
 **Endpoint**
 
@@ -61,7 +61,7 @@ curl -X POST https://your-node-url.com/v1/admin/unit-of-compute-price-proposal \
   }'
 ```
 
-**2. Check Your Current Price Vote**
+### 2. Check Your Current Price Vote
 
 ```
 GET /v1/admin/unit-of-compute-price-proposal
@@ -87,7 +87,8 @@ GET /v1/admin/unit-of-compute-price-proposal
 curl -X GET https://your-node-url.com/v1/admin/unit-of-compute-price-proposal
 ```
 
-**3. Check the Current Unit-of-Compute Price & Model Pricing**
+### 3. Check the Current Unit-of-Compute Price & Model Pricing
+
 **Endpoint**
 
 ```
@@ -135,7 +136,7 @@ CopyEdit
 curl -X GET https://your-node-url.com/v1/pricing
 ```
 
-**4. Register a New Model**
+### 4. Register a New Model
 
 Registering a new model proposes how many units of compute each token for that model requires. Other participants subsequently **vote** to either approve or reject this estimation.
 

@@ -29,16 +29,16 @@ Use these endpoints to manage (send/update) your price proposal and to check you
 **1. Set or Update Your Price Vote**
 
 **Endpoint**
-   ```bash
+```
 POST /v1/admin/unit-of-compute-price-proposal
-   ```
+```
 **Body (JSON)**
-   ```bash
+```
 {
   "price": 1000,
   "denom": "icoin"
 }
-   ```
+```
 
 | Field  | Type   | Description                                  |
 |--------|--------|----------------------------------------------|
@@ -46,27 +46,27 @@ POST /v1/admin/unit-of-compute-price-proposal
 | `denom`  | string | The denomination (e.g., `nicoin`, `micoin`, `uicoin`, `icoin`). |
 
 **Example**
-   ```bash
+```
 curl -X POST https://your-node-url.com/v1/admin/unit-of-compute-price-proposal \
   -H "Content-Type: application/json" \
   -d '{
     "price": 1000,
     "denom": "icoin"
   }'
-   ```
+```
 
 **2. Check Your Current Price Vote**
-   ```bash
+```
 GET /v1/admin/unit-of-compute-price-proposal
-   ```
+```
 
 **Response (JSON)**
-   ```bash
+```
 {
   "price": 1000,
   "denom": "icoin"
 }
-   ```
+```
 
 | Field  | Type   | Description                                  |
 |--------|--------|----------------------------------------------|
@@ -74,9 +74,9 @@ GET /v1/admin/unit-of-compute-price-proposal
 | `denom`  | string | The denomination used in your stored price vote. |
 
 **Example**
-   ```bash
+```
 curl -X GET https://your-node-url.com/v1/admin/unit-of-compute-price-proposal
-   ```
+```
 
 ---
 

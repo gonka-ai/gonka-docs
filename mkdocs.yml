@@ -23,6 +23,7 @@ nav:
           - Models: capabilities/models.md
       - Endpoints:
           - Chat Completions: endpoints/chat-completions.md
+      - Pricing: pricing.md
       - Terms & Policies: termsofuse.md
       - Hardware Specifications: hardware-specifications.md
   - API Reference:

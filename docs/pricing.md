@@ -138,7 +138,9 @@ curl -X GET https://your-node-url.com/v1/pricing
 
 ### 4. Register a new model
 
-Registering a new model proposes how many units of compute each token for that model requires. Other participants subsequently **vote** to either approve or reject this estimation.
+Registering a new model involves proposing the number of units of compute required for each token of that model.
+When you submit a new model via the `POST /v1/admin/models` endpoint, our system automatically creates a corresponding governance proposal using the CosmoSDK governance module, and a deposit is immediately withdrawn to initiate the process – eliminating the need for a separate deposit funding step later.
+Other participants can then review the proposal and cast their votes using the governance CLI provided within the inferenced app.
 
 **Endpoint**
 

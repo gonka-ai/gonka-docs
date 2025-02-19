@@ -26,6 +26,7 @@ nav:
       - Pricing: pricing.md
       - Terms & Policies: termsofuse.md
       - Hardware Specifications: hardware-specifications.md
+      - Help: help.md
   - API Reference:
      - API Reference: api-reference/api-reference.md
      - REST API: api-reference/rest-api.md

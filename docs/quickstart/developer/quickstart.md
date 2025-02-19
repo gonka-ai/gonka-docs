@@ -136,3 +136,5 @@ docker run -it --rm \
 
 - Replace `$ACCOUNT_ADDRESS` with the account address obtained from the previous step.
 - Replace `$SEED_URL` with the seed node URL.
+
+**Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

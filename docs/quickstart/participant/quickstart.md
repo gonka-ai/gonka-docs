@@ -111,3 +111,5 @@ source config.env && \
 docker compose -f docker-compose-cloud-join.yml up -d && \
 docker compose -f docker-compose-cloud-join.yml logs -f
 ```
+
+**Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

@@ -35,11 +35,11 @@ If you have Product Science account or Product Science has provided you with acc
     ## [TEMP] You can download all images from out local registry at `172.18.114.101:5556`:
 
     ```bash
-    docker pull 172.18.114.101:5556/decentralized-ai/mlnode:debug
+    docker pull 172.18.114.101:5556/decentralized-ai/mlnode:latest
     docker pull 172.18.114.101:5556/decentralized-ai/inferenced
     docker pull 172.18.114.101:5556/decentralized-ai/api
     
-    docker tag 172.18.114.101:5556/decentralized-ai/mlnode:debug gcr.io/decentralized-ai/mlnode:debug
+    docker tag 172.18.114.101:5556/decentralized-ai/mlnode:latest gcr.io/decentralized-ai/mlnode:latest
     docker tag 172.18.114.101:5556/decentralized-ai/inferenced gcr.io/decentralized-ai/inferenced
     docker tag 172.18.114.101:5556/decentralized-ai/api gcr.io/decentralized-ai/api
     ```

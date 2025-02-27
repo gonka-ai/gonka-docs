@@ -1,6 +1,6 @@
 # Setting Up your chain 
 
-**Hardware providers** (**"participants"** or **"nodes"**). These participants contribute computational resources to the network and are rewarded based on the amount and quality of resources they provide.
+**Participants** (**hardware providers** or **"nodes"**) contribute computational resources to the network and are rewarded based on the amount and quality of resources they provide.
 
 To join the network, you need to deploy 2 services:
 
@@ -12,7 +12,7 @@ Services are deployed as Docker containers.
 
 ## Prerequisites
 
-To run a service you need to have a machine with a [supported GPU(s)](../supported-hardware.md).  
+To run a service, you need to have a machine with a [supported GPU(s)](../supported-hardware.md).  
 
 It also should have:
 

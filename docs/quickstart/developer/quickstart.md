@@ -89,7 +89,6 @@ Save the payload for an OpenAI-compatible `/chat/completion` request in a file i
 For example, create a file named `inference-requests/request_payload.json` with the following content:
 
 ```json
-    ```
     {
       "temperature" : 0.8,
       "model" : "unsloth/llama-3-8b-Instruct",
@@ -104,7 +103,6 @@ For example, create a file named `inference-requests/request_payload.json` with 
       ],
       "stream": true
     }
-    ```
 ```
 
 Run the following command to submit your inference request:

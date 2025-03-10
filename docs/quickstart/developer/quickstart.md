@@ -62,11 +62,14 @@ Notes:
     http://36.189.234.237:19212
     ```
 
-## Choose a Seed Node and Account Name
+## Define variables
+
+Set the required environment variables before proceeding:
 
 ```bash
 export SEED_URL=http://36.189.234.237:19210 # or any other seed node
 export ACCOUNT_NAME=<account-name>
+export ACCOUNT_ADDRESS=... # Will be obtained after account creation
 ```
 
 ## Create an account

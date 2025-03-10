@@ -87,7 +87,7 @@ export ACCOUNT_ADDRESS=<your-account-address>
 Save the payload for an OpenAI-compatible `/chat/completion` request in a file inside the `inference-requests` directory.
 For example, create a file named `inference-requests/request_payload.json` with the following content:
 
-=== "json"
+```json
     ```
     {
       "temperature" : 0.8,
@@ -104,6 +104,7 @@ For example, create a file named `inference-requests/request_payload.json` with 
       "stream": true
     }
     ```
+```
 
 Run the following command to submit your inference request:
 

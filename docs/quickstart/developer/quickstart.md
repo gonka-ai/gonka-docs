@@ -8,49 +8,22 @@ This instruction describes how to create a user account and make an inference re
 
 ## Get `inferenced`
 
-To interact with the network, you need the `inferenced` CLI tool.  
-Currently, it’s available from the Docker image: `gcr.io/decentralized-ai/inferenced`.
+To interact with the network, you need the `inferenced` CLI tool.   
+You can download latest `inferenced` binary for your system at this link:
+
+[https://github.com/product-science/inference-ignite/releases](https://github.com/product-science/inference-ignite/releases)
+
+!!! note
+  On Mac OS you will have to enable execution of this binary in System Settings
 
 
-*  **[COMING SOON]** Install binary directly without Docker.
-
-### Get docker image
-
-If you have a PS account or PS has provided you with access, you need to authenticate with gcloud and configure Docker to access the image.
-
-1. Install and setup `docker` according to the [official guide](https://docs.docker.com/get-docker/)
-2. Authenticate with Google Cloud
-Run the following command and log in with your account credentials:
-```
-gcloud auth login
-```
-
-3. Configure Docker for GCP Artifact Registry 
-Add GCP’s Artifact Registry to your Docker configuration:
-```
-gcloud auth configure-docker
-```
-
-4.	Pull the Docker Image
-```
-docker pull gcr.io/decentralized-ai/inferenced
-```
-
-## Create a directory for credentials and requests
-1. Create a Directory for Credentials
-```
-mkdir .inference
-```
+## Directories for credentials and requests
+1. Crenentials will be stored in `~/.inference` directory
 
 1. Create a Directory for Request Payloads
 ```
 mkdir inference-requests
 ```
-
-Notes: 
-
-- All commands below assume you’re using `inferenced` from the Docker container.
-- If your `.inference` and `inference-requests` directories are not in the current directory, you need to modify the paths to the local volumes accordingly.
 
 !!! note
     ## Seed Node
@@ -76,20 +49,14 @@ export ACCOUNT_ADDRESS=... # Will be obtained after account creation
 
 You can create an account with the following command:
 ```bash
-docker run -it --rm \
-    -v $(pwd)/.inference:/root/.inference \
-    -v $(pwd)/inference-requests:/root/inference-requests \
-    gcr.io/decentralized-ai/inferenced \
-    inferenced \
-    create-client \
-    $ACCOUNT_NAME \
-    --node-address $SEED_URL
+./inferenced create-client $ACCOUNT_NAME \
+  --node-address $SEED_URL
 ```
 
 - Replace `$ACCOUNT_NAME` with your desired account name.
 - Replace `$SEED_URL` with the seed node URL.
 
-This command will create a new account and save the keys to the `.inference` directory.
+This command will create a new account and save the keys to the `~/.inference` directory.
 
 Please save the `ACCOUNT_ADDRESS` from the output lines:
 
@@ -102,7 +69,8 @@ Please save the `ACCOUNT_ADDRESS` from the output lines:
 
 ## Make an Inference Request
 
-You should place the payload for an OpenAI-compatible `/chat/completion` request into a file inside the inference-requests directory. For example, create a file named `inference-requests/request_payload.json` with the following content:
+You should place the payload for an OpenAI-compatible `/chat/completion` request into a file inside the inference-requests directory. 
+For example, create a file named `inference-requests/request_payload.json` with the following content:
 
 ```json
 {
@@ -125,16 +93,10 @@ You should place the payload for an OpenAI-compatible `/chat/completion` request
 Then, run the following command to make the inference request:
 
 ```bash
-docker run -it --rm \
-    -v $(pwd)/.inference:/root/.inference \
-    -v $(pwd)/inference-requests:/root/inference-requests \
-    gcr.io/decentralized-ai/inferenced \
-    inferenced \
-    signature \
-    send-request \
-    --account-address $ACCOUNT_ADDRESS \
-    --node-address $SEED_URL \
-    --file /root/inference-requests/request_payload.json
+./inferenced signature send-request \
+  --account-address $ACCOUNT_ADDRESS \
+  --node-address $SEED_URL \
+  --file ./inference-requests/request_payload.json
 ```
 
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

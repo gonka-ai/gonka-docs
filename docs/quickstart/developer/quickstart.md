@@ -13,13 +13,17 @@ You can download the latest `inferenced` binary for your system [here](https://g
 
 #### Enabling Execution on Mac OS
 On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
+
 1.	Open a terminal and navigate to the directory where the binary is located.
+
 2.	Run the following command to grant execution permission:
 ```
 chmod +x inferenced
 ```
 3.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
+
 4.	Scroll down to the warning about `inferenced` and click “Allow Anyway”.
+
 5.	Try running `./inferenced --help` again to ensure it’s working.
 
 ## Directories for credentials and requests

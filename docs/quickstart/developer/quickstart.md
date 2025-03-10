@@ -11,8 +11,7 @@ This guide explains how to create a user account and submit an inference request
 To interact with the network, you need the `inferenced` CLI tool.   
 You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/inference-ignite/releases).
 
-!!! note
-    #### Enabling Execution on Mac OS
+!!! note "Enabling Execution on Mac OS"
     On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
     
     1.	Open a terminal and navigate to the directory where the binary is located.
@@ -35,15 +34,11 @@ You can download the latest `inferenced` binary for your system [here](https://g
 mkdir inference-requests
 ```
 
-!!! note
-    #### Seed Nodes
-    Here are the current seed nodes for the testnet:
-    
-    http://36.189.234.237:19204
- 
-    http://36.189.234.237:19210
-  
-    http://36.189.234.237:19212
+!!! note "Seed Nodes"
+    Here are the current seed nodes for the testnet:  
+     - `http://36.189.234.237:19204`  
+     - `http://36.189.234.237:19210`  
+     - `http://36.189.234.237:19212`  
 
 
 ## Define variables
@@ -89,20 +84,20 @@ Save the payload for an OpenAI-compatible `/chat/completion` request in a file i
 For example, create a file named `inference-requests/request_payload.json` with the following content:
 
 ```json
+{
+  "temperature" : 0.8,
+  "model" : "unsloth/llama-3-8b-Instruct",
+  "messages": [{
+      "role": "system",
+      "content": "Regardless of the language of the question, answer in English"
+    },
     {
-      "temperature" : 0.8,
-      "model" : "unsloth/llama-3-8b-Instruct",
-      "messages": [{
-          "role": "system",
-          "content": "Regardless of the language of the question, answer in English"
-        },
-        {
-            "role": "user",
-            "content": "When did Hawaii become a state?"
-        }
-      ],
-      "stream": true
+        "role": "user",
+        "content": "When did Hawaii become a state?"
     }
+  ],
+  "stream": true
+}
 ```
 
 Run the following command to submit your inference request:

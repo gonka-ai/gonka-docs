@@ -11,20 +11,21 @@ This guide explains how to create a user account and submit an inference request
 To interact with the network, you need the `inferenced` CLI tool.   
 You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/inference-ignite/releases).
 
-#### Enabling Execution on Mac OS
-On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
-
-1.	Open a terminal and navigate to the directory where the binary is located.
-
-2.	Run the following command to grant execution permission:
-```
-chmod +x inferenced
-```
-3.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
-
-4.	Scroll down to the warning about `inferenced` and click “Allow Anyway”.
-
-5.	Try running `./inferenced --help` again to ensure it’s working.
+!!! note
+    #### Enabling Execution on Mac OS
+    On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
+    
+    1.	Open a terminal and navigate to the directory where the binary is located.
+    
+    2.	Run the following command to grant execution permission:
+    ```
+    chmod +x inferenced
+    ```
+    3.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
+    
+    4.	Scroll down to the warning about `inferenced` and click “Allow Anyway”.
+    
+    5.	Try running `./inferenced --help` again to ensure it’s working.
 
 ## Directories for credentials and requests
 1.  Credentials will be stored in the `~/.inference` directory
@@ -35,7 +36,7 @@ mkdir inference-requests
 ```
 
 !!! note
-    ## Seed Nodes
+    #### Seed Nodes
     Here are the current seed nodes for the testnet:
     
     http://36.189.234.237:19204

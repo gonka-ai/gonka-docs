@@ -33,16 +33,16 @@ chmod +x inferenced
 ```
 mkdir inference-requests
 ```
+
+!!! note
+    ## Seed Nodes
+    Here are the current seed nodes for the testnet:
+    
+    http://36.189.234.237:19204
  
-## Seed Nodes
-
-Here are the current seed nodes for the testnet:
-
-http://36.189.234.237:19204
-
-http://36.189.234.237:19210
-
-http://36.189.234.237:19212
+    http://36.189.234.237:19210
+  
+    http://36.189.234.237:19212
 
 
 ## Define variables

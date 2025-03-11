@@ -83,9 +83,9 @@ The next variables are configuring the seed node and are optional to modify:
 
 !!! note "Seed Nodes"
     Here are the current seed nodes for the testnet:  
-     - `http://36.189.234.237:19204`
-     - `http://36.189.234.237:19210`
-     - `http://36.189.234.237:19212`
+     - `http://36.189.234.237:19204`  
+     - `http://36.189.234.237:19210`  
+     - `http://36.189.234.237:19212`  
 
 !!! note
     If you using a inference node not on the same machine you need to edit `node-config.json` file and specify the correct URL of the inference node. 

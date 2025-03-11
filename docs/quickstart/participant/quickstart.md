@@ -81,15 +81,11 @@ The next variables are configuring the seed node and are optional to modify:
 - `SEED_NODE_RPC_URL` - RPC URL of the seed node
 - `SEED_NODE_P2P_URL` - P2P URL of the seed node
 
-!!! note
-    ## Seed Node
-
-    Current list of seed nodes for testnet:
-    ```
-    http://36.189.234.237:19204
-    http://36.189.234.237:19210
-    http://36.189.234.237:19212
-    ```
+!!! note "Seed Nodes"
+    Here are the current seed nodes for the testnet:  
+     - `http://36.189.234.237:19204`
+     - `http://36.189.234.237:19210`
+     - `http://36.189.234.237:19212`
 
 !!! note
     If you using a inference node not on the same machine you need to edit `node-config.json` file and specify the correct URL of the inference node. 

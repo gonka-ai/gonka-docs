@@ -7,6 +7,7 @@ Running proof and block validation in the current version requires sending data 
 
 You can use the address of a node you trust or set up your local node to handle this verification.
 
+=== "python"
 ```
 import requests
 from dataclasses import dataclass

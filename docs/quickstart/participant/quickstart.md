@@ -12,7 +12,7 @@ Services are deployed as Docker containers.
 
 ## Prerequisites
 
-To run a service, you need to have a machine with a [supported GPU(s)](/hardware-specifications.md).  
+To run a service, you need to have a machine with a [supported GPU(s)](/hardware-specifications).  
 
 It also should have:
 

@@ -51,7 +51,7 @@ export ACCOUNT_NAME=<your-desired-account-name>
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
-- Replace `SEED_URL` with any available seed node from the [**Seed Nodes**](https://weai.productscience.ai/quickstart/developer/quickstart/#seed-node) section.
+- Replace `SEED_URL` with any available seed node from the **Seed Nodes** section above.
   
 ## Create an account
 

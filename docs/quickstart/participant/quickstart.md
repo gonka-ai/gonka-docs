@@ -1,6 +1,6 @@
 # Setting Up your chain 
 
-**Participants** (**hardware providers** or **"nodes"**) contribute computational resources to the network and are rewarded based on the amount and quality of resources they provide.
+**Participants** (**hardware providers** or **nodes**) contribute computational resources to the network and are rewarded based on the amount and quality of resources they provide.
 
 To join the network, you need to deploy 2 services:
 

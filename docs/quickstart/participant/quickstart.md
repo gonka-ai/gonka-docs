@@ -77,6 +77,7 @@ Edit `config.env` file and set your node name, public URL and other parameters.
 - `PUBLIC_URL` - public URL where your node will be available (e.g.: `http://<your-static-ip>:<port>`)
 
 The next variables configure the seed node and are optional to modify:
+
 - `SEED_API_URL` - URL of the seed node  
 - `SEED_NODE_RPC_URL` - RPC URL of the seed node  
 - `SEED_NODE_P2P_URL` - P2P URL of the seed node  

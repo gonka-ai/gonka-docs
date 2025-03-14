@@ -7,6 +7,6 @@
 The system features key roles: 
 
 - **developers** build and deploy AI applications using the network’s distributed power;
-- **participants** (or **hardware providers**) contribute computational resources and earn rewards based on their input.
+- **participants** (**hardware providers** or **nodes**) contribute computational resources and earn rewards based on their input.
 
 This collaboration allows the platform to offer AI services at significantly lower prices, making advanced AI technology more accessible to a broader audience.

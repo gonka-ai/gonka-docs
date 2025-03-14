@@ -1,12 +1,13 @@
 # [WIP] `inferenced`'s details
 
-This documents contains `inferenced`'s command to granularly manage developer account and make requests 
+This document contains `inferenced`'s commands to granularly manage the developer account and make requests. 
 
 ### **Install the `inferenced` Binary**
 
 Before starting, ensure you have the `inferenced` binary installed on your local machine. If you haven’t installed it yet, follow these steps:
-1. **Download the binary** from our official repository or website (link provided by your team).
-2. Make the binary executable by running:
+
+1. **Download the binary** from our official repository or website (link provided by your team).   
+2. **Make the binary executable by running**:
    ```bash
    chmod +x inferenced
    ```
@@ -21,7 +22,7 @@ Now, you should be ready to use `inferenced` from your terminal.
 
 ### **Create a New Account Locally**
 
-To participate in the network, you need to create a local account. This will generate a public/private keypair and an account address.
+To participate in the network, you need to create a local account. This will generate a public/private key pair and an account address.
 
 1. Run the following command to create a new account:
    ```bash

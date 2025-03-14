@@ -32,7 +32,7 @@ If you have Product Science account or Product Science has provided you with acc
 2. Run `gcloud auth configure-docker`
 
 !!! note "For 6block team"
-    ## You can download all images from our local registry at `172.18.114.101:5556`:
+    You can download all images from our local registry at `172.18.114.101:5556`:
 
     ```bash
     docker pull 172.18.114.101:5556/decentralized-ai/mlnode:latest

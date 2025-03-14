@@ -1,8 +1,5 @@
 # Terms & policies
 
-- Data processing addendum: Ensuring that personal data is handled appropriately and securely.
-- Models licenses:
-    - [Llama-3.1-8B](https://raw.githubusercontent.com/meta-llama/llama-models/refs/heads/main/models/llama3_1/LICENSE)
-    - [Llama-3.1-70B](https://raw.githubusercontent.com/meta-llama/llama-models/refs/heads/main/models/llama3_1/LICENSE)
-    - [Mistral Large 2](https://mistral.ai/licenses/MNPL-0.1.md)
-    - [Mistral Small 24.09](https://mistral.ai/licenses/MNPL-0.1.md)
+We are initiating the Testnet phase of our project. This phase enables comprehensive testing and refinement of our system within a controlled environment replicating our main network. Please note that during this testnet phase, the system is not production-ready and should not be utilized for live operations or real transactions.
+
+Model license: [Llama-3.1-8B](https://raw.githubusercontent.com/meta-llama/llama-models/refs/heads/main/models/llama3_1/LICENSE)

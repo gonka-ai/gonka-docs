@@ -31,7 +31,7 @@ If you have Product Science account or Product Science has provided you with acc
 1. Run `gcloud auth login` and login with your account credentials
 2. Run `gcloud auth configure-docker`
 
-!!! note for 6block team
+!!! note "For 6block team"
     ## You can download all images from our local registry at `172.18.114.101:5556`:
 
     ```bash

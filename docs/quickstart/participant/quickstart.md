@@ -24,10 +24,9 @@ It also should have:
 - [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 
 !!! note "Ports open for public connections"
-
-- 26656 - Tendermint P2P communication
-- 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
-- 8080 - Application service (configurable)
+    - 26656 - Tendermint P2P communication
+    - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
+    - 8080 - Application service (configurable)
 
 ### Container access
 

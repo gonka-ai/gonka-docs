@@ -99,7 +99,7 @@ The next variables configure the seed node and are optional to modify:
     Also you need to remove block from `docker-compose-cloud.yml` file which starts inference node:
     ```yaml
     # inference-node:
-    #   image: gcr.io/decentralized-ai/vllm:0.5.0.post1
+    #   image: gcr.io/decentralized-ai/mlnode:latest
     #   ...
     ```
 

@@ -43,12 +43,12 @@ If you have Product Science account or Product Science has provided you with acc
 
     ```bash
     docker pull 172.18.114.101:5556/decentralized-ai/mlnode:latest
-    docker pull 172.18.114.101:5556/decentralized-ai/inferenced
-    docker pull 172.18.114.101:5556/decentralized-ai/api
+    docker pull 172.18.114.101:5556/decentralized-ai/inferenced:latest
+    docker pull 172.18.114.101:5556/decentralized-ai/api:latest
     
     docker tag 172.18.114.101:5556/decentralized-ai/mlnode:latest gcr.io/decentralized-ai/mlnode:latest
-    docker tag 172.18.114.101:5556/decentralized-ai/inferenced gcr.io/decentralized-ai/inferenced
-    docker tag 172.18.114.101:5556/decentralized-ai/api gcr.io/decentralized-ai/api
+    docker tag 172.18.114.101:5556/decentralized-ai/inferenced gcr.io/decentralized-ai/inferenced:latest
+    docker tag 172.18.114.101:5556/decentralized-ai/api gcr.io/decentralized-ai/api:latest
     ```
 
     Also please mount cache for the fast model deploy:

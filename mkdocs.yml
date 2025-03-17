@@ -17,6 +17,7 @@ nav:
               - Discovery: quickstart/developer/discovery.md
           - Participant:
               - Quickstart: quickstart/participant/quickstart.md
+              - Details: quickstart/participant/details.md
               - Network Node API: quickstart/participant/network-node-api.md
       - Pricing: pricing.md
       - Terms & Policies: termsofuse.md

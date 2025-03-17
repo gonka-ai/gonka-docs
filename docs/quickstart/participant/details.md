@@ -94,11 +94,11 @@ _This defines the number of blocks between the snapshot block height and the cur
 ### Adding and removing inference nodes
 Ensure your **network node** is correctly configured by following the setup guide above.
 
-**#### Methods to add or remove inference nodes:**
+#### **Methods to add or remove inference nodes:**
 1. **Manually** – Edit the `pivot-deploy/join/node-config.json` file **before starting** your network node.
 2. **Using the API (Preferred)** – This allows dynamic updates **without restarting** the network node.
 
-**#### Inference node configuration**
+#### **Inference node configuration**
 An inference node is defined as follows in `node-config.json`:
 
 ```
@@ -178,7 +178,7 @@ curl -X GET http://<your_static_ip>:<api-node-port>/v1/nodes
 
 This will return a JSON array containing all configured inference nodes.
 
-#### **Starting the network and inference node**
+## **Starting the network and inference node**
 Ensure your configuration is correctly set up by following the instructions above.
 
 ---

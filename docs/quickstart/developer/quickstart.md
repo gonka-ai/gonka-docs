@@ -175,5 +175,4 @@ if __name__ == "__main__":
     main()
 ```
 
-
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

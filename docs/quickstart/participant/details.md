@@ -64,8 +64,7 @@ cd pivot-deploy/join
 export SYNC_WITH_SNAPSHOTS=true
 ```
 
-_This tells the network node to attempt synchronization with the blockchain using snapshots.
-_
+_This tells the network node to attempt synchronization with the blockchain using snapshots._
 
 — Set RPC Servers for Snapshots
 
@@ -77,7 +76,7 @@ export RPC_SERVER_URL_2=http://<another_rpc-server-static-ip>:<rpc_port>
 _These are the RPC servers from which your node will download snapshots._
  
 !!! note
-To be updated with actual RPC server addresses once the blockchain is launched.
+    To be updated with actual RPC server addresses once the blockchain is launched.
 
 — Set a Trusted Block Period (Optional)
 
@@ -85,10 +84,9 @@ To be updated with actual RPC server addresses once the blockchain is launched.
 export TRUSTED_BLOCK_PERIOD=<your_value>
 ```
 
-_This defines the number of blocks between the snapshot block height and the current block height to ensure the snapshot's state is final and cannot be altered.
-_
+_This defines the number of blocks between the snapshot block height and the current block height to ensure the snapshot's state is final and cannot be altered._
 
-!!! Example:
+!!! note "Example"
     - If the current block height is `1000` and` TRUSTED_BLOCK_PERIOD=100`, your node will only accept snapshots made at block `880` or earlier.
     - Snapshots from blocks `990` and `950` would be considered too recent to be trusted.
     **Default Value**: `TRUSTED_BLOCK_PERIOD=2000`. It is **not recommended** to set this value below `1000` blocks.

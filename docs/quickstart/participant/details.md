@@ -89,7 +89,7 @@ _This defines the number of blocks between the snapshot block height and the cur
 !!! note "Example"
     - If the current block height is `1000` and` TRUSTED_BLOCK_PERIOD=100`, your node will only accept snapshots made at block `880` or earlier.
     - Snapshots from blocks `990` and `950` would be considered too recent to be trusted.
-    **Default Value**: `TRUSTED_BLOCK_PERIOD=2000`. It is **not recommended** to set this value below `1000` blocks.
+    - **Default Value**: `TRUSTED_BLOCK_PERIOD=2000`. It is **not recommended** to set this value below `1000` blocks.
     
 ### Adding and removing inference nodes
 Ensure your **network node** is correctly configured by following the setup guide above.

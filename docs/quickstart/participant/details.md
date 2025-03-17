@@ -1,11 +1,11 @@
 # Introduction
 
-Participants (hardware providers or nodes) contribute computational resources to the network and are rewarded based on the amount and quality of resources they provide.
+**Participants** (**hardware providers** or **nodes**) contribute computational resources to the network and are rewarded based on the amount and quality of resources they provide.
 
 To join the network, you need to deploy two services:
 
-- **Network node** – A service consisting of two nodes: a **chain node** and an **API node**. This service handles all communication. The chain node connects to the blockchain, while the **API node** manages user requests.
-- **Inference (ML) node** – A service that performs inference of large language models (LLMs) on GPU(s). You need at least one **ML node** to join the network.
+- **Network node** – a service consisting of two nodes: a **chain node** and an **API node**. This service handles all communication. The **chain node** connects to the blockchain, while the **API node** manages user requests.
+- **Inference (ML) node** – a service that performs inference of large language models (LLMs) on GPU(s). You need at least one **ML node** to join the network.
 
 The guide provides instructions for deploying both services on the same machine as well as on different machines. Services are deployed as Docker containers.
 
@@ -23,7 +23,7 @@ Before proceeding, read the following sections:
 
 ## Configuring the network node
 
-To configure the network node, edit the `pivot-deploy/join/config.env` file.
+Edit the `pivot-deploy/join/config.env` file and set your node name, public URL, and other parameters.
 
 ### Required parameters
 
@@ -37,34 +37,36 @@ To configure the network node, edit the `pivot-deploy/join/config.env` file.
 ```
 http://<your-static-ip>:<api-node-port-mapped-on-your-host-machine>  
 ```
-    - This setup allows you to dynamically add inference nodes deployed on other servers to your current network node without needing to restart the network node.
+_This setup allows you to dynamically add inference nodes deployed on other servers to your current network node without needing to restart the network node.
+_
 
-### Optional parameters (Seed Node Configuration)
+!!! note "Optional parameters (Seed node configuration)"
+    - `SEED_API_URL` – Public URL of the seed node.
+    - `SEED_NODE_RPC_URL` – RPC URL of the seed node.
+    - `SEED_NODE_P2P_URL` – P2P URL of the seed node.
 
-- `SEED_API_URL` – Public URL of the seed node.
-- `SEED_NODE_RPC_URL` – RPC URL of the seed node.
-- `SEED_NODE_P2P_URL` – P2P URL of the seed node.
-
-### Speeding up Ssynchronization
+### Speeding up synchronization
 Synchronizing with the network can take a long time, so we recommend using snapshots for faster synchronization.
 
-#### Steps to enable snapshot synchronization
+#### **Steps to enable snapshot synchronization**
 On the machine where you plan to deploy your network node, follow these steps:
 
-1. Navigate to the `pivot-deploy/join` folder
+**Step 1.** Navigate to the `pivot-deploy/join` folder
 
 ```
 cd pivot-deploy/join
 ```
 
-2. Add the following variables to the `config.env` file
+**Step 2.** Add the following variables to the `config.env` file
 
 — Enable Snapshot Synchronization
 
 ```
 export SYNC_WITH_SNAPSHOTS=true
 ```
-This tells the network node to attempt synchronization with the blockchain using snapshots.
+
+_This tells the network node to attempt synchronization with the blockchain using snapshots.
+_
 
 — Set RPC Servers for Snapshots
 
@@ -73,7 +75,7 @@ export RPC_SERVER_URL_1=http://<rpc-server-static-ip>:<rpc_port>
 export RPC_SERVER_URL_2=http://<another_rpc-server-static-ip>:<rpc_port>
 ```
 
-These are the RPC servers from which your node will download snapshots.
+_These are the RPC servers from which your node will download snapshots._
  
 !!! note
 To be updated with actual RPC server addresses once the blockchain is launched.
@@ -84,21 +86,22 @@ To be updated with actual RPC server addresses once the blockchain is launched.
 export TRUSTED_BLOCK_PERIOD=<your_value>
 ```
 
-This defines the number of blocks between the snapshot block height and the current block height to ensure the snapshot's state is final and cannot be altered.
+_This defines the number of blocks between the snapshot block height and the current block height to ensure the snapshot's state is final and cannot be altered.
+_
 
 !!! Example:
-    If the current block height is `1000` and` TRUSTED_BLOCK_PERIOD=100`, your node will only accept snapshots made at block `880` or earlier.
-    Snapshots from blocks `990` and `950` would be considered too recent to be trusted.
+    - If the current block height is `1000` and` TRUSTED_BLOCK_PERIOD=100`, your node will only accept snapshots made at block `880` or earlier.
+    - Snapshots from blocks `990` and `950` would be considered too recent to be trusted.
     **Default Value**: `TRUSTED_BLOCK_PERIOD=2000`. It is **not recommended** to set this value below `1000` blocks.
     
 ### Adding and removing inference nodes
-Ensure your network node is correctly configured by following the setup guide above.
+Ensure your **network node** is correctly configured by following the setup guide above.
 
 #### Methods to add or remove inference nodes
-1. Manually – Edit the `pivot-deploy/join/node-config.json` file **before** starting your network node.
-2. Using the API (Preferred) – This allows dynamic updates **without** restarting the network node.
+1. **Manually** – Edit the `pivot-deploy/join/node-config.json` file **before starting** your network node.
+2. **Using the API (Preferred)** – This allows dynamic updates **without restarting** the network node.
 
-Inference node configuration
+#### Inference node configuration
 An inference node is defined as follows in `node-config.json`:
 
 ```
@@ -114,7 +117,7 @@ An inference node is defined as follows in `node-config.json`:
 }
 ```
 
-#### Configuration parameters:
+**Configuration parameters**
                                  
 - `id` – A unique identifier for your inference node.
 - `host` – The **static IP** of your inference node or the **Docker container name** if the network node and inference node run on the same machine in a shared Docker network.
@@ -123,7 +126,7 @@ An inference node is defined as follows in `node-config.json`:
 - `max_concurrent` – The **maximum number of concurrent inference** requests this node can handle.
 - `models` – A list of supported models for this inference node.
 
-#### Adding or removing an inference node manually
+### **Adding or removing an inference node manually**
 - To **add** an inference node, insert its configuration into `pivot-deploy/join/node-config.json`.
 - To **remove** an inference node, delete its configuration from the file.
 - **Restart** the network node for changes to take effect.
@@ -131,6 +134,7 @@ An inference node is defined as follows in `node-config.json`:
 ### Using API for dynamic inference node management (Preferred Method)
 
 **Removing an inference node**
+
 Use the following API request to remove an inference node dynamically without restarting:
 
 ```
@@ -140,7 +144,9 @@ curl -X DELETE "http://<your_static_ip>:<network_node_api_port>/v1/nodes/{id}" -
 Where `id` is the identifier of the inference node as specified in `node-config.json`. If successful, the response will be **true**.
 
 **Adding an inference node**
+
 To dynamically add an inference node without restarting the network node, use the following API request:
+
 ```
 curl -X POST http://36.189.234.237:19010/v1/nodes \
      -H "Content-Type: application/json" \
@@ -165,7 +171,7 @@ curl -X POST http://36.189.234.237:19010/v1/nodes \
 
 This request follows the same structure as manually editing the `node-config.json` file. If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 
-#### Retrieving All Inference Nodes
+#### **Retrieving All Inference Nodes**
                                  
 To get a list of **all registered inference nodes** in your network node, use:
 
@@ -175,10 +181,12 @@ curl -X GET http://<your_static_ip>:<api-node-port>/v1/nodes
 
 This will return a JSON array containing all configured inference nodes.
 
-### Starting the network and inference node
+#### **Starting the network and inference node**
 Ensure your configuration is correctly set up by following the instructions above.
 
-#### Starting on a single machine
+---
+
+### Starting on a single machine
 To run both the **network node** and **inference node** on the same machine, execute the following commands in the `pivot-deploy/join` directory:
 
 ```                                 
@@ -187,9 +195,9 @@ docker compose -f docker-compose-cloud-join.yml up -d && \
 docker compose -f docker-compose-cloud-join.yml logs -f
 ```
 
-This will start one network node and one inference node on the same machine.
+This will start **one network node** and **one inference node** on the same machine.
 
-#### Starting on separate machines
+### Starting on separate machines
 **Running only the network node (without inference nodes)**
 
 If you want your server to run only the network node, execute the following in the `pivot-deploy/join` directory:

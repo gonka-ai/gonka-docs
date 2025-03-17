@@ -109,4 +109,71 @@ Run the following command to submit your inference request:
   --file ./inference-requests/request_payload.json
 ```
 
+## Generate signature for payload
+To sign payloads for secure communication, use the following Python script
+
+**How to use**
+
+```
+export PRIVATE_KEY_HEX=<decripted_private_key_hex>
+export ACCOUNT_ADDRESS=<cosmos_address>
+export PAYLOAD=<json_payload>
+python3 sign.py
+```
+
+```python
+import os
+import base64
+import hashlib
+from ecdsa import SigningKey, SECP256k1, util
+
+
+def load_private_key():
+    global SIGNING_KEY, ACCOUNT_ADDRESS
+
+    PRIVATE_KEY_HEX = os.getenv("PRIVATE_KEY_HEX")
+    ACCOUNT_ADDRESS = os.getenv("ACCOUNT_ADDRESS")
+
+    if not PRIVATE_KEY_HEX or not ACCOUNT_ADDRESS:
+        raise Exception("Environment variables PRIVATE_KEY_HEX and ACCOUNT_ADDRESS must be set.")
+
+    private_key_bytes = bytes.fromhex(PRIVATE_KEY_HEX)
+    SIGNING_KEY = SigningKey.from_string(private_key_bytes, curve=SECP256k1)
+
+
+def sign_payload(payload: bytes) -> str:
+    signature = SIGNING_KEY.sign_deterministic(
+        payload, hashfunc=hashlib.sha256, sigencode=util.sigencode_string
+    )
+    r, s = signature[:32], signature[32:]
+
+    curve_n = SECP256k1.order
+    s_int = int.from_bytes(s, byteorder="big")
+
+    if s_int > curve_n // 2:
+        s_int = curve_n - s_int  # Canonical s
+        s = s_int.to_bytes(32, byteorder="big")
+
+    compact_signature = r + s
+    return base64.b64encode(compact_signature).decode("utf-8")
+
+
+def main():
+    load_private_key()
+    payload_json = os.getenv("PAYLOAD")
+
+    if not payload_json:
+        raise Exception("Environment variable PAYLOAD must be set.")
+
+    # TODO: check that the JSON formatting does not change; otherwise, the signature will be considered invalid.
+    payload_bytes = payload_json.encode("utf-8")
+    signature_base64 = sign_payload(payload_bytes)
+    print("Base64 encoded signature:", signature_base64)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

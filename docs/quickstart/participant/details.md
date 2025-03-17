@@ -94,11 +94,11 @@ _This defines the number of blocks between the snapshot block height and the cur
 ### Adding and removing inference nodes
 Ensure your **network node** is correctly configured by following the setup guide above.
 
-#### Methods to add or remove inference nodes
+**#### Methods to add or remove inference nodes:**
 1. **Manually** – Edit the `pivot-deploy/join/node-config.json` file **before starting** your network node.
 2. **Using the API (Preferred)** – This allows dynamic updates **without restarting** the network node.
 
-#### Inference node configuration
+**#### Inference node configuration**
 An inference node is defined as follows in `node-config.json`:
 
 ```
@@ -205,6 +205,7 @@ docker compose -f docker-compose-cloud-join.yml up -d node api \ && docker compo
 ```
 
 **Running the inference node on a separate server**
+
 On the inference node's server, go to the `pivot-deploy/inference` directory and execute:
 
 ```

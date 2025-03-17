@@ -37,8 +37,7 @@ Edit the `pivot-deploy/join/config.env` file and set your node name, public URL,
 ```
 http://<your-static-ip>:<api-node-port-mapped-on-your-host-machine>  
 ```
-_This setup allows you to dynamically add inference nodes deployed on other servers to your current network node without needing to restart the network node.
-_
+_This setup allows you to dynamically add inference nodes deployed on other servers to your current network node without needing to restart the network node._
 
 !!! note "Optional parameters (Seed node configuration)"
     - `SEED_API_URL` – Public URL of the seed node.

@@ -72,7 +72,7 @@ curl -X GET https://api.yourchain.com/v1/participants/{{your_account_address}}
 
 Once your account is set up and funded, you can prepare an inference request, sign it locally using your private key, and then submit it to the inference API.
 
-1. **Prepare your request payload**. Save your request data to a file, for example `request_payload.json`. Here’s a sample of what the payload might look like:
+1.**Prepare your request payload**. Save your request data to a file, for example `request_payload.json`. Here’s a sample of what the payload might look like:
 
    ```json
    {
@@ -85,7 +85,7 @@ Once your account is set up and funded, you can prepare an inference request, si
    }
    ```
 
-2. **Sign the payload** using your private key:
+2.**Sign the payload** using your private key:
    ```bash
    inferenced signature create --account-address {{your_account_address}} --file request_payload.json
    ```
@@ -94,7 +94,7 @@ Once your account is set up and funded, you can prepare an inference request, si
     - The `--file` flag should point to the file containing your request payload.
     - This command will generate a **signature** based on the payload, which you will include in the next step.
 
-3. **Copy the output signature** from the command. This will be used when submitting your inference request to the API.
+3.**Copy the output signature** from the command. This will be used when submitting your inference request to the API.
 
 ---
 

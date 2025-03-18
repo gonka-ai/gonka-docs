@@ -6,7 +6,7 @@ name: index.md
 
 This guide explains how to create a user account and submit an inference request using the `inferenced` CLI tool.
 
-## Get `inferenced`
+## 1. Get `inferenced`
 
 To interact with the network, you need the `inferenced` CLI tool.   
 You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/inference-ignite/releases).
@@ -26,7 +26,7 @@ You can download the latest `inferenced` binary for your system [here](https://g
     
     5.	Try running `./inferenced --help` again to ensure it’s working.
 
-## Directories for credentials and requests
+### Directories for credentials and requests
 1.  Credentials will be stored in the `~/.inference` directory
 
 2. Create a Directory for Request Payloads
@@ -41,7 +41,7 @@ mkdir inference-requests
      - `http://36.189.234.237:19212`  
 
 
-## Define variables
+### Define variables
 
 Before creating an account, set up the required environment variables:
 
@@ -53,7 +53,7 @@ export ACCOUNT_NAME=<your-desired-account-name>
 - Replace `<your-desired-account-name>` with your chosen account name.
 - Replace `SEED_URL` with any available seed node from the **Seed Nodes** section above.
   
-## Create an account
+## 2. Create an account
 
 You can create an account with the following command:
 ```bash
@@ -61,7 +61,7 @@ You can create an account with the following command:
   --node-address $SEED_URL
 ```
 
-This command creates a new account and securely stores its keys in the `~/.inference directory`.
+This command creates a new account and securely stores its keys in the `~/.inference` directory.
 
 Please save the `ACCOUNT_ADDRESS` from the output lines:
 
@@ -78,7 +78,9 @@ Export the `ACCOUNT_ADDRESS` variable:
 export ACCOUNT_ADDRESS=<your-account-address>
 ```
 
-## Make an Inference Request
+## 3. Inference
+
+### Option 1: Inference Request with `inferenced`
 
 Save the payload for an OpenAI-compatible `/chat/completion` request in a file inside the `inference-requests` directory.
 For example, create a file named `inference-requests/request_payload.json` with the following content:
@@ -109,70 +111,86 @@ Run the following command to submit your inference request:
   --file ./inference-requests/request_payload.json
 ```
 
-## Generate signature for payload
-To sign payloads for secure communication, use the following Python script
+---
 
-**How to use**
+### Option 2: Inference with Python
 
+If you’d like to perform the request in Python:
+
+1.	Export your private key (for demo/testing only).
+
+```bash
+./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
 ```
-export PRIVATE_KEY_HEX=<decripted_private_key_hex>
-export ACCOUNT_ADDRESS=<cosmos_address>
-export PAYLOAD=<json_payload>
-python3 sign.py
-```
+
+This command outputs a plain-text private key (e.g. `<PRIVATE_KEY>`).  
+**In production, use a Key Management Service or environment variables.**
+
+
+2.	Use the code snippet below, replacing the placeholders (`<ACCOUNT_ADDRESS>`, `<PRIVATE_KEY>`, `<SEED_URL>`) with your actual values:
 
 ```python
-import os
-import base64
+import json
+import requests
 import hashlib
+import base64
 from ecdsa import SigningKey, SECP256k1, util
 
-
-def load_private_key():
-    global SIGNING_KEY, ACCOUNT_ADDRESS
-
-    PRIVATE_KEY_HEX = os.getenv("PRIVATE_KEY_HEX")
-    ACCOUNT_ADDRESS = os.getenv("ACCOUNT_ADDRESS")
-
-    if not PRIVATE_KEY_HEX or not ACCOUNT_ADDRESS:
-        raise Exception("Environment variables PRIVATE_KEY_HEX and ACCOUNT_ADDRESS must be set.")
-
-    private_key_bytes = bytes.fromhex(PRIVATE_KEY_HEX)
-    SIGNING_KEY = SigningKey.from_string(private_key_bytes, curve=SECP256k1)
+ACCOUNT_ADDRESS = "<ACCOUNT_ADDRESS>"
+PRIVATE_KEY_HEX = "<PRIVATE_KEY>"
+NODE_URL = "<SEED_URL>"
 
 
-def sign_payload(payload: bytes) -> str:
-    signature = SIGNING_KEY.sign_deterministic(
+def get_signing_key():
+    return SigningKey.from_string(bytes.fromhex(PRIVATE_KEY_HEX), curve=SECP256k1)
+
+def sign_payload(payload: bytes, signing_key: SigningKey) -> str:
+    signature = signing_key.sign_deterministic(
         payload, hashfunc=hashlib.sha256, sigencode=util.sigencode_string
     )
     r, s = signature[:32], signature[32:]
 
     curve_n = SECP256k1.order
     s_int = int.from_bytes(s, byteorder="big")
-
+    
     if s_int > curve_n // 2:
-        s_int = curve_n - s_int  # Canonical s
+        s_int = curve_n - s_int
         s = s_int.to_bytes(32, byteorder="big")
 
-    compact_signature = r + s
-    return base64.b64encode(compact_signature).decode("utf-8")
+    return base64.b64encode(r + s).decode("utf-8")
 
+def post_completion_request(host: str, messages: list[dict], stream: bool = False):
+    url = f"{host}/v1/chat/completions"
+    signing_key = get_signing_key()
+    
+    payload = {
+        "temperature": 0.8,
+        "model": "unsloth/llama-3-8b-Instruct",
+        "messages": messages,
+        "stream": stream,
+    }
 
-def main():
-    load_private_key()
-    payload_json = os.getenv("PAYLOAD")
+    payload_bytes = json.dumps(payload, separators=(',', ':'), sort_keys=False).encode('utf-8')
+    signature = sign_payload(payload_bytes, signing_key)
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": signature,
+        "X-Requester-Address": ACCOUNT_ADDRESS,
+    }
+    
+    return requests.post(url, headers=headers, data=payload_bytes, stream=stream)
 
-    if not payload_json:
-        raise Exception("Environment variable PAYLOAD must be set.")
+messages = [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "Hello, how are you?"}
+]
 
-    # TODO: check that the JSON formatting does not change; otherwise, the signature will be considered invalid.
-    payload_bytes = payload_json.encode("utf-8")
-    signature_base64 = sign_payload(payload_bytes)
-    print("Base64 encoded signature:", signature_base64)
-
-
-if __name__ == "__main__":
-    main()
+response = post_completion_request(host=NODE_URL, messages=messages)
+response.json()
 ```
 
+To perform inference from another language, adjust the examples accordingly.
+
+---
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

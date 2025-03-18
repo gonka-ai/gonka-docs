@@ -117,7 +117,7 @@ Run the following command to submit your inference request:
 
 If you’d like to perform the request in Python:
 
-1.	Export your private key (for demo/testing only).
+1. Export your private key (for demo/testing only).
 
 ```bash
 ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
@@ -127,7 +127,7 @@ This command outputs a plain-text private key (e.g. `<PRIVATE_KEY>`).
 **In production, use a Key Management Service or environment variables.**
 
 
-2.	Use the code snippet below, replacing the placeholders (`<ACCOUNT_ADDRESS>`, `<PRIVATE_KEY>`, `<SEED_URL>`) with your actual values:
+2. Use the code snippet below, replacing the placeholders (`<ACCOUNT_ADDRESS>`, `<PRIVATE_KEY>`, `<SEED_URL>`) with your actual values:
 
 ```python
 import json

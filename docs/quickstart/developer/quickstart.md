@@ -126,7 +126,6 @@ If you’d like to perform the request in Python:
 This command outputs a plain-text private key (e.g. `<PRIVATE_KEY>`).  
 **In production, use a Key Management Service or environment variables.**
 
-
 2. Use the code snippet below, replacing the placeholders (`<ACCOUNT_ADDRESS>`, `<PRIVATE_KEY>`, `<SEED_URL>`) with your actual values:
 
 ```python

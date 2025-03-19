@@ -56,7 +56,7 @@ inferenced query bank balances <address> [--node <node_rpc_url>]
 inferenced query bank balances cosmos1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e
 ```
 
-#### Optional `--node` Argument:
+#### Optional `--node` Argument
 
 Use the `--node` argument when you're executing the command in a development environment without direct access to a running chain node. If running alongside the chain node, specifying this argument is not required.
 

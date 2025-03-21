@@ -42,13 +42,13 @@ If you have Product Science account or Product Science has provided you with acc
     You can download all images from our local registry at `172.18.114.101:5556`:
 
     ```bash
-    docker pull 172.18.114.101:5556/decentralized-ai/mlnode:latest
-    docker pull 172.18.114.101:5556/decentralized-ai/inferenced:latest
-    docker pull 172.18.114.101:5556/decentralized-ai/api:latest
+    docker pull 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
+    docker pull 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-alpha3
+    docker pull 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
     
-    docker tag 172.18.114.101:5556/decentralized-ai/mlnode:latest gcr.io/decentralized-ai/mlnode:latest
-    docker tag 172.18.114.101:5556/decentralized-ai/inferenced gcr.io/decentralized-ai/inferenced:latest
-    docker tag 172.18.114.101:5556/decentralized-ai/api gcr.io/decentralized-ai/api:latest
+    docker tag 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1 ghcr.io/product-science/mlnode:3.0.1-alpha1
+    docker tag 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-alpha3 ghcr.io/product-science/inferenced:0.0.1-alpha3
+    docker tag 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3 ghcr.io/product-science/api:0.0.1-alpha3
     ```
 
     Also please mount cache for the fast model deploy:
@@ -101,7 +101,7 @@ The next variables configure the seed node and are optional to modify:
     Also, you need to remove the block from `docker-compose-cloud.yml` file which starts inference node:
     ```yaml
     # inference-node:
-    #   image: gcr.io/decentralized-ai/mlnode:latest
+    #   image: gcr.io/decentralized-ai/mlnode:$VERSION
     #   ...
     ```
 

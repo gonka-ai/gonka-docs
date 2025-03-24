@@ -7,7 +7,7 @@ To join the network, you need to deploy 2 services:
 1. **Network node** - a service that will be a part of the decentralized network and will process all communication
 2. **Inference node** - a service which will actually compute inference of LLMs on GPU(s)
 
-The guide contains a description of when both services are deployed on the same machine.  
+The guide contains a description of when both services are deployed on the same machine and one participant has one MLNode.  
 Services are deployed as Docker containers.
 
 ## Prerequisites
@@ -28,39 +28,7 @@ It also should have:
 
 - 26656 - Tendermint P2P communication
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
-- 8080 - Application service (configurable)
-
-### Container access
-
-Docker images are available in the private Google Container Registry.  
-If you have Product Science account or Product Science has provided you with access, you need to authenticate in `gcloud` and configure docker to access them.
-
-1. Run `gcloud auth login` and login with your account credentials
-2. Run `gcloud auth configure-docker`
-
-!!! note "For 6block team"
-    You can download all images from our local registry at `172.18.114.101:5556`:
-
-    ```bash
-    docker pull 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1
-    docker pull 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-alpha3
-    docker pull 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3
-    
-    docker tag 172.18.114.101:5556/decentralized-ai/mlnode:3.0.1-alpha1 ghcr.io/product-science/mlnode:3.0.1-alpha1
-    docker tag 172.18.114.101:5556/decentralized-ai/inferenced:0.0.1-alpha3 ghcr.io/product-science/inferenced:0.0.1-alpha3
-    docker tag 172.18.114.101:5556/decentralized-ai/api:0.0.1-alpha3 ghcr.io/product-science/api:0.0.1-alpha3
-    ```
-
-    Also please mount cache for the fast model deploy:
-    ```bash
-    [ -d "/mnt/shared" ] || sudo mkdir /mnt/shared
-    mountpoint -q /mnt/shared || sudo mount -t nfs 172.18.114.101:/mnt/shared /mnt/shared
-    sudo chmod -R 777 /mnt/shared
-    sudo rm -rf ~/cache && \
-    sudo mkdir ~/cache && \
-    sudo cp -r /mnt/shared/huggingface/hub ~/cache/hub
-    ```
-
+- 8000 - Application service (configurable)
 
 ## Download Configuration Files
 
@@ -72,8 +40,9 @@ cd pivot-deploy/join
 ```
 
 - `config.env` - contains environment variables for the network node
-- `docker-compose-cloud-join.yml` - a docker compose file to launch the network node
-- `node-config.json` - a configuration file for the inference node which will be user by network node
+- `docker-compose.yml` - a docker compose file to launch the network node
+- `node-config.json` - a configuration file for the inference node which will be user by network node. 
+Right now the network supports to models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Examples for their config can be found in `node-config.json` and `node-config-qwq.json` accordingly.
 
 ## Setup Your Node 
 
@@ -81,7 +50,8 @@ Edit `config.env` file and set your node name, public URL and other parameters.
 
 - `KEY_NAME` - name of your node. It must be unique
 - `PORT` - port where your node will be available at the machine (default is 8000)
-- `PUBLIC_URL` - public URL where your node will be available (e.g.: `http://<your-static-ip>:<port>`)
+- `PUBLIC_URL` - public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000)
+- `P2P_EXTERNAL_ADDRESS` - public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:26656)
 
 The next variables configure the seed node and are optional to modify:
 
@@ -91,9 +61,12 @@ The next variables configure the seed node and are optional to modify:
 
 !!! note "Seed Nodes"
     Here are the current seed nodes for the testnet:  
-     - `http://36.189.234.237:19204`  
-     - `http://36.189.234.237:19210`  
-     - `http://36.189.234.237:19212`  
+    
+    **Genesis:**
+
+    - `SEED_NODE_RPC_URL=http://195.242.10.196:26657` 
+    - `SEED_NODE_P2P_URL=tcp://195.242.10.196:26656` 
+    - `PUBLIC_URL=http://195.242.10.196:8000`  
 
 !!! note
     If you are using an inference node not on the same machine, you need to edit the `node-config.json` file and specify the correct URL of the inference node. 

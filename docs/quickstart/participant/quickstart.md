@@ -65,7 +65,7 @@ The next variables configure the seed node and are optional to modify:
 
     - `SEED_NODE_RPC_URL=http://195.242.10.196:26657` 
     - `SEED_NODE_P2P_URL=tcp://195.242.10.196:26656` 
-    - `PUBLIC_URL=http://195.242.10.196:8000`  
+    - `SEED_PUBLIC_URL=http://195.242.10.196:8000`  
 
 !!! note
     If you are using an inference node not on the same machine, you need to edit the `node-config.json` file and specify the correct URL of the inference node. 
@@ -83,8 +83,8 @@ Run the following command to launch your node:
 
 ```bash
 source config.env && \
-docker compose -f docker-compose-cloud-join.yml up -d && \
-docker compose -f docker-compose-cloud-join.yml logs -f
+docker compose -f docker-compose.yml up -d && \
+docker compose -f docker-compose.yml logs -f
 ```
 
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

@@ -9,7 +9,7 @@ This guide explains how to create a user account and submit an inference request
 ## 1. Get `inferenced`
 
 To interact with the network, you need the `inferenced` CLI tool.   
-You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/inference-ignite/releases).
+You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/pivot-deploy/releases).
 
 !!! note "Enabling Execution on Mac OS"
     On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
@@ -36,9 +36,12 @@ mkdir inference-requests
 
 !!! note "Seed Nodes"
     Here are the current seed nodes for the testnet:  
-     - `http://36.189.234.237:19204`  
-     - `http://36.189.234.237:19210`  
-     - `http://36.189.234.237:19212`  
+    
+    **Genesis:**
+
+    - `SEED_NODE_RPC_URL=http://195.242.10.196:26657` 
+    - `SEED_NODE_P2P_URL=tcp://195.242.10.196:26656` 
+    - `SEED_URL=http://195.242.10.196:8000`  
 
 
 ### Define variables
@@ -46,7 +49,7 @@ mkdir inference-requests
 Before creating an account, set up the required environment variables:
 
 ```bash
-export SEED_URL=http://36.189.234.237:19210  # Use any seed node from the list
+export SEED_URL=http://195.242.10.196:8000  # Use any seed node from the list
 export ACCOUNT_NAME=<your-desired-account-name>
 ```
 

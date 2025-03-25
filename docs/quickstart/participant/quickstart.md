@@ -10,18 +10,6 @@ To join the network, you need to deploy 2 services:
 The guide describes the scenario where both services are deployed on the same machine, and each participant has one MLNode. Services are deployed as Docker containers.
 
 ## Prerequisites
-
-To run a service, you need to have a machine with a [supported GPU(s)](/hardware-specifications).  
-
-It also should have:
-
-- 16 CPU cores
-- At least 1.5x RAM of the GPU VRAM
-- Linux OS
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-
 ### Supported LLMs and recommended server configurations
 
 In our network, we aim to support open-source LLMs that rank highly on Chat Arena. As of March 2025, this includes:
@@ -67,6 +55,17 @@ Each ML node should be equipped with one or more GPUs that have enough VRAM to r
 *If you have multiple H100 or A100 GPUs, consider grouping 2 or 8 of them into a single node to support higher-demand models.
 
 **If you have multiple 3090 GPUs, consider grouping 4 or 8 of them into a single node for better performance.
+
+To run a service, you need to have a machine with a [supported GPU(s)](/hardware-specifications).  
+
+It also should have:
+
+- 16 CPU cores
+- At least 1.5x RAM of the GPU VRAM
+- Linux OS
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 
 ### Ports open for public connections
 

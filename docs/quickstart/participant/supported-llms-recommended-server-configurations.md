@@ -41,4 +41,5 @@ Each ML node should be equipped with one or more GPUs that have enough VRAM to r
 | Qwen-7B       |        |        |        |        |         |         |        |        | ✅         |
 
 *If you have multiple H100 or A100 GPUs, consider grouping 2 or 8 of them into a single node to support higher-demand models.
+
 **If you have multiple 3090 GPUs, consider grouping 4 or 8 of them into a single node for better performance.

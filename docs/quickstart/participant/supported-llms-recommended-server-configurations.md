@@ -14,13 +14,16 @@ In our network, we aim to support open-source LLMs that rank highly on Chat Aren
 Each ML node should be equipped with one or more GPUs that have enough VRAM to run inference independently. Below are the recommended configurations per model size:
 
 **80GB+ VRAM** for:
+
   - `Gemma-3-27B`
   - `QwQ-32B`
 
 **160GB+ VRAM** for:
+
   - `Llama-3-70B`
 
 **640GB+ VRAM** for:
+
   - `DeepSeek-R1`
   - `DeepSeek-V3`
   - `Llama-3-405B`

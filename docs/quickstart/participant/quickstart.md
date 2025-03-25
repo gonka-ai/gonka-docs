@@ -21,7 +21,7 @@ In our network, we aim to support open-source LLMs that rank highly on Chat Aren
 - `Llama-3-70B`
 - `Llama-3-405B`
 
-#### Inference requirements
+### Inference requirements
 
 Each ML node should be equipped with one or more GPUs that have enough VRAM to run inference independently. Below are the recommended configurations per model size:
 
@@ -40,7 +40,7 @@ Each ML node should be equipped with one or more GPUs that have enough VRAM to r
   - `DeepSeek-V3`
   - `Llama-3-405B`
 
-#### Example server configurations
+### Example server configurations
 
 | Model         | 8×H100 | 8×A100 | 2×H100 | 2×A100 | 1×H100* | 1×A100* | 8×3090 | 4×3090 | 1×3090** |
 |---------------|--------|--------|--------|--------|---------|---------|--------|--------|-----------|
@@ -52,9 +52,9 @@ Each ML node should be equipped with one or more GPUs that have enough VRAM to r
 | Llama-3-405B  | ✅     | ✅     | ✅     | ✅     | ✅      | ✅      | ✅     | ✅     | ✅         |
 | Qwen-7B       |        |        |        |        |         |         |        |        | ✅         |
 
-_*If you have multiple H100 or A100 GPUs, consider grouping 2 or 8 of them into a single node to support higher-demand models.
+_*If you have multiple H100 or A100 GPUs, consider grouping 2 or 8 of them into a single node to support higher-demand models._
 
-**If you have multiple 3090 GPUs, consider grouping 4 or 8 of them into a single node for better performance._
+_**If you have multiple 3090 GPUs, consider grouping 4 or 8 of them into a single node for better performance._
 
 To run a service, you need to have a machine with a [supported GPU(s)](/hardware-specifications).  
 

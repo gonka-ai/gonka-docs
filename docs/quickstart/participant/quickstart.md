@@ -4,8 +4,8 @@
 
 To join the network, you need to deploy 2 services:
 
-1. **Network node** - a service that will be a part of the decentralized network and will process all communication
-2. **Inference node** - a service which will actually compute inference of LLMs on GPU(s)
+- **Network node** – a service consisting of two nodes: a **chain node** and an **API node**. This service handles all communication. The **chain node** connects to the blockchain, while the **API node** manages user requests.
+- **Inference (ML) node** – a service that performs inference of large language models (LLMs) on GPU(s). You need at least one **ML node** to join the network.
 
 The guide describes the scenario where both services are deployed on the same machine, and each participant has one MLNode. Services are deployed as Docker containers.
 

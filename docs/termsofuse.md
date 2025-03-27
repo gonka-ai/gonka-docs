@@ -9,5 +9,5 @@ Model licenses:
 - [Gemma-3-27B](https://ai.google.dev/gemma/terms)
 - [Llama-3.1-70B](https://ollama.com/library/llama3:70b/blobs/4fa551d4f938)
 - [Llama-3.1-405B](https://ollama.com/library/llama3.1:405b/blobs/0ba8f0e314b4)
-- [Qwen-7B](https://huggingface.co/Qwen/Qwen-7B/blob/main/LICENSE)
+- [Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE)
 - [QwQ-32B](https://huggingface.co/Qwen/QwQ-32B)

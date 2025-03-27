@@ -86,7 +86,32 @@ The next variables configure the seed node and are optional to modify:
 
     - `SEED_NODE_RPC_URL=http://195.242.10.196:26657` 
     - `SEED_NODE_P2P_URL=tcp://195.242.10.196:26656` 
-    - `SEED_PUBLIC_URL=http://195.242.10.196:8000`  
+    - `SEED_PUBLIC_URL=http://195.242.10.196:8000`
+
+## Setup Model Cache
+
+During model deployment, MLNode automatically downloads model weights from Hugging Face.
+To specify a custom Hugging Face cache directory, set the `HF_HOME` environment variable accordingly.
+
+If MLNode cannot access Hugging Face directly, 
+you can preload the models using the [`huggingface-cli`](https://huggingface.co/docs/huggingface_hub/en/guides/cli) 
+on another machine and then transfer the cache to the server running MLNode. 
+When doing so, ensure you set the same `HF_HOME` on both machines. 
+Do not rely on the `--local-dir` parameter; instead, use `HF_HOME` so the directory structure matches exactly. 
+On the MLNode server, `HF_HOME` should point to the parent directory of the `hub` folder created by `huggingface-cli`.
+
+
+!!! node "6Block Network: Models Cache":
+    A pre-downloaded Hugging Face cache for `Qwen/Qwen2.5-7B-Instruct` is available on the 6Block Network via the NFS directory `172.18.114.147:/mnt/toshare`.
+
+    To mount it you can mount this directory to local one:
+    ```
+    sudo mount -t nfs 172.18.114.147:/mnt/toshare /mnt/shared
+    ``` 
+    And then point `HF_HOME` to it:
+    ```
+    export HF_HOME=/mnt/shared
+    ```
 
 !!! note
     If you are using an inference node not on the same machine, you need to edit the `node-config.json` file and specify the correct URL of the inference node. 
@@ -107,5 +132,7 @@ source config.env && \
 docker compose -f docker-compose.yml up -d && \
 docker compose -f docker-compose.yml logs -f
 ```
+
+If you need to restart node as new participant, remove `.inference` directory.
 
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

@@ -96,8 +96,9 @@ To specify a custom Hugging Face cache directory, set the `HF_HOME` environment 
 If MLNode cannot access Hugging Face directly, 
 you can preload the models using the [`huggingface-cli`](https://huggingface.co/docs/huggingface_hub/en/guides/cli) 
 on another machine and then transfer the cache to the server running MLNode. 
+
 When doing so, ensure you set the same `HF_HOME` on both machines. 
-Do not rely on the `--local-dir` parameter; instead, use `HF_HOME` so the directory structure matches exactly. 
+Do not rely on the `--local-dir` parameter; instead, use `HF_HOME` so the directory structure matches exactly.   
 On the MLNode server, `HF_HOME` should point to the parent directory of the `hub` folder created by `huggingface-cli`.
 
 

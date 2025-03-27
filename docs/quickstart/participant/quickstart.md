@@ -103,19 +103,19 @@ On the MLNode server, `HF_HOME` should point to the parent directory of the `hub
 
 
 !!! node "6Block Network: Models Cache"
-    A pre-downloaded Hugging Face cache for `Qwen/Qwen2.5-7B-Instruct` is available on the 6Block Network via the NFS directory `172.18.114.147:/mnt/toshare`.
+    A pre-downloaded Hugging Face cache for Qwen/Qwen2.5-7B-Instruct is available on the 6Block Network via the NFS directory at `172.18.114.147:/mnt/toshare`.
 
-    To mount it you can mount this directory to local one:
+    To use this cache, mount the remote directory to your local system using:
     ```
     sudo mount -t nfs 172.18.114.147:/mnt/toshare /mnt/shared
     ``` 
-    And then point `HF_HOME` to it:
+    Then, set the `HF_HOME` environment variable to point to this location:
     ```
     export HF_HOME=/mnt/shared
     ```
 
 !!! note
-    If you are using an inference node not on the same machine, you need to edit the `node-config.json` file and specify the correct URL of the inference node. 
+    If you are using an inference node that is not on the same machine, you need to edit the `node-config.json` file and specify the correct URL of the inference node. 
 
     Also, you need to remove the block from `docker-compose-cloud.yml` file which starts inference node:
     ```yaml

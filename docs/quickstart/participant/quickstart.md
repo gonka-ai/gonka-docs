@@ -101,7 +101,7 @@ Do not rely on the `--local-dir` parameter; instead, use `HF_HOME` so the direct
 On the MLNode server, `HF_HOME` should point to the parent directory of the `hub` folder created by `huggingface-cli`.
 
 
-!!! node "6Block Network: Models Cache":
+!!! node "6Block Network: Models Cache"
     A pre-downloaded Hugging Face cache for `Qwen/Qwen2.5-7B-Instruct` is available on the 6Block Network via the NFS directory `172.18.114.147:/mnt/toshare`.
 
     To mount it you can mount this directory to local one:

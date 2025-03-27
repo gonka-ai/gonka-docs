@@ -1,6 +1,6 @@
 # Hardware Specifications
 
-Criteria: Nvidia GPUs belonging to generations after Tesla, with a minimum of 16 GB VRAM, and suitable for inference of Llama-3 (8B) in FP16.
+Criteria: Nvidia GPUs belonging to generations after Tesla, with a minimum of 16 GB VRAM, and suitable for inference of `Qwen/Qwen2.5-7B-Instruct` in FP16.
 
 | NVIDIA GPU         | Release Date  | VRAM           | Architecture | Generation            |
 |---------------------|---------------|----------------|--------------|-----------------------|

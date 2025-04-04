@@ -6,7 +6,7 @@ This section describes the `Network Node API`, specifically the `/v1/epochs/{epo
 - Participant data
 - Validator signatures
 
-##Usage
+## Usage
 
 Current Epoch Data
 ```bash

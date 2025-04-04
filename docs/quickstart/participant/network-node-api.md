@@ -147,7 +147,4 @@ curl -X GET http://<your_api_node>/v1/epochs/<epoch_id>/participants
 - Includes full block header metadata, proposer address, commit signatures, etc.
 - Useful for verifying the inclusion and commitment of participant data
 
-For further details, refer to the code implementation:
-[GitHub - server.go](https://github.com/product-science/inference-ignite/blob/5fcfe675b561b65db96a8abe00b675f371e65969/decentralized-api/server.go#L122)
-
 **Need help?** Join [Discord server](https://discord.com/invite/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.

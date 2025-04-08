@@ -46,7 +46,7 @@ It also should have:
 
 ### Ports open for public connections
 
-- 26656 - Tendermint P2P communication
+- 5000 - Tendermint P2P communication
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
 - 8000 - Application service (configurable)
 
@@ -71,7 +71,7 @@ Edit `config.env` file and set your node name, public URL and other parameters.
 - `KEY_NAME` - name of your node. It must be unique
 - `PORT` - port where your node will be available at the machine (default is 8000)
 - `PUBLIC_URL` - public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000)
-- `P2P_EXTERNAL_ADDRESS` - public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:26656)
+- `P2P_EXTERNAL_ADDRESS` - public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000)
 
 The next variables configure the seed node and are optional to modify:
 
@@ -84,9 +84,9 @@ The next variables configure the seed node and are optional to modify:
     
     **Genesis:**
 
-    - `SEED_NODE_RPC_URL=http://195.242.10.196:26657` 
-    - `SEED_NODE_P2P_URL=tcp://195.242.10.196:26656` 
-    - `SEED_PUBLIC_URL=http://195.242.10.196:8000`
+    - `SEED_NODE_RPC_URL=http://195.242.13.239:26657` 
+    - `SEED_NODE_P2P_URL=tcp://195.242.13.239:26656` 
+    - `SEED_PUBLIC_URL=http://195.242.13.239:8000`
 
 ## Setup Model Cache
 

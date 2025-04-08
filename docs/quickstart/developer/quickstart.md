@@ -39,9 +39,9 @@ mkdir inference-requests
     
     **Genesis:**
 
-    - `SEED_NODE_RPC_URL=http://195.242.10.196:26657` 
-    - `SEED_NODE_P2P_URL=tcp://195.242.10.196:26656` 
-    - `SEED_URL=http://195.242.10.196:8000`  
+    - `SEED_NODE_RPC_URL=http://195.242.13.239:26657` 
+    - `SEED_NODE_P2P_URL=tcp://195.242.13.239:26656` 
+    - `SEED_PUBLIC_URL=http://195.242.13.239:8000`
 
 
 ### Define variables

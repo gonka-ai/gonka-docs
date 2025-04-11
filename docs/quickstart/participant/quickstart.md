@@ -43,6 +43,7 @@ It also should have:
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+- Nvidia GPUs belonging to generations after Tesla, with a minimum of 16 GB VRAM, and suitable for inference of `Qwen/Qwen2.5-7B-Instruct` in FP16.
 
 ### Ports open for public connections
 

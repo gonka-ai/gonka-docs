@@ -27,20 +27,22 @@ Edit the `pivot-deploy/join/config.env` file and set your node name, public URL,
 
 ### Required parameters
 
-- `KEY_NAME` – The name of your node (must be unique).
-- `PORT` – The port where your node is accessible (default: `8000`).
-- `PUBLIC_URL` – The public URL where your node will be accessible (`http://<your-static-ip>:<port>`).
-- `DAPI_API__POC_CALLBACK_URL` – The API node URL where ML nodes will send Proofs of Compute.
-    - If this parameter is set incorrectly, even if your ML nodes complete computations on time, they will not be recognized.
-    - It is recommended to set this value as:
+- `KEY_NAME` – The name of your node. It must be unique.
+- `PUBLIC_SERVER_PORT` – The port where your node will be available on the machine (default is 8000) for the whole world. 
+- `ML_SERVER_PORT` - The port where your node would communicate with the inference node during PoC (proof of compute). The port must be open only to the internal network of servers where your nodes are deployed; otherwise, the Inference nodes will not be able to send the generated proof. 
+- `ADMIN_SERVER_PORT` - The port where your admin API would be available. It is recommended to keep this port mapped only on your host machine, because using that port you can administrate your cluster. 
+- `PUBLIC_URL` – The public URL where your node will be accessible (e.g., http://<your-static-ip>:<public_server_port>).
+- `DAPI_API__POC_CALLBACK_URL` – The API node URL where your ML nodes will send their Proofs of Compute.
+   - If this parameter is set incorrectly, even if your ML nodes complete computations on time, they will not be recognized.
+   - It is recommended to set this value as:
 
 ```
-http://<your-static-ip>:<api-node-port-mapped-on-your-host-machine>  
+http://<your-static-ip>:<api-node-ml-server-port-mapped-on-your-host-machine>  
 ```
 _This setup allows you to dynamically add inference nodes deployed on other servers to your current network node without needing to restart the network node._
 
 !!! note "Optional parameters (Seed node configuration)"
-    - `SEED_API_URL` – Public URL of the seed node.
+    - `SEED_API_URL` – public URL of the seed node.
     - `SEED_NODE_RPC_URL` – RPC URL of the seed node.
     - `SEED_NODE_P2P_URL` – P2P URL of the seed node.
 
@@ -87,7 +89,7 @@ export TRUSTED_BLOCK_PERIOD=<your_value>
 _This defines the number of blocks between the snapshot block height and the current block height to ensure the snapshot's state is final and cannot be altered._
 
 !!! note "Example"
-    - If the current block height is `1000` and` TRUSTED_BLOCK_PERIOD=100`, your node will only accept snapshots made at block `880` or earlier.
+    - If the current block height is `1000` and `TRUSTED_BLOCK_PERIOD=100`, your node will only accept snapshots made at block `880` or earlier.
     - Snapshots from blocks `990` and `950` would be considered too recent to be trusted.
     - **Default Value**: `TRUSTED_BLOCK_PERIOD=2000`. It is **not recommended** to set this value below `1000` blocks.
     
@@ -108,9 +110,14 @@ An inference node is defined as follows in `node-config.json`:
     "inference_port": 5000,
     "poc_port": 8080,
     "max_concurrent": 500,
-     "models": [
-      "unsloth/llama-3-8b-Instruct"
-    ]
+     "models": {
+  "unsloth/llama-3-8b-Instruct": {
+"args": [
+  "--quantization",
+  "fp8"
+]
+}
+},
 }
 ```
 
@@ -119,9 +126,9 @@ An inference node is defined as follows in `node-config.json`:
 - `id` – A unique identifier for your inference node.
 - `host` – The **static IP** of your inference node or the **Docker container name** if the network node and inference node run on the same machine in a shared Docker network.
 - `inference_port` – The port where the inference node **accepts inference and training tasks** (default: `5000`).
-- `poc_port` – The port where the inference node handles **Proof of Compute (PoC)** tasks (default: `8080`).
-- `max_concurrent` – The **maximum number of concurrent inference** requests this node can handle.
-- `models` – A list of supported models for this inference node.
+- `poc_port` – The port where the inference node **handles Proof of Compute (PoC)** tasks (default:8080).
+- `max_concurrent` – The **maximum number of concurrent** inference requests this node can handle.
+- `models` – A map of supported models for this inference node with their arguments.
 
 ### **Adding or removing an inference node manually**
 - To **add** an inference node, insert its configuration into `pivot-deploy/join/node-config.json`.
@@ -132,10 +139,10 @@ An inference node is defined as follows in `node-config.json`:
 
 **Removing an inference node**
 
-Use the following API request to remove an inference node dynamically without restarting:
+Being connected to your server machine, use the following API request to remove an inference node dynamically without restarting:
 
 ```
-curl -X DELETE "http://<your_static_ip>:<network_node_api_port>/v1/nodes/{id}" -H "Content-Type: application/json"
+curl -X DELETE "http://localhost:<network_node_admin_server_port>/admin/v1/nodes/{id}" -H "Content-Type: application/json"
 ```
 
 Where `id` is the identifier of the inference node as specified in `node-config.json`. If successful, the response will be **true**.

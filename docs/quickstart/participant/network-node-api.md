@@ -10,12 +10,12 @@ This section describes the `Network Node API`, specifically the `/v1/epochs/{epo
 
 Current Epoch Data
 ```bash
-curl -X GET http://<your_api_node>/v1/epochs/current/participants
+curl -X GET http://<your_api_node_url:public_port>/v1/epochs/current/participants
 ```
 
 Specific Epoch Data
 ```bash
-curl -X GET http://<your_api_node>/v1/epochs/<epoch_id>/participants 
+curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/participants
 ```
 ---
 ##Example response breakdown

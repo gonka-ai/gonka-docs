@@ -105,19 +105,19 @@ An inference node is defined as follows in `node-config.json`:
 
 ```
 {
-    "id": "node1",
-    "host": "inference-node",
-    "inference_port": 5000,
-    "poc_port": 8080,
-    "max_concurrent": 500,
-     "models": {
-  "unsloth/llama-3-8b-Instruct": {
-"args": [
-  "--quantization",
-  "fp8"
-]
-}
-},
+  "id": "node1",
+  "host": "inference-node",
+  "inference_port": 5000,
+  "poc_port": 8080,
+  "max_concurrent": 500,
+  "models": {
+    "unsloth/llama-3-8b-Instruct": {
+      "args": [
+        "--quantization",
+        "fp8"
+      ]
+    }
+  }
 }
 ```
 

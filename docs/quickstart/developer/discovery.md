@@ -1,5 +1,5 @@
 ## Discovery
-To discover active inference providers on the network, use the `/v1/epochs/current/participants endpoint`. This endpoint returns the current inference providers and their addresses, so you only need to know the address of a single bootstrap API node to retrieve the entire list.
+To discover active inference providers on the network, use the `/v1/epochs/current/participants` endpoint. This endpoint returns the current inference providers and their addresses, so you only need to know the address of a single bootstrap API node to retrieve the entire list.
 
 ## Verification
 Use the Python script below to verify the list is valid and truthful. It recursively iterates over each Proof-of-Compute epoch starting from genesis. At every step, it performs a Merkle proof verification for that epoch’s inference provider list and ensures the block is signed by the providers from the previous epoch.

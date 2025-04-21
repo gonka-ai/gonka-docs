@@ -1,7 +1,5 @@
 # Cosmos Wallet & Transfer Guide
 
-## Cosmos Wallet & Transfer Guide
-
 In Cosmos, a fund transfer means sending tokens from one account (wallet address) to another within a Cosmos-based blockchain. These transfers are used to pay for services, interact with smart contracts, or simply send value between users. You perform transfers using the Cosmos SDK command-line tool — specifically, the inferenced CLI. Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and token denomination.
 
 In the Cosmos blockchain ecosystem, transferring funds means sending tokens from one account (wallet address) to another. This guide walks you through:

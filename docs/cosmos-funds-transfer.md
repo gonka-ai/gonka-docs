@@ -30,7 +30,7 @@ Write down the address (used to receive tokens and query balance).
 
 ### Query Balance
 
-To check your balance and ensure you have sufficient funds before transferring or to verify a successful transfer, use the following command:
+To check your balance, ensure you have sufficient funds before transferring or to verify a successful transfer, use the following command:
 
 ```bash
 inferenced query bank balances <address> [--node <node_rpc_url>]

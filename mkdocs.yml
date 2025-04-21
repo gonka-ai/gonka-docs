@@ -19,8 +19,7 @@ nav:
               - Quickstart: quickstart/participant/quickstart.md
               - Details: quickstart/participant/details.md
               - Network Node API: quickstart/participant/network-node-api.md
-      - Query balance: query-balance.md
-      - Cosmos Funds Transfer: cosmos-funds-transfer.md
+      - Cosmos Wallet & Transfer Guide: cosmos-funds-transfer.md
       - Pricing: pricing.md
       - Terms & Policies: termsofuse.md
       - Hardware Specifications: hardware-specifications.md

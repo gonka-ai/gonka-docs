@@ -49,7 +49,7 @@ You can download the latest `inferenced` binary for your system [here](https://g
 Before creating an account, set up the required environment variables:
 
 ```bash
-export API_URL=http://195.242.10.196:8000  # Use any seed node from the list
+export API_URL=http://195.242.10.196:8000  # Use any node from the list
 export ACCOUNT_NAME=<your-desired-account-name>
 ```
 

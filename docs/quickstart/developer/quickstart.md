@@ -33,13 +33,10 @@ You can download the latest `inferenced` binary for your system [here](https://g
 !!! note 
     Credentials will be stored in the `~/.inference` directory
 
-!!! note "Seed Nodes"
-    Here are the current seed nodes for the testnet:  
+!!! note "Seed Node"
+    Here are the current seed node for the testnet:  
     
     **Genesis:**
-
-    - `SEED_NODE_URL=http://195.242.13.239:26657` 
-    - `SEED_NODE_URL=tcp://195.242.13.239:26656` 
     - `API_URL=http://195.242.13.239:8000`
 
 

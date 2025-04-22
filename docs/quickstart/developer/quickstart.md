@@ -5,7 +5,7 @@ name: index.md
 # Developer Quickstart
 
 This guide explains how to create a user account and submit an inference request using the `inferenced` CLI tool.
-To proceed, you’ll need access to the private codebase. Please send your GitHub username to _hello@productscience.ai_. 
+To proceed, you’ll need access to the private codebase. Please send your GitHub username to hello@productscience.ai. 
 
 ---
 

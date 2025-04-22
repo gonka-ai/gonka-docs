@@ -54,7 +54,7 @@ export ACCOUNT_NAME=<your-desired-account-name>
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
-- Replace `API_URL` with any available seed node from the **Seed Nodes** section above.
+- Replace `API_URL` with any available node from the [list of current active participants](https://testnet.productscience.ai/quickstart/developer/quickstart/#1-get-inferenced:~:text=list%20of%20current%20active%20participants) (note above).
 
 ## 2. Create an account
 

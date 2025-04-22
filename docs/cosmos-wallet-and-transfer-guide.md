@@ -109,7 +109,7 @@ inferenced query bank balances cosmos1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e
 Once you know your balance and have the recipient’s address, you can send tokens.
 
 ```bash
-inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id prod-sim
+inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id prod-sim [--node <node_rpc_url> | --keyring-backend test]
 ```
 
 **Example:**

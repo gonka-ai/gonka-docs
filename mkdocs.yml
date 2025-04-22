@@ -19,7 +19,7 @@ nav:
               - Quickstart: quickstart/participant/quickstart.md
               - Details: quickstart/participant/details.md
               - Network Node API: quickstart/participant/network-node-api.md
-      - Cosmos Wallet & Transfer Guide: cosmos-wallet-and-transfer-guide.md
+      - Wallet & Transfer Guide: wallet-and-transfer-guide.md
       - Pricing: pricing.md
       - Terms & Policies: termsofuse.md
       - Hardware Specifications: hardware-specifications.md

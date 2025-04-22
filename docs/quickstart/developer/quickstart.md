@@ -51,8 +51,24 @@ export ACCOUNT_NAME=<your-desired-account-name>
 
 - Replace `<your-desired-account-name>` with your chosen account name.
 - Replace `API_URL` with any available seed node from the **Seed Nodes** section above.
-  
-## 2. Create an account
+
+## 2. API Endpoints
+
+You can view the current list of active participants in the network (nodes participating in inference) using this API call to the genesis node:
+
+```bash
+GET http://195.242.13.239:8000/v1/epochs/current/participants
+```
+This returns a JSON array of nodes currently active in the epoch.
+
+This is useful to:
+- Verify your API_URL points to a live node
+- Check network health and peer activity
+- Choose a node before account creation
+
+Now that your endpoint is confirmed to be active, you can proceed with creating your account.
+
+## 3. Create an account
 
 You can create an account with the following command:
 ```bash
@@ -77,7 +93,7 @@ Export the `ACCOUNT_ADDRESS` variable:
 export ACCOUNT_ADDRESS=<your-account-address>
 ```
 
-## 3. Inference
+## 4. Inference
 
 ### Option 1: Inference Request with `inferenced`
 

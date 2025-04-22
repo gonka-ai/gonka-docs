@@ -23,7 +23,7 @@ You can download the latest `inferenced` binary for your system [here](https://g
     ```
     chmod +x inferenced
     ```
-    3.	Try running `./inferenced --help` again to ensure it’s working.
+    3.	Try running `./inferenced --help` to ensure it’s working.
         
     4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
     
@@ -40,7 +40,7 @@ You can download the latest `inferenced` binary for your system [here](https://g
     You can view the **list of current active participants** in the network (nodes participating in inference) using this API call to the  genesis node:
 
     ```bash
-    GET http://195.242.13.239:8000/v1/epochs/current/participants
+    curl http://195.242.13.239:8000/v1/epochs/current/participants
     ```
     This returns a JSON array of nodes currently active in the epoch.
 
@@ -49,7 +49,7 @@ You can download the latest `inferenced` binary for your system [here](https://g
 Before creating an account, set up the required environment variables:
 
 ```bash
-export API_URL=http://195.242.10.196:8000  # Use any node from the list
+export API_URL=http://195.242.13.239:8000  
 export ACCOUNT_NAME=<your-desired-account-name>
 ```
 

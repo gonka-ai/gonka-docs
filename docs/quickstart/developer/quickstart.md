@@ -64,11 +64,6 @@ GET http://195.242.13.239:8000/v1/epochs/current/participants
 ```
 This returns a JSON array of nodes currently active in the epoch.
 
-This is useful to:
-- Verify your API_URL points to a live node
-- Check network health and peer activity
-- Choose a node before account creation
-
 Now that your endpoint is confirmed to be active, you can proceed with creating your account.
 
 ## 3. Create an account

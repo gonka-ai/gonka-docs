@@ -33,11 +33,15 @@ You can download the latest `inferenced` binary for your system [here](https://g
 !!! note 
     Credentials will be stored in the `~/.inference` directory
 
-!!! note "The current seed node for the testnet"
-    
+!!! note
     **Genesis:**
     `API_URL=http://195.242.13.239:8000`
+    You can view the current list of active participants in the network (nodes participating in inference) using this API call to the  genesis node:
 
+    ```bash
+    GET http://195.242.13.239:8000/v1/epochs/current/participants
+    ```
+    This returns a JSON array of nodes currently active in the epoch.
 
 ### Define variables
 
@@ -51,16 +55,7 @@ export ACCOUNT_NAME=<your-desired-account-name>
 - Replace `<your-desired-account-name>` with your chosen account name.
 - Replace `API_URL` with any available seed node from the **Seed Nodes** section above.
 
-## 2. API Endpoints
-
-You can view the current list of active participants in the network (nodes participating in inference) using this API call to the genesis node:
-
-```bash
-GET http://195.242.13.239:8000/v1/epochs/current/participants
-```
-This returns a JSON array of nodes currently active in the epoch.
-
-## 3. Create an account
+## 2. Create an account
 
 You can create an account with the following command:
 ```bash
@@ -87,7 +82,7 @@ Export the `ACCOUNT_ADDRESS` variable:
 export ACCOUNT_ADDRESS=<your-account-address>
 ```
 
-## 4. Inference
+## 3. Inference
 
 ### Option 1: Inference Request with `inferenced`
 

@@ -211,6 +211,13 @@ messages = [
 
 response = post_completion_request(host=NODE_URL, messages=messages)
 response.json()
+
+# readable output
+response_json = response.json()
+assistant_message = response_json['choices'][0]['message']['content']
+
+print("\nAssistant says:", assistant_message)
+
 ```
 
 To perform inference from another language, adjust the examples accordingly.

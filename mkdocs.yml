@@ -13,8 +13,6 @@ nav:
       - Quickstart:
           - Developer: 
               - Quickstart: quickstart/developer/quickstart.md
-              - Details: quickstart/developer/details.md
-              - Discovery: quickstart/developer/discovery.md
           - Participant:
               - Quickstart: quickstart/participant/quickstart.md
               - Details: quickstart/participant/details.md

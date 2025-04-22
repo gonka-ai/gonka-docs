@@ -27,12 +27,8 @@ You can download the latest `inferenced` binary for your system [here](https://g
     5.	Try running `./inferenced --help` again to ensure it’s working.
 
 ### Directories for credentials and requests
-1.  Credentials will be stored in the `~/.inference` directory
-
-2. Create a Directory for Request Payloads
-```
-mkdir inference-requests
-```
+!!! note 
+    Credentials will be stored in the `~/.inference` directory
 
 !!! note "Seed Nodes"
     Here are the current seed nodes for the testnet:  
@@ -85,13 +81,18 @@ export ACCOUNT_ADDRESS=<your-account-address>
 
 ### Option 1: Inference Request with `inferenced`
 
+Create a Directory for Request Payloads
+```
+mkdir inference-requests
+```
+
 Save the payload for an OpenAI-compatible `/chat/completion` request in a file inside the `inference-requests` directory.
 For example, create a file named `inference-requests/request_payload.json` with the following content:
 
 ```json
 {
   "temperature" : 0.8,
-  "model" : "unsloth/llama-3-8b-Instruct",
+  "model" : "Qwen/QwQ-32B",
   "messages": [{
       "role": "system",
       "content": "Regardless of the language of the question, answer in English"
@@ -167,7 +168,7 @@ def post_completion_request(host: str, messages: list[dict], stream: bool = Fals
     
     payload = {
         "temperature": 0.8,
-        "model": "unsloth/llama-3-8b-Instruct",
+        "model": "Qwen/QwQ-32B",
         "messages": messages,
         "stream": stream,
     }

@@ -1,4 +1,4 @@
-# Cosmos Wallet & Transfer Guide
+# Wallet & Transfer Guide
 
 In Cosmos, a fund transfer means sending tokens from one account (wallet address) to another within a Cosmos-based blockchain. 
 These transfers are used to pay for services or simply send value between users. 
@@ -7,6 +7,7 @@ Each transfer is recorded on the blockchain and needs a valid sender, recipient,
 
 This guide walks you through:
 
+- How to access your participant acccount
 - How to get your wallet address
 - How to check your token balance
 - How to send tokens to another address

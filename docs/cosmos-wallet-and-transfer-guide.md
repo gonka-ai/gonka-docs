@@ -92,7 +92,7 @@ Write down the address (used to receive tokens and query balance).
 To check your balance, ensure you have sufficient funds before transferring or to verify a successful transfer, use the following command:
 
 ```bash
-inferenced query bank balances <address> [--node <node_rpc_url> | --keyring-backend test]
+inferenced query bank balances <address> [--node <node_rpc_url>]
 ```
 This shows how many tokens are in your wallet.
 
@@ -109,13 +109,13 @@ inferenced query bank balances cosmos1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e
 Once you know your balance and have the recipient’s address, you can send tokens.
 
 ```bash
-inferenced tx bank send <sender-key-name> <recipient-address> <coins>
+inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id prod-sim
 ```
 
 **Example:**
 
 ```bash
-inferenced tx bank send genesis cosmos1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100icoin
+inferenced tx bank send genesis cosmos1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100icoin --chain-id prod-sim
 ```
 
 When specifying coins, you can use the following denominations:

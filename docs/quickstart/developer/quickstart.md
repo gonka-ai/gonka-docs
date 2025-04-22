@@ -37,7 +37,7 @@ You can download the latest `inferenced` binary for your system [here](https://g
     **Genesis:**
     `API_URL=http://195.242.13.239:8000`
     
-    You can view the **current list of active participants** in the network (nodes participating in inference) using this API call to the  genesis node:
+    You can view the **list of current active participants** in the network (nodes participating in inference) using this API call to the  genesis node:
 
     ```bash
     GET http://195.242.13.239:8000/v1/epochs/current/participants

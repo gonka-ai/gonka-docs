@@ -33,6 +33,7 @@ You can download the latest `inferenced` binary for your system [here](https://g
 !!! note 
     **Credentials** will be stored in the `~/.inference` directory
 
+!!! note 
     **Genesis:**
     `API_URL=http://195.242.13.239:8000`
     

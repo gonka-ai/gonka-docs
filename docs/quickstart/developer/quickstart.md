@@ -115,18 +115,14 @@ For example, create a file named `inference-requests/request_payload.json` with 
 
 ```json
 {
-  "temperature" : 0.8,
-  "model" : "Qwen/QwQ-32B",
-  "messages": [{
-      "role": "system",
-      "content": "Regardless of the language of the question, answer in English"
-    },
+  "model": "Qwen/QwQ-32B",
+  "messages": [
     {
-        "role": "user",
-        "content": "When did Hawaii become a state?"
+      "role": "user",
+      "content": "What is the capital city of France?"
     }
   ],
-  "stream": true
+  "stream": false
 }
 ```
 
@@ -151,7 +147,7 @@ If you’d like to perform the request in Python:
 ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
 ```
 
-This command outputs a plain-text private key (e.g. `<PRIVATE_KEY>`).  
+This command outputs a plain-text private key (e.g. `<PRIVATE_KEY_HEX>`).  
 **In production, use a Key Management Service or environment variables.**
 
 2.Use the code snippet below, replacing the placeholders (`<ACCOUNT_ADDRESS>`, `<PRIVATE_KEY>`, `<API_URL>`) with your actual values:

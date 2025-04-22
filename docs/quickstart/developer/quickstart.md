@@ -33,11 +33,10 @@ You can download the latest `inferenced` binary for your system [here](https://g
 !!! note 
     Credentials will be stored in the `~/.inference` directory
 
-!!! note "Seed Node"
-    Here are the current seed node for the testnet:  
+!!! note "The current seed node for the testnet"
     
     **Genesis:**
-    - `API_URL=http://195.242.13.239:8000`
+    `API_URL=http://195.242.13.239:8000`
 
 
 ### Define variables

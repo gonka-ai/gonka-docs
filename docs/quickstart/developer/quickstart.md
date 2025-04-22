@@ -35,9 +35,9 @@ You can download the latest `inferenced` binary for your system [here](https://g
     
     **Genesis:**
 
-    - `SEED_NODE_RPC_URL=http://195.242.13.239:26657` 
-    - `SEED_NODE_P2P_URL=tcp://195.242.13.239:26656` 
-    - `SEED_PUBLIC_URL=http://195.242.13.239:8000`
+    - `SEED_NODE_URL=http://195.242.13.239:26657` 
+    - `SEED_NODE_URL=tcp://195.242.13.239:26656` 
+    - `API_URL=http://195.242.13.239:8000`
 
 
 ### Define variables
@@ -45,19 +45,19 @@ You can download the latest `inferenced` binary for your system [here](https://g
 Before creating an account, set up the required environment variables:
 
 ```bash
-export SEED_URL=http://195.242.10.196:8000  # Use any seed node from the list
+export API_URL=http://195.242.10.196:8000  # Use any seed node from the list
 export ACCOUNT_NAME=<your-desired-account-name>
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
-- Replace `SEED_URL` with any available seed node from the **Seed Nodes** section above.
+- Replace `API_URL` with any available seed node from the **Seed Nodes** section above.
   
 ## 2. Create an account
 
 You can create an account with the following command:
 ```bash
 ./inferenced create-client $ACCOUNT_NAME \
-  --node-address $SEED_URL
+  --node-address $API_URL
 ```
 
 This command creates a new account and securely stores its keys in the `~/.inference` directory.
@@ -111,7 +111,7 @@ Run the following command to submit your inference request:
 ```bash
 ./inferenced signature send-request \
   --account-address $ACCOUNT_ADDRESS \
-  --node-address $SEED_URL \
+  --node-address $API_URL \
   --file ./inference-requests/request_payload.json
 ```
 
@@ -130,7 +130,7 @@ If you’d like to perform the request in Python:
 This command outputs a plain-text private key (e.g. `<PRIVATE_KEY>`).  
 **In production, use a Key Management Service or environment variables.**
 
-2.Use the code snippet below, replacing the placeholders (`<ACCOUNT_ADDRESS>`, `<PRIVATE_KEY>`, `<SEED_URL>`) with your actual values:
+2.Use the code snippet below, replacing the placeholders (`<ACCOUNT_ADDRESS>`, `<PRIVATE_KEY>`, `<API_URL>`) with your actual values:
 
 ```python
 import json
@@ -141,7 +141,7 @@ from ecdsa import SigningKey, SECP256k1, util
 
 ACCOUNT_ADDRESS = "<ACCOUNT_ADDRESS>"
 PRIVATE_KEY_HEX = "<PRIVATE_KEY>"
-NODE_URL = "<SEED_URL>"
+NODE_URL = "<API_URL>"
 
 
 def get_signing_key():

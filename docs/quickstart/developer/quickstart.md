@@ -33,9 +33,9 @@ You can download the latest `inferenced` binary for your system [here](https://g
 !!! note 
     Credentials will be stored in the `~/.inference` directory
 
-!!! note
     **Genesis:**
     `API_URL=http://195.242.13.239:8000`
+    
     You can view the current list of active participants in the network (nodes participating in inference) using this API call to the  genesis node:
 
     ```bash

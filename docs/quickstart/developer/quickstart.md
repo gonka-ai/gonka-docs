@@ -129,7 +129,7 @@ If you’d like to perform the request in Python:
 ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
 ```
 
-This command outputs a plain-text private key (e.g. `<PRIVATE_KEY_HEX>`). Use it below in the following Python snippet. 
+This command outputs a plain-text private key (e.g. `<PRIVATE_KEY>`). Use it in the Python snippet below. 
 
 **In production, use a Key Management Service or environment variables.**
 
@@ -143,12 +143,12 @@ import base64
 from ecdsa import SigningKey, SECP256k1, util
 
 ACCOUNT_ADDRESS = "<ACCOUNT_ADDRESS>"
-PRIVATE_KEY_HEX = "<PRIVATE_KEY>"
+PRIVATE_KEY = "<PRIVATE_KEY>"
 NODE_URL = "<API_URL>"
 
 
 def get_signing_key():
-    return SigningKey.from_string(bytes.fromhex(PRIVATE_KEY_HEX), curve=SECP256k1)
+    return SigningKey.from_string(bytes.fromhex(PRIVATE_KEY), curve=SECP256k1)
 
 def sign_payload(payload: bytes, signing_key: SigningKey) -> str:
     signature = signing_key.sign_deterministic(

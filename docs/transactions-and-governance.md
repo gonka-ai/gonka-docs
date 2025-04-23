@@ -279,6 +279,7 @@ Valid vote options are:
 You must use these exact `enum` values in the message.
 
 **3. Construct the Vote Message**
+
 Example `MsgVote` transaction:
 ```bash
 {
@@ -301,10 +302,11 @@ Example `MsgVote` transaction:
 Replace:
 
 - `"1"` with the actual proposal ID.
-- `"cosmos1..."` with **your account address.**
+- `"cosmos1..."` with your account address.
 - `"VOTE_OPTION_YES"` with your selected vote option.
 
 **4. Submit the Vote via the API**
+
 Send the completed JSON to:
 ```bash
 POST /v1/tx

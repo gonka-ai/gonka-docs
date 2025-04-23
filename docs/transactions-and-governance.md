@@ -14,7 +14,7 @@ inferenced tx <module> <msg> \
   > tx.json
 ```
 !!! note
-  Do not include `--fees` or `--gas` in this step. These are injected by the API to ensure consistency and compatibility with the signing account.
+    Do not include `--fees` or `--gas` in this step. These are injected by the API to ensure consistency and compatibility with the signing account.
 
 **2.	API Submission**
 
@@ -37,6 +37,7 @@ Request Body:
 }
 ```
 **3.	API Handling**
+
 The API performs the following:
 
  - Injects gas and fee values based on internal policy.
@@ -44,4 +45,19 @@ The API performs the following:
  - Signs the transaction using the private key of the node’s managed account.
  - Broadcasts the signed transaction to the chain.
  - Ensures strict serial execution, processing only one transaction at a time.
+ - 
 **4.	API Response**
+
+The response mirrors what the chain node would return from broadcast_tx_commit:
+```bash
+{
+  "height": "102045",
+  "txhash": "A1B2C3D4...",
+  "codespace": "",
+  "code": 0,
+  "data": "",
+  "raw_log": "...",
+  ...
+}
+```
+

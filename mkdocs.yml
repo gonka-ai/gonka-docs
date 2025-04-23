@@ -21,6 +21,7 @@ nav:
       - Pricing: pricing.md
       - Terms & Policies: termsofuse.md
       - Hardware Specifications: hardware-specifications.md
+      - Transactions & Governance: transactions-and-governance.md
       - Help: help.md
   - API Reference:
      - API Reference: api-reference/api-reference.md

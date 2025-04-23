@@ -45,7 +45,7 @@ The API performs the following:
  - Signs the transaction using the private key of the node’s managed account.
  - Broadcasts the signed transaction to the chain.
  - Ensures strict serial execution, processing only one transaction at a time.
- - 
+
 **4.	API Response**
 
 The response mirrors what the chain node would return from broadcast_tx_commit:
@@ -71,25 +71,32 @@ This section explains how to create and submit a governance proposal to update o
 The `inferenced` chain uses a high-throughput internal account for governance actions, including parameter changes. This account is managed by the node and may submit thousands of transactions per block. To ensure account sequence correctness, governance proposals must be submitted through a controlled API that serializes transaction signing and broadcasting.
 ### Step-by-Step Instructions
 **1. Identify the Authority Account (Governance Module)**
+
 Parameter changes require an `authority` field in the message, which must match the **governance module account.**
 To find it:
 ```bash
 inferenced query auth module-accounts
 ```
 Search for the account named `"gov"` and copy its address (e.g., `cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn`). This becomes the `authority` in your proposal JSON.
+
 **2. Fetch Current Parameters**
+
 Query the current parameters for the module you wish to update. For the `inference` module:
 ```bash
 inferenced query inference params --output json
 ```
 Use the complete output in your proposal under the `params` field—**even if you're only changing one value.** Omitting other fields may unintentionally reset them or result in an invalid proposal.
+
 **3. Check Minimum Deposit Requirement**
+
 Every proposal must include a `deposit` that meets or exceeds the chain’s minimum deposit threshold. Query it with:
 ```bash
 inferenced query gov params --output json
 ```
 Look for the `min_deposit` field (e.g., `10000nicoin`) and include this in the `deposit` field of your proposal.
+
 **4. Create the Proposal JSON**
+
 Example structure:
 ```bash
 {
@@ -163,33 +170,39 @@ Example structure:
 }
 ```
 **Important:**
+
 - Ensure** all parameter groups** are included (`epoch_params`, `validation_params`, `poc_params`, `tokenomics_params`) even if you're only changing one value.
 - The `deposit` must meet the chain's current minimum requirements
 - The `metadata` field is optional and may be omitted unless your process uses IPFS metadata.
 
 **5. Submit the Proposal via the API**
+
 Send the complete JSON to:
 ```bash
 POST /v1/tx
 Content-Type: application/json
 ```
 The API will:
+
 - Inject gas and fee values.
 - Sign the transaction using the node's internal governance account.
 - Broadcast the transaction to the chain.
 - Return the standard `broadcast_tx_commit` response.
 
 ## Submitting a Deposit for a Proposal
-Governance proposals must reach the minimum deposit threshold before they enter the voting period. If a proposal was submitted with an insufficient deposit, additional funds can be added using a MsgDeposit transaction.
+Governance proposals must reach the minimum deposit threshold before they enter the voting period. If a proposal was submitted with an insufficient deposit, additional funds can be added using a `MsgDeposit` transaction.
 This guide walks through how to construct and submit a deposit transaction using the API.
 ### Step-by-Step Instructions
 **1. Get the Proposal ID**
+
 Each proposal is assigned a unique proposal_id when it’s submitted. You can find it using:
 ```bash
 inferenced query gov proposals
 ```
 Identify the relevant proposal and note its `proposal_id`.
+
 **2. Construct the Deposit Message**
+
 Here’s an example MsgDeposit transaction JSON:
 ```bash
 {
@@ -215,6 +228,7 @@ Here’s an example MsgDeposit transaction JSON:
 }
 ```
 **Important Notes:**
+
 - Replace `1` with the actual `proposal_id`.
 - Set `depositor` to your account address.
 - The amount must be at least enough to meet the chain’s `min_deposit`.
@@ -224,4 +238,15 @@ To check the current deposit requirement:
 inferenced query gov params --output json
 ```
 Look under `deposit_params.min_deposit`.
+**3. Submit the Deposit via the API**
+Once your JSON is prepared, send it to the API:
+```bash
+POST /v1/tx
+Content-Type: application/json
+```
+The API will:
+- Fill in gas and fees.
+- Sign the transaction using your account (if it’s configured in the node).
+- Broadcast it to the chain and return the transaction result.
+
 

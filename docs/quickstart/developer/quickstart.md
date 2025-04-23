@@ -129,7 +129,8 @@ If you’d like to perform the request in Python:
 ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
 ```
 
-This command outputs a plain-text private key (e.g. `<PRIVATE_KEY_HEX>`).  
+This command outputs a plain-text private key (e.g. `<PRIVATE_KEY_HEX>`). Use it below in the following Python snippet. 
+
 **In production, use a Key Management Service or environment variables.**
 
 2.Use the code snippet below, replacing the placeholders (`<ACCOUNT_ADDRESS>`, `<PRIVATE_KEY>`, `<API_URL>`) with your actual values:

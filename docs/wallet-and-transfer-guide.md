@@ -33,7 +33,7 @@ Then follow the instruction, `--node` and `--keyring-backend` arguments are not 
 
 Another option is install `inferenced` according to [the instruction](quickstart/developer/quickstart.md), copy keys to your local computer and execute all commands locally. 
 
-* `test` keyring backend is used during the TestNet, that will be changed in MainNet.*
+* `test` keyring backend is used during the TestNet.
 
 Connect to the `node` container at the server (created from `ghcr.io/product-science/inferenced` image):
 ```

@@ -229,7 +229,7 @@ Here’s an example MsgDeposit transaction JSON:
 ```
 **Important Notes:**
 
-- Replace `1` with the actual `proposal_id`.
+- Replace `"1"` with the actual `proposal_id`.
 - Set `depositor` to your account address.
 - The amount must be at least enough to meet the chain’s `min_deposit`.
 
@@ -249,4 +249,103 @@ The API will:
 - Sign the transaction using your account (if it’s configured in the node).
 - Broadcast it to the chain and return the transaction result.
 
+## Voting on a Proposal
+Once a governance proposal enters the voting period, any account with voting rights (typically validators or delegators, depending on your governance configuration) can cast a vote.
+This section explains how to vote on a proposal via the API.
+!!! Important Note for Proposers
+    If **you submitted the proposal**, the chain automatically casts a "YES" vote for your account. You do **not** need to vote again unless you want to change your vote before the voting period ends.
 
+### Step-by-Step Instructions
+**1. Get the Proposal ID**
+
+Use the following command to list active proposals:
+```bash
+inferenced query gov proposals
+```
+Identify the `proposal_id` you want to vote on.
+
+**2. Choose a Vote Option**
+
+Valid vote options are:
+- `"VOTE_OPTION_YES"`
+- `"VOTE_OPTION_NO"`
+- `"VOTE_OPTION_NO_WITH_VETO"`
+- `"VOTE_OPTION_ABSTAIN"`
+
+You must use these exact enum values in the message.
+
+**3. Construct the Vote Message**
+Example `MsgVote` transaction:
+```bash
+{
+  "messages": [
+    {
+      "@type": "/cosmos.gov.v1.MsgVote",
+      "proposal_id": "1",
+      "voter": "cosmos1...",  // Your account address
+      "option": "VOTE_OPTION_YES"
+    }
+  ],
+  "memo": "",
+  "timeout_height": "0",
+  "extension_options": [],
+  "non_critical_extension_options": [],
+  "auth_info": {},
+  "signatures": []
+}
+```
+Replace:
+	•	`"1"` with the actual proposal ID.
+	•	`"cosmos1..."` with **your account address.**
+	•	`"VOTE_OPTION_YES"` with your selected vote option.
+
+**4. Submit the Vote via the API**
+Send the completed JSON to:
+```bash
+POST /v1/tx
+Content-Type: application/json
+```
+As usual, the API will:
+- Inject gas and fees.
+- Sign the transaction using your account (if configured).
+- Broadcast it to the chain.
+
+## Checking Proposal Status and Outcome
+After a proposal is submitted and/or voted on, you can monitor its progress through the governance process using standard CLI queries.
+**1. Query a Specific Proposal**
+To view the current status, tally, and other metadata for a specific proposal:
+```bash
+inferenced query gov proposal <proposal_id> --output json
+```
+Example:
+``bash
+inferenced query gov proposal 1 --output json
+```
+This will return a JSON structure containing:
+
+- status: Proposal status (e.g., `PROPOSAL_STATUS_DEPOSIT_PERIOD`, `PROPOSAL_STATUS_VOTING_PERIOD`, `PROPOSAL_STATUS_PASSE`D)
+- `final_tally_result`: A breakdown of vote results.
+- `submit_time`, `voting_start_time`, and `voting_end_time`.
+
+2. Check Voting Tally
+You can also query just the voting results:
+```bash
+inferenced query gov tally <proposal_id> --output json
+```
+Example output:
+```bash
+{
+  "yes": "150000000",
+  "abstain": "0",
+  "no": "50000000",
+  "no_with_veto": "0"
+}
+```
+These values represent vote weights (typically in stake) rather than simple vote counts.
+
+**3. List All Proposals**
+To see all current and past proposals:
+```bash
+inferenced query gov proposals --output json
+```
+You can filter through the returned array based on status or IDs.

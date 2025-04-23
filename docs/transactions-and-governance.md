@@ -44,11 +44,11 @@ The API performs the following:
  - Queries the current account sequence and number for the signer account.
  - Signs the transaction using the private key of the node’s managed account.
  - Broadcasts the signed transaction to the chain.
- - Ensures strict serial execution, processing only one transaction at a time.
+ - Ensures **strict serial execution**, processing only one transaction at a time.
 
 **4.	API Response**
 
-The response mirrors what the chain node would return from broadcast_tx_commit:
+The response mirrors what the chain node would return from `broadcast_tx_commit`:
 ```bash
 {
   "height": "102045",
@@ -203,7 +203,7 @@ Identify the relevant proposal and note its `proposal_id`.
 
 **2. Construct the Deposit Message**
 
-Here’s an example MsgDeposit transaction JSON:
+Here’s an example `MsgDeposit` transaction JSON:
 ```bash
 {
   "messages": [
@@ -238,13 +238,16 @@ To check the current deposit requirement:
 inferenced query gov params --output json
 ```
 Look under `deposit_params.min_deposit`.
+
 **3. Submit the Deposit via the API**
+
 Once your JSON is prepared, send it to the API:
 ```bash
 POST /v1/tx
 Content-Type: application/json
 ```
 The API will:
+
 - Fill in gas and fees.
 - Sign the transaction using your account (if it’s configured in the node).
 - Broadcast it to the chain and return the transaction result.
@@ -252,7 +255,7 @@ The API will:
 ## Voting on a Proposal
 Once a governance proposal enters the voting period, any account with voting rights (typically validators or delegators, depending on your governance configuration) can cast a vote.
 This section explains how to vote on a proposal via the API.
-!!! Important Note for Proposers
+!!! note
     If **you submitted the proposal**, the chain automatically casts a "YES" vote for your account. You do **not** need to vote again unless you want to change your vote before the voting period ends.
 
 ### Step-by-Step Instructions
@@ -267,12 +270,13 @@ Identify the `proposal_id` you want to vote on.
 **2. Choose a Vote Option**
 
 Valid vote options are:
+
 - `"VOTE_OPTION_YES"`
 - `"VOTE_OPTION_NO"`
 - `"VOTE_OPTION_NO_WITH_VETO"`
 - `"VOTE_OPTION_ABSTAIN"`
 
-You must use these exact enum values in the message.
+You must use these exact `enum` values in the message.
 
 **3. Construct the Vote Message**
 Example `MsgVote` transaction:
@@ -295,9 +299,10 @@ Example `MsgVote` transaction:
 }
 ```
 Replace:
-	•	`"1"` with the actual proposal ID.
-	•	`"cosmos1..."` with **your account address.**
-	•	`"VOTE_OPTION_YES"` with your selected vote option.
+
+- `"1"` with the actual proposal ID.
+- `"cosmos1..."` with **your account address.**
+- `"VOTE_OPTION_YES"` with your selected vote option.
 
 **4. Submit the Vote via the API**
 Send the completed JSON to:
@@ -306,28 +311,32 @@ POST /v1/tx
 Content-Type: application/json
 ```
 As usual, the API will:
+
 - Inject gas and fees.
 - Sign the transaction using your account (if configured).
 - Broadcast it to the chain.
 
 ## Checking Proposal Status and Outcome
 After a proposal is submitted and/or voted on, you can monitor its progress through the governance process using standard CLI queries.
+
 **1. Query a Specific Proposal**
+
 To view the current status, tally, and other metadata for a specific proposal:
 ```bash
 inferenced query gov proposal <proposal_id> --output json
 ```
 Example:
-``bash
+```bash
 inferenced query gov proposal 1 --output json
 ```
 This will return a JSON structure containing:
 
-- status: Proposal status (e.g., `PROPOSAL_STATUS_DEPOSIT_PERIOD`, `PROPOSAL_STATUS_VOTING_PERIOD`, `PROPOSAL_STATUS_PASSE`D)
+- `status`: Proposal status (e.g., `PROPOSAL_STATUS_DEPOSIT_PERIOD`, `PROPOSAL_STATUS_VOTING_PERIOD`, `PROPOSAL_STATUS_PASSE`D)
 - `final_tally_result`: A breakdown of vote results.
 - `submit_time`, `voting_start_time`, and `voting_end_time`.
 
-2. Check Voting Tally
+**2. Check Voting Tally**
+
 You can also query just the voting results:
 ```bash
 inferenced query gov tally <proposal_id> --output json
@@ -344,6 +353,7 @@ Example output:
 These values represent vote weights (typically in stake) rather than simple vote counts.
 
 **3. List All Proposals**
+
 To see all current and past proposals:
 ```bash
 inferenced query gov proposals --output json

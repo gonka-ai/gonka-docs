@@ -135,7 +135,7 @@ When specifying coins, you can use the following denominations:
 After sending a transaction, you may want to verify whether it was successfully processed and included in a block. Each transaction is assigned a unique hash (`TXHASH`) which you can use to look up its status on the blockchain.
 To check the status of a transaction, use the following command:
 ```bash
-inferenced query tx <TXHASH> [--node <node_rpc_url>] [--chain-id <chain_id>]
+inferenced query tx <TXHASH> --chain-id prod-sim [--node <node_rpc_url>]
 ```
 
 - Replace `<TXHASH>` with the actual transaction hash you received from the transfer command.

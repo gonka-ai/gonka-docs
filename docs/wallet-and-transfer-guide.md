@@ -143,7 +143,7 @@ inferenced query tx <TXHASH> [--node <node_rpc_url>] [--chain-id <chain_id>]
 
 **Example:**
 ```bash
-inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --node http://195.242.13.239:26657 --chain-id prod-sim
+inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --chain-id prod-sim
 ```
 If the transaction was successful, the output will contain:
 

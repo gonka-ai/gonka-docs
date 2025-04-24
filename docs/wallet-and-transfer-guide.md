@@ -7,21 +7,21 @@ Each transfer is recorded on the blockchain and needs a valid sender, recipient,
 
 This guide walks you through:
 
-- How to access your participant acccount
+- How to access your participant account
 - How to get your wallet address
 - How to check your token balance
 - How to send tokens to another address
 
 ## Access Your Participant Account
 
-When the **chain‑node** container starts for the first time it automatically creates an account (wallet) and its keys. 
-Those keys are what you use for any account‑level action such as transferring funds.
+When the **chain‑node** container starts for the first time, it automatically creates an account (wallet) and its keys. 
+Those keys are what you use for any account‑level action, such as transferring funds.
 
 You can interact with the keys in two ways, we recommend **Option 1** for simplicity:
 
 ### Option 1: Access Account from Container
 
-Connect to the server with network node and connect to the container `node` (created from `ghcr.io/product-science/inferenced` image):
+Connect to the server with the network node and connect to the container `node` (created from `ghcr.io/product-science/inferenced` image):
 ```
 docker exec -it node /bin/sh
 ```
@@ -31,7 +31,7 @@ Then follow the instruction, `--node` and `--keyring-backend` arguments are not 
 
 ### Option 2: Export Keys to Local Computer
 
-Another option is install `inferenced` according to [the instruction](quickstart/developer/quickstart.md), copy keys to your local computer and execute all commands locally. 
+Another option is to install `inferenced` according to [the instruction](quickstart/developer/quickstart.md), copy keys to your local computer, and execute all commands locally. 
 
 * `test` keyring backend is used during the TestNet.
 
@@ -44,7 +44,7 @@ Export the key with name `KEY_NAME` (you can find it via `inferenced keys list` 
 ```
 inferenced keys export $KEY_NAME --keyring-backend test
 ```
-You'll be asked to enter passphrase which then will be used to import key at your local machine.
+You'll be asked to enter a passphrase, which then will be used to import the key at your local machine.
 
 Copy keys:
 ```
@@ -54,17 +54,17 @@ Copy keys:
 ```
 and paste to local file `keys.pem`.
 
-Then to import keys at your local machine:
+Then, to import keys at your local machine:
 ```
-./inferenced keys import join keys.pem --keyring-backend test
+inferenced keys import join keys.pem --keyring-backend test
 ```
 
-Then follow the instruction, adding:
-- `--node` argument which point to the `NODE_RPC_URL` of the chain node you want to use an entrypoint (`--node http://195.242.13.239:26657` for genesis node)
+Then follow the instructions, adding:
+- `--node` argument which points to the `NODE_RPC_URL` of the chain node you want to use as an entry point (`--node http://195.242.13.239:26657` for genesis node)
 - `--keyring-backend test` to use test keyring
 
 !!! note
-    If you've installed `inferenced` locally, ensure it’s in your `PATH` environment variable, or run it directly from its directory (e.g., `./inferenced`).
+    If you've installed `inferenced` locally, ensure it’s in your `PATH` environment variable, or run it directly from its directory (e.g., `inferenced`).
 
 
 
@@ -90,7 +90,7 @@ Write down the address (used to receive tokens and query balance).
 
 ## Query Balance
 
-To check your balance, ensure you have sufficient funds before transferring or to verify a successful transfer, use the following command:
+To check your balance, ensure you have sufficient funds before transferring, or to verify a successful transfer, use the following command:
 
 ```bash
 inferenced query bank balances <address> [--node <node_rpc_url>]
@@ -142,7 +142,7 @@ inferenced query tx <TXHASH> [--node <node_rpc_url>] [--chain-id <chain_id>]
 
 **Example:**
 ```bash
-./inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --node http://195.242.13.239:26657 --chain-id prod-sim
+inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --node http://195.242.13.239:26657 --chain-id prod-sim
 ```
 If the transaction was successful, the output will contain:
 
@@ -153,7 +153,7 @@ If the transaction was successful, the output will contain:
 
 **Sample response:**
 ```bash
-❯ ./inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --node http://195.242.13.239:26657 --chain-id prod-sim
+❯ inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --node http://195.242.13.239:26657 --chain-id prod-sim
 code: 0
 codespace: ""
 data: 12260A242F636F736D6F732E62616E6B2E763162657461312E4D736753656E64526573706F6E7365

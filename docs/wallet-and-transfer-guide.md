@@ -137,6 +137,7 @@ To check the status of a transaction, use the following command:
 ```bash
 inferenced query tx <TXHASH> [--node <node_rpc_url>] [--chain-id <chain_id>]
 ```
+
 - Replace `<TXHASH>` with the actual transaction hash you received from the transfer command.
 - You can optionally specify a node and chain ID if needed.
 

@@ -137,8 +137,10 @@ To check the status of a transaction, use the following command:
 ```bash
 inferenced query tx <TXHASH> [--node <node_rpc_url>] [--chain-id <chain_id>]
 ```
-Replace `<TXHASH>` with the actual transaction hash you received from the transfer command. You can optionally specify a node and chain ID if needed.
-Example:
+- Replace `<TXHASH>` with the actual transaction hash you received from the transfer command.
+- You can optionally specify a node and chain ID if needed.
+
+**Example:**
 ```bash
 ./inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --node http://195.242.13.239:26657 --chain-id prod-sim
 ```
@@ -149,7 +151,7 @@ If the transaction was successful, the output will contain:
 - A `timestamp` — the time the block was committed
 - Details about the transaction message (e.g., `sender`, `receiver`, `amount`, `module`, `gas` used)
 
-Sample response:
+**Sample response:**
 ```bash
 ❯ ./inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --node http://195.242.13.239:26657 --chain-id prod-sim
 code: 0

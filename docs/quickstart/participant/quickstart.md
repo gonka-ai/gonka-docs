@@ -82,7 +82,7 @@ Inference nodes download model weights from Hugging Face.
 To avoid repeated downloads or failures due to rate limits, use a local cache directory.
 Choose one of the following options:
 
-#### Option 1: Local download 
+**Option 1: Local download** 
 ```bash
 export HF_HOME=/path/to/your/hf-cache
 ```
@@ -90,7 +90,7 @@ Create a writable directory (e.g. ~/hf-cache) and pre-load models if desired:
 ```bash
 huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
 ```
-#### Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)
+**Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)**
 Mount shared cache:
 ```bash
 sudo mount -t nfs 172.18.114.147:/mnt/toshare /mnt/shared
@@ -119,14 +119,14 @@ Edit `config.env` file and set your node name, public URL and other parameters.
 The next variables configure the seed node and are optional to modify:
 
 !!! note "Leave these as-is unless you’re running a custom setup"
-SEED_API_URL=http://195.242.13.239:8000
-SEED_NODE_RPC_URL=http://195.242.13.239:26657
-SEED_NODE_P2P_URL=tcp://195.242.13.239:26656   
-DAPI_API_RPC_CALLBACK_URL=http://api:8000
-DAPI_CHAIN_NODE_URL=http://node:26657
-DAPI_CHAIN_NODE_P2P_URL=http://node:26656
-RPC_SERVER_URL_1="http://89.169.103.180:26657"
-RPC_SERVER_URL_2="http://195.242.13.239:26657"
+        SEED_API_URL=http://195.242.13.239:8000
+        SEED_NODE_RPC_URL=http://195.242.13.239:26657
+        SEED_NODE_P2P_URL=tcp://195.242.13.239:26656   
+        DAPI_API_RPC_CALLBACK_URL=http://api:8000
+        DAPI_CHAIN_NODE_URL=http://node:26657
+        DAPI_CHAIN_NODE_P2P_URL=http://node:26656
+        RPC_SERVER_URL_1="http://89.169.103.180:26657"
+        RPC_SERVER_URL_2="http://195.242.13.239:26657"
 
 ## Preload and Setup 
 
@@ -164,45 +164,47 @@ After launching, you should see logs from the API and chain node. Look for lines
 If you see these, your node is live.
 
 **To verify the node is active and reachable**
-1. Check API health. Visit this URL in your browser or use curl:
+
+Check API health. Visit this URL in your browser or use curl:
 ```bash
 curl http://<your-public-ip>:8000/health
 ```
 Expected response:
 ```bash
-{"status":"ok"}
+{"status": "ok"}
 ```
 If this fails, double-check your firewall and port mapping in `config.env`.
 
-2. Check Tendermint RPC. Use:
+Check Tendermint RPC. Use:
 ```bash
 curl http://<your-public-ip>:26657/status
 
 ```
 You should receive a JSON response with node info, chain ID, and sync status.
 
-3. Once logs look stable and `/health` returns `{"status":"ok"}`, your node is running.
+Once logs look stable and `/health` returns `{"status":"ok"}`, your node is running.
 Node successfully launched and connected to the network!
 
 ##  Stopping and Cleaning Up Your Node
-1. To stop all running containers:
+
+To stop all running containers:
 ```bash
 docker compose -f docker-compose.yml down
 ```
 This stops and removes all services defined in the `docker-compose.yml` file without deleting volumes or data unless explicitly configured.
 
-2. To clean up cache and start fresh, remove the local `.inference` folder (inference runtime cache and identity):
+To clean up cache and start fresh, remove the local `.inference` folder (inference runtime cache and identity):
 ```bash
 rm -rf .inference
 ```
 
-3. (Optional) Clear model weights cache:
+(Optional) Clear model weights cache:
 ```bash
 rm -rf $HF_HOME
 ```
 
 !!! note
-         Be careful: deleting $HF_HOME will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
+Deleting $HF_HOME will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
 
 **Full Reset Workflow (if you want to rejoin as a fresh node)**
 ```bash

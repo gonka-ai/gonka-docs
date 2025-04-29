@@ -59,12 +59,12 @@ git clone https://github.com/product-science/pivot-deploy.git -b main && \
 cd pivot-deploy/join
 ```
 
-!!! note Authentication required 
+!!! note "Authentication required" 
         If prompted for a password, use a GitHub personal access token (classic) with `repo` access.
 
 After cloning the repository, you’ll find the following key configuration files:
 
-- `config.env` - contains environment variables for the network node
+- `config.env` - Contains environment variables for the network node
 - `docker-compose.yml` - Docker Compose file to launch the network node
 - `node-config.json` - Configuration file for the inference node which will be user by network node.
 - `node-config-qwq.json` - Configuration file specifically for Qwen/QwQ-32B on A100/H100
@@ -74,6 +74,7 @@ After cloning the repository, you’ll find the following key configuration file
 
 !!! note
         Tip: Copy and modify the config that best fits your model and GPU layout.
+        
         Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Examples for their `config` can be found in `node-config.json` and `node-config-qwq.json` accordingly.
 
 ### Prepare Model Weights & HF_HOME

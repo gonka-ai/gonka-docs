@@ -145,6 +145,7 @@ huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
 Use `HF_HOME`, not `--local-dir`. It must match at runtime.
 
 **3. Launch the Services**
+
 Once containers are pulled and model weights are cached, you can launch the node:
 
 ```bash
@@ -154,6 +155,7 @@ docker compose -f docker-compose.yml logs -f
 ```
 
 **4. Confirm Your Node Is Running**
+
 After launching, you should see logs from the API and chain node. Look for lines like:
 ```bash
 [api] Server running on port 8000
@@ -163,7 +165,9 @@ If you see these, your node is live.
 
 **To verify the node is active and reachable**
 
-Check API health. Visit this URL in your browser or use curl:
+**Check API health. **
+
+Visit this URL in your browser or use curl:
 ```bash
 curl http://<your-public-ip>:8000/health
 ```
@@ -173,7 +177,9 @@ Expected response:
 ```
 If this fails, double-check your firewall and port mapping in `config.env`.
 
-Check Tendermint RPC. Use:
+**Check Tendermint RPC.** 
+
+Use:
 ```bash
 curl http://<your-public-ip>:26657/status
 
@@ -202,7 +208,7 @@ rm -rf $HF_HOME
 ```
 
 !!! note
-Deleting $HF_HOME will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
+        Deleting `$HF_HOME` will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
 
 **Full Reset Workflow (if you want to rejoin as a fresh node)**
 ```bash

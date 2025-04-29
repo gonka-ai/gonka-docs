@@ -115,7 +115,7 @@ Edit `config.env` file and set your node name, public URL and other parameters.
 - `PORT` - port where your node will be available at the machine (default is 8000)
 - `PUBLIC_URL` - public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000)
 - `P2P_EXTERNAL_ADDRESS` - public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000)
-- `HF_HOME` – the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., ~/hf-cache). If you’re part of the 6Block network, you can use the shared cache at /mnt/shared.
+- `HF_HOME` – the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`.
 The next variables configure the seed node and are optional to modify:
 
 !!! note "Leave these as-is unless you’re running a custom setup"

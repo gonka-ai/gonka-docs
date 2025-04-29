@@ -60,7 +60,7 @@ cd pivot-deploy/join
 ```
 
 !!! note "Authentication required" 
-        If prompted for a password, use a GitHub personal access token (classic) with `repo` access.
+    If prompted for a password, use a GitHub personal access token (classic) with `repo` access.
 
 After cloning the repository, you’ll find the following key configuration files:
 

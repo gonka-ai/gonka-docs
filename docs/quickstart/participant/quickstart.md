@@ -70,7 +70,6 @@ After cloning the repository, you’ll find the following key configuration file
 - `node-config-qwq.json` - Configuration file specifically for Qwen/QwQ-32B on A100/H100
 - `node-config-qwq-4x3090.json` - Optimized config for QwQ-32B using 4x3090 setup
 - `node-config-qwq-8x3090.json` - Optimized config for QwQ-32B using 8x3090 setup
-- `node-config-8xA100.json` - Configuration file for LLMs on 8xA100 (e.g. DeepSeek, Llama-3-405B).
 
 !!! note
         Tip: Copy and modify the config that best fits your model and GPU layout.
@@ -105,16 +104,15 @@ echo $GH_TOKEN | docker login ghcr.io -u <your_github_username> --password-stdin
 ```
 ## Setup Your Node 
 ### Edit Your Node Configuration
-Open config.env. Only a few fields need to be changed (others are pre-filled and usually don’t require editing).
+Open `config.env`. Only a few fields need to be changed (others are pre-filled and usually don’t require editing).
 
 Edit `config.env` file and set your node name, public URL and other parameters.
 
-- `KEY_NAME` -  A descriptive identifier for your node. It is not a cryptographic key and is the only value you manually define; all other fields are pre-configured or derived.
+- `KEY_NAME` -  manually defined unique identifier for your node.
 - `PORT` - port where your node will be available at the machine (default is 8000)
 - `PUBLIC_URL` - public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000)
 - `P2P_EXTERNAL_ADDRESS` - public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000)
 - `HF_HOME` – the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`.
-The next variables configure the seed node and are optional to modify:
 
 !!! note "Leave these as-is unless you’re running a custom setup"
         SEED_API_URL=http://195.242.13.239:8000
@@ -123,8 +121,8 @@ The next variables configure the seed node and are optional to modify:
         DAPI_API_RPC_CALLBACK_URL=http://api:8000
         DAPI_CHAIN_NODE_URL=http://node:26657
         DAPI_CHAIN_NODE_P2P_URL=http://node:26656
-        RPC_SERVER_URL_1="http://89.169.103.180:26657"
-        RPC_SERVER_URL_2="http://195.242.13.239:26657"
+        RPC_SERVER_URL_1=http://89.169.103.180:26657
+        RPC_SERVER_URL_2=http://195.242.13.239:26657
 
 ## Preload and Setup 
 

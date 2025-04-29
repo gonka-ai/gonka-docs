@@ -18,16 +18,21 @@ In our network, we aim to support open-source LLMs that rank highly on Chat Aren
 - **160GB+ VRAM** for `Llama-3-70B`;
 - **640GB+ VRAM** for `DeepSeek-R1`, `DeepSeek-V3`, `Llama-3-405B`.
 
-
 | **Model (by demand)** | **8×H100** | **8×A100** | **2×H100** | **2×A100** | **1×H100\*** | **1×A100\*** | **8×3090** | **4×3090** | **1×3090\*\*** |
 |------------------------|------------|------------|------------|------------|--------------|--------------|------------|------------|----------------|
 | **DeepSeek-R1**        | ✅         | ✅         |            |            |              |              |            |            |                |
-| **Gemma-3-27B**        |            |            |            |            | ✅            | ✅            |           | ✅          |                |
+| **Gemma-3-27B**        |🆗           |🆗           |🆗           |🆗           | ✅            | ✅            |🆗          | ✅          |                |
 | **DeepSeek-V3**        | ✅         | ✅         |            |            |              |              |            |            |                |
-| **QwQ-32B**            |            |            |            |            | ✅            | ✅            |           | ✅          |                |
+| **QwQ-32B**            |🆗           |🆗           |🆗           |🆗           | ✅            | ✅            |           | ✅          |                |
 | **Llama-3-405B**       | ✅         | ✅         |            |            |              |              |            |            |                |
-| **Llama-3-70B**        |            |            | ✅         | ✅         |              |              | ✅         |            |                |
-| **Qwen2.5-7B-Instruct**            |            |            |            |            |              |              |            |            | ✅              |
+| **Llama-3-70B**        |🆗           |🆗           | ✅         | ✅         |🆗             |🆗             | ✅         |            |                |
+| **Qwen2.5-7B-Instruct**            |🆗           |🆗           |🆗           |🆗           |🆗             |🆗             |🆗           |🆗           | ✅              |
+
+### Legend
+
+- ✅ — Fully supported and efficient  
+- 🆗 — Supported, but not efficient  
+
 
 _*If you have multiple H100 or A100 GPUs, consider grouping 2 or 8 of them into a single node to support higher-demand models._
 
@@ -52,7 +57,6 @@ It also should have:
 - 8000 - Application service (configurable)
 
 ## Download Configuration Files
-
 Clone the repository with base deploy scripts:
 
 ```bash
@@ -60,74 +64,96 @@ git clone https://github.com/product-science/pivot-deploy.git -b main && \
 cd pivot-deploy/join
 ```
 
+!!! note Authentication required 
+        If prompted for a password, use a GitHub personal access token (classic) with `repo` access.
+
+After cloning the repository, you’ll find the following key configuration files:
+
 - `config.env` - contains environment variables for the network node
-- `docker-compose.yml` - a docker compose file to launch the network node
-- `node-config.json` - a configuration file for the inference node which will be user by network node. 
-Right now the network supports to models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Examples for their config can be found in `node-config.json` and `node-config-qwq.json` accordingly.
+- `docker-compose.yml` - Docker Compose file to launch the network node
+- `node-config.json` - Configuration file for the inference node which will be user by network node.
+- `node-config-qwq.json` - Configuration file specifically for Qwen/QwQ-32B on A100/H100
+- `node-config-qwq-4x3090.json` - Optimized config for QwQ-32B using 4x3090 setup
+- `node-config-qwq-8x3090.json` - Optimized config for QwQ-32B using 8x3090 setup
+- `node-config-8xA100.json` - Configuration file for LLMs on 8xA100 (e.g. DeepSeek, Llama-3-405B).
+
+!!! note
+        Tip: Copy and modify the config that best fits your model and GPU layout.
+        Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Examples for their `config` can be found in `node-config.json` and `node-config-qwq.json` accordingly.
+
+### Prepare Model Weights & HF_HOME
+Inference nodes download model weights from Hugging Face.
+To avoid repeated downloads or failures due to rate limits, use a local cache directory.
+Choose one of the following options:
+
+#### Option 1: Local download 
+```bash
+export HF_HOME=/path/to/your/hf-cache
+```
+Create a writable directory (e.g. ~/hf-cache) and pre-load models if desired:
+```bash
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
+```
+#### Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)
+Mount shared cache:
+```bash
+sudo mount -t nfs 172.18.114.147:/mnt/toshare /mnt/shared
+export HF_HOME=/mnt/shared
+```
+The path `/mnt/shared` only works in the 6Block testnet with access to the shared NFS.
+
+
+## Authenticate with Docker Registry
+Some images are private. Authenticate with GitHub Container Registry:
+```bash
+echo $GH_TOKEN | docker login ghcr.io -u <your_github_username> --password-stdin
+```
 
 ## Setup Your Node 
+### Edit Your Node Configuration
+Open config.env. Only a few fields need to be changed (others are pre-filled and usually don’t require editing).
 
 Edit `config.env` file and set your node name, public URL and other parameters.
 
-- `KEY_NAME` - name of your node. It must be unique
+- `KEY_NAME` -  A descriptive identifier for your node. It is not a cryptographic key and is the only value you manually define; all other fields are pre-configured or derived.
 - `PORT` - port where your node will be available at the machine (default is 8000)
 - `PUBLIC_URL` - public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000)
 - `P2P_EXTERNAL_ADDRESS` - public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000)
-
+- `HF_HOME` – the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., ~/hf-cache). If you’re part of the 6Block network, you can use the shared cache at /mnt/shared.
 The next variables configure the seed node and are optional to modify:
 
-- `SEED_API_URL` - URL of the seed node  
-- `SEED_NODE_RPC_URL` - RPC URL of the seed node  
-- `SEED_NODE_P2P_URL` - P2P URL of the seed node  
+!!! note 
+        Leave these as-is unless you’re running a custom setup:
+        SEED_API_URL=http://195.242.13.239:8000
+        SEED_NODE_RPC_URL=http://195.242.13.239:26657
+        SEED_NODE_P2P_URL=tcp://195.242.13.239:26656
+        
+        DAPI_API_RPC_CALLBACK_URL=http://api:8000
+        DAPI_CHAIN_NODE_URL=http://node:26657
+        DAPI_CHAIN_NODE_P2P_URL=http://node:26656
+        RPC_SERVER_URL_1="http://89.169.103.180:26657"
+        RPC_SERVER_URL_2="http://195.242.13.239:26657"
 
-!!! note "Seed Nodes"
-    Here are the current seed nodes for the testnet:  
-    
-    **Genesis:**
+## Preload and Setup 
 
-    - `SEED_NODE_RPC_URL=http://195.242.13.239:26657` 
-    - `SEED_NODE_P2P_URL=tcp://195.242.13.239:26656` 
-    - `SEED_PUBLIC_URL=http://195.242.13.239:8000`
+**1. Pull Docker Images (Containers)**
+```bash
+docker pull gcr.io/decentralized-ai/mlnode:<VERSION>
+docker pull gcr.io/decentralized-ai/networknode:<VERSION>
+```
 
-## Setup Model Cache
+Replace <VERSION> with the correct version tag from your deployment configuration.
 
-During model deployment, MLNode automatically downloads model weights from Hugging Face.
-To specify a custom Hugging Face cache directory, set the `HF_HOME` environment variable accordingly.
+**2.  Pull Model Weights**
+```bash
+export HF_HOME=~/hf-cache
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
+```
 
-If MLNode cannot access Hugging Face directly, 
-you can preload the models using the [`huggingface-cli`](https://huggingface.co/docs/huggingface_hub/en/guides/cli) 
-on another machine and then transfer the cache to the server running MLNode. 
+Use `HF_HOME`, not `--local-dir`. It must match at runtime.
 
-When doing so, ensure you set the same `HF_HOME` on both machines. 
-Do not rely on the `--local-dir` parameter; instead, use `HF_HOME` so the directory structure matches exactly.   
-On the MLNode server, `HF_HOME` should point to the parent directory of the `hub` folder created by `huggingface-cli`.
-
-
-!!! node "6Block Network: Models Cache"
-    A pre-downloaded Hugging Face cache for Qwen/Qwen2.5-7B-Instruct is available on the 6Block Network via the NFS directory at `172.18.114.147:/mnt/toshare`.
-
-    To use this cache, mount the remote directory to your local system using:
-    ```
-    sudo mount -t nfs 172.18.114.147:/mnt/toshare /mnt/shared
-    ``` 
-    Then, set the `HF_HOME` environment variable to point to this location:
-    ```
-    export HF_HOME=/mnt/shared
-    ```
-
-!!! note
-    If you are using an inference node that is not on the same machine, you need to edit the `node-config.json` file and specify the correct URL of the inference node. 
-
-    Also, you need to remove the block from `docker-compose-cloud.yml` file which starts inference node:
-    ```yaml
-    # inference-node:
-    #   image: gcr.io/decentralized-ai/mlnode:$VERSION
-    #   ...
-    ```
-
-## Launch Your Node
-
-Run the following command to launch your node:
+**3. Launch the Services**
+Once containers are pulled and model weights are cached, you can launch the node:
 
 ```bash
 source config.env && \
@@ -135,6 +161,60 @@ docker compose -f docker-compose.yml up -d && \
 docker compose -f docker-compose.yml logs -f
 ```
 
-If you need to restart node as new participant, remove `.inference` directory.
+**4. Confirm Your Node Is Running**
+After launching, you should see logs from the API and chain node. Look for lines like:
+```bash
+[api] Server running on port 8000
+[chain] Node is connected to peers
+```
+If you see these, your node is live.
+
+**To verify the node is active and reachable**
+1. Check API health. Visit this URL in your browser or use curl:
+```bash
+curl http://<your-public-ip>:8000/health
+```
+Expected response:
+```bash
+{"status":"ok"}
+```
+If this fails, double-check your firewall and port mapping in `config.env`.
+
+2. Check Tendermint RPC. Use:
+```bash
+curl http://<your-public-ip>:26657/status
+
+```
+You should receive a JSON response with node info, chain ID, and sync status.
+
+3. Once logs look stable and `/health` returns `{"status":"ok"}`, your node is running.
+Node successfully launched and connected to the network!
+
+##  Stopping and Cleaning Up Your Node
+1. To stop all running containers:
+```bash
+docker compose -f docker-compose.yml down
+```
+This stops and removes all services defined in the `docker-compose.yml` file without deleting volumes or data unless explicitly configured.
+
+2. To clean up cache and start fresh, remove the local `.inference` folder (inference runtime cache and identity):
+```bash
+rm -rf .inference
+```
+
+3. (Optional) Clear model weights cache:
+```bash
+rm -rf $HF_HOME
+```
+
+!!! note
+         Be careful: deleting $HF_HOME will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
+
+**Full Reset Workflow (if you want to rejoin as a fresh node)**
+```bash
+docker compose -f docker-compose.yml down
+rm -rf .inference
+# Optional: rm -rf $HF_HOME
+```
 
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

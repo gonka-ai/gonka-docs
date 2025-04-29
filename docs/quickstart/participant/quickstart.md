@@ -118,17 +118,15 @@ Edit `config.env` file and set your node name, public URL and other parameters.
 - `HF_HOME` – the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., ~/hf-cache). If you’re part of the 6Block network, you can use the shared cache at /mnt/shared.
 The next variables configure the seed node and are optional to modify:
 
-!!! note 
-        Leave these as-is unless you’re running a custom setup:
-        SEED_API_URL=http://195.242.13.239:8000
-        SEED_NODE_RPC_URL=http://195.242.13.239:26657
-        SEED_NODE_P2P_URL=tcp://195.242.13.239:26656
-        
-        DAPI_API_RPC_CALLBACK_URL=http://api:8000
-        DAPI_CHAIN_NODE_URL=http://node:26657
-        DAPI_CHAIN_NODE_P2P_URL=http://node:26656
-        RPC_SERVER_URL_1="http://89.169.103.180:26657"
-        RPC_SERVER_URL_2="http://195.242.13.239:26657"
+!!! note "Leave these as-is unless you’re running a custom setup"
+SEED_API_URL=http://195.242.13.239:8000
+SEED_NODE_RPC_URL=http://195.242.13.239:26657
+SEED_NODE_P2P_URL=tcp://195.242.13.239:26656   
+DAPI_API_RPC_CALLBACK_URL=http://api:8000
+DAPI_CHAIN_NODE_URL=http://node:26657
+DAPI_CHAIN_NODE_P2P_URL=http://node:26656
+RPC_SERVER_URL_1="http://89.169.103.180:26657"
+RPC_SERVER_URL_2="http://195.242.13.239:26657"
 
 ## Preload and Setup 
 

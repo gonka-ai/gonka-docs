@@ -130,8 +130,7 @@ RPC_SERVER_URL_2=http://195.242.13.239:26657
 
 **1. Pull Docker Images (Containers)**
 ```bash
-docker pull gcr.io/decentralized-ai/mlnode:<VERSION>
-docker pull gcr.io/decentralized-ai/networknode:<VERSION>
+docker compose -f docker-compose.yml pull
 ```
 
 Replace <VERSION> with the correct version tag from your deployment configuration.
@@ -154,22 +153,13 @@ docker compose -f docker-compose.yml up -d && \
 docker compose -f docker-compose.yml logs -f
 ```
 
-**4. Confirm Your Node Is Running**
-
-After launching, you should see logs from the API and chain node. Look for lines like:
-```bash
-[api] Server running on port 8000
-[chain] Node is connected to peers
-```
-If you see these, your node is live.
-
 **To verify the node is active and reachable**
 
 **Check API health**
 
-Visit this URL in your browser or use curl:
+Visit this URL in your browser:
 ```bash
-curl http://<your-public-ip>:8000/health
+http://195.242.13.239:8000/v1/epochs/current/participants
 ```
 Expected response:
 ```bash
@@ -181,8 +171,7 @@ If this fails, double-check your firewall and port mapping in `config.env`.
 
 Use:
 ```bash
-curl http://<your-public-ip>:26657/status
-
+http://<your-public-ip>:<rpc-port> - <rpc-port> - public port mapped to 26657 of your node
 ```
 You should receive a JSON response with node info, chain ID, and sync status.
 

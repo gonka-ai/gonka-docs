@@ -91,20 +91,18 @@ Create a writable directory (e.g. ~/hf-cache) and pre-load models if desired:
 huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
 ```
 **Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)**
+
 Mount shared cache:
 ```bash
 sudo mount -t nfs 172.18.114.147:/mnt/toshare /mnt/shared
 export HF_HOME=/mnt/shared
 ```
 The path `/mnt/shared` only works in the 6Block testnet with access to the shared NFS.
-
-
 ## Authenticate with Docker Registry
 Some images are private. Authenticate with GitHub Container Registry:
 ```bash
 echo $GH_TOKEN | docker login ghcr.io -u <your_github_username> --password-stdin
 ```
-
 ## Setup Your Node 
 ### Edit Your Node Configuration
 Open config.env. Only a few fields need to be changed (others are pre-filled and usually don’t require editing).

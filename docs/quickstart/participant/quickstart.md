@@ -85,7 +85,7 @@ Choose one of the following options:
 ```bash
 export HF_HOME=/path/to/your/hf-cache
 ```
-Create a writable directory (e.g. ~/hf-cache) and pre-load models if desired:
+Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired:
 ```bash
 huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
 ```

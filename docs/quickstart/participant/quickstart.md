@@ -165,7 +165,7 @@ If you see these, your node is live.
 
 **To verify the node is active and reachable**
 
-**Check API health. **
+**Check API health**
 
 Visit this URL in your browser or use curl:
 ```bash
@@ -177,7 +177,7 @@ Expected response:
 ```
 If this fails, double-check your firewall and port mapping in `config.env`.
 
-**Check Tendermint RPC.** 
+**Check Tendermint RPC** 
 
 Use:
 ```bash

@@ -72,9 +72,9 @@ After cloning the repository, you’ll find the following key configuration file
 - `node-config-qwq-8x3090.json` - Optimized config for QwQ-32B using 8x3090 setup
 
 !!! note
-        Tip: Copy and modify the config that best fits your model and GPU layout.
+    Tip: Copy and modify the config that best fits your model and GPU layout.
         
-        Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Examples for their `config` can be found in `node-config.json` and `node-config-qwq.json` accordingly.
+    Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Examples for their `config` can be found in `node-config.json` and `node-config-qwq.json` accordingly.
 
 ### Prepare Model Weights & HF_HOME
 Inference nodes download model weights from Hugging Face.

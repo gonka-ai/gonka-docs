@@ -28,15 +28,10 @@ In our network, we aim to support open-source LLMs that rank highly on Chat Aren
 | **Llama-3-70B**        |🆗           |🆗           | ✅         | ✅         |🆗             |🆗             | ✅         |            |                |
 | **Qwen2.5-7B-Instruct**            |🆗           |🆗           |🆗           |🆗           |🆗             |🆗             |🆗           |🆗           | ✅              |
 
-### Legend
-
 - ✅ — Fully supported and efficient  
-- 🆗 — Supported, but not efficient  
-
-
-_*If you have multiple H100 or A100 GPUs, consider grouping 2 or 8 of them into a single node to support higher-demand models._
-
-_**If you have multiple 3090 GPUs, consider grouping 4 or 8 of them into a single node for better performance._
+- 🆗 — Supported, but not efficient
+- If you have multiple H100 or A100 GPUs, consider grouping 2 or 8 of them into a single node to support higher-demand models.
+- If you have multiple 3090 GPUs, consider grouping 4 or 8 of them into a single node for better performance.
 
 To run a service, you need to have a machine with a [supported GPU(s)](/hardware-specifications).  
 

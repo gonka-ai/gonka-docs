@@ -161,11 +161,6 @@ Visit this URL in your browser:
 ```bash
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```
-Expected response:
-```bash
-{"status": "ok"}
-```
-If this fails, double-check your firewall and port mapping in `config.env`.
 
 **Check Tendermint RPC** 
 

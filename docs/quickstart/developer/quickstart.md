@@ -66,9 +66,9 @@ You can create an account with the following command:
 
 This command creates a new account and securely stores its keys in the `~/.inference` directory.
 
-Please make sure to securely save your passphrase — you’ll need it for future access.
+Make sure to securely save your passphrase — you’ll need it for future access.
 
-Please save the `ACCOUNT_ADDRESS` from the output lines:
+Save the `ACCOUNT_ADDRESS` from the output lines:
 
 ```bash
 - address: ACCOUNT_ADDRESS

@@ -154,7 +154,7 @@ docker compose -f docker-compose.yml logs -f
 ```
 
 ## To verify the node is active and reachable**
-Visit this URL in your browser and find your node:
+Visit this URL in your browser and find your `PUBLIC_URL`:
 ```bash
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```

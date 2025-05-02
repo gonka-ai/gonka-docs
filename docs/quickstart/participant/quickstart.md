@@ -150,6 +150,7 @@ http://195.242.13.239:8000/v1/epochs/current/participants
 ```
 
 ##  Stopping and Cleaning Up Your Node
+Make sure you are in `pivot-deploy/join` folder.
 
 To stop all running containers:
 ```bash

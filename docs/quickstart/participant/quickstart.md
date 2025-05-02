@@ -149,6 +149,12 @@ Visit this URL in your browser and find your `PUBLIC_URL`:
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```
 
+Check Tendermint RPC
+```bash
+http://<your-public-ip>:<rpc-port> 
+- <rpc-port> - public port mapped to 26657 of your node
+```
+
 ##  Stopping and Cleaning Up Your Node
 Make sure you are in `pivot-deploy/join` folder.
 

@@ -133,15 +133,7 @@ RPC_SERVER_URL_2=http://195.242.13.239:26657
 docker compose -f docker-compose.yml pull
 ```
 
-**2.  Pull Model Weights**
-```bash
-export HF_HOME=~/hf-cache
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
-```
-
-Use `HF_HOME`, not `--local-dir`. It must match at runtime.
-
-**3. Launch the Services**
+**2. Launch the Services**
 
 Once containers are pulled and model weights are cached, you can launch the node:
 

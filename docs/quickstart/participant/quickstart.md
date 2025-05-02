@@ -133,8 +133,6 @@ RPC_SERVER_URL_2=http://195.242.13.239:26657
 docker compose -f docker-compose.yml pull
 ```
 
-Replace <VERSION> with the correct version tag from your deployment configuration.
-
 **2.  Pull Model Weights**
 ```bash
 export HF_HOME=~/hf-cache

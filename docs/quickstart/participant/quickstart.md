@@ -100,7 +100,7 @@ The path `/mnt/shared` only works in the 6Block testnet with access to the share
 ## Authenticate with Docker Registry
 Some images are private. Authenticate with GitHub Container Registry:
 ```bash
-echo $GH_TOKEN | docker login ghcr.io -u <your_github_username> --password-stdin
+docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ```
 ## Setup Your Node 
 ### Edit Your Node Configuration

@@ -153,7 +153,7 @@ docker compose -f docker-compose.yml up -d && \
 docker compose -f docker-compose.yml logs -f
 ```
 
-## To verify the node is active and reachable**
+## To verify the node is active and reachable
 Visit this URL in your browser and find your `PUBLIC_URL`:
 ```bash
 http://195.242.13.239:8000/v1/epochs/current/participants
@@ -165,10 +165,6 @@ Use:
 ```bash
 http://<your-public-ip>:<rpc-port> - <rpc-port> - public port mapped to 26657 of your node
 ```
-You should receive a JSON response with node info, chain ID, and sync status.
-
-Once logs look stable and `/health` returns `{"status":"ok"}`, your node is running.
-Node successfully launched and connected to the network!
 
 ##  Stopping and Cleaning Up Your Node
 

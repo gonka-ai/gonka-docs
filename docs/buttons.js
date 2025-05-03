@@ -19,3 +19,32 @@ document.addEventListener("DOMContentLoaded", function () {
         headerMeta.appendChild(loginButton);
     }
 });
+// COLLAPSIBLE H2 SECTIONS
+document.addEventListener('DOMContentLoaded', function() {
+    const content = document.querySelector('.md-content');
+    const headers = content.querySelectorAll('h2');
+
+    headers.forEach(function(header) {
+        // Skip if already wrapped
+        if (header.parentNode.tagName.toLowerCase() === 'details') return;
+
+        // Create <details> and <summary>
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+
+        // Move the header text into <summary>
+        summary.innerHTML = header.innerHTML;
+        details.appendChild(summary);
+
+        // Move all content until the next H2 into <details>
+        let next = header.nextElementSibling;
+        while (next && !(next.tagName === 'H2')) {
+            const toMove = next;
+            next = next.nextElementSibling;
+            details.appendChild(toMove);
+        }
+
+        // Replace the original H2 with <details>
+        header.parentNode.replaceChild(details, header);
+    });
+});

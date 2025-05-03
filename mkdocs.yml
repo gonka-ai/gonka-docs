@@ -59,6 +59,7 @@ theme:
     - navigation.expand
     - navigation.top
     - content.code.annotate
+    - content.code.copy
     - navigation.indexes
     - navigation.tracking
     - search.suggest

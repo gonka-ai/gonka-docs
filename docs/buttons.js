@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // ==============================
+    // HEADER BUTTONS (Log In & Sign Up)
+    // ==============================
     const headerMeta = document.querySelector('.md-header__inner');
 
     if (headerMeta) {
@@ -18,10 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
         headerMeta.appendChild(signupButton);
         headerMeta.appendChild(loginButton);
     }
-});
-// COLLAPSIBLE H2 SECTIONS
-document.addEventListener('DOMContentLoaded', function() {
+
+    // ==============================
+    // COLLAPSIBLE H2 SECTIONS
+    // ==============================
     const content = document.querySelector('.md-content');
+    if (!content) return;  // Safety check in case .md-content doesn't exist
+
     const headers = content.querySelectorAll('h2');
 
     headers.forEach(function(header) {
@@ -45,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Replace the original H2 with <details>
+        header.parentNode.replaceChild(details, header);
+    });
+});
         header.parentNode.replaceChild(details, header);
     });
 });

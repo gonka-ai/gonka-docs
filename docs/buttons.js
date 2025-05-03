@@ -1,9 +1,7 @@
+// ==============================
+// HEADER BUTTONS (Log In & Sign Up)
+// ==============================
 document.addEventListener("DOMContentLoaded", function () {
-    console.log('JS loaded: Setting up header buttons and collapsible sections.');
-
-    // ==============================
-    // HEADER BUTTONS (Log In & Sign Up)
-    // ==============================
     const headerMeta = document.querySelector('.md-header__inner');
 
     if (headerMeta) {
@@ -19,45 +17,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
         headerMeta.appendChild(signupButton);
         headerMeta.appendChild(loginButton);
-        console.log('Header buttons added.');
     }
+});
 
-    // ==============================
-    // COLLAPSIBLE H2 SECTIONS
-    // ==============================
-    const content = document.querySelector('.md-content');
-    console.log('Found .md-content:', content);
+// ==============================
+// COLLAPSIBLE H2 SECTIONS
+// ==============================
+// MkDocs Material dynamic page load support
+if (window.hasOwnProperty('document$')) {
+    document$.subscribe(function() {
+        console.log('Page content loaded/reloaded.');
 
-    if (!content) {
-        console.warn('No .md-content found!');
-        return;
-    }
+        const content = document.querySelector('.md-content');
+        console.log('Found .md-content:', content);
 
-    const headers = content.querySelectorAll('h2');
-    console.log(`Found ${headers.length} H2 headers.`);
-
-    headers.forEach(function(header, i) {
-        console.log(`Processing header #${i + 1}:`, header.innerText);
-
-        if (header.parentNode.tagName.toLowerCase() === 'details') {
-            console.log('Already wrapped in <details>, skipping.');
+        if (!content) {
+            console.warn('No .md-content found!');
             return;
         }
 
-        const details = document.createElement('details');
-        const summary = document.createElement('summary');
+        const headers = content.querySelectorAll('h2');
+        console.log(`Found ${headers.length} H2 headers.`);
 
-        summary.innerHTML = header.innerHTML;
-        details.appendChild(summary);
+        headers.forEach(function(header, i) {
+            console.log(`Processing header #${i + 1}:`, header.innerText);
 
-        let next = header.nextElementSibling;
-        while (next && !(next.tagName === 'H2')) {
-            const toMove = next;
-            next = next.nextElementSibling;
-            details.appendChild(toMove);
-        }
+            if (header.parentNode.tagName.toLowerCase() === 'details') {
+                console.log('Already wrapped in <details>, skipping.');
+                return;
+            }
 
-        header.parentNode.replaceChild(details, header);
-        console.log('Wrapped section in <details>.');
+            const details = document.createElement('details');
+            const summary = document.createElement('summary');
+
+            summary.innerHTML = header.innerHTML;
+            details.appendChild(summary);
+
+            let next = header.nextElementSibling;
+            while (next && !(next.tagName === 'H2')) {
+                const toMove = next;
+                next = next.nextElementSibling;
+                details.appendChild(toMove);
+            }
+
+            header.parentNode.replaceChild(details, header);
+            console.log('Wrapped section in <details>.');
+        });
     });
-});
+}

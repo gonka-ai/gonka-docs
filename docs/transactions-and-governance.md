@@ -100,29 +100,6 @@ Look for the `min_deposit` field (e.g., `10000nicoin`) and include this in the `
 Example structure:
 ```bash
 {
-  "messages": [
-    {
-      "@type": "/inference.inference.MsgUpdateParams",
-      "authority": "cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn",
-      "params": {
-        "epoch_params": {
-          "epoch_length": 1000,
-          "other_field": "value"
-        },
-        "validation_params": {
-          ...
-        },
-        "poc_params": {
-          ...
-        },
-        "tokenomics_params": {
-          ...
-        }
-      }
-    }
-  ],
-}
-{
   "body": {
     "messages": [
       {
@@ -145,6 +122,7 @@ Example structure:
         "tokenomics_params": {
           ...
         }
+	}
         ],
         "initial_deposit": [
           {
@@ -152,8 +130,7 @@ Example structure:
             "amount": "10000000"
           }
         ],
-  "metadata": "ipfs://CID",  // Optional
-  "deposit": "10000nicoin",
+  "metadata": "ipfs://CID",  // Optiona
   "title": "Update to 1000 epoch length",
   "summary": "Epoch length should be longer",
   "expedited": false,

@@ -15,6 +15,7 @@ nav:
               - Quickstart: quickstart/developer/quickstart.md
           - Participant:
               - Quickstart: quickstart/participant/quickstart.md
+              - Migrate: quickstart/participant/migrate.md
               - Details: quickstart/participant/details.md
               - Network Node API: quickstart/participant/network-node-api.md
       - Wallet & Transfer Guide: wallet-and-transfer-guide.md

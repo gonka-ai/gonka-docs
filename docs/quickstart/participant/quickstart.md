@@ -108,14 +108,14 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 Edit `config.env` file and set your node name, public URL and other parameters.
 
 - `KEY_NAME` -  manually define a unique identifier for your node.
-- `PORT` - port where your node will be available on the machine (default is 8000)
+- `API_PORT` - port where your node will be available on the machine (default is 8000)
 - `PUBLIC_URL` - public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000)
 - `P2P_EXTERNAL_ADDRESS` - public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000)
 - `HF_HOME` – the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`.
 
 Others are pre-filled and usually don’t require modification.
 ```bash
-PORT=8000
+API_PORT=8000
 SEED_API_URL=http://195.242.13.239:8000
 SEED_NODE_RPC_URL=http://195.242.13.239:26657
 SEED_NODE_P2P_URL=tcp://195.242.13.239:26656   

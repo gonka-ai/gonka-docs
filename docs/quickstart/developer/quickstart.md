@@ -73,7 +73,7 @@ Save the `ACCOUNT_ADDRESS` from the output lines:
 ```bash
 - address: ACCOUNT_ADDRESS
   name: ACCOUNT_NAME
-  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"..."}'
+  pubkey: '{"@type":"/gonka.crypto.secp256k1.PubKey","key":"..."}'
   type: local
 ```
 

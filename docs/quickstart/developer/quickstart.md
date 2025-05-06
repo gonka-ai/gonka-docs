@@ -14,6 +14,10 @@ To proceed, you’ll need access to the private codebase. Please send your GitHu
 To interact with the network, you need the `inferenced` CLI tool.   
 You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/pivot-deploy/releases).
 
+!!! note
+    For network versions >= 0.1.0, you must use an `inferenced` binary release >= 0.1.0.
+    Using an older binary with a newer network version may result in errors or incompatibility.
+
 !!! note "Enabling Execution on Mac OS"
     On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
     

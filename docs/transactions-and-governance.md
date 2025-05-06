@@ -103,7 +103,7 @@ Example structure:
   "body": {
     "messages": [
       {
-        "@type": "/gonka.gov.v1.MsgSubmitProposal",
+        "@type": "/cosmos.gov.v1.MsgSubmitProposal",
         "messages": [
           {
       "@type": "/inference.inference.MsgUpdateParams",
@@ -185,7 +185,7 @@ Here’s an example `MsgDeposit` transaction JSON:
 {
   "messages": [
     {
-      "@type": "/gonka.gov.v1.MsgDeposit",
+      "@type": "/cosmos.gov.v1.MsgDeposit",
       "proposal_id": "1",
       "depositor": "gonka1...",  // Your account address
       "amount": [
@@ -262,7 +262,7 @@ Example `MsgVote` transaction:
 {
   "messages": [
     {
-      "@type": "/gonka.gov.v1.MsgVote",
+      "@type": "/cosmos.gov.v1.MsgVote",
       "proposal_id": "1",
       "voter": "gonka1...",  // Your account address
       "option": "VOTE_OPTION_YES"

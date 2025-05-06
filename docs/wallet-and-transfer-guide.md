@@ -81,7 +81,7 @@ This command lists all the wallet keys (accounts) you’ve created locally, alon
 ```
 - address: gonka1f85frkfw89cgpva0vgpyuldjgu6uhyd82hmjzr
   name: genesis
-  pubkey: '{"@type":"/gonka.crypto.secp256k1.PubKey","key":"A+Qpbyhtsdl5N/6O6S/qJ9uvtbI7OFFsO5dcNrpEU0nv"}'
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A+Qpbyhtsdl5N/6O6S/qJ9uvtbI7OFFsO5dcNrpEU0nv"}'
   type: local
 ```
 Write down the address (used to receive tokens and query balance).
@@ -162,7 +162,7 @@ tx:
   ...
   body:
     messages:
-    - '@type': /gonka.bank.v1beta1.MsgSend
+    - '@type': /cosmos.bank.v1beta1.MsgSend
       from_address: gonka17ek5qgf94zsp024kppcyze37p95drr3wnt6jp3
       to_address: gonka1ydt57pmnsd508ckw4fh6ey6h299v50zljpylla
       amount:

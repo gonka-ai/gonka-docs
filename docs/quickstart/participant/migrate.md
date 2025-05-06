@@ -12,7 +12,7 @@ The script below handles migration of:
     - `node-config-qwq-8x3090.json`
 
 !!! note
-    If you previously edited your json node config file by hand, make the same edits in the new file after the upgrade and restart the containers.
+    If you previously edited your json node config file by hand, make the same edits in the new file after the upgrade and restart the `api` container.
 
 
 ## Update

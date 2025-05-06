@@ -60,6 +60,7 @@ curl -fsSL https://raw.githubusercontent.com/product-science/race-releases/main/
 
     VER=0.0.1
 
+    . ./config.env
     docker compose -f docker-compose.yml down
     docker volume rm join_tmkms_data 2>/dev/null || true
     sudo rm -rf .inference

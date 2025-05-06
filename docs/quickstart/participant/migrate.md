@@ -12,7 +12,7 @@ The script below handles migration of:
     - `node-config-qwq-8x3090.json`
 
 !!! note
-    If you previously edited your config file by hand, make the same edits in the new file after the upgrade.
+    If you previously edited your json node config file by hand, make the same edits in the new file after the upgrade and restart the containers.
 
 
 ## Update
@@ -27,7 +27,7 @@ cd pivot-deploy/join
 
 ### 2. Verify your auth tokens
 
-Make sure your **GitHub repository** token and **GHCR registry** token still work.
+Make sure your **GitHub repository** token and **GitHub Container Registry (CHCR)** token still work.
 If either token has expired, follow the steps in Quickstart to refresh them.
 
 
@@ -88,6 +88,7 @@ sh update.sh
 ```
 
 The script will:
+
 1.	Stop and remove the old containers
 2.	Migrate your configs
 3.	Launch the updated containers

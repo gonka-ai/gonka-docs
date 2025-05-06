@@ -77,7 +77,7 @@ To find it:
 ```bash
 inferenced query auth module-accounts
 ```
-Search for the account named `"gov"` and copy its address (e.g., `cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn`). This becomes the `authority` in your proposal JSON.
+Search for the account named `"gov"` and copy its address (e.g., `gonka10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn`). This becomes the `authority` in your proposal JSON.
 
 **2. Fetch Current Parameters**
 
@@ -103,11 +103,11 @@ Example structure:
   "body": {
     "messages": [
       {
-        "@type": "/cosmos.gov.v1.MsgSubmitProposal",
+        "@type": "/gonka.gov.v1.MsgSubmitProposal",
         "messages": [
           {
       "@type": "/inference.inference.MsgUpdateParams",
-      "authority": "cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn",
+      "authority": "gonka10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn",
       "params": {
         "epoch_params": {
           "epoch_length": 1000,
@@ -134,7 +134,7 @@ Example structure:
   "title": "Update to 1000 epoch length",
   "summary": "Epoch length should be longer",
   "expedited": false,
-        "proposer": "cosmos...", // Should be the address of YOUR account
+        "proposer": "gonka...", // Should be the address of YOUR account
       }
     ],
     "memo": "",
@@ -185,9 +185,9 @@ Here’s an example `MsgDeposit` transaction JSON:
 {
   "messages": [
     {
-      "@type": "/cosmos.gov.v1.MsgDeposit",
+      "@type": "/gonka.gov.v1.MsgDeposit",
       "proposal_id": "1",
-      "depositor": "cosmos1...",  // Your account address
+      "depositor": "gonka1...",  // Your account address
       "amount": [
         {
           "denom": "nicoin",
@@ -262,9 +262,9 @@ Example `MsgVote` transaction:
 {
   "messages": [
     {
-      "@type": "/cosmos.gov.v1.MsgVote",
+      "@type": "/gonka.gov.v1.MsgVote",
       "proposal_id": "1",
-      "voter": "cosmos1...",  // Your account address
+      "voter": "gonka1...",  // Your account address
       "option": "VOTE_OPTION_YES"
     }
   ],
@@ -279,7 +279,7 @@ Example `MsgVote` transaction:
 Replace:
 
 - `"1"` with the actual proposal ID.
-- `"cosmos1..."` with your account address.
+- `"gonka1..."` with your account address.
 - `"VOTE_OPTION_YES"` with your selected vote option.
 
 **4. Submit the Vote via the API**

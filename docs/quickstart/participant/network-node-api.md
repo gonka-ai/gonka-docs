@@ -24,7 +24,7 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
   "active_participants": {
 	"participants": [
   	{
-    	"index": "cosmos17tvsmufmewvwfy3dfxz7l20jmlhhn6ekfcun7r",
+    	"index": "gonka17tvsmufmewvwfy3dfxz7l20jmlhhn6ekfcun7r",
     	"validator_key": "ljvRT9VScsxQKKX4S91yJRNppbz691ceD4sBYBRrAys=",
     	"weight": 10,
     	"inference_url": "http://genesis-api:8080",
@@ -32,7 +32,7 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
       	"unsloth/llama-3-8b-Instruct"
     	],
     	"seed": {
-      	"participant": "cosmos17tvsmufmewvwfy3dfxz7l20jmlhhn6ekfcun7r",
+      	"participant": "gonka17tvsmufmewvwfy3dfxz7l20jmlhhn6ekfcun7r",
       	"block_height": 9,
       	"signature": "6a2523cd5898539ef8ea765c7ab78f0de5dbcbb32a34b9706baa7294589f94d657422f573e7a4325d4ba8661466171c9621a51544478eb69f90a49b5271c1400"
     	}
@@ -122,7 +122,7 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 
 `participants`: List of active participants, including:
 
-- `index`: Cosmos address
+- `index`: gonka address
 - `validator_key`: Public key (Base64)
 - `weight`: Voting weight
 - `inference_url`: Service endpoint

@@ -79,9 +79,9 @@ inferenced keys list [--keyring-backend test]
 This command lists all the wallet keys (accounts) you’ve created locally, along with their addresses and public keys. Example output:
 
 ```
-- address: cosmos1f85frkfw89cgpva0vgpyuldjgu6uhyd82hmjzr
+- address: gonka1f85frkfw89cgpva0vgpyuldjgu6uhyd82hmjzr
   name: genesis
-  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A+Qpbyhtsdl5N/6O6S/qJ9uvtbI7OFFsO5dcNrpEU0nv"}'
+  pubkey: '{"@type":"/gonka.crypto.secp256k1.PubKey","key":"A+Qpbyhtsdl5N/6O6S/qJ9uvtbI7OFFsO5dcNrpEU0nv"}'
   type: local
 ```
 Write down the address (used to receive tokens and query balance).
@@ -100,7 +100,7 @@ This shows how many tokens are in your wallet.
 **Example:**
 
 ```bash
-inferenced query bank balances cosmos1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e
+inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e
 ```
 
 ---
@@ -116,7 +116,7 @@ inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id
 **Example:**
 
 ```bash
-inferenced tx bank send genesis cosmos1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100icoin --chain-id prod-sim
+inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100icoin --chain-id prod-sim
 ```
 
 When specifying coins, you can use the following denominations:
@@ -162,9 +162,9 @@ tx:
   ...
   body:
     messages:
-    - '@type': /cosmos.bank.v1beta1.MsgSend
-      from_address: cosmos17ek5qgf94zsp024kppcyze37p95drr3wnt6jp3
-      to_address: cosmos1ydt57pmnsd508ckw4fh6ey6h299v50zljpylla
+    - '@type': /gonka.bank.v1beta1.MsgSend
+      from_address: gonka17ek5qgf94zsp024kppcyze37p95drr3wnt6jp3
+      to_address: gonka1ydt57pmnsd508ckw4fh6ey6h299v50zljpylla
       amount:
       - amount: "10"
         denom: nicoin

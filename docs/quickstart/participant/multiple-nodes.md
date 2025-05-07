@@ -148,14 +148,14 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 
 ### Retrieving All Inference Nodes
-To get a list of all registered inference nodes in your network node, use:
+To get a list of **all registered inference nodes** in your network node, use:
 ```
 curl -X GET http://localhost:9200/admin//v1/nodes
 ```
 This will return a JSON array containing all configured inference nodes.
 
 ### Removing an inference node
-Being connected to your network node server use the following Admin  API request to remove an inference node dynamically without restarting:
+Being connected to your **network node** server, use the following Admin API request to remove an inference node dynamically without restarting:
 ```
 curl -X DELETE "http://localhost:9200/admin/v1/nodes/{id}" -H "Content-Type: application/json"
 ```

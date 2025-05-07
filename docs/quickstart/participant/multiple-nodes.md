@@ -31,9 +31,8 @@ Make sure you have completed the [Quickstart Prerequisites](https://testnet.prod
 
 This server becomes the main entry point for external participants. It must be exposed to the public internet (static IP or domain recommended). High network reliability and security are essential. Host this on a stable, high-bandwidth server with robust security.
 
-### Single-Machine Deployment: Network Node + Inference Node (If your network node server has GPU(s) and you want to run both the network node and an inference node on it)
-
-To run both the **network node** and **inference node** on the same machine, execute the following commands in the `pivot-deploy/join` directory:
+### Single-Machine Deployment: Network Node + Inference Node
+If your network node server **has GPU(s)** and you want to run both the **network node** and an **inference node** on the same machine, execute the following commands in the `pivot-deploy/join` directory:
 
 ```                                 
 source config.env && \
@@ -43,12 +42,9 @@ docker compose -f docker-compose-cloud-join.yml logs -f
 
 This will start **one network node** and **one inference node** on the same machine.
 
-### Separate Deployment: Network Node Only (If your network node server has no GPU)
+### Separate Deployment: Network Node Only
 
-!!! note
-    Address set as `DAPI_API_RPC_CALLBACK_URL` for network node, should be accessible from ALL inference nodes (9100 port of `api` container by default)
-
-If you want your server to run only the network node, execute the following in the `pivot-deploy/join` directory:
+If your network node server has **no GPU** and you want your server to run** only the network node** (without inference node), execute the following in the `pivot-deploy/join` directory:
 
 ```
 source config.env && \ 
@@ -56,6 +52,9 @@ docker compose -f docker-compose-cloud-join.yml up -d node api \ &&
 docker compose -f docker-compose-cloud-join.yml logs -f                                 
 ```
 
+!!! note
+    Address set as `DAPI_API_RPC_CALLBACK_URL` for network node, should be accessible from ALL inference nodes (9100 port of `api` container by default)
+    
 ## Separate Deployment: Inference Node Only
 On the other servers, we run only the inference node, and for that, follow the instructions below.
 

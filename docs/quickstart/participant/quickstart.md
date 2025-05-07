@@ -51,7 +51,7 @@ It also should have:
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
 - 8000 - Application service (configurable)
 
-## Download Configuration Files
+## Download Deployment Files
 Clone the repository with base deploy scripts:
 
 ```bash
@@ -66,19 +66,19 @@ After cloning the repository, you’ll find the following key configuration file
 
 - `config.env` - Contains environment variables for the network node
 - `docker-compose.yml` - Docker Compose file to launch the network node
-- `node-config.json` - Configuration file for the inference node which will be user by network node.
+- `node-config.json` - Configuration file for the inference node which will be used by the Inference node.
 - `node-config-qwq.json` - Configuration file specifically for Qwen/QwQ-32B on A100/H100
 - `node-config-qwq-4x3090.json` - Optimized config for QwQ-32B using 4x3090 setup
 - `node-config-qwq-8x3090.json` - Optimized config for QwQ-32B using 8x3090 setup
 
 !!! note
-    Tip: Copy and modify the config that best fits your model and GPU layout.
+    Copy and modify the config that best fits your model and GPU layout.
         
     Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Examples for their `config` can be found in `node-config.json` and `node-config-qwq.json` accordingly.
 
-### Prepare Model Weights & HF_HOME
+### Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
-To avoid repeated downloads or failures due to rate limits, use a local cache directory.
+To ensure the model weights are ready for inference, we recommend downloading them before deployment.
 Choose one of the following options:
 
 **Option 1: Local download** 
@@ -115,18 +115,21 @@ Edit `config.env` file and set your node name, public URL and other parameters.
 
 Others are pre-filled and usually don’t require modification.
 ```bash
-API_PORT=8000
-SEED_API_URL=http://195.242.13.239:8000
-SEED_NODE_RPC_URL=http://195.242.13.239:26657
-SEED_NODE_P2P_URL=tcp://195.242.13.239:26656   
-DAPI_API_RPC_CALLBACK_URL=http://api:8000
-DAPI_CHAIN_NODE_URL=http://node:26657
-DAPI_CHAIN_NODE_P2P_URL=http://node:26656
-RPC_SERVER_URL_1=http://89.169.103.180:26657
-RPC_SERVER_URL_2=http://195.242.13.239:26657
+export NODE_CONFIG=./node-config.json
+export SEED_API_URL=http://195.242.13.239:8000
+export SEED_NODE_RPC_URL=http://195.242.13.239:26657
+export SEED_NODE_P2P_URL=tcp://195.242.13.239:26656
+export DAPI_API__POC_CALLBACK_URL=http://api:9100
+export DAPI_CHAIN_NODE__URL=http://node:26657
+export DAPI_CHAIN_NODE__P2P_URL=http://node:26656
+export RPC_SERVER_URL_1=http://89.169.103.180:26657
+export RPC_SERVER_URL_2=http://195.242.13.239:26657
 ```
 
-## Preload and Setup 
+## Launch node 
+
+!!! note
+    This instruction is designed for running both the network node and the inference node on a single machine (one server setup). If you are deploying multiple GPU nodes, please refer to the detailed multi-node deployment guide for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (even across regions like China and outside China), all inference nodes must be connected to the same network node. This ensures centralized coordination and proof verification.
 
 **1. Pull Docker Images (Containers)**
 ```bash
@@ -135,7 +138,7 @@ docker compose -f docker-compose.yml pull
 
 **2. Launch the Services**
 
-Once containers are pulled and model weights are cached, you can launch the node:
+Once containers are pulled and model weights are cached, launch the node:
 
 ```bash
 source config.env && \
@@ -143,8 +146,8 @@ docker compose -f docker-compose.yml up -d && \
 docker compose -f docker-compose.yml logs -f
 ```
 
-## To verify the node is active and reachable
-Visit this URL in your browser and find your `PUBLIC_URL`:
+## Verify the node is active and reachable
+In a few hours (after your node passes the Proof of Work stage), visit this URL in your browser and find your `PUBLIC_URL`:
 ```bash
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```

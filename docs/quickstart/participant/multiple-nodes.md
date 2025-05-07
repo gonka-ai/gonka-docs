@@ -114,8 +114,7 @@ On the inference node's server, go to the `cd pivot-deploy/inference` directory 
 docker compose up -d && docker compose logs -f
 ```
 
-This will deploy the inference node and start handling inference and Proof of Compute (PoC) tasks as soon as they are registered with your network node (instruction below)
-
+This will deploy the inference node and start handling inference and Proof of Compute (PoC) tasks as soon as they are registered with your network node (instructions below).
 ## Adding (Registering) Inference Nodes with the Network Node
 
 You must register each inference node with the network node to make it operational. 
@@ -134,6 +133,7 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 ```
 
 **Parameter descriptions**
+
 - `id` – A **unique identifier** for your inference node.
 - `host` – The **static IP** of your inference node or the **Docker container name** if running in the same Docker network.
 - `inference_port` – The port where the inference node **accepts inference and training tasks** (default: `5000`).

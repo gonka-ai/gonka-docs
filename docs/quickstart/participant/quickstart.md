@@ -66,14 +66,14 @@ After cloning the repository, you’ll find the following key configuration file
 
 - `config.env` - Contains environment variables for the network node
 - `docker-compose.yml` - Docker Compose file to launch the network node
-- `node-config.json` - Configuration file for the inference node which will be used by the Inference node.
+- `node-config.json` - Configuration file for the inference node, which will be used by the Inference node
 - `node-config-qwq.json` - Configuration file specifically for `Qwen/QwQ-32B` on A100/H100
 - `node-config-qwq-4x3090.json` - Optimized config for `QwQ-32B` using 4x3090 setup
 - `node-config-qwq-8x3090.json` - Optimized config for `QwQ-32B` using 8x3090 setup
 
-!!! note
-    Copy and modify the config that best fits your model and GPU layout.
-        
+Copy and modify the config that best fits your model and GPU layout.
+
+!!! note        
     Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Examples for their `config` can be found in `node-config.json` and `node-config-qwq.json` accordingly.
 
 ### Pre-download Model Weights to Hugging Face Cache (HF_HOME)
@@ -127,9 +127,9 @@ export RPC_SERVER_URL_2=http://195.242.13.239:26657
 ```
 
 ## Launch node 
+This instruction is designed for running both the network node and the inference node on a single machine (one server setup). 
 
-!!! note
-    This instruction is designed for running both the network node and the inference node on a single machine (one server setup). If you are deploying multiple GPU nodes, please refer to the detailed [multi-node deployment guide](https://testnet.productscience.ai/quickstart/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (even across regions like China and outside China), all inference nodes must be connected to the same network node.
+If you are deploying multiple GPU nodes, please refer to the detailed [multi-node deployment guide](https://testnet.productscience.ai/quickstart/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (even across regions like China and outside China), all inference nodes must be connected to the same network node.
 
 **1. Pull Docker Images (Containers)**
 ```bash

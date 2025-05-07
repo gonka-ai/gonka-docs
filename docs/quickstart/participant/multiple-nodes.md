@@ -23,15 +23,15 @@ Before proceeding, read the following sections:
 This section describes how to deploy a distributed setup with a network node and multiple inference nodes.
 
 !!! note
-   All inference nodes must be registered with the same network node, regardless of where they are located geographically (e.g., you may have clusters inside China and others outside China). Each inference node, even in a different region, should always connect back to the same network node. 
+    All inference nodes must be registered with the same network node, regardless of where they are located geographically (e.g., you may have clusters inside China and others outside China). Each inference node, even in a different region, should always connect back to the same network node. 
 
-### Starting the network node
+## Starting the network node
 
 Make sure you have completed the [Quickstart Prerequisites](https://testnet.productscience.ai/quickstart/participant/quickstart/#prerequisites) beforehand.
 
 This server becomes the main entry point for external participants. It must be exposed to the public internet (static IP or domain recommended). High network reliability and security are essential. Host this on a stable, high-bandwidth server with robust security.
 
-#### Single-Machine Deployment: Network Node + Inference Node (If your network node server has GPU(s) and you want to run both the network node and an inference node on it)
+### Single-Machine Deployment: Network Node + Inference Node (If your network node server has GPU(s) and you want to run both the network node and an inference node on it)
 
 To run both the **network node** and **inference node** on the same machine, execute the following commands in the `pivot-deploy/join` directory:
 
@@ -43,10 +43,10 @@ docker compose -f docker-compose-cloud-join.yml logs -f
 
 This will start **one network node** and **one inference node** on the same machine.
 
-#### Separate Deployment: Network Node Only (If your network node server has no GPU)
+### Separate Deployment: Network Node Only (If your network node server has no GPU)
 
 !!! note
-   Address set as `DAPI_API_RPC_CALLBACK_URL` for network node, should be accessible from ALL inference nodes (9100 port of `api` container by default)
+    Address set as `DAPI_API_RPC_CALLBACK_URL` for network node, should be accessible from ALL inference nodes (9100 port of `api` container by default)
 
 If you want your server to run only the network node, execute the following in the `pivot-deploy/join` directory:
 
@@ -56,10 +56,10 @@ docker compose -f docker-compose-cloud-join.yml up -d node api \ &&
 docker compose -f docker-compose-cloud-join.yml logs -f                                 
 ```
 
-### Separate Deployment: Inference Node Only
+## Separate Deployment: Inference Node Only
 On the other servers, we run only the inference node, and for that, follow the instructions below.
 
-#### Step 1. Configure the Inference Node
+### Step 1. Configure the Inference Node
 
 **1.1. Download Deployment Files**
 
@@ -108,7 +108,7 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 5000 - Inference requests
 8000 - PoC
 ```
-#### Step 2. Launch the Inference Node
+### Step 2. Launch the Inference Node
 
 On the inference node's server, go to the `cd pivot-deploy/inference` directory and execute
 ```
@@ -117,7 +117,7 @@ docker compose up -d && docker compose logs -f
 
 This will deploy the inference node and start handling inference and Proof of Compute (PoC) tasks as soon as they are registered with your network node (instruction below)
 
-### Adding (Registering) Inference Nodes with the Network Node
+## Adding (Registering) Inference Nodes with the Network Node
 
 You must register each inference node with the network node to make it operational. 
 The recommended method is via the Admin API for dynamic management, which is accessible from the terminal of your network node server.
@@ -148,14 +148,14 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 
-#### Retrieving All Inference Nodes
+### Retrieving All Inference Nodes
 To get a list of all registered inference nodes in your network node, use:
 ```
 curl -X GET http://localhost:9200/admin//v1/nodes
 ```
 This will return a JSON array containing all configured inference nodes.
 
-#### Removing an inference node
+### Removing an inference node
 Being connected to your network node server use the following Admin  API request to remove an inference node dynamically without restarting:
 ```
 curl -X DELETE "http://localhost:9200/admin/v1/nodes/{id}" -H "Content-Type: application/json"

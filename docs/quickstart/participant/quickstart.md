@@ -52,11 +52,16 @@ It also should have:
 - 8000 - Application service (configurable)
 
 ## Download Deployment Files
-Clone the repository with base deploy scripts:
+Clone the repository with the base deploy scripts:
 
 ```bash
 git clone https://github.com/product-science/pivot-deploy.git -b main && \
 cd pivot-deploy/join
+```
+
+And copy `config` file template:
+```
+cp config.env.template config.env
 ```
 
 !!! note "Authentication required" 

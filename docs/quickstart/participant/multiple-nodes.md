@@ -55,7 +55,7 @@ docker compose -f docker-compose-cloud-join.yml logs -f
 !!! note
     Address set as `DAPI_API__POC_CALLBACK_URL` for network node, should be accessible from ALL inference nodes (9100 port of `api` container by default)
     
-## Separate Deployment: Inference Node Only
+## Running the inference node on a separate server
 On the other servers, we run only the inference node, and for that, follow the instructions below.
 
 ### Step 1. Configure the Inference Node

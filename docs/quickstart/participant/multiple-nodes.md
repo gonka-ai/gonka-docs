@@ -14,8 +14,8 @@ The guide provides instructions for deploying both services on the same machine 
 Before proceeding, read the following sections:
 
 - [Quickstart - Prerequisites](https://testnet.productscience.ai/quickstart/participant/quickstart/#prerequisites)
-- [Container Access](https://testnet.productscience.ai/quickstart/participant/quickstart/#container-access)
-- [Download Configuration Files](https://testnet.productscience.ai/quickstart/participant/quickstart/#download-configuration-files)
+- [Download Deployment Files](https://testnet.productscience.ai/quickstart/participant/quickstart/#download-deployment-files)
+- [Container Access](https://testnet.productscience.ai/quickstart/participant/quickstart/#authenticate-with-docker-registry)
 
 ---
 

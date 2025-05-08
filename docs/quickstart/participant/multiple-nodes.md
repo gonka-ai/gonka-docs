@@ -140,10 +140,10 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 - `poc_port` – The port where the inference node **handles Proof of Compute (PoC) tasks** (default: `8080`).
 - `max_concurrent` – The **maximum number of concurrent inference requests** this node can handle.
 - `models` – A list of **supported models** that the inference node can process. Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Please follow the same structure as in files `node-config*.json` from `pivot-deploy/join` folder, copy and modify it from the config that best fits your model and GPU layout:
-   - `node-config.json` - Optimized config for `Qwen/Qwen2.5-7B-Instruct`
-   - `node-config-qwq.json` - Optimized config for `Qwen/QwQ-32B` on A100/H100
-   - `node-config-qwq-4x3090.json` - Optimized config for `Qwen/QwQ-32B` using 4x3090 setup
-   - `node-config-qwq-8x3090.json` - Optimized config for `Qwen/QwQ-32B` using 8x3090 setup
+       - `node-config.json` - Optimized config for `Qwen/Qwen2.5-7B-Instruct`
+       - `node-config-qwq.json` - Optimized config for `Qwen/QwQ-32B` on A100/H100
+       - `node-config-qwq-4x3090.json` - Optimized config for `Qwen/QwQ-32B` using 4x3090 setup
+       - `node-config-qwq-8x3090.json` - Optimized config for `Qwen/QwQ-32B` using 8x3090 setup
 
 If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 

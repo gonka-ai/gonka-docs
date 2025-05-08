@@ -110,26 +110,30 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ## Setup Your Node 
 ### Edit Your Node Configuration
 
-Edit `config.env` file and set your node name, public URL and other parameters.
+!!! note "config.env"
+    export KEY_NAME=<FILLIN>								# Edit as described below
+    export API_PORT=8000									# Edit as described below
+    export PUBLIC_URL=http://<HOST>:<PORT>					# Edit as described below
+    export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>		# Edit as described below
+    export NODE_CONFIG=./node-config.json					# Keep as is
+    export HF_HOME=/mnt/shared								# Edit as described below
+    export SEED_API_URL=http://195.242.13.239:8000			# Keep as is 
+    export SEED_NODE_RPC_URL=http://195.242.13.239:26657	# Keep as is
+    export SEED_NODE_P2P_URL=tcp://195.242.13.239:26656		# Keep as is
+    export DAPI_API__POC_CALLBACK_URL=http://api:9100		# Keep as is
+    export DAPI_CHAIN_NODE__URL=http://node:26657			# Keep as is
+    export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		# Keep as is
+    export RPC_SERVER_URL_1=http://89.169.103.180:26657		# Keep as is
+    export RPC_SERVER_URL_2=http://195.242.13.239:26657		# Keep as is
 
+Which variables to edit:
 - `KEY_NAME` -  manually define a unique identifier for your node.
 - `API_PORT` - port where your node will be available on the machine (default is 8000)
 - `PUBLIC_URL` - public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000)
 - `P2P_EXTERNAL_ADDRESS` - public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000)
 - `HF_HOME` – the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`.
 
-Others are pre-filled and usually don’t require modification.
-```bash
-export NODE_CONFIG=./node-config.json
-export SEED_API_URL=http://195.242.13.239:8000
-export SEED_NODE_RPC_URL=http://195.242.13.239:26657
-export SEED_NODE_P2P_URL=tcp://195.242.13.239:26656
-export DAPI_API__POC_CALLBACK_URL=http://api:9100
-export DAPI_CHAIN_NODE__URL=http://node:26657
-export DAPI_CHAIN_NODE__P2P_URL=http://node:26656
-export RPC_SERVER_URL_1=http://89.169.103.180:26657
-export RPC_SERVER_URL_2=http://195.242.13.239:26657
-```
+All other variables can be left as is.
 
 ## Launch node 
 The quickstart instruction is designed for running both the network node and the inference node on a single machine (one server setup). 

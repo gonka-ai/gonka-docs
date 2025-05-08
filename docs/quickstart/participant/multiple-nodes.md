@@ -64,7 +64,7 @@ On the other servers, we run only the inference node, and for that, follow the i
 
 Clone the repository with the base deploy scripts:
 ```
-git clone https://github.com/product-science/pivot-deploy.git -b main && \
+git clone https://github.com/product-science/pivot-deploy.git -b main
 ```
 !!! note "Authentication required" 
     If prompted for a password, use a GitHub personal access token (classic) with `repo` access.

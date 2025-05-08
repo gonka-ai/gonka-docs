@@ -111,10 +111,11 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ### Edit Your Node Configuration
 
 !!! note "config.env"
+```
     export KEY_NAME=<FILLIN>								# Edit as described below
     export API_PORT=8000									# Edit as described below
     export PUBLIC_URL=http://<HOST>:<PORT>					# Edit as described below
-    export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>		# Edit as described below
+    export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>		    # Edit as described below
     export NODE_CONFIG=./node-config.json					# Keep as is
     export HF_HOME=/mnt/shared								# Edit as described below
     export SEED_API_URL=http://195.242.13.239:8000			# Keep as is 
@@ -125,8 +126,10 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
     export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		# Keep as is
     export RPC_SERVER_URL_1=http://89.169.103.180:26657		# Keep as is
     export RPC_SERVER_URL_2=http://195.242.13.239:26657		# Keep as is
+```
 
 Which variables to edit:
+
 - `KEY_NAME` -  manually define a unique identifier for your node.
 - `API_PORT` - port where your node will be available on the machine (default is 8000)
 - `PUBLIC_URL` - public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000)

@@ -141,7 +141,7 @@ All other variables can be left as is.
 ## Launch node 
 The quickstart instruction is designed for running both the network node and the inference node on a single machine (one server setup). 
 
-If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://testnet.productscience.ai/quickstart/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (even across regions like China and outside China), all inference nodes must be connected to the same network node.
+If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://testnet.productscience.ai/quickstart/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same network node.
 
 **1. Pull Docker Images (Containers)**
 ```bash

@@ -22,8 +22,8 @@ Before proceeding, read the following sections:
 ## Starting the network and inference node
 This section describes how to deploy a distributed setup with a network node and multiple inference nodes.
 
-!!! note
-    All inference nodes must be registered with the same network node, regardless of where they are located geographically (e.g., you may have clusters inside China and others outside China). Each inference node, even in a different region, should always connect back to the same network node. 
+!!! note "Recommendation"
+    All inference nodes should be registered with the same network node, regardless of where they are located geographically (e.g., you may have clusters inside China and others outside China). Each inference node, even in a different region, should always connect back to the same network node. 
 
 ## Starting the network node
 

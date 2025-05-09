@@ -73,7 +73,7 @@ After cloning the repository, you’ll find the following key configuration file
 |-------------------------------|----------------------------------------------------------------------------------|
 | `config.env`                  | Contains environment variables for the network node                              |
 | `docker-compose.yml`          | Docker Compose file to launch the network node                                   |
-| `node-config.json`            | Configuration file for the inference node, which will be used by the Inference node |
+| `node-config.json`            | Configuration file for the inference node, which will be used by the Network node |
 | `node-config-qwq.json`       | Configuration file specifically for `Qwen/QwQ-32B` on A100/H100                     |
 | `node-config-qwq-4x3090.json` | Optimized config for `QwQ-32B` using 4x3090 setup                                   |
 | `node-config-qwq-8x3090.json` | Optimized config for `QwQ-32B` using 8x3090 setup                                   |

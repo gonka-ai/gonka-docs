@@ -103,12 +103,12 @@ export HF_HOME=/mnt/shared
 ```
 The path `/mnt/shared` only works in the 6Block testnet with access to the shared NFS.
 ## Authenticate with Docker Registry
-Some images are private. Authenticate with GitHub Container Registry:
+Some Docker images used in this instruction are private. Make sure to authenticate with GitHub Container Registry:
 ```bash
 docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ```
-## Setup Your Node 
-### Edit Your Node Configuration
+## Setup Your Network Node 
+### Edit Your Network Node Configuration
 
 !!! note "config.env"
     ```
@@ -138,12 +138,15 @@ Which variables to edit:
 
 All other variables can be left as is.
 
-## Launch node 
-The quickstart instruction is designed for running both the network node and the inference node on a single machine (one server setup). 
+## Network + Inference nodes launch 
+The quickstart instruction is designed to run both the network node and the inference node on a single machine (one server setup). 
 
-If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://testnet.productscience.ai/quickstart/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same network node.
+!!! note "Multiple nodes deployment”
+    If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://testnet.productscience.ai/quickstart/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same network node.
 
 **1. Pull Docker Images (Containers)**
+
+Make sure you are in the `pivot-deploy/join` folder before running the next commands. 
 ```bash
 docker compose -f docker-compose.yml pull
 ```
@@ -154,12 +157,23 @@ Once containers are pulled and model weights are cached, launch the node:
 
 ```bash
 source config.env && \
-docker compose -f docker-compose.yml up -d && \
-docker compose -f docker-compose.yml logs -f
+docker compose -f docker-compose.yml up -d
 ```
 
+!!! note “Recommendation” 
+    Once the services are launched, you can check logs to verify the launch was successful:
+    ```bash
+    docker compose -f docker-compose.yml logs -f
+    ```
+    If you see the chain node continuously processing block events, then most likely everything is fine. 
+
 ## Verify the node is active and reachable
-In a few hours (after your node passes the Proof of Work stage), visit this URL in your browser and find your `PUBLIC_URL`:
+Wait a couple of minutes after launch. You should see your node listed at the following URL:
+```bahs
+http://195.242.13.239:8000/v1/participants
+```
+
+In a few hours (after your node passes the Proof of Work stage), visit this URL and find your `PUBLIC_URL`:
 ```bash
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```

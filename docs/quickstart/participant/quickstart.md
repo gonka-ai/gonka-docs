@@ -142,7 +142,7 @@ Which variables to edit:
 
 All other variables can be left as is.
 
-## Network + Inference nodes launch 
+## Launch node
 The quickstart instruction is designed to run both the network node and the inference node on a single machine (one server setup). 
 
 !!! note "Multiple nodes deployment"

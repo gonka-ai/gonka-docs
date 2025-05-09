@@ -72,7 +72,7 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 	{
   	"header": {
     	"version": { "block": 11 },
-    	"chain_id": "prod-sim",
+    	"chain_id": "gonka-testnet-2",
     	"height": 15,
     	"time": "2025-04-02T21:13:34.100375646Z",
     	"last_block_id": {

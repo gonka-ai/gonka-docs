@@ -69,12 +69,14 @@ cp config.env.template config.env
 
 After cloning the repository, you’ll find the following key configuration files:
 
-- `config.env` - Contains environment variables for the network node
-- `docker-compose.yml` - Docker Compose file to launch the network node
-- `node-config.json` - Configuration file for the inference node, which will be used by the Inference node
-- `node-config-qwq.json` - Configuration file specifically for `Qwen/QwQ-32B` on A100/H100
-- `node-config-qwq-4x3090.json` - Optimized config for `QwQ-32B` using 4x3090 setup
-- `node-config-qwq-8x3090.json` - Optimized config for `QwQ-32B` using 8x3090 setup
+| File                          | Description                                                                      |
+|-------------------------------|----------------------------------------------------------------------------------|
+| `config.env`                  | Contains environment variables for the network node                              |
+| `docker-compose.yml`          | Docker Compose file to launch the network node                                   |
+| `node-config.json`            | Configuration file for the inference node, which will be used by the Inference node |
+| `node-config-qwq.json`       | Configuration file specifically for `Qwen/QwQ-32B` on A100/H100                     |
+| `node-config-qwq-4x3090.json` | Optimized config for `QwQ-32B` using 4x3090 setup                                   |
+| `node-config-qwq-8x3090.json` | Optimized config for `QwQ-32B` using 8x3090 setup                                   |
 
 Copy and modify the config that best fits your model and GPU layout.
 
@@ -130,11 +132,15 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 
 Which variables to edit:
 
-- `KEY_NAME` -  manually define a unique identifier for your node.
-- `API_PORT` - port where your node will be available on the machine (default is 8000)
-- `PUBLIC_URL` - public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000)
-- `P2P_EXTERNAL_ADDRESS` - public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000)
-- `HF_HOME` – the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`.
+# Environment Variables
+
+| Variable               | Description                                                                                                                                                               |
+|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `KEY_NAME`            | manually define a unique identifier for your node.                                                                                                                        |
+| `API_PORT`           | Port where your node will be available on the machine (default is 8000).                                                                                                   |
+| `PUBLIC_URL`        | Public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000).                                                  |
+| `P2P_EXTERNAL_ADDRESS` | Public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000).                           |
+| `HF_HOME`           | The path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`. |
 
 All other variables can be left as is.
 

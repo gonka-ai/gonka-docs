@@ -238,3 +238,15 @@ header.md-header {
 .md-typeset table th {
     padding: 6px 10px;
 }
+
+/* === Унификация размера шрифта в admonition-блоках (!!! note) === */
+
+.md-typeset .admonition,
+.md-typeset .example {
+    font-size: 0.6875rem; /* 11px */
+}
+
+.md-typeset .admonition .admonition-title,
+.md-typeset .example summary {
+    font-size: 0.6875rem; /* 11px */
+}

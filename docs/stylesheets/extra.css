@@ -215,3 +215,26 @@ header.md-header {
 .signup-button:hover {
     background-color: #218838;
 }
+
+/* === Компактные размеры шрифтов на сайте === */
+
+.md-typeset {
+    font-size: 0.6875rem; /* 11px */
+    line-height: 1.5;
+}
+
+.md-typeset table,
+.md-typeset table td,
+.md-typeset table th {
+    font-size: 0.6875rem; /* 11px */
+}
+
+.md-typeset code,
+.md-typeset pre {
+    font-size: 0.6875rem; /* 11px */
+}
+
+.md-typeset table td,
+.md-typeset table th {
+    padding: 6px 10px;
+}

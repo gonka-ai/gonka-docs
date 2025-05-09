@@ -164,12 +164,14 @@ source config.env && \
 docker compose -f docker-compose.yml up -d
 ```
 
-!!! note “Recommendation” 
+!!! note "Recommendation"
     Once the services are launched, you can check logs to verify the launch was successful:
+    
     ```bash
     docker compose -f docker-compose.yml logs -f
     ```
-    If you see the chain node continuously processing block events, then most likely everything is fine. 
+
+    If you see the chain node continuously processing block events, then most likely everything is fine.
 
 ## Verify the node is active and reachable
 Wait a couple of minutes after launch. You should see your node listed at the following URL:

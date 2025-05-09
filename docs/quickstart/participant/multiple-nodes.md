@@ -147,7 +147,7 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `host`           | The **static IP** of your inference node or the **Docker container name** if running in the same Docker network. |
 | `inference_port` | The port where the inference node **accepts inference and training tasks** (default: `5000`).    |
 | `poc_port`       | The port where the inference node **handles Proof of Compute (PoC) tasks** (default: `8080`).   |
-| `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.                   |
+| `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle (default: `500`).                   |
 | `models`         | A list of **supported models** that the inference node can process.                              |
 
 Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Please follow the same structure as in files `node-config*.json` from `pivot-deploy/join` folder, copy and modify it from the config that best fits your model and GPU layout.

@@ -23,7 +23,7 @@ Before proceeding, read the following sections:
 This section describes how to deploy a distributed setup with a network node and multiple inference nodes.
 
 !!! note "Recommendation"
-    All inference nodes should be registered with the same network node, regardless of where they are located geographically (e.g., you may have clusters inside China and others outside China). Each inference node, even in a different region, should always connect back to the same network node. 
+    All inference nodes should be registered with the same network node, regardless of their geographic location. Whether the clusters are deployed in different regions or across multiple data centers, each inference node should always connect back to the same network node. 
 
 ## Starting the network node
 
@@ -97,7 +97,7 @@ The path `/mnt/shared` only works in the 6Block testnet with access to the share
 
 **1.3. Authenticate with Docker Registry**
 
-Some images are private. Authenticate with GitHub Container Registry
+Some Docker images used in this instruction are private. Make sure to authenticate with GitHub Container Registry
 ```
 docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ```
@@ -107,6 +107,10 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 5000 - Inference requests
 8000 - PoC
 ```
+
+!!! note "Important"
+    These ports must not be exposed to the public internet (they should be accessible only within the network node environment).
+
 ### Step 2. Launch the Inference Node
 
 On the inference node's server, go to the `cd pivot-deploy/inference` directory and execute
@@ -116,6 +120,9 @@ docker compose up -d && docker compose logs -f
 
 This will deploy the inference node and start handling inference and Proof of Compute (PoC) tasks as soon as they are registered with your network node (instructions below).
 ## Adding (Registering) Inference Nodes with the Network Node
+
+!!! note 
+    Usually, it takes the server a couple of minutes to start. However, if your server does not accept requests after 5 minutes, please [contact us](hello@productscience.ai) for assistance.
 
 You must register each inference node with the network node to make it operational. 
 The recommended method is via the Admin API for dynamic management, which is accessible from the terminal of your network node server.
@@ -128,29 +135,36 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
        "inference_port": <inference_port>,
        "poc_port": <poc_port>,
        "max_concurrent": <max_concurrent>,
-       "models": [<model_1>]
+       "models": {<model_1>}
      }'
 ```
 
 **Parameter descriptions**
 
-- `id` – A **unique identifier** for your inference node.
-- `host` – The **static IP** of your inference node or the **Docker container name** if running in the same Docker network.
-- `inference_port` – The port where the inference node **accepts inference and training tasks** (default: `5000`).
-- `poc_port` – The port where the inference node **handles Proof of Compute (PoC) tasks** (default: `8080`).
-- `max_concurrent` – The **maximum number of concurrent inference requests** this node can handle.
-- `models` – A list of **supported models** that the inference node can process. Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Please follow the same structure as in files `node-config*.json` from `pivot-deploy/join` folder, copy and modify it from the config that best fits your model and GPU layout:
-       - `node-config.json` - Optimized config for `Qwen/Qwen2.5-7B-Instruct`
-       - `node-config-qwq.json` - Optimized config for `Qwen/QwQ-32B` on A100/H100
-       - `node-config-qwq-4x3090.json` - Optimized config for `Qwen/QwQ-32B` using 4x3090 setup
-       - `node-config-qwq-8x3090.json` - Optimized config for `Qwen/QwQ-32B` using 8x3090 setup
+| Parameter         | Description                                                                                      |
+|-------------------|--------------------------------------------------------------------------------------------------|
+| `id`             | A **unique identifier** for your inference node.                                                |
+| `host`           | The **static IP** of your inference node or the **Docker container name** if running in the same Docker network. |
+| `inference_port` | The port where the inference node **accepts inference and training tasks** (default: `5000`).    |
+| `poc_port`       | The port where the inference node **handles Proof of Compute (PoC) tasks** (default: `8080`).   |
+| `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.                   |
+| `models`         | A list of **supported models** that the inference node can process.                              |
+
+Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Please follow the same structure as in files `node-config*.json` from `pivot-deploy/join` folder, copy and modify it from the config that best fits your model and GPU layout.
+
+| Config File                   | Description                                                                           |
+|-------------------------------|---------------------------------------------------------------------------------------|
+| `node-config.json`            | Optimized config for `Qwen/Qwen2.5-7B-Instruct`.                                      |
+| `node-config-qwq.json`        | Optimized config for `Qwen/QwQ-32B` on A100/H100 GPUs.                               |
+| `node-config-qwq-4x3090.json`| Optimized config for `Qwen/QwQ-32B` using a 4x3090 GPU setup.                        |
+| `node-config-qwq-8x3090.json`| Optimized config for `Qwen/QwQ-32B` using an 8x3090 GPU setup.                       |
 
 If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 
 ### Retrieving All Inference Nodes
 To get a list of **all registered inference nodes** in your network node, use:
 ```
-curl -X GET http://localhost:9200/admin//v1/nodes
+curl -X GET http://localhost:9200/admin/v1/nodes
 ```
 This will return a JSON array containing all configured inference nodes.
 

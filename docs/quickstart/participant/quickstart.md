@@ -132,15 +132,13 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 
 Which variables to edit:
 
-# Environment Variables
-
-| Variable               | Description                                                                                                                                                               |
+| Variable               | What to do                                                                                                                                                               |
 |------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `KEY_NAME`            | manually define a unique identifier for your node.                                                                                                                        |
-| `API_PORT`           | Port where your node will be available on the machine (default is 8000).                                                                                                   |
-| `PUBLIC_URL`        | Public URL where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000).                                                  |
-| `P2P_EXTERNAL_ADDRESS` | Public URL where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000).                           |
-| `HF_HOME`           | The path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`. |
+| `KEY_NAME`            | Manually define a unique identifier for your node.                                                                                                                        |
+| `API_PORT`           | Set the port where your node will be available on the machine (default is 8000).                                                                                                   |
+| `PUBLIC_URL`        | Specify the `Public URL` where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000).                                                  |
+| `P2P_EXTERNAL_ADDRESS` | Specify the `Public URL` where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000).                           |
+| `HF_HOME`           | Set the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`. |
 
 All other variables can be left as is.
 

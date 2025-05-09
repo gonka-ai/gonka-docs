@@ -174,12 +174,12 @@ docker compose -f docker-compose.yml up -d
     If you see the chain node continuously processing block events, then most likely everything is fine.
 
 ## Verify the node is active and reachable
-Wait a couple of minutes after launch. You should see your node listed at the following URL:
+After launching the node, wait a few minutes. You should see your node listed at the following URL:
 ```bahs
 http://195.242.13.239:8000/v1/participants
 ```
 
-In a few hours (after your node passes the Proof of Work stage), visit this URL and find your `PUBLIC_URL`:
+Once your node completes the Proof of Work stage (typically within a few hours), visit the following URL to see your node:
 ```bash
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```

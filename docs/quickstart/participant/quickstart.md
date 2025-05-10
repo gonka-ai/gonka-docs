@@ -184,10 +184,17 @@ Once your node completes the Proof of Work stage (typically within a few hours),
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```
 
-Check Tendermint RPC
+Once your node is running, check your node status using Tendermint RPC endpoint of your node (26657 of `node` container)
 ```bash
-http://<your-public-ip>:<rpc-port> 
-- <rpc-port> - public port mapped to 26657 of your node
+curl http://<PUBLIC_IP>:<PUBLIC_RPC_PORT>/status
+```
+Locally on machine, you can use private ones
+```bash
+curl http://0.0.0.0:26657/status
+```
+Using public IP of genesis node
+```bash
+curl http://195.242.13.239:26657/status
 ```
 
 ##  Stopping and Cleaning Up Your Node

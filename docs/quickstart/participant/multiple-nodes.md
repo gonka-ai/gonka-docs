@@ -141,13 +141,13 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 **Parameter descriptions**
 
-| Parameter         | Description                                                                                      | Example                                                   |
+| Parameter         | Description                                                                                      | Default value for single node config                                                   |
 |-------------------|--------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
 | `id`             | A **unique identifier** for your inference node.                                                | `node1`                                                   |
 | `host`           | The **static IP** of your inference node or the **Docker container name** if running in the same Docker network. | `inference`                                               |
-| `inference_port` | The port where the inference node **accepts inference and training tasks**    | `5000` (by default)                                                    |
-| `poc_port`       | The port where the inference node **handles Proof of Compute (PoC) tasks**.   | `8080` (by default)                                                    |
-| `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500` (by default)                                                     |
+| `inference_port` | The port where the inference node **accepts inference and training tasks**    | `5000`                                                    |
+| `poc_port`       | The port where the inference node **handles Proof of Compute (PoC) tasks**.   | `8080`                                                    |
+| `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500`                                                     |
 | `models`         | A list of **supported models** that the inference node can process.                              | `Qwen/Qwen2.5-7B-Instruct`, `--quantization fp8`      |
 
 Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Please follow the same structure as in the files `node-config*.json` from `pivot-deploy/join` [folder](https://github.com/product-science/pivot-deploy/tree/45debe79f2c9a92bf5a530ae1ad50e780c6ec8c9/join), copy and modify it from the config that best fits your model and GPU layout.

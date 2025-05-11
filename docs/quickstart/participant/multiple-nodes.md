@@ -163,10 +163,15 @@ If the node is successfully added, the response will return the **configuration*
 
 ### Retrieving All Inference Nodes
 To get a list of **all registered inference nodes** in your network node, use:
-```
+c
 curl -X GET http://localhost:9200/admin/v1/nodes
 ```
 This will return a JSON array containing all configured inference nodes.
+
+The inference node will begin participating in the upcoming Proof of Work stage (PoC), after which its weight will be updated. These changes will be reflected in the list of active participants at: 
+```
+http://195.242.13.239:8000/v1/epochs/current/participants
+```
 
 ### Removing an inference node
 Being connected to your **network node** server, use the following Admin API request to remove an inference node dynamically without restarting:

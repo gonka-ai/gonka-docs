@@ -141,7 +141,7 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 **Parameter descriptions**
 
-| Parameter         | Description                                                                                      | Default value for single node config                                                   |
+| Parameter         | Description                                                                                      | Default value for single node configuration                                            |
 |-------------------|--------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
 | `id`             | A **unique identifier** for your inference node.                                                | `node1`                                                   |
 | `host`           | The **static IP** of your inference node or the **Docker container name** if running in the same Docker network. | `inference`                                               |

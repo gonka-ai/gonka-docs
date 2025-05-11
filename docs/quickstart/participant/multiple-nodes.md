@@ -168,7 +168,7 @@ curl -X GET http://localhost:9200/admin/v1/nodes
 ```
 This will return a JSON array containing all configured inference nodes.
 
-The inference node will begin participating in the upcoming Proof of Work stage (PoC), after which its weight will be updated. These changes will be reflected in the list of active participants at: 
+The inference node will begin participating in the upcoming Proof of Work (PoC), after which its weight will be updated. These changes will be reflected in the list of active participants at: 
 ```bash
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```

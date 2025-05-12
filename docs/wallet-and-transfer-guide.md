@@ -60,6 +60,7 @@ inferenced keys import join keys.pem --keyring-backend test
 ```
 
 Then follow the instructions, adding:
+
 - `--node` argument which points to the `NODE_RPC_URL` of the chain node you want to use as an entry point (`--node http://195.242.13.239:26657` for genesis node)
 - `--keyring-backend test` to use test keyring
 

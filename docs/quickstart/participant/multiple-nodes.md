@@ -141,12 +141,12 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 **Parameter descriptions**
 
-| Parameter         | Description                                                                                      | Default value for single node configuration                                            |
+| Parameter         | Description                                                                                      | Examples                                            |
 |-------------------|--------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
 | `id`             | A **unique identifier** for your inference node.                                                | `node1`                                                   |
-| `host`           | The **static IP** of your inference node or the **Docker container name** if running in the same Docker network. | `inference`                                               |
+| `host`           | The **static IP** of your inference node or the **Docker container name** if running in the same Docker network. | `http://<mlnode_ip>`                                               |
 | `inference_port` | The port where the inference node **accepts inference and training tasks**.    | `5000`                                                    |
-| `poc_port`       | The port which is used for **MLNode management**.   | `8080`                                                    |
+| `poc_port`       | The port which is used for **MLNode management**.   | `8000`                                                    |
 | `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500`                                                     |
 | `models`         | A list of **supported models** that the inference node can process.                              | `Qwen/Qwen2.5-7B-Instruct`, `--quantization fp8`      |
 

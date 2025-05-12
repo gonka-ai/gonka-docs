@@ -119,7 +119,7 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
     export PUBLIC_URL=http://<HOST>:<PORT>					# Edit as described below
     export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>		    # Edit as described below
     export NODE_CONFIG=./node-config.json					# Keep as is
-    export HF_HOME=/mnt/shared								# Edit as described below
+    export HF_HOME=/mnt/shared								# Directory you used for cache
     export SEED_API_URL=http://195.242.13.239:8000			# Keep as is 
     export SEED_NODE_RPC_URL=http://195.242.13.239:26657	# Keep as is
     export SEED_NODE_P2P_URL=tcp://195.242.13.239:26656		# Keep as is

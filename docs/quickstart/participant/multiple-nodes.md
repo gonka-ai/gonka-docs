@@ -36,8 +36,8 @@ If your network node server **has GPU(s)** and you want to run both the **networ
 
 ```                                 
 source config.env && \
-docker compose -f docker-compose-cloud-join.yml up -d && \
-docker compose -f docker-compose-cloud-join.yml logs -f
+docker compose -f docker-compose.yml up -d && \
+docker compose -f docker-compose.yml logs -f
 ```
 
 This will start **one network node** and **one inference node** on the same machine.
@@ -48,8 +48,8 @@ If your network node server has **no GPU** and you want your server to run** onl
 
 ```
 source config.env && \ 
-docker compose -f docker-compose-cloud-join.yml up -d node api \ &&
-docker compose -f docker-compose-cloud-join.yml logs -f                                 
+docker compose -f docker-compose.yml up -d node api \ &&
+docker compose -f docker-compose.yml logs -f                                 
 ```
 
 !!! note

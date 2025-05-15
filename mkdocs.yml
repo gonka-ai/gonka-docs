@@ -76,7 +76,7 @@ markdown_extensions:
   # https://facelessuser.github.io/pymdown-extensions/
   - pymdownx.superfences
   - pymdownx.highlight:
-      linenums: true
+      linenums: false
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
@@ -110,3 +110,21 @@ plugins:
 
 extra_javascript:
   - buttons.js
+
+/* Подсветка строки при наведении */
+.highlighttable td.code span[class^="__span-"]:hover {
+  background-color: rgba(255, 255, 0, 0.07); /* лёгкая подсветка */
+  display: block;
+}
+
+/* Убираем разрывы между строками и номерами */
+.highlighttable td.code > div.highlight {
+  margin-left: 0 !important;
+}
+
+.highlighttable td.code span[class^="__span-"] {
+  display: block;
+  padding-left: 0;      /* выравнивание по левому краю */
+  margin: 0;
+  line-height: 1.5;
+}

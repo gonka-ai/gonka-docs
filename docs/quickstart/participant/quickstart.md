@@ -209,6 +209,7 @@ This stops and removes all services defined in the `docker-compose.yml` file wit
 To clean up cache and start fresh, remove the local `.inference` folder (inference runtime cache and identity):
 ```bash
 rm -rf .inference
+docker volume rm join_tmkms_data
 ```
 
 (Optional) Clear model weights cache:

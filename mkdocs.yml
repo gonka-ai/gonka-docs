@@ -103,7 +103,6 @@ extra_javascript:
 theme:
   name: material
   features:
-    - content.code.copy        # copy buttons for code blocks
     - navigation.tabs          # tabs at top
     - navigation.sections      # collapsible navigation
     - content.tabs.link        # linkable content tabs

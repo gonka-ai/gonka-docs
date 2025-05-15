@@ -61,10 +61,8 @@ theme:
     - navigation.top
     - content.code.annotate
     - content.code.copy
-    - content.tabs.link        # linkable content tabs
     - navigation.indexes
     - navigation.tracking
-    - navigation.instant       # faster page loads (instant loading)
     - search.suggest
 
 markdown_extensions:
@@ -73,25 +71,17 @@ markdown_extensions:
   - attr_list
   - toc
   # https://facelessuser.github.io/pymdown-extensions/
+  - pymdownx.tabbed
   - pymdownx.superfences
-  - pymdownx.highlight:
-      linenums: false
-      line_spans: __span
-      pygments_lang_class: true
+  - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.mark
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.keys
+  - pymdownx.emoji
   - pymdownx.tabbed:
       alternate_style: true
-  - pymdownx.tasklist:
-      custom_checkbox: true    # GitHub-style checkboxes
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - toc:
-      permalink: true
 
 extra_css:
   - stylesheets/extra.css
@@ -109,21 +99,3 @@ plugins:
 
 extra_javascript:
   - buttons.js
-
-/* Подсветка строки при наведении */
-.highlighttable td.code span[class^="__span-"]:hover {
-  background-color: rgba(255, 255, 0, 0.07); /* лёгкая подсветка */
-  display: block;
-}
-
-/* Убираем разрывы между строками и номерами */
-.highlighttable td.code > div.highlight {
-  margin-left: 0 !important;
-}
-
-.highlighttable td.code span[class^="__span-"] {
-  display: block;
-  padding-left: 0;      /* выравнивание по левому краю */
-  margin: 0;
-  line-height: 1.5;
-}

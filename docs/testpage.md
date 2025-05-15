@@ -16,7 +16,7 @@ To interact with the network, you need the `inferenced` CLI tool.
 You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/pivot-deploy/releases).
 
 
-!!! note "Enabling Execution on Mac OS"
+??? note "Enabling Execution on Mac OS"
     On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
     
     1.	Open a terminal and navigate to the directory where the binary is located.

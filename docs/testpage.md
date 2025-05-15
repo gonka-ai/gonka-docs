@@ -95,44 +95,101 @@ export PRIVATE_KEY=<your-private-key>
 
 Use the code snippet below:
 
-=== "Python"
+=== “Python”
+```python
+import os
+from gonka_openai import GonkaOpenAI
 
+# Initialize the client
+client = GonkaOpenAI(
+    gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+)
+
+# Make a chat completion request
+response = client.chat.completions.create({
+    "model": "Qwen/QwQ-32B",
+    "messages": [
+        { "role": "user", "content": "Write a one-sentence bedtime story about a unicorn" }
+    ]
+})
+
+print(response.choices[0].message.content)
+```
+=== “TypeScript”
+```ts
+import { GonkaOpenAI } from 'gonka-openai';
+
+// Initialize the GonkaOpenAI client
+const client = new GonkaOpenAI({
+    gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
+});
+
+// Make a chat completion request
+const response = await client.chat.completions.create({
+    model: "Qwen/QwQ-32B",
+    messages: [
+        { role: "user", content: "Hello! Tell me a short joke." }
+    ]
+});
+
+console.log(response.choices[0].message.content);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== "Python"
   ```py linenums="1"
   from gonka_openai import GonkaOpenAI
 
-  const client = new GonkaOpenAI(
-    gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-  );
+const client = new GonkaOpenAI(
+  gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+);
 
-  const response = await client.chat.completions.create({
-      model: "Qwen/QwQ-32B",
-      messages: [
-        { role: "user", content: "Write a one-sentence bedtime story about a unicorn" }
-      ]
-  });
+const response = await client.chat.completions.create({
+    model: "Qwen/QwQ-32B",
+    messages: [
+      { role: "user", content: "Write a one-sentence bedtime story about a unicorn" }
+    ]
+});
 
-  console.log(response.choices[0].message.content);
+console.log(response.choices[0].message.content);
   ```
 
 === "Typescript"
-
   ```ts linenums="1"
   import { GonkaOpenAI } from 'gonka-openai';
 
-  // Initialize the GonkaOpenAI client
-  const client = new GonkaOpenAI({
-    gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
-  });
+// Initialize the GonkaOpenAI client
+const client = new GonkaOpenAI({
+  gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
+});
 
-  // Make a chat completion request
-  const response = await client.chat.completions.create({
-    model: "Qwen/QwQ-32B",
-    messages: [
-      { role: "user", content: "Hello! Tell me a short joke." }
-    ]
-  });
+// Make a chat completion request
+const response = await client.chat.completions.create({
+  model: "Qwen/QwQ-32B",
+  messages: [
+    { role: "user", content: "Hello! Tell me a short joke." }
+  ]
+});
 
-  console.log(response.choices[0].message.content);
+console.log(response.choices[0].message.content);
   ```
 
 To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/libermans/gonka-openai), and adjust the examples accordingly.

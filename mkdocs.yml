@@ -66,6 +66,7 @@ theme:
     - search.suggest
 
 markdown_extensions:
+  - mdx_truly_sane_lists
   - footnotes
   - admonition
   - attr_list

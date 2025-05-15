@@ -279,3 +279,7 @@ header.md-header {
   border-right: 1px solid #444;
   color: #666;
 }
+
+.highlighttable td.code > div.highlight {
+  margin-left: 0 !important;
+}

@@ -250,3 +250,27 @@ header.md-header {
 .md-typeset .example summary {
     font-size: 0.6875rem; /* 11px */
 }
+
+.highlighttable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.highlighttable td.linenos {
+  padding: 0 0.5em;
+  text-align: right;
+  color: #777;
+  background: transparent;
+  vertical-align: top;
+  font-size: 0.6875rem; /* Match your global code font size */
+  border-right: 1px solid rgba(255, 255, 255, 0.05); /* Optional divider */
+}
+
+.highlighttable td.code {
+  padding-left: 0.75em !important;
+}
+
+.highlighttable pre {
+  margin: 0;
+  line-height: 1.5;
+}

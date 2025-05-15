@@ -95,45 +95,48 @@ export PRIVATE_KEY=<your-private-key>
 
 Use the code snippet below:
 
-=== “Python”
-```python
-import os
-from gonka_openai import GonkaOpenAI
+=== "Python"
 
-# Initialize the client
-client = GonkaOpenAI(
-    gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-)
+    ```python
+    import os
+    from gonka_openai import GonkaOpenAI
 
-# Make a chat completion request
-response = client.chat.completions.create({
-    "model": "Qwen/QwQ-32B",
-    "messages": [
-        { "role": "user", "content": "Write a one-sentence bedtime story about a unicorn" }
-    ]
-})
+    # Initialize the client
+    client = GonkaOpenAI(
+        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+    )
 
-print(response.choices[0].message.content)
-```
-=== “TypeScript”
-```ts
-import { GonkaOpenAI } from 'gonka-openai';
+    # Make a chat completion request
+    response = client.chat.completions.create({
+        "model": "Qwen/QwQ-32B",
+        "messages": [
+            { "role": "user", "content": "Write a one-sentence bedtime story about a unicorn" }
+        ]
+    })
 
-// Initialize the GonkaOpenAI client
-const client = new GonkaOpenAI({
-    gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
-});
+    print(response.choices[0].message.content)
+    ```
 
-// Make a chat completion request
-const response = await client.chat.completions.create({
-    model: "Qwen/QwQ-32B",
-    messages: [
-        { role: "user", content: "Hello! Tell me a short joke." }
-    ]
-});
+=== "TypeScript"
 
-console.log(response.choices[0].message.content);
-```
+    ```ts
+    import { GonkaOpenAI } from 'gonka-openai';
+
+    // Initialize the GonkaOpenAI client
+    const client = new GonkaOpenAI({
+        gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
+    });
+
+    // Make a chat completion request
+    const response = await client.chat.completions.create({
+        model: "Qwen/QwQ-32B",
+        messages: [
+            { role: "user", content: "Hello! Tell me a short joke." }
+        ]
+    });
+
+    console.log(response.choices[0].message.content);
+    ```
 
 
 

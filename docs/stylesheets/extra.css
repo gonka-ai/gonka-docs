@@ -257,7 +257,8 @@ header.md-header {
 }
 
 .highlighttable td.linenos {
-  padding: 0 0.5em;
+  padding: 0 0.25em;
+  font-size: 0.65rem;
   text-align: right;
   color: #777;
   background: transparent;
@@ -267,7 +268,7 @@ header.md-header {
 }
 
 .highlighttable td.code {
-  padding-left: 0.75em !important;
+  padding-left: 0.25em !important;
 }
 
 .highlighttable pre {

@@ -96,8 +96,7 @@ export PRIVATE_KEY=<your-private-key>
 Use the code snippet below:
 
 === "Python"
-
-    ```python
+    ```python linenums="1"
     import os
     from gonka_openai import GonkaOpenAI
 
@@ -116,8 +115,7 @@ Use the code snippet below:
     ```
 
 === "TypeScript"
-
-    ```ts
+    ```ts linenums="1"
     import { GonkaOpenAI } from 'gonka-openai';
 
     const client = new GonkaOpenAI({

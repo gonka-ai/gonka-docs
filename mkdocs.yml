@@ -100,3 +100,25 @@ plugins:
 extra_javascript:
   - buttons.js
 
+theme:
+  name: material
+  features:
+    - content.code.copy        # copy buttons for code blocks
+    - navigation.tabs          # tabs at top
+    - navigation.sections      # collapsible navigation
+    - content.tabs.link        # linkable content tabs
+    - navigation.instant       # faster page loads (instant loading)
+    - toc.integrate            # table of contents inside page
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details           # enables collapsible admonitions (???)
+  - pymdownx.superfences       # supports complex markdown in blocks
+  - pymdownx.tabbed            # for tabbed content
+  - pymdownx.tasklist:
+      custom_checkbox: true    # GitHub-style checkboxes
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - toc:
+      permalink: true

@@ -73,9 +73,7 @@ Make sure to securely save your passphrase — you’ll need it for future acces
 export ACCOUNT_ADDRESS=<your-account-address>
 ```
 
-## 4. Inference using modified OpenAI API
-
-### Inference with Python
+## 3. Add Private Key to environment variables
 
 If you’d like to perform the request in Python:
 
@@ -93,7 +91,9 @@ export PRIVATE_KEY=<your-private-key>
 
 **For safety, use a Key Management Service.**
 
-3. Use the code snippet below:
+## 4. Inference using modified OpenAI API
+
+Use the code snippet below:
 
 === "Python"
 

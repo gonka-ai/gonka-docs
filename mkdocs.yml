@@ -74,7 +74,6 @@ markdown_extensions:
   - attr_list
   - toc
   # https://facelessuser.github.io/pymdown-extensions/
-  - pymdownx.tabbed
   - pymdownx.superfences
   - pymdownx.highlight
       linenums: true

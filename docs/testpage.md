@@ -95,17 +95,16 @@ export PRIVATE_KEY=<your-private-key>
 
 Use the code snippet below:
 
-=== "Python" 
-    ```
+=== "Python"
+
+    ```python
     import os
     from gonka_openai import GonkaOpenAI
 
-    # Initialize the client
     client = GonkaOpenAI(
         gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
     )
 
-    # Make a chat completion request
     response = client.chat.completions.create({
         "model": "Qwen/QwQ-32B",
         "messages": [
@@ -115,17 +114,16 @@ Use the code snippet below:
 
     print(response.choices[0].message.content)
     ```
-    
+
 === "TypeScript"
-    ```
+
+    ```ts
     import { GonkaOpenAI } from 'gonka-openai';
 
-    // Initialize the GonkaOpenAI client
     const client = new GonkaOpenAI({
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
     });
 
-    // Make a chat completion request
     const response = await client.chat.completions.create({
         model: "Qwen/QwQ-32B",
         messages: [

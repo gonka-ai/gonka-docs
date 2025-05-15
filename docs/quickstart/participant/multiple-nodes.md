@@ -48,7 +48,7 @@ If your network node server has **no GPU** and you want your server to run** onl
 
 ```
 source config.env && \ 
-docker compose -f docker-compose.yml up -d node api \ &&
+docker compose -f docker-compose.yml up -d tmkms node api \ &&
 docker compose -f docker-compose.yml logs -f                                 
 ```
 

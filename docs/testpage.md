@@ -31,7 +31,7 @@ You can download the latest `inferenced` binary for your system [here](https://g
     
     5.	Scroll down to the warning about `inferenced` and click “Allow Anyway”.
 
-## 2.Define variables
+## 2. Define variables
 
 Before creating an account, set up the required environment variables:
 
@@ -73,7 +73,7 @@ Make sure to securely save your passphrase — you’ll need it for future acces
 export ACCOUNT_ADDRESS=<your-account-address>
 ```
 
-## 3. Add Private Key to environment variables
+## 4. Add Private Key to environment variables
 
 If you’d like to perform the request in Python:
 
@@ -89,9 +89,7 @@ This command outputs a plain-text private key (e.g. `<PRIVATE_KEY>`).
 export PRIVATE_KEY=<your-private-key>
 ```
 
-**For safety, use a Key Management Service.**
-
-## 4. Inference using modified OpenAI API
+## 5. Inference using modified OpenAI API
 
 Use the code snippet below:
 

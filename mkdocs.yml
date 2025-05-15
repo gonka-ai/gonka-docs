@@ -61,9 +61,12 @@ theme:
     - navigation.top
     - content.code.annotate
     - content.code.copy
+    - content.tabs.link        # linkable content tabs
     - navigation.indexes
     - navigation.tracking
+    - navigation.instant       # faster page loads (instant loading)
     - search.suggest
+    - toc.integrate            # table of contents inside page
 
 markdown_extensions:
   - footnotes
@@ -74,14 +77,21 @@ markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.superfences
   - pymdownx.highlight
+      linenums: true
   - pymdownx.inlinehilite
   - pymdownx.mark
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.keys
-  - pymdownx.emoji
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true    # GitHub-style checkboxes
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - toc:
+      permalink: true
 
 extra_css:
   - stylesheets/extra.css
@@ -99,25 +109,3 @@ plugins:
 
 extra_javascript:
   - buttons.js
-
-theme:
-  name: material
-  features:
-    - navigation.tabs          # tabs at top
-    - navigation.sections      # collapsible navigation
-    - content.tabs.link        # linkable content tabs
-    - navigation.instant       # faster page loads (instant loading)
-    - toc.integrate            # table of contents inside page
-
-markdown_extensions:
-  - admonition
-  - pymdownx.details           # enables collapsible admonitions (???)
-  - pymdownx.superfences       # supports complex markdown in blocks
-  - pymdownx.tabbed            # for tabbed content
-  - pymdownx.tasklist:
-      custom_checkbox: true    # GitHub-style checkboxes
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - toc:
-      permalink: true

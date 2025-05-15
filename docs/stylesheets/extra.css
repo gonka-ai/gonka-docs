@@ -250,36 +250,3 @@ header.md-header {
 .md-typeset .example summary {
     font-size: 0.6875rem; /* 11px */
 }
-
-.highlighttable {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.highlighttable td.linenos {
-  padding: 0 0.25em 0 0.5em;  /* правый уменьшен, левый чуть больше */
-  font-size: 0.6875rem;
-  color: #888;
-  background: transparent;
-  vertical-align: top;
-  text-align: right;
-  border-right: 1px solid #e0e0e0;
-}
-
-.highlighttable td.code {
-  padding-left: 0.2em !important;  /* ← основной фикс отступа */
-}
-
-.highlighttable pre {
-  margin: 0;
-  line-height: 1.5;
-}
-
-[data-md-color-scheme="slate"] .highlighttable td.linenos {
-  border-right: 1px solid #444;
-  color: #666;
-}
-
-.highlighttable td.code > div.highlight {
-  margin-left: 0 !important;
-}

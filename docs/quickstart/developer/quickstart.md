@@ -101,7 +101,7 @@ Use the code snippet below:
 
     client = GonkaOpenAI(
         gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-        endpoints=[os.environ.get('GONKA_ENDPOINTS')
+        endpoints=[os.environ.get('GONKA_ENDPOINTS')]
     )
 
     response = client.chat.completions.create({

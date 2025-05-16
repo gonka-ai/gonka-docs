@@ -54,7 +54,17 @@ docker compose -f docker-compose.yml logs -f
 
 !!! note
     Address set as `DAPI_API__POC_CALLBACK_URL` for network node, should be accessible from ALL inference nodes (9100 port of `api` container by default)
-    
+
+### The network node status in the network
+
+The network node will start participating in the upcoming Proof of Computation (PoC) once it becomes active. Its weight will be updated based on the work produced by connected inference nodes. If no inference nodes are connected, the node will not participate in the PoC or appear in the list. After the following PoC, the network node will appear in the list of active participant (please allow 1–3 hours for the changes to take effect):
+```bash
+http://195.242.13.239:8000/v1/epochs/current/participants
+```
+
+If you add more servers with inference nodes (following the instructions below), the updated weight will be reflected in the list of active participants after the next PoC.
+
+
 ## Running the inference node on a separate server
 On the other servers, we run only the inference node, and for that, follow the instructions below.
 
@@ -177,13 +187,6 @@ To get a list of **all registered inference nodes** in your network node, use:
 curl -X GET http://localhost:9200/admin/v1/nodes
 ```
 This will return a JSON array containing all configured inference nodes.
-
-The network node will start participating in the upcoming Proof of Computation (PoC) once it becomes active. Its weight will be updated based on the work produced by connected inference nodes. If no inference nodes are connected to it, the node will not participate in the PoC or appear in the list.
-
-These updates will be reflected in the list of active participants at (please allow 1–3 hours for the changes to take effect before the next PoC): 
-```bash
-http://195.242.13.239:8000/v1/epochs/current/participants
-```
 
 ### Removing an inference node
 Being connected to your **network node** server, use the following Admin API request to remove an inference node dynamically without restarting:

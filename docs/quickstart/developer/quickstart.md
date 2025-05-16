@@ -100,7 +100,6 @@ Use the code snippet below:
     from gonka_openai import GonkaOpenAI
 
     client = GonkaOpenAI(
-        api_key="mock-api-key",
         gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
         endpoints=[os.environ.get('GONKA_ENDPOINTS')
     )
@@ -120,7 +119,6 @@ Use the code snippet below:
     import { GonkaOpenAI } from 'gonka-openai';
 
     const client = new GonkaOpenAI({
-        apiKey: 'mock-api-key',
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
         endpoints: [process.env.GONKA_ENDPOINTS]
     });

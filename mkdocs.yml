@@ -73,9 +73,7 @@ markdown_extensions:
   # https://facelessuser.github.io/pymdown-extensions/
   - pymdownx.tabbed
   - pymdownx.superfences
-  - pymdownx.highlight:
-      linenums: false
-      linenums_style: pymdownx-inline
+  - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.mark
   - pymdownx.critic

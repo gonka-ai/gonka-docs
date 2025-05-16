@@ -135,7 +135,13 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
        "inference_port": <inference_port>,
        "poc_port": <poc_port>,
        "max_concurrent": <max_concurrent>,
-       "models": {<model_1>}
+       "models": {
+         "<model_name>": {
+           "args": [
+              <model_args>
+           ]
+         }
+       }
      }'
 ```
 
@@ -148,9 +154,13 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `inference_port` | The port where the inference node **accepts inference and training tasks**.    | `5000`                                                    |
 | `poc_port`       | The port which is used for **MLNode management**.   | `8000`                                                    |
 | `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500`                                                     |
-| `models`         | A list of **supported models** that the inference node can process.                              | `Qwen/Qwen2.5-7B-Instruct`, `--quantization fp8`      |
+| `models`         | A **supported models** that the inference node can process.                              | (see below)    |
+| `model_name`         | - The name of the model.                              | `Qwen/QwQ-32B`    |
+| `model_args`         | - vLLM arguments for the inference of the model.                              | `"--quantization","fp8","--kv-cache-dtype","fp8"`    |
 
-Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Please follow the same structure as in the files `node-config*.json` from `pivot-deploy/join` [folder](https://github.com/product-science/pivot-deploy/tree/45debe79f2c9a92bf5a530ae1ad50e780c6ec8c9/join), copy and modify it from the config that best fits your model and GPU layout.
+Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. 
+
+To ensure correct setup and optimal performance, use the arguments from `node-config*.json` files in the `pivot-deploy/join` [folder](https://github.com/product-science/pivot-deploy/tree/45debe79f2c9a92bf5a530ae1ad50e780c6ec8c9/join) that best matches your model and GPU layout.
 
 | Config File                   | Description                                                                           |
 |-------------------------------|---------------------------------------------------------------------------------------|

@@ -40,8 +40,7 @@ curl -fsSL https://raw.githubusercontent.com/product-science/race-releases/main/
     The script assumes you can run docker without sudo.
     If you normally run `sudo docker ...`, open `update.sh` and add sudo where needed.
 
-    Full script:
-    === "Shell Script"
+    === "Full script"
     ```bash linenums="1"
     #!/usr/bin/env sh
     set -eu

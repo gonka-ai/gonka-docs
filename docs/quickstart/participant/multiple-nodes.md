@@ -55,7 +55,7 @@ docker compose -f docker-compose.yml logs -f
 !!! note
     Address set as `DAPI_API__POC_CALLBACK_URL` for network node, should be accessible from ALL inference nodes (9100 port of `api` container by default)
 
-### The network node status in the network
+### The Network Node Status
 
 The network node will start participating in the upcoming Proof of Computation (PoC) once it becomes active. Its weight will be updated based on the work produced by connected inference nodes. If no inference nodes are connected, the node will not participate in the PoC or appear in the list. After the following PoC, the network node will appear in the list of active participant (please allow 1–3 hours for the changes to take effect):
 ```bash
@@ -167,16 +167,16 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `model_name`         | - The name of the model.                              | `Qwen/QwQ-32B`    |
 | `model_args`         | - vLLM arguments for the inference of the model.                              | `"--quantization","fp8","--kv-cache-dtype","fp8"`    |
 
-Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. 
+Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`, both quantized to FP8 and the QwQ model uses an FP8 KV cache.
 
-To ensure correct setup and optimal performance, use the arguments from `node-config*.json` files in the `pivot-deploy/join` [folder](https://github.com/product-science/pivot-deploy/tree/45debe79f2c9a92bf5a530ae1ad50e780c6ec8c9/join) that best matches your model and GPU layout.
+To ensure correct setup and optimal performance, use the arguments that best matches your model and GPU layout.
 
-| Config File                   | Description                                                                           |
-|-------------------------------|---------------------------------------------------------------------------------------|
-| `node-config.json`            | Optimized config for `Qwen/Qwen2.5-7B-Instruct`.                                      |
-| `node-config-qwq.json`        | Optimized config for `Qwen/QwQ-32B` on A100/H100 GPUs.                               |
-| `node-config-qwq-4x3090.json`| Optimized config for `Qwen/QwQ-32B` using a 4x3090 GPU setup.                        |
-| `node-config-qwq-8x3090.json`| Optimized config for `Qwen/QwQ-32B` using an 8x3090 GPU setup.                       |
+| Model and GPU layout                    | vLLM arguments                                                                           |
+|-----------------------------------------|---------------------------------------------------------------------------------------|
+| `Qwen/Qwen2`            | `"--quantization","fp8"`                                      |
+| `Qwen/QwQ-32B` on 8xA100 or 8xH100  | `"--quantization","fp8","--kv-cache-dtype","fp8"`                                |
+| `Qwen/QwQ-32B` on 8x3090 or 8x4090  | `"--quantization","fp8","--kv-cache-dtype","fp8","--tensor-parallel-size","4"`                        |
+| `Qwen/QwQ-32B` on 8x3080            | `"--quantization","fp8","--kv-cache-dtype","fp8","--tensor-parallel-size","4","--pipeline-parallel-size","2"`                       |
 
 If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 

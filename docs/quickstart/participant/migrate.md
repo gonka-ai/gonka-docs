@@ -41,7 +41,8 @@ curl -fsSL https://raw.githubusercontent.com/product-science/race-releases/main/
     If you normally run `sudo docker ...`, open `update.sh` and add sudo where needed.
 
     Full script:
-    ```
+    === "Shell Script"
+    ```bash linenums="1"
     #!/usr/bin/env sh
     set -eu
     (set -o 2>/dev/null | grep -q pipefail) && set -o pipefail

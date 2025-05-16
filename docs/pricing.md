@@ -36,7 +36,8 @@ Use these endpoints to manage (send/update) your price proposal and to check you
 POST /v1/admin/unit-of-compute-price-proposal
 ```
 
-```Body (JSON) linenums="1"
+**Body (JSON)**
+```bash linenums="1"
 {
   "price": 1000,
   "denom": "icoin"
@@ -65,7 +66,9 @@ curl -X POST https://your-node-url.com/v1/admin/unit-of-compute-price-proposal \
 GET /v1/admin/unit-of-compute-price-proposal
 ```
 
-```Response (JSON) linenums="1"
+**Response (JSON)**
+
+```bash linenums="1"
 {
   "price": 1000,
   "denom": "icoin"
@@ -91,7 +94,9 @@ curl -X GET https://your-node-url.com/v1/admin/unit-of-compute-price-proposal
 GET /v1/pricing
 ```
 
-```Response (JSON) linenums="1"
+**Response (JSON)**
+
+```bash linenums="1"
 {
   "unit_of_compute_price": 1200,
   "models": [
@@ -143,7 +148,9 @@ bash
 POST /v1/admin/models
 ```
 
-```Body (JSON) linenums="1"
+**Body (JSON)**
+
+```bash linenums="1"
 {
   "id": "model-alpha",
   "units_of_compute_per_token": 10

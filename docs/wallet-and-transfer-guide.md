@@ -154,7 +154,7 @@ If the transaction was successful, the output will contain:
 - Details about the transaction message (e.g., `sender`, `receiver`, `amount`, `module`, `gas` used)
 
 **Sample response (truncated for clarity):**
-```bash
+```bash linenums="1"
 code: 0
 txhash: 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F
 height: "233596"

@@ -93,7 +93,6 @@ export PRIVATE_KEY=<your-private-key>
 
 Use the code snippet below:
 
-<pre>
 === "Python"
     ```python linenums="1"
     import os
@@ -130,7 +129,6 @@ Use the code snippet below:
 
     console.log(response.choices[0].message.content);
     ```
-</pre>
 
 To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/libermans/gonka-openai), and adjust the examples accordingly.
 

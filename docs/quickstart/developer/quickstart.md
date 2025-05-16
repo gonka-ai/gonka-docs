@@ -38,7 +38,7 @@ Before creating an account, set up the required environment variables:
 ```bash
 export ACCOUNT_NAME=<your-desired-account-name>
 export NODE_URL=http://195.242.13.239:8000
-export GONKA_ENDPOINT=$NODE_URL/v1 
+export GONKA_ENDPOINTS=$NODE_URL/v1 
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
@@ -100,7 +100,9 @@ Use the code snippet below:
     from gonka_openai import GonkaOpenAI
 
     client = GonkaOpenAI(
-        gonka_GONKA_PRIVATE_KEY=os.environ.get('GONKA_PRIVATE_KEY'),
+        api_key="mock-api-key",
+        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+        endpoints=[os.environ.get('GONKA_ENDPOINTS')
     )
 
     response = client.chat.completions.create({
@@ -118,7 +120,9 @@ Use the code snippet below:
     import { GonkaOpenAI } from 'gonka-openai';
 
     const client = new GonkaOpenAI({
+        apiKey: 'mock-api-key',
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
+        endpoints: [process.env.GONKA_ENDPOINTS]
     });
 
     const response = await client.chat.completions.create({

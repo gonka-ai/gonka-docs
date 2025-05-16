@@ -52,7 +52,7 @@ from ecdsa import SigningKey, SECP256k1, util
 
 GONKA_ADDRESS = os.environ.get('GONKA_ADDRESS')
 GONKA_PRIVATE_KEY = os.environ.get('GONKA_PRIVATE_KEY')
-GONKA_ENDPOINT = os.environ.get('GONKA_ENDPOINT')
+GONKA_ENDPOINTS = os.environ.get('GONKA_ENDPOINTS')
 
 def sign_payload(payload: bytes, private_key: str) -> str:
     signing_key = SigningKey.from_string(bytes.fromhex(private_key), curve=SECP256k1)
@@ -86,7 +86,7 @@ payload_bytes = json.dumps(payload).encode('utf-8')
 signature = sign_payload(payload_bytes, GONKA_PRIVATE_KEY)
 
 response = requests.post(
-  url=f"{GONKA_ENDPOINT}/chat/completions",
+  url=f"{GONKA_ENDPOINTS}/chat/completions",
   headers={
     "Content-Type": "application/json",
     "Authorization": signature,

@@ -64,7 +64,6 @@ http://195.242.13.239:8000/v1/epochs/current/participants
 
 If you add more servers with inference nodes (following the instructions below), the updated weight will be reflected in the list of active participants after the next PoC.
 
-
 ## Running the inference node on a separate server
 On the other servers, we run only the inference node, and for that, follow the instructions below.
 

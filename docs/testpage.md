@@ -99,7 +99,7 @@ Use the code snippet below:
     from gonka_openai import GonkaOpenAI
 
     client = GonkaOpenAI(
-        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+        gonka_private_key=os.environ.get('PRIVATE_KEY'),
     )
 
     response = client.chat.completions.create({
@@ -117,7 +117,7 @@ Use the code snippet below:
     import { GonkaOpenAI } from 'gonka-openai';
 
     const client = new GonkaOpenAI({
-        gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
+        gonkaPrivateKey: process.env.PRIVATE_KEY,
     });
 
     const response = await client.chat.completions.create({

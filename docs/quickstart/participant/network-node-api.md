@@ -19,7 +19,7 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 ```
 ---
 ##Example response breakdown
-```bash
+```bash linenums="1"
 {
   "active_participants": {
 	"participants": [

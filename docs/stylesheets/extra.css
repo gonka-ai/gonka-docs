@@ -69,6 +69,9 @@ a.md-logo img {
     border: 0px;
     padding: 0px;
     background-color: transparent;
+    max-height: 48px !important;
+    width: auto !important;
+    height: auto !important;
 }
 
 strong.label-button,

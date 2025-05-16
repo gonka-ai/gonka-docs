@@ -37,11 +37,12 @@ Before creating an account, set up the required environment variables:
 
 ```bash
 export ACCOUNT_NAME=<your-desired-account-name>
-export API_URL=http://195.242.13.239:8000  
+export NODE_URL=http://195.242.13.239:8000
+export GONKA_ENDPOINT=$NODE_URL/v1 
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
-- Replace `API_URL` with any random node from the list of current active participants, or keep the address of the genesis node (http://195.242.13.239:8000).
+- Replace `NODE_URL` with any random node from the list of current active participants, or keep the address of the genesis node (`http://195.242.13.239:8000`).
 
 The following command returns a JSON array of participants currently active in the epoch, along with a cryptographic proof that can be used to independently verify the list of active nodes:
 ```bash
@@ -53,7 +54,7 @@ curl http://195.242.13.239:8000/v1/epochs/current/participants
 You can create an account with the following command:
 ```bash
 ./inferenced create-client $ACCOUNT_NAME \
-  --node-address $API_URL
+  --node-address $NODE_URL
 ```
 
 Make sure to securely save your passphrase — you’ll need it for future access.
@@ -67,10 +68,10 @@ This command creates a new account, securely stores its keys in the `~/.inferenc
   type: local
 ```
 
-The account stores your balance, add it to environment variable `ACCOUNT_ADDRESS`, or `.env` file.
+The account stores your balance, add it to environment variable `GONKA_ADDRESS`, or `.env` file.
 
 ```bash
-export ACCOUNT_ADDRESS=<your-account-address>
+export GONKA_ADDRESS=<your-account-address>
 ```
 
 ## 4. Add Private Key to environment variables
@@ -82,11 +83,11 @@ If you’d like to perform the request in Python:
 ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
 ```
 
-This command outputs a plain-text private key (e.g. `<PRIVATE_KEY>`).
+This command outputs a plain-text private key.
 
-#### 2. Add it to environment variable `PRIVATE_KEY`, or `.env` file.
+#### 2. Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
 ```bash
-export PRIVATE_KEY=<your-private-key>
+export GONKA_PRIVATE_KEY=<your-private-key>
 ```
 
 ## 5. Inference using modified OpenAI API
@@ -99,7 +100,7 @@ Use the code snippet below:
     from gonka_openai import GonkaOpenAI
 
     client = GonkaOpenAI(
-        gonka_private_key=os.environ.get('PRIVATE_KEY'),
+        gonka_GONKA_PRIVATE_KEY=os.environ.get('GONKA_PRIVATE_KEY'),
     )
 
     response = client.chat.completions.create({
@@ -117,7 +118,7 @@ Use the code snippet below:
     import { GonkaOpenAI } from 'gonka-openai';
 
     const client = new GonkaOpenAI({
-        gonkaPrivateKey: process.env.PRIVATE_KEY,
+        gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
     });
 
     const response = await client.chat.completions.create({

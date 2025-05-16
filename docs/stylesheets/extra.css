@@ -180,16 +180,6 @@ header.md-header {
     font-size: .6.5rem;
 } */
 
-.md-typeset .admonition,
-.md-typeset .example {
-    font-size: .8rem;
-}
-
-.md-typeset .admonition .admonition-title,
-.md-typeset .example summary {
-    font-size: .6rem;
-}
-
 .header-button {
     margin-left: 15px;
     padding: 8px 16px;
@@ -219,29 +209,12 @@ header.md-header {
 /* === Компактные размеры шрифтов на сайте === */
 
 .md-typeset {
-    font-size: 0.6875rem; /* 11px */
+    font-size: 0.7rem; /* 11px */
     line-height: 1.5;
 }
 
-.md-typeset table,
-.md-typeset table td,
-.md-typeset table th {
-    font-size: 0.6875rem; /* 11px */
+.md-typeset ::before,
+.md-typeset ::after {
+    margin-top: -1px;
 }
 
-.md-typeset table td,
-.md-typeset table th {
-    padding: 6px 10px;
-}
-
-/* === Унификация размера шрифта в admonition-блоках (!!! note) === */
-
-.md-typeset .admonition,
-.md-typeset .example {
-    font-size: 0.6875rem; /* 11px */
-}
-
-.md-typeset .admonition .admonition-title,
-.md-typeset .example summary {
-    font-size: 0.6875rem; /* 11px */
-}

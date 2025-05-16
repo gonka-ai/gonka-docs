@@ -36,17 +36,17 @@ You can download the latest `inferenced` binary for your system [here](https://g
 Before creating an account, set up the required environment variables:
 
 ```bash
-export API_URL=http://195.242.13.239:8000  
 export ACCOUNT_NAME=<your-desired-account-name>
+export API_URL=http://195.242.13.239:8000  
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
 - Replace `API_URL` with any random node from the list of current active participants, or keep the address of the genesis node (http://195.242.13.239:8000).
 
+The following command returns a JSON array of participants currently active in the epoch, along with a cryptographic proof that can be used to independently verify the list of active nodes:
 ```bash
 curl http://195.242.13.239:8000/v1/epochs/current/participants
 ```
-This returns a JSON array of nodes currently active in the epoch, as well as cryptographic proof which can be used to indpependently verify the list of active nodes.
 
 ## 3. Create an account
 
@@ -56,18 +56,18 @@ You can create an account with the following command:
   --node-address $API_URL
 ```
 
-This command creates a new account and securely stores its keys in the `~/.inference` directory.
-
 Make sure to securely save your passphrase — you’ll need it for future access.
 
+This command creates a new account and securely stores its keys in the `~/.inference` directory, and returns your new account address:
+
 ```bash
-- address: ACCOUNT_ADDRESS
+- address: <your-account-address>
   name: ACCOUNT_NAME
-  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"..."}'
+  pubkey: '{"@type":"...","key":"..."}'
   type: local
 ```
 
-`ACCOUNT_ADDRESS` is your account address which stores your balance
+The account stores your balance, add it to environment variable `ACCOUNT_ADDRESS`, or `.env` file.
 
 ```bash
 export ACCOUNT_ADDRESS=<your-account-address>
@@ -77,14 +77,14 @@ export ACCOUNT_ADDRESS=<your-account-address>
 
 If you’d like to perform the request in Python:
 
-1. Export your private key (for demo/testing only).
+#### 1. Export your private key (for demo/testing only).
 ```bash
 ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
 ```
 
 This command outputs a plain-text private key (e.g. `<PRIVATE_KEY>`).
 
-2. Add it to environment variable `PRIVATE_KEY`, or `.env` file.
+#### 2. Add it to environment variable `PRIVATE_KEY`, or `.env` file.
 ```bash
 export PRIVATE_KEY=<your-private-key>
 ```
@@ -94,7 +94,7 @@ export PRIVATE_KEY=<your-private-key>
 Use the code snippet below:
 
 === "Python"
-    ```python linenums="1"
+    ```py linenums="1"
     import os
     from gonka_openai import GonkaOpenAI
 

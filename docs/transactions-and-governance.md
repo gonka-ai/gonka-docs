@@ -23,8 +23,8 @@ Submit the raw JSON output from the generate-only step to the API:
 POST /v1/tx
 Content-Type: application/json
 ```
-Request Body:
-```bash
+**Request Body**
+```bash linenums="1"
 {
   "body": {
     "messages": [...],
@@ -49,7 +49,7 @@ The API performs the following:
 **4.	API Response**
 
 The response mirrors what the chain node would return from `broadcast_tx_commit`:
-```bash
+```bash linenums="1"
 {
   "height": "102045",
   "txhash": "A1B2C3D4...",
@@ -98,7 +98,7 @@ Look for the `min_deposit` field (e.g., `10000nicoin`) and include this in the `
 **4. Create the Proposal JSON**
 
 Example structure:
-```bash
+```bash linenums="1"
 {
   "body": {
     "messages": [
@@ -181,7 +181,7 @@ Identify the relevant proposal and note its `proposal_id`.
 **2. Construct the Deposit Message**
 
 Here’s an example `MsgDeposit` transaction JSON:
-```bash
+```bash linenums="1"
 {
   "messages": [
     {
@@ -258,7 +258,7 @@ You must use these exact `enum` values in the message.
 **3. Construct the Vote Message**
 
 Example `MsgVote` transaction:
-```bash
+```bash linenums="1"
 {
   "messages": [
     {
@@ -321,7 +321,7 @@ You can also query just the voting results:
 inferenced query gov tally <proposal_id> --output json
 ```
 Example output:
-```bash
+```bash linenums="1"
 {
   "yes": "150000000",
   "abstain": "0",

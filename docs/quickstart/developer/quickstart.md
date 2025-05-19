@@ -6,7 +6,7 @@ name: index.md
 
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
 
-To proceed, you’ll need access to the private codebase. Please send your GitHub username to hello@productscience.ai. 
+To proceed, you'll need access to the private codebase. Please send your GitHub username to hello@productscience.ai. 
 
 ---
 
@@ -25,11 +25,11 @@ You can download the latest `inferenced` binary for your system [here](https://g
     ```
     chmod +x inferenced
     ```
-    3.	Try running `./inferenced --help` to ensure it’s working.
+    3.	Try running `./inferenced --help` to ensure it's working.
         
     4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
     
-    5.	Scroll down to the warning about `inferenced` and click “Allow Anyway”.
+    5.	Scroll down to the warning about `inferenced` and click "Allow Anyway".
 
 ## 2. Define variables
 
@@ -57,7 +57,7 @@ You can create an account with the following command:
   --node-address $NODE_URL
 ```
 
-Make sure to securely save your passphrase — you’ll need it for future access.
+Make sure to securely save your passphrase — you'll need it for future access.
 
 This command creates a new account, securely stores its keys in the `~/.inference` directory, and returns your new account address:
 
@@ -76,7 +76,7 @@ export GONKA_ADDRESS=<your-account-address>
 
 ## 4. Add Private Key to environment variables
 
-If you’d like to perform the request in Python:
+If you'd like to perform the request in Python:
 
 #### 1. Export your private key (for demo/testing only).
 ```bash
@@ -96,7 +96,7 @@ export GONKA_PRIVATE_KEY=<your-private-key>
     To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/libermans/gonka-openai/tree/main/python). Get started by installing the SDK using pip:
 
     ```
-    pip install openai
+    pip install gonka-openai
     ```
 
     With the SDK installed, create a file called `example.py` and copy the example code into it:
@@ -150,6 +150,51 @@ export GONKA_PRIVATE_KEY=<your-private-key>
     ```
 
     Execute the code with `node example.mjs`. In a few moments, you should see the output of your API request.
+
+=== "Go"
+    To use the Gonka API in Go, you can use the [Gonka OpenAI SDK for Go](https://github.com/libermans/gonka-openai/tree/main/go). Get started by installing the SDK using go get:
+
+    ```
+    go get github.com/libermans/gonka-openai/go
+    ```
+
+    With the SDK installed, create a file called `example.go` and copy the example code into it:
+
+    ```go linenums="1"
+    package main
+
+    import (
+        "fmt"
+        "os"
+
+        gonka "github.com/libermans/gonka-openai/go"
+    )
+
+    func main() {
+        client := gonka.NewClient(
+            os.Getenv("GONKA_PRIVATE_KEY"),
+            []string{os.Getenv("GONKA_ENDPOINTS")},
+        )
+
+        response, err := client.CreateChatCompletion(
+            "Qwen/QwQ-32B",
+            []gonka.ChatCompletionMessage{
+                {
+                    Role:    "user",
+                    Content: "Write a haiku about programming",
+                },
+            },
+        )
+        if err != nil {
+            fmt.Printf("Error: %v\n", err)
+            return
+        }
+
+        fmt.Println(response.Choices[0].Message.Content)
+    }
+    ```
+
+    Execute the code with `go run example.go`. In a few moments, you should see the output of your API request.
 
 To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/libermans/gonka-openai), and adjust the examples accordingly.
 

@@ -90,11 +90,17 @@ This command outputs a plain-text private key.
 export GONKA_PRIVATE_KEY=<your-private-key>
 ```
 
-## 5. Inference using modified OpenAI API
-
-Use the code snippet below:
+## 5. Inference using modified OpenAI SDK
 
 === "Python"
+    To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/libermans/gonka-openai/tree/main/python). Get started by installing the SDK using pip:
+
+    ```
+    pip install openai
+    ```
+
+    With the SDK installed, create a file called `example.py` and copy the example code into it:
+
     ```py linenums="1"
     import os
     from gonka_openai import GonkaOpenAI
@@ -114,7 +120,17 @@ Use the code snippet below:
     print(response.choices[0].message.content)
     ```
 
+    Execute the code with `python example.py`. In a few moments, you should see the output of your API request.
+
 === "TypeScript"
+    To use the Gonka API in server-side JavaScript environments like Node.js, Deno, or Bun, you can use the [Gonka OpenAI SDK for TypeScript and JavaScript](https://github.com/libermans/gonka-openai/tree/main/typescript). Get started by installing the SDK using npm or your preferred package manager:
+
+    ```
+    npm install gonka-openai
+    ```
+
+    With the SDK installed, create a file called `example.mjs` and copy the example code into it:
+
     ```ts linenums="1"
     import { GonkaOpenAI } from 'gonka-openai';
 
@@ -132,6 +148,8 @@ Use the code snippet below:
 
     console.log(response.choices[0].message.content);
     ```
+
+    Execute the code with `node example.mjs`. In a few moments, you should see the output of your API request.
 
 To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/libermans/gonka-openai), and adjust the examples accordingly.
 

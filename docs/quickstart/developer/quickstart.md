@@ -10,28 +10,7 @@ To proceed, you'll need access to the private codebase. Please send your GitHub 
 
 ---
 
-## 1. Get `inferenced`
-
-To interact with the network, you need the `inferenced` CLI tool.   
-You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/pivot-deploy/releases).
-
-
-??? note "Enabling Execution on Mac OS"
-    On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
-    
-    1.	Open a terminal and navigate to the directory where the binary is located.
-    
-    2.	Run the following command to grant execution permission:
-    ```
-    chmod +x inferenced
-    ```
-    3.	Try running `./inferenced --help` to ensure it's working.
-        
-    4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
-    
-    5.	Scroll down to the warning about `inferenced` and click "Allow Anyway".
-
-## 2. Define variables
+## 1. Define variables
 
 Before creating an account, set up the required environment variables:
 
@@ -49,7 +28,26 @@ The following command returns a JSON array of participants currently active in t
 curl http://195.242.13.239:8000/v1/epochs/current/participants
 ```
 
-## 3. Create an account
+## 2. Create an account
+
+To create and interact with your Gonka account, you need the `inferenced` CLI tool.   
+You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/pivot-deploy/releases).
+
+
+??? note "Enabling Execution on Mac OS"
+    On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
+    
+    1.	Open a terminal and navigate to the directory where the binary is located.
+    
+    2.	Run the following command to grant execution permission:
+    ```
+    chmod +x inferenced
+    ```
+    3.	Try running `./inferenced --help` to ensure it's working.
+        
+    4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
+    
+    5.	Scroll down to the warning about `inferenced` and click "Allow Anyway".
 
 You can create an account with the following command:
 ```bash
@@ -74,7 +72,7 @@ The account stores your balance, add it to environment variable `GONKA_ADDRESS`,
 export GONKA_ADDRESS=<your-account-address>
 ```
 
-## 4. Add Private Key to environment variables
+## 3. Add Private Key to environment variables
 
 If you'd like to perform the request in Python:
 
@@ -90,7 +88,7 @@ This command outputs a plain-text private key.
 export GONKA_PRIVATE_KEY=<your-private-key>
 ```
 
-## 5. Inference using modified OpenAI SDK
+## 4. Inference using modified OpenAI SDK
 
 === "Python"
     To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/libermans/gonka-openai/tree/main/python). Get started by installing the SDK using pip:

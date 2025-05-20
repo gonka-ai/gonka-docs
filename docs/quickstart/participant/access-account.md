@@ -17,7 +17,7 @@ Then follow the instruction, `--node` and `--keyring-backend` arguments are not 
 
 ## Option 2: Export Keys to Local Computer
 
-Another option is to install `inferenced` according to [the instruction](quickstart/developer/quickstart.md), copy keys to your local computer, and execute all commands locally. 
+Another option is to install `inferenced` according to [the instruction]([https://testnet.productscience.ai/quickstart/developer/quickstart/](https://testnet.productscience.ai/quickstart/developer/quickstart/#:~:text=You%20can%20download%20the%20latest%20inferenced%20binary%20for%20your%20system%20here.)), copy keys to your local computer, and execute all commands locally. 
 
 * `test` keyring backend is used during the TestNet.
 

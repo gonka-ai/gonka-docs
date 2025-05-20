@@ -16,9 +16,9 @@ Go [here](https://testnet.productscience.ai/quickstart/developer/quickstart/) to
 
 Once you have access to your account, return to this guide to learn how to:
 
-- check your balance
-- transfer tokens
-- verify transactions.
+- [Query Balance](https://testnet.productscience.ai/wallet-and-transfer-guide/#query-balance)
+- [Send Coins](https://testnet.productscience.ai/wallet-and-transfer-guide/#send-coins)
+- [Check Transaction Status](https://testnet.productscience.ai/wallet-and-transfer-guide/#check-transaction-status)
 
 ## Get Your Wallet Address
 

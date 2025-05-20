@@ -3,12 +3,14 @@
 This guide explains how to work with wallets and tokens on the network: how to get your wallet address, check your balance, send tokens, and track transactions.
 Before you can perform any wallet operations, you need to access your account. Follow the instructions below based on your role in the network.
 
-**Are you a Participant (node operator or hardware provider)?**
+**Are you a Participant?**
+
 You contribute computational resources and receive tokens as rewards.
 Before proceeding, you need access to your wallet, which is automatically created when the chain-node container runs for the first time.
 Go [here](https://testnet.productscience.ai/quickstart/participant/access-account/) to learn how to access your account. 
 
-**Are you a Developer (building AI applications or integrations)?**
+**Are you a Developer?**
+
 You build and deploy AI applications using the network’s distributed power. You’ll need to create an account and CLI tools for scripting and automation.
 Go [here](https://testnet.productscience.ai/quickstart/developer/quickstart/) to set up the CLI and access your account.
 

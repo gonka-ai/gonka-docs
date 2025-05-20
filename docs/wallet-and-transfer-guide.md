@@ -1,73 +1,22 @@
 # Wallet & Transfer Guide
 
-In Cosmos, a fund transfer means sending tokens from one account (wallet address) to another within a Cosmos-based blockchain. 
-These transfers are used to pay for services or simply send value between users. 
-You perform transfers using the Cosmos SDK command-line tool — specifically, the `inferenced` CLI. 
-Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and token denomination.
+This guide explains how to work with wallets and tokens on the network: how to get your wallet address, check your balance, send tokens, and track transactions.
+Before you can perform any wallet operations, you need to access your account. Follow the instructions below based on your role in the network.
 
-This guide walks you through:
+**Are you a Participant (node operator or hardware provider)?**
+You contribute computational resources and receive tokens as rewards.
+Before proceeding, you need access to your wallet, which is automatically created when the chain-node container runs for the first time.
+Go [here](https://testnet.productscience.ai/quickstart/participant/access-account/) to learn how to access your account. 
 
-- How to access your participant account
-- How to get your wallet address
-- How to check your token balance
-- How to send tokens to another address
+**Are you a Developer (building AI applications or integrations)?**
+You build and deploy AI applications using the network’s distributed power. You’ll need to create an account and CLI tools for scripting and automation.
+Go [here](https://testnet.productscience.ai/quickstart/developer/quickstart/) to set up the CLI and access your account.
 
-## Access Your Participant Account
+Once you have access to your account, return to this guide to learn how to:
 
-When the **chain‑node** container starts for the first time, it automatically creates an account (wallet) and its keys. 
-Those keys are what you use for any account‑level action, such as transferring funds.
-
-You can interact with the keys in two ways, we recommend **Option 1** for simplicity:
-
-### Option 1: Access Account from Container
-
-Connect to the server with the network node and connect to the container `node` (created from `ghcr.io/product-science/inferenced` image):
-```
-docker exec -it node /bin/sh
-```
-
-Then follow the instruction, `--node` and `--keyring-backend` arguments are not needed.
-
-
-### Option 2: Export Keys to Local Computer
-
-Another option is to install `inferenced` according to [the instruction](quickstart/developer/quickstart.md), copy keys to your local computer, and execute all commands locally. 
-
-* `test` keyring backend is used during the TestNet.
-
-Connect to the `node` container at the server (created from `ghcr.io/product-science/inferenced` image):
-```
-docker exec -it node /bin/sh
-```
-
-Export the key with name `KEY_NAME` (you can find it via `inferenced keys list` inside the container):
-```
-inferenced keys export $KEY_NAME --keyring-backend test
-```
-You'll be asked to enter a passphrase, which then will be used to import the key at your local machine.
-
-Copy keys:
-```
------BEGIN TENDERMINT PRIVATE KEY-----
-...
------END TENDERMINT PRIVATE KEY-----
-```
-and paste to local file `keys.pem`.
-
-Then, to import keys at your local machine:
-```
-inferenced keys import join keys.pem --keyring-backend test
-```
-
-Then follow the instructions, adding:
-
-- `--node` argument which points to the `NODE_RPC_URL` of the chain node you want to use as an entry point (`--node http://195.242.13.239:26657` for genesis node)
-- `--keyring-backend test` to use test keyring
-
-!!! note
-    If you've installed `inferenced` locally, ensure it’s in your `PATH` environment variable, or run it directly from its directory (e.g., `inferenced`).
-
-
+- check your balance
+- transfer tokens
+- verify transactions.
 
 ## Get Your Wallet Address
 
@@ -107,6 +56,8 @@ inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e
 ---
 
 ## Send Coins
+
+In Cosmos, a fund transfer means sending tokens from one account (wallet address) to another within a Cosmos-based blockchain. These transfers are used to pay for services or simply send value between users. You perform transfers using the Cosmos SDK command-line tool — specifically, the inferenced CLI. Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and token denomination.
 
 Once you know your balance and have the recipient’s address, you can send tokens.
 

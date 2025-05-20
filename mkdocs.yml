@@ -18,6 +18,7 @@ nav:
               - Quickstart: quickstart/participant/quickstart.md
               - Multiple nodes: quickstart/participant/multiple-nodes.md
               - Network Node API: quickstart/participant/network-node-api.md
+              - Access account: quickstart/participant/access-account.md
       - Wallet & Transfer Guide: wallet-and-transfer-guide.md
       - Pricing: pricing.md
       - Terms & Policies: termsofuse.md

@@ -11,9 +11,7 @@ Connect to the server with the network node and connect to the container `node` 
 ```
 docker exec -it node /bin/sh
 ```
-
-Then follow the instruction, `--node` and `--keyring-backend` arguments are not needed.
-
+Now you can perform the necessary operations — for example, [Query Balance](https://testnet.productscience.ai/wallet-and-transfer-guide/#query-balance), [Send Coins](https://testnet.productscience.ai/wallet-and-transfer-guide/#send-coins), [Check Transaction Status](https://testnet.productscience.ai/wallet-and-transfer-guide/#check-transaction-status). The `--node` and `--keyring-backend` arguments are not required, since you’re already on the participant node and operating within it.
 
 ## Option 2: Export Keys to Local Computer
 

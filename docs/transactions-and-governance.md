@@ -130,7 +130,7 @@ Example structure:
             "amount": "10000000"
           }
         ],
-  "metadata": "ipfs://CID",  // Optiona
+  "metadata": "ipfs://CID",  // Optional
   "title": "Update to 1000 epoch length",
   "summary": "Epoch length should be longer",
   "expedited": false,
@@ -183,25 +183,27 @@ Identify the relevant proposal and note its `proposal_id`.
 Here’s an example `MsgDeposit` transaction JSON:
 ```bash linenums="1"
 {
-  "messages": [
-    {
-      "@type": "/cosmos.gov.v1.MsgDeposit",
-      "proposal_id": "1",
-      "depositor": "gonka1...",  // Your account address
-      "amount": [
-        {
-          "denom": "nicoin",
-          "amount": "10000"
-        }
-      ]
-    }
-  ],
-  "memo": "",
-  "timeout_height": "0",
-  "extension_options": [],
-  "non_critical_extension_options": [],
-  "auth_info": {},
-  "signatures": []
+  "body" : {
+  	"messages": [
+    	{
+     	  "@type": "/cosmos.gov.v1.MsgDeposit",
+     	  "proposal_id": "1",
+        "depositor": "gonka1...",  // Your account address
+        "amount": [
+          {
+            "denom": "nicoin",
+            "amount": "10000"
+          }
+        ]
+      }
+    ],
+    "memo": "",
+    "timeout_height": "0",
+    "extension_options": [],
+    "non_critical_extension_options": [],
+    "auth_info": {},
+    "signatures": []
+  }
 }
 ```
 **Important Notes:**
@@ -260,20 +262,22 @@ You must use these exact `enum` values in the message.
 Example `MsgVote` transaction:
 ```bash linenums="1"
 {
-  "messages": [
-    {
-      "@type": "/cosmos.gov.v1.MsgVote",
-      "proposal_id": "1",
-      "voter": "gonka1...",  // Your account address
-      "option": "VOTE_OPTION_YES"
-    }
-  ],
-  "memo": "",
-  "timeout_height": "0",
-  "extension_options": [],
-  "non_critical_extension_options": [],
-  "auth_info": {},
-  "signatures": []
+  "body": {
+    "messages": [
+      {
+        "@type": "/cosmos.gov.v1.MsgVote",
+        "proposal_id": "1",
+        "voter": "gonka1...",  // Your account address
+        "option": "VOTE_OPTION_YES"
+      }
+    ],
+    "memo": "",
+    "timeout_height": "0",
+    "extension_options": [],
+    "non_critical_extension_options": [],
+    "auth_info": {},
+    "signatures": []
+  }
 }
 ```
 Replace:
@@ -338,3 +342,54 @@ To see all current and past proposals:
 inferenced query gov proposals --output json
 ```
 You can filter through the returned array based on status or IDs.
+
+## Software Upgrades
+There are 3 different versions that can be upgraded independently:
+1. Blockchain code
+2. API code
+3. ML Node versions
+Any of these can be upgraded independently, or all three can be upgraded all at once.
+
+These are all done using governance voting and proposals, similar to the example above of setting parameters.
+
+**Upgrades of only API or ML Node (or both)**
+
+These are done by submitting an PartialUpgrade proposal, and is mostly the same as the SetParams example above. The text of the message would look like.
+```bash linenums="1"
+{
+  "body": {
+    "messages": [
+      {
+        "@type": "/cosmos.gov.v1.MsgSubmitProposal",
+        "messages": [
+    {
+     "@type":"/inference.inference.MsgCreatePartialUpgrade",
+           "authority": "gonka10d07y265gmmuvt4z0w9aw880jnsr700j2h5m33", // governance address
+  "height": "60",  // the height this proposal should be effective
+  "nodeVersion": "v1", // exclude if you're not upgrading ML Nodes
+  "apiBinariesJson": "{\"api_binaries\":{\"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.1.1-alpha1/decentralized-api-amd64.zip?checksum=sha256:dbc01f2bde3d911eaf65ed7bbde6f67b15664897f4ce15f9d009adf77e956cd1\",\"linux/arm64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.1.1-alpha1/decentralized-api-arm64.zip?checksum=sha256:5cba5158c8a4f1b855edd9598eb233783fc1e8ed7a2b9aa33e921edc1bac6255\"}}" // Exclude if you're not upgrading the API.
+}
+
+        ],
+        "initial_deposit": [
+          {
+            "denom": "nicoin",
+            "amount": "10000000"
+          }
+        ],
+  "metadata": "ipfs://CID",  // Optional
+  "title": "Update to 1000 epoch length",
+  "summary": "Epoch length should be longer",
+  "expedited": false,
+        "proposer": "cosmos...", // Should be the address of YOUR account
+      }
+    ],
+    "memo": "",
+    "timeout_height": "0",
+    "extension_options": [],
+    "non_critical_extension_options": []
+  },
+  "auth_info": { },
+  "signatures": []
+}
+```

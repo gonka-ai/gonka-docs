@@ -129,9 +129,7 @@ Within each item in `models`:
 
 **Example**
 
-```
-bash
-CopyEdit
+```bash
 curl -X GET https://your-node-url.com/v1/pricing
 ```
 
@@ -143,8 +141,7 @@ Other participants can then review the proposal and cast their votes using the g
 
 **Endpoint**
 
-```
-bash
+```bash
 POST /v1/admin/models
 ```
 

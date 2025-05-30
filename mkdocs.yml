@@ -14,12 +14,12 @@ nav:
           - Developer: 
               - Quickstart: quickstart/developer/quickstart.md
               - Details: quickstart/developer/details.md
-              - Deploy and Benchmark LLMs Using vLLM: quickstart/developer/deploy-and-benchmark-llms-using-vllm.md
           - Participant:
               - Quickstart: quickstart/participant/quickstart.md
               - Multiple nodes: quickstart/participant/multiple-nodes.md
               - Network Node API: quickstart/participant/network-node-api.md
               - Access account: quickstart/participant/access-account.md
+              - Deploy and Benchmark LLMs Using vLLM: quickstart/participant/deploy-and-benchmark-llms-using-vllm.md
       - Wallet & Transfer Guide: wallet-and-transfer-guide.md
       - Pricing: pricing.md
       - Terms & Policies: termsofuse.md

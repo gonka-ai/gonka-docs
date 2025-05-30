@@ -4,7 +4,7 @@ Effective GPU utilization is critical for deploying large language models. Gonka
 
 To achieve the best results, vLLM requires careful, server-specific configuration. The optimal performance depends on both GPUs' characteristics and the speed of cross-GPU data transfer. This guide provides step-by-step instructions on how to select vLLM parameters using the Qwen/QwQ-32 model as an example. We will also describe which parameters can be tuned for optimal performance without affecting validation and which parameters must remain unchanged.
 
-Our vLLM fork: https://github.com/product-science/vllm/tree/productscience/v0.8.1
+[Link to our vLLM fork](https://github.com/product-science/vllm/tree/productscience/v0.8.1).
 
 ## Understanding vLLM Parameters
 To configure a vLLM-based model deployment, you define `args` for each model:
@@ -39,7 +39,7 @@ There are two types of parameters in vLLM.
 | **Does Not Affect Inference** | Changes how the model utilizes available GPUs.                                                                                                  | `--tensor-parallel-size`, `--pipeline-parallel-size`, `--enable-expert-parallel`, _etc._                 |
 
 ## Performance testing
-To measure the performance of your model deployment, you'll use the `compressa-perf` tool. You can find the tool on GitHub: https://github.com/product-science/compressa-perf
+To measure the performance of your model deployment, you'll use the `compressa-perf` tool. You can find the tool on [GitHub](https://github.com/product-science/compressa-perf).
 
 ### 1. Install the Benchmark Tool
 First, install `compressa-perf` using pip:
@@ -47,7 +47,7 @@ First, install `compressa-perf` using pip:
 pip install git+https://github.com/product-science/compressa-perf.git
 ```
 ### 2. Obtain the Configuration File
-The benchmark tool uses a YAML configuration file to define test parameters. A default configuration file is available at: https://github.com/product-science/inference-ignite/blob/main/mlnode/packages/benchmarks/resources/config.yml
+The benchmark tool uses a YAML configuration file to define test parameters. A default configuration file is available [here](https://github.com/product-science/inference-ignite/blob/main/mlnode/packages/benchmarks/resources/config.yml).
 
 ### 3. Run the Performance Test
 Once your model is deployed, you can test its performance. Use the following command, replacing `<IP>` and `<INFERENCE_PORT>` with your specific deployment details, and `MODEL_NAME` with the name of the model you're testing (e.g., `Qwen/QwQ-32B`):
@@ -77,14 +77,15 @@ This command will output a report with the following performance metrics:
 | **THROUGHPUT_OUTPUT_TOKENS**  | Output token generation speed: total **generated tokens** / total response time (tokens per second).           | Higher is better  |
 
 ## Deployment and Performance Optimization Plan
-Testing is performed on a server where MLNode has been deployed according to the instructions found at https://testnet.productscience.ai/quickstart/participant/multiple-nodes/#running-the-inference-node-on-a-separate-server
+Testing is performed on a server where MLNode has been deployed according to [the instructions](https://testnet.productscience.ai/quickstart/participant/multiple-nodes/#running-the-inference-node-on-a-separate-server).
 Ensure the performance tool (`compressa-perf`) is installed and the necessary configuration file has been downloaded before proceeding.
 
 ### 1. Establish Initial Configuration with Mandatory Parameters
 
 - Identify all mandatory parameters specified by the network (e.g., `--kv-cache-dtype fp8`, `--quantization fp8`)
 - Define base configuration:
-```json
+=== "json"
+```
 "MODEL_NAME": {
     "args": [
         "--kv-cache-dtype", "fp8", 
@@ -101,9 +102,13 @@ Choose these parameters based on your server's GPUs and the model's size. The nu
 ### 3. Test Each Configuration and Measure Performance
 For each defined configuration:
 #### 3.1. Deploy the Configuration
-Deploy the current configuration using the MLNode REST API endpoint: `http://<IP>:<MANAGEMENT_PORT>/api/v1/inference/up`. 
+Deploy the current configuration using the MLNode REST API endpoint:
+```
+http://<IP>:<MANAGEMENT_PORT>/api/v1/inference/up
+```
 Python example below:
-```python
+=== "Python"
+```
 import requests
 from typing import List, Optional
 
@@ -144,6 +149,7 @@ inference_up(
 
 - Check the MLNode logs for any errors that may have occurred during deployment.
 - Verify the deployment status by checking the REST API endpoint `http://<IP>:<MANAGEMENT_PORT>/api/v1/state`.
+  
 The expected status:
 ```
 {'state': 'INFERENCE'}
@@ -151,9 +157,9 @@ The expected status:
 #### 3.3. Measure Performance
 Run the `compressa-perf` tool to measure the performance of the deployed configuration and collect the relevant metrics.
 ### 4. Compare Performance Results Across Configurations
-Analyze the collected metrics (such as TTFT, Latency, and Throughput) from each tested configuration. Compare these results to identify the setup that provides the best performance for the server environment.
+Analyze the collected metrics (such as `TTFT`, `Latency`, and `Throughput`) from each tested configuration. Compare these results to identify the setup that provides the best performance for the server environment.
 
-## Example: Qwen/QwQ-32B at 8x4070 STi server
+## Example: `Qwen/QwQ-32B` at 8x4070 STi server
 Let’s assume we have a server with 8x4070 S Ti. Each GPU has 16GB VRAM.
 We have deployed the `MLNode` container to this server, with the following port mappings:
 
@@ -167,7 +173,8 @@ For this example, we'll use the `Qwen/QwQ-32B` model, which is one of the models
 
 ### 1. Establish Initial Configuration with Mandatory Parameters
 Based on these mandatory parameters, the initial configuration for `Qwen/QwQ-32B` must include:
-```json
+=== "json"
+```
 "Qwen/QwQ-32B": {
     "args": [
         "--kv-cache-dtype", "fp8", 
@@ -195,7 +202,8 @@ High pipeline parallelism typically doesn't yield good performance in a single-s
 #### 3.1 Configuration 1 (TP=8, PP=1)
 ##### 3.1.1. Deploy
 Use a Python script to deploy the model: 
-```python
+=== "Python"
+```
 ...
 model_name = "Qwen/QwQ-32B"
 model_config = {
@@ -217,8 +225,8 @@ The expected status:
 ```
 {"status": "OK"}
 ```
-##### 3.1.2 Verify Deployment
-In MLNode logs we see that vLLM has been deployed successfully:
+##### 3.1.2. Verify Deployment
+In MLNode logs, we see that vLLM has been deployed successfully:
 ```
 ...
 INFO 05-15 23:50:01 [api_server.py:1024] Starting vLLM API server on http://0.0.0.0:5000
@@ -251,6 +259,7 @@ INFO:     Application startup complete.
 INFO:     127.0.0.1:37542 - "GET /v1/models HTTP/1.1" 200 OK
 ```
 To further verify, let's check the status via the API:
+=== "Python"
 ```python
 requests.get(
    "http://24.124.32.70:46195/api/v1/state"
@@ -262,7 +271,7 @@ The expected status:
 ```
 The model has been deployed successfully.
 
-##### 3.1.3 ​​Measure Performance
+##### 3.1.3. ​​Measure Performance
 Start the performance test:
 ```
 compressa-perf \
@@ -272,8 +281,8 @@ measure-from-yaml \
 --model_name Qwen/QwQ-32B \
 config.yml
 ```
-!!! note
-The configuration might still not work as expected - if errors occur, check the MLNode logs for troubleshooting. 
+!!! note "Check Logs If Errors Occur"
+    The configuration may still not work as expected; if errors occur, check the MLNode logs for troubleshooting. 
 
 When the tests are finished, we can see the result: 
 ```
@@ -284,9 +293,10 @@ Results:
 ![Results for Configuration 1  (TP=8, PP=1)](https://github.com/user-attachments/assets/31cdd807-c1b9-49a7-8072-ef43c65077c4)
 
 ### 3.2. Configuration 2 (TP=4, PP=2)
-#### 3.2.1 Deploy
+#### 3.2.1. Deploy
 Use a Python script to deploy the model: 
-```python
+=== "Python"
+```
 ...
 model_name = "Qwen/QwQ-32B"
 model_config = {
@@ -308,10 +318,10 @@ The expected status:
 ```
 {"status": "OK"}
 ```
-#### 3.2.1 Verify Deployment  
-Check that log shows successful deployment  and `/api/v1/state` still returns `{'state': 'INFERENCE'}`
+#### 3.2.2. Verify Deployment  
+Check that the log shows successful deployment  and `/api/v1/state` still returns `{'state': 'INFERENCE'}`
 
-#### 3.2.3 ​​Measure Performance  
+#### 3.2.3. ​​Measure Performance  
 Measure performance a second time using the same command:
 ```
 compressa-perf \
@@ -329,6 +339,7 @@ compressa-perf list --show-metrics --show-parameters
 
 #### 4. Compare Performance Results Across Configurations
 Our experiment shows the following metrics:
+
 | **Experiment**                         | **Metrics**           | **TP 8, PP 1** | **TP 4, PP 2** |
 |---------------------------------------|------------------------|----------------|----------------|
 | ~1000 token input / ~300 token output | **TTFT**               | 6.2342         | **4.7595**     |

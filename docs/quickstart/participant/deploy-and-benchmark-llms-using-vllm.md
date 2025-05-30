@@ -343,8 +343,8 @@ Our experiment shows the following metrics:
 | **Experiment**                         | **Metrics**           | **TP 8, PP 1** | **TP 4, PP 2** |
 |---------------------------------------|------------------------|----------------|----------------|
 | ~1000 token input / ~300 token output | **TTFT**               | 6.2342         | **4.7595**     |
-| ~1000 token input / ~300 token output | **THROUGHPUT INPUT**   | 497.8204       | **500.2883**   |
-| ~1000 token input / ~300 token output | **THROUGHPUT OUTPUT**  | 143.3828       | **144.0936**   |
+| ~1000 token input / ~300 token output | **THROUGHPUT INPUT**   | 497.8204       | 500.2883   |
+| ~1000 token input / ~300 token output | **THROUGHPUT OUTPUT**  | 143.3828       | 144.0936   |
 | ~1000 token input / ~300 token output | **LATENCY**            | 20.9172        | 20.8093        |
 | ~23000 token input / ~1000 token output | **TTFT**             | 57.7112        | **28.6839**    |
 | ~23000 token input / ~1000 token output | **THROUGHPUT INPUT**   | 840.3887       | **1017.6811**  |

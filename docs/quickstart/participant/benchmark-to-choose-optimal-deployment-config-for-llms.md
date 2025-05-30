@@ -1,4 +1,4 @@
-# Deploy and Benchmark LLMs Using vLLM
+# Benchmark to Choose Optimal Deployment Config for LLMs
 ## Intro
 Effective GPU utilization is critical for deploying large language models. Gonka Nodes utilize a customized vLLM inference engine that supports both high-performance inference and its validation.
 

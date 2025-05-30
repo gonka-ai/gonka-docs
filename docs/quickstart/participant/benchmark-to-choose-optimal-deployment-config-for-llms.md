@@ -33,10 +33,10 @@ For example, if the node has 10 GPUs and each instance is configured to use 4, M
 
 There are two types of parameters in vLLM.
 
-| **Type**                      | **Description**                                                    | **Parameters**                                                                                           |
-|-------------------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| **Affects Inference**         | Changes output quality or behavior. You must **not** modify these parameters unless explicitly allowed, as it may cause validation to fail.          | <ul><li>`--kv-cache-dtype`</li><li>`--max-model-len`</li><li>`--speculative-model`</li><li>`--dtype`</li><li>`--quantization`</li><li>_etc._</li></ul> |
-| **Does Not Affect Inference** | Changes how the model utilizes available GPUs.                                                                                                       | <ul><li>`--tensor-parallel-size`</li><li>`--pipeline-parallel-size`</li><li>`--enable-expert-parallel`</li><li>_etc._</li></ul>                         |
+| **Type**                      | **Description**                                                                                                                  | **Parameters**                                                                                                   |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| **Affects Inference**         | Changes output quality or behavior. You must **not** modify these parameters unless explicitly allowed, as it may cause validation to fail. | <nobr>`--kv-cache-dtype`</nobr><br><nobr>`--max-model-len`</nobr><br><nobr>`--speculative-model`</nobr><br><nobr>`--dtype`</nobr><br><nobr>`--quantization`</nobr> _etc._ |
+| **Does Not Affect Inference** | Changes how the model utilizes available GPUs.                                                                                   | <nobr>`--tensor-parallel-size`</nobr><br><nobr>`--pipeline-parallel-size`</nobr><br><nobr>`--enable-expert-parallel`</nobr> _etc._ |               |                    |
 
 ## Performance testing
 To measure the performance of your model deployment, you'll use the `compressa-perf` tool. You can find the tool on [GitHub](https://github.com/product-science/compressa-perf).

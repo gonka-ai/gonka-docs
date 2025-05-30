@@ -2,7 +2,7 @@
 ## Intro
 Effective GPU utilization is critical for deploying large language models. Gonka Nodes utilize a customized vLLM inference engine that supports both high-performance inference and its validation.
 
-To achieve the best results, vLLM requires careful, server-specific configuration. The optimal performance depends on both GPUs' characteristics and the speed of cross-GPU data transfer. This guide provides step-by-step instructions on how to select vLLM parameters using the Qwen/QwQ-32 model as an example. We will also describe which parameters can be tuned for optimal performance without affecting validation and which parameters must remain unchanged.
+To achieve the best results, vLLM requires careful, server-specific configuration. The optimal performance depends on both GPUs' characteristics and the speed of cross-GPU data transfer. This guide provides instructions on how to select vLLM parameters using the Qwen/QwQ-32 model as an example. We will also describe which parameters can be tuned for optimal performance without affecting validation and which parameters must remain unchanged.
 
 [Link to our vLLM fork](https://github.com/product-science/vllm/tree/productscience/v0.8.1).
 

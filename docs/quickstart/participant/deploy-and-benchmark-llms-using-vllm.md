@@ -292,8 +292,8 @@ Results:
 
 ![Results for Configuration 1  (TP=8, PP=1)](https://github.com/user-attachments/assets/31cdd807-c1b9-49a7-8072-ef43c65077c4)
 
-### 3.2. Configuration 2 (TP=4, PP=2)
-#### 3.2.1. Deploy
+#### 3.2. Configuration 2 (TP=4, PP=2)
+##### 3.2.1. Deploy
 Use a Python script to deploy the model: 
 === "Python"
 ```
@@ -318,10 +318,10 @@ The expected status:
 ```
 {"status": "OK"}
 ```
-#### 3.2.2. Verify Deployment  
+##### 3.2.2. Verify Deployment  
 Check that the log shows successful deployment  and `/api/v1/state` still returns `{'state': 'INFERENCE'}`
 
-#### 3.2.3. ​​Measure Performance  
+##### 3.2.3. ​​Measure Performance  
 Measure performance a second time using the same command:
 ```
 compressa-perf \
@@ -337,7 +337,7 @@ compressa-perf list --show-metrics --show-parameters
 ```
 ![Results for Configuration 2  (TP=4, PP=2)](https://github.com/user-attachments/assets/43c225b0-da04-4a92-95f4-8daa3ce62925)
 
-#### 4. Compare Performance Results Across Configurations
+### 4. Compare Performance Results Across Configurations
 Our experiment shows the following metrics:
 
 | **Experiment**                         | **Metrics**           | **TP 8, PP 1** | **TP 4, PP 2** |

@@ -84,8 +84,8 @@ Ensure the performance tool (`compressa-perf`) is installed and the necessary co
 
 - Identify all mandatory parameters specified by the network (e.g., `--kv-cache-dtype fp8`, `--quantization fp8`)
 - Define base configuration:
-=== "json"
-```
+=== "JSON"
+```JSON
 "MODEL_NAME": {
     "args": [
         "--kv-cache-dtype", "fp8", 
@@ -108,7 +108,7 @@ http://<IP>:<MANAGEMENT_PORT>/api/v1/inference/up
 ```
 Python example below:
 === "Python"
-```
+```Python
 import requests
 from typing import List, Optional
 
@@ -124,10 +124,10 @@ def inference_up(
        "additional_args": config["args"]
    }
   
-   response = requests.post(url, json=payload)
+   response = requests.post(url, JSON=payload)
    response.raise_for_status()
   
-   return response.json()
+   return response.JSON()
 
 model_name = "MODEL_NAME"
 model_config = {
@@ -173,8 +173,8 @@ For this example, we'll use the `Qwen/QwQ-32B` model, which is one of the models
 
 ### 1. Establish Initial Configuration with Mandatory Parameters
 Based on these mandatory parameters, the initial configuration for `Qwen/QwQ-32B` must include:
-=== "json"
-```
+=== "JSON"
+```JSON
 "Qwen/QwQ-32B": {
     "args": [
         "--kv-cache-dtype", "fp8", 
@@ -203,7 +203,7 @@ High pipeline parallelism typically doesn't yield good performance in a single-s
 ##### 3.1.1. Deploy
 Use a Python script to deploy the model: 
 === "Python"
-```
+```Python
 ...
 model_name = "Qwen/QwQ-32B"
 model_config = {
@@ -231,7 +231,7 @@ In MLNode logs, we see that vLLM has been deployed successfully:
 ...
 INFO 05-15 23:50:01 [api_server.py:1024] Starting vLLM API server on http://0.0.0.0:5000
 INFO 05-15 23:50:01 [launcher.py:26] Available routes are:
-INFO 05-15 23:50:01 [launcher.py:34] Route: /openapi.json, Methods: GET, HEAD
+INFO 05-15 23:50:01 [launcher.py:34] Route: /openapi.JSON, Methods: GET, HEAD
 INFO 05-15 23:50:01 [launcher.py:34] Route: /docs, Methods: GET, HEAD
 INFO 05-15 23:50:01 [launcher.py:34] Route: /docs/oauth2-redirect, Methods: GET, HEAD
 INFO 05-15 23:50:01 [launcher.py:34] Route: /redoc, Methods: GET, HEAD
@@ -263,7 +263,7 @@ To further verify, let's check the status via the API:
 ```python
 requests.get(
    "http://24.124.32.70:46195/api/v1/state"
-).json()
+).JSON()
 ```
 The expected status:
 ```
@@ -296,7 +296,7 @@ Results:
 ##### 3.2.1. Deploy
 Use a Python script to deploy the model: 
 === "Python"
-```
+```Python
 ...
 model_name = "Qwen/QwQ-32B"
 model_config = {
@@ -343,13 +343,13 @@ Our experiment shows the following metrics:
 | **Experiment**                         | **Metrics**           | **TP 8, PP 1** | **TP 4, PP 2** |
 |---------------------------------------|------------------------|----------------|----------------|
 | ~1000 token input / ~300 token output | **TTFT**               | 6.2342         | **4.7595**     |
-|                                       | **THROUGHPUT INPUT**   | 497.8204       | **500.2883**   |
-|                                       | **THROUGHPUT OUTPUT**  | 143.3828       | **144.0936**   |
-|                                       | **LATENCY**            | 20.9172        | 20.8093        |
+| ~1000 token input / ~300 token output | **THROUGHPUT INPUT**   | 497.8204       | **500.2883**   |
+| ~1000 token input / ~300 token output | **THROUGHPUT OUTPUT**  | 143.3828       | **144.0936**   |
+| ~1000 token input / ~300 token output | **LATENCY**            | 20.9172        | 20.8093        |
 | ~23000 token input / ~1000 token output | **TTFT**             | 57.7112        | **28.6839**    |
-|                                       | **THROUGHPUT INPUT**   | 840.3887       | **1017.6811**  |
-|                                       | **THROUGHPUT OUTPUT**  | 35.7324        | **43.3700**    |
-|                                       | **LATENCY**            | 271.9932       | **223.6245**   |
+| ~23000 token input / ~1000 token output | **THROUGHPUT INPUT**   | 840.3887       | **1017.6811**  |
+| ~23000 token input / ~1000 token output | **THROUGHPUT OUTPUT**  | 35.7324        | **43.3700**    |
+| ~23000 token input / ~1000 token output | **LATENCY**            | 271.9932       | **223.6245**   |
 
 
 The TP=4 and PP=2 setup shows consistently better performance, and we should use it.

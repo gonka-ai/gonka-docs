@@ -14,6 +14,7 @@ nav:
           - Developer: 
               - Quickstart: quickstart/developer/quickstart.md
               - Details: quickstart/developer/details.md
+              - Deploy and Benchmark LLMs Using vLLM: quickstart/developer/deploy-and-benchmark-llms-using-vllm.md
           - Participant:
               - Quickstart: quickstart/participant/quickstart.md
               - Multiple nodes: quickstart/participant/multiple-nodes.md

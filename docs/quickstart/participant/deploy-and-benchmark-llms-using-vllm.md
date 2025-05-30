@@ -53,11 +53,11 @@ The benchmark tool uses a YAML configuration file to define test parameters. A d
 Once your model is deployed, you can test its performance. Use the following command, replacing `<IP>` and `<INFERENCE_PORT>` with your specific deployment details, and `MODEL_NAME` with the name of the model you're testing (e.g., `Qwen/QwQ-32B`):
 ```
 compressa-perf \
-measure-from-yaml \
---no-sign \
---node_url http://<IP>:<INFERENCE_PORT> \
-config.yml \
---model_name MODEL_NAME
+        measure-from-yaml \
+        --no-sign \
+        --node_url http://<IP>:<INFERENCE_PORT> \
+        config.yml \
+        --model_name MODEL_NAME
 ```
 Performance results will be saved to a file named `compressa-perf-db.sqlite`
 
@@ -275,11 +275,11 @@ The model has been deployed successfully.
 Start the performance test:
 ```
 compressa-perf \
-measure-from-yaml \
---no-sign \
---node_url http://24.124.32.70:46085 \
---model_name Qwen/QwQ-32B \
-config.yml
+        measure-from-yaml \
+        --no-sign \
+        --node_url http://24.124.32.70:46085 \
+        --model_name Qwen/QwQ-32B \
+        config.yml
 ```
 !!! note "Check Logs If Errors Occur"
     The configuration may still not work as expected; if errors occur, check the MLNode logs for troubleshooting. 
@@ -325,11 +325,11 @@ Check that the log shows successful deployment  and `/api/v1/state` still return
 Measure performance a second time using the same command:
 ```
 compressa-perf \
-measure-from-yaml \
---no-sign \
---node_url http://24.124.32.70:46085 \
---model_name Qwen/QwQ-32B \
-config.yml
+        measure-from-yaml \
+        --no-sign \
+        --node_url http://24.124.32.70:46085 \
+        --model_name Qwen/QwQ-32B \
+        config.yml
 ```
 When the test finishes, we can check the results:
 ```

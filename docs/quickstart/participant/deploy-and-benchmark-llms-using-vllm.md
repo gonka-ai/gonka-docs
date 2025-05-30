@@ -290,7 +290,7 @@ compressa-perf list --show-metrics --show-parameters
 ```
 Results:
 
-![Results for Configuration 1  (TP=8, PP=1)](docs/quickstart/participant/results-for-configuration-1-(tp=8-pp=1).png)
+![Results for Configuration 1  (TP=8, PP=1)](/results-for-configuration-1-(tp=8-pp=1).png)
 
 #### 3.2. Configuration 2 (TP=4, PP=2)
 ##### 3.2.1. Deploy
@@ -335,7 +335,7 @@ When the test finishes, we can check the results:
 ```
 compressa-perf list --show-metrics --show-parameters
 ```
-![Results for Configuration 2  (TP=4, PP=2)](docs/quickstart/participant/results-for-configuration-2-(tp=4-pp=2).png)
+![Results for Configuration 2  (TP=4, PP=2)](results-for-configuration-2-(tp=4-pp=2).png)
 
 ### 4. Compare Performance Results Across Configurations
 Our experiment shows the following metrics:

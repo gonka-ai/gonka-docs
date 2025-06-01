@@ -180,6 +180,9 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 
 If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 
+!!! note "vLLM performance tuning reference"
+    For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs](https://testnet.productscience.ai/quickstart/participant/benchmark-to-choose-optimal-deployment-config-for-llms/) guide.
+
 ### Retrieving All Inference Nodes
 To get a list of **all registered inference nodes** in your network node, use:
 ```bash

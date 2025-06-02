@@ -178,10 +178,10 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 | `Qwen/QwQ-32B` on 8x3090 or 8x4090  | `"--quantization","fp8","--kv-cache-dtype","fp8","--tensor-parallel-size","4"`                        |
 | `Qwen/QwQ-32B` on 8x3080            | `"--quantization","fp8","--kv-cache-dtype","fp8","--tensor-parallel-size","4","--pipeline-parallel-size","2"`                       |
 
-If the node is successfully added, the response will return the **configuration** of the newly added inference node.
-
 !!! note "vLLM performance tuning reference"
     For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs](https://testnet.productscience.ai/quickstart/participant/benchmark-to-choose-optimal-deployment-config-for-llms/) guide.
+
+If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 
 ### Retrieving All Inference Nodes
 To get a list of **all registered inference nodes** in your network node, use:

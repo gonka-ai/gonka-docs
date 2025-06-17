@@ -1,6 +1,6 @@
-#Stealth-mode blockchain project
+#Gonka
 
-Our stealth blockchain project is a decentralized AI infrastructure designed to optimize computational power specifically for AI model training and inference, offering a competitive alternative to traditional centralized cloud providers. Centralized systems are often expensive, monopolistic, and carry risks of censorship, while existing decentralized networks frequently waste resources on non-productive tasks like network security.
+Gonka is a decentralized AI infrastructure designed to optimize computational power specifically for AI model training and inference, offering a competitive alternative to traditional centralized cloud providers. Centralized systems are often expensive, monopolistic, and carry risks of censorship, whereas existing decentralized networks frequently waste resources on non-productive tasks, such as network security.
 
 We introduce an innovative consensus mechanism that ensures nearly **100%** of computational resources are used for meaningful AI tasks, maximizing efficiency and minimizing operational costs. 
 

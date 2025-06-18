@@ -1,66 +1,149 @@
-{#-
-  This file was automatically generated - do not edit
--#}
 {% extends "main.html" %}
 
 {% block tabs %}
   {{ super() }}
   <style>
     .md-header {position: initial}
-
     .md-main__inner {margin: 0}
-    
     .md-content {display: none}
-    
+
     body {
-      background: url("images/background.svg") no-repeat;
-      background-size: cover;
+      background: linear-gradient(to bottom right, #eef4ff, #dde9ff);
       background-color: var(--md-default-bg-color);
       background-position: 0 80px;
       height: 100%;
     }
-    .mdx-hero {
-      margin: 0 .8rem;
+
+    .hero {
+      text-align: center;
+      padding: 8rem 1rem 6rem;
+      max-width: 1000px;
+      margin: auto;
     }
-    .mdx-hero h1 {
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
       margin-bottom: 1rem;
-      font-weight: 700
     }
-    @media screen and (min-width:60em) {
-      .md-sidebar--secondary {
-        display: none
-      }
-      .mdx-hero {
-        display: flex;
-        align-items: stretch;
-        justify-items: space-between
-      }
-      .mdx-hero__content {
-        max-width: 20rem;
-        margin-top: 3.5rem;
-        padding-bottom: 14vw
-      }
+
+    .hero h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #444;
+      margin-bottom: 3rem;
     }
-    @media screen and (min-width:76.25em) {
-      .md-sidebar--primary {
-        display: none
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cta-block {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+      text-align: left;
+      max-width: 420px;
+      width: 100%;
+      transition: transform 0.2s ease;
+    }
+
+    .cta-block:hover {
+      transform: translateY(-4px);
+    }
+
+    .cta-block a {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2c7cf4;
+      text-decoration: none;
+    }
+
+    .cta-block p {
+      font-size: 0.95rem;
+      color: #333;
+      margin-top: 0.4rem;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .footer-icons {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer-icons a {
+      color: #444;
+      font-size: 1.4rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-icons a:hover {
+      color: #2c7cf4;
+    }
+
+    .footer img.logo {
+      height: 28px;
+      margin-bottom: 0.5rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      .hero h2 {
+        font-size: 1.2rem;
       }
     }
   </style>
-<section class="mdx-container">
-  <div class="md-grid md-typeset">
-    <div class="mdx-hero">
-      <div class="mdx-hero__content">
-        <h1>Product Science</h1>
-        <h2>Use Product Science to analyze and optimize mobile app code and performce before deployment.</h2>
-        <p style="font-size: 0.9em">{{ config.site_description }}.</p>
-        <a href="{{ page.next_page.url | url }}" title="{{ page.next_page.title | striptags }}" class="md-button md-button--primary">
-          Get started
-        </a>
+
+  <section class="hero">
+    <h1>Product Science</h1>
+    <h2>Build and host performant LLM applications — powered by real usage data.</h2>
+
+    <div class="cta-buttons">
+      <div class="cta-block">
+        <a href="https://t.me/productscience_ai" target="_blank">Talk to the Telegram Bot</a>
+        <p>Chat with the bot to explore developer and host onboarding options.</p>
+      </div>
+
+      <div class="cta-block">
+        <a href="https://testnet.productscience.ai/quickstart/developer/quickstart/" target="_blank">Start as Developer</a>
+        <p>Build apps on the Product Science platform with SDKs, tooling, and metrics.</p>
+      </div>
+
+      <div class="cta-block">
+        <a href="https://testnet.productscience.ai/quickstart/participant/quickstart/" target="_blank">Start as Host</a>
+        <p>Run compute infrastructure and serve requests to earn rewards.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 {% endblock %}
+
+{% block footer %}
+  <div class="footer">
+    <img src="{{ config.theme.logo | url }}" alt="Logo" class="logo" />
+    <div class="footer-icons">
+      <a href="mailto:support@productscience.ai" title="Email">Email</a>
+      <a href="https://discord.com/invite/pUSEmYX4JP" target="_blank" title="Discord">Discord</a>
+      <a href="https://x.com/gonka_ai" target="_blank" title="X">X</a>
+    </div>
+  </div>
+{% endblock %}
+
 {% block content %}{% endblock %}
-{% block footer %}{% endblock %}

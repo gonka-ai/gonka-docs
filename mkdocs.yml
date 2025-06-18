@@ -7,7 +7,7 @@ site_description: >-
 # Content
 nav:
   - Docs:
-      - Introduction: introduction.md
+      - Home: index.md
       - Quickstart:
           - Developer: 
               - Quickstart: quickstart/developer/quickstart.md

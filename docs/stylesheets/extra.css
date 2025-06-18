@@ -194,19 +194,19 @@ header.md-header {
 }
 
 .login-button {
-    background-color: #007bff;
+    background-color: #B2B2B2;
 }
 
 .login-button:hover {
-    background-color: #0056b3;
+    background-color: #8D8D8D;
 }
 
 .signup-button {
-    background-color: #28a745;
+    background-color: #666666;
 }
 
 .signup-button:hover {
-    background-color: #218838;
+    background-color: #8D8D8D;
 }
 
 /* === Компактные размеры шрифтов на сайте === */

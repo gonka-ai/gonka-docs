@@ -8,16 +8,15 @@ site_description: >-
 nav:
   - Docs:
       - Introduction: introduction.md
-      - Quickstart:
-          - Developer: 
-              - Quickstart: quickstart/developer/quickstart.md
-              - Details: quickstart/developer/details.md
-          - Participant:
-              - Quickstart: quickstart/participant/quickstart.md
-              - Multiple nodes: quickstart/participant/multiple-nodes.md
-              - Network Node API: quickstart/participant/network-node-api.md
-              - Access account: quickstart/participant/access-account.md
-              - Benchmark to Choose Optimal Deployment Config for LLMs: quickstart/participant/benchmark-to-choose-optimal-deployment-config-for-llms.md
+      - Developer:
+        - Quickstart: developer/quickstart.md
+        - Details: developer/details.md
+      - Participant:
+        - Quickstart: participant/quickstart.md
+        - Multiple nodes: participant/multiple-nodes.md
+        - Network Node API: participant/network-node-api.md
+        - Access account: participant/access-account.md
+        - Benchmark to Choose Optimal Deployment Config for LLMs: participant/benchmark-to-choose-optimal-deployment-config-for-llms.md
       - Wallet & Transfer Guide: wallet-and-transfer-guide.md
       - Pricing: pricing.md
       - Terms & Policies: termsofuse.md

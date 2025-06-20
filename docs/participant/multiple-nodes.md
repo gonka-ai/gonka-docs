@@ -13,9 +13,9 @@ The guide provides instructions for deploying both services on the same machine 
 
 Before proceeding, read the following sections:
 
-- [Quickstart - Prerequisites](https://testnet.productscience.ai/quickstart/participant/quickstart/#prerequisites)
-- [Download Deployment Files](https://testnet.productscience.ai/quickstart/participant/quickstart/#download-deployment-files)
-- [Container Access](https://testnet.productscience.ai/quickstart/participant/quickstart/#authenticate-with-docker-registry)
+- [Quickstart - Prerequisites](https://testnet.productscience.ai/participant/quickstart/#prerequisites)
+- [Download Deployment Files](https://testnet.productscience.ai/participant/quickstart/#download-deployment-files)
+- [Container Access](https://testnet.productscience.ai/participant/quickstart/#authenticate-with-docker-registry)
 
 ---
 
@@ -27,7 +27,7 @@ This section describes how to deploy a distributed setup with a network node and
 
 ## Starting the network node
 
-Make sure you have completed the [Quickstart Prerequisites](https://testnet.productscience.ai/quickstart/participant/quickstart/#prerequisites) beforehand.
+Make sure you have completed the [Quickstart Prerequisites](https://testnet.productscience.ai/participant/quickstart/#prerequisites) beforehand.
 
 This server becomes the main entry point for external participants. It must be exposed to the public internet (static IP or domain recommended). High network reliability and security are essential. Host this on a stable, high-bandwidth server with robust security.
 
@@ -179,7 +179,7 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 | `Qwen/QwQ-32B` on 8x3080            | `"--quantization","fp8","--kv-cache-dtype","fp8","--tensor-parallel-size","4","--pipeline-parallel-size","2"`                       |
 
 !!! note "vLLM performance tuning reference"
-    For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs](https://testnet.productscience.ai/quickstart/participant/benchmark-to-choose-optimal-deployment-config-for-llms/) guide.
+    For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs](https://testnet.productscience.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/) guide.
 
 If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 

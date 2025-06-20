@@ -221,3 +221,6 @@ header.md-header {
     margin-top: -1px;
 }
 
+.md-footer-meta {
+  display: none;
+}

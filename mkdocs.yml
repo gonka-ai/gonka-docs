@@ -19,8 +19,8 @@ nav:
         - Benchmark to Choose Optimal Deployment Config for LLMs: participant/benchmark-to-choose-optimal-deployment-config-for-llms.md
         - Hardware Specifications: participant/hardware-specifications.md
       - Wallet:
-        - Wallet & Transfer Guide: wallet-and-transfer-guide.md
-        - Pricing: pricing.md
+        - Wallet & Transfer Guide: wallet/wallet-and-transfer-guide.md
+        - Pricing: wallet/pricing.md
       - Terms & Policies: termsofuse.md
       - Transactions & Governance: transactions-and-governance.md
       - Help: help.md

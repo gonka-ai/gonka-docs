@@ -11,11 +11,11 @@ Connect to the server with the network node and connect to the container `node` 
 ```
 docker exec -it node /bin/sh
 ```
-Now you can perform the necessary operations — for example, [Query Balance](https://testnet.productscience.ai/wallet-and-transfer-guide/#query-balance), [Send Coins](https://testnet.productscience.ai/wallet-and-transfer-guide/#send-coins), [Check Transaction Status](https://testnet.productscience.ai/wallet-and-transfer-guide/#check-transaction-status). The `--node` and `--keyring-backend` arguments are not required, since you’re already on the participant node and operating within it.
+Now you can perform the necessary operations — for example, [Query Balance](https://testnet.productscience.ai/wallet/wallet-and-transfer-guide/#query-balance), [Send Coins](https://testnet.productscience.ai/wallet/wallet-and-transfer-guide/#send-coins), [Check Transaction Status](https://testnet.productscience.ai/wallet/wallet-and-transfer-guide/#check-transaction-status). The `--node` and `--keyring-backend` arguments are not required, since you’re already on the participant node and operating within it.
 
 ## Option 2: Export Keys to Local Computer
 
-Another option is to install `inferenced` according to [the instruction]([https://testnet.productscience.ai/quickstart/developer/quickstart/](https://testnet.productscience.ai/quickstart/developer/quickstart/#:~:text=You%20can%20download%20the%20latest%20inferenced%20binary%20for%20your%20system%20here.)), copy keys to your local computer, and execute all commands locally. 
+Another option is to install `inferenced` according to [the instruction]([https://testnet.productscience.ai/developer/quickstart/](https://testnet.productscience.ai/developer/quickstart/#:~:text=You%20can%20download%20the%20latest%20inferenced%20binary%20for%20your%20system%20here.)), copy keys to your local computer, and execute all commands locally. 
 
 * `test` keyring backend is used during the TestNet.
 
@@ -51,4 +51,4 @@ Then follow the instructions, adding:
 !!! note
     If you've installed `inferenced` locally, ensure it’s in your `PATH` environment variable, or run it directly from its directory (e.g., `inferenced`).
 
-For instructions on how to get your wallet address, check your token balance, or send tokens to another address, please refer to the [Wallet & Transfer Guide](https://testnet.productscience.ai/wallet-and-transfer-guide/).
+For instructions on how to get your wallet address, check your token balance, or send tokens to another address, please refer to the [Wallet & Transfer Guide](https://testnet.productscience.ai/wallet/wallet-and-transfer-guide/).

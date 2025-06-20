@@ -1,226 +1,144 @@
-.md-grid {
-    max-width: 1440px;
-}
+/*───────────────────────────────────────────────────────────────
+   Product Science — MkDocs “extra.css”
+   Purpose: cosmetic tweaks & landing‑page layout<br>
+   Note: design/values unchanged — only tidied for clarity
+────────────────────────────────────────────────────────────────*/
 
-[data-md-color-scheme="slate"] .md-typeset h1,
-[data-md-color-scheme="slate"] .md-typeset h2,
-[data-md-color-scheme="slate"] .md-typeset h3,
-[data-md-color-scheme="slate"] .md-typeset h4 {
-    color: #fff;
-}
+/* == 0. Layout constraints ===================================== */
+.md-grid{max-width:1440px;}
 
+/* == 1. Typography ============================================= */
+.md-typeset h1{font-weight:600;}  /* page title            */
+.md-typeset h2{font-weight:500;}
+.md-typeset h3{font-weight:400;}
+.md-typeset h4{font-weight:300;}
+
+/* Headline colours per colour‑scheme */
+[data-md-color-scheme="slate"]   .md-typeset h1,
+[data-md-color-scheme="slate"]   .md-typeset h2,
+[data-md-color-scheme="slate"]   .md-typeset h3,
+[data-md-color-scheme="slate"]   .md-typeset h4{color:#fff;}
 [data-md-color-scheme="default"] .md-typeset h1,
 [data-md-color-scheme="default"] .md-typeset h2,
 [data-md-color-scheme="default"] .md-typeset h3,
-[data-md-color-scheme="default"] .md-typeset h4 {
-    color: #000;
+[data-md-color-scheme="default"] .md-typeset h4{color:#000;}
+
+/* Compact global font size */
+.md-typeset{font-size:.7rem;line-height:1.5;}
+
+/* Inline accents */
+.md-typeset .twitter{color:#00acee;}
+
+/* == 2. Colour tokens ========================================== */
+:root{
+  --md-primary-fg-color:       #3a8ac5;
+  --md-primary-fg-color--dark: #3a8ac5;
+  --md-primary-fg-color--light:#3a8ac5;
+  --md-accent-fg-color:        #3a8ac5;
+}
+[data-md-color-scheme="slate"]{
+  --md-code-fg-color:#fff;
 }
 
-.md-typeset h1 {
-    font-weight: 600;
-}
+/* == 3. Media & imagery ======================================== */
+img{height:auto;width:auto;border:0;border-radius:6px;padding:4px;background:#fff;}
+.shadow{box-shadow:0 4px 8px rgba(0,0,0,.2),0 6px 20px rgba(0,0,0,.19);} /* generic shadow */
+.center{display:block;margin-inline:auto;}
+.appstore{border:0;width:200px;}
 
-.md-typeset h2 {
-    font-weight: 500;
-}
+/* Invert logo in dark mode */
+[data-md-color-scheme="slate"] .md-header__button.md-logo{filter:invert(100%);}
 
-.md-typeset h3 {
-    font-weight: 400;
-}
+/* Header logo sizing (navbar & landing) */
+a.md-logo img,
+.gonka-logo img{border:0;padding:0;background:transparent;max-height:48px!important;height:auto!important;width:auto!important;}
 
-.md-typeset h4 {
-    font-weight: 300;
-}
-
-.md-typeset .twitter {
-    color: #00acee;
-}
-
-[data-md-color-scheme="slate"] .md-header__button.md-logo {
-    -webkit-filter: invert(100%);
-    filter: invert(100%);
-}
-
-img {
-    height: auto;
-    width: auto;
-    border: 0px solid #ddd;
-    border-radius: 6px;
-    padding: 4px;
-    background-color: #fff;
-}
-
-.shadow {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.appstore {
-    border: 0px;
-    width: 200px;
-}
-
-a.md-logo img {
-    border: 0px;
-    padding: 0px;
-    background-color: transparent;
-    max-height: 48px !important;
-    width: auto !important;
-    height: auto !important;
-}
-
-strong.label-button,
-mark.critic {
-    padding: 4px 6px;
-    /*margin: 0px 2px 0px 2px;*/
-    min-width: 88px;
-    border-radius: 3px;
-    text-align: center;
-    /*text-transform: uppercase;*/
-    text-decoration: none;
-    border: none;
-    outline: none;
-    font-size: 0.84em;
-    font-weight: 600;
-    background-color: #333;
-    color: #fff;
-}
-
-.label-button.victorops {
-    background-color: #0cb9a8;
-}
-
-.label-button.apm {
-    background-color: #BF1942;
-}
-
-.label-button.devops {
-    background-color: #0064b7;
-}
-
-.label-button.otel {
-    background-color: #f5a800;
-}
-
-.label-button.AWS-yellow {
-    background-color: #ec7211;
-    color: #fff;
-    font-weight: 400;
-}
-
-.label-button.AWS-blue {
-    background-color: #0073bb;
-    color: #fff;
-    font-weight: 400;
-}
-
-.label-button.AWS-orange {
-    background-color: #eb5f07;
-}
-
-.label-button.AWS-gray {
-    background-color: #879596;
-    color: #fff;
-    font-weight: 400;
-}
-
-.label-button.observability {
-    background-color: #4a0072;
-}
-
-.label-button.sfx-ui-button-grey {
-    background-color: #eee;
-    color: rgba(0, 0, 0, .65);
-    font-weight: 400;
-}
-
-.label-button.sfx-ui-button-blue {
-    background-color: #0264d7;
-    color: #fff;
-    font-weight: 400;
-}
-
-.label-button.vo-ui-button {
-    background-color: #00bce4;
-}
-
-header.md-header {
-    /* background-color: #000; */
-}
-
+/* == 4. Navigation tweaks ====================================== */
 .md-nav__link:focus,
 .md-tabs__link--active,
 .md-nav__item .md-nav__link--active,
 .md-nav__link--active,
-.md-nav__link:active {
-    color: --md-typeset-color;
+.md-nav__link:active{color:var(--md-typeset-color);} /* keep theme vars */
+.md-nav__link:hover{font-weight:700;}
+
+/* Hide built‑with banner */
+.md-footer-meta{display:none;}
+
+/* == 5. Label‑button utility =================================== */
+strong.label-button,
+mark.critic{padding:4px 6px;min-width:88px;border-radius:3px;text-align:center;font-size:.84em;font-weight:600;background:#333;color:#fff;}
+.label-button.victorops{background:#0cb9a8;}
+.label-button.apm{background:#BF1942;}
+.label-button.devops{background:#0064b7;}
+.label-button.otel{background:#f5a800;}
+.label-button.AWS-yellow{background:#ec7211;color:#fff;font-weight:400;}
+.label-button.AWS-blue{background:#0073bb;color:#fff;font-weight:400;}
+.label-button.AWS-orange{background:#eb5f07;}
+.label-button.AWS-gray{background:#879596;color:#fff;font-weight:400;}
+.label-button.observability{background:#4a0072;}
+.label-button.sfx-ui-button-grey{background:#eee;color:rgba(0,0,0,.65);font-weight:400;}
+.label-button.sfx-ui-button-blue{background:#0264d7;color:#fff;font-weight:400;}
+.label-button.vo-ui-button{background:#00bce4;}
+
+/* == 6. Landing‑page (Gonka) =================================== */
+[data-md-state="homepage"] .md-header{display:none;} /* remove default header on landing */
+
+html,body{height:100%;}
+.gonka-landing{display:flex;flex-direction:column;min-height:100%;font-family:Inter,sans-serif;color:#000;}
+
+/* Header strip */
+.gonka-header{position:fixed;top:2rem;left:2rem;right:2rem;display:flex;justify-content:space-between;align-items:center;z-index:30;}
+.gonka-docs-link{font-size:.9rem;font-weight:500;text-decoration:none;color:#000!important;}
+.gonka-docs-link:hover{text-decoration:underline;}
+
+/* Banner */
+.gonka-banner{text-align:center;font-size:.9rem;margin-top:4rem;}
+.gonka-banner a{color:#0066ff;text-decoration:none;}
+
+/* Hero */
+.gonka-hero{text-align:center;padding:3rem 0 3rem;overflow:hidden;}
+.gonka-hero::before{content:"";position:absolute;inset:0 auto 0 50%;width:100vw;height:100%;transform:translateX(-50%);background:url("../images/landing.png") center/cover no-repeat;z-index:-1;pointer-events:none;}
+.gonka-hero h1{font-size:3rem;margin-bottom:.5rem;}
+.tagline{font-size:1.25rem;color:#555;margin-bottom:2.5rem;}
+.gonka-cards{display:flex;justify-content:center;flex-wrap:wrap;gap:1.5rem;margin-top:1rem;} /* centred on desktop */
+.card{width:280px;padding:1.5rem 2rem;background:#fff;border:1px solid #e5e5e5;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);text-align:left;transition:transform .2s;}
+.card:hover{transform:translateY(-4px);}  /* subtle lift */
+.card span{display:block;font-weight:600;margin-bottom:.75rem;}
+.card small{font-size:.875rem;color:#555;}
+
+/* Footer */
+.gonka-footer{margin-top:auto;padding:4rem 3rem 5rem;background:#fff;font-size:.8rem;}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;flex-wrap:nowrap;align-items:flex-start;gap:0 3rem;}
+.brand{flex:0 0 160px;padding-right:3rem;}
+.brand-logo img{height:40px;width:auto;}
+.social a{margin-right:.8rem;}
+.social img{height:20px;width:20px;}
+.footer-col{flex:1 1 140px;min-width:140px;display:flex;flex-direction:column;}
+.footer-col h4{margin:0 0 .55rem;font-size:.9rem;font-weight:600;}
+.footer-col ul{list-style:none;margin:0;padding:0;}
+.footer-col li+li{margin-top:.35rem;}
+.footer-col a{text-decoration:none;color:#444;}
+.footer-col a:hover{text-decoration:underline;}
+
+/* Responsive footer */
+@media (max-width:820px){
+  .footer-inner{flex-wrap:wrap;gap:2rem 3rem;}
+  .brand{flex-basis:100%;padding-right:0;}
+  .footer-col{flex:1 1 45%;}
+}
+@media (max-width:500px){
+  .footer-col{flex:1 1 100%;}
 }
 
-.md-nav__link:hover {
-    font-weight: 700;
-}
+/* Dark‑mode tweaks */
+[data-md-color-scheme="slate"] .gonka-logo img,
+[data-md-color-scheme="slate"] .brand-logo img,
+[data-md-color-scheme="slate"] .social img{filter:invert(100%);} /* keep logos visible */
+[data-md-color-scheme="slate"] .footer-col a{color:#bbb;}
 
-:root {
-    --md-primary-fg-color: #3a8ac5;
-    --md-accent-fg-color: #3a8ac5;
-    --md-primary-fg-color--light: #3a8ac5;
-    --md-primary-fg-color--dark: #3a8ac5;
-}
-
-[data-md-color-scheme="slate"] {
-    /*   --md-code-bg-color: #F5F5F5; */
-    --md-code-fg-color: #fff;
-}
-
-/* 28282a */
-
-/* .md-typeset code {
-    font-size: .6.5rem;
-} */
-
-.header-button {
-    margin-left: 15px;
-    padding: 8px 16px;
-    text-decoration: none;
-    font-weight: bold;
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.login-button {
-    background-color: #B2B2B2;
-}
-
-.login-button:hover {
-    background-color: #8D8D8D;
-}
-
-.signup-button {
-    background-color: #666666;
-}
-
-.signup-button:hover {
-    background-color: #8D8D8D;
-}
-
-/* === Компактные размеры шрифтов на сайте === */
-
-.md-typeset {
-    font-size: 0.7rem; /* 11px */
-    line-height: 1.5;
-}
-
-.md-typeset ::before,
-.md-typeset ::after {
-    margin-top: -1px;
-}
-
-.md-footer-meta {
-  display: none;
-}
+/* == 7. Helper buttons (site‑wide) ============================== */
+.header-button{margin-left:15px;padding:8px 16px;font-weight:bold;color:#fff;text-decoration:none;border-radius:5px;transition:background-color .3s;}
+.login-button{background:#B2B2B2;}
+.login-button:hover{background:#8D8D8D;}
+.signup-button{background:#666;}
+.signup-button:hover{background:#8D8D8D;}

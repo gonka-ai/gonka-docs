@@ -77,7 +77,7 @@ This command will output a report with the following performance metrics:
 | **THROUGHPUT_OUTPUT_TOKENS**  | Output token generation speed: total **generated tokens** / total response time (tokens per second).           | Higher is better  |
 
 ## Deployment and Performance Optimization Plan
-Testing is performed on a server where MLNode has been deployed according to [the instructions](https://testnet.productscience.ai/quickstart/participant/multiple-nodes/#running-the-inference-node-on-a-separate-server).
+Testing is performed on a server where MLNode has been deployed according to [the instructions](https://testnet.productscience.ai/participant/multiple-nodes/#running-the-inference-node-on-a-separate-server).
 Ensure the performance tool (`compressa-perf`) is installed and the necessary configuration file has been downloaded before proceeding.
 
 ### 1. Establish Initial Configuration with Mandatory Parameters

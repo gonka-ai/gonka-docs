@@ -97,6 +97,3 @@ plugins:
       video_controls: true
       css_style:
         width: "50%"
-
-extra_javascript:
-  - buttons.js

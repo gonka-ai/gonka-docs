@@ -1,4 +1,4 @@
-# Setting Up your chain 
+# Setting up your chain 
 
 **Participants** (**hardware providers** or **nodes**) contribute computational resources to the network and are rewarded based on the amount and quality of resources they provide.
 

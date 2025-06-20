@@ -33,7 +33,7 @@ In our network, we aim to support open-source LLMs that rank highly on Chat Aren
 - If you have multiple H100 or A100 GPUs, consider grouping 2 or 8 of them into a single node to support higher-demand models.
 - If you have multiple 3090 GPUs, consider grouping 4 or 8 of them into a single node for better performance.
 
-To run a service, you need to have a machine with a [supported GPU(s)](/hardware-specifications).  
+To run a service, you need to have a machine with a [supported GPU(s)](/participant/hardware-specifications).  
 
 It also should have:
 
@@ -146,7 +146,7 @@ All other variables can be left as is.
 The quickstart instruction is designed to run both the network node and the inference node on a single machine (one server setup). 
 
 ??? note "Multiple nodes deployment"
-    If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://testnet.productscience.ai/quickstart/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same network node.
+    If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://testnet.productscience.ai/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same network node.
     
 **1. Pull Docker Images (Containers)**
 

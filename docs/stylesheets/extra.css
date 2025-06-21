@@ -81,43 +81,148 @@ mark.critic{padding:4px 6px;min-width:88px;border-radius:3px;text-align:center;f
 .label-button.vo-ui-button{background:#00bce4;}
 
 /* == 6. Landing‑page (Gonka) =================================== */
-[data-md-state="homepage"] .md-header{display:none;} /* remove default header on landing */
+[data-md-state="homepage"] .md-header{display:none !important;} /* remove default header on landing */
+.gonka-landing .md-header{display:none !important;} /* ensure MkDocs header is hidden on landing page */
+body:has(.gonka-landing) .md-header{display:none !important;} /* fallback for browsers that support :has() */
 
 html,body{height:100%;}
-.gonka-landing{display:flex;flex-direction:column;min-height:100%;font-family:Inter,sans-serif;color:#000;}
+.gonka-landing{display:flex;flex-direction:column;height:100vh;font-family:Inter,sans-serif;color:#000;}
 
-/* Header strip */
+/* Header strip */
 .gonka-header{position:fixed;top:2rem;left:2rem;right:2rem;display:flex;justify-content:space-between;align-items:center;z-index:30;}
-.gonka-docs-link{font-size:.9rem;font-weight:500;text-decoration:none;color:#000!important;}
+.gonka-docs-link{display:flex;align-items:center;gap:8px;}
+.gonka-docs-link span{font-size:15px;font-weight:400;text-decoration:none;color:#000!important;}
 .gonka-docs-link:hover{text-decoration:underline;}
 
 /* Banner */
-.gonka-banner{text-align:center;font-size:.9rem;margin-top:4rem;}
-.gonka-banner a{color:#0066ff;text-decoration:none;}
+.gonka-banner {
+  margin: 4rem auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 320px;
+  height: 40px;
+  padding: 0px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 110%;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+.gonka-banner a {
+  color: #6171E9;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 110%;
+  letter-spacing: -0.01em;
+}
 
 /* Hero */
 .gonka-hero{text-align:center;padding:3rem 0 3rem;overflow:hidden;}
 .gonka-hero::before{content:"";position:absolute;inset:0 auto 0 50%;width:100vw;height:100%;transform:translateX(-50%);background:url("../images/landing.png") center/cover no-repeat;z-index:-1;pointer-events:none;}
-.gonka-hero h1{font-size:3rem;margin-bottom:.5rem;}
-.tagline{font-size:1.25rem;color:#555;margin-bottom:2.5rem;}
-.gonka-cards{display:flex;justify-content:center;flex-wrap:wrap;gap:1.5rem;margin-top:1rem;} /* centred on desktop */
-.card{width:280px;padding:1.5rem 2rem;background:#fff;border:1px solid #e5e5e5;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);text-align:left;transition:transform .2s;}
-.card:hover{transform:translateY(-4px);}  /* subtle lift */
-.card span{display:block;font-weight:600;margin-bottom:.75rem;}
-.card small{font-size:.875rem;color:#555;}
 
-/* Footer */
-.gonka-footer{margin-top:auto;padding:4rem 3rem 5rem;background:#fff;font-size:.8rem;}
+/* Dark mode hero background */
+[data-md-color-scheme="slate"] .gonka-hero::before{
+  background:url("../images/landing-dark.png") center/cover no-repeat;
+}
+
+/* Dark mode landing page styles */
+[data-md-color-scheme="slate"] .is-landing-page {
+  background-color: #000 !important;
+  --md-default-bg-color: #000;
+}
+[data-md-color-scheme="slate"] .gonka-landing {
+  color: #fff;
+}
+[data-md-color-scheme="slate"] .gonka-docs-link span {
+  color: #fff !important;
+}
+[data-md-color-scheme="slate"] .tagline {
+  color: #bbb;
+}
+
+[data-md-color-scheme="slate"] .footer-col h4,
+[data-md-color-scheme="slate"] .brand-logo span {
+  color: #fff;
+}
+[data-md-color-scheme="slate"] .gonka-banner span {
+  color: #fff;
+}
+[data-md-color-scheme="slate"] .gonka-landing svg {
+  filter: invert(1);
+}
+
+.gonka-hero h1{
+  font-size: 48px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  font-feature-settings: 'ss02' on, 'ss03' on, 'ss04' on, 'cv10' on;
+  margin-bottom:.5rem;
+}
+.tagline{
+  font-size: 22px;
+  line-height: 100%;
+  letter-spacing: -0.04em;
+  color: #787878;
+  margin-bottom:2.5rem;
+}
+.gonka-cards{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:1rem;} /* centred on desktop */
+.card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 320px;
+  height: 144px;
+  padding: 16px;
+  background: #FFFFFF;
+  border:none;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  text-decoration: none;
+  transform: translateZ(0);
+  transition: all 0.3s ease-in-out;
+  will-change: transform, box-shadow;
+}
+.card:hover{
+  transform:translateY(-4px);  /* subtle lift */
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.25);
+}
+.card span{
+  display:block;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 110%;
+  letter-spacing: -0.01em;
+  color: #6171E9;
+}
+.card small{
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: -0.01em;
+  color: #787878;
+  padding-right: 20px;
+  text-align: left;
+}
+
+/* Footer */
+.gonka-footer{margin-top:auto;font-size:.8rem;}
 .footer-inner{max-width:1400px;margin:0 auto;display:flex;flex-wrap:nowrap;align-items:flex-start;gap:0 3rem;}
-.brand{flex:0 0 160px;padding-right:3rem;}
-.brand-logo img{height:40px;width:auto;}
-.social a{margin-right:.8rem;}
-.social img{height:20px;width:20px;}
-.footer-col{flex:1 1 140px;min-width:140px;display:flex;flex-direction:column;}
-.footer-col h4{margin:0 0 .55rem;font-size:.9rem;font-weight:600;}
-.footer-col ul{list-style:none;margin:0;padding:0;}
-.footer-col li+li{margin-top:.35rem;}
-.footer-col a{text-decoration:none;color:#444;}
+.brand{flex:0 0 216px; display:flex; flex-direction:column; gap:20px;}
+.brand-logo {display: flex; align-items: center; gap: 8px; text-decoration: none;}
+.brand-logo span{font-size:24px;font-weight:600; color: #000;}
+.social {display: flex; align-items: flex-start; gap: 16px;}
+.social a{margin-right: 0;}
+.social img{height:24px;width:24px;}
+.footer-col{flex:1 1 140px;min-width:140px;display:flex;flex-direction:column;padding-top:10px;gap:24px;}
+.footer-col h4{margin:0;font-size:15px;font-weight:400;line-height:110%;letter-spacing:-0.01em;color:#000;}
+.footer-col ul{list-style:none;margin:0 !important;padding:0;display:flex;flex-direction:column;gap:8px;}
+.footer-col li {margin: 0 !important;}
+.footer-col a{text-decoration:none;font-size:15px;font-weight:400;line-height:110%;letter-spacing:-0.01em;color:#787878;}
 .footer-col a:hover{text-decoration:underline;}
 
 /* Responsive footer */

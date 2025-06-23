@@ -103,7 +103,7 @@
         <h4>Protocol</h4>
         <ul>
           <li><a href="/whitepaper.pdf">White Paper</a></li>
-          <li><a href="/pow-security-analysis.pdf">Transformer‑Base Proof‑of‑Work</a></li>
+          <li><a href="/pow-security-analysis.pdf">Transformer‑Based Proof‑of‑Work</a></li>
         </ul>
       </div>
 
@@ -117,7 +117,7 @@
       <div class="footer-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="#">Gonka Protocol License</a></li>
+          <li><a href="/protocol-license.pdf">Gonka Protocol License</a></li>
           <li><a href="#">Patents</a></li>
         </ul>
       </div>

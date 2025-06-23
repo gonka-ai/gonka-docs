@@ -27,7 +27,7 @@
   <main class="gonka-main">      
     <!-- Banner -->
     <p class="gonka-banner">
-      <span>Testnet is live</span> <a href="https://discord.com/channels/1336477374442770503/1354502288995254333">Click for details →</a>
+      <span>Testnet is live.</span> <a href="https://discord.com/channels/1336477374442770503/1354502288995254333">Click for details →</a>
     </p>
 
     <!-- Hero -->

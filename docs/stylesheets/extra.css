@@ -1,5 +1,5 @@
 /*───────────────────────────────────────────────────────────────
-   Product Science — MkDocs “extra.css”
+   Product Science — MkDocs "extra.css"
    Purpose: cosmetic tweaks & landing‑page layout<br>
    Note: design/values unchanged — only tidied for clarity
 ────────────────────────────────────────────────────────────────*/
@@ -46,7 +46,21 @@ img{height:auto;width:auto;border:0;border-radius:6px;padding:4px;background:#ff
 .center{display:block;margin-inline:auto;}
 .appstore{border:0;width:200px;}
 
-/* Invert logo in dark mode */
+/* Mobile header shadow when scrolled */
+@media (max-width:500px){
+  .gonka-header.scrolled {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Dark mode shadow */
+  [data-md-color-scheme="slate"] .gonka-header.scrolled {
+    box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Invert logo in dark mode */
 [data-md-color-scheme="slate"] .md-header__button.md-logo{filter:invert(100%);}
 
 /* Header logo sizing (navbar & landing) */
@@ -84,12 +98,28 @@ mark.critic{padding:4px 6px;min-width:88px;border-radius:3px;text-align:center;f
 [data-md-state="homepage"] .md-header{display:none !important;} /* remove default header on landing */
 .gonka-landing .md-header{display:none !important;} /* ensure MkDocs header is hidden on landing page */
 body:has(.gonka-landing) .md-header{display:none !important;} /* fallback for browsers that support :has() */
+body:has(.gonka-landing) .md-sidebar{display:none !important;} /* fallback for browsers that support :has() */
+body:has(.gonka-landing) .md-main__inner{margin-top:0 !important;} /* fallback for browsers that support :has() */
+body:has(.gonka-landing) .md-content__inner{margin:0 !important; padding:0 !important;} /* fallback for browsers that support :has() */
+body:has(.gonka-landing) .md-main{margin:0 !important; padding:0 !important;} /* fallback for browsers that support :has() */
 
 html,body{height:100%;}
-.gonka-landing{display:flex;flex-direction:column;height:100vh;font-family:Inter,sans-serif;color:#000;}
+.gonka-landing {
+  min-height: 100dvh;
+  /* fallback for older browsers */
+  min-height: 100vh;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  font-family:Inter,sans-serif;
+  color:#000;
+}
+
+/* Main content area */
+.gonka-main{flex:1;display:flex;flex-direction:column;}
 
 /* Header strip */
-.gonka-header{position:fixed;top:2rem;left:2rem;right:2rem;display:flex;justify-content:space-between;align-items:center;z-index:30;}
+.gonka-header{position:absolute;top:0;left:0;right:0;width:100%;display:flex;padding:14px;justify-content:space-between;align-items:center;z-index:30;}
 .gonka-docs-link{display:flex;align-items:center;gap:8px;}
 .gonka-docs-link span{font-size:15px;font-weight:400;text-decoration:none;color:#000!important;}
 .gonka-docs-link:hover{text-decoration:underline;}
@@ -122,7 +152,14 @@ html,body{height:100%;}
 
 /* Hero */
 .gonka-hero{text-align:center;padding:3rem 0 3rem;overflow:hidden;}
-.gonka-hero::before{content:"";position:absolute;inset:0 auto 0 50%;width:100vw;height:100%;transform:translateX(-50%);background:url("../images/landing.png") center/cover no-repeat;z-index:-1;pointer-events:none;}
+.gonka-hero::before{content:"";position:absolute;inset:0 auto 0 50%;width:100%;height:100%;transform:translateX(-50%);background:url("../images/landing.png") center/cover no-repeat;z-index:-1;pointer-events:none;}
+
+/* Mobile hero background adjustment */
+@media (max-width:500px){
+  .gonka-hero::before{
+    top: -160px; /* Reduce top offset for mobile */
+  }
+}
 
 /* Dark mode hero background */
 [data-md-color-scheme="slate"] .gonka-hero::before{
@@ -210,7 +247,7 @@ html,body{height:100%;}
 }
 
 /* Footer */
-.gonka-footer{margin-top:auto;font-size:.8rem;}
+.gonka-footer{margin-top:auto;font-size:.8rem; margin: 0 32px;}
 .footer-inner{max-width:1400px;margin:0 auto;display:flex;flex-wrap:nowrap;align-items:flex-start;gap:0 3rem;}
 .brand{flex:0 0 216px; display:flex; flex-direction:column; gap:20px;}
 .brand-logo {display: flex; align-items: center; gap: 8px; text-decoration: none;}
@@ -218,7 +255,12 @@ html,body{height:100%;}
 .social {display: flex; align-items: flex-start; gap: 16px;}
 .social a{margin-right: 0;}
 .social img{height:24px;width:24px;}
-.footer-col{flex:1 1 140px;min-width:140px;display:flex;flex-direction:column;padding-top:10px;gap:24px;}
+.footer-cols {
+  display: flex;
+  flex: 1;
+  gap: 0 3rem;
+}
+.footer-col{flex:1 1 140px;max-width:340px;min-width:140px;display:flex;flex-direction:column;padding-top:10px;gap:24px;}
 .footer-col h4{margin:0;font-size:15px;font-weight:400;line-height:110%;letter-spacing:-0.01em;color:#000;}
 .footer-col ul{list-style:none;margin:0 !important;padding:0;display:flex;flex-direction:column;gap:8px;}
 .footer-col li {margin: 0 !important;}
@@ -230,9 +272,45 @@ html,body{height:100%;}
   .footer-inner{flex-wrap:wrap;gap:2rem 3rem;}
   .brand{flex-basis:100%;padding-right:0;}
   .footer-col{flex:1 1 45%;}
+  .gonka-landing{padding:0 14px;}
 }
 @media (max-width:500px){
-  .footer-col{flex:1 1 100%;}
+  .gonka-landing{padding:0 14px;padding-top:60px;}
+  .gonka-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 14px;
+    z-index: 30;
+    background-color: #fff;
+  }
+  [data-md-color-scheme="slate"] .gonka-header {
+    background-color: #000;
+  }
+  .gonka-banner {margin-top: 0px !important;}
+  .footer-inner {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 1.5rem;
+  }
+  .footer-cols {
+    flex-direction: column;
+  }
+  .brand, .footer-cols .footer-col {
+    flex: 0 0 auto;
+    min-width: 140px;
+    max-width: 220px;
+  }
+
+  .footer-cols .footer-col {
+    margin-bottom: 24px;
+  }
+  .footer-col {
+    gap: 8px;
+  }
 }
 
 /* Dark‑mode tweaks */

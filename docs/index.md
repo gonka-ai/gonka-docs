@@ -90,36 +90,37 @@
     </div>
 
     <!-- 4 columns ---------------------------------------------------->
-    <div class="footer-col">
-      <h4>Community</h4>
-      <ul>
-        <li><a href="#">GitHub</a></li>
-        <li><a href="https://discord.com/invite/pUSEmYX4JP">Events</a></li>
-      </ul>
-    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="https://discord.com/invite/pUSEmYX4JP">Events</a></li>
+        </ul>
+      </div>
 
-    <div class="footer-col">
-      <h4>Protocol</h4>
-      <ul>
-        <li><a href="/whitepaper.pdf">White Paper</a></li>
-        <li><a href="/pow-security-analysis.pdf">Transformer‑Base PoW</a></li>
-        <li><a href="#">Proof‑of‑Work</a></li>
-      </ul>
-    </div>
+      <div class="footer-col">
+        <h4>Protocol</h4>
+        <ul>
+          <li><a href="/whitepaper.pdf">White Paper</a></li>
+          <li><a href="/pow-security-analysis.pdf">Transformer‑Base Proof‑of‑Work</a></li>
+        </ul>
+      </div>
 
-    <div class="footer-col">
-      <h4>GNK</h4>
-      <ul>
-        <li><a href="/pow-security-analysis.pdf">Gonka Tokenomics</a></li>
-      </ul>
-    </div>
+      <div class="footer-col">
+        <h4>GNK</h4>
+        <ul>
+          <li><a href="/pow-security-analysis.pdf">Gonka Tokenomics</a></li>
+        </ul>
+      </div>
 
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="#">Gonka Protocol License</a></li>
-        <li><a href="#">Patents</a></li>
-      </ul>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Gonka Protocol License</a></li>
+          <li><a href="#">Patents</a></li>
+        </ul>
+      </div>
     </div>
 
   </div>
@@ -166,6 +167,24 @@ document.addEventListener('DOMContentLoaded', function() {
       // Force a full page reload to ensure MkDocs initializes properly
       window.location.href = this.href + '?from=landing';
     });
+  }
+  
+  // Mobile header shadow on scroll
+  const header = document.querySelector('.gonka-header');
+  if (header) {
+    function handleScroll() {
+      if (window.scrollY > 0) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+    
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Check initial scroll position
+    handleScroll();
   }
 });
 </script>

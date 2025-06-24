@@ -107,7 +107,7 @@ html,body{height:100%;}
 .gonka-landing {
   min-height: 100dvh;
   /* fallback for older browsers */
-  min-height: 100vh;
+  min-height: calc(100dvh - 60px); /* компенсируем padding-top */
   position:relative;
   display:flex;
   flex-direction:column;

@@ -89,7 +89,7 @@ Step 2.8. Select Cosmos Hub and Etherium.
 ## Dashboard Overview
 
 Once your wallet is connected, the dashboard unlocks access to all metrics and insights.
-## Metrics
+### Metrics
 
 | **Metric**                        | **Description**                                       |
 |----------------------------------|-------------------------------------------------------|
@@ -101,21 +101,19 @@ Once your wallet is connected, the dashboard unlocks access to all metrics and i
 
 ### Developer Tools
 
-## Features
-
 | **Feature**                  | **Description**                                              | **Link**                |
 |-----------------------------|--------------------------------------------------------------|-------------------------|
 | **Buy GNK**                 | Live GNK/USDT price and purchase link                        | [Step-by-step guide](https://gonka.ping.pub) |
 | **Use Gonka API**           | OpenAI-compatible API access with private key                | [Developer quickstart](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk) |
 
-## Developer Account List
+### Developer Account List
 When a wallet is connected, you'll see all accounts you own, with:
 
 - Account address (linked to its detail page)
 - Balance in GNK
 Accounts are hidden if the wallet is not connected (for privacy).
 
-## Account Detail
+### Account Detail
 
 | **Metric**             | **Description**                                                                 |
 |------------------------|---------------------------------------------------------------------------------|
@@ -126,9 +124,7 @@ Accounts are hidden if the wallet is not connected (for privacy).
 | **AI Token Usage**     | Token usage (in/out) over the last week or 7 Epochs                             |
 | **Recent Transactions**| Status for transactions or Inferences (Started / Finished / Validated)  <br> Block Height  <br> Amount (fees in coins)                                  |
 
-## AI Inferences (Epoch Metrics)
-
-## Metrics
+### AI Inferences (Epoch Metrics)
 
 | **Metric**               | **Description**                                                                 |
 |--------------------------|---------------------------------------------------------------------------------|

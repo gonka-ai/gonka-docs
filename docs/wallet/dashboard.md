@@ -66,12 +66,15 @@ Step 2.8. Select Cosmos Hub and Etherium.
 3.5. (Optional) If you want to add additional gonka account (in case you have multiple Gonka accounts), follow these steps.
 
 3.5.1. Open the extension and click on the account icon in the top-right corner of the extension window.
+
 ![](/images/dashboard_ping_pub_3_5_1.png){ width=400 }
 
 3.5.2. Click the “Add wallet” button.
+
 ![](/images/dashboard_ping_pub_3_5_2.png){ width=400 }
 
 3.5.3. Click “Import an Existing Wallet”.
+
 ![](/images/dashboard_ping_pub_3_5_3.png){ width=400 }
 
 3.5.4. Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).

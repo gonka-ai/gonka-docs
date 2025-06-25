@@ -50,7 +50,7 @@ Step 2.8. Select Cosmos Hub and Etherium.
 ![](/images/dashboard_keplr_step_2_9.png){ width=400 }
 
 ## 3. Connect wallet
-3.1. Head over to [www.gonka.ping.pub](www.gonka.ping.pub), a popular and trusted web wallet and block explorer for Cosmos-based chains. In the top-right corner, click “Connect Wallet” to get started.
+3.1. Head over to [Ping.Pub](https://ping.pub/), a popular and trusted web wallet and block explorer for Cosmos-based chains. In the top-right corner, click “Connect Wallet” to get started.
 ![](/images/dashboard_ping_pub_3_1.png){ width=400 }
 
 3.2. Select Keplr and hit Connect.

@@ -4,13 +4,13 @@ The Gonka Dashboard on Ping.pub is your main interface to interact with the netw
 ## 1. Gonka Account
 To use the dashboard, you need a Gonka account.
 
-- Already have one? Proceed to Set Up Keplr Wallet
-- New user? Visit the Developer or Host Quickstart to create an account.
+- Already have one? Proceed to the ["Set Up Keplr Wallet"](https://testnet.productscience.ai/wallet/dashboard/#2-set-up-keplr-wallet) section.
+- New user? Visit [the Developer](https://testnet.productscience.ai/developer/quickstart/) or [Host](https://testnet.productscience.ai/participant/quickstart/) Quickstart to create an account.
 
 ## 2. Set Up Keplr Wallet
 To interact with the Gonka network through your wallet, we recommend using [Keplr](https://www.keplr.app/) (a browser extension wallet built for Cosmos-based chains).
 
-- If you have a Keplr wallet, proceed to Step 3.
+- If you have a Keplr wallet, proceed to the ["Connect wallet"](https://testnet.productscience.ai/wallet/dashboard/#3-connect-wallet) section.
 - If you haven’t set it up yet, follow the steps below. 
 
 2.1. Go to [the official Keplr website](https://www.keplr.app/) and click “Get Keplr wallet”.
@@ -50,7 +50,7 @@ Step 2.8. Select Cosmos Hub and Etherium.
 ![](/images/dashboard_keplr_step_2_9.png){ width=400 }
 
 ## 3. Connect wallet
-3.1. Head over to www.gonka.ping.pub, a popular and trusted web wallet and block explorer for Cosmos-based chains. In the top-right corner, click “Connect Wallet” to get started.
+3.1. Head over to [www.gonka.ping.pub](www.gonka.ping.pub), a popular and trusted web wallet and block explorer for Cosmos-based chains. In the top-right corner, click “Connect Wallet” to get started.
 ![](/images/dashboard_ping_pub_3_1.png){ width=400 }
 
 3.2. Select Keplr and hit Connect.
@@ -92,7 +92,6 @@ Step 2.8. Select Cosmos Hub and Etherium.
 ## Dashboard Overview
 
 Once your wallet is connected, the dashboard unlocks access to all metrics and insights.
-### Metrics
 
 | **Metric**                        | **Description**                                       |
 |----------------------------------|-------------------------------------------------------|

@@ -76,14 +76,14 @@ export GONKA_ADDRESS=<your-account-address>
 
 If you'd like to perform the request in Python:
 
-#### 1. Export your private key (for demo/testing only).
+#### 3.1. Export your private key (for demo/testing only).
 ```bash
 ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
 ```
 
 This command outputs a plain-text private key.
 
-#### 2. Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
+#### 3.2. Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
 ```bash
 export GONKA_PRIVATE_KEY=<your-private-key>
 ```

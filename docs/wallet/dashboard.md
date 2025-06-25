@@ -14,4 +14,5 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 - If you haven’t set it up yet, follow the steps below. 
 
 2.1. Go to [the official Keplr website](https://www.keplr.app/) and click “Get Keplr wallet”.
+
 ![](docs/images/dashboard_keplr_step_2.1.png)

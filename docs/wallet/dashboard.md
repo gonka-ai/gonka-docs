@@ -38,7 +38,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 
 ![](/images/dashboard_keplr_step_2_6.png){ width=400 }
 
-Step 2.7. Select Cosmos Hub and Etherium.
+2.7. Select Cosmos Hub and Ethereum.
 
 ![](/images/dashboard_keplr_step_2_7.png){ width=400 }
 

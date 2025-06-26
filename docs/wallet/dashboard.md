@@ -111,7 +111,7 @@ Once your wallet is connected, the dashboard unlocks access to all metrics and i
 | **Buy GNK**                 | Live GNK/USDT price and purchase link                        | [Step-by-step guide](https://gonka.ping.pub) |
 | **Use Gonka API**           | OpenAI-compatible API access with private key                | [Developer quickstart](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk) |
 
-=== "Account Detail"
+=== "Account Details"
 
 | **Metric**             | **Description**                                                                 |
 |------------------------|---------------------------------------------------------------------------------|

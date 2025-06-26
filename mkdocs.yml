@@ -69,6 +69,8 @@ theme:
 markdown_extensions:
   - footnotes
   - admonition
+  - pymdownx.tabbed:
+      alternate_style: true
   - attr_list
   - toc
   # https://facelessuser.github.io/pymdown-extensions/

@@ -35,10 +35,10 @@ Run the following command to submit your inference request:
 ## Using the Gonka API directly
 
 To access Gonka API directly you have to:
-#### 1. Use of the randomly selected endpoint
-#### 2. Signs the request body with your private key using ECDSA
-#### 3. Adds the signature to the `Authorization` header
-#### 4. Add your account address to the `X-Requester-Address` header
+1. Use of the randomly selected endpoint
+2. Signs the request body with your private key using ECDSA
+3. Adds the signature to the `Authorization` header
+4. Add your account address to the `X-Requester-Address` header
 
 === "Python"
 

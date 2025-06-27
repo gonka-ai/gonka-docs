@@ -173,7 +173,7 @@ docker compose -f docker-compose.yml up -d
 
     If you see the chain node continuously processing block events, then most likely everything is fine.
 
-## Verify the node is active and reachable
+### Verify the node is active and reachable
 After launching the node, wait a few minutes. You should see your node listed at the following URL:
 ```bahs
 http://195.242.13.239:8000/v1/participants
@@ -197,7 +197,7 @@ Using public IP of genesis node
 curl http://195.242.13.239:26657/status
 ```
 
-##  Stopping and Cleaning Up Your Node
+###  Stopping and Cleaning Up Your Node
 Make sure you are in `pivot-deploy/join` folder.
 
 To stop all running containers:

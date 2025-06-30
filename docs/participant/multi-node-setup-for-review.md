@@ -22,6 +22,9 @@ See the Prerequisites and Supported LLMs page for full details on:
 
 This is essential reading before deploying your node.
 
+!!! note “Recommendation”
+    All inference nodes should be registered with the same network node, regardless of their geographic location. Whether the clusters are deployed in different regions or across multiple data centers, each inference node should always connect back to the same network node.
+
 ## Deploy the Network Node (no GPU)
 
 This machine becomes your main entry point to the network:
@@ -95,6 +98,9 @@ git clone https://github.com/product-science/pivot-deploy.git -b main
 cd pivot-deploy/inference
 ```
 2. (Optional but recommended). Pre-download model weights. Choose one of the following options.
+!!! note "Supported models"
+    Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`.
+   
 === "Option 1: Local download"
 
     ```
@@ -102,8 +108,6 @@ cd pivot-deploy/inference
     mkdir -p $HF_HOME
     huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
     ```
-    !!! note
-       Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`.
 
 === "Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)"
     Mount shared cache:

@@ -80,16 +80,16 @@ docker compose -f docker-compose.yml logs -f
 
 5.(Optional) Network Node Status
 
-The network node will start participating in the upcoming Proof of Computation once it becomes active. Its weight will be updated based on the work produced by connected inference nodes. If no inference nodes are connected, the node will not participate in the Proof of Compute or appear in the list. After the following Proof of Compute, the network node will appear in the list of active participants (please allow 1–3 hours for the changes to take effect):
+The Network Node will start participating in the upcoming Proof of Computation once it becomes active (please allow 1–3 hours for the changes to take effect). Its weight will be updated based on the work produced by connected Inference Nodes. If no Inference Nodes are connected, the node will not participate in the Proof of Compute and will not appear in the list:
 ```
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```
 If you add more servers with Inference Nodes (following the instructions below), the updated weight will be reflected in the list of active participants after the next Proof of Compute.
 
-## Deploy and register Inference Node s on a Separate Machine
-Each Inference Node (MLNode) is a GPU-based service that connects back to the Network Node.
+## Deploy and register Inference Nodes on a Separate Machine
+Each Inference Node is a GPU-based service that connects back to the Network Node.
 ### Deploy
-1. Clone the repo (on each new Inference Node machine s).
+1. Clone the repo (on each new Inference Node machine).
 ```
 git clone https://github.com/product-science/pivot-deploy.git -b main
 cd pivot-deploy/inference

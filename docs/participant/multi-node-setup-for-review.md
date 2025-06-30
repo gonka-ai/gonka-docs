@@ -102,9 +102,8 @@ cd pivot-deploy/inference
     mkdir -p $HF_HOME
     huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
     ```
-    
-    !!! Note
-      Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`.
+    !!! note
+       Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`.
 
 === "Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)"
     Mount shared cache:

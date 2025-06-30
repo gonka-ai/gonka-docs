@@ -137,8 +137,8 @@ This will deploy the inference node and start handling inference and Proof of Co
 
 ### Register
 
-!!! Note
-  Usually, it takes the server a couple of minutes to start. However, if your server does not accept requests after 5 minutes, please contact us for assistance.
+!!! note
+    Usually, it takes the server a couple of minutes to start. However, if your server does not accept requests after 5 minutes, please contact us for assistance.
 
 1. Register each Inference Node with the Network Node to make it operational. The recommended method is via the Admin API for dynamic management, which is accessible from the terminal of your Network Node server.
 ```
@@ -162,17 +162,17 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 ```
 
 ??? note "Parameter descriptions"
-  | Parameter    | Description                                                        | Examples                              |
-  |------------------|----------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
-  | `id`       | A unique identifier for your inference node.                                        | node1                               |
-  | `host`      | The static IP of your inference node or the Docker container name if running in the same Docker network.          | http://<mlnode_ip>                         |
-  | `inference_port` | The port where the inference node accepts inference and training tasks.                          | 5000                                |
-  | `poc_port`    | The port which is used for MLNode management.                                       | 8000                                |
-  | `max_concurrent` | The maximum number of concurrent inference requests this node can handle.                         | 500                                |
-  | `models`     | A supported models that the inference node can process.                                  | (see below)                            |
-  | `model_name`   | - The name of the model.                                                  | Qwen/QwQ-32B                            |
-  | `model_args`   | - vLLM arguments for the inference of the model. <br> Typically passed as CLI flags.                    | "--quantization", "fp8", "--kv-cache-dtype", "fp8"        |
-  
+      | Parameter    | Description                                                        | Examples                              |
+      |------------------|----------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+      | `id`       | A unique identifier for your inference node.                                        | node1                               |
+      | `host`      | The static IP of your inference node or the Docker container name if running in the same Docker network.          | http://<mlnode_ip>                         |
+      | `inference_port` | The port where the inference node accepts inference and training tasks.                          | 5000                                |
+      | `poc_port`    | The port which is used for MLNode management.                                       | 8000                                |
+      | `max_concurrent` | The maximum number of concurrent inference requests this node can handle.                         | 500                                |
+      | `models`     | A supported models that the inference node can process.                                  | (see below)                            |
+      | `model_name`   | - The name of the model.                                                  | Qwen/QwQ-32B                            |
+      | `model_args`   | - vLLM arguments for the inference of the model. <br> Typically passed as CLI flags.                    | "--quantization", "fp8", "--kv-cache-dtype", "fp8"        |
+      
 Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`, both quantized to FP8 and the `QwQ model` uses an `FP8 KV cache`.
 To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout.
 
@@ -185,7 +185,7 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 
 
 !!! note "vLLM performance tuning reference"
-  For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the Benchmark to Choose Optimal Deployment Config for LLMs [guide](https://testnet.productscience.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/).
+      For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the Benchmark to Choose Optimal Deployment Config for LLMs [guide](https://testnet.productscience.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 2. After a few minutes, check if your node appears in the current epoch. Proof of Compute updates every few hours. Your node may take time to show up.
 

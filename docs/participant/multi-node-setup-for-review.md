@@ -115,10 +115,12 @@ cd pivot-deploy/inference
     ```
     The path `/mnt/shared` only works in the 6Block testnet with access to the shared NFS.
 
+
 3. Some Docker images used in this instruction are private. Make sure to authenticate with GitHub Container Registry:
 ```
 docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ```
+
 4. Launch Inference Node:
 ```
 docker compose up -d && docker compose logs -f

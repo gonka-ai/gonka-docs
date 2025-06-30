@@ -116,21 +116,22 @@ cd pivot-deploy/inference
     The path `/mnt/shared` only works in the 6Block testnet with access to the shared NFS.
 
 
-3. Some Docker images used in this instruction are private. Make sure to authenticate with GitHub Container Registry:
+3.Some Docker images used in this instruction are private. Make sure to authenticate with GitHub Container Registry:
 ```
 docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ```
 
-4. Launch Inference Node:
+4.Launch Inference Node:
 ```
 docker compose up -d && docker compose logs -f
 ```
 
-!!! Note
-  Only open these ports to your Network Node:
-  - 5000 - Inference requests
-  - 8000 - Management API Port
-  These **must not** be publicly exposed.
+!!! note
+    Only open these ports to your Network Node:
+    
+    - 5000 - Inference requests
+    - 8000 - Management API Port
+    These **must not** be publicly exposed.
 
 This will deploy the inference node and start handling inference and Proof of Compute tasks as soon as they are registered with your network node (instructions below).
 

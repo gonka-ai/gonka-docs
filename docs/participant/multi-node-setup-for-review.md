@@ -34,7 +34,7 @@ This machine becomes your main entry point to the network:
     - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
     - 8000 - Application service (configurable)
 
-1. Clone and configure
+1.Clone and configure
 
 ```
 git clone https://github.com/product-science/pivot-deploy.git -b main

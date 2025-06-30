@@ -12,7 +12,6 @@ This guide assumes the following are already installed on each machine:
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-- Public ports open as required (5000, 8000, 26657)
 - Linux OS
 
 See the Prerequisites and Supported LLMs page for full details on:

@@ -56,32 +56,32 @@ After cloning the repository, you’ll find the following key configuration file
 | `node-config-qwq-4x3090.json` | Optimized config for `QwQ-32B` using 4x3090 setup                                   |
 | `node-config-qwq-8x3090.json` | Optimized config for `QwQ-32B` using 8x3090 setup                                   |
 
-2. Modify only the variables listed below in your config.env file. Leave all other parameters unchanged, as their default values are already correctly set.
+2.Modify only the variables listed below in your `config.env` file. Leave all other parameters unchanged, as their default values are already correctly set.
 
 | Variable        | What to do                                          | Example                                                  |
 |------------------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | `KEY_NAME`       | Manually define a unique identifier for your node.                      | Any_letters_numbers_underscores_combination                               |
-| `API_PORT`       | Set the port where your node will be available on the machine                | The default is 8000                                            |
+| `API_PORT`       | Set the port where your node will be available on the machine                | The default is `8000`                                            |
 | `PUBLIC_URL`      | Specify the Public URL where your node will be available externally             | `http://<your-static-ip>:<port>` <br> Mapped to 0.0.0.0:8000                          |
 | `P2P_EXTERNAL_ADDRESS` | Specify the Public URL where your node will be available externally for P2P connections   | `http://<your-static-ip>:<port1>` <br> Mapped to 0.0.0.0:5000                          |
 | `HF_HOME`       | Set the path where Hugging Face models will be cached. | Set this to a writable local directory (e.g., `~/hf-cache`). <br> If you’re part of the 6Block network, use `/mnt/shared`. |
 
-3. Launch only the Network Node services
+3.Launch only the Network Node services
 ```
 docker compose -f docker-compose.yml up -d tmkms node api
 ```
 
-4. Check logs
+4.Check logs
 ```
 docker compose -f docker-compose.yml logs -f
 ```
 
-!!! Note
-  Address set as DAPI_API__POC_CALLBACK_URL for network node, should be accessible from. ALL inference nodes (9100 port of api container by default).
+!!! note
+    Address set as `DAPI_API__POC_CALLBACK_URL` for network node, should be accessible from. ALL inference nodes (`9100` port of api container by default).
 
-5. (Optional) The Network Node Status
+5.(Optional) Network Node Status
 
-The network node will start participating in the upcoming Proof of Computation (PoC) once it becomes active. Its weight will be updated based on the work produced by connected inference nodes. If no inference nodes are connected, the node will not participate in the PoC or appear in the list. After the following PoC, the network node will appear in the list of active participant (please allow 1–3 hours for the changes to take effect):
+The network node will start participating in the upcoming Proof of Computation once it becomes active. Its weight will be updated based on the work produced by connected inference nodes. If no inference nodes are connected, the node will not participate in the Proof of Compute or appear in the list. After the following Proof of Compute, the network node will appear in the list of active participants (please allow 1–3 hours for the changes to take effect):
 ```
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```

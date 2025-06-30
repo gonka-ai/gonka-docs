@@ -140,7 +140,7 @@ This will deploy the inference node and start handling inference and Proof of Co
 !!! note
     Usually, it takes the server a couple of minutes to start. However, if your server does not accept requests after 5 minutes, please [contact us](mail to: hello@productscience.ai) for assistance.
 
-1. Register each Inference Node with the Network Node to make it operational. The recommended method is via the Admin API for dynamic management, which is accessible from the terminal of your Network Node server.
+1.Register each Inference Node with the Network Node to make it operational. The recommended method is via the Admin API for dynamic management, which is accessible from the terminal of your Network Node server.
 ```
 curl -X POST http://localhost:9200/admin/v1/nodes \
    -H "Content-Type: application/json" \
@@ -187,7 +187,7 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 !!! note "vLLM performance tuning reference"
       For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the Benchmark to Choose Optimal Deployment Config for LLMs [guide](https://testnet.productscience.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
-2. After a few minutes, check if your node appears in the current epoch. Proof of Compute updates every few hours. Your node may take time to show up.
+2.After a few minutes, check if your node appears in the current epoch. Proof of Compute updates every few hours. Your node may take time to show up.
 
 ```
 http://195.242.13.239:8000/v1/epochs/current/participants

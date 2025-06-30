@@ -127,7 +127,7 @@ docker compose up -d && docker compose logs -f
 ```
 
 !!! note
-    Only open these ports to your Network Node:
+    Open only these ports to your Network Node:
     
     - 5000 - Inference requests
     - 8000 - Management API Port

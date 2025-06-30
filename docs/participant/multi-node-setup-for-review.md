@@ -22,8 +22,8 @@ See the Prerequisites and Supported LLMs page for full details on:
 
 This is essential reading before deploying your node.
 
-!!! note “Recommendation”
-    All inference nodes should be registered with the same network node, regardless of their geographic location. Whether the clusters are deployed in different regions or across multiple data centers, each inference node should always connect back to the same network node.
+!!! note "Recommendation"
+    All inference nodes should be registered with the same network node, regardless of their geographic location. Whether the clusters are deployed in different regions or across multiple data centers, each inference node should always connect back to the same network node. 
 
 ## Deploy the Network Node (no GPU)
 
@@ -81,9 +81,7 @@ docker compose -f docker-compose.yml logs -f
 !!! note
     Address set as `DAPI_API__POC_CALLBACK_URL` for network node, should be accessible from. ALL inference nodes (`9100` port of api container by default).
 
-5.(Optional) Network Node Status
-
-The Network Node will start participating in the upcoming Proof of Computation once it becomes active (please allow 1–3 hours for the changes to take effect). Its weight will be updated based on the work produced by connected Inference Nodes. If no Inference Nodes are connected, the node will not participate in the Proof of Compute and will not appear in the list:
+5.(Optional) Check Network Node status. The Network Node will start participating in the upcoming Proof of Computation once it becomes active (please allow 1–3 hours for the changes to take effect). Its weight will be updated based on the work produced by connected Inference Nodes. If no Inference Nodes are connected, the node will not participate in the Proof of Compute and will not appear in the list:
 ```
 http://195.242.13.239:8000/v1/epochs/current/participants
 ```

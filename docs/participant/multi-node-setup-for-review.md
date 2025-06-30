@@ -138,7 +138,7 @@ This will deploy the inference node and start handling inference and Proof of Co
 ### Register
 
 !!! note
-    Usually, it takes the server a couple of minutes to start. However, if your server does not accept requests after 5 minutes, please contact us for assistance.
+    Usually, it takes the server a couple of minutes to start. However, if your server does not accept requests after 5 minutes, please [contact us](mail to: hello@productscience.ai) for assistance.
 
 1. Register each Inference Node with the Network Node to make it operational. The recommended method is via the Admin API for dynamic management, which is accessible from the terminal of your Network Node server.
 ```
@@ -169,9 +169,9 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
       | `inference_port` | The port where the inference node accepts inference and training tasks.                          | 5000                                |
       | `poc_port`    | The port which is used for MLNode management.                                       | 8000                                |
       | `max_concurrent` | The maximum number of concurrent inference requests this node can handle.                         | 500                                |
-      | `models`     | A supported models that the inference node can process.                                  | (see below)                            |
+      | `models`     | A supported models that the Inference Node can process.                                  | (see below)                            |
       | `model_name`   | - The name of the model.                                                  | Qwen/QwQ-32B                            |
-      | `model_args`   | - vLLM arguments for the inference of the model. <br> Typically passed as CLI flags.                    | "--quantization", "fp8", "--kv-cache-dtype", "fp8"        |
+      | `model_args`   | - vLLM arguments for the inference of the model. <br> Typically passed as CLI flags.                    | --quantization, fp8, --kv-cache-dtype, fp8        |
       
 Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`, both quantized to FP8 and the `QwQ model` uses an `FP8 KV cache`.
 To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout.
@@ -179,9 +179,9 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 | Model and GPU layout           | vLLM arguments                                             |
 |-------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | `Qwen/Qwen2`                | `"--quantization", "fp8"`                                       |
-| `Qwen/QwQ-32B` on 8xA100 or 8xH100      | `"--quantization", "fp8", "--kv-cache-dtype", "fp8"`                          |
-| `Qwen/QwQ-32B` on 8x3090 or 8x4090      | `"--quantization", "fp8", "--kv-cache-dtype", "fp8", "--tensor-parallel-size", "4"`          |
-| `Qwen/QwQ-32B` on 8x3080           | `"--quantization", "fp8", "--kv-cache-dtype", "fp8", "--tensor-parallel-size", "4", "--pipeline-parallel-size", "2"` |
+| `Qwen/QwQ-32B` on 8xA100 or 8xH100      | `"--quantization"`, `"fp8"`, `"--kv-cache-dtype"`, `"fp8"`                          |
+| `Qwen/QwQ-32B` on 8x3090 or 8x4090      | `"--quantization"`, `"fp8", "--kv-cache-dtype"`, `"fp8"`, `"--tensor-parallel-size"`, `"4"`          |
+| `Qwen/QwQ-32B` on 8x3080           | `"--quantization"`, `"fp8"`, `"--kv-cache-dtype"`, `"fp8"`, `"--tensor-parallel-size"`, `"4"`, `"--pipeline-parallel-size"`, `"2"` |
 
 
 !!! note "vLLM performance tuning reference"
@@ -199,11 +199,11 @@ http://195.242.13.239:8000/v1/epochs/current/participants
     All Inference Node s can register with the same Network Node.
 
 === "Retrieve All Inference Nodes"
-To get a list of all registered inference nodes in your network node, use:
-```
-curl -X GET http://localhost:9200/admin/v1/nodes
-```
-This will return a JSON array containing all configured Inference nodes.
+    To get a list of all registered inference nodes in your network node, use:
+    ```
+    curl -X GET http://localhost:9200/admin/v1/nodes
+    ```
+    This will return a JSON array containing all configured Inference nodes.
 
 === "Removing an Inference node"
     Being connected to your network node server, use the following Admin API request to remove an inference node dynamically without restarting:

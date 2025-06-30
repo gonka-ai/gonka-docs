@@ -42,7 +42,7 @@ cd pivot-deploy/join
 cp config.env.template config.env
 ```
 
-!!! note Authentication required
+!!! note "Authentication required"
     If prompted for a password, use a GitHub personal access token (classic) with repo access.
 
 After cloning the repository, you’ll find the following key configuration files:

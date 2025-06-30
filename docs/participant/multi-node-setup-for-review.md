@@ -1,10 +1,10 @@
 # Multi-Node Setup
-This guide extends the [Quickstart](https://testnet.productscience.ai/participant/quickstart/) and shows how to deploy a Network Node (no GPU) and one or more Inference Nodes on separate GPU servers.
+This guide extends [Quickstart](https://testnet.productscience.ai/participant/quickstart/) and shows how to deploy a Network Node (no GPU) and one or more Inference Nodes on separate GPU servers.
 
 Supported scenarios:
 
 1. You are starting fresh and want to deploy a multi-machine setup from the beginning (start from the beginning of the guide).
-2. You already launched Quickstart and now want to add more Inference Nodes (go to ["Deploy and register Inference Nodes on a Separate Machine"](https://testnet.productscience.ai/participant/multi-node-setup-for-review/#deploy-and-register-inference-node-s-on-a-separate-machine)).
+2. You already launched [Quickstart](https://testnet.productscience.ai/participant/quickstart/) and now want to add more Inference Nodes (go to ["Deploy and register Inference Nodes on a Separate Machine"](https://testnet.productscience.ai/participant/multi-node-setup-for-review/#deploy-and-register-inference-node-s-on-a-separate-machine)).
 
 ## Prerequisites
 This guide assumes the following are already installed on each machine:
@@ -24,14 +24,15 @@ See the Prerequisites and Supported LLMs page for full details on:
 This is essential reading before deploying your node.
 
 ## Deploy the Network Node (no GPU)
+
 This machine becomes your main entry point to the network:
 
 - It should be publicly accessible, secure, and stable.
 - Does not require GPUs
 - Must have the following ports open
-  - 5000 - Tendermint P2P communication
-  - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
-  - 8000 - Application service (configurable)
+    - 5000 - Tendermint P2P communication
+    - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
+    - 8000 - Application service (configurable)
 
 1. Clone and configure
 

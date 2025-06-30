@@ -196,7 +196,7 @@ http://195.242.13.239:8000/v1/epochs/current/participants
 ### Scale and Manage Inference Nodes
 === "Scale Inference Nodes"
     Repeat this process for each new GPU machine.
-    All Inference Node s can register with the same Network Node.
+    All Inference Nodes can register with the same Network Node.
 
 === "Retrieve All Inference Nodes"
     To get a list of all registered inference nodes in your network node, use:
@@ -210,4 +210,4 @@ http://195.242.13.239:8000/v1/epochs/current/participants
     ```
     curl -X DELETE "http://localhost:9200/admin/v1/nodes/{id}" -H "Content-Type: application/json"
     ```
-    Where id is the identifier of the inference node as specified in the request when registering the inference node. If successful, the response will be true.
+    Where id is the identifier of the inference node as specified in the request when registering the Inference Node. If successful, the response will be true.

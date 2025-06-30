@@ -1,10 +1,10 @@
 # Multi-Node Setup
-This guide extends the Quickstart and shows how to deploy a Network Node (no GPU) and one or more Inference Nodes on separate GPU servers.
+This guide extends the [Quickstart](https://testnet.productscience.ai/participant/quickstart/) and shows how to deploy a Network Node (no GPU) and one or more Inference Nodes on separate GPU servers.
 
 Supported scenarios:
 
-1. You are starting fresh and want to deploy a multi-machine setup from the beginning.
-2. You already launched Quickstart and now want to add more Inference Nodes.
+1. You are starting fresh and want to deploy a multi-machine setup from the beginning (start from the beginning of the guide).
+2. You already launched Quickstart and now want to add more Inference Nodes (go to ["Deploy and register Inference Nodes on a Separate Machine"](https://testnet.productscience.ai/participant/multi-node-setup-for-review/#deploy-and-register-inference-node-s-on-a-separate-machine)).
 
 ## Prerequisites
 This guide assumes the following are already installed on each machine:
@@ -24,7 +24,8 @@ See the Prerequisites and Supported LLMs page for full details on:
 This is essential reading before deploying your node.
 
 ## Deploy the Network Node (no GPU)
-This machine becomes your main entry point to the network: 
+This machine becomes your main entry point to the network:
+
 - It should be publicly accessible, secure, and stable.
 - Does not require GPUs
 - Must have the following ports open
@@ -44,14 +45,15 @@ cp config.env.template config.env
     If prompted for a password, use a GitHub personal access token (classic) with repo access.
 
 After cloning the repository, you’ll find the following key configuration files:
-| File             | Description                             |
-|-----------------------------|----------------------------------------------------------------------|
-| `config.env`         | Contains environment variables for the network node.        |
-| `docker-compose.yml`     | Docker Compose file to launch the network node.          |
-| `node-config.json`      | Configuration file specifically for `Qwen/Qwen2.5-7B-Instruct`.    |
-| `node-config-qwq.json`    | Configuration file specifically for `Qwen/QwQ-32`B on A100/H100.   |
-| `node-config-qwq-4x3090.json` | Configuration file specifically for `QwQ-32B` using a 4x3090 setup.  |
-| `node-config-qwq-8x3090.json` | Configuration file specifically for `QwQ-32B` using a 8x3090 setup.  |
+
+| File                          | Description                                                                      |
+|-------------------------------|----------------------------------------------------------------------------------|
+| `config.env`                  | Contains environment variables for the network node                              |
+| `docker-compose.yml`          | Docker Compose file to launch the network node                                   |
+| `node-config.json`            | Configuration file used by network node, it describes inference nodes managed by this network node |
+| `node-config-qwq.json`       | Configuration file specifically for `Qwen/QwQ-32B` on A100/H100                     |
+| `node-config-qwq-4x3090.json` | Optimized config for `QwQ-32B` using 4x3090 setup                                   |
+| `node-config-qwq-8x3090.json` | Optimized config for `QwQ-32B` using 8x3090 setup                                   |
 
 2. Modify only the variables listed below in your config.env file. Leave all other parameters unchanged, as their default values are already correctly set.
 
@@ -59,8 +61,8 @@ After cloning the repository, you’ll find the following key configuration file
 |------------------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | `KEY_NAME`       | Manually define a unique identifier for your node.                      | Any_letters_numbers_underscores_combination                               |
 | `API_PORT`       | Set the port where your node will be available on the machine                | The default is 8000                                            |
-| `PUBLIC_URL`      | Specify the Public URL where your node will be available externally             | `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000                          |
-| `P2P_EXTERNAL_ADDRESS` | Specify the Public URL where your node will be available externally for P2P connections   | `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000                          |
+| `PUBLIC_URL`      | Specify the Public URL where your node will be available externally             | `http://<your-static-ip>:<port>` <br> Mapped to 0.0.0.0:8000                          |
+| `P2P_EXTERNAL_ADDRESS` | Specify the Public URL where your node will be available externally for P2P connections   | `http://<your-static-ip>:<port1>` <br> Mapped to 0.0.0.0:5000                          |
 | `HF_HOME`       | Set the path where Hugging Face models will be cached. | Set this to a writable local directory (e.g., `~/hf-cache`). <br> If you’re part of the 6Block network, use `/mnt/shared`. |
 
 3. Launch only the Network Node services

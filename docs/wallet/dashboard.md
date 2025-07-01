@@ -73,19 +73,21 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     
     ![](/images/dashboard_leap_step_2_4.png){ width=400 }
     
-    2.5. This step is applicable after only entering the recovery (mnemonic/seed) phrase. When you enter your seed phrase in Leap, it shows multiple wallets (Wallet 1, Wallet 2, etc.) because each one is a different address generated from the same seed. This is normal. Since you created your wallet using the CLI, it most likely used the default path, which in Leap is: Wallet 1. To be sure:
+    === "If you entered the recovery (mnemonic/seed) phrase"
+        When you enter your seed phrase in Leap, it shows multiple wallets (Wallet 1, Wallet 2, etc.) because each one is a different address generated from the same seed. This is normal. Since you created your wallet using the CLI, it most likely used the default path, which in Leap is: Wallet 1. To be sure:
     
-    - Check the address you got from the CLI
-    - Find the matching address in Leap (Wallet 1, 2, etc.)
-    - Choose the one that matches — that’s your real wallet
+        - Check the address you got from the CLI
+        - Find the matching address in Leap (Wallet 1, 2, etc.)
+        - Choose the one that matches — that’s your real wallet
+        
+        ![](/images/dashboard_leap_step_2_5.png){ width=400 }
+
+    === "If you entered the private key"
+        Create your password
     
-    ![](/images/dashboard_leap_step_2_5.png){ width=400 }
+        ![](/images/dashboard_leap_step_2_6.png){ width=400 }
     
-    2.6. This step is applicable after only entering the private key. Create your password
-    
-    ![](/images/dashboard_leap_step_2_6.png){ width=400 }
-    
-    2.7. Done — your Gonka account has been successfully imported into Leap!
+    2.5. Done — your Gonka account has been successfully imported into Leap!
     
     ![](/images/dashboard_leap_step_2_7.png){ width=400 }
 
@@ -103,7 +105,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 3.4. Done! You successfully added your account to Keplr wallet.
 ![](/images/dashboard_ping_pub_3_4.png){ width=400 }
 
-3.5. (Optional) If you want to add additional gonka account (in case you have multiple Gonka accounts), follow these steps.
+3.5. (Optional) If you want to add an additional Gonka account (in case you have multiple Gonka accounts), follow these steps.
 
 === "Keplr"
 

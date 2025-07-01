@@ -90,10 +90,6 @@ plugins:
   - minify:
       minify_html: false
   - search
-  - external-links:
-      external_links:
-        target: _blank
-        rel: noopener noreferrer
   - mkdocs-video:
       is_video: true
       video_muted: true

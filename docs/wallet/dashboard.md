@@ -105,7 +105,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 3.4. Done! You successfully added your account to the wallet.
 ![](/images/dashboard_ping_pub_3_4.png){ width=400 }
 
-3.5. (Optional) If you want to add an additional Gonka account (in case you have multiple Gonka accounts), follow these steps.
+3.5. Optional: If you have multiple Gonka accounts and want to add another one, follow the steps below.
 
 === "Keplr"
 

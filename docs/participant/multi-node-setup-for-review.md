@@ -211,3 +211,35 @@ http://195.242.13.239:8000/v1/epochs/current/participants
     curl -X DELETE "http://localhost:9200/admin/v1/nodes/{id}" -H "Content-Type: application/json"
     ```
     Where id is the identifier of the inference node as specified in the request when registering the Inference Node. If successful, the response will be true.
+
+=== "Stopping and Cleaning Up Your Node"
+    Make sure you are in `pivot-deploy/join` folder.
+
+    To stop all running containers:
+    ```bash
+    docker compose -f docker-compose.yml down
+    ```
+    This stops and removes all services defined in the `docker-compose.yml` file without deleting volumes or data unless explicitly configured.
+
+    To clean up cache and start fresh, remove the local `.inference` folder (inference runtime cache and identity):
+    ```bash
+    rm -rf .inference
+    docker volume rm join_tmkms_data
+    ```
+
+    (Optional) Clear model weights cache:
+    ```bash
+    rm -rf $HF_HOME
+    ```
+
+    !!! note
+        Deleting `$HF_HOME` will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
+
+    **Full Reset Workflow (if you want to rejoin as a fresh node)**
+    ```bash
+    docker compose -f docker-compose.yml down
+    rm -rf .inference
+    # Optional: rm -rf $HF_HOME
+    ```
+
+**Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

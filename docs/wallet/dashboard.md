@@ -10,11 +10,11 @@ To use the dashboard, you need a Gonka account.
 ## 2. Set Up External Wallet
 To interact with the Gonka network through your wallet, we recommend using [Keplr](https://www.keplr.app/) or [Leap](https://www.leapwallet.io/) (a browser extension wallet built for Cosmos-based chains).
 
-- If you have a Keplr wallet, proceed to the ["Connect wallet"](https://testnet.productscience.ai/wallet/dashboard/#3-connect-wallet) section.
-- If you haven’t set it up yet, follow the steps below.
-
 ??? note "What is a wallet?"
     A crypto wallet serves as a secure container for a user’s public and private cryptographic keys, enabling them to manage, transfer, and purchase cryptocurrencies. Gonka is built on the Cosmos-SDK blockchain framework and can be accessed using Keplr or Leap wallet (other wallet support is coming soon).
+    
+- If you have a Keplr or Leap wallet, proceed to the ["Connect wallet"](https://testnet.productscience.ai/wallet/dashboard/#3-connect-wallet) section.
+- If you haven’t set it up yet, follow the steps below.
 
 === "Keplr"
 
@@ -93,7 +93,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 3.1. Head over to [Ping.Pub](https://ping.pub/), a popular and trusted web wallet and block explorer for Cosmos-based chains. In the top-right corner, click “Connect Wallet” to get started.
 ![](/images/dashboard_ping_pub_3_1.png){ width=400 }
 
-3.2. Select Keplr and hit Connect.
+3.2. Select Keplr or Leap and hit Connect.
 ![](/images/dashboard_ping_pub_3_2.png){ width=400 }
 
 3.3. You will see a prompt for adding a custom Gonka chain to your wallet. Approve and add Gonka chain.

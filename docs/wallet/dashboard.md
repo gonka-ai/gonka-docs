@@ -36,18 +36,23 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
         <img src="/images/dashboard_keplr_step_2_3_2.png" width="500" style="width:500px; height:auto;">
     
     2.4. Click “Import an existing wallet.”
+    
    <img src="/images/dashboard_keplr_step_2_4.png" width="500" style="width:500px; height:auto;">
     
     2.5. Click “Use recovery phrase or Private key”. Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
+    
     <img src="/images/dashboard_keplr_step_2_5.png" width="500" style="width:500px; height:auto;">
     
     2.6. Give your wallet a name for easy reference.
+   
     <img src="/images/dashboard_keplr_step_2_6.png" width="500" style="width:500px; height:auto;">
     
     2.7. Select Cosmos Hub and Ethereum.
+    
     <img src="/images/dashboard_keplr_step_2_7.png" width="500" style="width:500px; height:auto;">
     
     2.8. Done — your Gonka account has been successfully imported into Keplr!
+    
     <img src="/images/dashboard_keplr_step_2_8.png" width="500" style="width:500px; height:auto;">
 
 === "Leap"

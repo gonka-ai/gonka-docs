@@ -94,9 +94,11 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 
 ## 3. Connect wallet
 3.1. Head over to [Ping.Pub](https://ping.pub/){target=_blank}, a popular and trusted web wallet and block explorer for Cosmos-based chains. In the top-right corner, click "Connect Wallet" to get started.
+
 <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:450px; height:auto;"></a>
 
 3.2. Select Keplr or Leap and hit Connect.
+
 <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:450px; height:auto;"></a>
 
 3.3. You will see a prompt for adding a custom Gonka chain to your wallet. Approve and add Gonka chain.
@@ -124,6 +126,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
         <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
         
         Give your wallet a name for easy reference.
+        
         <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
         
         Select Cosmos Hub and Etherium.

@@ -1,5 +1,5 @@
 # Getting Started with the Dashboard
-Gonka Dashboard on Ping.pub instantly displays your coin balances, allows you to buy and send coins, shows live on-chain activity (including a list of transactions and their statuses), real-time inference analytics, and more. Connect Keplr or Leap wallet to unlock full interactivity – manage your accounts, monitor inference workloads, and analyze AI token usage in real-time.
+Gonka Dashboard instantly displays your coin balances, allows you to buy and send coins, shows live on-chain activity (including a list of transactions and their statuses), real-time inference analytics, and more. Connect Keplr or Leap wallet to unlock full interactivity – manage your accounts, monitor inference workloads, and analyze AI token usage in real-time.
 
 ## 1. Gonka Account
 To use the dashboard, you need a Gonka account.
@@ -93,7 +93,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     <a href="/images/dashboard_leap_step_2_7.png" target="_blank"><img src="/images/dashboard_leap_step_2_7.png" style="width:450px; height:auto;"></a>
 
 ## 3. Connect wallet
-3.1. Head over to [Ping.Pub](https://ping.pub/){target=_blank}, a popular and trusted web wallet and block explorer for Cosmos-based chains. In the top-right corner, click "Connect Wallet" to get started.
+3.1. Head over to [Gonka Web Dashboard](https://ping.pub/){target=_blank}. In the top-right corner, click "Connect Wallet" to get started.
 
 <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:450px; height:auto;"></a>
 

@@ -20,53 +20,53 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 
     2.1. Go to [the official Keplr website](https://www.keplr.app/) and click “Get Keplr wallet”.
     
-    <img src="/images/dashboard_keplr_step_2_1.png" width="400" style="width:400px; height:auto;">
+    <img src="/images/dashboard_keplr_step_2_1.png" width="500" style="width:500px; height:auto;">
     
     2.2. Choose an extension for your browser.
     
-    <img src="/images/dashboard_keplr_step_2_2.png" width="400" style="width:400px; height:auto;">
+    <img src="/images/dashboard_keplr_step_2_2.png" width="500" style="width:500px; height:auto;">
     
     2.3. Add an extension to the browser.
     === "Fire Fox"
     
-        <img src="/images/dashboard_keplr_step_2_3.png" width="400" style="width:400px; height:auto;">
+        <img src="/images/dashboard_keplr_step_2_3.png" width="500" style="width:500px; height:auto;">
     
     === "Google Chrome"
     
-        <img src="/images/dashboard_keplr_step_2_3_2.png" width="400" style="width:400px; height:auto;">
+        <img src="/images/dashboard_keplr_step_2_3_2.png" width="500" style="width:500px; height:auto;">
     
     2.4. Click “Import an existing wallet.”
-   <img src="/images/dashboard_keplr_step_2_4.png" width="400" style="width:400px; height:auto;">
+   <img src="/images/dashboard_keplr_step_2_4.png" width="500" style="width:500px; height:auto;">
     
     2.5. Click “Use recovery phrase or Private key”. Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
-    <img src="/images/dashboard_keplr_step_2_5.png" width="400" style="width:400px; height:auto;">
+    <img src="/images/dashboard_keplr_step_2_5.png" width="500" style="width:500px; height:auto;">
     
     2.6. Give your wallet a name for easy reference.
-    <img src="/images/dashboard_keplr_step_2_6.png" width="400" style="width:400px; height:auto;">
+    <img src="/images/dashboard_keplr_step_2_6.png" width="500" style="width:500px; height:auto;">
     
     2.7. Select Cosmos Hub and Ethereum.
-    <img src="/images/dashboard_keplr_step_2_7.png" width="400" style="width:400px; height:auto;">
+    <img src="/images/dashboard_keplr_step_2_7.png" width="500" style="width:500px; height:auto;">
     
     2.8. Done — your Gonka account has been successfully imported into Keplr!
-    <img src="/images/dashboard_keplr_step_2_8.png" width="400" style="width:400px; height:auto;">
+    <img src="/images/dashboard_keplr_step_2_8.png" width="500" style="width:500px; height:auto;">
 
 === "Leap"
     
     2.1. Go to [the official Leap website](https://www.leapwallet.io/) and click “Download Leap”.
     
-    <img src="/images/dashboard_leap_step_2_1.png" width="400" style="width:400px; height:auto;">
+    <img src="/images/dashboard_leap_step_2_1.png" width="500" style="width:500px; height:auto;">
     
     2.2. Add an extension to the browser.
     
-    <img src="/images/dashboard_leap_step_2_2.png" width="400" style="width:400px; height:auto;">
+    <img src="/images/dashboard_leap_step_2_2.png" width="500" style="width:500px; height:auto;">
     
     2.3. Click “Import an existing wallet.”
     
-     <img src="/images/dashboard_leap_step_2_3.png" width="400" style="width:400px; height:auto;">
+     <img src="/images/dashboard_leap_step_2_3.png" width="500" style="width:500px; height:auto;">
     
     2.4. Choose to import recovery phrase (mnemonic seed phrase, created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)) or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
     
-     <img src="/images/dashboard_leap_step_2_4.png" width="400" style="width:400px; height:auto;">
+     <img src="/images/dashboard_leap_step_2_4.png" width="500" style="width:500px; height:auto;">
     
     === "If you entered the recovery (mnemonic/seed) phrase"
         When you enter your seed phrase in Leap, it shows multiple wallets (Wallet 1, Wallet 2, etc.) because each one is a different address generated from the same seed. This is normal. Since you created your wallet using the CLI, it most likely used the default path, which in Leap is: Wallet 1. To be sure:

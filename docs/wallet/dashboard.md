@@ -20,39 +20,35 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 
     2.1. Go to [the official Keplr website](https://www.keplr.app/) and click “Get Keplr wallet”.
     
-    <img src="/images/dashboard_keplr_step_2_1.png" width="200" style="width:200px; height:auto;">
+    <img src="/images/dashboard_keplr_step_2_1.png" width="400" style="width:400px; height:auto;">
     
     2.2. Choose an extension for your browser.
     
-    <img src="/images/dashboard_keplr_step_2_2.png" height="350" style="height:350px; width:auto;">
+    <img src="/images/dashboard_keplr_step_2_2.png" height="400" style="height:400px; width:auto;">
     
     2.3. Add an extension to the browser.
     === "Fire Fox"
     
-        <img src="/images/dashboard_keplr_step_2_3.png" height="350" style="height:350px; width:auto;">
+        <img src="/images/dashboard_keplr_step_2_3.png" height="400" style="height:400px; width:auto;">
     
     === "Google Chrome"
     
-        <img src="/images/dashboard_keplr_step_2_3_2.png" height="350" style="height:350px; width:auto;">
+        <img src="/images/dashboard_keplr_step_2_3_2.png" height="400" style="height:400px; width:auto;">
     
     2.4. Click “Import an existing wallet.”
-   <img src="/images/dashboard_keplr_step_2_4.png" height="350" style="height:350px; width:auto;">
+   <img src="/images/dashboard_keplr_step_2_4.png" height="400" style="height:400px; width:auto;">
     
     2.5. Click “Use recovery phrase or Private key”. Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
-    
-    <img src="/images/dashboard_keplr_step_2_5.png" height="350" style="height:350px; width:auto;">
+    <img src="/images/dashboard_keplr_step_2_5.png" height="400" style="height:400px; width:auto;">
     
     2.6. Give your wallet a name for easy reference.
-    
-    <img src="/images/dashboard_keplr_step_2_6.png" height="350" style="height:350px; width:auto;">
+    <img src="/images/dashboard_keplr_step_2_6.png" height="400" style="height:400px; width:auto;">
     
     2.7. Select Cosmos Hub and Ethereum.
-    
-    <img src="/images/dashboard_keplr_step_2_7.png" height="350" style="height:350px; width:auto;">
+    <img src="/images/dashboard_keplr_step_2_7.png" height="400" style="height:400px; width:auto;">
     
     2.8. Done — your Gonka account has been successfully imported into Keplr!
-    
-    <img src="/images/dashboard_keplr_step_2_8.png" height="350" style="height:350px; width:auto;">
+    <img src="/images/dashboard_keplr_step_2_8.png" height="400" style="height:400px; width:auto;">
 
 === "Leap"
     

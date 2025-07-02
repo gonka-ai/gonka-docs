@@ -1,5 +1,5 @@
 # Getting Started with the Dashboard
-Gonka Dashboard instantly displays your coin balances, allows you to buy and send coins, shows live on-chain activity (including a list of transactions and their statuses), real-time inference analytics, and more. Connect Keplr or Leap wallet to unlock full interactivity – manage your accounts, monitor inference workloads, and analyze AI token usage in real-time.
+Gonka Web Dashboard instantly displays your coin balances, allows you to buy and send coins, shows live on-chain activity (including a list of transactions and their statuses), real-time inference analytics, and more. Connect Keplr or Leap wallet to unlock full interactivity – manage your accounts, monitor inference workloads, and analyze AI token usage in real-time.
 
 ## 1. Gonka Account
 To use the dashboard, you need a Gonka account.
@@ -28,7 +28,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     
     2.3. Add an extension to the browser.
     
-    === "Fire Fox"
+    === "Firefox"
         
         <a href="/images/dashboard_keplr_step_2_3.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3.png" style="width:450px; height:auto;"></a>
         
@@ -40,19 +40,23 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     
     <a href="/images/dashboard_keplr_step_2_4.png" target="_blank"><img src="/images/dashboard_keplr_step_2_4.png" style="width:450px; height:auto;"></a>
     
-    2.5. Click "Use recovery phrase or Private key". Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account){target=_blank}), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using){target=_blank}.
+    2.5. Click "Use recovery phrase or private key".
     
     <a href="/images/dashboard_keplr_step_2_5.png" target="_blank"><img src="/images/dashboard_keplr_step_2_5.png" style="width:450px; height:auto;"></a>
     
-    2.6. Give your wallet a name for easy reference.
+    2.6. Paste your private key that was created via CLI in [this step](https://docs.google.com/document/d/1_rguW-HsHWh-6IJg9u5GCYxrXY_EWMGPFLeWLTMjYEU/edit?tab=t.ut0svbv6r4c#heading=h.x0uziur7a90g). Do not import your recovery (mnemonic/seed) phrase, as the bridge requires direct access to the raw private key to sign transactions and ensure proper interoperability with Ethereum.
+    
+    <a href="/images/dashboard_keplr_step_2_6_private key.png" target="_blank"><img src="/images/dashboard_keplr_step_2_5.png" style="width:450px; height:auto;"></a>
+    
+   2.7. Give your wallet a name for easy reference.
    
     <a href="/images/dashboard_keplr_step_2_6.png" target="_blank"><img src="/images/dashboard_keplr_step_2_6.png" style="width:450px; height:auto;"></a>
     
-    2.7. Select Cosmos Hub and Ethereum.
+    2.8. Select Cosmos Hub and Ethereum.
     
     <a href="/images/dashboard_keplr_step_2_7.png" target="_blank"><img src="/images/dashboard_keplr_step_2_7.png" style="width:450px; height:auto;"></a>
     
-    2.8. Done — your Gonka account has been successfully imported into Keplr!
+    2.9. Done — your Gonka account has been successfully imported into Keplr!
     
     <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:450px; height:auto;"></a>
 
@@ -70,25 +74,19 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     
     <a href="/images/dashboard_leap_step_2_3.png" target="_blank"><img src="/images/dashboard_leap_step_2_3.png" style="width:450px; height:auto;"></a>
     
-    2.4. Choose to import recovery phrase (mnemonic seed phrase, created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account){target=_blank}) or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using){target=_blank}.
+    2.4. Choose "Import private key”. Do not choose “Import recovery phrase”, as the bridge requires direct access to the raw private key to sign transactions and ensure proper interoperability with Ethereum.
     
     <a href="/images/dashboard_leap_step_2_4.png" target="_blank"><img src="/images/dashboard_leap_step_2_4.png" style="width:450px; height:auto;"></a>
-    
-    === "If you entered the recovery (mnemonic/seed) phrase"
-        When you enter your seed phrase in Leap, it shows multiple wallets (Wallet 1, Wallet 2, etc.) because each one is a different address generated from the same seed. This is normal. Since you created your wallet using the CLI, it most likely used the default path, which in Leap is: Wallet 1. To be sure:
-    
-        - Check the address you got from the CLI
-        - Find the matching address in Leap (Wallet 1, 2, etc.)
-        - Choose the one that matches — that's your real wallet
-        
-        <a href="/images/dashboard_leap_step_2_5.png" target="_blank"><img src="/images/dashboard_leap_step_2_5.png" style="width:450px; height:auto;"></a>
 
-    === "If you entered the private key"
-        Create your password
+    2.5. Paste the private key that was created [in this step via CLI](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
+
+        <a href="/images/dashboard_leap_2_5_private_key.png" target="_blank"><img src="/images/dashboard_leap_step_2_4.png" style="width:450px; height:auto;"></a>
+
+    2.6. Create your password
     
         <a href="/images/dashboard_leap_step_2_6.png" target="_blank"><img src="/images/dashboard_leap_step_2_6.png" style="width:450px; height:auto;"></a>
     
-    2.5. Done — your Gonka account has been successfully imported into Leap!
+    2.7. Done — your Gonka account has been successfully imported into Leap!
     
     <a href="/images/dashboard_leap_step_2_7.png" target="_blank"><img src="/images/dashboard_leap_step_2_7.png" style="width:450px; height:auto;"></a>
 
@@ -101,7 +99,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 
 <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:450px; height:auto;"></a>
 
-3.3. You will see a prompt for adding a custom Gonka chain to your wallet. Approve and add Gonka chain.
+3.3. You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
 <a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:450px; height:auto;"></a>
 
 3.4. Done! You successfully added your account to the wallet.
@@ -124,8 +122,13 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
         
         <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:450px; height:auto; display:block;"></a>
         
-        Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account){target=_blank}), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using){target=_blank}.
+        Click “Use recovery phrase or private key”
+
         <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
+
+        Paste your private key that was created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using). Do not import the recovery (mnemonic/seed) phrase, as the bridge requires direct access to the raw private key to sign transactions and ensure proper interoperability with Ethereum.
+
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
         
         Give your wallet a name for easy reference.
         
@@ -148,9 +151,13 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
         
         <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:auto; height:337.5px;"></a>
         
-        Enter your recovery (mnemonic/seed) phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account){target=_blank}), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using){target=_blank}.
+        Choose “Import using private key”. Do not choose “Import using recovery phrase”, as the bridge requires direct access to the raw private key to sign transactions and ensure proper interoperability with Ethereum. 
         
         <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:auto; height:337.5px;"></a>
+
+        Paste your private key that was created in [this step via CLI. ](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using)
+
+        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:auto; height:337.5px;"></a>
         
         Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
         

@@ -136,7 +136,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     === "Leap"
         
         3.5.1. Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
-        ![](/images/dashboard_leap_step_3_5_1.png){ width=400 height=200 }
+        ![](/images/dashboard_leap_step_3_5_1.png){ width=400 height=100 }
         
         3.5.2. Click the “Create/Import wallet” button.
         ![](/images/dashboard_leap_step_3_5_2.png){ width=400 }

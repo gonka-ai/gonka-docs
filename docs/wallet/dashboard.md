@@ -20,11 +20,11 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 
     2.1. Go to [the official Keplr website](https://www.keplr.app/) and click “Get Keplr wallet”.
     
-    <img src="/images/dashboard_keplr_step_2_1.png" height="250" style="height:250px; width:auto;">
+    <img src="/images/dashboard_keplr_step_2_1.png" height="350" style="height:350px; width:auto;">
     
     2.2. Choose an extension for your browser.
     
-    <img src="/images/dashboard_keplr_step_2_2.png" height="250" style="height:250px; width:auto;">
+    <img src="/images/dashboard_keplr_step_2_2.png" height="350" style="height:350px; width:auto;">
     
     2.3. Add an extension to the browser.
     === "Fire Fox"

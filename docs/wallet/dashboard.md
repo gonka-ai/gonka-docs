@@ -109,43 +109,43 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 
     === "Keplr"
     
-        3.5.1. Open the extension and click on the account icon in the top-right corner of the extension window.
+        Open the extension and click on the account icon in the top-right corner of the extension window.
         
         ![](/images/dashboard_ping_pub_3_5_1.png){ width=400 }
         
-        3.5.2. Click the “Add wallet” button.
+        Click the “Add wallet” button.
         
         ![](/images/dashboard_ping_pub_3_5_2.png){ width=400 }
         
-        3.5.3. Click “Import an Existing Wallet”.
+        Click “Import an Existing Wallet”.
         
         ![](/images/dashboard_ping_pub_3_5_3.png){ width=400 }
         
-        3.5.4. Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
+        Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
         ![](/images/dashboard_ping_pub_3_5_4.png){ width=400 }
         
-        3.5.5. Give your wallet a name for easy reference.
+        Give your wallet a name for easy reference.
         ![](/images/dashboard_ping_pub_3_5_5.png){ width=400 }
         
-        3.5.6. Select Cosmos Hub and Etherium.
+        Select Cosmos Hub and Etherium.
         ![](/images/dashboard_ping_pub_3_5_6.png){ width=400 }
         
-        3.5.7. Done — your Gonka account has been successfully imported into Keplr!
+        Done — your Gonka account has been successfully imported into Keplr!
         ![](/images/dashboard_ping_pub_3_5_7.png){ width=400 }
     
     === "Leap"
         
-        3.5.1. Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
+        Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
         ![](/images/dashboard_leap_step_3_5_1.png){ width=400 height=100 }
         
-        3.5.2. Click the “Create/Import wallet” button.
+        Click the “Create/Import wallet” button.
         ![](/images/dashboard_leap_step_3_5_2.png){ width=400 }
         
-        3.5.3.Enter your recovery (mnemonic/seed) phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
+        Enter your recovery (mnemonic/seed) phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
         
         ![](/images/dashboard_leap_step_3_5_3.png){ width=400 }
         
-        3.5.4. Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
+        Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
         
         ![](/images/dashboard_leap_step_3_5_4.png){ width=400 }
 

@@ -29,7 +29,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     2.3. Add an extension to the browser.
     === "Fire Fox"
     
-        ![](/images/dashboard_keplr_step_2_3.png){ width=400 }
+        <img src="/images/dashboard_keplr_step_2_3.png" height="350" style="height:350px; width:auto;">
     
     === "Google Chrome"
     

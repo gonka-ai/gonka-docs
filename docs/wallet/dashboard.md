@@ -5,152 +5,150 @@ Gonka Dashboard on Ping.pub instantly displays your coin balances, allows you to
 To use the dashboard, you need a Gonka account.
 
 - Already have one? Proceed to the ["Set Up External Wallet"](https://testnet.productscience.ai/wallet/dashboard/#2-set-up-external-wallet) section.
-- New user? Visit [the Developer](https://testnet.productscience.ai/developer/quickstart/) or [Host](https://testnet.productscience.ai/participant/quickstart/) Quickstart to create an account.
+- New user? Visit [the Developer](https://testnet.productscience.ai/developer/quickstart/){target=_blank} or [Host](https://testnet.productscience.ai/participant/quickstart/){target=_blank} Quickstart to create an account.
 
 ## 2. Set Up External Wallet
-To interact with the Gonka network through your wallet, we recommend using [Keplr](https://www.keplr.app/) or [Leap](https://www.leapwallet.io/) (a browser extension wallet built for Cosmos-based chains).
+To interact with the Gonka network through your wallet, we recommend using [Keplr](https://www.keplr.app/){target=_blank} or [Leap](https://www.leapwallet.io/){target=_blank} (a browser extension wallet built for Cosmos-based chains).
 
 ??? note "What is a wallet?"
-    A crypto wallet serves as a secure container for a user’s public and private cryptographic keys, enabling them to manage, transfer, and purchase cryptocurrencies. Gonka is built on the Cosmos-SDK blockchain framework and can be accessed using Keplr or Leap wallet (other wallet support is coming soon).
+    A crypto wallet serves as a secure container for a user's public and private cryptographic keys, enabling them to manage, transfer, and purchase cryptocurrencies. Gonka is built on the Cosmos-SDK blockchain framework and can be accessed using Keplr or Leap wallet (other wallet support is coming soon).
     
 - If you have a Keplr or Leap wallet, proceed to the ["Connect wallet"](https://testnet.productscience.ai/wallet/dashboard/#3-connect-wallet) section.
-- If you haven’t set it up yet, follow the steps below.
+- If you haven't set it up yet, follow the steps below.
 
 === "Keplr"
 
-    2.1. Go to [the official Keplr website](https://www.keplr.app/) and click “Get Keplr wallet”.
+    2.1. Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
     
-    <img src="/images/dashboard_keplr_step_2_1.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_keplr_step_2_1.png" target="_blank"><img src="/images/dashboard_keplr_step_2_1.png" style="width:450px; height:auto;"></a>
     
     2.2. Choose an extension for your browser.
     
-    <img src="/images/dashboard_keplr_step_2_2.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_keplr_step_2_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_2.png" style="width:450px; height:auto;"></a>
     
     2.3. Add an extension to the browser.
     
     === "Fire Fox"
         
-        ![](/images/dashboard_keplr_step_2_3.png) 
+        <a href="/images/dashboard_keplr_step_2_3.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3.png" style="width:450px; height:auto;"></a>
         
     === "Google Chrome"
         
-        ![](/images/dashboard_keplr_step_2_3_2.png)
+        <a href="/images/dashboard_keplr_step_2_3_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3_2.png" style="width:450px; height:auto;"></a>
     
-    2.4. Click “Import an existing wallet.”
+    2.4. Click "Import an existing wallet."
     
-   <img src="/images/dashboard_keplr_step_2_4.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_keplr_step_2_4.png" target="_blank"><img src="/images/dashboard_keplr_step_2_4.png" style="width:450px; height:auto;"></a>
     
-    2.5. Click “Use recovery phrase or Private key”. Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
+    2.5. Click "Use recovery phrase or Private key". Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account){target=_blank}), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using){target=_blank}.
     
-    <img src="/images/dashboard_keplr_step_2_5.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_keplr_step_2_5.png" target="_blank"><img src="/images/dashboard_keplr_step_2_5.png" style="width:450px; height:auto;"></a>
     
     2.6. Give your wallet a name for easy reference.
    
-    <img src="/images/dashboard_keplr_step_2_6.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_keplr_step_2_6.png" target="_blank"><img src="/images/dashboard_keplr_step_2_6.png" style="width:450px; height:auto;"></a>
     
     2.7. Select Cosmos Hub and Ethereum.
     
-    <img src="/images/dashboard_keplr_step_2_7.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_keplr_step_2_7.png" target="_blank"><img src="/images/dashboard_keplr_step_2_7.png" style="width:450px; height:auto;"></a>
     
     2.8. Done — your Gonka account has been successfully imported into Keplr!
     
-    <img src="/images/dashboard_keplr_step_2_8.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:450px; height:auto;"></a>
 
 === "Leap"
     
-    2.1. Go to [the official Leap website](https://www.leapwallet.io/) and click “Download Leap”.
+    2.1. Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
     
-    <img src="/images/dashboard_leap_step_2_1.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:450px; height:auto;"></a>
     
     2.2. Add an extension to the browser.
     
-    <img src="/images/dashboard_leap_step_2_2.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:450px; height:auto;"></a>
     
-    2.3. Click “Import an existing wallet.”
+    2.3. Click "Import an existing wallet."
     
-     <img src="/images/dashboard_leap_step_2_3.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_leap_step_2_3.png" target="_blank"><img src="/images/dashboard_leap_step_2_3.png" style="width:450px; height:auto;"></a>
     
-    2.4. Choose to import recovery phrase (mnemonic seed phrase, created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)) or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
+    2.4. Choose to import recovery phrase (mnemonic seed phrase, created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account){target=_blank}) or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using){target=_blank}.
     
-     <img src="/images/dashboard_leap_step_2_4.png" width="500" style="width:500px; height:auto;">
+    <a href="/images/dashboard_leap_step_2_4.png" target="_blank"><img src="/images/dashboard_leap_step_2_4.png" style="width:450px; height:auto;"></a>
     
     === "If you entered the recovery (mnemonic/seed) phrase"
         When you enter your seed phrase in Leap, it shows multiple wallets (Wallet 1, Wallet 2, etc.) because each one is a different address generated from the same seed. This is normal. Since you created your wallet using the CLI, it most likely used the default path, which in Leap is: Wallet 1. To be sure:
     
         - Check the address you got from the CLI
         - Find the matching address in Leap (Wallet 1, 2, etc.)
-        - Choose the one that matches — that’s your real wallet
+        - Choose the one that matches — that's your real wallet
         
-        ![](/images/dashboard_leap_step_2_5.png){ width=400 }
+        <a href="/images/dashboard_leap_step_2_5.png" target="_blank"><img src="/images/dashboard_leap_step_2_5.png" style="width:450px; height:auto;"></a>
 
     === "If you entered the private key"
         Create your password
     
-        ![](/images/dashboard_leap_step_2_6.png){ width=400 }
+        <a href="/images/dashboard_leap_step_2_6.png" target="_blank"><img src="/images/dashboard_leap_step_2_6.png" style="width:450px; height:auto;"></a>
     
     2.5. Done — your Gonka account has been successfully imported into Leap!
     
-    ![](/images/dashboard_leap_step_2_7.png){ width=400 }
+    <a href="/images/dashboard_leap_step_2_7.png" target="_blank"><img src="/images/dashboard_leap_step_2_7.png" style="width:450px; height:auto;"></a>
 
 ## 3. Connect wallet
-3.1. Head over to [Ping.Pub](https://ping.pub/), a popular and trusted web wallet and block explorer for Cosmos-based chains. In the top-right corner, click “Connect Wallet” to get started.
-![](/images/dashboard_ping_pub_3_1.png){ width=400 }
+3.1. Head over to [Ping.Pub](https://ping.pub/){target=_blank}, a popular and trusted web wallet and block explorer for Cosmos-based chains. In the top-right corner, click "Connect Wallet" to get started.
+<a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:450px; height:auto;"></a>
 
 3.2. Select Keplr or Leap and hit Connect.
-![](/images/dashboard_ping_pub_3_2.png){ width=400 }
+<a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:450px; height:auto;"></a>
 
 3.3. You will see a prompt for adding a custom Gonka chain to your wallet. Approve and add Gonka chain.
-![](/images/dashboard_ping_pub_3_3.png){ width=400 }
-
+<a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:450px; height:auto;"></a>
 
 3.4. Done! You successfully added your account to the wallet.
-![](/images/dashboard_ping_pub_3_4.png){ width=400 }
+<a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:450px; height:auto;"></a>
 
 ??? note "Optional: How to add an additional Gonka account into wallet — click to view steps"
 
     === "Keplr"
     
         Open the extension and click on the account icon in the top-right corner of the extension window.
+        <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
         
-        ![](/images/dashboard_ping_pub_3_5_1.png){ width=400 }
+        Click the "Add wallet" button.
         
-        Click the “Add wallet” button.
+        <a href="/images/dashboard_ping_pub_3_5_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_2.png" style="width:auto; height:337.5px; display:block;"></a>
         
-        ![](/images/dashboard_ping_pub_3_5_2.png){ width=400 }
+        Click "Import an Existing Wallet".
         
-        Click “Import an Existing Wallet”.
+        <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:450px; height:auto; display:block;"></a>
         
-        ![](/images/dashboard_ping_pub_3_5_3.png){ width=400 }
-        
-        Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
-        ![](/images/dashboard_ping_pub_3_5_4.png){ width=400 }
+        Enter your mnemonic seed phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account){target=_blank}), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using){target=_blank}.
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
         
         Give your wallet a name for easy reference.
-        ![](/images/dashboard_ping_pub_3_5_5.png){ width=400 }
+        <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
         
         Select Cosmos Hub and Etherium.
-        ![](/images/dashboard_ping_pub_3_5_6.png){ width=400 }
+        <a href="/images/dashboard_ping_pub_3_5_6.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_6.png" style="width:450px; height:auto; display:block;"></a>
         
         Done — your Gonka account has been successfully imported into Keplr!
-        ![](/images/dashboard_ping_pub_3_5_7.png){ width=400 }
+        <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
     
     === "Leap"
         
         Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
         
-        ![](/images/dashboard_leap_step_3_5_1.png){ width=400 height=100 }
+        <a href="/images/dashboard_leap_step_3_5_1.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_1.png" style="width:auto; height:337.5px;"></a>
         
-        Click the “Create/Import wallet” button.
+        Click the "Create/Import wallet" button.
         
-        ![](/images/dashboard_leap_step_3_5_2.png){ width=400 }
+        <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:auto; height:337.5px;"></a>
         
-        Enter your recovery (mnemonic/seed) phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).
+        Enter your recovery (mnemonic/seed) phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account){target=_blank}), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using){target=_blank}.
         
-        ![](/images/dashboard_leap_step_3_5_3.png){ width=400 }
+        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:auto; height:337.5px;"></a>
         
         Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
         
-        ![](/images/dashboard_leap_step_3_5_4.png){ width=400 }
+        <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:auto; height:337.5px;"></a>
 
 ## Dashboard Overview
 
@@ -170,8 +168,8 @@ Once your wallet is connected, the dashboard unlocks access to all metrics and i
 
     | **Feature**                  | **Description**                                              | **Link**                |
     |-----------------------------|--------------------------------------------------------------|-------------------------|
-    | **Buy GNK**                 | Live GNK/USDT price and purchase link                        | [Step-by-step guide](https://gonka.ping.pub) |
-    | **Use Gonka API**           | OpenAI-compatible API access with private key                | [Developer quickstart](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk) |
+    | **Buy GNK**                 | Live GNK/USDT price and purchase link                        | [Step-by-step guide](https://gonka.ping.pub){target=_blank} |
+    | **Use Gonka API**           | OpenAI-compatible API access with private key                | [Developer quickstart](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk){target=_blank} |
 
 === "Account Details"
 

@@ -136,9 +136,11 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     === "Leap"
         
         Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
+        
         ![](/images/dashboard_leap_step_3_5_1.png){ width=400 height=100 }
         
         Click the “Create/Import wallet” button.
+        
         ![](/images/dashboard_leap_step_3_5_2.png){ width=400 }
         
         Enter your recovery (mnemonic/seed) phrase (created via the CLI [in this step](https://testnet.productscience.ai/developer/quickstart/#2-create-an-account)), or paste your [private key](https://testnet.productscience.ai/developer/quickstart/#4-inference-using-modified-openai-sdk:~:text=request%20in%20Python%3A-,3.1.%20Export%20your%20private%20key%20(for%20demo/testing%20only).,export%20GONKA_PRIVATE_KEY%3D%3Cyour%2Dprivate%2Dkey%3E,-4.%20Inference%20using).

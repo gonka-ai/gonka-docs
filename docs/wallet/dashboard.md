@@ -29,11 +29,11 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     2.3. Add an extension to the browser.
     === "Fire Fox"
     
-        <img src="/images/dashboard_keplr_step_2_3.png" width="500" style="width:500px; height:auto;">
+        ![](/images/dashboard_keplr_step_2_3.png 
     
     === "Google Chrome"
     
-        <img src="/images/dashboard_keplr_step_2_3_2.png" width="500" style="width:500px; height:auto;">
+        ![](/images/dashboard_keplr_step_2_3_2.png
     
     2.4. Click “Import an existing wallet.”
     

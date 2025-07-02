@@ -105,6 +105,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 <a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:450px; height:auto;"></a>
 
 3.4. Done! You successfully added your account to the wallet.
+
 <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:450px; height:auto;"></a>
 
 ??? note "Optional: How to add an additional Gonka account into wallet — click to view steps"
@@ -112,6 +113,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
     === "Keplr"
     
         Open the extension and click on the account icon in the top-right corner of the extension window.
+        
         <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
         
         Click the "Add wallet" button.
@@ -133,6 +135,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
         <a href="/images/dashboard_ping_pub_3_5_6.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_6.png" style="width:450px; height:auto; display:block;"></a>
         
         Done — your Gonka account has been successfully imported into Keplr!
+        
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
     
     === "Leap"

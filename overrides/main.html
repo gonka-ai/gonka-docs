@@ -4,6 +4,16 @@
   {% extends "base.html" %}
 
   {% block extrahead %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17307896476"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-17307896476');
+    </script>
+    
     {% set title = config.site_name %}
     {% if page and page.title and not page.is_homepage %}
       {% set title = config.site_name ~ " - " ~ page.title | striptags %}

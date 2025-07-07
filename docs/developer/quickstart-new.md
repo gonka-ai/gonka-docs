@@ -13,7 +13,7 @@ Gonka is a decentralized, cryptographically verified protocol for provable infer
     
 To proceed in Testnet, request access to the private codebase by emailing your GitHub username to [hello@productscience.ai](mailto:hello@productscience.ai).
 
-!!! note "Exploring the help menu is a great way to get oriented"
+??? note "Exploring the help menu is a great way to get oriented"
     At any time, use `--help` to see the most recent in-program documentation.
 
 ## 1. Install the CLI (`inferenced`)
@@ -33,7 +33,7 @@ chmod +x inferenced
 ## 2. Choose a `NODE_URL` (API entry point)
 You must now choose which node to connect to when making requests to the network. Do not forget to write it down, you will need it in the next step.
 
-=== "Option 1 (recommended). Use the CLI to Select Automatically"
+=== "Option 1 (recommended)"
     If you have installed the `inferenced` CLI (see Step 1), you can automatically get a random node:
     
     ```
@@ -47,7 +47,7 @@ You must now choose which node to connect to when making requests to the network
         - Network load distribution
         - Resilience to node outages
 
-=== "Option 2: Query active participants"
+=== "Option 2"
 
     ```
     curl http://195.242.13.239:8000/v1/epochs/current/participants
@@ -60,10 +60,11 @@ You must now choose which node to connect to when making requests to the network
         
         - which model does it run
         - its location
-        - or its hardware
+        - its hardware
+        
         At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API. Model/runtime details are irrelevant here.
 
-=== "Option 3: Use the genesis node"
+=== "Option 3"
     Use the genesis node (centralized but always available):
     
     ```
@@ -74,10 +75,10 @@ Once you've selected a node, replace `<your-desired-account-name>` with a unique
 
 ??? note "How to choose an account name"
 
-    - This name is not recorded on-chain — it exists only in your local key store.
-    - Uniqueness is local: creating two keys with the same name will overwrite the first (with a CLI warning).
-    - The name cannot be changed after it is created.
-    - Use a consistent naming style for easier scripting and account management.
+    - This name is not recorded on-chain — it exists only in your local key store
+    - Uniqueness is local: creating two keys with the same name will overwrite the first (with a CLI warning)
+    - The name cannot be changed after it is created
+    - Use a consistent naming style for easier scripting and account management
 
 ```
 export ACCOUNT_NAME=<your-desired-account-name>
@@ -117,12 +118,13 @@ export GONKA_PRIVATE_KEY=<your-private-key>
 ```
 
 ??? note "Optional: Use the Gonka Dashboard"
-  Once your account is created, you can optionally open the Gonka Dashboard to:
-  
-  - View your balances and accounts
-  - Track AI Token usage, recent transactions, and inference history
-  - Monitor network performance in real-time
-  No setup is required — it loads automatically when your wallet is connected.
+    Once your account is created, you can optionally open the Gonka Dashboard to:
+    
+    - View your balances and accounts
+    - Track AI Token usage, recent transactions, and inference history
+    - Monitor network performance in real-time
+    - 
+    No setup is required — it loads automatically when your wallet is connected.
 
 ## 6. Run Inference using modified OpenAI SDK
 Every testnet Developer account receives:

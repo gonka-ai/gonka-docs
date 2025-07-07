@@ -40,7 +40,7 @@ You must now choose which node to connect to when making requests to the network
     inferenced query inference get-random-node
     ```
     
-    ??? note "Why a random node?"
+    !!! note "Why a random node?"
         To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch.
         This improves:
         
@@ -71,9 +71,9 @@ You must now choose which node to connect to when making requests to the network
     http://195.242.13.239:8000
     ```
 ## 3. Set up the required environment variables
-Once you've selected a node, replace `<your-desired-account-name>` with a unique name of your choice, following the rules below.
+Once you’ve selected a node, choose a unique name for your local account and set the environment variables below.
 
-??? note "How to choose an account name"
+??? note "Things to know about account names"
 
     - This name is not recorded on-chain — it exists only in your local key store
     - Uniqueness is local: creating two keys with the same name will overwrite the first (with a CLI warning)

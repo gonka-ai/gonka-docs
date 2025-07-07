@@ -13,7 +13,7 @@ Gonka is a decentralized, cryptographically verified protocol for provable infer
     
 To proceed in Testnet, request access to the private codebase by emailing your GitHub username to [hello@productscience.ai](mailto:hello@productscience.ai).
 
-!!! note “Exploring the help menu is a great way to get oriented.”
+!!! note "Exploring the help menu is a great way to get oriented"
     At any time, use `--help` to see the most recent in-program documentation.
 
 ## 1. Install the CLI (`inferenced`)
@@ -28,7 +28,7 @@ chmod +x inferenced
 
 ??? note "Enabling Execution on Mac OS"
     - On MacOS, allow execution in `System Settings` → `Privacy & Security` if prompted.
-    - Scroll down to the warning about `inferenced` and click “Allow Anyway”.
+    - Scroll down to the warning about `inferenced` and click `Allow Anyway`.
 
 ## 2. Choose a `NODE_URL` (API entry point)
 You must now choose which node to connect to when making requests to the network. Do not forget to write it down, you will need it in the next step.
@@ -53,7 +53,7 @@ You must now choose which node to connect to when making requests to the network
     curl http://195.242.13.239:8000/v1/epochs/current/participants
     ```
     
-    Choose any public_url from the list and use it as your NODE_URL.
+    Choose any public_url from the list and use it as your `NODE_URL`.
     
     !!! note "How to choose?"
         You can choose any node randomly — you do not need to consider:
@@ -69,11 +69,11 @@ You must now choose which node to connect to when making requests to the network
     ```
     http://195.242.13.239:8000
     ```
-
 ## 3. Set up the required environment variables
 Once you've selected a node, replace `<your-desired-account-name>` with a unique name of your choice, following the rules below.
 
-??? note "How to choose an account name".
+??? note "How to choose an account name"
+
     - This name is not recorded on-chain — it exists only in your local key store.
     - Uniqueness is local: creating two keys with the same name will overwrite the first (with a CLI warning).
     - The name cannot be changed after it is created.
@@ -116,7 +116,7 @@ If you’d like to perform the request in Python, export your private key (for d
 export GONKA_PRIVATE_KEY=<your-private-key>
 ```
 
-??? note “Optional: Use the Gonka Dashboard”
+??? note "Optional: Use the Gonka Dashboard"
   Once your account is created, you can optionally open the Gonka Dashboard to:
   
   - View your balances and accounts

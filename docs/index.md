@@ -36,7 +36,7 @@
       <p class="tagline">AI Compute is the New Currency</p>
 
       <div class="gonka-cards">
-        <a href="https://t.me/decentralized_inference_test_bot">
+        <a href="https://t.me/gonka_ai_bot">
         <div class="card">
             <span>Chat with AI</span><small>Powered by Gonka Decentralized Network</small>
         </div>

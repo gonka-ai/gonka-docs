@@ -131,7 +131,7 @@ Every testnet Developer account receives:
 
 - 5 GNK coins (5 billion ngonka)
 - Equivalent to ~1–5 million AI tokens of model usage
-Inference tokens are allocated [dynamically based on model cost.](https://testnet.productscience.ai/wallet/pricing/)
+Inference tokens are allocated [dynamically based on model cost.](https://gonka.ai/wallet/pricing/)
 
 === "Python"
     To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/libermans/gonka-openai/tree/main/python). Get started by installing the SDK using pip:

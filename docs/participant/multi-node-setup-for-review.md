@@ -1,10 +1,10 @@
 # Multi-Node Setup
-This guide extends [Quickstart](https://testnet.productscience.ai/participant/quickstart/) and shows how to deploy a Network Node (no GPU) and one or more Inference Nodes on separate GPU servers.
+This guide extends [Quickstart](https://gonka.ai/participant/quickstart/) and shows how to deploy a Network Node (no GPU) and one or more Inference Nodes on separate GPU servers.
 
 Supported scenarios:
 
 1. You are starting fresh and want to deploy a multi-machine setup from the beginning (start from the beginning of the guide).
-2. You already launched [Quickstart](https://testnet.productscience.ai/participant/quickstart/) and now want to add more Inference Nodes (go to ["Deploy and register Inference Nodes on a Separate Machine"](https://testnet.productscience.ai/participant/multi-node-setup-for-review/#deploy-and-register-inference-node-s-on-a-separate-machine)).
+2. You already launched [Quickstart](https://gonka.ai/participant/quickstart/) and now want to add more Inference Nodes (go to ["Deploy and register Inference Nodes on a Separate Machine"](https://gonka.ai/participant/multi-node-setup-for-review/#deploy-and-register-inference-node-s-on-a-separate-machine)).
 
 ## Prerequisites
 This guide assumes the following are already installed on each machine:
@@ -185,7 +185,7 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 
 
 !!! note "vLLM performance tuning reference"
-      For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the Benchmark to Choose Optimal Deployment Config for LLMs [guide](https://testnet.productscience.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/).
+      For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the Benchmark to Choose Optimal Deployment Config for LLMs [guide](https://gonka.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 2.After a few minutes, check if your node appears in the current epoch. Proof of Compute updates every few hours. Your node may take time to show up.
 

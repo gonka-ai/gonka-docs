@@ -139,6 +139,11 @@ Inference tokens are allocated [dynamically based on model cost.](https://gonka.
     ```
     pip install gonka-openai
     ```
+    
+    !!! note "If you encounter build errors, you may need to install system-level libraries"
+        ```
+        brew install pkg-config secp256k1
+        ```
 
     With the SDK installed, create a file called `example.py` and copy the example code into it:
 
@@ -169,11 +174,6 @@ Inference tokens are allocated [dynamically based on model cost.](https://gonka.
     ```
     npm install gonka-openai
     ```
-    
-    !!! note "If you encounter build errors, you may need to install system-level libraries"
-        ```
-        brew install pkg-config secp256k1
-        ```
 
     With the SDK installed, create a file called `example.mjs` and copy the example code into it:
 

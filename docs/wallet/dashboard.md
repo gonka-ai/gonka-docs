@@ -82,7 +82,7 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 
     <a href="/images/dashboard_leap_2_5_private_key.png" target="_blank"><img src="/images/dashboard_leap_2_5_private_key.png" style="width:500px; height:auto;"></a>
 
-    2.6. Create your password
+    2.6. Create your password.
 
     <a href="/images/dashboard_leap_step_2_6.png" target="_blank"><img src="/images/dashboard_leap_step_2_6.png" style="width:500px; height:auto;"></a>
 

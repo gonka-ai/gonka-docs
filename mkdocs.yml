@@ -32,8 +32,6 @@ nav:
 theme:
   name: material
   custom_dir: overrides
-  favicon: images/logo-small.png
-  logo: images/logo-small.png
   font:
     text: Manrope
   palette:

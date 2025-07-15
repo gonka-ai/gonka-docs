@@ -59,7 +59,6 @@
           </clipPath>
           </defs>
         </svg>
-        <span>Gonka</span>
       </a>
       <div class="social">
         <a href="mailto:hello@productscience.ai" aria-label="Email">

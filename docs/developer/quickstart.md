@@ -91,7 +91,7 @@ export GONKA_PRIVATE_KEY=<your-private-key>
 ## 4. Inference using modified OpenAI SDK
 
 === "Python"
-    To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/libermans/gonka-openai/tree/main/python). Get started by installing the SDK using pip:
+    To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/gonka-ai/gonka-openai/tree/main/python). Get started by installing the SDK using pip:
 
     ```
     pip install gonka-openai
@@ -126,7 +126,7 @@ export GONKA_PRIVATE_KEY=<your-private-key>
     Execute the code with `python example.py`. In a few moments, you should see the output of your API request.
 
 === "TypeScript"
-    To use the Gonka API in server-side JavaScript environments like Node.js, Deno, or Bun, you can use the [Gonka OpenAI SDK for TypeScript and JavaScript](https://github.com/libermans/gonka-openai/tree/main/typescript). Get started by installing the SDK using npm or your preferred package manager:
+    To use the Gonka API in server-side JavaScript environments like Node.js, Deno, or Bun, you can use the [Gonka OpenAI SDK for TypeScript and JavaScript](https://github.com/gonka-ai/gonka-openai/tree/main/typescript). Get started by installing the SDK using npm or your preferred package manager:
 
     ```
     npm install gonka-openai
@@ -155,10 +155,10 @@ export GONKA_PRIVATE_KEY=<your-private-key>
     Execute the code with `node example.mjs`. In a few moments, you should see the output of your API request.
 
 === "Go"
-    To use the Gonka API in Go, you can use the [Gonka OpenAI SDK for Go](https://github.com/libermans/gonka-openai/tree/main/go). Get started by installing the SDK using go get:
+    To use the Gonka API in Go, you can use the [Gonka OpenAI SDK for Go](https://github.com/gonka-ai/gonka-openai/tree/main/go). Get started by installing the SDK using go get:
 
     ```
-    go get github.com/libermans/gonka-openai/go
+    go get github.com/gonka-ai/gonka-openai/go
     ```
 
     With the SDK installed, create a file called `example.go` and copy the example code into it:
@@ -170,7 +170,7 @@ export GONKA_PRIVATE_KEY=<your-private-key>
         "fmt"
         "os"
 
-        gonka "github.com/libermans/gonka-openai/go"
+        gonka "github.com/gonka-ai/gonka-openai/go"
     )
 
     func main() {
@@ -199,7 +199,7 @@ export GONKA_PRIVATE_KEY=<your-private-key>
 
     Execute the code with `go run example.go`. In a few moments, you should see the output of your API request.
 
-To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/libermans/gonka-openai), and adjust the examples accordingly.
+To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai), and adjust the examples accordingly.
 
 ---
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

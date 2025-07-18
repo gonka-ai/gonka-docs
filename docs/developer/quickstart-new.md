@@ -13,9 +13,6 @@ Gonka is a decentralized, cryptographically verified protocol for provable infer
     
 To proceed in Testnet, request access to the private codebase by emailing your GitHub username to [hello@productscience.ai](mailto:hello@productscience.ai).
 
-??? note "Exploring the help menu is a great way to get oriented"
-    At any time, use `--help` to see the most recent in-program documentation.
-
 ## 1. Install the CLI (`inferenced`)
 ??? note "What is the `inferenced` CLI tool?" 
     The inferenced CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
@@ -25,6 +22,9 @@ Download the latest `inferenced` binary from <a href="https://github.com/product
 chmod +x inferenced
 ./inferenced --help
 ```
+
+??? note "Exploring the help menu is a great way to get oriented"
+    At any time, use `--help` to see the most recent in-program documentation.
 
 ??? note "Enabling Execution on Mac OS"
     - On MacOS, allow execution in `System Settings` → `Privacy & Security` if prompted.

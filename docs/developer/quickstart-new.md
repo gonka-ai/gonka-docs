@@ -68,18 +68,18 @@ You must now choose which random node to connect to when making requests to the 
 ## 3. Set up the required environment variables
 Once you’ve selected a node, choose a unique name for your local account and set the environment variables below.
 
+```
+export ACCOUNT_NAME=<your-desired-account-name>
+export NODE_URL=http://195.242.13.239:8000
+export GONKA_ENDPOINTS=$NODE_URL/v1 
+```
+
 ??? note "Things to know about account names"
 
     - This name is not recorded on-chain — it exists only in your local key store
     - Uniqueness is local: creating two keys with the same name will overwrite the first (with a CLI warning)
     - The name cannot be changed after it is created
     - Use a consistent naming style for easier scripting and account management
-
-```
-export ACCOUNT_NAME=<your-desired-account-name>
-export NODE_URL=http://195.242.13.239:8000
-export GONKA_ENDPOINTS=$NODE_URL/v1 
-```
 
 ## 4. Create an account
 Replace `$ACCOUNT_NAME` and `$NODE_URL` with the values you set earlier.
@@ -113,12 +113,13 @@ export GONKA_PRIVATE_KEY=<your-private-key>
 ```
 
 ??? note "Optional: Use the Gonka Dashboard"
-    The Gonka Dashboard offers a rich, real-time view into the network — including active nodes, inference activity, and protocol performance — all available instantly, no login or setup required. When you connect a supported wallet (e.g., Keplr or Leap) that holds your Gonka key, the dashboard seamlessly expands to include personalized insights:
+    [The Gonka Dashboard](https://gonka.ai/wallet/dashboard) offers a rich, real-time view into the network — including active nodes, inference activity, and protocol performance — all available instantly, no login or setup required. When you connect a supported wallet (e.g., Keplr or Leap) that holds your Gonka key, the dashboard seamlessly expands to include personalized insights:
     
     - GNK balance and recent token usage
     - Inference transaction history
     - AI Token spend over time
     - One-click GNK purchasing (coming soon)
+    
     It’s a lightweight, zero-friction interface for monitoring both the public network and your activity — all in one place.
 
 ## 6. Run Inference using modified OpenAI SDK

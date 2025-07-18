@@ -6,10 +6,10 @@ Gonka is a decentralized, cryptographically verified protocol for provable infer
         
     | Aspect | Traditional AI API (OpenAI, Anthropic, etc.) | Gonka API |
     |--------|----------------------------------------------|------------|
-    | **Model provenance & verifiable output** | No cryptographic proof. Models may be swapped or A/B tested without transparency. | Each response is tied to a verifiable model hash and execution environment. |
-    | **Censorship resistance** | Providers can revoke access or enforce geo/political restrictions. | Requests are signed and broadcast via a decentralized network. You retain control via your private key. |
-    | **Auditability & transparency** | Users can’t independently verify logs, billing, or latency. | All interactions are timestamped and signed, with full public audit trails. |
-    | **Transparent tokenomics** | Pricing is opaque, with unclear compute/model cost mappings. | On-chain tokenomics ensure visible, forecastable inference costs via GNK-to-token logic. |
+    | **Model provenance & verifiable output** | Models are hosted and versioned by the provider, but there’s no way to cryptographically verify which model actually produced a given output. There’s no proof that the model wasn’t switched, fine-tuned behind the scenes, or A/B tested on you. | Every inference request and response can be cryptographically linked to a specific model hash and execution environment. This enables verifiable provenance — anyone can prove that a particular model version generated a specific output. |
+    | **Censorship resistance** | All access is controlled centrally — providers can restrict or terminate accounts at any time. This includes enforcement of geographic, political, or commercial policies. | Inference requests are signed and broadcast through a decentralized network. As long as you hold your private key and connect to a node, you can run inference. The system is designed to be uncensorable, unless restrictions are applied by a transparent, protocol-level consensus. |
+    | **Auditability & transparency** | Logging, billing, and usage tracking are fully controlled by the API provider. Users cannot independently verify their own usage or inspect how pricing, latency, or errors were handled. | Every interaction is signed and timestamped, enabling independent audit trails. You can prove when and how an inference occurred, which model was used, whether the results were altered, and ensure that disputes can be publicly resolved. |
+    | **Transparent tokenomics** | Billing rates have limited insight into compute pricing, model costs, or system load. | Tokenomics are on-chain or protocol-defined, meaning pricing mechanisms are transparent and inspectable. Users convert GNK into AI Tokens with predictable, traceable exchange logic, enabling clear forecasting of inference costs and supply-demand–driven economics. |
     
 To proceed in Testnet, request access to the private codebase by emailing your GitHub username to [hello@productscience.ai](mailto:hello@productscience.ai).
 
@@ -31,7 +31,14 @@ chmod +x inferenced
     - Scroll down to the warning about `inferenced` and click `Allow Anyway`.
 
 ## 2. Choose a `NODE_URL` (API entry point)
-You must now choose which node to connect to when making requests to the network. Do not forget to write it down, you will need it in the next step.
+You must now choose which random node to connect to when making requests to the network. Do not forget to write it down, you will need it in the next step.
+
+!!! note "Why a random node?"
+    To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch.
+    This improves:
+            
+            - Network load distribution
+            - Resilience to node outages
 
 === "Option 1 (recommended)"
     If you have installed the `inferenced` CLI (see Step 1), you can automatically get a random node:
@@ -39,13 +46,6 @@ You must now choose which node to connect to when making requests to the network
     ```
     inferenced query inference get-random-node
     ```
-    
-    !!! note "Why a random node?"
-        To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch.
-        This improves:
-        
-        - Network load distribution
-        - Resilience to node outages
 
 === "Option 2"
 
@@ -96,7 +96,7 @@ This command will:
 
 - Generate a keypair
 - Save it to `~/.inference`
-- Return your account address, public key, and mnemonic (store it securely!)
+- Return your account address, public key, and mnemonic (store it securely in a hard copy as well!)
   
 The account stores your balance, add it to environment variable `GONKA_ADDRESS`, or `.env` file. 
 
@@ -118,20 +118,27 @@ export GONKA_PRIVATE_KEY=<your-private-key>
 ```
 
 ??? note "Optional: Use the Gonka Dashboard"
-    Once your account is created, you can optionally open the Gonka Dashboard to:
+    The Gonka Dashboard offers a rich, real-time view into the network — including active nodes, inference activity, and protocol performance — all available instantly, no login or setup required. When you connect a supported wallet (e.g., Keplr or Leap) that holds your Gonka key, the dashboard seamlessly expands to include personalized insights:
     
-    - View your balances and accounts
-    - Track AI Token usage, recent transactions, and inference history
-    - Monitor network performance in real-time
-    - 
-    No setup is required — it loads automatically when your wallet is connected.
+    - GNK balance and recent token usage
+    - Inference transaction history
+    - AI Token spend over time
+    - One-click GNK purchasing (coming soon)
+    It’s a lightweight, zero-friction interface for monitoring both the public network and your activity — all in one place.
 
 ## 6. Run Inference using modified OpenAI SDK
-Every testnet Developer account receives:
+As testnet GNK coins cannot be purchased, every testnet Developer account receives:
 
 - 5 GNK coins (5 billion ngonka)
 - Equivalent to ~1–5 million AI tokens of model usage
 Inference tokens are allocated [dynamically based on model cost.](https://gonka.ai/wallet/pricing/)
+
+!!! note "Mainnet: Switch to paid access"
+    Once Gonka launches on the mainnet:
+    
+    - Free GNK distribution will end
+    - Testnet balances will be reset to zero
+    - You’ll need to purchase GNK via a supported [wallet](https://gonka.ai/wallet/dashboard#2-set-up-external-wallet) to continue using the API
 
 === "Python"
     To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/libermans/gonka-openai/tree/main/python). Get started by installing the SDK using pip:

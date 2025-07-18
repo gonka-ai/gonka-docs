@@ -34,11 +34,7 @@ chmod +x inferenced
 You must now choose which random node to connect to when making requests to the network. Do not forget to write it down, you will need it in the next step.
 
 !!! note "Why a random node?"
-    To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch.
-    This improves:
-            
-            - Network load distribution
-            - Resilience to node outages
+    To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages.
 
 === "Option 1 (recommended)"
     If you have installed the `inferenced` CLI (see Step 1), you can automatically get a random node:

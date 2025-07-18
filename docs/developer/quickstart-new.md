@@ -44,13 +44,12 @@ You must now choose which random node to connect to when making requests to the 
     ```
 
 === "Option 2"
+    Choose any public_url from the list and use it as your `NODE_URL`.
 
     ```
     curl http://195.242.13.239:8000/v1/epochs/current/participants
     ```
-    
-    Choose any public_url from the list and use it as your `NODE_URL`.
-    
+        
     !!! note "How to choose?"
         You can choose any node randomly — you do not need to consider:
         

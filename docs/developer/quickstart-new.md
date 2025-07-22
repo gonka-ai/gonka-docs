@@ -31,7 +31,7 @@ chmod +x inferenced
     - Scroll down to the warning about `inferenced` and click `Allow Anyway`.
 
 ## 2. Choose a `NODE_URL` (API entry point)
-You must now choose which random node to connect to when making requests to the network. Do not forget to write it down, you will need it in the next step.
+You must choose a random node to connect to before making requests to the network. Do not forget to write it down, you will need it in the next step.
 
 !!! note "Why a random node?"
     To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages.
@@ -76,10 +76,16 @@ export GONKA_ENDPOINTS=$NODE_URL/v1
 
 ??? note "Things to know about account names"
 
-    - This name is not recorded on-chain — it exists only in your local key store
-    - Uniqueness is local: creating two keys with the same name will overwrite the first (with a CLI warning)
-    - The name cannot be changed after it is created
-    - Use a consistent naming style for easier scripting and account management
+    - This name is not recorded on-chain — it exists only in your local key store.
+    - Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. We highly recommend backing up your public and private keys before performing this operation.
+    - The name cannot be changed after it is created.
+    - Use a consistent naming style for easier scripting and account management. Here are a few recommended naming patterns for ACCOUNT_NAME:
+        - dev-main — for your primary local testnet account
+        - dev-<username> — if you're working in a shared repo or multi-user environment
+        - bot-inference, demo-client — to separate functional roles
+        - test-001, test-002, … — for scripting or automated test accounts
+        - 2025-q3-inference — for time-scoped or experimental usage
+    - Using lowercase, hyphenated names helps avoid parsing errors in scripts.
 
 ## 4. Create an account
 Replace `$ACCOUNT_NAME` and `$NODE_URL` with the values you set earlier.
@@ -100,7 +106,7 @@ export GONKA_ADDRESS=<your-account-address>
 ```
 
 You will use this account to purchase gonka (GNK) coins and pay for inference requests.
-To list all locally stored accounts:
+To retrieve a list of all locally stored accounts, execute the following command:
 ```
 inferenced keys list [--keyring-backend test]
 ```

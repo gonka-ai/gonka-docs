@@ -8,6 +8,7 @@ To join the network, you need to deploy two services:
 - **Inference (ML) node** – a service that performs inference of large language models (LLMs) on GPU(s). You need at least one **ML node** to join the network.
 
 The guide describes the scenario where both services are deployed on the same machine, and each participant has one MLNode. Services are deployed as Docker containers.
+To proceed, you'll need access to the private codebase. Please send your GitHub username to [hello@productscience.ai](mailto:hello@productscience.ai).
 
 ## Prerequisites
 ### Supported LLMs and recommended server configurations

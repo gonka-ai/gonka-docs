@@ -92,7 +92,7 @@ Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired.
 Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`.
 
 ```
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct
 ```
 
 **Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)**

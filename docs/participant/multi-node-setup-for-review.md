@@ -104,7 +104,7 @@ cd inference-ignite/deploy/join
     ```
     export HF_HOME=/path/to/your/hf-cache
     mkdir -p $HF_HOME
-    huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
+    huggingface-cli download Qwen/Qwen2.5-7B-Instruct
     ```
 
 === "Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)"

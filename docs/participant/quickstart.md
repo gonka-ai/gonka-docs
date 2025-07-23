@@ -96,7 +96,7 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired:
 ```bash
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct --cache-dir $HF_HOME
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct
 ```
 **Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)**
 

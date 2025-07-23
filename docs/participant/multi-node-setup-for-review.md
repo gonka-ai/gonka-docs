@@ -221,9 +221,9 @@ http://195.242.13.239:8000/v1/epochs/current/participants
     ```
     This stops and removes all services defined in the `docker-compose.yml` file without deleting volumes or data unless explicitly configured.
 
-    To clean up cache and start fresh, remove the local `.inference` folder (inference runtime cache and identity):
+    To clean up cache and start fresh, remove the local  `.inference` and `.dapi` folders folders (inference runtime cache and identity):
     ```bash
-    rm -rf .inference
+    rm -rf .inference .dapi
     docker volume rm join_tmkms_data
     ```
 
@@ -235,11 +235,5 @@ http://195.242.13.239:8000/v1/epochs/current/participants
     !!! note
         Deleting `$HF_HOME` will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
 
-    **Full Reset Workflow (if you want to rejoin as a fresh node)**
-    ```bash
-    docker compose -f docker-compose.yml down
-    rm -rf .inference
-    # Optional: rm -rf $HF_HOME
-    ```
 
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

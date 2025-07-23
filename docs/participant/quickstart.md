@@ -130,6 +130,8 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
     export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		# Keep as is
     export RPC_SERVER_URL_1=http://89.169.103.180:26657		# Keep as is
     export RPC_SERVER_URL_2=http://195.242.13.239:26657		# Keep as is
+    export PORT=8080                                        # Keep as is
+    export INFERENCE_PORT=5050                              # Keep as is
     ```
 
 Which variables to edit:
@@ -152,7 +154,7 @@ The quickstart instruction is designed to run both the network node and the infe
     
 **1. Pull Docker Images (Containers)**
 
-Make sure you are in the `pivot-deploy/join` folder before running the next commands. 
+Make sure you are in the `inference-ignite/deploy/join` folder before running the next commands. 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
 ```
@@ -200,7 +202,7 @@ curl http://195.242.13.239:26657/status
 ```
 
 ###  Stopping and Cleaning Up Your Node
-Make sure you are in `pivot-deploy/join` folder.
+Make sure you are in `inference-ignite/deploy/join` folder.
 
 To stop all running containers:
 ```bash

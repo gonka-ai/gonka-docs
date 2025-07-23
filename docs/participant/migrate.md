@@ -19,10 +19,10 @@ The script below handles migration of:
 
 ### 1. Navigate to your deployment directory
 
-You should already have cloned `pivot-deploy` and deployed from `pivot-deploy/join`:
+You should already have cloned `inference-ignite` and deployed from `inference-ignite/deploy/join`:
 
 ```
-cd pivot-deploy/join
+cd inference-ignite/deploy/join
 ```
 
 ### 2. Verify your auth tokens

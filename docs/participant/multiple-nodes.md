@@ -44,7 +44,7 @@ This will start **one network node** and **one inference node** on the same mach
 
 ### Separate Deployment: Network Node Only
 
-If your network node server has **no GPU** and you want your server to run** only the network node** (without inference node), execute the following in the `pivot-deploy/join` directory:
+If your network node server has **no GPU** and you want your server to run** only the network node** (without inference node), execute the following in the `inference-ignite/deploy/join` directory:
 
 ```
 source config.env && \ 
@@ -73,7 +73,7 @@ On the other servers, we run only the inference node, and for that, follow the i
 
 Clone the repository with the base deploy scripts:
 ```
-git clone https://github.com/product-science/pivot-deploy.git -b main
+git clone https://github.com/product-science/inference-ignite.git -b main
 ```
 !!! note "Authentication required" 
     If prompted for a password, use a GitHub personal access token (classic) with `repo` access.
@@ -113,8 +113,8 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 
 **1.4. Ports open for network node connections**
 ```
-5000 - Inference requests (mapped to 5000 of MLNode)
-8000 - Management API Port (mapped to 8080 of MLNode)
+5050 - Inference requests (mapped to 5000 of MLNode)
+8080 - Management API Port (mapped to 8080 of MLNode)
 ```
 
 !!! note "Important"

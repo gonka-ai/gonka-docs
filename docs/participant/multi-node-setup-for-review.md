@@ -39,8 +39,8 @@ This machine becomes your main entry point to the network:
 1.Clone and configure
 
 ```
-git clone https://github.com/product-science/pivot-deploy.git -b main
-cd pivot-deploy/join
+git clone https://github.com/product-science/inference-ignite.git -b main
+cd inference-ignite/deploy/join
 cp config.env.template config.env
 ```
 
@@ -92,7 +92,7 @@ Each Inference Node is a GPU-based service that connects back to the Network Nod
 ### Deploy
 1. Clone the repo (on each new Inference Node machine).
 ```
-git clone https://github.com/product-science/pivot-deploy.git -b main
+git clone https://github.com/product-science/inference-ignite.git -b main
 cd inference-ignite/deploy/join
 ```
 2. (Optional but recommended). Pre-download model weights. Choose one of the following options.
@@ -213,7 +213,7 @@ http://195.242.13.239:8000/v1/epochs/current/participants
     Where id is the identifier of the inference node as specified in the request when registering the Inference Node. If successful, the response will be true.
 
 === "Stopping and Cleaning Up Your Node"
-    Make sure you are in `pivot-deploy/join` folder.
+    Make sure you are in `inference-ignite/deploy/join` folder.
 
     To stop all running containers:
     ```bash

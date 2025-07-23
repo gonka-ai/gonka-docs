@@ -111,6 +111,11 @@ Some Docker images used in this instruction are private. Make sure to authentica
 ```bash
 docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ```
+??? note "Required token scopes"
+    When creating a new Personal Access Token (Classic) on GitHub, make sure to select the following scopes:
+	- `repo` → Full control of private repositories
+    - `read:packages` → Download packages from GitHub Package Registry
+
 ## Setup Your Network Node 
 ### Edit Your Network Node Configuration
 

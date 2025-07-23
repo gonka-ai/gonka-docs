@@ -93,7 +93,7 @@ Each Inference Node is a GPU-based service that connects back to the Network Nod
 1. Clone the repo (on each new Inference Node machine).
 ```
 git clone https://github.com/product-science/pivot-deploy.git -b main
-cd pivot-deploy/inference
+cd inference-ignite/deploy/join
 ```
 2. (Optional but recommended). Pre-download model weights. Choose one of the following options.
 !!! note "Supported models"

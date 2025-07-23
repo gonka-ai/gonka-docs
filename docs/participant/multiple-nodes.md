@@ -32,12 +32,12 @@ Make sure you have completed the [Quickstart Prerequisites](https://gonka.ai/par
 This server becomes the main entry point for external participants. It must be exposed to the public internet (static IP or domain recommended). High network reliability and security are essential. Host this on a stable, high-bandwidth server with robust security.
 
 ### Single-Machine Deployment: Network Node + Inference Node
-If your network node server **has GPU(s)** and you want to run both the **network node** and an **inference node** on the same machine, execute the following commands in the `pivot-deploy/join` directory:
+If your network node server **has GPU(s)** and you want to run both the **network node** and an **inference node** on the same machine, execute the following commands in the `inference-ignite/deploy/join` directory:
 
 ```                                 
 source config.env && \
-docker compose -f docker-compose.yml up -d && \
-docker compose -f docker-compose.yml logs -f
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d && \
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml logs -f
 ```
 
 This will start **one network node** and **one inference node** on the same machine.
@@ -48,7 +48,7 @@ If your network node server has **no GPU** and you want your server to run** onl
 
 ```
 source config.env && \ 
-docker compose -f docker-compose.yml up -d tmkms node api \ &&
+docker compose -f docker-compose.yml up -d \ &&
 docker compose -f docker-compose.yml logs -f                                 
 ```
 
@@ -113,8 +113,8 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 
 **1.4. Ports open for network node connections**
 ```
-5000 - Inference requests
-8000 - Management API Port
+5000 - Inference requests (mapped to 5000 of MLNode)
+8000 - Management API Port (mapped to 8080 of MLNode)
 ```
 
 !!! note "Important"
@@ -122,9 +122,9 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 
 ### Step 2. Launch the Inference Node
 
-On the inference node's server, go to the `cd pivot-deploy/inference` directory and execute
+On the inference node's server, go to the `cd inference-ignite/deploy/join` directory and execute
 ```
-docker compose up -d && docker compose logs -f
+docker compose -f docker-compose.mlnode.yml up -d && docker compose logs -f
 ```
 
 This will deploy the inference node and start handling inference and Proof of Compute (PoC) tasks as soon as they are registered with your network node (instructions below).

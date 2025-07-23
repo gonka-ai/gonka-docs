@@ -56,8 +56,8 @@ It also should have:
 Clone the repository with the base deploy scripts:
 
 ```bash
-git clone https://github.com/product-science/pivot-deploy.git -b main && \
-cd pivot-deploy/join
+git clone https://github.com/product-science/inference-ignite.git -b main && \
+cd inference-ignite/deploy/join
 ```
 
 And copy `config` file template:
@@ -74,6 +74,7 @@ After cloning the repository, you’ll find the following key configuration file
 |-------------------------------|----------------------------------------------------------------------------------|
 | `config.env`                  | Contains environment variables for the network node                              |
 | `docker-compose.yml`          | Docker Compose file to launch the network node                                   |
+| `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML node                                   |
 | `node-config.json`            | Configuration file used by network node, it describes inference nodes managed by this network node |
 | `node-config-qwq.json`       | Configuration file specifically for `Qwen/QwQ-32B` on A100/H100                     |
 | `node-config-qwq-4x3090.json` | Optimized config for `QwQ-32B` using 4x3090 setup                                   |
@@ -129,6 +130,8 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
     export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		# Keep as is
     export RPC_SERVER_URL_1=http://89.169.103.180:26657		# Keep as is
     export RPC_SERVER_URL_2=http://195.242.13.239:26657		# Keep as is
+    export PORT=8000                                        # Keep as is
+    export INFERENCE_PORT=5000                              # Keep as is
     ```
 
 Which variables to edit:
@@ -153,7 +156,7 @@ The quickstart instruction is designed to run both the network node and the infe
 
 Make sure you are in the `pivot-deploy/join` folder before running the next commands. 
 ```bash
-docker compose -f docker-compose.yml pull
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
 ```
 
 **2. Launch the Services**
@@ -162,14 +165,14 @@ Once containers are pulled and model weights are cached, launch the node:
 
 ```bash
 source config.env && \
-docker compose -f docker-compose.yml up -d
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ```
 
 !!! note "Recommendation"
     Once the services are launched, you can check logs to verify the launch was successful:
     
     ```bash
-    docker compose -f docker-compose.yml logs -f
+    docker compose -f docker-compose.yml -f docker-compose.mlnode.yml logs -f
     ```
 
     If you see the chain node continuously processing block events, then most likely everything is fine.
@@ -203,7 +206,7 @@ Make sure you are in `pivot-deploy/join` folder.
 
 To stop all running containers:
 ```bash
-docker compose -f docker-compose.yml down
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
 ```
 This stops and removes all services defined in the `docker-compose.yml` file without deleting volumes or data unless explicitly configured.
 
@@ -223,8 +226,8 @@ rm -rf $HF_HOME
 
 **Full Reset Workflow (if you want to rejoin as a fresh node)**
 ```bash
-docker compose -f docker-compose.yml down
-rm -rf .inference
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
+rm -rf .inference .dapi
 # Optional: rm -rf $HF_HOME
 ```
 

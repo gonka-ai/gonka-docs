@@ -130,8 +130,6 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
     export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		# Keep as is
     export RPC_SERVER_URL_1=http://89.169.103.180:26657		# Keep as is
     export RPC_SERVER_URL_2=http://195.242.13.239:26657		# Keep as is
-    export PORT=8000                                        # Keep as is
-    export INFERENCE_PORT=5000                              # Keep as is
     ```
 
 Which variables to edit:

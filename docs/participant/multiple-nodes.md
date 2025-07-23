@@ -124,7 +124,7 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 
 On the inference node's server, go to the `cd inference-ignite/deploy/join` directory and execute
 ```
-docker compose -f docker-compose.mlnode.yml up -d && docker compose logs -f
+docker compose -f docker-compose.mlnode.yml up -d && docker compose -f docker-compose.mlnode.yml logs -f
 ```
 
 This will deploy the inference node and start handling inference and Proof of Compute (PoC) tasks as soon as they are registered with your network node (instructions below).

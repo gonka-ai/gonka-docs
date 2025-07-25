@@ -21,20 +21,14 @@ The protocol currently supports the following model categories:
 - **Small Models**: `Qwen2.5-7B`
 
 ### Configuration for Optimal Rewards
-
-To maximize your reward potential, configure each Network Node to serve all three model classes, with a minimum of two MLNodes per class.
-This architecture:
+To earn the highest rewards and maintain reliability, each Network Node should serve all three model classes, with a minimum of 2 MLNodes per class. This setup:
 
 - Improves protocol-level redundancy and fault tolerance
 - Enhances model-level validation performance
 - Aligns with future reward scaling logic
 
 ### Proposed Hardware Configuration
-To run a service, you need to have a machine with a [supported GPU(s)](/participant/hardware-specifications).  
-
-To optimize rewards and ensure system robustness, we recommend grouping all your hardware into 2-5 Network Nodes. 
-**Network Node (example)**
-You can replicate this configuration across multiple nodes.  Each should follow this layout:
+To run a valid node, you need machines with [supported GPU(s)](/participant/hardware-specifications). We recommend grouping your hardware into 2–5 Network Nodes, each configured to support all model classes. Below is a reference layout:
 
 | Model Class | Model Name                          | MLNodes (min) | Example Hardware                          |
 |-------------|-------------------------------------|----------------|--------------------------------------------|

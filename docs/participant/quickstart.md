@@ -11,30 +11,37 @@ The guide describes the scenario where both services are deployed on the same ma
 To proceed, you'll need access to the private codebase. Please send your GitHub username to [hello@productscience.ai](mailto:hello@productscience.ai).
 
 ## Prerequisites
-### Supported LLMs and recommended server configurations
+This  section provides guidance on configuring your hardware infrastructure to participate in Gonka Network launch. The goal is to maximize protocol rewards by aligning your deployment with network expectations.
 
-In our network, we aim to support open-source LLMs that rank highly on Chat Arena. As of March 2025, this includes `DeepSeek-R1`, `DeepSeek-V3`, `Gemma-3-27B`, `QwQ-32B`, `Llama-3-70B`, `Llama-3-405B`. Each ML node should have one or more GPUs with enough VRAM to run inference independently. Below are the recommended configurations per model size:
+#### Supported Model Classes
+The protocol currently supports the following model categories:
 
-- **80GB+ VRAM** for `Gemma-3-27B` and `QwQ-32B`;
-- **160GB+ VRAM** for `Llama-3-70B`;
-- **640GB+ VRAM** for `DeepSeek-R1`, `DeepSeek-V3`, `Llama-3-405B`.
+- **Large Models**: `DeepSeek R1` / `Qwen3-235B` (may not be available at launch but expected in early upgrades)
+- **Medium Models**: `Qwen3-32B` / `Gemma-3-27b-it`
+- **Small Models**: `Qwen2.5-7B`
 
-| **Model (by demand)** | **8×H100** | **8×A100** | **2×H100** | **2×A100** | **1×H100\*** | **1×A100\*** | **8×3090** | **4×3090** | **1×3090** |
-|------------------------|------------|------------|------------|------------|--------------|--------------|------------|------------|----------------|
-| **DeepSeek-R1**        | ✅         | ✅         |            |            |              |              |            |            |                |
-| **Gemma-3-27B**        |🆗           |🆗           |🆗           |🆗           | ✅            | ✅            |🆗          | ✅          |                |
-| **DeepSeek-V3**        | ✅         | ✅         |            |            |              |              |            |            |                |
-| **QwQ-32B**            |🆗           |🆗           |🆗           |🆗           | ✅            | ✅            |🆗          | ✅          |                |
-| **Llama-3-405B**       | ✅         | ✅         |            |            |              |              |            |            |                |
-| **Llama-3-70B**        |🆗           |🆗           | ✅         | ✅         |🆗             |🆗             | ✅         |            |                |
-| **Qwen2.5-7B-Instruct**            |🆗           |🆗           |🆗           |🆗           |🆗             |🆗             |🆗           |🆗           | ✅              |
+#### Configuration for Optimal Rewards
 
-- ✅ — Fully supported and efficient  
-- 🆗 — Supported, but not efficient
-- If you have multiple H100 or A100 GPUs, consider grouping 2 or 8 of them into a single node to support higher-demand models.
-- If you have multiple 3090 GPUs, consider grouping 4 or 8 of them into a single node for better performance.
+To maximize your reward potential, configure each Network Node to serve all three model classes, with a minimum of two MLNodes per class.
+This architecture:
 
+- Improves protocol-level redundancy and fault tolerance
+- Enhances model-level validation performance
+- Aligns with future reward scaling logic
+
+#### Proposed Hardware Configuration
 To run a service, you need to have a machine with a [supported GPU(s)](/participant/hardware-specifications).  
+
+To optimize rewards and ensure system robustness, we recommend grouping all your hardware into 2-5 Network Nodes. 
+**Network Node (example)**
+You can replicate this configuration across multiple nodes.  Each should follow this layout:
+| Model Class | Model Name                        | MLNodes (min) | Example Hardware                                      |
+|-------------|-----------------------------------|----------------|--------------------------------------------------------|
+| **Large**   | `DeepSeek R1` / `Qwen3-235B`          | ≥2             | 1× MLNode per 8× H200                        |
+| **Medium**  | `Qwen3-32B` / `Gemma-3-27b-it`        | ≥2             | 4× A100 or 2× H100 per MLNode                          |
+| **Small**   | `Qwen2.5-7B`                        | ≥2             | Flexible (A100, L40, etc.)                             |
+
+This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple MLNodes across all three model tiers.
 
 It also should have:
 

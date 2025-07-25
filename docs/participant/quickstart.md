@@ -32,11 +32,11 @@ To earn the highest rewards and maintain reliability, each Network Node should s
 ### Proposed Hardware Configuration
 To run a valid node, you need machines with [supported GPU(s)](/participant/hardware-specifications). We recommend grouping your hardware into 2–5 Network Nodes, each configured to support all model classes. Below is a reference layout:
 
-| Model Class | Model Name                          | MLNodes (min) | Example Hardware                          |
-|-------------|-------------------------------------|----------------|--------------------------------------------|
-| **Large**   | `DeepSeek R1` / `Qwen3-235B`         | ≥2             | 8×H200 per MLNode                      |
-| **Medium**  | `Qwen3-32B` / `Gemma-3-27b-it`       | ≥2             | 4×A100 or 2×H100 per MLNode              |
-| **Small**   | `Qwen2.5-7B`                         | ≥2             | 1x3090 per or 8x3090 per MLNode                 |
+| **Model Class** | **Model Name**                          | **MLNodes (min)** | **Example Hardware**                            | **Total VRAM** |
+|-----------------|------------------------------------------|-------------------|-------------------------------------------------|----------------|
+| **Large**       | `DeepSeek R1` / `Qwen3-235B`                | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
+| **Medium**      | `Qwen3-32B` / `Gemma-3-27B-it`              | ≥ 2               | 4× A100 or 2× H100 per MLNode                   | 80 GB          |
+| **Small**       | `Qwen2.5-7B`                              | ≥ 2               | 1× 3090 or 8× 3090 per MLNode                   | 24 GB          |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple MLNodes across all three model tiers.
 

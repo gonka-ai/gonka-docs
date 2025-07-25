@@ -20,6 +20,8 @@ The protocol currently supports the following model categories:
 - **Medium Models**: `Qwen3-32B` / `Gemma-3-27b-it`
 - **Small Models**: `Qwen2.5-7B`
 
+The exact parameters of deploy are part of genesis and can be modified by governance.
+
 ### Configuration for Optimal Rewards
 To earn the highest rewards and maintain reliability, each Network Node should serve all three model classes, with a minimum of 2 MLNodes per class. This setup:
 
@@ -32,11 +34,13 @@ To run a valid node, you need machines with [supported GPU(s)](/participant/hard
 
 | Model Class | Model Name                          | MLNodes (min) | Example Hardware                          |
 |-------------|-------------------------------------|----------------|--------------------------------------------|
-| **Large**   | `DeepSeek R1` / `Qwen3-235B`         | ≥2             | 1× MLNode per 8× H200                      |
-| **Medium**  | `Qwen3-32B` / `Gemma-3-27b-it`       | ≥2             | 4× A100 or 2× H100 per MLNode              |
-| **Small**   | `Qwen2.5-7B`                         | ≥2             | Flexible (A100, L40, etc.)                 |
+| **Large**   | `DeepSeek R1` / `Qwen3-235B`         | ≥2             | 8×H200 per MLNode                      |
+| **Medium**  | `Qwen3-32B` / `Gemma-3-27b-it`       | ≥2             | 4×A100 or 2×H100 per MLNode              |
+| **Small**   | `Qwen2.5-7B`                         | ≥2             | 1x3090 per or 8x3090 per MLNode                 |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple MLNodes across all three model tiers.
+
+More details about optimal deploy configuration can be found [here](https://gonka.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 It also should have:
 

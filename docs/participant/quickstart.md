@@ -13,14 +13,14 @@ To proceed, you'll need access to the private codebase. Please send your GitHub 
 ## Prerequisites
 This  section provides guidance on configuring your hardware infrastructure to participate in Gonka Network launch. The goal is to maximize protocol rewards by aligning your deployment with network expectations.
 
-#### Supported Model Classes
+### Supported Model Classes
 The protocol currently supports the following model categories:
 
 - **Large Models**: `DeepSeek R1` / `Qwen3-235B` (may not be available at launch but expected in early upgrades)
 - **Medium Models**: `Qwen3-32B` / `Gemma-3-27b-it`
 - **Small Models**: `Qwen2.5-7B`
 
-#### Configuration for Optimal Rewards
+### Configuration for Optimal Rewards
 
 To maximize your reward potential, configure each Network Node to serve all three model classes, with a minimum of two MLNodes per class.
 This architecture:
@@ -29,17 +29,18 @@ This architecture:
 - Enhances model-level validation performance
 - Aligns with future reward scaling logic
 
-#### Proposed Hardware Configuration
+### Proposed Hardware Configuration
 To run a service, you need to have a machine with a [supported GPU(s)](/participant/hardware-specifications).  
 
 To optimize rewards and ensure system robustness, we recommend grouping all your hardware into 2-5 Network Nodes. 
 **Network Node (example)**
 You can replicate this configuration across multiple nodes.  Each should follow this layout:
-| Model Class | Model Name                        | MLNodes (min) | Example Hardware                                      |
-|-------------|-----------------------------------|----------------|--------------------------------------------------------|
-| **Large**   | `DeepSeek R1` / `Qwen3-235B`          | ≥2             | 1× MLNode per 8× H200                        |
-| **Medium**  | `Qwen3-32B` / `Gemma-3-27b-it`        | ≥2             | 4× A100 or 2× H100 per MLNode                          |
-| **Small**   | `Qwen2.5-7B`                        | ≥2             | Flexible (A100, L40, etc.)                             |
+
+| Model Class | Model Name                          | MLNodes (min) | Example Hardware                          |
+|-------------|-------------------------------------|----------------|--------------------------------------------|
+| **Large**   | `DeepSeek R1` / `Qwen3-235B`         | ≥2             | 1× MLNode per 8× H200                      |
+| **Medium**  | `Qwen3-32B` / `Gemma-3-27b-it`       | ≥2             | 4× A100 or 2× H100 per MLNode              |
+| **Small**   | `Qwen2.5-7B`                         | ≥2             | Flexible (A100, L40, etc.)                 |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple MLNodes across all three model tiers.
 

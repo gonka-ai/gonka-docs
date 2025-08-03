@@ -15,6 +15,7 @@ nav:
         - Quickstart: participant/quickstart.md
         - Multiple nodes: participant/multiple-nodes.md
         - Network Node API: participant/network-node-api.md
+        - Key Management: participant/key-management.md
         - Access account: participant/access-account.md
         - Benchmark to Choose Optimal Deployment Config for LLMs: participant/benchmark-to-choose-optimal-deployment-config-for-llms.md
         - Hardware Specifications: participant/hardware-specifications.md

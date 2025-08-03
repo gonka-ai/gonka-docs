@@ -9,9 +9,29 @@
 
 /* == 1. Typography ============================================= */
 .md-typeset h1{font-weight:600;}  /* page title            */
-.md-typeset h2{font-weight:500;}
+.md-typeset h2{font-weight:450;}
 .md-typeset h3{font-weight:400;}
 .md-typeset h4{font-weight:300;}
+
+/* Better heading sizes and spacing for visual hierarchy */
+.md-typeset h2{
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+.md-typeset h3{
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+.md-typeset h4{
+  font-size: 1.05rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+  /* text-decoration: underline; */
+  /* text-decoration-thickness: 1px; */
+  /* text-underline-offset: 4px; */
+}
 
 /* Headline colours per colour‑scheme */
 [data-md-color-scheme="slate"]   .md-typeset h1,

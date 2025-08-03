@@ -124,6 +124,50 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
     - `read:packages` → Download packages from GitHub Package Registry
 
 ## Setup Your Network Node 
+
+### Key Management Overview
+Before configuring your network node, you need to set up cryptographic keys for secure operations. **You SHOULD read our complete [Key Management Guide](/participant/key-management/) before launching a production node.**
+
+We use a two-key system:
+- **Account Key** (Cold Wallet) - Created on your local secure machine for high-stakes operations
+- **ML Operational Key** (Warm Wallet) - Created on the server for automated AI workload transactions
+
+### Create Account Key (Local Machine)
+**IMPORTANT: Perform this step on a secure, local machine (not your server)**
+
+First, download the `inferenced` binary to your local machine and create your Account Key:
+
+```bash
+./inferenced keys add gonka-account-key --keyring-backend file
+```
+
+CLI will ask you for passphrase and show data about created key-pair.
+```
+❯ ./inferenced keys add gonka-account-key --keyring-backend file
+Enter keyring passphrase (attempt 1/3):
+Re-enter keyring passphrase:
+
+- address: gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+  name: gonka-account-key
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY"}'
+  type: local
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+pyramid sweet dumb critic lamp various remove token talent drink announce tiny lab follow blind awful expire wasp flavor very pair tell next cable
+```
+
+**CRITICAL**: Write this mnemonic phrase down and store it in a secure, offline location. This phrase is the **only** way to recover your Account Key.
+
+!!! info "Hardware Wallet Support"
+    **Current Status**: Hardware wallets are not yet supported at network launch but will be available soon in upcoming upgrades.
+    
+    **For Now**: Store your Account Key on a secure, dedicated machine with minimal internet exposure and strong encryption. Once hardware wallet support is available, you can import your existing mnemonic phrase into supported devices (Ledger, Trezor).
+    
+    **Important**: Always keep your mnemonic phrase as backup regardless of future hardware wallet adoption.
+
 ### Edit Your Network Node Configuration
 
 !!! note "config.env"
@@ -132,6 +176,7 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
     export API_PORT=8000									# Edit as described below
     export PUBLIC_URL=http://<HOST>:<PORT>					# Edit as described below
     export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>		    # Edit as described below
+    export ACCOUNT_PUBKEY="<ACCOUNT_PUBKEY_FROM_STEP_ABOVE>"    # Use the pubkey from your Account Key (without quotes)
     export NODE_CONFIG=./node-config.json					# Keep as is
     export HF_HOME=/mnt/shared								# Directory you used for cache
     export SEED_API_URL=http://195.242.13.239:8000			# Keep as is 
@@ -155,6 +200,7 @@ Which variables to edit:
 | `PUBLIC_URL`        | Specify the `Public URL` where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000).                                                  |
 | `P2P_EXTERNAL_ADDRESS` | Specify the `Public URL` where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000).                           |
 | `HF_HOME`           | Set the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`. |
+| `ACCOUNT_PUBKEY`           | Use the public key from your Account Key created above (the value after `"key":` without quotes) |
 
 All other variables can be left as is.
 
@@ -164,34 +210,130 @@ The quickstart instruction is designed to run both the network node and the infe
 ??? note "Multiple nodes deployment"
     If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://gonka.ai/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same network node.
     
-**1. Pull Docker Images (Containers)**
+### 1. Pull Docker Images (Containers)
 
 Make sure you are in the `inference-ignite/deploy/join` folder before running the next commands. 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
 ```
 
-**2. Launch the Services**
+### 2. Start Initial Services
 
-Once containers are pulled and model weights are cached, launch the node:
+Start the essential services needed for key setup (excluding the API service):
 
+```bash
+source config.env && \
+docker compose up tmkms node -d --no-deps
+```
+
+We start these specific containers first because:
+
+- **`tmkms`** - Generates and securely manages the Consensus Key needed for validator registration
+- **`node`** - Connects to the blockchain and provides the RPC endpoint to retrieve the Consensus Key  
+- **`api`** is deliberately excluded at this stage because we need to create the ML Operational Key inside it in the next step
+
+!!! note "Recommendation"
+    You can check logs to verify the initial services started successfully:
+    
+    ```bash
+    docker compose logs tmkms node -f
+    ```
+
+    If you see the chain node continuously processing block events, then the setup is working correctly.
+
+### 3. Complete Key Setup and Participant Registration
+
+Now we need to complete the key management setup by creating the warm key, registering the participant, and granting permissions:
+
+#### 3.1. Create ML Operational Key (Server)
+
+Create the warm key inside the `api` container:
+```bash
+docker compose run --rm --no-deps -it api /bin/sh
+```
+
+Inside the container, create the ML operational key:
+```bash
+printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
+```
+
+**Example output:**
+```
+~ # printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
+
+- address: gonka1gyz2agg5yx49gy2z4qpsz9826t6s9xev6tkehw
+  name: node-702105
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Ao8VPh5U5XQBcJ6qxAIwBbhF/3UPZEwzZ9H/qbIA6ipj"}'
+  type: local
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+again plastic athlete arrow first measure danger drastic wolf coyote work memory already inmate sorry path tackle custom write result west tray rabbit jeans
+```
+
+Exit the container:
+```bash
+exit
+```
+
+#### 3.2. Get Consensus Public Key (Server)
+
+Get the consensus public key from your running node:
+```bash
+curl http://localhost:26657/status | jq -r '.result.validator_info.pub_key.value'
+```
+
+**Example output:**
+```
+IytsMYMPIMh+AFe3iYBQAj1Dt3UkIdGvbJCyJwGoJfA=
+```
+
+#### 3.3. Register Participant (Any Machine)
+
+Register your participant with the network. This command doesn't require signing from either the cold or warm private key and can be executed on any machine.
+
+```bash
+./inferenced register-new-participant \
+    $PUBLIC_URL \
+    "$ACCOUNT_PUBKEY" \
+    "<consensus-key-from-previous-step>" \
+    --node-address $SEED_API_URL
+```
+
+**Expected output:**
+```
+...
+Found participant with pubkey: Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY (balance: 0)
+Participant is now available at http://36.189.234.237:19250/v1/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+```
+
+#### 3.4. Grant Permissions to ML Operational Key (Local Machine)
+**IMPORTANT: Perform this step on your secure local machine where you created the Account Key**
+
+Grant permissions from your Account Key to the ML Operational Key:
+```bash
+./inferenced tx inference grant-ml-ops-permissions \
+    gonka-account-key \
+    <ml-operational-key-address-from-step-3.1> \
+    --from gonka-account-key \
+    --keyring-backend file \
+    --gas 2000000 \
+    --node $SEED_API_URL/chain-rpc/
+```
+
+#### 3.5. Launch Full Node (Server)
+
+Finally, launch all containers including the API:
 ```bash
 source config.env && \
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ```
 
-!!! note "Recommendation"
-    Once the services are launched, you can check logs to verify the launch was successful:
-    
-    ```bash
-    docker compose -f docker-compose.yml -f docker-compose.mlnode.yml logs -f
-    ```
-
-    If you see the chain node continuously processing block events, then most likely everything is fine.
-
-### Verify the node is active and reachable
+## Verify Node Status
 After launching the node, wait a few minutes. You should see your node listed at the following URL:
-```bahs
+```bash
 http://195.242.13.239:8000/v1/participants
 ```
 
@@ -213,7 +355,7 @@ Using public IP of genesis node
 curl http://195.242.13.239:26657/status
 ```
 
-###  Stopping and Cleaning Up Your Node
+## Stopping and Cleaning Up Your Node
 Make sure you are in `inference-ignite/deploy/join` folder.
 
 To stop all running containers:

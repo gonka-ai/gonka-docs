@@ -135,7 +135,7 @@ We use a two-key system:
 ### Create Account Key (Local Machine)
 **IMPORTANT: Perform this step on a secure, local machine (not your server)**
 
-First, download the `inferenced` binary to your local machine and create your Account Key:
+First, download the `inferenced` binary to your local machine and create your Account Key using the `file` keyring backend (you can also use `os` for enhanced security on supported systems):
 
 ```bash
 ./inferenced keys add gonka-account-key --keyring-backend file
@@ -172,30 +172,33 @@ pyramid sweet dumb critic lamp various remove token talent drink announce tiny l
 
 !!! note "config.env"
     ```
-    export KEY_NAME=<FILLIN>								# Edit as described below
-    export API_PORT=8000									# Edit as described below
-    export PUBLIC_URL=http://<HOST>:<PORT>					# Edit as described below
-    export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>		    # Edit as described below
+    export KEY_NAME=<FILLIN>								    # Edit as described below
+    export KEYRING_PASSWORD=<FILLIN>                            # Edit as described below
+    export API_PORT=8000									    # Edit as described below
+    export PUBLIC_URL=http://<HOST>:<PORT>					    # Edit as described below
+    export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>		        # Edit as described below
     export ACCOUNT_PUBKEY="<ACCOUNT_PUBKEY_FROM_STEP_ABOVE>"    # Use the pubkey from your Account Key (without quotes)
-    export NODE_CONFIG=./node-config.json					# Keep as is
-    export HF_HOME=/mnt/shared								# Directory you used for cache
-    export SEED_API_URL=http://195.242.13.239:8000			# Keep as is 
-    export SEED_NODE_RPC_URL=http://195.242.13.239:26657	# Keep as is
-    export SEED_NODE_P2P_URL=tcp://195.242.13.239:26656		# Keep as is
-    export DAPI_API__POC_CALLBACK_URL=http://api:9100		# Keep as is
-    export DAPI_CHAIN_NODE__URL=http://node:26657			# Keep as is
-    export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		# Keep as is
-    export RPC_SERVER_URL_1=http://89.169.103.180:26657		# Keep as is
-    export RPC_SERVER_URL_2=http://195.242.13.239:26657		# Keep as is
-    export PORT=8080                                        # Keep as is
-    export INFERENCE_PORT=5050                              # Keep as is
+    export NODE_CONFIG=./node-config.json					    # Keep as is
+    export HF_HOME=/mnt/shared								    # Directory you used for cache
+    export SEED_API_URL=http://195.242.13.239:8000			    # Keep as is 
+    export SEED_NODE_RPC_URL=http://195.242.13.239:26657	    # Keep as is
+    export SEED_NODE_P2P_URL=tcp://195.242.13.239:26656		    # Keep as is
+    export DAPI_API__POC_CALLBACK_URL=http://api:9100		    # Keep as is
+    export DAPI_CHAIN_NODE__URL=http://node:26657			    # Keep as is
+    export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		    # Keep as is
+    export RPC_SERVER_URL_1=http://89.169.103.180:26657		    # Keep as is
+    export RPC_SERVER_URL_2=http://195.242.13.239:26657		    # Keep as is
+    export PORT=8080                                            # Keep as is
+    export INFERENCE_PORT=5050                                  # Keep as is
+    export KEYRING_BACKEND=file                                 # Keep as is
     ```
 
 Which variables to edit:
 
 | Variable               | What to do                                                                                                                                                               |
 |------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `KEY_NAME`            | Manually define a unique identifier for your node.                                                                                                                        |
+| `KEY_NAME`            | Manually define a unique identifier for your node.                                                                                                                      |
+| `KEYRING_PASSWORD`    | Set a password for encrypting the ML Operational Key stored in the `file` keyring backend on the server.                                                        |
 | `API_PORT`           | Set the port where your node will be available on the machine (default is 8000).                                                                                                   |
 | `PUBLIC_URL`        | Specify the `Public URL` where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000).                                                  |
 | `P2P_EXTERNAL_ADDRESS` | Specify the `Public URL` where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000).                           |
@@ -247,7 +250,7 @@ Now we need to complete the key management setup by creating the warm key, regis
 
 #### 3.1. Create ML Operational Key (Server)
 
-Create the warm key inside the `api` container:
+Create the warm key inside the `api` container using the `file` keyring backend (required for programmatic access):
 ```bash
 docker compose run --rm --no-deps -it api /bin/sh
 ```

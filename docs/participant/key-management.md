@@ -70,35 +70,29 @@ At network launch, participants use a **three-key system**:
 ### Security Guidelines
 
 1. **Account Key Protection** 
-    - **Secure Machine Requirements**: Use a dedicated machine with:
-        - Minimal exposure to the public internet (air-gapped is best)
-        - Minimal software installation (not used for daily web browsing or email)
-        - Encrypted hard drive with full disk encryption
-        - Restricted physical and remote access
-    - **Storage**: Store on secure local machine with encrypted storage
+    - **Storage**: Secure local machine with encrypted storage and minimal internet exposure
+        - *Secure local machine*: A dedicated computer with restricted access, not used for daily browsing/email, ideally air-gapped or with limited network connectivity
+    - **Keyring Backend**: Use `file` or `os` keyring backend for secure local storage
     - **Passphrases**: Use strong, unique passphrases for keyring protection
     - **Backup**: Maintain offline backup of mnemonic phrase in secure location
     - **Usage**: Never use for routine operations - only for granting permissions and validator actions
 
 2. **Hardware Wallet Support**
-    - **Current Limitation**: Hardware wallets are not supported at network launch
-    - **Timeline**: Hardware wallet integration is a high priority and will be available in upcoming network upgrades
+    - **Current Status**: Not supported at network launch but planned for upcoming upgrades
     - **Future Support**: Popular hardware wallets and enterprise security modules will be supported
-    - **Interim Security Strategy**:
-        - Use a dedicated machine with minimal internet exposure when possible
-        - Protect keys with strong, unique passphrases
-        - Enable full disk encryption on the machine storing keys
-        - Avoid using the same machine for daily browsing/email
-    - **Migration Path**: Once hardware wallet support is available, you can import your existing mnemonic phrase
-    - **Critical Reminder**: Always save and securely store your mnemonic phrase - it's your ultimate recovery method
+    - **Migration Path**: Once available, you can import your existing mnemonic phrase
+    - **Critical**: Always save and securely store your mnemonic phrase as your ultimate recovery method
 
-3. **Operational Security**
-     - Regularly rotate ML Operational Keys using Account Key authorization
+3. **ML Operational Key Management**
+     - **Keyring Backend**: Must use `file` keyring backend for server-based storage with programmatic access
+     - **Security**: Store encrypted on server with strong passphrase protection
+     - **Rotation**: Regularly rotate ML Operational Keys using Account Key authorization
+     - **Access**: Enable programmatic access by containers while maintaining encryption at rest
+
+4. **Operational Security**
      - Implement proper backup and recovery procedures for all keys
-     - Use `file` keyring backend with strong passphrases for all key storage
      - Test key recovery procedures in safe environment before production deployment
-
-
+     - Monitor and audit key usage patterns
 
 ### Recovery Procedures
 1. **Account Key Loss**: **CRITICAL** - No recovery possible without mnemonic

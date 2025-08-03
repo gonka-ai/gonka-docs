@@ -126,9 +126,11 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ## Setup Your Network Node 
 
 ### Key Management Overview
-Before configuring your network node, you need to set up cryptographic keys for secure operations. **You SHOULD read our complete [Key Management Guide](/participant/key-management/) before launching a production node.**
+Before configuring your network node, you need to set up cryptographic keys for secure operations.  
+**You recommend to read [Key Management Guide](/participant/key-management/) before launching a production node.**
 
 We use a two-key system:
+
 - **Account Key** (Cold Wallet) - Created on your local secure machine for high-stakes operations
 - **ML Operational Key** (Warm Wallet) - Created on the server for automated AI workload transactions
 
@@ -177,7 +179,7 @@ pyramid sweet dumb critic lamp various remove token talent drink announce tiny l
     export API_PORT=8000									    # Edit as described below
     export PUBLIC_URL=http://<HOST>:<PORT>					    # Edit as described below
     export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>		        # Edit as described below
-    export ACCOUNT_PUBKEY="<ACCOUNT_PUBKEY_FROM_STEP_ABOVE>"    # Use the pubkey from your Account Key (without quotes)
+    export ACCOUNT_PUBKEY=<ACCOUNT_PUBKEY_FROM_STEP_ABOVE>      # Use the pubkey from your Account Key (without quotes)
     export NODE_CONFIG=./node-config.json					    # Keep as is
     export HF_HOME=/mnt/shared								    # Directory you used for cache
     export SEED_API_URL=http://195.242.13.239:8000			    # Keep as is 
@@ -207,6 +209,14 @@ Which variables to edit:
 
 All other variables can be left as is.
 
+**Load the configuration:**
+```bash
+source config.env
+```
+
+!!! note "Using Environment Variables"
+    The examples in the following sections will reference these environment variables (e.g., `$PUBLIC_URL`, `$ACCOUNT_PUBKEY`, `$SEED_API_URL`) in both local machine commands and server commands. Make sure to run `source config.env` in each terminal session where you'll be executing these commands.
+
 ## Launch node
 The quickstart instruction is designed to run both the network node and the inference node on a single machine (one server setup). 
 
@@ -233,7 +243,7 @@ We start these specific containers first because:
 
 - **`tmkms`** - Generates and securely manages the Consensus Key needed for validator registration
 - **`node`** - Connects to the blockchain and provides the RPC endpoint to retrieve the Consensus Key  
-- **`api`** is deliberately excluded at this stage because we need to create the ML Operational Key inside it in the next step
+- **`api`** - is deliberately excluded at this stage because we need to create the ML Operational Key inside it in the next step
 
 !!! note "Recommendation"
     You can check logs to verify the initial services started successfully:
@@ -250,7 +260,7 @@ Now we need to complete the key management setup by creating the warm key, regis
 
 #### 3.1. Create ML Operational Key (Server)
 
-Create the warm key inside the `api` container using the `file` keyring backend (required for programmatic access):
+Create the warm key inside the `api` container using the `file` keyring backend (required for programmatic access). The key will be stored in a persistent volume mapped to `/root/.inference` of the container:
 ```bash
 docker compose run --rm --no-deps -it api /bin/sh
 ```
@@ -300,7 +310,7 @@ Register your participant with the network. This command doesn't require signing
 ```bash
 ./inferenced register-new-participant \
     $PUBLIC_URL \
-    "$ACCOUNT_PUBKEY" \
+    $ACCOUNT_PUBKEY \
     "<consensus-key-from-previous-step>" \
     --node-address $SEED_API_URL
 ```
@@ -324,6 +334,16 @@ Grant permissions from your Account Key to the ML Operational Key:
     --keyring-backend file \
     --gas 2000000 \
     --node $SEED_API_URL/chain-rpc/
+```
+
+**Expected output:**
+```
+...
+Transaction sent with hash: FB9BBBB5F8C155D0732B290C443A0D06BC114CDF43E8EE8FB329D646C608062E
+Waiting for transaction to be included in a block...
+
+Transaction confirmed successfully!
+Block height: 174
 ```
 
 #### 3.5. Launch Full Node (Server)

@@ -11,6 +11,15 @@ The guide provides instructions for deploying both services on the same machine 
 
 ## Prerequisites
 
+For the Network node, the approximate hardware requirements are:
+
+- 16 cores CPU (amd64)
+- 64+ GB RAM
+- 1TB NVe SSD
+- 100Mbps minimum netowork connection (1Gbps preffered)
+
+The final requirements will depend on the number of MLNodes connected and their total throughput.
+
 Before proceeding, complete the [Quickstart guide](https://gonka.ai/participant/quickstart/) through step 3.4, which includes:
 
 - Hardware and software requirements

@@ -31,7 +31,7 @@ curl http://195.242.13.239:8000/v1/epochs/current/participants
 ## 2. Create an account
 
 To create and interact with your Gonka account, you need the `inferenced` CLI tool.   
-You can download the latest `inferenced` binary for your system [here](https://github.com/product-science/inference-ignite/releases).
+You can download the latest `inferenced` binary for your system [here](https://github.com/gonka-ai/gonka/releases).
 
 
 ??? note "Enabling Execution on Mac OS"

@@ -17,7 +17,7 @@ To proceed in Testnet, request access to the private codebase by emailing your G
 ??? note "What is the `inferenced` CLI tool?" 
     The inferenced CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
 
-Download the latest `inferenced` binary from <a href="https://github.com/product-science/inference-ignite/releases" target="_blank" rel="noopener">here</a> and make it executable:
+Download the latest `inferenced` binary from <a href="https://github.com/gonka-ai/gonka/releases" target="_blank" rel="noopener">here</a> and make it executable:
 ```
 chmod +x inferenced
 ./inferenced --help

@@ -134,10 +134,23 @@ We use a two-key system:
 - **Account Key** (Cold Wallet) - Created on your local secure machine for high-stakes operations
 - **ML Operational Key** (Warm Wallet) - Created on the server for automated AI workload transactions
 
+### Install the CLI Tool
+The `inferenced` CLI is required for local account management and network operations. It's a command-line interface utility that allows you to create and manage Gonka accounts, register participants, and perform various network operations from your local machine.
+
+Download the latest `inferenced` binary from [GitHub releases](https://github.com/gonka-ai/gonka/releases) and make it executable:
+
+```bash
+chmod +x inferenced
+./inferenced --help
+```
+
+!!! note "MacOS Users"
+    On MacOS, you may need to allow execution in `System Settings` → `Privacy & Security` if prompted. Scroll down to the warning about `inferenced` and click `Allow Anyway`.
+
 ### Create Account Key (Local Machine)
 **IMPORTANT: Perform this step on a secure, local machine (not your server)**
 
-First, download the `inferenced` binary to your local machine and create your Account Key using the `file` keyring backend (you can also use `os` for enhanced security on supported systems):
+Create your Account Key using the `file` keyring backend (you can also use `os` for enhanced security on supported systems):
 
 ```bash
 ./inferenced keys add gonka-account-key --keyring-backend file

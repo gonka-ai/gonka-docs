@@ -11,11 +11,13 @@ The guide provides instructions for deploying both services on the same machine 
 
 ## Prerequisites
 
-Before proceeding, read the following sections:
+Before proceeding, complete the [Quickstart guide](https://gonka.ai/participant/quickstart/) through step 3.4, which includes:
 
-- [Quickstart - Prerequisites](https://gonka.ai/participant/quickstart/#prerequisites)
-- [Download Deployment Files](https://gonka.ai/participant/quickstart/#download-deployment-files)
-- [Container Access](https://gonka.ai/participant/quickstart/#authenticate-with-docker-registry)
+- Hardware and software requirements
+- Download deployment files
+- Container access authentication
+- Key management setup (Account Key and ML Operational Key)
+- Participant registration and permissions
 
 ---
 

@@ -77,10 +77,10 @@ After cloning the repository, you’ll find the following key configuration file
 
 | File                          | Description                                                                      |
 |-------------------------------|----------------------------------------------------------------------------------|
-| `config.env`                  | Contains environment variables for the network node                              |
-| `docker-compose.yml`          | Docker Compose file to launch the network node                                   |
+| `config.env`                  | Contains environment variables for the Network Node                              |
+| `docker-compose.yml`          | Docker Compose file to launch the Network Node                                   |
 | `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML node                                   |
-| `node-config.json`            | Configuration file used by network node, it describes inference nodes managed by this network node |
+| `node-config.json`            | Configuration file used by Network Node, it describes inference nodes managed by this Network Node |
 | `node-config-qwq.json`       | Configuration file specifically for `Qwen/QwQ-32B` on A100/H100                     |
 | `node-config-qwq-4x3090.json` | Optimized config for `QwQ-32B` using 4x3090 setup                                   |
 | `node-config-qwq-8x3090.json` | Optimized config for `QwQ-32B` using 8x3090 setup                                   |
@@ -125,7 +125,7 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 ## Setup Your Network Node 
 
 ### Key Management Overview
-Before configuring your network node, you need to set up cryptographic keys for secure operations.  
+Before configuring your Network Node, you need to set up cryptographic keys for secure operations.  
 **You recommend to read [Key Management Guide](/participant/key-management/) before launching a production node.**
 
 We use a two-key system:
@@ -230,10 +230,10 @@ source config.env
     The examples in the following sections will reference these environment variables (e.g., `$PUBLIC_URL`, `$ACCOUNT_PUBKEY`, `$SEED_API_URL`) in both local machine commands and server commands. Make sure to run `source config.env` in each terminal session where you'll be executing these commands.
 
 ## Launch node
-The quickstart instruction is designed to run both the network node and the inference node on a single machine (one server setup). 
+The quickstart instruction is designed to run both the Network Node and the inference node on a single machine (one server setup). 
 
 ??? note "Multiple nodes deployment"
-    If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://gonka.ai/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same network node.
+    If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://gonka.ai/participant/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same Network Node.
     
 ### 1. Pull Docker Images (Containers)
 
@@ -316,6 +316,9 @@ inferenced register-new-participant \
 Found participant with pubkey: Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY (balance: 0)
 Participant is now available at http://36.189.234.237:19250/v1/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
 ```
+
+!!! note "Per-Node Account Key Configuration"
+    Always generate a unique `ACCOUNT_PUBKEY` for each Network Node to ensure proper separation of participants.
 
 Then we can exit the container:
 ```bash

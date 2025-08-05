@@ -6,8 +6,6 @@ name: index.md
 
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
 
-To proceed, you'll need access to the private codebase. Please send your GitHub username to [hello@productscience.ai](mailto:hello@productscience.ai).
-
 ---
 
 ## 1. Define variables

@@ -38,7 +38,7 @@ This section describes how to deploy a distributed setup with a network node and
 
 ## Starting the network node
 
-Make sure you have completed the [Quickstart guide](https://gonka.ai/participant/quickstart/) through step 3.4 (key management and participant registration) beforehand.
+Make sure you have completed the [Quickstart guide](https://gonka.ai/participant/quickstart/) through step 3.3 (key management and participant registration) beforehand.
 
 This server becomes the main entry point for external participants. It must be exposed to the public internet (static IP or domain recommended). High network reliability and security are essential. Host this on a stable, high-bandwidth server with robust security.
 

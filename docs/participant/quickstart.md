@@ -298,33 +298,16 @@ It is the only way to recover your account if you ever forget your password.
 again plastic athlete arrow first measure danger drastic wolf coyote work memory already inmate sorry path tackle custom write result west tray rabbit jeans
 ```
 
-Exit the container:
-```bash
-exit
+
+#### 3.2. Register Participant (Server)
+
+From the same container, we can register the participant with URL, Account Key, and Consensus Key (fetched automatically) on chain:
+
 ```
-
-#### 3.2. Get Consensus Public Key (Server)
-
-Get the consensus public key from your running node:
-```bash
-curl http://localhost:26657/status | jq -r '.result.validator_info.pub_key.value'
-```
-
-**Example output:**
-```
-IytsMYMPIMh+AFe3iYBQAj1Dt3UkIdGvbJCyJwGoJfA=
-```
-
-#### 3.3. Register Participant (Any Machine)
-
-Register your participant with the network. This command doesn't require signing from either the cold or warm private key and can be executed on any machine.
-
-```bash
-./inferenced register-new-participant \
-    $PUBLIC_URL \
+inferenced register-new-participant \
+    $DAPI_API__PUBLIC_URL \
     $ACCOUNT_PUBKEY \
-    "<consensus-key-from-previous-step>" \
-    --node-address $SEED_API_URL
+    --node-address $DAPI_CHAIN_NODE__SEED_API_URL
 ```
 
 **Expected output:**
@@ -334,7 +317,13 @@ Found participant with pubkey: Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY (bal
 Participant is now available at http://36.189.234.237:19250/v1/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
 ```
 
-#### 3.4. Grant Permissions to ML Operational Key (Local Machine)
+Then we can exit the container:
+```bash
+exit
+```
+
+
+#### 3.3. Grant Permissions to ML Operational Key (Local Machine)
 **IMPORTANT: Perform this step on your secure local machine where you created the Account Key**
 
 Grant permissions from your Account Key to the ML Operational Key:
@@ -358,7 +347,7 @@ Transaction confirmed successfully!
 Block height: 174
 ```
 
-#### 3.5. Launch Full Node (Server)
+#### 3.4. Launch Full Node (Server)
 
 Finally, launch all containers including the API:
 ```bash

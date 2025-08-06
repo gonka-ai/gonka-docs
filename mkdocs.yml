@@ -32,6 +32,7 @@ nav:
 # Visual
 theme:
   name: material
+  favicon: docs/images/01-favicon.png
   custom_dir: overrides
   font:
     text: Manrope

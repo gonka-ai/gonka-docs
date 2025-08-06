@@ -33,7 +33,7 @@ nav:
 theme:
   name: material
   favicon: images/01-favicon.png
-  logo: images/01-favicon.png
+  logo: images/Logo.png
   custom_dir: overrides
   font:
     text: Manrope

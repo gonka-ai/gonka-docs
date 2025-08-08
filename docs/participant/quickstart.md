@@ -15,7 +15,7 @@ This  section provides guidance on configuring your hardware infrastructure to p
 ### Supported Model Classes
 The protocol currently supports the following model categories:
 
-- **Large Models**: `DeepSeek R1` / `Qwen3-235B` (may not be available at launch but expected in early upgrades)
+- **Large Models**: `DeepSeek R1` / `Qwen3-235B`
 - **Medium Models**: `Qwen3-32B` / `Gemma-3-27b-it`
 - **Small Models**: `Qwen2.5-7B`
 

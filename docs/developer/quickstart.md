@@ -108,7 +108,7 @@ export GONKA_PRIVATE_KEY=<your-private-key>
 
     client = GonkaOpenAI(
         gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-        endpoints=[os.environ.get('GONKA_ENDPOINTS')]
+        source_url=NODE_URL
     )
 
     response = client.chat.completions.create({
@@ -135,9 +135,10 @@ export GONKA_PRIVATE_KEY=<your-private-key>
     ```ts linenums="1"
     import { GonkaOpenAI } from 'gonka-openai';
 
+    const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
     const client = new GonkaOpenAI({
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
-        endpoints: [process.env.GONKA_ENDPOINTS]
+        endpoints
     });
 
     const response = await client.chat.completions.create({
@@ -172,10 +173,13 @@ export GONKA_PRIVATE_KEY=<your-private-key>
     )
 
     func main() {
-        client := gonka.NewClient(
-            os.Getenv("GONKA_PRIVATE_KEY"),
-            []string{os.Getenv("GONKA_ENDPOINTS")},
-        )
+        client, err := gonka.NewClient(gonka.Options{
+            GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
+            SourceUrl: os.Getenv("NODE_URL")},
+        })
+        if err != nil {
+            panic(err)
+        }
 
         response, err := client.CreateChatCompletion(
             "Qwen/QwQ-32B",

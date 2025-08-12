@@ -24,6 +24,7 @@ nav:
         - Pricing: wallet/pricing.md
       - Terms & Policies: termsofuse.md
       - Transactions & Governance: transactions-and-governance.md
+      - Software Upgrades: software-upgrades.md
       - Help: help.md
   - API Reference:
      - API Reference: api-reference/api-reference.md

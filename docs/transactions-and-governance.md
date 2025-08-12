@@ -174,7 +174,7 @@ This will give a list of current proposals on the chain, you should see yours an
 
 ---
 
-### Add a Deposit (if needed)
+## Add a Deposit (if needed)
 
 If the initial deposit was short, top it up:
 
@@ -187,7 +187,7 @@ inferenced tx gov deposit <proposal_id> <amount> $FLAGS
 
 ---
 
-### Vote
+## Vote
 Again, this will need to be from you private machine with your Governance account:
 ```bash
 # options: yes | no | nowithveto | abstain
@@ -198,7 +198,7 @@ inferenced tx gov vote <proposal_id> yes $FLAGS
 
 ---
 
-### Track Proposal Status
+## Track Proposal Status
 
 ```bash
 # One proposal
@@ -213,7 +213,7 @@ inferenced query gov proposals -o json
 
 ---
 
-### Notes
+## Notes
 
 - **Unordered tx semantics.** When using `--unordered`, the tx carries an expiry via `--timeout-duration`, and its sequence is left unset. External tooling that expects monotonic sequences must not rely on them for these txs. ([docs.cosmos.network](https://docs.cosmos.network/main/learn/beginner/tx-lifecycle?utm_source=chatgpt.com "Transaction Lifecycle | Explore the SDK"))
 - **Gas tuning.** If simulations are tight or validators use higher min gas prices, raise `--gas-adjustment` or set `--gas-prices` per network policy. ([docs.cosmos.network](https://docs.cosmos.network/main/build/modules/auth?utm_source=chatgpt.com "x/auth | Explore the SDK"))

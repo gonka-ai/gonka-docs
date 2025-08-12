@@ -1,6 +1,6 @@
 # Transactions and Governance (Cosmos SDK 0.53)
 
-Gonka uses the standard Cosmos SDK CLI with your governance key stored on the dedicated machine you setup when joining the network. This needs to be the cold key you setup [here](https://gonka.ai/participant/quickstart/#create-account-key-local-machine). 
+Gonka uses the standard Cosmos SDK CLI with your governance key stored on the dedicated machine you setup when joining the network. This needs to be the cold key you setup ([here](https://gonka.ai/participant/quickstart/#create-account-key-local-machine)). 
 
 Unordered transactions are supported and recommended here to avoid sequence contention. ([docs.cosmos.network](https://docs.cosmos.network/main/learn/beginner/tx-lifecycle?utm_source=chatgpt.com "Transaction Lifecycle | Explore the SDK"))
 
@@ -153,7 +153,7 @@ Edit `draft_proposal.json` so it looks like:
 ```
 
 !!! note "Reminder" 
-  Include the **entire** `params` object, not just the fields you changed. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/submitting?utm_source=chatgpt.com "Submitting a Proposal - Cosmos Hub"))
+    Include the **entire** `params` object, not just the fields you changed. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/submitting?utm_source=chatgpt.com "Submitting a Proposal - Cosmos Hub"))
 
 ### 5) Submit the proposal
 This MUST be done on your private machine with your cold account information.

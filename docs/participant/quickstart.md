@@ -13,13 +13,17 @@ The guide describes the scenario where both services are deployed on the same ma
 This  section provides guidance on configuring your hardware infrastructure to participate in Gonka Network launch. The goal is to maximize protocol rewards by aligning your deployment with network expectations.
 
 ### Supported Model Classes
-The protocol currently supports the following model categories:
+The protocol currently supports the following model classes:
 
-- **Large Models**: `DeepSeek R1` / `Qwen3-235B`
-- **Medium Models**: `Qwen3-32B` / `Gemma-3-27b-it`
-- **Small Models**: `Qwen2.5-7B`
+- Large Models — `DeepSeek R1`, `Qwen3-235B`, `gpt-oss-120b`
+- Medium Models — `Qwen3-32B`, `Gemma-3-27b-it`
+- Small Models — `Qwen2.5-7B`
 
-The exact parameters of deploy are part of genesis and can be modified by governance.
+!!! note "Governance and model classification"
+    - The exact deployment parameters for each category are defined in the genesis configuration.
+    - Models may be classified into a category if approved by governance.
+    - Decisions about adding or changing supported models are made by governance.
+    - For details on governance procedures and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### Configuration for Optimal Rewards
 To earn the highest rewards and maintain reliability, each Network Node should serve all three model classes, with a minimum of 2 MLNodes per class. This setup:
@@ -88,7 +92,7 @@ After cloning the repository, you’ll find the following key configuration file
 Copy and modify the config that best fits your model and GPU layout.
 
 !!! note        
-    Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Examples for their `config` can be found in `node-config.json` and `node-config-qwq.json` accordingly.
+    The network is initially launched with two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Configuration examples for these models can be found in `node-config.json` and `node-config-qwq.json`. Decisions about adding or changing supported models are made by governance. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.

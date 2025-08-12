@@ -16,11 +16,11 @@ FLAGS="--from=$FROM --yes \
 - `--unordered` + `--timeout-duration` makes the tx valid for a bounded time and bypasses account sequence ordering (the tx sequence is left unset). This is available from SDK v0.53+. ([docs.cosmos.network](https://docs.cosmos.network/main/learn/beginner/tx-lifecycle?utm_source=chatgpt.com "Transaction Lifecycle | Explore the SDK"))
 - `--gas-adjustment` lets the CLI overshoot simulation a bit to avoid "out of gas." Tune as needed. ([Go Packages](https://pkg.go.dev/github.com/cosmos/cosmos-sdk/client/flags?utm_source=chatgpt.com "flags package - github.com/cosmos/cosmos-sdk/client/flags ..."), [docs.humans.ai](https://docs.humans.ai/protocol/concepts/gas-and-fees?utm_source=chatgpt.com "Gas and Fees"))
 
-# Vote on a Proposal (quick path)
+## Vote on a Proposal (quick path)
 
 Most participants only need to verify a proposal and cast a vote. Do these four things:
 
-## 1) Identify the right proposal_id (and verify it's the one you were told)
+### 1) Identify the right proposal_id (and verify it's the one you were told)
 
 List proposals, then inspect the one you were given and cross-check its fields (title/summary/metadata/messages):
 
@@ -34,7 +34,7 @@ inferenced query gov proposal $PROPOSAL_ID -o json
 
 Confirm the **id**, **title**, **summary**, and (if present) **metadata** match what was shared with you. If the proposal includes embedded messages, you'll also see their `@type` and fields here. (Cosmos gov v1 stores proposal content on-chain and exposes it via `query gov proposal`.) ([Cosmos SDK Documentation](https://docs.cosmos.network/v0.46/modules/gov/07_client.html?utm_source=chatgpt.com "Client - Cosmos SDK"))
 
-## 2) Review the contents carefully (especially param updates)
+### 2) Review the contents carefully (especially param updates)
 
 If the proposal includes a params update (e.g., `MsgUpdateParams`), compare the proposed params against the **current on-chain params** before voting:
 
@@ -53,14 +53,14 @@ diff -u current_params.json proposed_params.json || true
 
 For `MsgUpdateParams`, modules typically expect the **full** params object and the `authority` to be the **gov module account** (that's normal—just confirm it). ([Cosmos SDK Documentation](https://docs.cosmos.network/main/build/modules/bank?utm_source=chatgpt.com "x/bank | Explore the SDK"), [Cosmos Hub](https://hub.cosmos.network/main/governance/proposal-types/param-change?utm_source=chatgpt.com "Parameter Changes | Cosmos Hub"))
 
-## 3) Know the voting options & the (very) short gov flow
+### 3) Know the voting options & the (very) short gov flow
 
 - **Options:** `yes`, `no`, `nowithveto`, `abstain`. `NoWithVeto` is a "no" plus a veto signal; `Abstain` contributes to quorum without supporting or opposing. ([Cosmos SDK Documentation](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"), [Cosmos Tutorials](https://tutorials.cosmos.network/tutorials/8-understand-sdk-modules/4-gov.html?utm_source=chatgpt.com "Understand the Gov Module"))
     
 - **Flow:** proposals open (after deposit) → voting period runs → outcome decided by quorum/threshold/veto parameters → if **passed**, messages execute via the gov module. You may **change your vote any time before the voting period ends**; the **last** vote counts. ([Cosmos Hub](https://hub.cosmos.network/main/governance/process?utm_source=chatgpt.com "On-Chain Proposal Process"))
     
 
-## 4) Cast (or change) your vote
+### 4) Cast (or change) your vote
 
 Run this from the same machine that holds your cold governance key (you'll be prompted for the keyring password because `--keyring-backend=file`):
 
@@ -174,7 +174,7 @@ This will give a list of current proposals on the chain, you should see yours an
 
 ---
 
-## Add a Deposit (if needed)
+### Add a Deposit (if needed)
 
 If the initial deposit was short, top it up:
 
@@ -187,7 +187,7 @@ inferenced tx gov deposit <proposal_id> <amount> $FLAGS
 
 ---
 
-## Vote
+### Vote
 Again, this will need to be from you private machine with your Governance account:
 ```bash
 # options: yes | no | nowithveto | abstain
@@ -198,7 +198,7 @@ inferenced tx gov vote <proposal_id> yes $FLAGS
 
 ---
 
-## Track Proposal Status
+### Track Proposal Status
 
 ```bash
 # One proposal
@@ -213,7 +213,7 @@ inferenced query gov proposals -o json
 
 ---
 
-## Notes & Gotchas
+### Notes
 
 - **Unordered tx semantics.** When using `--unordered`, the tx carries an expiry via `--timeout-duration`, and its sequence is left unset. External tooling that expects monotonic sequences must not rely on them for these txs. ([docs.cosmos.network](https://docs.cosmos.network/main/learn/beginner/tx-lifecycle?utm_source=chatgpt.com "Transaction Lifecycle | Explore the SDK"))
 - **Gas tuning.** If simulations are tight or validators use higher min gas prices, raise `--gas-adjustment` or set `--gas-prices` per network policy. ([docs.cosmos.network](https://docs.cosmos.network/main/build/modules/auth?utm_source=chatgpt.com "x/auth | Explore the SDK"))

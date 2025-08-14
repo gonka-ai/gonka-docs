@@ -6,7 +6,7 @@ Before you begin, you will need to create a Gonka account (as a [Host](https://g
 
 ## Step 1. Purchase USDT (ERC-20)
 
-1.1. Click buy  
+1.1. Open Keplr. Click buy.  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-1-1.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-1.png" style="width:250px; height:auto;"></a>
 
 1.2. Select any third-party service. For demonstration purposes, this guide uses [Swapped.com](https://swapped.com/), which is not affiliated with the Gonka Network.  
@@ -87,13 +87,13 @@ Before you begin, you will need to create a Gonka account (as a [Host](https://g
     <a href="/images/getting-gnk-using-usdt-from-ethereum-4-2.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-2.png" style="width:250px; height:auto;"></a>
 
 4.3. Wait until your balance updates in the Liquidity Pool section http://36.189.234.237:19252/dashboard/gonka-testnet-1/developer  
-    <a href="/images/getting-gnk-using-usdt-from-ethereum-4-3.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-3.png" style="width:250px; height:auto;"></a>
+    <a href="/images/getting-gnk-using-usdt-from-ethereum-4-3.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-3.png" style="width:800px; height:auto;"></a>
 
 4.4. Enter the amount of stable coin you wish to swap, then click Swap.  
-    <a href="/images/getting-gnk-using-usdt-from-ethereum-4-4.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-4.png" style="width:250px; height:auto;"></a>
+    <a href="/images/getting-gnk-using-usdt-from-ethereum-4-4.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-4.png" style="width:800px; height:auto;"></a>
 
 4.5. In Keplr, review and confirm the transaction.  
-    <a href="/images/getting-gnk-using-usdt-from-ethereum-4-5.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-5.png" style="width:250px; height:auto;"></a>
+    <a href="/images/getting-gnk-using-usdt-from-ethereum-4-5.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-5.png" style="width:800px; height:auto;"></a>
 
 4.6. Once confirmed, your balance will update accordingly.  
-    <a href="/images/getting-gnk-using-usdt-from-ethereum-4-6.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-6.png" style="width:250px; height:auto;"></a>
+    <a href="/images/getting-gnk-using-usdt-from-ethereum-4-6.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-6.png" style="width:800px; height:auto;"></a>

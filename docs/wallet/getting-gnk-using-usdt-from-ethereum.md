@@ -6,20 +6,20 @@ Before you begin, you will need to create a Gonka account (as a [Host](https://g
 
 ## Step 1. Purchase USDT (ERC-20)
 
-1.1. Open Keplr. Click buy.  
-    <a href="/images/getting-gnk-using-usdt-from-ethereum-1-1.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-1.png" style="width:250px; height:auto;"></a>
-
-1.2. Select any third-party service. For demonstration purposes, this guide uses [Swapped.com](https://swapped.com/), which is not affiliated with the Gonka Network.  
-    <a href="/images/getting-gnk-using-usdt-from-ethereum-1-2.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-2.png" style="width:250px; height:auto;"></a>
-
-1.3. Choose USDT (ERC-20).  
-    <a href="/images/getting-gnk-using-usdt-from-ethereum-1-3.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-3.png" style="width:250px; height:auto;"></a>
-
-1.4. In Keplr, search for Ethereum.  
+1.1. In Keplr, search for Ethereum.  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-1-4.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-4.png" style="width:250px; height:auto;"></a>
 
-1.5. Hover over the Copy icon and copy your Ethereum address.  
+1.2. Hover over the Copy icon and copy your Ethereum address.  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-1-5.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-5.png" style="width:250px; height:auto;"></a>
+
+1.3. Open Keplr. Click buy.  
+    <a href="/images/getting-gnk-using-usdt-from-ethereum-1-1.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-1.png" style="width:250px; height:auto;"></a>
+
+1.4. Select any third-party service. For demonstration purposes, this guide uses [Swapped.com](https://swapped.com/), which is not affiliated with the Gonka Network.  
+    <a href="/images/getting-gnk-using-usdt-from-ethereum-1-2.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-2.png" style="width:250px; height:auto;"></a>
+
+1.5. Choose USDT (ERC-20).  
+    <a href="/images/getting-gnk-using-usdt-from-ethereum-1-3.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-3.png" style="width:250px; height:auto;"></a>
 
 1.6. On Swapped.com, enter the USDT (ERC-20) address you copied from Keplr.  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-1-6.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-1-6.png" style="width:250px; height:auto;"></a>
@@ -63,10 +63,10 @@ Before you begin, you will need to create a Gonka account (as a [Host](https://g
 3.3. Select ETH (Ethereum).  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-3-3.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-3-3.png" style="width:250px; height:auto;"></a>
 
-3.4. Enter the amount of ETH required for gas (refer to the fee amount displayed in the previous step).  
+3.4. Enter the amount of ETH required for gas (refer to the fee amount displayed in the step 2.5.).  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-3-4.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-3-4.png" style="width:250px; height:auto;"></a>
 
-3.5. Paste your Ethereum address (see the above step for where to find your Ethereum address).  
+3.5. Paste your Ethereum address (see steps 1.1. and 1.2. for where to find your Ethereum address).  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-3-5.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-3-5.png" style="width:250px; height:auto;"></a>
 
 3.6. Enter your payment details, and complete the order.  

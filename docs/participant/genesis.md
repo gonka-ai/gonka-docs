@@ -309,6 +309,7 @@ These steps should be performed on your validator server.
     Finally, start all services.
     ```bash
     docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
+    ```
 
 #### 5.2 [Server]: Verify Launch Status
 

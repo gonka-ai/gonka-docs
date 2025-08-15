@@ -65,8 +65,8 @@ It also should have:
 Clone the repository with the base deploy scripts:
 
 ```bash
-git clone https://github.com/product-science/inference-ignite.git -b main && \
-cd inference-ignite/deploy/join
+git clone https://github.com/gonka-ai/gonka.git -b main && \
+cd gonka/deploy/join
 ```
 
 And copy `config` file template:

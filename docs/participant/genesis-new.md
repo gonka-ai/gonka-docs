@@ -1,7 +1,6 @@
 # Gonka Genesis Ceremony
 
-The genesis ceremony is a coordinated process to bootstrap the Gonka blockchain with a pre-defined set of initial validators and an agreed-upon `genesis.json` file.   
-This ceremony is important because it establishes the network's foundational security, ensures fair participation among validators, and creates a verifiable starting point for the blockchain.
+The genesis ceremony is a coordinated process to bootstrap the Gonka blockchain with a pre-defined set of initial validators and an agreed-upon `genesis.json` file. This ceremony is important because it establishes the network's foundational security, ensures fair participation among validators, and creates a verifiable starting point for the blockchain.
 
 ## Overview
 
@@ -13,13 +12,14 @@ The ceremony is a transparent and auditable process managed entirely through Git
 
 The ceremony proceeds through clearly defined phases to produce an auditable, shared `genesis.json`. All collaboration happens via GitHub PRs for full transparency and accountability.
 
-??? note "Key Principles of the Genesis Ceremony
-  | Principle | Description |
-  |-----------|-------------|
-  | **Transparency and Auditability** | Using GitHub PRs for all submissions creates a public, verifiable record of the entire process from start to finish. |
-  | **Decentralized Launch** | The ceremony ensures the network begins with an agreed-upon set of independent validators, establishing decentralization from block zero. |
-  | **Verifiable State** | The final `genesis.json` hash is recorded, allowing every participant to confirm they are starting from the exact same initial state. |
-  | **Consensus** | The process guarantees that all initial validators have reviewed and accepted the genesis state before the network goes live. |
+??? note "Key Principles of the Genesis Ceremony"
+
+    | Principle | Description |
+    |-----------|-------------|
+    | **Transparency and Auditability** | Using GitHub PRs for all submissions creates a public, verifiable record of the entire process from start to finish. |
+    | **Decentralized Launch** | The ceremony ensures the network begins with an agreed-upon set of independent validators, establishing decentralization from block zero. |
+    | **Verifiable State** | The final `genesis.json` hash is recorded, allowing every participant to confirm they are starting from the exact same initial state. |
+    | **Consensus** | The process guarantees that all initial validators have reviewed and accepted the genesis state before the network goes live. |
 
 ## Prerequisites
 

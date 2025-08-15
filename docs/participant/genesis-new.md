@@ -309,17 +309,20 @@ With the final `genesis.json` published, validators must verify that it is produ
 These steps should be performed on your validator server.
 
     - **Pull Latest Configuration.** Pull the latest changes from the repository to get the final `genesis.json` and seed node configuration.
+    
         ```
         git pull
         ```
     
     - **Update Container Images.** From the `deploy/join` directory, pull the latest Docker container images. The node image is built with the final genesis hash for verification.
+    
         ```
         source config.env
         docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
         ```
     
     - **Launch Your Validator.** Finally, start all services.
+    
         ```
         docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
         ```

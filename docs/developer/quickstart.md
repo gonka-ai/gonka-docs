@@ -111,12 +111,12 @@ export GONKA_PRIVATE_KEY=<your-private-key>
         source_url=NODE_URL
     )
 
-    response = client.chat.completions.create({
-        "model": "Qwen/QwQ-32B",
-        "messages": [
+    response = client.chat.completions.create(
+        model="Qwen/QwQ-32B",
+        messages=[
             { "role": "user", "content": "Write a one-sentence bedtime story about a unicorn" }
         ]
-    })
+    )
 
     print(response.choices[0].message.content)
     ```

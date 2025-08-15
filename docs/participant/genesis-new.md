@@ -38,10 +38,10 @@ Before participating in the ceremony, each participant (validator) must:
     - Before the ceremony, you must complete the local machine setup as described in the [Gonka Quickstart](https://gonka.ai/participant/quickstart) guide. This includes installing the `inferenced` CLI, creating your Account Cold Key, and pulling the Docker images. 
     - Stop after pulling the images and do not launch the services; the ceremony process replaces the server-side setup and on-chain transactions with an offline, PR-based workflow.
 
-4. **Confirm readiness:**
-  
-   - `inferenced` CLI is installed locally and your Account Cold Key is created.
-   - Containers are pulled, models downloaded, and environment variables (`config.env`) are configured.
+4. **Confirm readiness**
+
+    - `inferenced` CLI is installed locally and your Account Cold Key is created.
+    - Containers are pulled, models downloaded, and environment variables (`config.env`) are configured.
 
 ## Ceremony Process
 
@@ -240,14 +240,15 @@ The `1nicoin` value represents an artificial consensus weight for the genesis tr
 
 Copy the generated files to your validator directory and create a PR:
 
-3.2.1. **Copy files to your validator directory:**
+- Copy files to your validator directory:
 
     ```bash
     cp ~/.inference/config/gentx/gentx-<node-id>.json genesis/validators/<YOUR_VALIDATOR_NAME>/
     cp ~/.inference/config/genparticipant/genparticipant-<node-id>.json genesis/validators/<YOUR_VALIDATOR_NAME>/
     ```
 
-3.2.2. **Create a PR with the following files:**
+- Create a PR with the following files:
+  
     - `genesis/validators/<YOUR_VALIDATOR_NAME>/gentx-<node-id-from-step-1.2>.json`
     - `genesis/validators/<YOUR_VALIDATOR_NAME>/genparticipant-<node-id-from-step-1.2>.json`
 
@@ -294,7 +295,7 @@ With the final `genesis.json` published, validators must verify that it is produ
 
 These steps should be performed on your validator server.
 
-5.1.1.  **Pull Latest Configuration**
+5.1.1.  Pull Latest Configuration
 
     Pull the latest changes from the repository to get the final `genesis.json` and seed node configuration.
   
@@ -302,7 +303,7 @@ These steps should be performed on your validator server.
     git pull
     ```
 
-5.1.2.  **Update Container Images**
+5.1.2.  Update Container Images
 
     From the `deploy/join` directory, pull the latest Docker container images. The node image is built with the final genesis hash for verification.
   
@@ -311,7 +312,7 @@ These steps should be performed on your validator server.
     docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
     ```
 
-5.1.3.  **Launch Your Validator**
+5.1.3.  Launch Your Validator
 
     Finally, start all services.
   

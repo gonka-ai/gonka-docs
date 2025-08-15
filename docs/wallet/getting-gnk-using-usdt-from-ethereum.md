@@ -50,7 +50,8 @@ Before you begin:
 2.4. Enter the amount you wish to transfer.  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-2-4.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-2-4.png" style="width:250px; height:auto;"></a>
 
-2.5. Review the Gas Fee required for your transaction. Cancel the transaction (click Cancel) — we will first purchase ETH for the gas fee. 
+2.5. Review the Gas Fee required for your transaction.
+Cancel the transaction (click Cancel) — we will first purchase ETH for the gas fee. 
     <a href="/images/getting-gnk-using-usdt-from-ethereum-2-5.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-2-5.png" style="width:250px; height:auto;"></a>
 
 ## Step 3. Acquire ETH for Gas Fees

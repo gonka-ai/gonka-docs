@@ -25,20 +25,20 @@ The ceremony proceeds through clearly defined phases to produce an auditable, sh
 
 Before participating in the ceremony, each participant (validator) must:
 
-1. **Fork** [the Gonka Repository](https://github.com/gonka-ai/gonka/) to your GitHub account.
+1. Fork [the Gonka Repository](https://github.com/gonka-ai/gonka/) to your GitHub account.
 
-2. **Choose a participant (validator) name** and create your validator directory:
+2. Choose a participant (validator) name and create your validator directory:
    ```bash
    cp -r genesis/validators/template genesis/validators/<YOUR_VALIDATOR_NAME>
    ```
    This directory will be used for sharing information and transactions during the ceremony.
 
-3. **Follow the local setup portion of the Quickstart Guide**.
+3. Follow the local setup portion of the Quickstart Guide.
   
     - Before the ceremony, you must complete the local machine setup as described in the [Gonka Quickstart](https://gonka.ai/participant/quickstart) guide. This includes installing the `inferenced` CLI, creating your Account Cold Key, and pulling the Docker images. 
     - Stop after pulling the images and do not launch the services; the ceremony process replaces the server-side setup and on-chain transactions with an offline, PR-based workflow.
 
-4. **Confirm readiness**
+4. Confirm readiness
 
     - `inferenced` CLI is installed locally and your Account Cold Key is created.
     - Containers are pulled, models downloaded, and environment variables (`config.env`) are configured.
@@ -163,7 +163,7 @@ P2P_EXTERNAL_ADDRESS: <value of P2P_EXTERNAL_ADDRESS from your config.env file>
 
 #### 1.6 Create Pull Request
 
-Submit a PR to [the Gonka Repository](https://github.com/gonka-ai/gonka/) with your validator information. Include a clear title like "Add validator: <YOUR_VALIDATOR_NAME>" and ensure all required fields are populated in your `README.md` file.
+Submit a PR to [the Gonka Repository](https://github.com/gonka-ai/gonka/) with your validator information. Include a clear title such as "Add validator: <YOUR_VALIDATOR_NAME>" and ensure all required fields are populated in your `README.md` file.
 
 ### Phase 2. [Coordinator]: Genesis Draft Preparation
 
@@ -184,12 +184,12 @@ The `gentx` command requires the following variables from previous steps:
 
 | **Variable** | **Description** |
 |----------|-------------|
-| `<cold key name>` | name of Account Cold Key in local registry (e.g., "gonka-account-key" from Quickstart) |
-| `<YOUR_VALIDATOR_NAME>` | the validator name chosen in the Prerequisites section |
-| `<ml-operational-key-address-from-step-1.4>` | address of ML Operational Key from step 1.4 |
-| `$PUBLIC_URL` | environment variable with public URL from Quickstart's `config.env` |
-| `<consensus-pubkey-from-step-1.3>` | consensus public key from step 1.3 |
-| `<node-id-from-step-1.2>` | node ID from step 1.2 |
+| `<cold key name>` | Name of Account Cold Key in local registry (e.g., "gonka-account-key" from Quickstart) |
+| `<YOUR_VALIDATOR_NAME>` | The validator name chosen in the Prerequisites section |
+| `<ml-operational-key-address-from-step-1.4>` | Address of ML Operational Key from step 1.4 |
+| `$PUBLIC_URL` | Environment variable with public URL from Quickstart's `config.env` |
+| `<consensus-pubkey-from-step-1.3>` | Consensus public key from step 1.3 |
+| `<node-id-from-step-1.2>` | Node ID from step 1.2 |
 
 This custom `gentx` command automatically creates the required `authz` grants from your Account Key to your ML Operational Key, simplifying the setup process.
 
@@ -252,7 +252,7 @@ Copy the generated files to your validator directory and create a PR:
     - `genesis/validators/<YOUR_VALIDATOR_NAME>/gentx-<node-id-from-step-1.2>.json`
     - `genesis/validators/<YOUR_VALIDATOR_NAME>/genparticipant-<node-id-from-step-1.2>.json`
 
-Use a clear PR title like `"Add gentx files for validator: <YOUR_VALIDATOR_NAME>"`.
+Use a clear PR title such as "Add gentx files for validator: ".
 
 ### Phase 4. [Coordinator]: Final Genesis Preparation
 
@@ -296,23 +296,23 @@ With the final `genesis.json` published, validators must verify that it is produ
 These steps should be performed on your validator server.
 
 5.1.1.  Pull Latest Configuration. Pull the latest changes from the repository to get the final `genesis.json` and seed node configuration.
-  
-    ```bash
-    git pull
-    ```
+
+        ```
+        git pull
+        ```
 
 5.1.2.  Update Container Images. From the `deploy/join` directory, pull the latest Docker container images. The node image is built with the final genesis hash for verification.
   
-    ```bash
-    source config.env
-    docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
-    ```
+        ```
+        source config.env
+        docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
+        ```
 
 5.1.3.  Launch Your Validator. Finally, start all services.
   
-    ```bash
-    docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
-    ```
+        ```
+        docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
+        ```
 
 #### 5.2 [Server]: Verify Launch Status
 

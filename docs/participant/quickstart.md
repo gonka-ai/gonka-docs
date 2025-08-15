@@ -241,7 +241,7 @@ The quickstart instruction is designed to run both the Network Node and the infe
     
 ### 1. Pull Docker Images (Containers)
 
-Make sure you are in the `inference-ignite/deploy/join` folder before running the next commands. 
+Make sure you are in the `gonka/deploy/join` folder before running the next commands. 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
 ```
@@ -387,7 +387,7 @@ curl http://195.242.13.239:26657/status
 ```
 
 ## Stopping and Cleaning Up Your Node
-Make sure you are in `inference-ignite/deploy/join` folder.
+Make sure you are in `gonka/deploy/join` folder.
 
 To stop all running containers:
 ```bash

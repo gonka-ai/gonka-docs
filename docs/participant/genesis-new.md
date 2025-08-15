@@ -47,13 +47,26 @@ Before participating in the ceremony, each participant (validator) must:
 
 The ceremony follows a 5-phase process, replacing the on-chain registration steps from `quickstart.md` with an offline, PR-based workflow. All transaction files are generated locally and submitted for aggregation by the Coordinator.
 
-| Phase | Role | Description |
-|-------|------|-------------|
-| 1 | [Validators] | Prepare Keys and initial server setup; open PR with validator information (including node ID, ML operational address, and consensus pubkey) |
-| 2 | [Coordinator] | Aggregate validator info and publish `genesis.json` draft for review |
-| 3 | [Validators] | Generate offline `GENTX` and `GENPARTICIPANT` files from the draft; open PR with files |
-| 4 | [Coordinator] | Verify and collect transactions, patch `genesis.json`, set `genesis_time` |
-| 5 | [Validators] | Retrieve final `genesis.json`, verify hash, and launch nodes before `genesis_time` |
+## Ceremony Process
+
+The ceremony follows a 5-phase process, replacing the on-chain registration steps from *quickstart.md* with an offline, PR-based workflow.
+
+!!! info "Phase 1 — Validators"
+    Prepare keys and initial server setup.  
+    Open PR with validator information (`node ID`, `ML operational address`, `consensus pubkey`).
+
+!!! tip "Phase 2 — Coordinator"
+    Aggregate validator info and publish `genesis.json` draft for review.
+
+!!! info "Phase 3 — Validators"
+    Generate offline `GENTX` and `GENPARTICIPANT` files from the draft.  
+    Open PR with these files.
+
+!!! tip "Phase 4 — Coordinator"
+    Verify and collect transactions, patch `genesis.json`, and set `genesis_time`.
+
+!!! info "Phase 5 — Validators"
+    Retrieve final `genesis.json`, verify its hash, and launch nodes before `genesis_time`.
 
 ### Deploy Scripts
 

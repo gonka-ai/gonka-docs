@@ -38,11 +38,10 @@ Before participating in the ceremony, each participant (validator) must:
     - Before the ceremony, you must complete the local machine setup as described in the [Gonka Quickstart](https://gonka.ai/participant/quickstart) guide. This includes installing the `inferenced` CLI, creating your Account Cold Key, and pulling the Docker images. 
     - Stop after pulling the images and do not launch the services; the ceremony process replaces the server-side setup and on-chain transactions with an offline, PR-based workflow.
 
-4. Confirm readiness:
+4. **Confirm readiness:**
   
    - `inferenced` CLI is installed locally and your Account Cold Key is created.
    - Containers are pulled, models downloaded, and environment variables (`config.env`) are configured.
-
 
 ## Ceremony Process
 
@@ -50,11 +49,11 @@ The ceremony follows a 5-phase process, replacing the on-chain registration step
 
 | Phase | Role | Description |
 |-------|------|-------------|
-| Phase 1 | [Validators] | Prepare Keys and initial server setup; open PR with validator information (including node ID, ML operational address, and consensus pubkey) |
-| Phase 2 | [Coordinator] | Aggregate validator info and publish `genesis.json` draft for review |
-| Phase 3 | [Validators] | Generate offline `GENTX` and `GENPARTICIPANT` files from the draft; open PR with files |
-| Phase 4 | [Coordinator] | Verify and collect transactions, patch `genesis.json`, set `genesis_time` |
-| Phase 5 | [Validators] | Retrieve final `genesis.json`, verify hash, and launch nodes before `genesis_time` |
+| 1 | [Validators] | Prepare Keys and initial server setup; open PR with validator information (including node ID, ML operational address, and consensus pubkey) |
+| 2 | [Coordinator] | Aggregate validator info and publish `genesis.json` draft for review |
+| 3 | [Validators] | Generate offline `GENTX` and `GENPARTICIPANT` files from the draft; open PR with files |
+| 4 | [Coordinator] | Verify and collect transactions, patch `genesis.json`, set `genesis_time` |
+| 5 | [Validators] | Retrieve final `genesis.json`, verify hash, and launch nodes before `genesis_time` |
 
 ### Deploy Scripts
 

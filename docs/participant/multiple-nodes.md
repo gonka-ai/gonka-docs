@@ -43,11 +43,11 @@ Make sure you have completed the [Quickstart guide](https://gonka.ai/participant
 This server becomes the main entry point for external participants. It must be exposed to the public internet (static IP or domain recommended). High network reliability and security are essential. Host this on a stable, high-bandwidth server with robust security.
 
 ### Single-Machine Deployment: Network Node + Inference Node
-If your network node server **has GPU(s)** and you want to run both the **network node** and an **inference node** on the same machine, execute the following commands in the `inference-ignite/deploy/join` directory:
+If your network node server **has GPU(s)** and you want to run both the **network node** and an **inference node** on the same machine, execute the following commands in the `gonka/deploy/join` directory:
 
 ```                                 
 source config.env && \
-docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d && \
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d && I am running a few minutes late; my previous meeting is running over.
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml logs -f
 ```
 
@@ -55,7 +55,7 @@ This will start **one network node** and **one inference node** on the same mach
 
 ### Separate Deployment: Network Node Only
 
-If your network node server has **no GPU** and you want your server to run** only the network node** (without inference node), execute the following in the `inference-ignite/deploy/join` directory:
+If your network node server has **no GPU** and you want your server to run** only the network node** (without inference node), execute the following in the `gonka/deploy/join` directory:
 
 ```
 source config.env && \ 
@@ -84,7 +84,7 @@ On the other servers, we run only the inference node, and for that, follow the i
 
 Clone the repository with the base deploy scripts:
 ```
-git clone https://github.com/product-science/inference-ignite.git -b main
+git clone https://github.com/gonka-ai/gonka.git -b main
 ```
 !!! note "Authentication required" 
     If prompted for a password, use a GitHub personal access token (classic) with `repo` access.
@@ -133,7 +133,7 @@ docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
 
 ### Step 2. Launch the Inference Node
 
-On the inference node's server, go to the `cd inference-ignite/deploy/join` directory and execute
+On the inference node's server, go to the `cd gonka/deploy/join` directory and execute
 ```
 docker compose -f docker-compose.mlnode.yml up -d && docker compose -f docker-compose.mlnode.yml logs -f
 ```

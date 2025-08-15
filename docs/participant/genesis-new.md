@@ -260,8 +260,8 @@ Once all validators have submitted their transaction files, the Coordinator begi
 
 The process involves two main commands:
   
-1.  **Collecting Genesis Transactions**: The `collect-gentxs` command gathers all `gentx-<node-id>.json` files, validates them, and incorporates them into `genesis.json` to populate the initial validator set.
-2.  **Patching Participant Data**: The `patch-genesis` command processes the `genparticipant-<node-id>.json` files, verifying their signatures and patching the initial state to include all registered participants.
+1.  Collecting Genesis Transactions: The `collect-gentxs` command gathers all `gentx-<node-id>.json` files, validates them, and incorporates them into `genesis.json` to populate the initial validator set.
+2.  Patching Participant Data: The `patch-genesis` command processes the `genparticipant-<node-id>.json` files, verifying their signatures and patching the initial state to include all registered participants.
 
 After merging all transactions, the Coordinator sets the `genesis_time` to a future timestamp, ensuring all validators have enough time to prepare for a synchronized launch.
 

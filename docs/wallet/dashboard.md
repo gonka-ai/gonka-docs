@@ -101,7 +101,11 @@ To interact with the Gonka network through your wallet, we recommend using [Kepl
 
 3.3. You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
 
-<a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:500px; height:auto;"></a>
+=== "Keplr"
+    <a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:500px; height:auto;"></a>
+
+=== "Leap"
+    <a href="/images/dashboard_ping_pub_3_3-leap.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3-leap.png" style="width:500px; height:auto;"></a>
 
 3.4. Done! You successfully added your account to the wallet.
 

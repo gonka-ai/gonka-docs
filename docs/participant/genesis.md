@@ -1,13 +1,12 @@
 # Gonka Genesis Ceremony
 
-The genesis ceremony is a coordinated process to bootstrap the Gonka blockchain with a pre-defined set of initial validators and an agreed-upon genesis.json file.   
-This ceremony is important because it establishes the network's foundational security, ensures fair participation among validators, and creates a verifiable starting point for the blockchain.
+The genesis ceremony is a coordinated process to bootstrap the Gonka blockchain with a pre-defined set of initial validators and an agreed-upon `genesis.json` file. This ceremony is important because it establishes the network's foundational security, ensures fair participation among validators, and creates a verifiable starting point for the blockchain.
 
 ## Overview
 
 The ceremony is a transparent and auditable process managed entirely through GitHub Pull Requests (PRs). The core workflow is straightforward:
 
-- Participants (Validators) submit information and offline transaction files (GENTX and GENPARTICIPANT) via PRs
+- Participants (Validators) submit information and offline transaction files (`GENTX` and `GENPARTICIPANT`) via PRs
 - The Coordinator aggregates and verifies these inputs to publish the final, agreed `genesis.json` with a scheduled `genesis_time` and recorded hash.
 - Validators verify that the file is produced correctly and launch their nodes
 
@@ -242,8 +241,8 @@ Copy the generated files to your validator directory and create a PR:
 
 - Create a PR with the following files:
 
-   - `genesis/validators/<YOUR_VALIDATOR_NAME>/gentx-<node-id-from-step-1.2>.json`
-   - `genesis/validators/<YOUR_VALIDATOR_NAME>/genparticipant-<node-id-from-step-1.2>.json`
+    - `genesis/validators/<YOUR_VALIDATOR_NAME>/gentx-<node-id-from-step-1.2>.json`
+    - `genesis/validators/<YOUR_VALIDATOR_NAME>/genparticipant-<node-id-from-step-1.2>.json`
 
 Use a clear PR title like "Add gentx files for validator: <YOUR_VALIDATOR_NAME>".
 

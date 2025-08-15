@@ -38,7 +38,7 @@ Before participating in the ceremony, each participant (validator) must:
     - Before the ceremony, you must complete the local machine setup as described in the [Gonka Quickstart](https://gonka.ai/participant/quickstart) guide. This includes installing the `inferenced` CLI, creating your Account Cold Key, and pulling the Docker images. 
     - Stop after pulling the images and do not launch the services; the ceremony process replaces the server-side setup and on-chain transactions with an offline, PR-based workflow.
 
-4. Confirm readiness
+4. Confirm readiness:
 
     - `inferenced` CLI is installed locally and your Account Cold Key is created.
     - Containers are pulled, models downloaded, and environment variables (`config.env`) are configured.
@@ -74,7 +74,7 @@ Working directory: run all `docker compose` commands from `deploy/join` (change 
 
 This phase mirrors the key generation steps in `quickstart.md`, but all setup is performed offline to generate files for the ceremony. The Account Key (Cold) was already created during the quickstart; the following steps will guide you through generating the ML Operational Key (Warm) on your server.
 
-#### 1.1 [Local] Confirm Account Cold Key (from Quickstart)
+#### 1.1. [Local] Confirm Account Cold Key (from Quickstart)
 The Account Cold Key was created during `quickstart.md`. You can view its information with:
   
 === "Command"
@@ -91,7 +91,7 @@ The Account Cold Key was created during `quickstart.md`. You can view its inform
       type: local
     ```
 
-#### 1.2 [Server]: Initialize Node and Get Node ID
+#### 1.2. [Server]: Initialize Node and Get Node ID
 
 === "Command"  
     ```bash
@@ -103,7 +103,7 @@ The Account Cold Key was created during `quickstart.md`. You can view its inform
     51a9df752b60f565fe061a115b6494782447dc1f
     ```
 
-#### 1.3 [Server]: Extract Consensus Public Key
+#### 1.3. [Server]: Extract Consensus Public Key
 Start the `tmkms` service to generate the consensus key, then extract the public key.
 
 === "Command"  
@@ -116,7 +116,7 @@ Start the `tmkms` service to generate the consensus key, then extract the public
     /wTVavYr5OCiVssIT3Gc5nsfIH0lP1Rqn/zeQtq4CvQ=
     ```
 
-#### 1.4 [Server]: Generate ML Operational Key
+#### 1.4. [Server]: Generate ML Operational Key
 
 Create the warm key inside the `api` container using the `file` keyring backend (required for programmatic access). The key will be stored in a persistent volume mapped to `/root/.inference` of the container:
 
@@ -150,7 +150,7 @@ Inside the container, create the ML operational key:
     again plastic athlete arrow first measure danger drastic wolf coyote work memory already inmate sorry path tackle custom write result west tray rabbit jeans
     ```
 
-#### 1.5 [Local]: Prepare PR with validator information
+#### 1.5. [Local]: Prepare PR with validator information
 Create or update `genesis/validators/<YOUR_VALIDATOR_NAME>/README.md` with the following fields. Use values collected above and from Quickstart.
 
 ```markdown
@@ -161,7 +161,7 @@ Consensus Public Key: <consensus-pubkey-from-step-1.3>
 P2P_EXTERNAL_ADDRESS: <value of P2P_EXTERNAL_ADDRESS from your config.env file>
 ```
 
-#### 1.6 Create Pull Request
+#### 1.6. Create Pull Request
 
 Submit a PR to [the Gonka Repository](https://github.com/gonka-ai/gonka/) with your validator information. Include a clear title such as "Add validator: <YOUR_VALIDATOR_NAME>" and ensure all required fields are populated in your `README.md` file.
 
@@ -291,7 +291,7 @@ Additionally, the Coordinator sets `INIT_ONLY` to `false`, which allows the node
 
 With the final `genesis.json` published, validators must verify that it is produced correctly and prepare their nodes to launch at the specified `genesis_time`. The blockchain will begin producing blocks at exactly this moment.
 
-#### 5.1 [Server]: Update and Launch
+#### 5.1. [Server]: Update and Launch
 
 These steps should be performed on your validator server.
 
@@ -311,7 +311,7 @@ These steps should be performed on your validator server.
     docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
     ```
 
-#### 5.2 [Server]: Verify Launch Status
+#### 5.2. [Server]: Verify Launch Status
 
 After launching, monitor your node's logs to confirm it is waiting for the genesis time:
 

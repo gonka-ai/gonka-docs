@@ -203,7 +203,7 @@ cp ./genesis/genesis-draft.json ~/.inference/config/genesis.json
 
 *If you specified a custom home directory with the `--home` flag when creating your key, be sure to use that same directory for the `gentx` command by providing the `--home` flag again.*
 
-#### [Local]: Create `GENTX` and `GENPARTICIPANT` Files
+#### 3.1. [Local]: Create `GENTX` and `GENPARTICIPANT` Files
 
 The `1nicoin` value represents an artificial consensus weight for the genesis transaction. The real validator weight will be determined during the first Proof of Compute (PoC) phase.
 
@@ -236,18 +236,18 @@ The `1nicoin` value represents an artificial consensus weight for the genesis tr
     Genparticipant transaction written to "702121/config/genparticipant/genparticipant-149d25924b9a6676448aea716864c31775645459.json"
     ```
 
-#### [Local]: Submit Generated Files
+#### 3.2. [Local]: Submit Generated Files
 
 Copy the generated files to your validator directory and create a PR:
 
-1. **Copy files to your validator directory:**
+3.2.1. **Copy files to your validator directory:**
 
     ```bash
     cp ~/.inference/config/gentx/gentx-<node-id>.json genesis/validators/<YOUR_VALIDATOR_NAME>/
     cp ~/.inference/config/genparticipant/genparticipant-<node-id>.json genesis/validators/<YOUR_VALIDATOR_NAME>/
     ```
 
-2. **Create a PR with the following files:**
+3.2.2. **Create a PR with the following files:**
     - `genesis/validators/<YOUR_VALIDATOR_NAME>/gentx-<node-id-from-step-1.2>.json`
     - `genesis/validators/<YOUR_VALIDATOR_NAME>/genparticipant-<node-id-from-step-1.2>.json`
 

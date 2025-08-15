@@ -23,7 +23,7 @@ nav:
       - Wallet:
         - Wallet & Transfer Guide: wallet/wallet-and-transfer-guide.md
         - Pricing: wallet/pricing.md
-      - Terms & Policies: termsofuse.md
+      - Model licenses: model-licenses.md
       - Transactions & Governance: transactions-and-governance.md
       - Software Upgrades: software-upgrades.md
       - Help: help.md

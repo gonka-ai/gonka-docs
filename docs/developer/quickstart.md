@@ -15,7 +15,6 @@ Before creating an account, set up the required environment variables:
 ```bash
 export ACCOUNT_NAME=<your-desired-account-name>
 export NODE_URL=http://195.242.13.239:8000
-export GONKA_ENDPOINTS=$NODE_URL/v1 
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.

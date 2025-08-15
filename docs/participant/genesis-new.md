@@ -36,7 +36,7 @@ Before participating in the ceremony, each participant (validator) must:
 3. **Follow the local setup portion of the Quickstart Guide**.
   
     - Before the ceremony, you must complete the local machine setup as described in the [Gonka Quickstart](https://gonka.ai/participant/quickstart) guide. This includes installing the `inferenced` CLI, creating your Account Cold Key, and pulling the Docker images. 
-    - **Stop** after pulling the images and do not launch the services; the ceremony process replaces the server-side setup and on-chain transactions with an offline, PR-based workflow.
+    - Stop after pulling the images and do not launch the services; the ceremony process replaces the server-side setup and on-chain transactions with an offline, PR-based workflow.
 
 4. Confirm readiness:
   
@@ -93,57 +93,63 @@ The Account Cold Key was created during `quickstart.md`. You can view its inform
     ```
 
 #### 1.2 [Server]: Initialize Node and Get Node ID
-  
-```bash
-docker compose run --rm node
-```
 
-**Example output:**
-```
-51a9df752b60f565fe061a115b6494782447dc1f
-```
+=== "Command"  
+    ```bash
+    docker compose run --rm node
+    ```
 
+=== "Example output"
+    ```
+    51a9df752b60f565fe061a115b6494782447dc1f
+    ```
 
 #### 1.3 [Server]: Extract Consensus Public Key
 Start the `tmkms` service to generate the consensus key, then extract the public key.
-```bash
-docker compose up -d tmkms && docker compose run --rm --entrypoint /bin/sh tmkms -c "tmkms-pubkey"
-```
 
-**Example output:**
-```
-/wTVavYr5OCiVssIT3Gc5nsfIH0lP1Rqn/zeQtq4CvQ=
-```
+=== "Command"  
+  ```bash
+  docker compose up -d tmkms && docker compose run --rm --entrypoint /bin/sh tmkms -c "tmkms-pubkey"
+  ```
+
+=== "Example output"
+    ```
+    /wTVavYr5OCiVssIT3Gc5nsfIH0lP1Rqn/zeQtq4CvQ=
+    ```
 
 #### 1.4 [Server]: Generate ML Operational Key
 
 Create the warm key inside the `api` container using the `file` keyring backend (required for programmatic access). The key will be stored in a persistent volume mapped to `/root/.inference` of the container:
 
-Note: `$KEY_NAME` and `$KEYRING_PASSWORD` are defined in Quickstart `config.env`.
+!!! note 
+    `$KEY_NAME` and `$KEYRING_PASSWORD` are defined in Quickstart `config.env`.
+    
 ```bash
 docker compose run --rm --no-deps -it api /bin/sh
 ```
 
 Inside the container, create the ML operational key:
-```bash
-printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
-```
 
-**Example output:**
-```
-~ # printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
+=== "Command"  
+    ```bash
+    printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
+    ```
 
-- address: gonka1gyz2agg5yx49gy2z4qpsz9826t6s9xev6tkehw
-  name: node-702105
-  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Ao8VPh5U5XQBcJ6qxAIwBbhF/3UPZEwzZ9H/qbIA6ipj"}'
-  type: local
-
-
-**Important** write this mnemonic phrase in a safe place.
-It is the only way to recover your account if you ever forget your password.
-
-again plastic athlete arrow first measure danger drastic wolf coyote work memory already inmate sorry path tackle custom write result west tray rabbit jeans
-```
+=== "Example output"
+    ```
+    ~ # printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
+    
+    - address: gonka1gyz2agg5yx49gy2z4qpsz9826t6s9xev6tkehw
+      name: node-702105
+      pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Ao8VPh5U5XQBcJ6qxAIwBbhF/3UPZEwzZ9H/qbIA6ipj"}'
+      type: local
+    
+    
+    **Important** write this mnemonic phrase in a safe place.
+    It is the only way to recover your account if you ever forget your password.
+    
+    again plastic athlete arrow first measure danger drastic wolf coyote work memory already inmate sorry path tackle custom write result west tray rabbit jeans
+    ```
 
 #### 1.5 [Local]: Prepare PR with validator information
 Create or update `genesis/validators/<YOUR_VALIDATOR_NAME>/README.md` with the following fields. Use values collected above and from Quickstart.
@@ -158,13 +164,14 @@ P2P_EXTERNAL_ADDRESS: <value of P2P_EXTERNAL_ADDRESS from your config.env file>
 
 #### 1.6 Create Pull Request
 
-Submit a PR to [the Gonka Repository](https://github.com/gonka-ai/gonka/) with your validator information. Include a clear title like "Add validator: <YOUR_VALIDATOR_NAME>" and ensure all required fields are populated in your README.md file.
+Submit a PR to [the Gonka Repository](https://github.com/gonka-ai/gonka/) with your validator information. Include a clear title like "Add validator: <YOUR_VALIDATOR_NAME>" and ensure all required fields are populated in your `README.md` file.
 
 ### Phase 2. [Coordinator]: Genesis Draft Preparation
 
 The coordinator will:
+
 - Review and merge all validator PRs from Phase 1
-- Prepare the initial `genesis.json` draft which includes all Account Addresses and place it in `genesis/genesis-draft.json`
+- Prepare the initial `genesis.json` draft, which includes all Account Addresses, and place it in `genesis/genesis-draft.json`
 - Announce the availability of the draft to all participants
 
 ### Phase 3. [Validators]: GENTX and GENPARTICIPANT Generation

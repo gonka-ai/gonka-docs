@@ -107,9 +107,9 @@ The Account Cold Key was created during `quickstart.md`. You can view its inform
 Start the `tmkms` service to generate the consensus key, then extract the public key.
 
 === "Command"  
-  ```bash
-  docker compose up -d tmkms && docker compose run --rm --entrypoint /bin/sh tmkms -c "tmkms-pubkey"
-  ```
+      ```bash
+      docker compose up -d tmkms && docker compose run --rm --entrypoint /bin/sh tmkms -c "tmkms-pubkey"
+      ```
 
 === "Example output"
     ```
@@ -173,14 +173,14 @@ The coordinator will:
 - Prepare the initial `genesis.json` draft, which includes all Account Addresses, and place it in `genesis/genesis-draft.json`
 - Announce the availability of the draft to all participants
 
-### Phase 3. [Validators]: GENTX and GENPARTICIPANT Generation
+### Phase 3. [Validators]: `GENTX` and `GENPARTICIPANT` Generation
 
 This phase involves generating the necessary transaction files for chain initialization. These transactions include:
 
 - `MsgCreateValidator` - Creates your validator on the chain
 - `MsgSubmitNewParticipant` - Registers your node as a network participant
 
-The gentx command requires the following variables from previous steps:
+The `gentx` command requires the following variables from previous steps:
 
 - `<cold key name>` - name of Account Cold Key in local registry (e.g., "gonka-account-key" from Quickstart)
 - `<YOUR_VALIDATOR_NAME>` - the validator name chosen in the Prerequisites section
@@ -201,7 +201,7 @@ cp ./genesis/genesis-draft.json ~/.inference/config/genesis.json
 
 *If you specified a custom home directory with the `--home` flag when creating your key, be sure to use that same directory for the `gentx` command by providing the `--home` flag again.*
 
-#### [Local]: Create GENTX and GENPARTICIPANT Files
+#### [Local]: Create `GENTX` and `GENPARTICIPANT` Files
 
 The `1nicoin` value represents an artificial consensus weight for the genesis transaction. The real validator weight will be determined during the first Proof of Compute (PoC) phase.
 

@@ -19,6 +19,7 @@ nav:
         - Access account: participant/access-account.md
         - Benchmark to Choose Optimal Deployment Config for LLMs: participant/benchmark-to-choose-optimal-deployment-config-for-llms.md
         - Hardware Specifications: participant/hardware-specifications.md
+        - Genesis: participant/genesis.md
       - Wallet:
         - Wallet & Transfer Guide: wallet/wallet-and-transfer-guide.md
         - Pricing: wallet/pricing.md

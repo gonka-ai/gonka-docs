@@ -81,7 +81,11 @@ Before you begin:
 
 ## Step 4. Complete the Bridge Transfer
 
-4.1. Paste the Gonka Bridge address again. Enter the amount of USDT you wish to send and click Next.  
+4.1. Paste the Gonka Bridge address again. 
+```
+0x87490233DB4EF48B6E3eef9C5B97Cdf772E25571
+```
+Enter the amount of USDT you wish to send and click Next.  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-4-1.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-1.png" style="width:250px; height:auto;"></a>
 
 4.2. Approve the transaction in Keplr.  

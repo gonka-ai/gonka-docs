@@ -292,7 +292,7 @@ Finally, the Coordinator commits the official `genesis.json` to the `genesis/` d
 ./inferenced genesis patch-genesis --genparticipant-dir genparticipants
 ```
 
-#### 4.3. [Coordinator]: Configure Network Seeds
+#### [Coordinator]: Configure Network Seeds
 
 The Coordinator configures the initial network peering by setting the `GENESIS_SEEDS` variable in `deploy/join/docker-compose.yml`. This variable is a comma-separated list of validator node addresses, constructed using the `Node ID` and `P2P_EXTERNAL_ADDRESS` provided by each validator in their respective `README.md` files.
 
@@ -308,21 +308,21 @@ With the final `genesis.json` published, validators must verify that it is produ
 
 These steps should be performed on your validator server.
 
-5.1.1.  **Pull Latest Configuration.** Pull the latest changes from the repository to get the final `genesis.json` and seed node configuration.
-    ```
-    git pull
-    ```
-
-5.1.2.  **Update Container Images.** From the `deploy/join` directory, pull the latest Docker container images. The node image is built with the final genesis hash for verification.
-    ```
-    source config.env
-    docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
-    ```
-
-5.1.3.  **Launch Your Validator.** Finally, start all services.
-    ```
-    docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
-    ```
+    - **Pull Latest Configuration.** Pull the latest changes from the repository to get the final `genesis.json` and seed node configuration.
+        ```
+        git pull
+        ```
+    
+    - **Update Container Images.** From the `deploy/join` directory, pull the latest Docker container images. The node image is built with the final genesis hash for verification.
+        ```
+        source config.env
+        docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
+        ```
+    
+    - **Launch Your Validator.** Finally, start all services.
+        ```
+        docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
+        ```
 
 #### 5.2. [Server]: Verify Launch Status
 

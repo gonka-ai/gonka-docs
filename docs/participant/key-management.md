@@ -41,30 +41,6 @@ At network launch, participants use a **three-key system**:
 
 ## Planned Evolution
 
-### Phase 1: Enhanced Security (v1)
-
-**New Capabilities:**
-- **Governance Key**: Dedicated key for protocol voting and parameter changes
-- **Treasury Key**: Separate key for fund management and high-value transfers  
-- **Multi-signature Groups**: Hardware wallet integration with x/group module
-- **Enhanced Permissions**: Granular authorization for different operation types
-
-#### Key Types in v1
-
-| Key Type | Purpose | Storage | Who Has |
-|----------|---------|---------|---------|
-| **Account Key** | Master control (Multi-sig) | Hardware wallets | Highest level stakeholders |
-| **Governance Key** | Protocol voting & parameter changes | Cold wallet (Multi-sig) | High level stakeholders |
-| **Treasury Key** | Fund management & high-value transfers | Cold wallet (Multi-sig) | Financial stakeholders |
-| **ML Operational Key** | Automated AI workloads | Warm wallet | Server automation |
-| **Consensus Key** | Block validation | TMKMS warm storage | Validator infrastructure |
-
-### Long-term Vision: Enterprise-grade Security
-- **Hardware Wallet Integration**: Full support for Ledger, Trezor, and enterprise HSMs
-- **Multi-signature Governance**: Distributed decision-making with configurable thresholds
-- **Maintenance Keys**: Dedicated keys for routine operations like consensus key rotation
-- **Audit Trail**: Complete cryptographic audit trail for all key operations
-
 ## Best Practices
 
 ### Security Guidelines
@@ -78,9 +54,7 @@ At network launch, participants use a **three-key system**:
     - **Usage**: Never use for routine operations - only for granting permissions and validator actions
 
 2. **Hardware Wallet Support**
-    - **Current Status**: Not supported at network launch but planned for upcoming upgrades
-    - **Future Support**: Popular hardware wallets and enterprise security modules will be supported
-    - **Migration Path**: Once available, you can import your existing mnemonic phrase
+    - **Current Status**: Not supported at network launch 
     - **Critical**: Always save and securely store your mnemonic phrase as your ultimate recovery method
 
 3. **ML Operational Key Management**

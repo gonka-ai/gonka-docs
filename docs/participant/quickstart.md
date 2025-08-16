@@ -180,9 +180,9 @@ pyramid sweet dumb critic lamp various remove token talent drink announce tiny l
 **CRITICAL**: Write this mnemonic phrase down and store it in a secure, offline location. This phrase is the **only** way to recover your Account Key.
 
 !!! info "Hardware Wallet Support"
-    **Current Status**: Hardware wallets are not yet supported at network launch but will be available soon in upcoming upgrades.
+    **Current Status**: Hardware wallets are not yet supported at network launch.
     
-    **For Now**: Store your Account Key on a secure, dedicated machine with minimal internet exposure and strong encryption. Once hardware wallet support is available, you can import your existing mnemonic phrase into supported devices (Ledger, Trezor).
+    **For Now**: Store your Account Key on a secure, dedicated machine with minimal internet exposure and strong encryption.
     
     **Important**: Always keep your mnemonic phrase as backup regardless of future hardware wallet adoption.
 

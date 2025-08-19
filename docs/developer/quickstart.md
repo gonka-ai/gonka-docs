@@ -71,7 +71,7 @@ export GONKA_ADDRESS=<your-account-address>
 
 ## 3. Add Private Key to environment variables
 
-If you'd like to perform the request in Python:
+If you'd like to perform the request:
 
 #### 3.1. Export your private key (for demo/testing only).
 ```bash

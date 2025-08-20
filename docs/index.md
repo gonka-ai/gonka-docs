@@ -33,7 +33,7 @@
   <main class="gonka-main">      
     <!-- Banner -->
     <p class="gonka-banner">
-      <span>Testnet is offline</span><a href="https://discord.gg/7A5haMwBJM">Join Discord, stay tuned→</a>
+      <span>Testnet and chat are offline</span><a href="https://discord.gg/7A5haMwBJM">Join Discord, stay tuned→</a>
     </p>
 
     <!-- Hero -->

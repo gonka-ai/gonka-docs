@@ -33,7 +33,7 @@
   <main class="gonka-main">      
     <!-- Banner -->
     <p class="gonka-banner">
-      <span>Testnet is live.</span><a href="https://discord.gg/7A5haMwBJM">Click for details →</a>
+      <span>Testnet is currently offline</span><a href="https://discord.gg/7A5haMwBJM">Join our Discord to stay tuned→</a>
     </p>
 
     <!-- Hero -->

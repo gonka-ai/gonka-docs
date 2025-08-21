@@ -32,8 +32,9 @@ You can interact with the dashboard in two ways:
 
 === "**Full Mode**"
     
-    ## 1. Access Gonka Account
     First, open the dashboard using Preview Mode. Once you’ve accessed it, continue with the instructions below to enable all features.
+    
+    ## 1. Access Gonka Account
     
     To unlock the full functionality of the dashboard, you need a Gonka account.
     

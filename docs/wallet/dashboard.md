@@ -9,18 +9,17 @@ You can interact with the dashboard in two ways:
 - Full Mode — unlock the complete feature set by connecting your own wallet.
 
 === "Preview Mode"
-    
-    ## 1. Preview Mode
-    
+        
     If you want to explore the network or see real-time inference metrics before setting up your own account, follow these steps:
-    1. Open the participant list
+    
+    1.Open the participant list
     ```
     http://195.242.13.239:8000/v1/epochs/current/participants
     ```
     
-    2. Choose any active participant from the list.
-    3. Copy their `inference_url` value.
-    4. Paste the `inference_url` into your browser to load the dashboard for that participant’s node.
+    2.Choose any active participant from the list.
+    3.Copy their `inference_url` value.
+    4.Paste the `inference_url` into your browser to load the dashboard for that participant’s node.
     
     Once opened, you’ll see real-time data streamed directly from the participant’s node — including network statistics, active workloads, and inference metrics.
     
@@ -32,16 +31,16 @@ You can interact with the dashboard in two ways:
 
 === "Full Mode"
     
-    ## 2. Full Mode
-    
     ## 1. Access Gonka Account
-    To use the dashboard, you need a Gonka account.
+    First, open the dashboard using Preview Mode. Once you’ve accessed it, continue with the instructions below to enable all features.
+    
+    To unlock the full functionality of the dashboard, you need a Gonka account.
     
     - Already have one? Proceed to the ["Set Up External Wallet"](https://gonka.ai/wallet/dashboard/#2-set-up-external-wallet) section.
     - New user? Visit [the Developer](https://gonka.ai/developer/quickstart/){target=_blank} or [Host](https://gonka.ai/participant/quickstart/){target=_blank} Quickstart to create an account.
     
     ## 2. Set Up External Wallet
-    To interact with the Gonka network through your wallet, we recommend using [Keplr](https://www.keplr.app/){target=_blank} or [Leap](https://www.leapwallet.io/){target=_blank} (a browser extension wallet built for Cosmos-based chains).
+    To interact with Dashboard through your wallet, we recommend using [Keplr](https://www.keplr.app/){target=_blank} or [Leap](https://www.leapwallet.io/){target=_blank} (a browser extension wallet built for Cosmos-based chains).
     
     ??? note "What is a wallet?"
         A crypto wallet serves as a secure container for a user's public and private cryptographic keys, enabling them to manage, transfer, and purchase cryptocurrencies. Gonka is built on the Cosmos-SDK blockchain framework and can be accessed using Keplr or Leap wallet (other wallet support is coming soon).

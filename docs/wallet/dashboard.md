@@ -34,14 +34,14 @@ You can interact with the dashboard in two ways:
     
     First, open the dashboard using Preview Mode. Once you’ve accessed it, continue with the instructions below to enable all features.
     
-    ## 1. Access Gonka Account
+    ### 1. Access Gonka Account
     
     To unlock the full functionality of the dashboard, you need a Gonka account.
     
     - Already have one? Proceed to the ["Set Up External Wallet"](https://gonka.ai/wallet/dashboard/#2-set-up-external-wallet) section.
     - New user? Visit [the Developer](https://gonka.ai/developer/quickstart/){target=_blank} or [Host](https://gonka.ai/participant/quickstart/){target=_blank} Quickstart to create an account.
     
-    ## 2. Set Up External Wallet
+    ### 2. Set Up External Wallet
     To interact with Dashboard through your wallet, we recommend using [Keplr](https://www.keplr.app/){target=_blank} or [Leap](https://www.leapwallet.io/){target=_blank} (a browser extension wallet built for Cosmos-based chains).
     
     ??? note "What is a wallet?"
@@ -124,7 +124,7 @@ You can interact with the dashboard in two ways:
     
         <a href="/images/dashboard_leap_step_2_7.png" target="_blank"><img src="/images/dashboard_leap_step_2_7.png" style="width:500px; height:auto;"></a>
     
-    ## 3. Connect wallet
+    ### 3. Connect wallet
     3.1. Head over to [Gonka Web Dashboard](https://ping.pub/){target=_blank}. In the top-right corner, click "Connect Wallet" to get started.
     
     <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>

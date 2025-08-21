@@ -5,10 +5,10 @@ Instead of relying on a single centralized server, all network data and inferenc
 
 You can interact with the dashboard in two ways:
 
-- Preview Mode — explore a participant’s dashboard and view network data without creating an account.
-- Full Mode — unlock the complete feature set by connecting your own wallet.
+- **Preview Mode** — explore a participant’s dashboard and view network data without creating an account.
+- **Full Mode** — unlock the complete feature set by connecting your own wallet.
 
-=== "Preview Mode"
+=== "**Preview Mode**"
         
     If you want to explore the network or see real-time inference metrics before setting up your own account, follow these steps:
     
@@ -18,7 +18,9 @@ You can interact with the dashboard in two ways:
     ```
     
     2.Choose any active participant from the list.
+    
     3.Copy their `inference_url` value.
+    
     4.Paste the `inference_url` into your browser to load the dashboard for that participant’s node.
     
     Once opened, you’ll see real-time data streamed directly from the participant’s node — including network statistics, active workloads, and inference metrics.
@@ -26,10 +28,9 @@ You can interact with the dashboard in two ways:
     !!! note "Why is this important?"
         This architecture ensures decentralization: no single central server controls the network.
         Every participant hosts their own node, and you connect directly to them.
-        This design improves transparency, resilience, and trust within the Gonka ecosystem.
-        In preview mode, functionality is limited. You can view balances, transactions, and some analytics, but you cannot send coins, manage your personal accounts, or analyze your private AI token usage.
+        In preview mode, functionality is limited. You can view balances, transactions, and some analytics. If you want to send coins, manage your personal accounts, or analyze your private AI token usage, unlock [Full mode](https://gonka.ai/wallet/dashboard/#__tabbed_1_2).
 
-=== "Full Mode"
+=== "**Full Mode**"
     
     ## 1. Access Gonka Account
     First, open the dashboard using Preview Mode. Once you’ve accessed it, continue with the instructions below to enable all features.

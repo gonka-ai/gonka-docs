@@ -38,7 +38,7 @@ You can interact with the dashboard in two ways:
     
     To unlock the full functionality of the dashboard, you need a Gonka account.
     
-    - Already have one? Proceed to the ["Set Up External Wallet"](https://gonka.ai/wallet/dashboard/#2-set-up-external-wallet) section.
+    - Already have one? Proceed to the "Set Up External Wallet" section below.
     - New user? Visit [the Developer](https://gonka.ai/developer/quickstart/){target=_blank} or [Host](https://gonka.ai/participant/quickstart/){target=_blank} Quickstart to create an account.
     
     ### 2. Set Up External Wallet

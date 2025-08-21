@@ -171,8 +171,8 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 |-------------------|--------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
 | `id`             | A **unique identifier** for your inference node.                                                | `node1`                                                   |
 | `host`           | The **static IP** of your inference node or the **Docker container name** if running in the same Docker network. | `http://<mlnode_ip>`                                               |
-| `inference_port` | The port where the inference node **accepts inference and training tasks**.    | `5000` (port mapped to `5000` of `mlnode` container)                                                   |
-| `poc_port`       | The port which is used for **MLNode management**.   | `8000` (port mapped to `8080` of `mlnode` container)                                                   |
+| `inference_port` | The port where the inference node **accepts inference and training tasks**.    | `5000` (port mapped to `5000` of MLNode's `nginx`)                                                   |
+| `poc_port`       | The port which is used for **MLNode management**.   | `8000` (port mapped to `8080` of MLNode's `nginx`)                                                   |
 | `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500`                                                     |
 | `models`         | A **supported models** that the inference node can process.                              | (see below)    |
 | `model_name`         | - The name of the model.                              | `Qwen/QwQ-32B`    |

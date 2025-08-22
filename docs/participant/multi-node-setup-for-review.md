@@ -83,7 +83,7 @@ docker compose -f docker-compose.yml logs -f
 
 5.(Optional) Check Network Node status. The Network Node will start participating in the upcoming Proof of Computation once it becomes active (please allow 1–3 hours for the changes to take effect). Its weight will be updated based on the work produced by connected Inference Nodes. If no Inference Nodes are connected, the node will not participate in the Proof of Compute and will not appear in the list:
 ```
-http://195.242.13.239:8000/v1/epochs/current/participants
+http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 If you add more servers with Inference Nodes (following the instructions below), the updated weight will be reflected in the list of active participants after the next Proof of Compute.
 
@@ -190,7 +190,7 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 2.After a few minutes, check if your node appears in the current epoch. Proof of Compute updates every few hours. Your node may take time to show up.
 
 ```
-http://195.242.13.239:8000/v1/epochs/current/participants
+http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 
 ### Scale and Manage Inference Nodes

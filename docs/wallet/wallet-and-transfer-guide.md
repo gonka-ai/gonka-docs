@@ -75,7 +75,7 @@ inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100
 
 When specifying coins, you can use the following denominations:
 
-- `nicoin` (exponent 0)
+- `ngonka` (exponent 0)
 - `uicoin` (exponent 3)
 - `micoin` (exponent 6)
 - `icoin` (exponent 9, base unit)
@@ -121,6 +121,6 @@ tx:
       to_address: gonka1ydt57pmnsd508ckw4fh6ey6h299v50zljpylla
       amount:
       - amount: "10"
-        denom: nicoin
+        denom: ngonka
 ```
 If the code is non-zero, the transaction has failed. Check the `raw_log` or info fields for error messages.

@@ -144,7 +144,7 @@ Edit `draft_proposal.json` so it looks like:
     }
   ],
   "metadata": "ipfs://CID",  // Path to the metadata file hosted on IPFS
-  "deposit": "10000000nicoin",               // meet min_deposit
+  "deposit": "10000000ngonka",               // meet min_deposit
   "title": "Adjust epoch length",
   "summary": "Increase epoch length to 1000"
 }

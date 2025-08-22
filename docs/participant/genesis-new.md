@@ -218,13 +218,13 @@ cp ./genesis/genesis-draft.json ~/.inference/config/genesis.json
 
 #### 3.1. [Local]: Create `GENTX` and `GENPARTICIPANT` Files
 
-The `1nicoin` value represents an artificial consensus weight for the genesis transaction. The real validator weight will be determined during the first Proof of Compute (PoC) phase.
+The `1ngonka` value represents an artificial consensus weight for the genesis transaction. The real validator weight will be determined during the first Proof of Compute (PoC) phase.
 
 === "Command"
     ```bash
     ./inferenced genesis gentx \
         --keyring-backend file \
-        <cold key name> 1nicoin \
+        <cold key name> 1ngonka \
         --moniker <YOUR_VALIDATOR_NAME> \
         --pubkey <consensus-pubkey-from-step-1.3> \
         --ml-operational-address <ml-operational-key-address-from-step-1.4> \
@@ -238,7 +238,7 @@ The `1nicoin` value represents an artificial consensus weight for the genesis tr
     ./inferenced genesis gentx \
         --home ./702121 \
         --keyring-backend file \
-        702121 1nicoin \
+        702121 1ngonka \
         --pubkey eNrjtkSXzfE18jq3lqvpu/i1iIog9SN+kqR2Wsa6fSM= \
         --ml-operational-address gonka13xplq68fws3uvs8m7ej2ed5ack9hzpc68fwvex \
         --url http://36.189.234.237:19238 \

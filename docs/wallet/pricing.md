@@ -21,7 +21,7 @@ You can propose your price in any of the following denominations (denoms):
 - `icoin`
 - `micoin` (milli-coins)
 - `uicoin` (micro-coins)
-- `nicoin` (nano-coins)
+- `ngonka` (nano-coins)
 
 ---
 
@@ -47,7 +47,7 @@ POST /v1/admin/unit-of-compute-price-proposal
 | Field  | Type   | Description                                  |
 |--------|--------|----------------------------------------------|
 | `price`  | number | Your proposed price per unit of compute.     |
-| `denom`  | string | The denomination (e.g., `icoin`, `micoin`, `uicoin`, `nicoin`). |
+| `denom`  | string | The denomination (e.g., `icoin`, `micoin`, `uicoin`, `ngonka`). |
 
 **Example**
 

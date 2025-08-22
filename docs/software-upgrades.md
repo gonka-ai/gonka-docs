@@ -30,7 +30,7 @@ These are done by submitting an `PartialUpgrade` proposal, and are mostly the sa
         ],
         "initial_deposit": [
           {
-            "denom": "nicoin",
+            "denom": "ngonka",
             "amount": "10000000"
           }
         ],

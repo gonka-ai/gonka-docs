@@ -52,7 +52,7 @@ This shows how many tokens are in your wallet.
 **Example:**
 
 ```bash
-inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --node http://195.242.13.239:26657
+inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --node http://node2.gonka.ai:26657
 ```
 
 ---

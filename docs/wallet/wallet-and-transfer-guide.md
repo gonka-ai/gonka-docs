@@ -76,11 +76,11 @@ inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100
 When specifying coins, you can use the following denominations:
 
 - `ngonka` (exponent 0)
-- `uicoin` (exponent 3)
-- `micoin` (exponent 6)
-- `icoin` (exponent 9, base unit)
-- `kicoin` (exponent 12)
-- `mcicoin` (exponent 15)
+- `ugonka` (exponent 3)
+- `migonka` (exponent 6)
+- `igonka` (exponent 9, base unit)
+- `kigonka` (exponent 12)
+- `mcigonka` (exponent 15)
 
 ---
 

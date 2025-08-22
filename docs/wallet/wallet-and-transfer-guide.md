@@ -64,13 +64,13 @@ In Cosmos, a fund transfer means sending tokens from one account (wallet address
 Once you know your balance and have the recipient’s address, you can send tokens.
 
 ```bash
-inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-testnet-2 [--node <node_rpc_url> | --keyring-backend test]
+inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
 ```
 
 **Example:**
 
 ```bash
-inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100icoin --chain-id gonka-testnet-2
+inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100icoin --chain-id gonka-mainnet
 ```
 
 When specifying coins, you can use the following denominations:
@@ -89,7 +89,7 @@ When specifying coins, you can use the following denominations:
 After sending a transaction, you may want to verify whether it was successfully processed and included in a block. Each transaction is assigned a unique hash (`TXHASH`) which you can use to look up its status on the blockchain.
 To check the status of a transaction, use the following command:
 ```bash
-inferenced query tx <TXHASH> --chain-id gonka-testnet-2 [--node <node_rpc_url>]
+inferenced query tx <TXHASH> --chain-id gonka-mainnet [--node <node_rpc_url>]
 ```
 
 - Replace `<TXHASH>` with the actual transaction hash you received from the transfer command.
@@ -97,7 +97,7 @@ inferenced query tx <TXHASH> --chain-id gonka-testnet-2 [--node <node_rpc_url>]
 
 **Example:**
 ```bash
-inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --chain-id gonka-testnet-2
+inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CFFE2F --chain-id gonka-mainnet
 ```
 If the transaction was successful, the output will contain:
 

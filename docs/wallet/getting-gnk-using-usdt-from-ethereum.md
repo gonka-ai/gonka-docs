@@ -92,7 +92,7 @@ Enter the amount of USDT you wish to send and click Next.
 4.2. Approve the transaction in Keplr.  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-4-2.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-2.png" style="width:250px; height:auto;"></a>
 
-4.3. Wait until your balance updates in the Liquidity Pool section http://36.189.234.237:19252/dashboard/gonka-testnet-1/developer  
+4.3. Wait until your balance updates in the Liquidity Pool section http://36.189.234.237:19252/dashboard/gonka-mainnet/developer  
     <a href="/images/getting-gnk-using-usdt-from-ethereum-4-3.png" target="_blank"><img src="/images/getting-gnk-using-usdt-from-ethereum-4-3.png" style="width:800px; height:auto;"></a>
 
 4.4. Enter the amount of stable coin you wish to swap, then click Swap.  

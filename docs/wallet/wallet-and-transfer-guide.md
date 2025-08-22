@@ -70,7 +70,7 @@ inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id
 **Example:**
 
 ```bash
-inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100icoin --chain-id gonka-mainnet
+inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100igonka --chain-id gonka-mainnet
 ```
 
 When specifying coins, you can use the following denominations:

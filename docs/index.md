@@ -33,7 +33,7 @@
   <main class="gonka-main">      
     <!-- Banner -->
     <p class="gonka-banner">
-      <span>Mainnet is live</span><a href="https://discord.gg/kFFVWtNYjs">Join Discord</a>
+      <span>Mainnet is live.</span><a href="https://discord.gg/kFFVWtNYjs">Join Discord</a>
     </p>
 
     <!-- Hero -->

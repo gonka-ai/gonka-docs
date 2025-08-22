@@ -125,7 +125,7 @@ You can interact with the dashboard in two ways:
         <a href="/images/dashboard_leap_step_2_7.png" target="_blank"><img src="/images/dashboard_leap_step_2_7.png" style="width:500px; height:auto;"></a>
     
     ### 3. Connect wallet
-    3.1. Head over to [Gonka Web Dashboard](https://ping.pub/){target=_blank}. In the top-right corner, click "Connect Wallet" to get started.
+    3.1. In the top-right corner, click "Connect Wallet" to get started.
     
     <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
     

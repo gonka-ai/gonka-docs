@@ -14,15 +14,15 @@ Before creating an account, set up the required environment variables:
 
 ```bash
 export ACCOUNT_NAME=<your-desired-account-name>
-export NODE_URL=http://195.242.13.239:8000
+export NODE_URL=http://node2.gonka.ai:8000
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
-- Replace `NODE_URL` with any random node from the list of current active participants, or keep the address of the genesis node (`http://195.242.13.239:8000`).
+- Replace `NODE_URL` with any random node from the list of current active participants, or keep the address of the genesis node (`http://node2.gonka.ai:8000`).
 
 The following command returns a JSON array of participants currently active in the epoch, along with a cryptographic proof that can be used to independently verify the list of active nodes:
 ```bash
-curl http://195.242.13.239:8000/v1/epochs/current/participants
+curl http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 
 ## 2. Create an account

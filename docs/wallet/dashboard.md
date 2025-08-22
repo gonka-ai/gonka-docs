@@ -14,7 +14,7 @@ You can interact with the dashboard in two ways:
     
     1.Open the participant list
     ```
-    http://195.242.13.239:8000/v1/epochs/current/participants
+    http://node2.gonka.ai:8000/v1/epochs/current/participants
     ```
     
     2.Choose any active participant from the list.

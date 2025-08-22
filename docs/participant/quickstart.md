@@ -200,7 +200,7 @@ pyramid sweet dumb critic lamp various remove token talent drink announce tiny l
     export HF_HOME=/mnt/shared								    # Directory you used for cache
     export SEED_API_URL=http://node2.gonka.ai:8000			    # Keep as is 
     export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657	    # Keep as is
-    export SEED_NODE_P2P_URL=tcp://195.242.13.239:26656		    # Keep as is
+    export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:26656		    # Keep as is
     export DAPI_API__POC_CALLBACK_URL=http://api:9100		    # Keep as is
     export DAPI_CHAIN_NODE__URL=http://node:26657			    # Keep as is
     export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		    # Keep as is

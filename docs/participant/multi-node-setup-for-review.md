@@ -223,8 +223,7 @@ http://195.242.13.239:8000/v1/epochs/current/participants
 
     To clean up cache and start fresh, remove the local  `.inference` and `.dapi` folders folders (inference runtime cache and identity):
     ```bash
-    rm -rf .inference .dapi
-    docker volume rm join_tmkms_data
+    rm -rf .inference .dapi .tmkms
     ```
 
     (Optional) Clear model weights cache:

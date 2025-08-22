@@ -47,7 +47,7 @@ You must choose a random node to connect to before making requests to the networ
     Choose any public_url from the list and use it as your `NODE_URL`.
 
     ```
-    curl http://195.242.13.239:8000/v1/epochs/current/participants
+    curl http://node2.gonka.ai:8000/v1/epochs/current/participants
     ```
         
     !!! note "How to choose?"
@@ -63,14 +63,14 @@ You must choose a random node to connect to before making requests to the networ
     Use the genesis node (centralized but always available):
     
     ```
-    http://195.242.13.239:8000
+    http://node2.gonka.ai:8000
     ```
 ## 3. Set up the required environment variables
 Once you’ve selected a node, choose a unique name for your local account and set the environment variables below.
 
 ```
 export ACCOUNT_NAME=<your-desired-account-name>
-export NODE_URL=http://195.242.13.239:8000
+export NODE_URL=http://node2.gonka.ai:8000
 export GONKA_ENDPOINTS=$NODE_URL/v1 
 ```
 

@@ -198,14 +198,14 @@ pyramid sweet dumb critic lamp various remove token talent drink announce tiny l
     export ACCOUNT_PUBKEY=<ACCOUNT_PUBKEY_FROM_STEP_ABOVE>      # Use the pubkey from your Account Key (without quotes)
     export NODE_CONFIG=./node-config.json					    # Keep as is
     export HF_HOME=/mnt/shared								    # Directory you used for cache
-    export SEED_API_URL=http://195.242.13.239:8000			    # Keep as is 
-    export SEED_NODE_RPC_URL=http://195.242.13.239:26657	    # Keep as is
+    export SEED_API_URL=http://node2.gonka.ai:8000			    # Keep as is 
+    export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657	    # Keep as is
     export SEED_NODE_P2P_URL=tcp://195.242.13.239:26656		    # Keep as is
     export DAPI_API__POC_CALLBACK_URL=http://api:9100		    # Keep as is
     export DAPI_CHAIN_NODE__URL=http://node:26657			    # Keep as is
     export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		    # Keep as is
-    export RPC_SERVER_URL_1=http://89.169.103.180:26657		    # Keep as is
-    export RPC_SERVER_URL_2=http://195.242.13.239:26657		    # Keep as is
+    export RPC_SERVER_URL_1=http://node1.gonka.ai:26657		    # Keep as is
+    export RPC_SERVER_URL_2=http://node2.gonka.ai:26657		    # Keep as is
     export PORT=8080                                            # Keep as is
     export INFERENCE_PORT=5050                                  # Keep as is
     export KEYRING_BACKEND=file                                 # Keep as is
@@ -365,12 +365,12 @@ docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ## Verify Node Status
 After launching the node, wait a few minutes. You should see your node listed at the following URL:
 ```bash
-http://195.242.13.239:8000/v1/participants
+http://node2.gonka.ai:8000/v1/participants
 ```
 
 Once your node completes the Proof of Work stage (typically within a few hours), visit the following URL to see your node:
 ```bash
-http://195.242.13.239:8000/v1/epochs/current/participants
+http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 
 Once your node is running, check your node status using Tendermint RPC endpoint of your node (26657 of `node` container)
@@ -383,7 +383,7 @@ curl http://0.0.0.0:26657/status
 ```
 Using public IP of genesis node
 ```bash
-curl http://195.242.13.239:26657/status
+curl http://node2.gonka.ai:26657/status
 ```
 
 ## Stopping and Cleaning Up Your Node

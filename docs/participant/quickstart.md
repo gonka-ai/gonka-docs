@@ -39,7 +39,7 @@ To run a valid node, you need machines with [supported GPU(s)](/participant/hard
 |-----------------|------------------------------------------|-------------------|-------------------------------------------------|----------------|
 | **Large**       | `DeepSeek R1` / `Qwen3-235B`                | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
 | **Medium**      | `Qwen3-32B` / `Gemma-3-27B-it`              | ≥ 2               | 4× A100 or 2× H100 per MLNode                   | 80 GB          |
-| **Small**       | `Qwen2.5-7B`                              | ≥ 2               | 1× 3090 or 8× 3090 per MLNode                   | 24 GB          |
+| **Small**       | `Qwen2.5-7B`                              | ≥ 2               | 2× 3090 or 8× 3090 per MLNode                   | 24 GB          |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple MLNodes across all three model tiers.
 
@@ -97,10 +97,8 @@ Copy and modify the config that best fits your model and GPU layout.
 
 ### Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
-To ensure the model weights are ready for inference, we recommend downloading them before deployment.
-Choose one of the following options:
+To make sure the model weights are ready for inference, you should download them before deployment.
 
-**Option 1: Local download** 
 ```bash
 export HF_HOME=/path/to/your/hf-cache
 ```
@@ -108,14 +106,7 @@ Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired:
 ```bash
 huggingface-cli download Qwen/Qwen2.5-7B-Instruct
 ```
-**Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)**
 
-Mount shared cache:
-```bash
-sudo mount -t nfs 172.18.114.147:/mnt/toshare /mnt/shared
-export HF_HOME=/mnt/shared
-```
-The path `/mnt/shared` only works in the 6Block testnet with access to the shared NFS.
 ## Authenticate with Docker Registry
 Some Docker images used in this instruction are private. Make sure to authenticate with GitHub Container Registry:
 ```bash
@@ -221,7 +212,7 @@ Which variables to edit:
 | `API_PORT`           | Set the port where your node will be available on the machine (default is 8000).                                                                                                   |
 | `PUBLIC_URL`        | Specify the `Public URL` where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000).                                                  |
 | `P2P_EXTERNAL_ADDRESS` | Specify the `Public URL` where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000).                           |
-| `HF_HOME`           | Set the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). If you’re part of the 6Block network, you can use the shared cache at `/mnt/shared`. |
+| `HF_HOME`           | Set the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). |
 | `ACCOUNT_PUBKEY`           | Use the public key from your Account Key created above (the value after `"key":` without quotes) |
 
 All other variables can be left as is.

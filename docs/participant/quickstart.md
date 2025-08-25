@@ -92,7 +92,7 @@ The next files have examples of node-config.json for different GPU servers:
 | File                          | Description                                                                      |
 |-------------------------------|----------------------------------------------------------------------------------|
 | `node-config-qwq.json`       | `Qwen/QwQ-32B` on A100/H100                     |
-| `node-config-qwq-4x3090.json` |  `QwQ-32B` using 4x3090 setup                                   |
+| `node-config-qwq-4x3090.json` |  `QwQ-32B` on 4x3090                                   |
 
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/).
 

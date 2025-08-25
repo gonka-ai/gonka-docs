@@ -53,7 +53,8 @@ The server hosting the Network Node should have:
 - 100Mbps minimum netowork connection (1Gbps preffered)
 
 The final requirements will depend on the number of MLNodes connected and their total throughput.
-Each server to deploy MLNode should have 1.5x RAM of GPU VRAM and 16 core GPU (Network Node and MLNode can be deployed at the same server).
+
+Each server to deploy MLNode should have at least 1.5x RAM of GPU VRAM and a 16-core GPU (Network Node and MLNode can be deployed on the same server).
 
 ### Ports open for public connections
 

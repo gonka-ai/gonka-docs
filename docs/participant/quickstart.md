@@ -45,15 +45,15 @@ This is a reference architecture. You may adjust node count or hardware allocati
 
 More details about optimal deploy configuration can be found [here](https://gonka.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
-It also should have:
+The server hosting the Network Node should have:
 
-- 16 CPU cores
-- At least 1.5x RAM of the GPU VRAM
-- Linux OS
-- [Docker](https://docs.docker.com/get-docker/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-- Nvidia GPUs belonging to generations after Tesla, with a minimum of 16 GB VRAM per GPU
+- 16 cores CPU (amd64)
+- 64+ GB RAM
+- 1TB NVe SSD
+- 100Mbps minimum netowork connection (1Gbps preffered)
+
+The final requirements will depend on the number of MLNodes connected and their total throughput.
+Each server to deploy MLNode should have 1.5x RAM of GPU VRAM and 16 core GPU (Network Node and MLNode can be deployed at the same server).
 
 ### Ports open for public connections
 

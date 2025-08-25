@@ -86,14 +86,18 @@ After cloning the repository, you’ll find the following key configuration file
 | `docker-compose.yml`          | Docker Compose file to launch the Network Node                                   |
 | `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML node                                   |
 | `node-config.json`            | Configuration file used by Network Node, it describes inference nodes managed by this Network Node |
-| `node-config-qwq.json`       | Configuration file specifically for `Qwen/QwQ-32B` on A100/H100                     |
-| `node-config-qwq-4x3090.json` | Optimized config for `QwQ-32B` using 4x3090 setup                                   |
-| `node-config-qwq-8x3090.json` | Optimized config for `QwQ-32B` using 8x3090 setup                                   |
 
-Copy and modify the config that best fits your model and GPU layout.
+The next files have examples of node-config.json for different GPU servers:
+
+| File                          | Description                                                                      |
+|-------------------------------|----------------------------------------------------------------------------------|
+| `node-config-qwq.json`       | `Qwen/QwQ-32B` on A100/H100                     |
+| `node-config-qwq-4x3090.json` |  `QwQ-32B` using 4x3090 setup                                   |
+
+For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/participant/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 !!! note        
-    The network is initially launched with two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. Configuration examples for these models can be found in `node-config.json` and `node-config-qwq.json`. Decisions about adding or changing supported models are made by governance. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+    The network is initially launched with two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.

@@ -1,13 +1,13 @@
 # Setting up your chain 
 
-**Participants** (**hardware providers** or **nodes**) contribute computational resources to the network and are rewarded based on the amount and quality of resources they provide.
+**Host** (**hardware provider** or **node**) contributes computational resources to the network and is rewarded based on the amount and quality of resources they provide.
 
 To join the network, you need to deploy two services:
 
 - **Network node** – a service consisting of two nodes: a **chain node** and an **API node**. This service handles all communication. The **chain node** connects to the blockchain, while the **API node** manages user requests.
 - **Inference (ML) node** – a service that performs inference of large language models (LLMs) on GPU(s). You need at least one **ML node** to join the network.
 
-The guide describes the scenario where both services are deployed on the same machine, and each participant has one MLNode. Services are deployed as Docker containers.
+The guide describes the scenario where both services are deployed on the same machine, and each Host has one MLNode. Services are deployed as Docker containers.
 
 ## Prerequisites
 This  section provides guidance on configuring your hardware infrastructure to participate in Gonka Network launch. The goal is to maximize protocol rewards by aligning your deployment with network expectations.
@@ -266,9 +266,9 @@ We start these specific containers first because:
 
     If you see the chain node continuously processing block events, then the setup is working correctly.
 
-### 3. Complete Key Setup and Participant Registration
+### 3. Complete Key Setup and Host Registration
 
-Now we need to complete the key management setup by creating the warm key, registering the participant, and granting permissions:
+Now we need to complete the key management setup by creating the warm key, registering the Host, and granting permissions:
 
 #### 3.1. Create ML Operational Key (Server)
 
@@ -299,9 +299,9 @@ again plastic athlete arrow first measure danger drastic wolf coyote work memory
 ```
 
 
-#### 3.2. Register Participant (Server)
+#### 3.2. Register Host (Server)
 
-From the same container, we can register the participant with URL, Account Key, and Consensus Key (fetched automatically) on chain:
+From the same container, we can register the Host with URL, Account Key, and Consensus Key (fetched automatically) on chain:
 
 ```
 inferenced register-new-participant \
@@ -318,7 +318,7 @@ Participant is now available at http://36.189.234.237:19250/v1/participants/gonk
 ```
 
 !!! note "Per-Node Account Key Configuration"
-    Always generate a unique `ACCOUNT_PUBKEY` for each Network Node to ensure proper separation of participants.
+    Always generate a unique `ACCOUNT_PUBKEY` for each Network Node to ensure proper separation of Hosts.
 
 Then we can exit the container:
 ```bash

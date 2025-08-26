@@ -26,7 +26,7 @@ Before proceeding, complete the [Quickstart guide](https://gonka.ai/host/quickst
 - Download deployment files
 - Container access authentication
 - Key management setup (Account Key and ML Operational Key)
-- Participant registration and permissions
+- Host registration and permissions
 
 ---
 
@@ -38,7 +38,7 @@ This section describes how to deploy a distributed setup with a network node and
 
 ## Starting the network node
 
-Make sure you have completed the [Quickstart guide](https://gonka.ai/host/quickstart/) through step 3.3 (key management and participant registration) beforehand.
+Make sure you have completed the [Quickstart guide](https://gonka.ai/host/quickstart/) through step 3.3 (key management and Host registration) beforehand.
 
 This server becomes the main entry point for external participants. It must be exposed to the public internet (static IP or domain recommended). High network reliability and security are essential. Host this on a stable, high-bandwidth server with robust security.
 
@@ -68,12 +68,12 @@ docker compose -f docker-compose.yml logs -f
 
 ### The Network Node Status
 
-The network node will start participating in the upcoming Proof of Computation (PoC) once it becomes active. Its weight will be updated based on the work produced by connected inference nodes. If no inference nodes are connected, the node will not participate in the PoC or appear in the list. After the following PoC, the network node will appear in the list of active participant (please allow 1–3 hours for the changes to take effect):
+The network node will start participating in the upcoming Proof of Computation (PoC) once it becomes active. Its weight will be updated based on the work produced by connected inference nodes. If no inference nodes are connected, the node will not participate in the PoC or appear in the list. After the following PoC, the network node will appear in the list of active Hosts (please allow 1–3 hours for the changes to take effect):
 ```bash
 http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 
-If you add more servers with inference nodes (following the instructions below), the updated weight will be reflected in the list of active participants after the next PoC.
+If you add more servers with inference nodes (following the instructions below), the updated weight will be reflected in the list of active Hosts after the next PoC.
 
 ## Running the inference node on a separate server
 On the other servers, we run only the inference node, and for that, follow the instructions below.
@@ -93,8 +93,6 @@ git clone https://github.com/gonka-ai/gonka.git -b main
 
 Inference nodes download model weights from Hugging Face. To ensure the model weights are ready for inference, we recommend downloading them before deployment. Choose one of the following options.
 
-**Option 1: Local download**
-
 ```
 export HF_HOME=/path/to/your/hf-cache
 ```
@@ -105,15 +103,6 @@ Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen
 ```
 huggingface-cli download Qwen/Qwen2.5-7B-Instruct
 ```
-
-**Option 2: 6Block NFS-mounted cache (for participants on 6Block internal network)**
-
-Mount shared cache:
-```
-sudo mount -t nfs 172.18.114.147:/mnt/toshare /mnt/shared
-export HF_HOME=/mnt/shared
-```
-The path `/mnt/shared` only works in the 6Block testnet with access to the shared NFS.
 
 **1.3. Authenticate with Docker Registry**
 

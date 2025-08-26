@@ -4,7 +4,7 @@ Currently, the decentralized exchange supports only the Ethereum network for USD
 
 Before you begin:
 
-1. Create a Gonka account (as a [Host](https://gonka.ai/participant/quickstart/) or [Developer](https://gonka.ai/developer/quickstart/))
+1. Create a Gonka account (as a [Host](https://gonka.ai/host/quickstart/) or [Developer](https://gonka.ai/developer/quickstart/))
 2. [Set up external wallet](https://gonka.ai/wallet/dashboard#2-set-up-external-wallet)
 3. [Connect to the dashboard](https://gonka.ai/wallet/dashboard#3-connect-wallet)
 

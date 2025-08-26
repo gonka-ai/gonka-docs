@@ -11,15 +11,15 @@ nav:
       - Developer:
         - Quickstart: developer/quickstart.md
         - Details: developer/details.md
-      - Participant:
-        - Quickstart: participant/quickstart.md
-        - Multiple nodes: participant/multiple-nodes.md
-        - Network Node API: participant/network-node-api.md
-        - Key Management: participant/key-management.md
-        - Access account: participant/access-account.md
-        - Benchmark to Choose Optimal Deployment Config for LLMs: participant/benchmark-to-choose-optimal-deployment-config-for-llms.md
-        - Hardware Specifications: participant/hardware-specifications.md
-        - Genesis: participant/genesis.md
+      - Host:
+        - Quickstart: host/quickstart.md
+        - Multiple nodes: host/multiple-nodes.md
+        - Network Node API: host/network-node-api.md
+        - Key Management: host/key-management.md
+        - Access account: host/access-account.md
+        - Benchmark to Choose Optimal Deployment Config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
+        - Hardware Specifications: host/hardware-specifications.md
+        - Genesis: host/genesis.md
       - Wallet:
         - Wallet & Transfer Guide: wallet/wallet-and-transfer-guide.md
         - Pricing: wallet/pricing.md

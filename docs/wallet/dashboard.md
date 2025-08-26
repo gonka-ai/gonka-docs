@@ -39,7 +39,7 @@ You can interact with the dashboard in two ways:
     To unlock the full functionality of the dashboard, you need a Gonka account.
     
     - Already have one? Proceed to the "Set Up External Wallet" section below.
-    - New user? Visit [the Developer](https://gonka.ai/developer/quickstart/){target=_blank} or [Host](https://gonka.ai/participant/quickstart/){target=_blank} Quickstart to create an account.
+    - New user? Visit [the Developer](https://gonka.ai/developer/quickstart/){target=_blank} or [Host](https://gonka.ai/host/quickstart/){target=_blank} Quickstart to create an account.
     
     ### 2. Set Up External Wallet
     To interact with Dashboard through your wallet, we recommend using [Keplr](https://www.keplr.app/){target=_blank} or [Leap](https://www.leapwallet.io/){target=_blank} (a browser extension wallet built for Cosmos-based chains).

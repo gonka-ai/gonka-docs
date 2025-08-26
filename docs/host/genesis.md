@@ -6,7 +6,7 @@ The genesis ceremony is a coordinated process to bootstrap the Gonka blockchain 
 
 The ceremony is a transparent and auditable process managed entirely through GitHub Pull Requests (PRs). The core workflow is straightforward:
 
-- Participants (Validators) submit information and offline transaction files (`GENTX` and `GENPARTICIPANT`) via PRs
+- Hosts (Validators) submit information and offline transaction files (`GENTX` and `GENPARTICIPANT`) via PRs
 - The Coordinator aggregates and verifies these inputs to publish the final, agreed `genesis.json` with a scheduled `genesis_time` and recorded hash.
 - Validators verify that the file is produced correctly and launch their nodes
 
@@ -19,16 +19,16 @@ The ceremony proceeds through clearly defined phases to produce an auditable, sh
     |-----------|-------------|
     | **Transparency and Auditability** | Using GitHub PRs for all submissions creates a public, verifiable record of the entire process from start to finish. |
     | **Decentralized Launch** | The ceremony ensures the network begins with an agreed-upon set of independent validators, establishing decentralization from block zero. |
-    | **Verifiable State** | The final `genesis.json` hash is recorded, allowing every participant to confirm they are starting from the exact same initial state. |
+    | **Verifiable State** | The final `genesis.json` hash is recorded, allowing every Host to confirm they are starting from the exact same initial state. |
     | **Consensus** | The process guarantees that all initial validators have reviewed and accepted the genesis state before the network goes live. |
 
 ## Prerequisites
 
-Before participating in the ceremony, each participant (validator) must:
+Before participating in the ceremony, each Host (validator) must:
 
 1. Fork [the Gonka Repository](https://github.com/gonka-ai/gonka/) to your GitHub account.
 
-2. Choose a participant (validator) name and create your validator directory:
+2. Choose a Host (validator) name and create your validator directory:
    ```bash
    cp -r genesis/validators/template genesis/validators/<YOUR_VALIDATOR_NAME>
    ```
@@ -163,14 +163,14 @@ The coordinator will:
 
 - Review and merge all validator PRs from Phase 1
 - Prepare the initial `genesis.json` draft, which includes all Account Addresses, and place it in `genesis/genesis-draft.json`
-- Announce the availability of the draft to all participants
+- Announce the availability of the draft to all Hosts
 
 ### Phase 3. [Validators]: `GENTX` and `GENPARTICIPANT` Generation
 
 This phase involves generating the necessary transaction files for chain initialization. These transactions include:
 
 - `MsgCreateValidator` - Creates your validator on the chain
-- `MsgSubmitNewParticipant` - Registers your node as a network participant
+- `MsgSubmitNewParticipant` - Registers your node as a network Host
 
 The `gentx` command requires the following variables from previous steps:
 

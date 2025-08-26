@@ -3,7 +3,7 @@
 This section describes the `Network Node API`, specifically the `/v1/epochs/{epoch_id}/participants` endpoint. This endpoint is used to retrieve:
 
 - Merkle proofs
-- Participant data
+- Host data
 - Validator signatures
 
 ## Usage
@@ -131,7 +131,7 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 
 **`addresses`**: List of participant addresses (in uppercase hex format)
 
-**`active_participants_bytes`**: Raw byte array (hex-encoded) that encodes the participants' data — suitable for Merkle proof verification or state synchronization.
+**`active_participants_bytes`**: Raw byte array (hex-encoded) that encodes the Hosts' data — suitable for Merkle proof verification or state synchronization.
 
 **`proof_ops`**: List of ICS23-compatible proof operations for verification
 
@@ -145,6 +145,6 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 **`block`**: List of blocks surrounding the epoch event
 
 - Includes full block header metadata, proposer address, commit signatures, etc.
-- Useful for verifying the inclusion and commitment of participant data
+- Useful for verifying the inclusion and commitment of Host data
 
 **Need help?** Join [Discord server](https://discord.com/invite/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.

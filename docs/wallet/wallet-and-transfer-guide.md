@@ -3,7 +3,7 @@
 This guide explains how to work with wallets and tokens on the network: how to get your wallet address, check your balance, send tokens, and track transactions.
 Before you can perform any wallet operations, you need to access your account. Follow the instructions below based on your role in the network.
 
-**Are you a Participant?**
+**Are you a Host?**
 
 You contribute computational resources and receive tokens as rewards.
 Before proceeding, you need access to your wallet, which is automatically created when the chain-node container runs for the first time.

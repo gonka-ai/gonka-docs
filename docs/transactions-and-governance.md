@@ -5,6 +5,7 @@ Transactions are sent through an RPC endpoint (here referred to as `$SEED_URL/ch
 Unordered transactions are supported and recommended here to avoid sequence contention. ([docs.cosmos.network](https://docs.cosmos.network/main/learn/beginner/tx-lifecycle?utm_source=chatgpt.com "Transaction Lifecycle | Explore the SDK"))
 
 **Always include these flags in transaction commands:**
+
 - `--from <cold-key-name>` → use your cold governance key.
 - `--keyring-backend file` → ensures signing with your local key (you will be prompted).
 - `--unordered --timeout-duration=60s` → makes the tx valid for a bounded time, bypassing sequence ordering (new in v0.53+).

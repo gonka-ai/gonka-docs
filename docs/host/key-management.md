@@ -11,7 +11,7 @@ Gonka Network implements a **role-based key management system** that separates a
 
 ## Key Architecture at Launch (v0)
 
-At network launch, participants use a **three-key system**:
+At network launch, Hosts use a **three-key system**:
 
 | Key Type | Purpose | Storage | Algorithm | Usage |
 |----------|---------|---------|-----------|-------|

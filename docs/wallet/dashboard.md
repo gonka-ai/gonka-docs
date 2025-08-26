@@ -1,33 +1,32 @@
 # Getting Started with the Dashboard
 Dashboard shows live on-chain activity (including a list of transactions and their statuses), delivers real-time inference analytics, displays your coin balances, lets you buy and send coins, and more.
 
-Instead of relying on a single centralized server, all network data and inference metrics are hosted directly on the nodes of participants. This means the dashboard can connect to any participant’s node and fetch live network data straight from the source.
+Instead of relying on a single centralized server, all network data and inference metrics are hosted directly on the Hosts' nodes. This means the dashboard can connect to any Host’s node and fetch live network data straight from the source.
 
 You can interact with the dashboard in two ways:
 
-- **Preview Mode** — explore a participant’s dashboard and view network data without creating an account.
+- **Preview Mode** — explore a dashboard and view network data without creating an account.
 - **Full Mode** — unlock the complete feature set by connecting your own wallet.
 
 === "**Preview Mode**"
         
     If you want to explore the network or see real-time inference metrics before setting up your own account, follow these steps:
     
-    1.Open the participant list
+    1.Open the Hosts list
     ```
     http://node2.gonka.ai:8000/v1/epochs/current/participants
     ```
     
-    2.Choose any active participant from the list.
+    2.Choose any active Host from the list.
     
     3.Copy their `inference_url` value.
     
-    4.Paste the `inference_url` into your browser to load the dashboard for that participant’s node.
+    4.Paste the `inference_url` into your browser to load the dashboard.
     
-    Once opened, you’ll see real-time data streamed directly from the participant’s node — including network statistics, active workloads, and inference metrics.
+    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
     
     !!! note "Why is this important?"
         This architecture ensures decentralization: no single central server controls the network.
-        Every participant hosts their own node, and you connect directly to them.
         In preview mode, functionality is limited. You can view balances, transactions, and some analytics. If you want to send coins, manage your personal accounts, or analyze your private AI token usage, unlock [Full mode](https://gonka.ai/wallet/dashboard/#__tabbed_1_2).
 
 === "**Full Mode**"

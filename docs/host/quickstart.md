@@ -372,7 +372,10 @@ curl http://node2.gonka.ai:26657/status
 ## Stopping and Cleaning Up Your Node
 
 ### How to stop MLNode
-1. Disable each MLNode. Mark each node as disabled starting from the next epoch.
+1. Disable each MLNode.
+```
+g.POST("nodes/:id/disable", s.disableNode)
+```
 2. Wait for the next epoch. Do not stop the node yet. The disable flag takes effect only after the next epoch starts.
 3. Verify removal and weight. Confirm both for every disabled node:
 

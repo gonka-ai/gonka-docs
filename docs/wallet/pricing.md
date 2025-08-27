@@ -81,7 +81,7 @@ The system defines a stability zone for network utilization between 40% and 60%,
 
 The dynamic pricing system provides several economic and operational benefits:
 
-- **Per-Model Market Efficiency**: Automatic price discovery for each AI model ensures that inference costs reflect true demand and supply conditions for specific models, leading to more efficient resource allocation and fair pricing that accounts for different computational requirements and popularity levels.
+- **Per-Model Market Efficiency**. Automatic price discovery for each AI model ensures that inference costs reflect true demand and supply conditions for specific models, leading to more efficient resource allocation and fair pricing that accounts for different computational requirements and popularity levels.
 - **Model-Specific Network Stability**. By targeting optimal utilization levels per model, the system prevents both network congestion for popular models and underutilization for specialized models, maintaining consistent service quality across the entire model portfolio.
 - **Enhanced Participant Incentives**. Dynamic pricing creates stronger economic incentives for participants to:
     - Support diverse model portfolios to capture different pricing opportunities

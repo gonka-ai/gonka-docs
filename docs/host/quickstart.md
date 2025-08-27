@@ -54,7 +54,11 @@ The server hosting the Network Node should have:
 
 The final requirements will depend on the number of MLNodes connected and their total throughput.
 
-Each server to deploy MLNode should have at least 1.5x RAM of GPU VRAM and a 16-core GPU (Network Node and MLNode can be deployed on the same server).
+Each server to deploy MLNode should have:
+
+- at least 1.5x RAM of GPU VRAM
+- a 16-core GPU (Network Node and MLNode can be deployed on the same server).
+- NVIDIA Container Toolkit installed and configured, with a CUDA Toolkit version between 12.6 and 12.9.
 
 ### Ports open for public connections
 
@@ -366,20 +370,28 @@ curl http://node2.gonka.ai:26657/status
 ```
 
 ## Stopping and Cleaning Up Your Node
-Make sure you are in `gonka/deploy/join` folder.
 
-To stop all running containers:
+### How to stop MLNode
+1. Disable each MLNode. Mark each node as disabled starting from the next epoch.
+2. Wait for the next epoch. Do not stop the node yet. The disable flag takes effect only after the next epoch starts.
+3. Verify removal and weight. Confirm both for every disabled node:
+
+- It is not present in the active participants list
+- Its effective weight equals 0
+
+4. Stop the MLNode.
+5. Make sure you are in `gonka/deploy/join` folder. To stop all running containers:
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
 ```
 This stops and removes all services defined in the `docker-compose.yml` file without deleting volumes or data unless explicitly configured.
 
-To clean up cache and start fresh, remove the local `.inference` and `.dapi` folders (inference runtime cache and identity):
+6. To clean up cache and start fresh, remove the local `.inference` and `.dapi` folders (inference runtime cache and identity):
 ```bash
 rm -rf .inference .dapi .tmkms
 ```
 
-(Optional) Clear model weights cache:
+7. (Optional) Clear model weights cache:
 ```bash
 rm -rf $HF_HOME
 ```

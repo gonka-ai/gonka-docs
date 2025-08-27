@@ -81,16 +81,14 @@ The system defines a stability zone for network utilization between 40% and 60%,
 
 The dynamic pricing system provides several economic and operational benefits:
 
-1) **Per-Model Market Efficiency**: Automatic price discovery for each AI model ensures that inference costs reflect true demand and supply conditions for specific models, leading to more efficient resource allocation and fair pricing that accounts for different computational requirements and popularity levels.
-2) **Model-Specific Network Stability**. By targeting optimal utilization levels per model, the system prevents both network congestion for popular models and underutilization for specialized models, maintaining consistent service quality across the entire model portfolio.
-3) **Enhanced Participant Incentives**. Dynamic pricing creates stronger economic incentives for participants to:
-
+- **Per-Model Market Efficiency**: Automatic price discovery for each AI model ensures that inference costs reflect true demand and supply conditions for specific models, leading to more efficient resource allocation and fair pricing that accounts for different computational requirements and popularity levels.
+- **Model-Specific Network Stability**. By targeting optimal utilization levels per model, the system prevents both network congestion for popular models and underutilization for specialized models, maintaining consistent service quality across the entire model portfolio.
+- **Enhanced Participant Incentives**. Dynamic pricing creates stronger economic incentives for participants to:
     - Support diverse model portfolios to capture different pricing opportunities
     - Maintain high-performance nodes for resource-intensive models
     - Optimize their resource allocation across models based on demand patterns
     - Remain online during peak demand periods for their supported models
-4) **Model-Aware Developer Experience**. Predictable per-model pricing algorithms combined with the grace period provide developers with:
-
+- **Model-Aware Developer Experience**. Predictable per-model pricing algorithms combined with the grace period provide developers with:
     - Better cost forecasting capabilities for specific models
     - Clear economic signals about model demand and resource requirements
     - Flexibility to choose optimal models for their use cases

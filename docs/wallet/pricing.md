@@ -1,181 +1,112 @@
 # Pricing
-## Overview
-Our system uses a **universal measure of work** called a _unit of compute_. Whether performing inference or training, each operation’s resource usage can be **estimated** in terms of these units of compute.
 
-**Pricing** is determined by how many blockchain coins (e.g., `icoin`, `uicoin`, etc.) correspond to one unit of compute. To achieve a fair market price:
+!!! note "Inference for free" 
+    During the initial network phase, controlled by a governance parameter GracePeriodEndEpoch with a proposed default of 90 epochs (~90 days), the dynamic pricing system is bypassed and all inference costs are set to zero (until ~ November 20, 2025).
 
-- Each inference provider **submits a vote** indicating how many coins per unit of compute they propose.
-- The **weighted median** of these submissions is determined at the end of each epoch (when validators are rotated).
-- That weighted median becomes the **common price** per unit of compute for the next epoch.
+The network uses an automatic dynamic pricing mechanism for inference costs.
+Each model has a real-time AI token price that is recalculated every block based on actual demand and utilization metrics.
 
-If a provider **does not submit a vote**:
+## Pricing Mechanism
 
-- Their vote is assumed to be the **last epoch’s price**.
-- If it is the **very first epoch**, the **genesis parameter** `default_unit_of_compute_price` is used for their vote.
+- The system monitors usage of every model on a per-block basis.
+- For each model:
+    - If utilization is above the target → price increases.
+    - If utilization is below the target → price decreases.
+- Adjustments are bounded by a maximum per-block increase/decrease rate to maintain stability.
+- Prices are expressed directly in coins.
 
----
+## Price Adjustment Algorithm
+The core of the dynamic pricing system is a stability zone model that automatically adjusts prices to maintain optimal network utilization while providing price stability within acceptable utilization ranges. The system implements a block-based adjustment mechanism with defined stability zones and maximum change limits.
+
+### Stability Zone Model
+The system defines a stability zone for network utilization between 40% and 60%, within which prices remain unchanged. Outside this zone, prices adjust to encourage utilization to return to the optimal range. The calculation process:
+
+1. **Current Utilization Calculation**: At the end of each block, the system calculates the recent utilization based on inference requests processed in the current block and recent block history versus estimated network capacity.
+2. **Stability Zone Check**: If utilization is between 40% and 60%, no price adjustment occurs, maintaining price stability during normal network operation.
+3. **Price Adjustment**: If utilization is below 40%, prices decrease to encourage more usage. If utilization is above 60%, prices increase to moderate demand.
+4. **Linear Price Adjustment**: Price changes are directly proportional to utilization deviation from the stability zone, with the elasticity parameter determining the maximum change at extreme utilization levels (0% or 100%).
+
+??? note "Price Adjustment Formula"
+    The price calculation follows this formula, similar to Ethereum's EIP-1559, but calculated separately for each model:
+    
+    ```
+    // Calculate per-model utilization and pricing
+    for each_model in active_epoch_models:
+        model_capacity = get_cached_capacity(model_id)  // from capacity/{model_id} KV store
+        model_utilization = model_tokens_processed_in_recent_blocks[model_id] / model_capacity
+    
+        if model_utilization >= 0.40 and model_utilization <= 0.60:
+            // Stability zone - no price change
+            new_model_price[model_id] = previous_model_price[model_id]
+        else if model_utilization < 0.40:
+            // Below stability zone - decrease price
+            utilization_deficit = 0.40 - model_utilization
+            adjustment_factor = 1.0 - (utilization_deficit * price_elasticity)
+            new_model_price[model_id] = previous_model_price[model_id] * adjustment_factor
+        else:
+            // Above stability zone - increase price
+            utilization_excess = model_utilization - 0.60
+            adjustment_factor = 1.0 + (utilization_excess * price_elasticity)
+            new_model_price[model_id] = previous_model_price[model_id] * adjustment_factor
+    
+        // Ensure price never goes below 1 nicoin per token
+        new_model_price[model_id] = max(new_model_price[model_id], min_per_token_price)
+    ```
+    
+    With the default elasticity of 0.05, this means for each model independently:
+    
+    - Maximum price change: 2% per block per model (when model utilization reaches 0% or 100%)
+    - At 20% model utilization: 1% price decrease per block for that model
+    - At 80% model utilization: 1% price increase per block for that model
+    - Price floor: Never drops below 1 nicoin to prevent zero-cost scenarios and maintain network economics
+    - Independent pricing: Each model's price adjusts based on its own demand and capacity
+      
+    The minimum price of 1 nicoin serves as a technical and economic safeguard:
+    
+    - Prevents computational issues with zero pricing
+    - Ensures participants always receive minimal compensation
+    - Maintains network incentive structure even during extremely low demand
+    - Uses the smallest denomination unit, making it effectively negligible while preventing edge cases
 
 ## Supported denominations
-You can propose your price in any of the following denominations (denoms):
 
-- `icoin`
-- `micoin` (milli-coins)
-- `uicoin` (micro-coins)
-- `ngonka` (nano-coins)
+| Denomination  | Name    | Value        | Description             |
+|---------------|---------|--------------|-------------------------|
+| coin          | gonka   | 1            | Base unit               |
+| milli-coins   | mgonka  | 0.001        | 1 thousandth of gonka   |
+| micro-coins   | ugonka  | 0.000001     | 1 millionth of gonka    |
+| nano-coins    | ngonka  | 0.000000001  | 1 billionth of gonka    |
 
----
+## Benefits and Economic Impacts
 
-## API Endpoints
-Use these endpoints to manage (send/update) your price proposal and to check your current vote.
+The dynamic pricing system provides several economic and operational benefits:
 
-### 1. Set or update your price vote
+### Per-Model Market Efficiency
 
-**Endpoint**
+Automatic price discovery for each AI model ensures that inference costs reflect true demand and supply conditions for specific models, leading to more efficient resource allocation and fair pricing that accounts for different computational requirements and popularity levels.
 
-```
-POST /v1/admin/unit-of-compute-price-proposal
-```
+### Model-Specific Network Stability
 
-**Body (JSON)**
-```bash linenums="1"
-{
-  "price": 1000,
-  "denom": "icoin"
-}
-```
+By targeting optimal utilization levels per model, the system prevents both network congestion for popular models and underutilization for specialized models, maintaining consistent service quality across the entire model portfolio.
 
-| Field  | Type   | Description                                  |
-|--------|--------|----------------------------------------------|
-| `price`  | number | Your proposed price per unit of compute.     |
-| `denom`  | string | The denomination (e.g., `icoin`, `micoin`, `uicoin`, `ngonka`). |
+### Enhanced Participant Incentives
+Dynamic pricing creates stronger economic incentives for participants to:
 
-**Example**
+- Support diverse model portfolios to capture different pricing opportunities
+- Maintain high-performance nodes for resource-intensive models
+- Optimize their resource allocation across models based on demand patterns
+- Remain online during peak demand periods for their supported models
 
-```
-curl -X POST https://your-node-url.com/v1/admin/unit-of-compute-price-proposal \
-  -H "Content-Type: application/json" \
-  -d '{
-    "price": 1000,
-    "denom": "icoin"
-  }'
-```
+### Model-Aware Developer Experience
 
-### 2. Check your current price vote
+Predictable per-model pricing algorithms combined with the grace period provide developers with:
 
-```
-GET /v1/admin/unit-of-compute-price-proposal
-```
+- Better cost forecasting capabilities for specific models
+- Clear economic signals about model demand and resource requirements
+- Flexibility to choose optimal models for their use cases
+- Early-stage development opportunities without cost barriers across all models
 
-**Response (JSON)**
+## References
 
-```bash linenums="1"
-{
-  "price": 1000,
-  "denom": "icoin"
-}
-```
-
-| Field  | Type   | Description                                  |
-|--------|--------|----------------------------------------------|
-| `price`  | number | The currently stored vote for your account.  |
-| `denom`  | string | The denomination used in your stored price vote. |
-
-**Example**
-
-```
-curl -X GET https://your-node-url.com/v1/admin/unit-of-compute-price-proposal
-```
-
-### 3. Check the current unit-of-compute price & model pricing
-
-**Endpoint**
-
-```
-GET /v1/pricing
-```
-
-**Response (JSON)**
-
-```bash linenums="1"
-{
-  "unit_of_compute_price": 1200,
-  "models": [
-    {
-      "id": "model-alpha",
-      "units_of_compute_per_token": 10,
-      "price_per_token": 12000
-    },
-    {
-      "id": "model-beta",
-      "units_of_compute_per_token": 20,
-      "price_per_token": 24000
-    }
-  ]
-}
-```
-
-| Field                 | Type   | Description                                                 |
-|-----------------------|--------|-------------------------------------------------------------|
-| `unit_of_compute_price` | number | The current chain-wide price (in `price` × `denom`) for one unit of compute. |
-| `models`               | array  | A list of models, each containing model-specific pricing details (per-token cost, etc.). |
-
-Within each item in `models`:
-
-| Field                      | Type   | Description                                                                 |
-|----------------------------|--------|-----------------------------------------------------------------------------|
-| `id`                         | string | Unique identifier for the model.                                           |
-| `units_of_compute_per_token` | number | How many units of compute it takes to process one token for this model.    |
-| `price_per_token`            | number | The cost in coins per token for this model, derived from the above unit price. |
-
-**Example**
-
-```bash
-curl -X GET https://your-node-url.com/v1/pricing
-```
-
-### 4. Register a new model
-
-Registering a new model involves proposing the number of units of compute required for each token of that model.
-When you submit a new model via the `POST /v1/admin/models` endpoint, our system automatically creates a corresponding governance proposal using the CosmoSDK governance module, and a deposit is immediately withdrawn to initiate the process – eliminating the need for a separate deposit funding step later.
-Other participants can then review the proposal and cast their votes using the governance CLI provided within the inferenced app.
-
-**Endpoint**
-
-```bash
-POST /v1/admin/models
-```
-
-**Body (JSON)**
-
-```bash linenums="1"
-{
-  "id": "model-alpha",
-  "units_of_compute_per_token": 10
-}
-```
-
-| Field                      | Type   | Description                                                       |
-|----------------------------|--------|-------------------------------------------------------------------|
-| `id`                         | string | Unique identifier for the model.                                 |
-| `units_of_compute_per_token` | number | Proposed units of compute consumed per token for this model.     |
-
-**Example**
-
-```
-curl -X POST https://your-node-url.com/v1/admin/models \
-  -H "Content-Type: application/json" \
-  -d '{
-    "id": "model-alpha",
-    "units_of_compute_per_token": 10
-  }'
-```
-
----
-
-## Process summary
-1. **Submission:** Providers submit or update their price proposals via the POST endpoint.
-2. **Voting window:** These submissions remain active throughout the epoch.
-3. **Vote aggregation:** At epoch transition, the system aggregates all price proposals.
-4. **Weighted median:** A weighted median is computed and set as the canonical price per unit of compute for the next epoch.
-5. **Continuation default:** If a provider never votes, the most recently used epoch price (or the genesis parameter for the very first epoch) is used as their default vote.
-6. **Model registration & approval**: Users propose new models with their own unit-of-compute-per-token estimation. Participants then vote on these proposals before they become finalized.
+- [Tokenomics V2 Proposal: Dynamic Pricing](https://github.com/gonka-ai/gonka/blob/dl/tokenomics-v2/proposals/tokenomics-v2/dynamic-pricing.md)
+- [Dynamic Pricing Task Plan](https://github.com/gonka-ai/gonka/blob/dl/tokenomics-v2/proposals/tokenomics-v2/dynamic-pricing-todo.md)

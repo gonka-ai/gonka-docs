@@ -62,7 +62,7 @@ Each server to deploy MLNode should have at least 1.5x RAM of GPU VRAM and a 16-
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
 - 8000 - Application service (configurable)
 
-## Download Deployment Files
+## [Server] Download Deployment Files
 Clone the repository with the base deploy scripts:
 
 ```bash
@@ -96,18 +96,6 @@ For more details on the optimal deployment configuration, please refer to [this 
 !!! note        
     The network is initially launched with two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
-### Pre-download Model Weights to Hugging Face Cache (HF_HOME)
-Inference nodes download model weights from Hugging Face.
-To make sure the model weights are ready for inference, you should download them before deployment.
-
-```bash
-export HF_HOME=/path/to/your/hf-cache
-```
-Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired:
-```bash
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct
-```
-
 ## Setup Your Network Node 
 
 ### Key Management Overview
@@ -119,7 +107,7 @@ We use a two-key system:
 - **Account Key** (Cold Wallet) - Created on your local secure machine for high-stakes operations
 - **ML Operational Key** (Warm Wallet) - Created on the server for automated AI workload transactions
 
-### Install the CLI Tool
+### [Local machine] Install the CLI Tool
 The `inferenced` CLI is required for local account management and network operations. It's a command-line interface utility that allows you to create and manage Gonka accounts, register hosts, and perform various network operations from your local machine.
 
 Download the latest `inferenced` binary from [GitHub releases](https://github.com/gonka-ai/gonka/releases) and make it executable:
@@ -132,7 +120,7 @@ chmod +x inferenced
 !!! note "MacOS Users"
     On MacOS, you may need to allow execution in `System Settings` → `Privacy & Security` if prompted. Scroll down to the warning about `inferenced` and click `Allow Anyway`.
 
-### Create Account Key (Local Machine)
+### [Local machine] Create Account Key
 **IMPORTANT: Perform this step on a secure, local machine (not your server)**
 
 Create your Account Key using the `file` keyring backend (you can also use `os` for enhanced security on supported systems):
@@ -215,6 +203,15 @@ source config.env
 !!! note "Using Environment Variables"
     The examples in the following sections will reference these environment variables (e.g., `$PUBLIC_URL`, `$ACCOUNT_PUBKEY`, `$SEED_API_URL`) in both local machine commands and server commands. Make sure to run `source config.env` in each terminal session where you'll be executing these commands.
 
+### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
+Inference nodes download model weights from Hugging Face.
+To make sure the model weights are ready for inference, you should download them before deployment.
+
+```bash
+mkdir -p $HF_HOME
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct
+```
+
 ## Launch node
 The quickstart instruction is designed to run both the Network Node and the inference node on a single machine (one server setup). 
 
@@ -256,7 +253,7 @@ We start these specific containers first because:
 
 Now we need to complete the key management setup by creating the warm key, registering the Host, and granting permissions:
 
-#### 3.1. Create ML Operational Key (Server)
+#### 3.1. [Server] Create ML Operational Key
 
 Create the warm key inside the `api` container using the `file` keyring backend (required for programmatic access). The key will be stored in a persistent volume mapped to `/root/.inference` of the container:
 ```bash
@@ -285,7 +282,7 @@ again plastic athlete arrow first measure danger drastic wolf coyote work memory
 ```
 
 
-#### 3.2. Register Host (Server)
+#### 3.2. [Server] Register Host
 
 From the same container, we can register the Host with URL, Account Key, and Consensus Key (fetched automatically) on chain:
 
@@ -312,7 +309,7 @@ exit
 ```
 
 
-#### 3.3. Grant Permissions to ML Operational Key (Local Machine)
+#### 3.3. [Local machine] Grant Permissions to ML Operational Key
 **IMPORTANT: Perform this step on your secure local machine where you created the Account Key**
 
 Grant permissions from your Account Key to the ML Operational Key:
@@ -336,7 +333,7 @@ Transaction confirmed successfully!
 Block height: 174
 ```
 
-#### 3.4. Launch Full Node (Server)
+#### 3.4. [Server] Launch Full Node
 
 Finally, launch all containers including the API:
 ```bash

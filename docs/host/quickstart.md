@@ -108,17 +108,6 @@ Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired:
 huggingface-cli download Qwen/Qwen2.5-7B-Instruct
 ```
 
-## Authenticate with Docker Registry
-Some Docker images used in this instruction are private. Make sure to authenticate with GitHub Container Registry:
-```bash
-docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
-```
-??? note "Required token scopes"
-    When creating a new Personal Access Token (Classic) on GitHub, make sure to select the following scopes:
-    
-    - `repo` → Full control of private repositories
-    - `read:packages` → Download packages from GitHub Package Registry
-
 ## Setup Your Network Node 
 
 ### Key Management Overview

@@ -1,5 +1,5 @@
 # Getting Started with the Dashboard
-Dashboard shows live on-chain activity (including a list of transactions and their statuses), delivers real-time inference analytics, displays your coin balances, lets you buy and send coins, and more.
+Dashboard shows live on-chain activity (including a list of transactions and their statuses), delivers real-time inference analytics, and more.
 
 Instead of relying on a single centralized server, all network data and inference metrics are hosted directly on the Hosts' nodes. This means the dashboard can connect to any Host’s node and fetch live network data straight from the source.
 

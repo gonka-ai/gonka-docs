@@ -1,6 +1,6 @@
 # FAQ
 
-=== Questions
+=== "Questions"
     **Q: What is Gonka?**
     A: Gonka is a decentralized network for high‑efficiency AI compute — run by those who run it. It functions as a cost-effective and efficient alternative to centralized cloud services for AI model training and inference. As a protocol, it's not a company or a start-up.
     
@@ -24,7 +24,7 @@
     **Q: What are the hardware requirements?**
     A: You can find the minimum and recommended [hardware specifications](https://gonka.ai/host/hardware-specifications/) clearly outlined in the documentation. You should review this section to ensure your hardware meets the requirements for effective contribution. 
 
-=== Errors
+=== "Errors"
     ```
     2025/08/28 08:37:08 ERROR No epoch models available for this node subsystem=Nodes node_id=node1
     2025/08/28 08:37:08 INFO Finalizing state transition for node subsystem=Nodes node_id=node1 from_status=FAILED to_status=FAILED from_poc_status="" to_poc_status="" succeeded=false blockHeight=92476

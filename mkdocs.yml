@@ -27,8 +27,10 @@ nav:
       - Model licenses: model-licenses.md
       - Transactions & Governance: transactions-and-governance.md
       - Software Upgrades: software-upgrades.md
-      - FAQ: FAQ.md
-      - Help: help.md
+      - Help:
+        - FAQ: FAQ.md
+        - Errors: Errors.md
+        - Get help: help.md
   - API Reference:
      - API Reference: api-reference/api-reference.md
      - REST API: api-reference/rest-api.md

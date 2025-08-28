@@ -21,6 +21,7 @@ nav:
         - Hardware Specifications: host/hardware-specifications.md
         - Genesis: host/genesis.md
       - Wallet:
+        - Dashboard: wallet/dashboard.md
         - Wallet & Transfer Guide: wallet/wallet-and-transfer-guide.md
         - Pricing: wallet/pricing.md
       - Model licenses: model-licenses.md

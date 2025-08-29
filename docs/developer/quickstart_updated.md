@@ -18,12 +18,31 @@ export NODE_URL=http://node2.gonka.ai:8000
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
-- Replace `NODE_URL` with any random node from the list of current active participants, or keep the address of the genesis node (`http://node2.gonka.ai:8000`).
+- Select Node URL. You can either:
+   - Use a **genesis node** from the predefined list.
+   - Or fetch the **current list of active participants** and select a random node.
 
-The following command returns a JSON array of participants currently active in the epoch, along with a cryptographic proof that can be used to independently verify the list of active nodes:
-```bash
-curl http://node2.gonka.ai:8000/v1/epochs/current/participants
-```
+=== "Genesis nodes"
+    Set the `NODE_URL` to one of the genesis nodes:
+    ```bash title="Genesis Node List"
+    http://185.216.21.98:8000
+    http://69.19.136.233:8000
+    http://36.189.234.197:18026
+    http://36.189.234.237:17241
+    http://93.119.168.58:8000
+    http://node1.gonka.ai:8000
+    http://node2.gonka.ai:8000
+    http://node3.gonka.ai:8000
+    http://47.236.26.199:8000
+    http://47.236.19.22:18000
+    http://gonka.spv.re:8000
+    ```
+    
+=== "Current list of active participants"
+    Alternatively, you can select a random active participant from the current epoch. Run the following command to fetch the list of active participants along with a cryptographic proof for verification:
+    ```bash
+    curl http://node2.gonka.ai:8000/v1/epochs/current/participants
+    ```
 
 ## 2. Create an account
 

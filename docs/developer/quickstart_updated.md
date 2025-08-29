@@ -145,19 +145,32 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
         
         <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
 
-    Open the Hosts list.
+    Choose a random node from the list of genesis-nodes
     ```
-    http://node2.gonka.ai:8000/v1/epochs/current/participants
+    http://185.216.21.98:8000
+    http://69.19.136.233:8000
+    http://36.189.234.197:18026
+    http://36.189.234.237:17241
+    http://93.119.168.58:8000
+    http://node1.gonka.ai:8000
+    http://node2.gonka.ai:8000
+    http://node3.gonka.ai:8000
+    http://47.236.26.199:8000
+    http://47.236.19.22:18000
+    http://gonka.spv.re:8000
     ```
-    
-    Choose any active Host from the list.
-
-    !!! note "Why is this important?"
-        This approach ensures decentralization: no single central server controls the network.
-    
-    Copy their `inference_url` value.
-    
-    Paste the `inference_url` into your browser to load the dashboard.
+    ??? note: "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
+        
+        Open the Hosts list.
+        ```
+        http://node2.gonka.ai:8000/v1/epochs/current/participants
+        ```
+        
+        Choose any active Host from the list.
+        
+        Copy their `inference_url` value.
+        
+        Paste the `inference_url` into your browser to load the dashboard.
     
     Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
     

@@ -179,8 +179,7 @@ export NODE_URL=http://node2.gonka.ai:8000
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
     ```
-    ??? note: "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-        
+    ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
         Open the Hosts list.
         ```
         http://node2.gonka.ai:8000/v1/epochs/current/participants

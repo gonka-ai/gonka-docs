@@ -175,7 +175,7 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
 
     Copy your private key and store it securely (a hard copy is preferred).   
 
-    === "Leap"
+=== "Option 3: Via Leap (external wallet)
 
     !!! note "Important Notice: Limited Functionality"
 

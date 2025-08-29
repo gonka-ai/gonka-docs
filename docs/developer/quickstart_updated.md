@@ -133,7 +133,7 @@ export NODE_URL=http://node2.gonka.ai:8000
 
         Click "Connect with Google".
     
-        <a href="/images/dashboard_keplr_step_2_5.png" target="_blank"><img src="/images/dashboard_keplr_step_2_5.png" style="width:500px; height:auto;"></a>
+        <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
     
         Set Up Your Wallet.
     
@@ -145,9 +145,9 @@ export NODE_URL=http://node2.gonka.ai:8000
 
     === "Create new recovery phrase"
 
-        Click "Create a new wallet"
+        Click "Create new recovery phrase"
     
-        <a href="/images/dashboard_keplr_step_2_5.png" target="_blank"><img src="/images/dashboard_keplr_step_2_5.png" style="width:500px; height:auto;"></a>
+        <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
 
         DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
     

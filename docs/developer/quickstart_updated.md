@@ -163,8 +163,8 @@ export NODE_URL=http://node2.gonka.ai:8000
         Your Keplr wallet has been created.
         
         <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
-
-    Choose a random node from the list of genesis-nodes
+        
+    Choose a random node from the `inference_url` list of genesis-nodes.
     ```
     http://185.216.21.98:8000
     http://69.19.136.233:8000
@@ -188,7 +188,7 @@ export NODE_URL=http://node2.gonka.ai:8000
         
         Copy their `inference_url` value.
         
-        Paste the `inference_url` into your browser to load the dashboard.
+    Paste the `inference_url` into your browser to load the dashboard.
     
     Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
     
@@ -252,7 +252,7 @@ export NODE_URL=http://node2.gonka.ai:8000
 
     <a href="/images/leap_you_are_all_set.png" target="_blank"><img src="/images/leap_you_are_all_set.png" style="width:500px; height:auto;"></a>
 
-    Choose a random node from the list of genesis-nodes
+    Choose a random node from the `inference_url` list of genesis-nodes
     ```
     http://185.216.21.98:8000
     http://69.19.136.233:8000
@@ -276,7 +276,7 @@ export NODE_URL=http://node2.gonka.ai:8000
         
         Copy their `inference_url` value.
         
-        Paste the `inference_url` into your browser to load the dashboard.
+    Paste the `inference_url` into your browser to load the dashboard.
     
     Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
     

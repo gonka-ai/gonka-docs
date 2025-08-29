@@ -124,15 +124,18 @@ You can interact with the dashboard in two ways:
         <a href="/images/dashboard_leap_step_2_7.png" target="_blank"><img src="/images/dashboard_leap_step_2_7.png" style="width:500px; height:auto;"></a>
     
     ### 3. Connect wallet
-    3.1. In the top-right corner, click "Connect Wallet" to get started.
+
+    3.1  Open Gonka dashboard following the [preview mode](https://gonka.ai/wallet/dashboard/#__tabbed_1_1) instructions. 
+    
+    3.2. In the top-right corner, click "Connect Wallet" to get started.
     
     <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
     
-    3.2. Select Keplr or Leap and hit Connect.
+    3.3. Select Keplr or Leap and hit Connect.
     
     <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
     
-    3.3. You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
+    3.4. You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
     
     === "Keplr"
         <a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:500px; height:auto;"></a>
@@ -140,7 +143,7 @@ You can interact with the dashboard in two ways:
     === "Leap"
         <a href="/images/dashboard_ping_pub_3_3-leap.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3-leap.png" style="width:500px; height:auto;"></a>
     
-    3.4. Done! You successfully added your account to the wallet.
+    3.5. Done! You successfully added your account to the wallet.
     
     <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:500px; height:auto;"></a>
     

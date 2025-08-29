@@ -104,7 +104,7 @@ For more details on the optimal deployment configuration, please refer to [this 
 
 ### Key Management Overview
 Before configuring your Network Node, you need to set up cryptographic keys for secure operations.  
-**You recommend to read [Key Management Guide](/host/key-management/) before launching a production node.**
+**It is recommended to read [Key Management Guide](/host/key-management/) before launching a production node.**
 
 We use a two-key system:
 

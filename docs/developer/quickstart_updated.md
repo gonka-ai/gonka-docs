@@ -115,11 +115,11 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
 
     Set Up Your Wallet
 
-    <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/dashboard_keplr_step_2_5.png" style="width:500px; height:auto;"></a>
+    <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
 
     Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Keep this in a safe place.
 
-    <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/dashboard_keplr_step_2_5.png" style="width:500px; height:auto;"></a>
+    <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
     Select Cosmos Hub and Ethereum.
     
@@ -167,11 +167,11 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
 
     Navigate three dots and click "View private key"
 
-    <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
+    <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/keplr_view_private_key.png" style="width:auto; height:337.5px;"></a>
 
     Enter your password 
    
-    <a href="/images/keplr_enter_your_password.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
+    <a href="/images/keplr_enter_your_password.png" target="_blank"><img src="/images/keplr_enter_your_password.png" style="width:auto; height:337.5px;"></a>
 
     Copy your private key and store it securely (a hard copy is preferred).   
 

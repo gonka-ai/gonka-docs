@@ -324,7 +324,7 @@ Grant permissions from your Account Key to the ML Operational Key:
     --from gonka-account-key \
     --keyring-backend file \
     --gas 2000000 \
-    --node $SEED_API_URL/chain-rpc/
+    --node <seed_api_url from server's config.env>/chain-rpc/ 
 ```
 
 **Expected output:**

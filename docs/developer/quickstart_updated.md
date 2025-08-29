@@ -28,7 +28,7 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
 ## 2. Create an account
 
 === "Option 1: Via CLI tool"
-    2.1. Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
+    Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
     
     
     ??? note "Enabling Execution on Mac OS"
@@ -69,39 +69,23 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
     export GONKA_ADDRESS=<your-account-address>
     ```
     
-    2.2. Add Private Key to environment variables
+    Add Private Key to environment variables
     
     If you'd like to perform the request:
     
-    2.3. Export your private key (for demo/testing only).
+    Export your private key (for demo/testing only).
     ```bash
     ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
     ```
     
     This command outputs a plain-text private key.
     
-    2.4. Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
+    Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
     ```bash
     export GONKA_PRIVATE_KEY=<your-private-key>
     ```
 
 === "Option 2: Via Keplr (external wallet)"
-        
-    Open the Hosts list
-    ```
-    http://node2.gonka.ai:8000/v1/epochs/current/participants
-    ```
-    
-    Choose any active Host from the list.
-
-    !!! note "Why is this important?"
-        This approach ensures decentralization: no single central server controls the network.
-    
-    Copy their `inference_url` value.
-    
-    Paste the `inference_url` into your browser to load the dashboard.
-    
-    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
 
     Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
     
@@ -145,7 +129,23 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
     
     <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
 
-    Go back to the dashboard. In the top-right corner, click "Connect Wallet" to get started.
+    Open the Hosts list
+    ```
+    http://node2.gonka.ai:8000/v1/epochs/current/participants
+    ```
+    
+    Choose any active Host from the list.
+
+    !!! note "Why is this important?"
+        This approach ensures decentralization: no single central server controls the network.
+    
+    Copy their `inference_url` value.
+    
+    Paste the `inference_url` into your browser to load the dashboard.
+    
+    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
+    
+    In the top-right corner, click "Connect Wallet" to get started.
     
     <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
     
@@ -160,6 +160,20 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
     Done! Your Gonka Developer account has been successfully created.
     
     <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:500px; height:auto;"></a>
+
+    Open the extension and click on the account icon in the top-right corner of the extension window.
+            
+    <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
+
+    Navigate three dots and click "View private key"
+
+    <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
+
+    Enter your password 
+   
+    <a href="/images/keplr_enter_your_password.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
+
+    Copy your private key and store it securely (a hard copy is preferred).   
 
 ## 3. Inference using modified OpenAI SDK
 

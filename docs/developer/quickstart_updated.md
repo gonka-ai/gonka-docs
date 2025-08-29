@@ -19,9 +19,8 @@ export NODE_URL=http://node2.gonka.ai:8000
 
 - Replace `<your-desired-account-name>` with your chosen account name.
 - Select Node URL. You can either:
-  
-   - Use a **genesis node** from the predefined list.
-   - Fetch the **current list of active participants** and select a random node.
+    - Use a **genesis node** from the predefined list.
+    - Fetch the **current list of active participants** and select a random node.
 
 === "Genesis nodes"
     Set the `NODE_URL` to one of the genesis nodes:

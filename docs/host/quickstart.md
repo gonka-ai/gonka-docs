@@ -160,7 +160,7 @@ pyramid sweet dumb critic lamp various remove token talent drink announce tiny l
     
     **Important**: Always keep your mnemonic phrase as backup regardless of future hardware wallet adoption.
 
-### Edit Your Network Node Configuration
+### [Server] Edit Your Network Node Configuration
 
 !!! note "config.env"
     ```
@@ -216,20 +216,20 @@ mkdir -p $HF_HOME
 huggingface-cli download Qwen/Qwen2.5-7B-Instruct
 ```
 
-## Launch node
+## [Server] Launch node
 The quickstart instruction is designed to run both the Network Node and the inference node on a single machine (one server setup). 
 
 ??? note "Multiple nodes deployment"
     If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://gonka.ai/host/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same Network Node.
     
-### 1. Pull Docker Images (Containers)
+### 1. [Server] Pull Docker Images (Containers)
 
 Make sure you are in the `gonka/deploy/join` folder before running the next commands. 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
 ```
 
-### 2. Start Initial Services
+### 2. [Server] Start Initial Services
 
 Start the essential services needed for key setup (excluding the API service):
 

@@ -105,15 +105,15 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
     
         <a href="/images/dashboard_keplr_step_2_3_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3_2.png" style="width:500px; height:auto;"></a>
     
-    Click "Create a new wallet"
+    Click "Create a new wallet".
 
     <a href="/images/dashboard_keplr_step_2_4.png" target="_blank"><img src="/images/dashboard_keplr_step_2_4.png" style="width:500px; height:auto;"></a>
 
-    Click "Connect with Google"
+    Click "Connect with Google".
 
     <a href="/images/dashboard_keplr_step_2_5.png" target="_blank"><img src="/images/dashboard_keplr_step_2_5.png" style="width:500px; height:auto;"></a>
 
-    Set Up Your Wallet
+    Set Up Your Wallet.
 
     <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
 
@@ -129,7 +129,7 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
     
     <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
 
-    Open the Hosts list
+    Open the Hosts list.
     ```
     http://node2.gonka.ai:8000/v1/epochs/current/participants
     ```
@@ -165,15 +165,96 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
             
     <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
 
-    Navigate three dots and click "View private key"
+    Navigate three dots and click "View private key".
 
     <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/keplr_view_private_key.png" style="width:auto; height:337.5px;"></a>
 
-    Enter your password 
+    Enter your password. 
    
     <a href="/images/keplr_enter_your_password.png" target="_blank"><img src="/images/keplr_enter_your_password.png" style="width:auto; height:337.5px;"></a>
 
     Copy your private key and store it securely (a hard copy is preferred).   
+
+    === "Leap"
+
+    !!! note "Important Notice: Limited Functionality"
+
+    This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1 or Option 2 instead.
+    
+    Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
+    
+    <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:500px; height:auto;"></a>
+    
+    Add an extension to the browser.
+    
+    <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
+    
+    Click "Create a new wallet".
+    
+    <a href="/images/dashboard_leap_step_2_3.png" target="_blank"><img src="/images/dashboard_leap_step_2_3.png" style="width:500px; height:auto;"></a>
+
+    Save your secret recovery phrase. Write down these words, your secret recovery phrase is the only way to recover your wallet and funds!
+
+    <a href="/images/leap_your_secret_recovery_phrase.png" target="_blank"><img src="/images/leap_your_secret_recovery_phrase.png" style="width:500px; height:auto;"></a>
+
+    Choose a password to secure & lock your wallet. Agree to the Terms & Conditions.
+
+    <a href="/images/leap_create_your_password.png" target="_blank"><img src="/images/leap_create_your_password.png" style="width:500px; height:auto;"></a>
+
+    Your Leap wallet has been created.
+
+    <a href="/images/leap_you_are_all_set.png" target="_blank"><img src="/images/leap_you_are_all_set.png" style="width:500px; height:auto;"></a>
+
+    Open the Hosts list.
+    ```
+    http://node2.gonka.ai:8000/v1/epochs/current/participants
+    ```
+    
+    Choose any active Host from the list.
+
+    !!! note "Why is this important?"
+        This approach ensures decentralization: no single central server controls the network.
+    
+    Copy their `inference_url` value.
+    
+    Paste the `inference_url` into your browser to load the dashboard.
+    
+    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
+    
+    In the top-right corner, click "Connect Wallet" to get started.
+    
+    <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
+    
+    Select Leap and hit Connect.
+    
+    <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
+    
+    You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
+    
+    <a href="/images/leap_add_network.png" target="_blank"><img src="/images/leap_add_network.png" style="width:500px; height:auto;"></a>
+
+    Done! Your Gonka Developer account has been successfully created.
+
+    <a href="/images/leap_created_gonka_account.png" target="_blank"><img src="/images/leap_created_gonka_account.png" style="width:500px; height:auto;"></a>
+
+    Open the extension and navigate to the menu in the top-left corner.
+            
+    <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
+
+    Click "Security & Privacy".
+
+    <a href="/images/leap_security_privacy.png" target="_blank"><img src="/images/leap_security_privacy.png" style="width:auto; height:337.5px;"></a>
+
+    Click "Show private key". 
+   
+    <a href="/images/leap_show_private_key.png" target="_blank"><img src="/images/leap_show_private_key.png" style="width:auto; height:337.5px;"></a>
+
+    Enter your password.
+    
+    <a href="/images/leap_enter_password.png" target="_blank"><img src="/images/leap_enter_password.png" style="width:auto; height:337.5px;"></a>
+
+    Copy your private key and store it securely (a hard copy is preferred).   
+
 
 ## 3. Inference using modified OpenAI SDK
 

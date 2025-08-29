@@ -179,7 +179,7 @@ curl http://node2.gonka.ai:8000/v1/epochs/current/participants
 
     !!! note "Important Notice: Limited Functionality"
 
-    This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1 or Option 2 instead.
+        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1 or Option 2 instead.
     
     Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
     

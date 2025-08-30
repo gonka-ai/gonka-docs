@@ -325,11 +325,11 @@ There are several ways to do this:
             
         <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
             
-        Choose "Import using private key". Do not choose "Import using recovery phrase", as the bridge requires direct access to the raw private key to sign transactions and ensure proper interoperability with Ethereum. 
+        Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase. However, bridge functionality will be limited, as the bridge requires direct access to the raw private key to sign transactions and ensure full interoperability with Ethereum. 
             
         <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
     
-        Paste your private key. You can import an account created using a recovery (mnemonic/seed) phrase. However, bridge functionality will be limited, as the bridge requires direct access to the raw private key to sign transactions and ensure full interoperability with Ethereum.
+        Paste your private key or a recovery (mnemonic/seed) phrase.
     
         <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:250px; height:auto;"></a>
             

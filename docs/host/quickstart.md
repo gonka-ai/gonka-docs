@@ -374,7 +374,7 @@ curl http://node2.gonka.ai:26657/status
 ### How to stop MLNode
 1. Disable each MLNode.
 ```
-g.POST("nodes/:id/disable", s.disableNode)
+curl -X POST http://<api_node_static_ip>:<admin_port>/nodes/<id>/disable
 ```
 2. Wait for the next epoch. Do not stop the node yet. The disable flag takes effect only after the next epoch starts.
 3. Verify removal and weight. Confirm both for every disabled node:

@@ -225,6 +225,40 @@ export NODE_URL=http://node2.gonka.ai:8000
 
     Copy your private key and store it securely (a hard copy is preferred).   
 
+    ??? note "Optional: How to add an additional Gonka account in Keplr wallet — click to view steps"
+
+        Open the extension and click on the account icon in the top-right corner of the extension window.
+            
+        <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
+            
+        Click the "Add wallet" button.
+            
+        <a href="/images/dashboard_ping_pub_3_5_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_2.png" style="width:auto; height:337.5px; display:block;"></a>
+            
+        Click "Import an Existing Wallet".
+            
+        <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:450px; height:auto; display:block;"></a>
+            
+        Click "Use recovery phrase or private key"
+    
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
+    
+        Paste your private key. You can import an account created using a recovery (mnemonic/seed) phrase. However, bridge functionality will be limited, as the bridge requires direct access to the raw private key to sign transactions and ensure full interoperability with Ethereum.
+    
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
+            
+        Give your wallet a name for easy reference.
+            
+        <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
+            
+        Select Cosmos Hub and Ethereum.
+    
+        <a href="/images/dashboard_ping_pub_3_5_6.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_6.png" style="width:450px; height:auto; display:block;"></a>
+            
+        Done — your Gonka account has been successfully imported into Keplr!
+            
+        <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
+
 === "Option 3: Via Leap (external wallet)"
 
     !!! note "Important Notice: Limited Functionality"
@@ -316,6 +350,28 @@ export NODE_URL=http://node2.gonka.ai:8000
     <a href="/images/leap_enter_password.png" target="_blank"><img src="/images/leap_enter_password.png" style="width:auto; height:337.5px;"></a>
 
     Copy your private key and store it securely (a hard copy is preferred).   
+
+    ??? note "Optional: How to add an additional Gonka account to Leap wallet — click to view steps"            
+        Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
+            
+        <a href="/images/dashboard_leap_step_3_5_1.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_1.png" style="width:250px; height:auto;"></a>
+            
+        Click the "Create/Import wallet" button.
+            
+        <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
+            
+        Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase. However, bridge functionality will be limited, as the bridge requires direct access to the raw private key to sign transactions and ensure full interoperability with Ethereum. 
+            
+        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
+    
+        Paste your private key or a recovery (mnemonic/seed) phrase.
+    
+        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:250px; height:auto;"></a>
+            
+        Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
+            
+        <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
+
 
 
 ## 3. Inference using modified OpenAI SDK

@@ -145,8 +145,7 @@ export NODE_URL=http://node2.gonka.ai:8000
     === "Create new recovery phrase"
 
         !!! note "Important Notice: Limited Functionality"
-
-        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1 or Option 2 ("Connect with Google") instead.
+            This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1 or Option 2 ("Connect with Google") instead.
         
         Click "Create new recovery phrase"
     

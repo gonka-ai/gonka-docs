@@ -46,7 +46,7 @@ export NODE_URL=http://node2.gonka.ai:8000
 
 ## 2. Create an account
 
-=== "Option 1: Via CLI tool"
+=== "Option 1: Via `inferenced` CLI tool"
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
     
     

@@ -144,6 +144,10 @@ export NODE_URL=http://node2.gonka.ai:8000
 
     === "Create new recovery phrase"
 
+        !!! note "Important Notice: Limited Functionality"
+
+        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1 or Option 2 ("Connect with Google") instead.
+        
         Click "Create new recovery phrase"
     
         <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
@@ -226,7 +230,7 @@ export NODE_URL=http://node2.gonka.ai:8000
 
     !!! note "Important Notice: Limited Functionality"
 
-        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1 or Option 2 instead.
+        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1 or Option 2 ("Connect with Google") instead.
     
     Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
     

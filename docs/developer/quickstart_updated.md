@@ -39,19 +39,17 @@ export NODE_URL=<http://random-node-url>
 Do not forget to write it down, you will need it in the next step.
 
 ??? note "Why a random node?"
-    To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages
-    The participant list is protected by a Merkle proof, which you can use to independently verify its integrity.  
-    You can also confirm the Merkle root via:
+    To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages. The participant list is protected by a Merkle proof, which you can use to independently verify its integrity. You can also confirm the Merkle root via:
     ```
     curl http://PLACEHOLDER
     ```
 
-!!! note "How to choose?"
-        You can choose any node randomly — you **do not** need to consider:
-        - which model does it run
-        — its location
-        — its hardware
-        At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API. Model/runtime details are irrelevant in this context.
+!!! note "How to choose a Node URL?"
+    You can choose any node randomly — you **do not** need to consider:
+    - which model does it run
+    — its location
+    — its hardware
+    At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API. Model/runtime details are irrelevant in this context.
 
 === "Genesis nodes"
     Set the `NODE_URL` to one of the genesis nodes:

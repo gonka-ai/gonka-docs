@@ -6,6 +6,16 @@ name: index.md
 
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
 
+??? note "How Gonka differs from traditional AI APIs"
+    Gonka isn’t just another AI API — it’s a cryptographic protocol for provable inference. By eliminating centralized identity, Gonka removes the traditional single point of failure that plagues SaaS-based AI services. Here is a quick comparison table to understand the difference between a Traditional AI API and the Gonka API.
+    | **Aspect**                         | **Traditional AI API** <br> *(OpenAI, Anthropic, etc.)* | **Gonka API** |
+    |-----------------------------------|---------------------------------------------------------|---------------|
+    | **Model provenance & verifiable output** | Models are hosted and versioned by the provider, but there’s no way to cryptographically verify which model actually produced a given output. There’s no proof that the model wasn’t switched, fine-tuned behind the scenes, or A/B tested on you. | Every inference request and response can be cryptographically linked to a specific model hash and execution environment. This enables verifiable provenance — anyone can prove that a particular model version generated a specific output. |
+    | **Censorship resistance**         | All access is controlled centrally — providers can restrict or terminate accounts at any time. This includes enforcement of geographic, political, or commercial policies. | Inference requests are signed and broadcast through a decentralized network. As long as you hold your private key and connect to a node, you can run inference. The system is designed to be uncensorable, unless restrictions are applied by a transparent, protocol-level consensus. |
+    | **Auditability & transparency**   | Logging, billing, and usage tracking are fully controlled by the API provider. Users cannot independently verify their own usage or inspect how pricing, latency, or errors were handled. | Every interaction is signed and timestamped, enabling independent audit trails. You can prove when and how an inference occurred, which model was used, whether the results were altered, and ensure that disputes can be publicly resolved. |
+    | **Transparent tokenomics**       | Billing rates have limited insight into compute pricing, model costs, or system load. | Tokenomics are on-chain or protocol-defined, meaning pricing mechanisms are transparent and inspectable. Users convert GNK into AI Tokens with predictable, traceable exchange logic, enabling clear forecasting of inference costs and supply-demand–driven economics. |
+
+
 ---
 
 ## 1. Define variables
@@ -14,13 +24,34 @@ Before creating an account, set up the required environment variables:
 
 ```bash
 export ACCOUNT_NAME=<your-desired-account-name>
-export NODE_URL=http://node2.gonka.ai:8000
+export NODE_URL=<http://random-node-url>
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
-- Select Node URL. You can either:
-    - Use a **genesis node** from the predefined list.
+
+??? note "Things to know about account names"
+    This name is not recorded on-chain — it exists only in your local key store.
+    Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. We highly recommend backing up your public and private keys before performing this operation.
+
+- Replace `<http://random-node-url>` with a random Node URL. You can either:
+    - Use one of the **genesis nodes** from the list below.
     - Fetch the **current list of active participants** and select a random node.
+Do not forget to write it down, you will need it in the next step.
+
+??? note "Why a random node?"
+    To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages
+    The participant list is protected by a Merkle proof, which you can use to independently verify its integrity.  
+    You can also confirm the Merkle root via:
+    ```
+    curl http://PLACEHOLDER
+    ```
+
+!!! note "How to choose?"
+        You can choose any node randomly — you **do not** need to consider:
+        - which model does it run
+        — its location
+        — its hardware
+        At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API. Model/runtime details are irrelevant in this context.
 
 === "Genesis nodes"
     Set the `NODE_URL` to one of the genesis nodes:
@@ -43,10 +74,13 @@ export NODE_URL=http://node2.gonka.ai:8000
     ```bash
     curl http://node2.gonka.ai:8000/v1/epochs/current/participants
     ```
-
+    
 ## 2. Create an account
 
 === "Option 1: Via `inferenced` CLI tool"
+    ??? note "What is the `inferenced` CLI tool" 
+    The `inferenced` CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
+    
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
     
     
@@ -73,8 +107,12 @@ export NODE_URL=http://node2.gonka.ai:8000
     
     Make sure to securely save your passphrase — you'll need it for future access.
     
-    This command creates a new account, securely stores its keys in the `~/.inference` directory, and returns your new account address:
+    This command will:
     
+    - Generate a keypair
+    - Save it to `~/.inference`
+    - Return your account address, public key, and mnemonic phrase (store it securely in a hard copy as well!)
+
     ```bash
     - address: <your-account-address>
       name: ACCOUNT_NAME
@@ -87,8 +125,13 @@ export NODE_URL=http://node2.gonka.ai:8000
     ```bash
     export GONKA_ADDRESS=<your-account-address>
     ```
-    
-    Add Private Key to environment variables
+
+    You will use this account to purchase gonka (GNK) coins and pay for inference requests.
+
+    !!! note "Inference for free" 
+        During the initial network phase, controlled by a governance parameter `GracePeriodEndEpoch` with a proposed default of 90 epochs (~90 days), the dynamic pricing system is bypassed and all inference costs are set to zero (until ~ November 20, 2025).
+
+    Add Private Key to environment variables.
     
     If you'd like to perform the request:
     
@@ -102,6 +145,10 @@ export NODE_URL=http://node2.gonka.ai:8000
     Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
     ```bash
     export GONKA_PRIVATE_KEY=<your-private-key>
+    ```
+    To retrieve a list of all locally stored accounts, execute the following command:
+    ```
+    inferenced keys list [--keyring-backend test]
     ```
 
 === "Option 2: Via Keplr (external wallet)"

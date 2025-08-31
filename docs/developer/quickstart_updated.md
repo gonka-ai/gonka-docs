@@ -45,7 +45,7 @@ Do not forget to write it down, you will need it in the next step.
     ```
 
 !!! note "How to choose a Node URL?"
-    You can choose any node randomly — you **do not** need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API. Model/runtime details are irrelevant in this context.
+    You can choose any node randomly — you **do not** need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API.
 
 === "Genesis nodes"
     Set the `NODE_URL` to one of the genesis nodes:

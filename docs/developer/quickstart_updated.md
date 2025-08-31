@@ -46,6 +46,7 @@ Do not forget to write it down, you will need it in the next step.
 
 !!! note "How to choose a Node URL?"
     You can choose any node randomly — you **do not** need to consider:
+    
     - which model does it run
     — its location
     — its hardware

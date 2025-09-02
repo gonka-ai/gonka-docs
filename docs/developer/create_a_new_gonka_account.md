@@ -117,7 +117,7 @@ There are several ways to do this:
 
     Open Keplr, navigate to “Copy Address” in your wallet, tap or click “Copy Address,” and share the copied address — it’s a public key, so it’s safe. 
     
-    <a href="/images/keplr_copy_address.png" target="_blank"><img src="/images/keplr_copy_address.png" style="width:500px; height:auto;"></a>
+    <a href="/images/keplr_copy_address.png" target="_blank"><img src="/images/keplr_copy_address.png" style="width:auto; height:337.5px;"></a>
 
     Click on the account icon in the top-right corner of the extension window.
             

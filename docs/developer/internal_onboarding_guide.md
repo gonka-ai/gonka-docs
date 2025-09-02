@@ -225,7 +225,7 @@ There are several ways to do this:
       type: local
     ```
 
-    Save this data. Copy Address — it looks like a long string of letters and numbers (e.g., gonka1... ). This address is public, you can safely share it with others to receive payments.
+    Save this data. This address is public, you can safely share it with others to receive payments.
 
     Export your private key.
     ```bash

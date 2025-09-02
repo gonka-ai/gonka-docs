@@ -232,20 +232,13 @@ There are several ways to do this:
     ```
     
     Add Private Key to environment variables
-    
-    If you'd like to perform the request:
-    
-    Export your private key (for demo/testing only).
+        
+    Export your private key.
     ```bash
     ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
     ```
     
-    This command outputs a plain-text private key.
-    
-    Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
-    ```bash
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
+    This command outputs a plain-text private key. Backup your private key securely. Anyone with your private key can have access to your assets. 
 
 Sharing Your Address Safely
 

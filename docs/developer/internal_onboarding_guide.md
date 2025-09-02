@@ -112,7 +112,7 @@ There are several ways to do this:
     
     <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:500px; height:auto;"></a>
 
-    Open Keplr, navigate to “Copy Address” in your wallet, tap or click “Copy Address,” and share the copied address — it’s a public key, so it’s safe. 
+    Open Keplr, navigate to “Copy Address” in your wallet, tap or click “Copy Address”. It looks like a long string of letters and numbers (e.g., gonka1... ). This address is public—you can safely share it with others to receive payments.
     
     <a href="/images/keplr_copy_address.png" target="_blank"><img src="/images/keplr_copy_address.png" style="width:auto; height:337.5px;"></a>
 
@@ -185,6 +185,10 @@ There are several ways to do this:
 
     Done! Your Gonka Developer account has been successfully created.
 
+    Open Leap, navigate to “Copy Address” in your wallet, tap or click “Copy Address”. It looks like a long string of letters and numbers (e.g., gonka1... ). This address is public—you can safely share it with others to receive payments.
+
+    <a href="/images/leap_copy_address.png" target="_blank"><img src="/images/leap_copy_address.png" style="width:500px; height:auto;"></a>
+
 === "Option 3: Via `inferenced` CLI tool"
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
     
@@ -242,11 +246,6 @@ There are several ways to do this:
     ```bash
     export GONKA_PRIVATE_KEY=<your-private-key>
     ```
-
-Copy Your Gonka Blockchain Address.  
-
-- It looks like a long string of letters and numbers (e.g., gonka1... ).
-- This address is public—you can safely share it with others to receive payments.
 
 Sharing Your Address Safely
 

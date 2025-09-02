@@ -75,24 +75,21 @@ There are several ways to do this:
         <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
         
     Choose a random node from the `inference_url` list of genesis-nodes.
-    ```
-    [http://185.216.21.98:8000](http://185.216.21.98:8000)
-    [http://69.19.136.233:8000](http://69.19.136.233:8000)
-    [http://36.189.234.197:18026](http://36.189.234.197:18026)
-    [http://36.189.234.237:17241](http://36.189.234.237:17241)
-    [http://93.119.168.58:8000](http://93.119.168.58:8000)
-    [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
-    [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
-    [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
-    [http://47.236.26.199:8000](http://47.236.26.199:8000)
-    [http://47.236.19.22:18000](http://47.236.19.22:18000)
-    [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
-    ```
+
+    - [http://185.216.21.98:8000](http://185.216.21.98:8000)
+    - [http://69.19.136.233:8000](http://69.19.136.233:8000)
+    - [http://36.189.234.197:18026](http://36.189.234.197:18026)
+    - [http://36.189.234.237:17241](http://36.189.234.237:17241)
+    - [http://93.119.168.58:8000](http://93.119.168.58:8000)
+    - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+    - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+    - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
+    - [http://47.236.26.199:8000](http://47.236.26.199:8000)
+    - [http://47.236.19.22:18000](http://47.236.19.22:18000)
+    - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
+    
     ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-        Open the Hosts list.
-        ```
-        [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
-        ```
+        Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants).
         
         Choose any active Host from the list.
         

@@ -6,69 +6,11 @@
 To start using Gonka Network, you first need to create a Gonka Account.
 There are several ways to do this:
 
-- Via `inferenced` CLI tool — full functionality, including bridge transactions.
 - Via Keplr wallet — easier setup, supports Connect with Google (recommended) or mnemonic phrase (limited: no bridge support).
 - Via Leap wallet — simple setup via mnemonic phrase, but also no bridge support.
+- Via `inferenced` CLI tool — full functionality, including bridge transactions.
 
-=== "Option 1: Via `inferenced` CLI tool"
-    Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
-    
-    
-    ??? note "Enabling Execution on Mac OS"
-        On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
-        
-        1.	Open a terminal and navigate to the directory where the binary is located.
-        
-        2.	Run the following command to grant execution permission:
-        ```
-        chmod +x inferenced
-        ```
-        3.	Try running `./inferenced --help` to ensure it's working.
-            
-        4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
-        
-        5.	Scroll down to the warning about `inferenced` and click "Allow Anyway".
-    
-    You can create an account with the following command:
-    ```bash
-    ./inferenced create-client $ACCOUNT_NAME \
-      --node-address $NODE_URL
-    ```
-    
-    Make sure to securely save your passphrase — you'll need it for future access.
-    
-    This command creates a new account, securely stores its keys in the `~/.inference` directory, and returns your new account address:
-    
-    ```bash
-    - address: <your-account-address>
-      name: ACCOUNT_NAME
-      pubkey: '{"@type":"...","key":"..."}'
-      type: local
-    ```
-    
-    The account stores your balance, add it to environment variable `GONKA_ADDRESS`, or `.env` file.
-    
-    ```bash
-    export GONKA_ADDRESS=<your-account-address>
-    ```
-    
-    Add Private Key to environment variables
-    
-    If you'd like to perform the request:
-    
-    Export your private key (for demo/testing only).
-    ```bash
-    ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
-    ```
-    
-    This command outputs a plain-text private key.
-    
-    Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
-    ```bash
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-
-=== "Option 2: Via Keplr (external wallet)"
+=== "Option 1: Via Keplr (external wallet)"
 
     Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
     
@@ -110,7 +52,7 @@ There are several ways to do this:
 
         !!! note "Important Notice: Limited Functionality"
 
-            This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via `inferenced` CLI tool or Option 2: Via Keplr (external wallet, "Connect with Google") instead.
+            This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via Keplr (external wallet, "Connect with Google") or Option 3: Via `inferenced` CLI tool instead.
         
         Click "Create new recovery phrase"
     
@@ -224,11 +166,11 @@ There are several ways to do this:
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
 
-=== "Option 3: Via Leap (external wallet)"
+=== "Option 2: Via Leap (external wallet)"
 
     !!! note "Important Notice: Limited Functionality"
 
-        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1 or Option 2 ("Connect with Google") instead.
+        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via Keplr (external wallet, "Connect with Google") or Option 3: Via `inferenced` CLI tool instead.
     
     Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
     
@@ -336,6 +278,64 @@ There are several ways to do this:
         Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
             
         <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
+
+=== "Option 3: Via `inferenced` CLI tool"
+    Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
+    
+    
+    ??? note "Enabling Execution on Mac OS"
+        On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
+        
+        1.	Open a terminal and navigate to the directory where the binary is located.
+        
+        2.	Run the following command to grant execution permission:
+        ```
+        chmod +x inferenced
+        ```
+        3.	Try running `./inferenced --help` to ensure it's working.
+            
+        4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
+        
+        5.	Scroll down to the warning about `inferenced` and click "Allow Anyway".
+    
+    You can create an account with the following command:
+    ```bash
+    ./inferenced create-client $ACCOUNT_NAME \
+      --node-address $NODE_URL
+    ```
+    
+    Make sure to securely save your passphrase — you'll need it for future access.
+    
+    This command creates a new account, securely stores its keys in the `~/.inference` directory, and returns your new account address:
+    
+    ```bash
+    - address: <your-account-address>
+      name: ACCOUNT_NAME
+      pubkey: '{"@type":"...","key":"..."}'
+      type: local
+    ```
+    
+    The account stores your balance, add it to environment variable `GONKA_ADDRESS`, or `.env` file.
+    
+    ```bash
+    export GONKA_ADDRESS=<your-account-address>
+    ```
+    
+    Add Private Key to environment variables
+    
+    If you'd like to perform the request:
+    
+    Export your private key (for demo/testing only).
+    ```bash
+    ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
+    ```
+    
+    This command outputs a plain-text private key.
+    
+    Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
+    ```bash
+    export GONKA_PRIVATE_KEY=<your-private-key>
+    ```
 
 Once your account is ready, you can [start using the network](https://gonka.ai/developer/quickstart/).
 

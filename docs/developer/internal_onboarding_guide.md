@@ -41,7 +41,7 @@ There are several ways to do this:
     
         <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
     
-        Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Keep this in a safe place.
+        Backup your private key securely and never share your private key. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Keep this in a safe place.
     
         <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
@@ -224,21 +224,15 @@ There are several ways to do this:
       pubkey: '{"@type":"...","key":"..."}'
       type: local
     ```
-    
-    The account stores your balance, add it to environment variable `GONKA_ADDRESS`, or `.env` file.
-    
-    ```bash
-    export GONKA_ADDRESS=<your-account-address>
-    ```
-    
-    Add Private Key to environment variables
-        
+
+    Save this data. Copy Address — it looks like a long string of letters and numbers (e.g., gonka1... ). This address is public, you can safely share it with others to receive payments.
+
     Export your private key.
     ```bash
     ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
     ```
     
-    This command outputs a plain-text private key. Backup your private key securely. Anyone with your private key can have access to your assets. 
+    This command outputs a plain-text private key. Backup your private key securely and never share your private key. Anyone with your private key can have access to your assets. 
 
 Sharing Your Address Safely
 

@@ -115,7 +115,11 @@ There are several ways to do this:
     
     <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:500px; height:auto;"></a>
 
-    Open the extension and click on the account icon in the top-right corner of the extension window.
+    Open Keplr, navigate to “Copy Address” in your wallet, tap or click “Copy Address,” and share the copied address — it’s a public key, so it’s safe. 
+    
+    <a href="/images/keplr_copy_address.png" target="_blank"><img src="/images/keplr_copy_address.png" style="width:500px; height:auto;"></a>
+
+    Click on the account icon in the top-right corner of the extension window.
             
     <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
 

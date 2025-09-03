@@ -93,6 +93,9 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
 
+extra_javascript:
+  - js/links.js
+
 plugins:
   - minify:
       minify_html: false

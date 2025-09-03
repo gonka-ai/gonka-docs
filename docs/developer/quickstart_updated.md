@@ -45,7 +45,7 @@ Do not forget to write it down, you will need it in the next step.
 ??? note "Why a random node?"
     To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages.
 
-!!! note "How to choose a Node URL?"
+??? note "How to choose a Node URL?"
     You can choose any node randomly — you **do not** need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API.
 
 === "Genesis nodes"
@@ -73,12 +73,12 @@ Do not forget to write it down, you will need it in the next step.
 ## 2. Create an account
 
 === "Option 1: Via `inferenced` CLI tool"
-    ??? note "What is the `inferenced` CLI tool?" 
-        The `inferenced` CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
     
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
     
-    
+    ??? note "What is the `inferenced` CLI tool?" 
+        The `inferenced` CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
+        
     ??? note "Enabling Execution on Mac OS"
         On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
         
@@ -125,16 +125,15 @@ Do not forget to write it down, you will need it in the next step.
 
     Add Private Key to environment variables.
     
-    If you'd like to perform the request:
+    If you'd like to perform the request, export your private key.
     
-    Export your private key.
     ```bash
     ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
     ```
     
     This command outputs a plain-text private key.
     
-    Add it to environment variable `GONKA_PRIVATE_KEY`, or `.env` file.
+    Add it to the environment variable `GONKA_PRIVATE_KEY`, or the `.env` file.
     ```bash
     export GONKA_PRIVATE_KEY=<your-private-key>
     ```
@@ -251,7 +250,7 @@ Do not forget to write it down, you will need it in the next step.
             
     <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
 
-    Navigate three dots and click "View recovery phrase".
+    Navigate three dots and click "View private key" if you "connected with Google" or "View recovery phrase" if you created an account using a "recovery phrase".
 
     <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/keplr_view_private_key.png" style="width:auto; height:337.5px;"></a>
 
@@ -259,7 +258,7 @@ Do not forget to write it down, you will need it in the next step.
    
     <a href="/images/keplr_enter_your_password.png" target="_blank"><img src="/images/keplr_enter_your_password.png" style="width:auto; height:337.5px;"></a>
 
-    Copy your recovery phrase and store it securely (a hard copy is preferred).   
+    Copy your private key or recovery phrase and store it securely (a hard copy is preferred).   
 
     ??? note "Optional: How to add an additional Gonka account in Keplr wallet — click to view steps"
 

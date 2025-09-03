@@ -244,4 +244,4 @@ Sharing Your Address Safely
 Receiving Crypto
 
 - Give your public address to the sender.
-- Once they send funds, you can check your wallet balance or look up your address on a block explorer (like [Etherscan](https://etherscan.io/), [Blockchain.com](https://www.blockchain.com/), or [Solscan](https://solscan.io/)).
+- Once they send funds, you can check your wallet balance or look up your address on a block explorer in Gonka Dashboard (links above).

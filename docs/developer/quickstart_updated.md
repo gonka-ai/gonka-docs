@@ -252,7 +252,13 @@ Do not forget to write it down, you will need it in the next step.
 
     Navigate three dots and click "View private key" if you "connected with Google" or "View recovery phrase" if you created an account using a "recovery phrase".
 
-    <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/keplr_view_private_key.png" style="width:auto; height:337.5px;"></a>
+    === "Connect with Google"
+
+        <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/keplr_view_private_key.png" style="width:auto; height:337.5px;"></a>
+
+    === "Create new recovery phrase"
+
+        <a href="/images/keplr_view_recovery_phrase.png" target="_blank"><img src="/images/keplr_view_recovery_phrase.png" style="width:auto; height:337.5px;"></a>
 
     Enter your password. 
    

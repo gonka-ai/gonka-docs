@@ -4,6 +4,9 @@ name: index.md
 
 # Developer Quickstart
 
+!!! note "Inference for free" 
+    During the initial network phase, controlled by a governance parameter `GracePeriodEndEpoch` with a proposed default of 90 epochs (~90 days), the dynamic pricing system is bypassed and all inference costs are set to zero (until ~ November 20, 2025).
+
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
 
 ??? note "How Gonka differs from traditional AI APIs"
@@ -36,6 +39,7 @@ export NODE_URL=<http://random-node-url>
 - Replace `<http://random-node-url>` with a random Node URL. You can either:
     - Use one of the **genesis nodes** from the list below.
     - Fetch the **current list of active participants** and select a random node.
+
 Do not forget to write it down, you will need it in the next step.
 
 ??? note "Why a random node?"
@@ -69,7 +73,7 @@ Do not forget to write it down, you will need it in the next step.
 ## 2. Create an account
 
 === "Option 1: Via `inferenced` CLI tool"
-    ??? note "What is the `inferenced` CLI tool" 
+    ??? note "What is the `inferenced` CLI tool?" 
         The `inferenced` CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
     
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
@@ -119,14 +123,11 @@ Do not forget to write it down, you will need it in the next step.
 
     You will use this account to purchase gonka (GNK) coins and pay for inference requests.
 
-    !!! note "Inference for free" 
-        During the initial network phase, controlled by a governance parameter `GracePeriodEndEpoch` with a proposed default of 90 epochs (~90 days), the dynamic pricing system is bypassed and all inference costs are set to zero (until ~ November 20, 2025).
-
     Add Private Key to environment variables.
     
     If you'd like to perform the request:
     
-    Export your private key (for demo/testing only).
+    Export your private key.
     ```bash
     ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
     ```
@@ -207,17 +208,17 @@ Do not forget to write it down, you will need it in the next step.
         
     Choose a random node from the `inference_url` list of genesis-nodes.
     
-    - http://185.216.21.98:8000
-    - http://69.19.136.233:8000
-    - http://36.189.234.197:18026
-    - http://36.189.234.237:17241
-    - http://93.119.168.58:8000
-    - http://node1.gonka.ai:8000
-    - http://node2.gonka.ai:8000
-    - http://node3.gonka.ai:8000
-    - http://47.236.26.199:8000
-    - http://47.236.19.22:18000
-    - http://gonka.spv.re:8000
+    - [http://185.216.21.98:8000](http://185.216.21.98:8000)
+    - [http://69.19.136.233:8000](http://69.19.136.233:8000)
+    - [http://36.189.234.197:18026](http://36.189.234.197:18026)
+    - [http://36.189.234.237:17241](http://36.189.234.237:17241)
+    - [http://93.119.168.58:8000](http://93.119.168.58:8000)
+    - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+    - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+    - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
+    - [http://47.236.26.199:8000](http://47.236.26.199:8000)
+    - [http://47.236.19.22:18000](http://47.236.19.22:18000)
+    - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
     
     ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
         Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)

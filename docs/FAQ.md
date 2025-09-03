@@ -20,7 +20,7 @@ A: You can find a dedicated section on [Key Management](https://gonka.ai/host/ke
 ## Q: What is the incentive for contributing computational resources?
 A: We've created a dedicated document focused on [Tokenomics](https://gonka.ai/tokenomics.pdf), where you can find all the information about how the incentive in being measured.
     
-## Q: What are the hardware requirements?**
+## Q: What are the hardware requirements?
 A: You can find the minimum and recommended [hardware specifications](https://gonka.ai/host/hardware-specifications/) clearly outlined in the documentation. You should review this section to ensure your hardware meets the requirements for effective contribution.
 
 ## Q: What if I want to stop mining but still use my account when I come back?

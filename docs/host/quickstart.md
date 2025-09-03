@@ -402,5 +402,13 @@ rm -rf $HF_HOME
 !!! note
     Deleting `$HF_HOME` will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
 
+### How to restore MLNode
+To restore MLNode  in the future, it will be sufficient to back up:
+
+- cold key (most important, everything else can be rotated)
+- secres from tmkms: `.tmkms/secrets/`
+- keyring from `.inference .inference/keyring-file/`
+- node key from `.inference/config .inference/config/node_key.json`
+- password for warm key `KEYRING_PASSWORD`
 
 **Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  

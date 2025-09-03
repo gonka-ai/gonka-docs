@@ -152,7 +152,7 @@ Do not forget to write it down, you will need it in the next step.
     
     <a href="/images/dashboard_keplr_step_2_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_2.png" style="width:500px; height:auto;"></a>
     
-    Add an extension to the browser.
+    Add the extension to the browser.
     
     === "Firefox"
     
@@ -206,24 +206,21 @@ Do not forget to write it down, you will need it in the next step.
         <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
         
     Choose a random node from the `inference_url` list of genesis-nodes.
-    ```
-    http://185.216.21.98:8000
-    http://69.19.136.233:8000
-    http://36.189.234.197:18026
-    http://36.189.234.237:17241
-    http://93.119.168.58:8000
-    http://node1.gonka.ai:8000
-    http://node2.gonka.ai:8000
-    http://node3.gonka.ai:8000
-    http://47.236.26.199:8000
-    http://47.236.19.22:18000
-    http://gonka.spv.re:8000
-    ```
+    
+    - http://185.216.21.98:8000
+    - http://69.19.136.233:8000
+    - http://36.189.234.197:18026
+    - http://36.189.234.237:17241
+    - http://93.119.168.58:8000
+    - http://node1.gonka.ai:8000
+    - http://node2.gonka.ai:8000
+    - http://node3.gonka.ai:8000
+    - http://47.236.26.199:8000
+    - http://47.236.19.22:18000
+    - http://gonka.spv.re:8000
+    
     ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-        Open the Hosts list.
-        ```
-        http://node2.gonka.ai:8000/v1/epochs/current/participants
-        ```
+        Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
         
         Choose any active Host from the list.
         
@@ -253,7 +250,7 @@ Do not forget to write it down, you will need it in the next step.
             
     <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
 
-    Navigate three dots and click "View private key".
+    Navigate three dots and click "View recovery phrase".
 
     <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/keplr_view_private_key.png" style="width:auto; height:337.5px;"></a>
 
@@ -261,7 +258,7 @@ Do not forget to write it down, you will need it in the next step.
    
     <a href="/images/keplr_enter_your_password.png" target="_blank"><img src="/images/keplr_enter_your_password.png" style="width:auto; height:337.5px;"></a>
 
-    Copy your private key and store it securely (a hard copy is preferred).   
+    Copy your recovery phrase and store it securely (a hard copy is preferred).   
 
     ??? note "Optional: How to add an additional Gonka account in Keplr wallet — click to view steps"
 
@@ -307,7 +304,7 @@ Do not forget to write it down, you will need it in the next step.
     
     <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:500px; height:auto;"></a>
     
-    Add an extension to the browser.
+    Add the extension to the browser.
     
     <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
     
@@ -328,30 +325,27 @@ Do not forget to write it down, you will need it in the next step.
     <a href="/images/leap_you_are_all_set.png" target="_blank"><img src="/images/leap_you_are_all_set.png" style="width:500px; height:auto;"></a>
 
     Choose a random node from the `inference_url` list of genesis-nodes
-    ```
-    http://185.216.21.98:8000
-    http://69.19.136.233:8000
-    http://36.189.234.197:18026
-    http://36.189.234.237:17241
-    http://93.119.168.58:8000
-    http://node1.gonka.ai:8000
-    http://node2.gonka.ai:8000
-    http://node3.gonka.ai:8000
-    http://47.236.26.199:8000
-    http://47.236.19.22:18000
-    http://gonka.spv.re:8000
-    ```
+    
+    - [http://185.216.21.98:8000](http://185.216.21.98:8000)
+    - [http://69.19.136.233:8000](http://69.19.136.233:8000)
+    - [http://36.189.234.197:18026](http://36.189.234.197:18026)
+    - [http://36.189.234.237:17241](http://36.189.234.237:17241)
+    - [http://93.119.168.58:8000](http://93.119.168.58:8000)
+    - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+    - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+    - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
+    - [http://47.236.26.199:8000](http://47.236.26.199:8000)
+    - [http://47.236.19.22:18000](http://47.236.19.22:18000)
+    - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
+    
     ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-        Open the Hosts list.
-        ```
-        http://node2.gonka.ai:8000/v1/epochs/current/participants
-        ```
-        
+        Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
+
         Choose any active Host from the list.
         
         Copy their `inference_url` value.
         
-    Paste the `inference_url` into your browser to load the dashboard.
+    Paste the `inference_url` into your browser to load the Gonka dashboard, which shows live on-chain activity.
     
     Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
     
@@ -361,7 +355,7 @@ Do not forget to write it down, you will need it in the next step.
     
     Select Leap and hit Connect.
     
-    <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
+    <a href="/images/choose_wallet_leap.png" target="_blank"><img src="/images/choose_wallet_leap.png" style="width:500px; height:auto;"></a>
     
     You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
     

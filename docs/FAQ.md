@@ -22,3 +22,12 @@ A: We've created a dedicated document focused on [Tokenomics](https://gonka.ai/t
     
 ## Q: What are the hardware requirements?**
 A: You can find the minimum and recommended [hardware specifications](https://gonka.ai/host/hardware-specifications/) clearly outlined in the documentation. You should review this section to ensure your hardware meets the requirements for effective contribution.
+
+## Q: What if I want to stop mining but still use my account when I come back?
+A: To restore a Network Node in the future, it will be sufficient to back up:
+
+- cold key (most important, everything else can be rotated)
+- secres from tmkms: `.tmkms/secrets/`
+- keyring from `.inference .inference/keyring-file/`
+- node key from `.inference/config .inference/config/node_key.json`
+- password for warm key `KEYRING_PASSWORD`

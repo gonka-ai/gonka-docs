@@ -152,7 +152,7 @@ Do not forget to write it down, you will need it in the next step.
     
     <a href="/images/dashboard_keplr_step_2_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_2.png" style="width:500px; height:auto;"></a>
     
-    Add the extension to the browser.
+    Add the selected extension to your browser.
     
     === "Firefox"
     
@@ -310,7 +310,7 @@ Do not forget to write it down, you will need it in the next step.
     
     <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:500px; height:auto;"></a>
     
-    Add the extension to the browser.
+    Add the selected extension to your browser.
     
     <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
     

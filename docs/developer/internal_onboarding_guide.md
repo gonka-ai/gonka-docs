@@ -17,7 +17,7 @@ There are several ways to do this:
     
     <a href="/images/dashboard_keplr_step_2_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_2.png" style="width:500px; height:auto;"></a>
     
-    Add an extension to the browser.
+    Add the selected extension to your browser.
     
     === "Firefox"
     
@@ -126,7 +126,7 @@ There are several ways to do this:
     
     <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:500px; height:auto;"></a>
     
-    Add an extension to the browser.
+    Add the selected extension to your browser.
     
     <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
     

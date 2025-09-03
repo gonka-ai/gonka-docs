@@ -402,8 +402,8 @@ rm -rf $HF_HOME
 !!! note
     Deleting `$HF_HOME` will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
 
-### How to restore MLNode
-To restore MLNode  in the future, it will be sufficient to back up:
+### How to restore Network Node
+To restore a Network Node in the future, it will be sufficient to back up:
 
 - cold key (most important, everything else can be rotated)
 - secres from tmkms: `.tmkms/secrets/`

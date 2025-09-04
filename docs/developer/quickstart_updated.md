@@ -34,7 +34,7 @@ export NODE_URL=<http://random-node-url>
 
 ??? note "Things to know about account names"
     This name is not recorded on-chain — it exists only in your local key store.
-    Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. It is highly recommended backing up your public and private keys before performing this operation.
+    Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. It is highly recommended to back up your public and private keys before performing this operation.
 
 - Replace `<http://random-node-url>` with a random Node URL. You can either:
     - Use one of the **genesis nodes** from the list below.
@@ -70,9 +70,9 @@ Do not forget to write it down, you will need it in the next step.
         [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
 
     === "Command"
-    ```bash
-    curl http://node2.gonka.ai:8000/v1/epochs/current/participants
-    ```
+        ```bash
+        curl http://node2.gonka.ai:8000/v1/epochs/current/participants
+        ```
     
 ## 2. Create an account
 

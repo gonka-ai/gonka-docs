@@ -57,7 +57,7 @@ The final requirements will depend on the number of MLNodes connected and their 
 Each server to deploy MLNode should have:
 
 - at least 1.5x RAM of GPU VRAM
-- a 16-core GPU (Network Node and MLNode can be deployed on the same server).
+- a 16-core CPU (Network Node and MLNode can be deployed on the same server).
 - NVIDIA Container Toolkit installed and configured, with a CUDA Toolkit version between 12.6 and 12.9. You can check the version with `nvidia-smi`.
 
 ### Ports open for public connections

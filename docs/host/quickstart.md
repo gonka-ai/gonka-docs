@@ -66,40 +66,6 @@ Each server to deploy MLNode should have:
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
 - 8000 - Application service (configurable)
 
-## [Server] Download Deployment Files
-Clone the repository with the base deploy scripts:
-
-```bash
-git clone https://github.com/gonka-ai/gonka.git -b main && \
-cd gonka/deploy/join
-```
-
-And copy `config` file template:
-```
-cp config.env.template config.env
-```
-
-After cloning the repository, you’ll find the following key configuration files:
-
-| File                          | Description                                                                      |
-|-------------------------------|----------------------------------------------------------------------------------|
-| `config.env`                  | Contains environment variables for the Network Node                              |
-| `docker-compose.yml`          | Docker Compose file to launch the Network Node                                   |
-| `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML node                                   |
-| `node-config.json`            | Configuration file used by Network Node, it describes inference nodes managed by this Network Node |
-
-The next files have examples of node-config.json for different GPU servers:
-
-| File                          | Description                                                                      |
-|-------------------------------|----------------------------------------------------------------------------------|
-| `node-config-qwq.json`       | `Qwen/QwQ-32B` on A100/H100                     |
-| `node-config-qwq-4x3090.json` |  `QwQ-32B` on 4x3090                                   |
-
-For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
-
-!!! note        
-    The network is initially launched with two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
-
 ## Setup Your Network Node 
 
 ### Key Management Overview
@@ -159,6 +125,40 @@ pyramid sweet dumb critic lamp various remove token talent drink announce tiny l
     **For Now**: Store your Account Key on a secure, dedicated machine with minimal internet exposure and strong encryption.
     
     **Important**: Always keep your mnemonic phrase as backup regardless of future hardware wallet adoption.
+
+## [Server] Download Deployment Files
+Clone the repository with the base deploy scripts:
+
+```bash
+git clone https://github.com/gonka-ai/gonka.git -b main && \
+cd gonka/deploy/join
+```
+
+And copy `config` file template:
+```
+cp config.env.template config.env
+```
+
+After cloning the repository, you’ll find the following key configuration files:
+
+| File                          | Description                                                                      |
+|-------------------------------|----------------------------------------------------------------------------------|
+| `config.env`                  | Contains environment variables for the Network Node                              |
+| `docker-compose.yml`          | Docker Compose file to launch the Network Node                                   |
+| `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML node                                   |
+| `node-config.json`            | Configuration file used by Network Node, it describes inference nodes managed by this Network Node |
+
+The next files have examples of node-config.json for different GPU servers:
+
+| File                          | Description                                                                      |
+|-------------------------------|----------------------------------------------------------------------------------|
+| `node-config-qwq.json`       | `Qwen/QwQ-32B` on A100/H100                     |
+| `node-config-qwq-4x3090.json` |  `QwQ-32B` on 4x3090                                   |
+
+For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
+
+!!! note        
+    The network is initially launched with two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### [Server] Edit Your Network Node Configuration
 

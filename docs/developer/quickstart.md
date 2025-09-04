@@ -306,6 +306,15 @@ Do not forget to write it down, you will need it in the next step.
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
 
+    Add it to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
+    ```
+    export GONKA_PRIVATE_KEY=<your-private-key>
+    ```
+    To retrieve a list of all locally stored accounts, execute the following command:
+    ```
+    inferenced keys list [--keyring-backend test]
+    ```
+
 === "Option 3: Via Leap (external wallet)"
 
     !!! note "Important Notice: Limited Functionality"
@@ -418,7 +427,14 @@ Do not forget to write it down, you will need it in the next step.
             
         <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
 
-
+    Add it to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
+    ```
+    export GONKA_PRIVATE_KEY=<your-private-key>
+    ```
+    To retrieve a list of all locally stored accounts, execute the following command:
+    ```
+    inferenced keys list [--keyring-backend test]
+    ```
 
 ## 3. Inference using modified OpenAI SDK
 

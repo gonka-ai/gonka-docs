@@ -205,6 +205,8 @@ Do not forget to write it down, you will need it in the next step.
         
         <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
         
+    # Open Gonka’s decentralized Dashboard
+    
     Choose a random node from the `inference_url` list of genesis-nodes.
     
     - [http://185.216.21.98:8000](http://185.216.21.98:8000)
@@ -330,6 +332,8 @@ Do not forget to write it down, you will need it in the next step.
 
     <a href="/images/leap_you_are_all_set.png" target="_blank"><img src="/images/leap_you_are_all_set.png" style="width:500px; height:auto;"></a>
 
+    # Open Gonka’s decentralized Dashboard
+    
     Choose a random node from the `inference_url` list of genesis-nodes
     
     - [http://185.216.21.98:8000](http://185.216.21.98:8000)

@@ -65,7 +65,11 @@ Do not forget to write it down, you will need it in the next step.
     ```
     
 === "Current list of active participants"
-    Alternatively, you can select a random active participant from the current epoch. Run the following command to fetch the list of active participants along with a cryptographic proof for verification:
+    Alternatively, you can select a random active participant from the current epoch. Open the link or run the following command to fetch the list of active participants along with a cryptographic proof for verification:
+    === "Link"
+        [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
+
+    === "Command"
     ```bash
     curl http://node2.gonka.ai:8000/v1/epochs/current/participants
     ```

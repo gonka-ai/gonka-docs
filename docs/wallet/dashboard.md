@@ -12,16 +12,10 @@ You can interact with the dashboard in two ways:
         
     If you want to explore the network or see real-time inference metrics before setting up your own account, follow these steps:
     
-    1.Open the Hosts list
-    ```
-    http://node2.gonka.ai:8000/v1/epochs/current/participants
-    ```
-    
-    2.Choose any active Host from the list.
-    
-    3.Copy their `inference_url` value.
-    
-    4.Paste the `inference_url` into your browser to load the dashboard.
+    1. Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
+    2. Choose any active Host from the list.
+    3. Copy their `inference_url` value.
+    4. Paste the `inference_url` into your browser to load the dashboard.
     
     Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
     

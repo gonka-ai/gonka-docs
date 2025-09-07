@@ -38,9 +38,7 @@ At network launch, Hosts use a **three-key system**:
 - **Security**: Warm storage with double-signing prevention
 - **Usage**: Block validation and network consensus participation
 - **Recovery**: Can be rotated by Account Key or authorized delegates
-
-## Planned Evolution
-
+  
 ## Best Practices
 
 ### Security Guidelines

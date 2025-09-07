@@ -47,7 +47,7 @@ More details about optimal deploy configuration can be found [here](https://gonk
 
 The server hosting the Network Node should have:
 
-- 16 cores CPU (amd64)
+- 16-core CPU (amd64)
 - 64+ GB RAM
 - 1TB NVe SSD
 - 100Mbps minimum netowork connection (1Gbps preffered)

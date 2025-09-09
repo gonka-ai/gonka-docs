@@ -86,8 +86,6 @@ Clone the repository with the base deploy scripts:
 ```
 git clone https://github.com/gonka-ai/gonka.git -b main
 ```
-!!! note "Authentication required" 
-    If prompted for a password, use a GitHub personal access token (classic) with `repo` access.
 
 **1.2. (Optional) Pre-download Model Weights to Hugging Face Cache (HF_HOME)**
 

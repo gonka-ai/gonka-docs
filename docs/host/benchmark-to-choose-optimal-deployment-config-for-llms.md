@@ -124,10 +124,10 @@ def inference_up(
        "additional_args": config["args"]
    }
   
-   response = requests.post(url, JSON=payload)
+   response = requests.post(url, json=payload)
    response.raise_for_status()
   
-   return response.JSON()
+   return response.json()
 
 model_name = "MODEL_NAME"
 model_config = {

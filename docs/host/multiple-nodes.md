@@ -104,14 +104,7 @@ Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen
 huggingface-cli download Qwen/Qwen2.5-7B-Instruct
 ```
 
-**1.3. Authenticate with Docker Registry**
-
-Some Docker images used in this instruction are private. Make sure to authenticate with GitHub Container Registry
-```
-docker login ghcr.io -u <YOUR_GITHUB_USERNAME>
-```
-
-**1.4. Ports open for network node connections**
+**1.3. Ports open for network node connections**
 ```
 5050 - Inference requests (mapped to 5000 of MLNode)
 8080 - Management API Port (mapped to 8080 of MLNode)

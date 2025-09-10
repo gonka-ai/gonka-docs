@@ -19,7 +19,7 @@ Used for changes that directly affect the network and require on-chain voting:
 - Changing network parameters (e.g. via `MsgUpdateParams`)
 - Executing software upgrades
 - Introducing new models
-- Introducing features
+- Introducing new features
 - Any other modifications that must be approved by the community on-chain
   
 Governance power is earned through verifiable compute work, not passive coin ownership. By default, only 20% of each Host’s PoC-derived voting weight is activated automatically. To unlock the remaining 80%, Hosts must lock GNK coins as collateral, linking governance influence to real economic commitment. 

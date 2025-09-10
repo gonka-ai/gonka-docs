@@ -11,8 +11,9 @@ Our difference from the "big players" is the pricing and the fact that, despite 
     
 ## How does the network operate?
 The network's operation is collaborative and depends on the role you wish to take:
-As a [Developer](https://gonka.ai/developer/quickstart/): You can use the network's computational resources to build and deploy your AI applications.
-As a [Host](https://gonka.ai/host/quickstart/): You can contribute your computational resources to power the network. The protocol is designed to reward you for your contribution, ensuring the network's continuity and sovereignty.
+
+- As a [Developer](https://gonka.ai/developer/quickstart/): You can use the network's computational resources to build and deploy your AI applications.
+- As a [Host](https://gonka.ai/host/quickstart/): You can contribute your computational resources to power the network. The protocol is designed to reward you for your contribution, ensuring the network's continuity and sovereignty.
     
 ## Where can I find information on key management?
 You can find a dedicated section on [Key Management](https://gonka.ai/host/key-management/) in the documentation. It outlines the procedures and best practices for securely managing your application's keys on the network.
@@ -115,8 +116,8 @@ Gonka uses a PoC-weighted voting model:
 
 - Proof-of-Compute (PoC): Voting power is proportional to your verified compute contribution.
 - Collateral commitment:
-        - 20% of PoC-derived voting weight is activated automatically.
-        - To unlock the remaining 80%, you must lock GNK coins as collateral.
+    - 20% of PoC-derived voting weight is activated automatically.
+    - To unlock the remaining 80%, you must lock GNK coins as collateral.
 - This ensures that governance influence reflects real compute work + economic collateral.
 
 For the first 180 epochs (approximately 6 months), new participants can participate in governance and earn voting weight through PoC alone, without collateral requirements. During this period, the full governance rights are available, while voting weight remains tied to verified compute activity.

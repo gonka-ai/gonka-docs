@@ -127,3 +127,24 @@ Voting power is never derived solely from holding coins. GNK coins serve as econ
 
 ## Can governance parameters themselves be changed?
 Yes. All key governance rules — quorum, majority threshold, and veto threshold — are on-chain configurable and can be updated via Governance Proposals. This allows the network to evolve decision-making rules as participation patterns and compute economic changes.
+
+## My node was jailed. What does it mean?
+If the validator hasn't participated in signing blocks for 50 blocks in a row, it becomes jailed for a short period of time (about 15 min). It doesn't prevent getting the reward for inference if there were no issues with that detected. So, the reward is not lost. After a short period (15 min currently), nodes can be unjailed. You should use the cold key to set unjail transactions:
+```
+export NODE_URL=http://47.236.19.22:18000
+ ./inferenced tx slashing unjail \
+    --from <cold_key_name> \
+    --keyring-backend file \
+    --chain-id gonka-mainnet \
+    --gas auto \
+    --gas-adjustment 1.5 \
+    --fees 200000ngonka \
+    --node $NODE_URL/chain-rpc/
+```
+Then, to check if the node was unjailed:
+```
+ ./inferenced query staking delegator-validators \
+    <cold_key_addr> \
+    --node $NODE_URL/chain-rpc/
+```
+When a node is jailed, it shows `jailed: true`.

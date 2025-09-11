@@ -18,10 +18,10 @@ Here are the **only** fields you can set or edit.
 | Website  | `--website`  | Link to your validator’s website or project page. Displayed so delegators can learn more.    |
 | Identity | `--identity` | A verification identifier used for avatars/logos. |
 
-## About the Avatar
+!!! note "About the Avatar (the `--identity` flag)"
+    The `--identity` flag is typically used to provide a verification / proof identity (e.g., [Keybase](https://keybase.io/)) which many explorers use to fetch your avatar/logo.  You need to download the application from the website to generate a PRP key to fetch your logo. 
 
-The `--identity` flag is typically used to provide a verification / proof identity (e.g., [Keybase](https://keybase.io/)) which many explorers use to fetch your avatar/logo.  
-You need to download the application from the website to generate a PRP key to fetch your logo. 
+## Step-by-step guide
 Run the following command if you don’t have a PGP key yet.
 ```
 keybase pgp gen

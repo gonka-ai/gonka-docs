@@ -25,12 +25,12 @@ keybase pgp gen
 ```
 
 ??? note "Generating a PGP Key with Keybase (keybase pgp gen)"
-    `keybase pgp gen` generates a new PGP key for this account. In all cases, it signs the public key with an existing device key, and pushes the signature to the server. Thus, the user will have a publicly visible "PGP device" after running this operation. The secret half of the PGP key is written by default to the user's local Keybase keychain and encrypted with the "local key security" (LKS) protocol. (For more information, try 'keybase help keyring'). Also, by default, the public **and secret** halves of the new PGP key are exported to the local GnuPG keyring, if one is found. You can specify `--no-export` to stop the export of the newly generated key to the GnuPG keyring. On subsequent secret key accesses --- say for PGP decryption or for signing `--- access` to the local GnuPG keyring is not required. Rather, keybase will access the secret PGP key in its own local keychain. By default, the secret half of the PGP key is never exported off of the local system, but users have a choice via terminal prompt to select storage of their encrypted secret PGP key on the Keybase servers.
+    `keybase pgp gen` generates a new PGP key for this account. In all cases, it signs the public key with an existing device key, and pushes the signature to the server. Thus, the user will have a publicly visible "PGP device" after running this operation. The secret half of the PGP key is written by default to the user's local Keybase keychain and encrypted with the "local key security" (LKS) protocol. (For more information, try 'keybase help keyring'). Also, by default, the public and secret halves of the new PGP key are exported to the local GnuPG keyring, if one is found. You can specify `--no-export` to stop the export of the newly generated key to the GnuPG keyring. On subsequent secret key accesses --- say for PGP decryption or for signing `--- access` to the local GnuPG keyring is not required. Rather, keybase will access the secret PGP key in its own local keychain. By default, the secret half of the PGP key is never exported off of the local system, but users have a choice via terminal prompt to select storage of their encrypted secret PGP key on the Keybase servers.
 
 You will be prompted:
 
-- `Push an encrypted copy of your new secret key to the Keybase.io server?` Choose `Y` for `Yes`.
-- `When exporting to the GnuPG keychain, encrypt private keys with a passphrase?` Choose `Y` for `Yes` and `N` for `No`
+- `Push an encrypted copy of your new secret key to the Keybase.io server?` Enter `Y` for `Yes`.
+- `When exporting to the GnuPG keychain, encrypt private keys with a passphrase?` Enter `Y` for `Yes` and `N` for `No`
 
 Run the following command if you have an existing PGP key, import it into Keybase.
 ```
@@ -60,7 +60,7 @@ Below are examples of how to create a new validator or edit an existing one with
 
 **Create Validator (with profile info).**
 ```
-<binary> tx staking create-validator \
+inferenced tx staking create-validator \
   --chain-id="gonka-mainnet" \
   --from="<your_operator_key_or_wallet>" \
   --pubkey "$( <binary> tendermint show-validator )" \
@@ -71,7 +71,7 @@ Below are examples of how to create a new validator or edit an existing one with
 
 **Edit Existing Validator Info**
 ```
-<binary> tx staking edit-validator \
+inferenced tx staking edit-validator \
   --chain-id="gonka-mainnet" \
   --from="<your_operator_key_or_wallet>" \
   --moniker="YourNewValidatorName" \

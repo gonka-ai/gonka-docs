@@ -29,14 +29,14 @@ keybase pgp gen
 
 You will be prompted:
 
-- "Push an encrypted copy of your new secret key to the Keybase.io server?" Choose “Y” for "Yes".
-- "When exporting to the GnuPG keychain, encrypt private keys with a passphrase?" Choose “Y” for “Yes and “N” for “No”
+- `Push an encrypted copy of your new secret key to the Keybase.io server?` Choose `Y` for `Yes`.
+- `When exporting to the GnuPG keychain, encrypt private keys with a passphrase?` Choose `Y` for `Yes` and `N` for `No`
 
 Run the following command if you have an existing PGP key, import it into Keybase.
 ```
 keybase pgp select
 ```
-Open the Keybase app. Enter your real name, which will be publicly visible in your new key.
+Open the Keybase app. Enter your real name, which will be publicly visible in explorer.
 
 <a href="/images/validator_info_create_account.png" target="_blank"><img src="/images/validator_info_create_account.png" style="width:500px; height:auto;"></a>
 
@@ -54,7 +54,7 @@ Upload your avatar.
 
 Copy your PGP. You will need it for `--identity` flag in the command below.
 
-## Update your node info 
+### Update your node info 
 
 Below are examples of how to create a new validator or edit an existing one with these fields.
 
@@ -79,7 +79,6 @@ Below are examples of how to create a new validator or edit an existing one with
   --identity="<NewIdentity-ID>"
 ```
 
-## What Happens After
 Once you send the transaction, wait for it to be included in a block and confirmed by the network.
 Check using a query:
 ```

@@ -82,7 +82,7 @@ inferenced tx staking edit-validator \
 Once you send the transaction, wait for it to be included in a block and confirmed by the network.
 Check using a query:
 ```
-<binary> query staking validator <validator_operator_address> --chain-id=gonka-mainnet
+inferenced query staking validator <validator_operator_address> --chain-id=gonka-mainnet
 ```
 This should show the updated moniker, website, and identity.
 

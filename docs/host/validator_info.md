@@ -16,7 +16,7 @@ Here are the **only** fields you can set or edit.
 |----------|------------|----------------------------------------------------------------------------------------------|
 | Moniker  | `--moniker`  | The public name of your validator, shown in explorers.                  |
 | Website  | `--website`  | Link to your validator’s website or project page. Displayed so delegators can learn more.    |
-| Identity | `--identity` | Typically used to provide a verification / proof identity (e.g., [Keybase](https://keybase.io/)) which many explorers use to fetch your avatar/logo.  You need to download the application from the website to generate a PRP key to fetch your logo. |
+| Identity | `--identity` | Typically used to provide a verification/proof identity (e.g., [Keybase](https://keybase.io/), which many explorers use to fetch your avatar/logo.  You need to download the application from the website to generate a PRP key to fetch your logo. |
 
 ## Step-by-step guide
 Run the following command if you don’t have a PGP key yet.
@@ -25,10 +25,7 @@ keybase pgp gen
 ```
 
 ??? note "Generating a PGP Key with Keybase (keybase pgp gen)"
-    `keybase pgp gen` generates a new PGP key for this account. In all cases, it signs the public key with an existing device key, and pushes the signature to the server. Thus, the user will have a publicly-visible "PGP device" after running this operation. The secret half of the PGP key is written by default to the user's local Keybase keychain and encrypted with the "local key security" (LKS) protocol. (For more information, try 'keybase help keyring'). Also, by default, the public **and secret** halves of the new PGP key are exported to the local GnuPG keyring, if one is found. You can specify `--no-export` to stop the export of the newly generated key to the GnuPG keyring. On subsequent secret key accesses --- say for PGP decryption or for signing `--- access` to the local GnuPG keyring is not required. Rather, keybase will access the secret PGP key in its own local keychain.
-   
-   By default, the secret half of the PGP key is never exported off of the local system, but users have a choice via terminal prompt to select storage of their encrypted secret PGP key on the Keybase
-   servers.
+    `keybase pgp gen` generates a new PGP key for this account. In all cases, it signs the public key with an existing device key, and pushes the signature to the server. Thus, the user will have a publicly visible "PGP device" after running this operation. The secret half of the PGP key is written by default to the user's local Keybase keychain and encrypted with the "local key security" (LKS) protocol. (For more information, try 'keybase help keyring'). Also, by default, the public **and secret** halves of the new PGP key are exported to the local GnuPG keyring, if one is found. You can specify `--no-export` to stop the export of the newly generated key to the GnuPG keyring. On subsequent secret key accesses --- say for PGP decryption or for signing `--- access` to the local GnuPG keyring is not required. Rather, keybase will access the secret PGP key in its own local keychain. By default, the secret half of the PGP key is never exported off of the local system, but users have a choice via terminal prompt to select storage of their encrypted secret PGP key on the Keybase servers.
 
 You will be prompted:
 
@@ -89,6 +86,7 @@ Check using a query:
 <binary> query staking validator <validator_operator_address> --chain-id=gonka-mainnet
 ```
 This should show the updated moniker, website, and identity.
+
 **Example output**
 ```
 description:

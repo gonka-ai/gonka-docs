@@ -36,7 +36,7 @@
       <span>
         Mainnet is live.<br>
         Qwen3-235B inference for free.<br>
-        <a href="https://discord.com/invite/RADwCT2U6R">Join Discord</a>
+        <a href="https://discord.com/invite/RADwCT2U6R">Join Discord.</a>
       </span>
     </p>
 

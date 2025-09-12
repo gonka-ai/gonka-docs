@@ -52,7 +52,7 @@ Upload your avatar.
 
 <a href="/images/validator_info_upload_avatar.png" target="_blank"><img src="/images/validator_info_upload_avatar.png" style="width:500px; height:auto;"></a>
 
-Copy your PGP. You will need it for `--identity` flag in the command below.
+Copy your 64-bit PGP. You will need it for `--identity` flag in the command below.
 
 ### Update your node info 
 

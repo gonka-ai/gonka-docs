@@ -60,10 +60,10 @@ Below are examples of how to create a new validator or edit an existing one with
 
 **Create Validator (with profile info).**
 ```
-inferenced tx staking create-validator \
+./inferenced tx staking create-validator \
   --chain-id="gonka-mainnet" \
-  --from="<your_operator_key_or_wallet>" \
-  --pubkey "$( <binary> tendermint show-validator )" \
+  --from <account_cold_key> \
+  --keyring-backend file \
   --moniker="YourValidatorName" \
   --website="https://yourvalidator.website" \
   --identity="<YourIdentity-ID>" \
@@ -71,9 +71,9 @@ inferenced tx staking create-validator \
 
 **Edit Existing Validator Info**
 ```
-inferenced tx staking edit-validator \
+./inferenced tx staking edit-validator \
   --chain-id="gonka-mainnet" \
-  --from="<your_operator_key_or_wallet>" \
+  --from <account_cold_key> \
   --moniker="YourNewValidatorName" \
   --website="https://updated.website" \
   --identity="<NewIdentity-ID>"
@@ -82,7 +82,7 @@ inferenced tx staking edit-validator \
 Once you send the transaction, wait for it to be included in a block and confirmed by the network.
 Check using a query:
 ```
-inferenced query staking validator <validator_operator_address> --chain-id=gonka-mainnet
+./inferenced query staking validator <validator_operator_address> --chain-id=gonka-mainnet
 ```
 This should show the updated moniker, website, and identity.
 

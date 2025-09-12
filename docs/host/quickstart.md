@@ -356,15 +356,15 @@ Once your node completes the Proof of Work stage (typically within a few hours),
 http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 
-Once your node is running, check your node status using Tendermint RPC endpoint of your node (26657 of `node` container)
+Once your node is running, check your node status using Tendermint RPC endpoint of your node (26657 of `node` container).
 ```bash
 curl http://<PUBLIC_IP>:<PUBLIC_RPC_PORT>/status
 ```
-Locally on machine, you can use private ones
+On the server, you can use private ones.
 ```bash
 curl http://0.0.0.0:26657/status
 ```
-Using public IP of genesis node
+Using the public IP of the genesis node.
 ```bash
 curl http://node2.gonka.ai:26657/status
 ```

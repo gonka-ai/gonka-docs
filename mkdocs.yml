@@ -106,3 +106,12 @@ plugins:
       video_controls: true
       css_style:
         width: "50%"
+
+site_name: Твой сайт
+theme:
+  name: material
+
+extra:
+  analytics:
+    provider: google
+    property: G-JWVG5X6CY5

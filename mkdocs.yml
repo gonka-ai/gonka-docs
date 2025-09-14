@@ -107,10 +107,6 @@ plugins:
       css_style:
         width: "50%"
 
-site_name: Gonka Network - Documentation
-theme:
-  name: material
-
 extra:
   analytics:
     provider: google

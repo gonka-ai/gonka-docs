@@ -107,7 +107,7 @@ plugins:
       css_style:
         width: "50%"
 
-site_name: Твой сайт
+site_name: Gonka Network - Documentation
 theme:
   name: material
 

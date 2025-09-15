@@ -339,16 +339,16 @@ Block height: 174
 
 #### 3.4. [Server] Launch Full Node
 
-Finally, launch all containers including the API:
+Finally, launch all containers, including the API:
 ```bash
 source config.env && \
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ```
 
 ## Verify Node Status
-Open this URL, replacing `<your-gonka-address>` with your address:
+Open this URL, replacing `<your-gonka-cold-address>` with your address:
 ```
-http://node2.gonka.ai:8000/v1/participants/<your-gonka-address>
+http://node2.gonka.ai:8000/v1/participants/<your-gonka-cold-address>
 ```
 
 You will see your public key in JSON format:

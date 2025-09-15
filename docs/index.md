@@ -34,7 +34,7 @@
     <!-- Banner -->
     <p class="gonka-banner">
       <span>
-        <a href="https://discord.com/invite/RADwCT2U6R">Mainnet is live.</a> Qwen3-235B inference for free.
+        Mainnet is live. Qwen3-235B inference for free. <a href="https://discord.com/invite/RADwCT2U6R">Join Discord.</a>  
       </span>
     </p>
 

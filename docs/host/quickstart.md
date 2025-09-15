@@ -158,7 +158,7 @@ The next files have examples of node-config.json for different GPU servers:
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 !!! note        
-    The network currently supports the following models `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, `Qwen/Qwen3-32B-FP8`, `Qwen/QwQ-32B`, `Qwen/Qwen2.5-7B-Instruct`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+    The network currently supports the following models `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, `Qwen/Qwen3-32B-FP8`, `Qwen/QwQ-32B`, `RedHatAI/Qwen2.5-7B-Instruct-quantized.w8a16`, `Qwen/Qwen2.5-7B-Instruct`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### [Server] Edit Your Network Node Configuration
 

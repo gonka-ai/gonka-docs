@@ -348,7 +348,7 @@ docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ## Verify Node Status
 Open this URL, replacing `<your-gonka-address>` with your address:
 ```
-http://node2.gonka.ai:8000/v1/participants/<your-gonka-address>
+http://node2.gonka.ai:8000/v1/participants/<gonka-account-key>
 ```
 
 You will see your public key in JSON format:
@@ -356,11 +356,17 @@ You will see your public key in JSON format:
 {"pubkey":"<your-public-key>"}
 ```
 
-This means that your address is included in the participants list.
+This means that your address is included in the participants' list.
 
-Once your node completes the Proof of Work stage (typically within a few hours), visit the following URL to see your node:
+Once your node completes the Proof of Compute stage (which runs every 24 hours), you can visit the following URL to see your node:
 ```bash
 http://node2.gonka.ai:8000/v1/epochs/current/participants
+```
+
+You may turn off your server before this stage and start it again right before the next Proof of Compute.
+To track when the next Proof of Compute session will begin, check the dashboard here:
+```
+http://node2.gonka.ai:8000/dashboard/gonka/validator
 ```
 
 Once your node is running, check your node status using Tendermint RPC endpoint of your node (26657 of `node` container).

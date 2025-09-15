@@ -348,7 +348,7 @@ docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ## Verify Node Status
 Open this URL, replacing `<your-gonka-address>` with your address:
 ```
-http://node2.gonka.ai:8000/v1/participants/<gonka-account-key>
+http://node2.gonka.ai:8000/v1/participants/<your-gonka-address>
 ```
 
 You will see your public key in JSON format:

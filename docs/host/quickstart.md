@@ -346,10 +346,17 @@ docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ```
 
 ## Verify Node Status
-After launching the node, wait a few minutes. You should see your node listed at the following URL:
-```bash
-http://node2.gonka.ai:8000/v1/participants
+Open this URL, replacing `<your-gonka-address>` with your address:
 ```
+http://node2.gonka.ai:8000/v1/participants/<your-gonka-address>
+```
+
+You will see your public key in JSON format:
+```
+{"pubkey":"<your-public-key>"}
+```
+
+This means that your address is included in the participants list.
 
 Once your node completes the Proof of Work stage (typically within a few hours), visit the following URL to see your node:
 ```bash

@@ -148,3 +148,65 @@ Then, to check if the node was unjailed:
     --node $NODE_URL/chain-rpc/
 ```
 When a node is jailed, it shows `jailed: true`.
+
+## How to simulate Proof-of-Compute?
+At start of PoC phase, `ap`i container sends POST `/v1/pow/init/generate request` https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32
+The next model params are used for PoC: https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41
+There is request to start PoC with curl:
+```
+curl -X POST "${PORT:-8080}:8080"/api/v1/pow/init/generate" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "node_id": 0,
+    "node_count": 1,
+    "block_hash": "EXAMPLE_BLOCK_HASH",
+    "block_height": 1,
+    "public_key": "EXAMPLE_PUBLIC_KEY",
+    "batch_size": 1,
+    "r_target": 10.0,
+    "fraud_threshold": 0.01,
+    "params": {
+      "dim": 1792,
+      "n_layers": 64,
+      "n_heads": 64,
+      "n_kv_heads": 64,
+      "vocab_size": 8196,
+      "ffn_dim_multiplier": 10.0,
+      "multiple_of": 8192,
+      "norm_eps": 1e-5,
+      "rope_theta": 10000.0,
+      "use_scaled_rope": false,
+      "seq_len": 256
+    },
+    "url": "http://api:9100"
+  }'
+```
+The value of `DAPI_API__POC_CALLBACK_URL` is used for the field `url`. Use a real one to test the network setup.
+Send this request to `8080` port of MLNode's proxy container or directly to MLNode's `8080` https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26
+If the test runs successfully, you will see logs similar to the following:
+```
+
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO - Created 4 GPU groups:
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 0: GpuGroup(devices=[0], primary=0) (VRAM: 79.2GB)
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 1: GpuGroup(devices=[1], primary=1) (VRAM: 79.2GB)
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 2: GpuGroup(devices=[2], primary=2) (VRAM: 79.2GB)
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 3: GpuGroup(devices=[3], primary=3) (VRAM: 79.2GB)
+2025-08-25 20:53:33,758 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [0]
+2025-08-25 20:53:33,944 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [1]
+2025-08-25 20:53:34,151 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [2]
+2025-08-25 20:53:34,353 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [3]
+```
+Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_URL`
+```
+2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
+```
+For this test, the MLNode should **not** be registered as an active participant in the API node. If your node is not active yet, you can achieve the correct behavior by temporarily pausing the API container before running the test, and unpausing it afterward.
+1) Pause the API container:
+```
+docker pause api
+```
+2) Run the test.
+3) Unpause the API container:
+```
+docker unpause api
+```

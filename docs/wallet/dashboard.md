@@ -37,8 +37,7 @@ You can interact with the dashboard in two ways:
     Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
     
     !!! note "Why is this important?"
-            This architecture ensures decentralization: no single central server controls the network.
-            In preview mode, functionality is limited. You can view balances, transactions, and some analytics. If you want to send coins, manage your personal accounts, or analyze your private AI token usage, unlock [Full mode](https://gonka.ai/wallet/dashboard/#__tabbed_1_2).
+        This architecture ensures decentralization: no single central server controls the network. In preview mode, functionality is limited. You can view balances, transactions, and some analytics. If you want to send coins, manage your personal accounts, or analyze your private AI token usage, unlock [Full mode](https://gonka.ai/wallet/dashboard/#__tabbed_1_2).
 
 === "**Full Mode**"
     

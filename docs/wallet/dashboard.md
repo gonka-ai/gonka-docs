@@ -10,35 +10,35 @@ You can interact with the dashboard in two ways:
 
 === "**Preview Mode**"
 
-If you want to explore the network or see real-time inference metrics before setting up your own account, follow these steps:
-
-1. Choose a random node from the `inference_url` list of genesis-nodes:
-
-    - [http://185.216.21.98:8000](http://185.216.21.98:8000)  
-    - [http://69.19.136.233:8000](http://69.19.136.233:8000)  
-    - [http://36.189.234.197:18026](http://36.189.234.197:18026)  
-    - [http://36.189.234.237:17241](http://36.189.234.237:17241)  
-    - [http://93.119.168.58:8000](http://93.119.168.58:8000)  
-    - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)  
-    - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)  
-    - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)  
-    - [http://47.236.26.199:8000](http://47.236.26.199:8000)  
-    - [http://47.236.19.22:18000](http://47.236.19.22:18000)  
-    - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)  
-
-    ??? note "Alternative: fully decentralized way to choose a random node"
-        Open the Hosts list:  
-        [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants).  
-
-        Choose any active Host from that list.
-
-2. Copy and paste the chosen `inference_url` into your browser to load the dashboard.
-
-Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
-
-!!! note "Why is this important?"
-        This architecture ensures decentralization: no single central server controls the network.
-        In preview mode, functionality is limited. You can view balances, transactions, and some analytics. If you want to send coins, manage your personal accounts, or analyze your private AI token usage, unlock [Full mode](https://gonka.ai/wallet/dashboard/#__tabbed_1_2).
+    If you want to explore the network or see real-time inference metrics before setting up your own account, follow these steps:
+    
+    1. Choose a random node from the `inference_url` list of genesis-nodes:
+    
+        - [http://185.216.21.98:8000](http://185.216.21.98:8000)  
+        - [http://69.19.136.233:8000](http://69.19.136.233:8000)  
+        - [http://36.189.234.197:18026](http://36.189.234.197:18026)  
+        - [http://36.189.234.237:17241](http://36.189.234.237:17241)  
+        - [http://93.119.168.58:8000](http://93.119.168.58:8000)  
+        - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)  
+        - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)  
+        - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)  
+        - [http://47.236.26.199:8000](http://47.236.26.199:8000)  
+        - [http://47.236.19.22:18000](http://47.236.19.22:18000)  
+        - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)  
+    
+        ??? note "Alternative: fully decentralized way to choose a random node"
+            Open the Hosts list:  
+            [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants).  
+    
+            Choose any active Host from that list.
+    
+    2. Copy and paste the chosen `inference_url` into your browser to load the dashboard.
+    
+    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
+    
+    !!! note "Why is this important?"
+            This architecture ensures decentralization: no single central server controls the network.
+            In preview mode, functionality is limited. You can view balances, transactions, and some analytics. If you want to send coins, manage your personal accounts, or analyze your private AI token usage, unlock [Full mode](https://gonka.ai/wallet/dashboard/#__tabbed_1_2).
 
 === "**Full Mode**"
     

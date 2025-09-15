@@ -151,8 +151,10 @@ When a node is jailed, it shows `jailed: true`.
 
 ## How to simulate Proof-of-Compute (PoC)?
 At the start of the PoC phase, `ap`i container sends POST `/v1/pow/init/generate request` [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32)
+
 The next model params are used for PoC: [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41)
-There is a request to start PoC with curl:
+
+There is a request to start PoC with `curl`:
 ```
 curl -X POST "${PORT:-8080}:8080"/api/v1/pow/init/generate" \
   -H "Content-Type: application/json" \
@@ -203,6 +205,7 @@ Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_
 2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
 ```
 For this test, the MLNode should **not** be registered as an active participant in the API node. 
+
 If your node is not active yet, you can achieve the correct behavior by temporarily pausing the API container before running the test, and unpausing it afterward.
 
 1) Pause the API container:

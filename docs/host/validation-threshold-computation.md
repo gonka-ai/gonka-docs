@@ -1,14 +1,27 @@
 # Inference–Validation Distance Threshold: How to Compute
 
-This guide explains how to compute the inference validation distance threshold that is used to differentiate honest inference from potential fraud (e.g., running a lighter/quantized model). It has two phases:
-
-- Phase 1: Run the inference–validation cycle and collect JSONL outputs
-- Phase 2: Analyze the outputs and estimate the decision threshold(s)
+This guide explains why and how to compute the inference validation distance threshold that is used to differentiate honest inference from potential fraud (e.g., running a lighter/quantized model). 
 
 
 ## Conceptual overview
 
-To detect potential model substitution, we compare how closely a validator follows the generator’s token-by-token probability landscape. In each inference–validation cycle, one MLNode (the generator) produces a response with an inference model, and another MLNode (the validator) is forced to follow that exact token path while returning per-token top‑k logprobs. From these paired logprobs we compute a normalized distance (see `validation.utils.distance2`) that is small when the validator mirrors the generator and larger when it does not. 
+### General task
+When introducing any model to the network, we must guarantee that the model is served with the exact weights and with deployment parameters that do not alter outputs. The validation protocol is designed to detect model‑substitution fraud e.g. serving a lighter/quantized model (denoted model A') while claiming to run original full model (denoted model A). Fraud is detected by making such deviations statistically visible.
+
+Randomly sampled inferences are validated by random nodes. The validator reproduces the request with the declared model, follows the generator’s token path, and returns per‑token top‑k logprobs. We then compare the generator and validator sequences using a distance metric (see `validation.utils.distance2`). If this distance is too large, it indicates the nodes likely used different models or incompatible deployment parameters.
+
+Because GPU non-determinism and cross‑hardware effects introduce noise, we compute model‑specific distance acceptance thresholds. 
+
+The procedure outputs a best‑working distance threshold and an assessment of how well it separates honest from fraudulent requests. We choose the threshold to minimize false positives (unfair accusations of fraud). We find a threshold that keeps N (currently, 1000) honest inferences classified as true negatives, while maximizing number of found fraud cases (generator A', validator A). 
+
+Even partial detection, e.g. catching ~50% of fraudulent requests, expose fraudsters quite easily and tremendously increases cost of attack. 
+
+Important note: this method does not attempt to cover every fraud vector; it is a pragmatic first iteration that yields adequate thresholds and a sanity check for a given model.
+
+Use this guide to calculate thresholds for some new models or reproduce threshold and analysis to the deployed ones.
+
+### Current implementation
+To detect potential model substitution, we compare how closely a validator follows the generator’s token-by-token probability path. In each inference–validation cycle, one MLNode (the generator) produces a response with an inference model, and another MLNode (the validator) follows that exact token path while returning per-token top‑k logprobs. From these paired logprobs we compute a normalized distance (see `validation.utils.distance2`) that is small when the validator mirrors the generator and larger when it does not. 
 
 In this threshold computation method, validator is assumed to always have a full (honest) model and generator can have either honest or fraud (quantized int4 against fp8) model. 
 
@@ -24,7 +37,7 @@ You need at least two MLNodes, but you may use more. For example, you might run 
 
 Servers are preferred to be on different physical machines to model realistic cross‑system noise; conversely, keeping hardware similar for the dishonest pair helps isolate the effect of model substitution itself. 
 
-Each prompt’s pair of results is saved to JSONL and later consumed by the analysis notebook to compute distances, visualize distributions, and report the final threshold(s).
+Each prompt’s pair of results is saved to JSONL and later consumed by the analysis part of the notebook to compute distances, visualize distributions, and report the final threshold(s).
 
 
 ## Prerequisites
@@ -45,11 +58,7 @@ During this phase, we deploy two models and run paired requests: generate with m
 
 The validator is forced to follow the token path of the generator; we then record token-level logprobs from both sides to later compute distances.
 
-You will use:
-
-- Script: `benchmarks/scripts/run_inference_validation.py`
-- Config: `benchmarks/resources/inference_validation.yml`
-
+You should use notebook `analysis_and_threshold_estimation.ipynb`
 
 ### 1. Deploy MLNodes on two servers
 

@@ -23,9 +23,9 @@
   <main class="gonka-main">      
     <!-- Banner -->
     <p class="gonka-banner">
-      <span>
-        Mainnet is live. Qwen3-235B inference for free. <a href="https://discord.com/invite/RADwCT2U6R">Join Discord.</a>  
-      </span>
+      <span class="nowrap">Mainnet is live. </span>
+      <span class="nowrap">Qwen3-235B inference for free. </span>
+      <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">Join Discord.</a>
     </p>
 
     <!-- Hero -->

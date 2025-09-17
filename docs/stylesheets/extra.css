@@ -154,9 +154,10 @@ body:has(.gonka-landing) .gonka-header{padding-left:calc(max((100vw - 1440px)/2,
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  width: 320px;
-  height: 40px;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: auto;
+  min-height: 40px;
   padding: 0px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -165,6 +166,7 @@ body:has(.gonka-landing) .gonka-header{padding-left:calc(max((100vw - 1440px)/2,
   letter-spacing: -0.01em;
   color: #000000;
 }
+.gonka-banner .nowrap{white-space:nowrap;}
 .gonka-banner a {
   color: #6171E9;
   text-decoration: none;
@@ -386,7 +388,7 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
   [data-md-color-scheme="slate"] .gonka-header {
     background-color: #000;
   }
-  .gonka-banner {margin-top: 0px !important;}
+  .gonka-banner {width: 320px; margin-top: 0px !important;}
   .footer-inner {
     flex-wrap: nowrap;
     flex-direction: row;

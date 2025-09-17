@@ -39,7 +39,7 @@ nav:
 theme:
   name: material
   favicon: images/01-favicon.png
-  logo: images/01-favicon.png
+  logo: images/logos/gonka.svg
   custom_dir: overrides
   font:
     text: Manrope

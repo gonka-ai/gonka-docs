@@ -3,22 +3,12 @@
   <!-- Header -->
   <header class="gonka-header">
       <a href="/" class="gonka-logo">
-        <svg width="42" height="41" viewBox="0 0 42 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clip-path="url(#clip)">
-            <mask id="mask" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="42" height="41">
-              <rect x="1.197" y="40.5882" width="40.1665" height="40.1665" rx="20.0833" transform="rotate(-90 1.197 40.5882)" fill="black" stroke="#242424" stroke-width="0.405723"/>
-            </mask>
-            <g mask="url(#mask)">
-              <path d="M22.5127 0.235351C33.1434 0.871461 41.5684 9.6919 41.5684 20.4824C41.5684 26.5888 38.8696 32.0642 34.6006 35.7832C29.1348 29.6874 22.5788 23.5899 22.5527 17.4941C22.5282 11.7412 22.5213 5.98824 22.5127 0.235351ZM0.996093 20.4824C0.996093 9.69289 9.41951 0.872902 20.0488 0.235351C20.0402 5.98824 20.0343 11.7412 20.0098 17.4941C19.9837 23.5898 13.4276 29.6866 7.96191 35.7822C3.69384 32.0632 0.996093 26.5881 0.996093 20.4824Z" fill="#242424"/>
-              <path d="M22.4092 20.0498C23.8706 26.2451 28.7674 32.4406 32.2178 38.6357C32.6559 39.4224 33.0707 40.2094 33.4521 40.9961L30.3291 40.9961C30.054 40.2094 29.7565 39.4224 29.4434 38.6357C26.9774 32.4405 23.5387 26.2451 22.4092 20.0498ZM9.11035 40.9961C9.49184 40.2094 9.9066 39.4224 10.3447 38.6357C13.7951 32.4406 18.6919 26.2451 20.1533 20.0498C19.0238 26.2451 15.5851 32.4405 13.1191 38.6357C12.806 39.4224 12.5085 40.2094 12.2334 40.9961L9.11035 40.9961Z" fill="#242424"/>
-              <path d="M21.2812 -6.20605C21.2813 -5.87748 21.2813 -5.5489 21.2813 -5.22032C21.2813 -4.7622 21.2823 -4.30408 21.2844 -3.84595C21.3168 3.23436 21.5955 10.3147 22.0077 17.395C22.4199 24.4753 25.4417 31.5556 27.5501 38.6359C27.7844 39.4226 28.0074 40.2093 28.2143 40.996C23.5923 40.996 18.9702 40.996 14.3482 40.996C14.5551 40.2093 14.7781 39.4226 15.0124 38.6359C17.1208 31.5556 20.1426 24.4753 20.5548 17.395C20.967 10.3147 21.2457 3.23436 21.2781 -3.84595C21.2802 -4.30408 21.2813 -4.7622 21.2813 -5.22032C21.2813 -5.5489 21.2813 -5.87748 21.2812 -6.20605Z" fill="#242424"/>
-            </g>
-          </g>
-          <defs>
-            <clipPath id="clip">
-              <rect width="41" height="41" fill="white" transform="translate(0.876953)"/>
-            </clipPath>
-          </defs>
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.0779 0.000895182C22.2017 6.07859 22.4682 12.1564 22.8218 18.234C23.2874 26.2385 26.7009 34.2436 29.0827 42.2481C29.1354 42.4251 29.185 42.6029 29.2367 42.7799C26.9701 43.5691 24.5355 44 22 44C19.4649 44 17.0305 43.5698 14.7642 42.7808C14.816 42.6034 14.8663 42.4255 14.9191 42.2481C17.3009 34.2436 20.7144 26.2385 21.18 18.234C21.5336 12.1564 21.7992 6.07859 21.923 0.000895182C21.9487 0.000807303 21.9743 0 22 0C22.026 0 22.0519 0.000805247 22.0779 0.000895182Z" fill="#2A2A2A"/>
+          <path d="M20.7262 21.2364C19.4639 28.1647 15.6505 35.0935 12.8718 42.0216C12.0526 41.6475 11.2603 41.2248 10.4987 40.7568C14.3095 34.2502 19.1923 27.7431 20.7262 21.2364Z" fill="#2A2A2A"/>
+          <path d="M23.2747 21.2364C24.8085 27.7426 29.6898 34.2498 33.5004 40.7559C32.739 41.2237 31.9472 41.6467 31.1282 42.0208C28.3495 35.093 24.5369 28.1642 23.2747 21.2364Z" fill="#2A2A2A"/>
+          <path d="M20.6062 0.0447591C20.5973 6.14511 20.5901 12.2455 20.5641 18.3459C20.5354 25.059 13.5075 31.7743 7.43628 38.4875C2.87637 34.4566 0 28.5647 0 22C0 10.3179 9.10536 0.763813 20.6062 0.0447591Z" fill="#2A2A2A"/>
+          <path d="M23.3938 0.0447591C34.8946 0.763813 44 10.3179 44 22C44 28.5649 41.123 34.4565 36.5628 38.4875C30.4919 31.7747 23.4655 25.0585 23.4368 18.3459C23.4108 12.2455 23.4027 6.14511 23.3938 0.0447591Z" fill="#2A2A2A"/>
         </svg>
     </a>
     <a href="./introduction/" class="gonka-docs-link">
@@ -33,22 +23,68 @@
   <main class="gonka-main">      
     <!-- Banner -->
     <p class="gonka-banner">
-      <span>
-        Mainnet is live. Qwen3-235B inference for free. <a href="https://discord.com/invite/RADwCT2U6R">Join Discord.</a>  
-      </span>
+      <span class="nowrap">Mainnet is live. </span>
+      <span class="nowrap">Qwen3-235B inference for free. </span>
+      <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">Join Discord.</a>
     </p>
 
     <!-- Hero -->
     <section class="gonka-hero">
-      <h1>Gonka</h1>
-      <p class="tagline">AI Compute is the New Currency</p>
-
-      <div class="gonka-cards">
-        <a href="https://chat.gonka.ai/">
-        <div class="card">
-            <span>Chat with AI</span><small>Powered by Gonka Decentralized Network</small>
+      <div class="gonka-inner">
+        <h1>Gonka</h1>
+        <p class="tagline">AI Compute is the New Currency</p>
+        <div class="gonka-cards">
+          <a href="https://chat.gonka.ai/">
+          <div class="card">
+              <span>Chat with AI</span><small>Powered by Gonka Decentralized Network</small>
+          </div>
+          </a>
         </div>
-        </a>
+      </div>
+
+      <!-- Horizontal scroll row under Chat with AI -->
+      <div class="gonka-carousel">
+        <div class="carousel-track">
+          <div class="partner-card">
+            <span class="partner-label">Auditor</span>
+            <div class="partner-logos">
+              <img src="images/logos/certik.svg" alt="CertiK" />
+            </div>
+          </div>
+          <div class="partner-card">
+            <span class="partner-label">Community Partners</span>
+            <div class="partner-logos">
+              <img src="images/logos/web3.svg" alt="Web3" />
+              <img src="images/logos/hardyaka.svg" alt="Hard Yaka" />
+              <img src="images/logos/bitfury.svg" alt="Bitfury" />
+            </div>
+          </div>
+          <div class="partner-card">
+            <span class="partner-label">Select Hosts</span>
+            <div class="partner-logos">
+              <img src="images/logos/gcore.svg" alt="Gcore" />
+              <img src="images/logos/hyperfusion.svg" alt="Hyperfusion" />
+              <img src="images/logos/6block.svg" alt="6block" />
+            </div>
+          </div>
+          <div class="partner-card">
+            <span class="partner-label">Select AI Developers</span>
+            <div class="partner-logos">
+              <img src="images/logos/aiden.svg" alt="Aiden" />
+            </div>
+          </div>
+          <div class="partner-card">
+            <span class="partner-label">Protocol Creator</span>
+            <div class="partner-logos">
+              <img src="images/logos/productscience.svg" alt="Product Science" />
+              <span class="partner-label">backed by</span>
+              <img src="images/logos/coatue.svg" alt="Coatue" />
+              <img src="images/logos/slow.svg" alt="Slow" />
+              <img src="images/logos/mantis.svg" alt="Mantis" />
+              <img src="images/logos/k5.svg" alt="K5" />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>  
@@ -144,28 +180,16 @@
 <!-- prettier-ignore:end -->
 
 <script>
-  // Immediately apply dark mode if set, and add landing page class
+  // Ensure dark mode attribute is respected early on landing without adding persistent classes
   (function() {
-    // Add a class to body for landing-page specific styles
-    if (document.querySelector('.gonka-landing')) {
-      document.body.classList.add('is-landing-page');
-    }
-
     var palette = localStorage.getItem('/.__palette');
     if (palette) {
       try {
         palette = JSON.parse(palette);
         if (palette && palette.color && palette.color.scheme === 'slate') {
           document.body.setAttribute('data-md-color-scheme', 'slate');
-          
-          // Force background color for dark mode on landing page
-          var style = document.createElement('style');
-          style.textContent = 'body[data-md-color-scheme="slate"].is-landing-page { background-color: #000 !important; }';
-          document.head.appendChild(style);
         }
-      } catch (e) {
-        // Don't do anything if parsing fails
-      }
+      } catch (e) {}
     }
   })();
 </script>

@@ -6,6 +6,9 @@
 
 /* == 0. Layout constraints ===================================== */
 .md-grid{max-width:1440px;}
+/* Landing page: allow full-width grid while keeping content centered via inner wrapper */
+body:has(.gonka-landing) .md-grid{max-width:100%;}
+body:has(.gonka-landing) .md-main__inner{margin:0;}
 
 /* == 1. Typography ============================================= */
 .md-typeset h1{font-weight:600;}  /* page title            */
@@ -127,7 +130,7 @@ html,body{height:100%;}
 .gonka-landing {
   min-height: 100dvh;
   /* fallback for older browsers */
-  min-height: calc(100dvh - 60px); /* компенсируем padding-top */
+  min-height: calc(100dvh - 70px); /* компенсируем padding-top */
   position:relative;
   display:flex;
   flex-direction:column;
@@ -140,6 +143,7 @@ html,body{height:100%;}
 
 /* Header strip */
 .gonka-header{position:absolute;top:0;left:0;right:0;width:100%;display:flex;padding:14px;justify-content:space-between;align-items:center;z-index:30;}
+body:has(.gonka-landing) .gonka-header{padding-left:calc(max((100vw - 1440px)/2, 32px));padding-right:calc(max((100vw - 1440px)/2, 32px));}
 .gonka-docs-link{display:flex;align-items:center;gap:8px;}
 .gonka-docs-link span{font-size:15px;font-weight:400;text-decoration:none;color:#000!important;}
 .gonka-docs-link:hover{text-decoration:underline;}
@@ -150,9 +154,10 @@ html,body{height:100%;}
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  width: 320px;
-  height: 40px;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: auto;
+  min-height: 40px;
   padding: 0px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -161,6 +166,7 @@ html,body{height:100%;}
   letter-spacing: -0.01em;
   color: #000000;
 }
+.gonka-banner .nowrap{white-space:nowrap;}
 .gonka-banner a {
   color: #6171E9;
   text-decoration: none;
@@ -187,7 +193,7 @@ html,body{height:100%;}
 }
 
 /* Dark mode landing page styles */
-[data-md-color-scheme="slate"] .is-landing-page {
+body[data-md-color-scheme="slate"]:has(.gonka-landing) {
   background-color: #000 !important;
   --md-default-bg-color: #000;
 }
@@ -219,6 +225,8 @@ html,body{height:100%;}
   font-feature-settings: 'ss02' on, 'ss03' on, 'ss04' on, 'cv10' on;
   margin-bottom:.5rem;
 }
+.gonka-inner{max-width:1440px;margin:0 auto;padding:0 32px;}
+@media (max-width:500px){.gonka-inner{padding:0 14px;}}
 .tagline{
   font-size: 22px;
   line-height: 100%;
@@ -266,6 +274,78 @@ html,body{height:100%;}
   text-align: left;
 }
 
+/* --- Carousel under Chat with AI ---------------------------------- */
+.gonka-carousel{
+  margin-top:58px; /* desktop spacing below chat card */
+  /* scroll container handles overflow and snap */
+  overflow-x:auto;
+  padding-bottom:8px; /* room for scrollbar */
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+  /* default desktop gutters */
+  padding-left:16px;
+  padding-right:16px;
+  scroll-padding-left:16px;
+  scroll-padding-right:16px;
+}
+@media (max-width:500px){
+  .gonka-carousel{margin-top:40px;} /* mobile spacing */
+}
+
+.gonka-carousel .carousel-track{
+  display:inline-flex; /* shrink-wrap content width */
+  width:max-content;   /* ensures centering when not overflowing */
+  gap:16px;
+}
+
+/* Scrollbar styling for the carousel */
+.gonka-carousel::-webkit-scrollbar{height:8px;}
+/* Light theme: gray thumb */
+.gonka-carousel::-webkit-scrollbar-thumb{background:#E5E5E5;border-radius:8px;background-clip:padding-box;border:2px solid transparent;}
+.gonka-carousel::-webkit-scrollbar-track{background:transparent;}
+/* Dark theme: white thumb */
+[data-md-color-scheme="slate"] .gonka-carousel::-webkit-scrollbar-thumb{background:#FFFFFF;}
+/* Firefox */
+.gonka-carousel{scrollbar-width:thin;scrollbar-color:#E5E5E5 transparent;}
+[data-md-color-scheme="slate"] .gonka-carousel{scrollbar-color:#FFFFFF transparent;}
+
+.partner-card{
+  flex:0 0 auto;
+  height:180px;
+  min-width:240px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  border-radius:16px;
+  padding:24px;
+  background:#FAFAFA;
+  scroll-snap-align:start;
+}
+.partner-label{
+  font-size:14px;
+  font-weight:400;
+  font-style:normal;
+  letter-spacing:-0.01em; /* ~ -1% */
+  color:#787878;
+  text-align:left;
+}
+.partner-logos{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.partner-logos img{height:33px; width:auto; filter: grayscale(1); opacity:0.8; background:transparent; padding:0; border-radius:0;}
+@media (max-width:500px){
+  .partner-logos img{height:28px;}
+  .gonka-carousel{
+    padding-left:14px;
+    padding-right:14px;
+    scroll-padding-left:14px;
+    scroll-padding-right:14px;
+  }
+}
+
+/* Desktop only: center track when total content < viewport */
+@media (min-width:821px){
+  .gonka-carousel .carousel-track{margin:0 auto;}
+}
+
 /* Footer */
 .gonka-footer{margin-top:auto;font-size:.8rem; margin: 0 32px;}
 .footer-inner{max-width:1400px;margin:0 auto;display:flex;flex-wrap:nowrap;align-items:flex-start;gap:0 3rem;}
@@ -292,10 +372,9 @@ html,body{height:100%;}
   .footer-inner{flex-wrap:wrap;gap:2rem 3rem;}
   .brand{flex-basis:100%;padding-right:0;}
   .footer-col{flex:1 1 45%;}
-  .gonka-landing{padding:0 14px;}
 }
 @media (max-width:500px){
-  .gonka-landing{padding:0 14px;padding-top:60px;}
+  .gonka-landing { padding-top:70px; }
   .gonka-header {
     position: fixed;
     top: 0;
@@ -309,7 +388,7 @@ html,body{height:100%;}
   [data-md-color-scheme="slate"] .gonka-header {
     background-color: #000;
   }
-  .gonka-banner {margin-top: 0px !important;}
+  .gonka-banner {width: 320px; margin-top: 0px !important;}
   .footer-inner {
     flex-wrap: nowrap;
     flex-direction: row;

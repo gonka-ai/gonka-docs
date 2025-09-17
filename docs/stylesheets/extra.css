@@ -127,7 +127,7 @@ html,body{height:100%;}
 .gonka-landing {
   min-height: 100dvh;
   /* fallback for older browsers */
-  min-height: calc(100dvh - 60px); /* компенсируем padding-top */
+  min-height: calc(100dvh - 70px); /* компенсируем padding-top */
   position:relative;
   display:flex;
   flex-direction:column;
@@ -266,6 +266,53 @@ html,body{height:100%;}
   text-align: left;
 }
 
+/* --- Carousel under Chat with AI ---------------------------------- */
+.gonka-carousel{
+  margin-top:58px; /* desktop spacing below chat card */
+}
+@media (max-width:500px){
+  .gonka-carousel{margin-top:40px;} /* mobile spacing */
+}
+
+.gonka-carousel .carousel-track{
+  display:flex;
+  gap:16px;
+  overflow-x:auto;
+  padding-bottom:8px; /* room for scrollbar */
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+}
+
+.gonka-carousel .carousel-track::-webkit-scrollbar{height:8px;}
+.gonka-carousel .carousel-track::-webkit-scrollbar-thumb{background:#E5E5E5;border-radius:8px;}
+.gonka-carousel .carousel-track::-webkit-scrollbar-track{background:transparent;}
+
+.partner-card{
+  flex:0 0 auto;
+  height:180px;
+  min-width:240px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  border-radius:16px;
+  padding:24px;
+  background:#FAFAFA;
+  scroll-snap-align:start;
+}
+.partner-label{
+  font-size:14px;
+  font-weight:400;
+  font-style:normal;
+  letter-spacing:-0.01em; /* ~ -1% */
+  color:#787878;
+  text-align:left;
+}
+.partner-logos{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.partner-logos img{height:33px; width:auto; filter: grayscale(1); opacity:0.8; background:transparent; padding:0; border-radius:0;}
+@media (max-width:500px){
+  .partner-logos img{height:28px;}
+}
+
 /* Footer */
 .gonka-footer{margin-top:auto;font-size:.8rem; margin: 0 32px;}
 .footer-inner{max-width:1400px;margin:0 auto;display:flex;flex-wrap:nowrap;align-items:flex-start;gap:0 3rem;}
@@ -295,7 +342,7 @@ html,body{height:100%;}
   .gonka-landing{padding:0 14px;}
 }
 @media (max-width:500px){
-  .gonka-landing{padding:0 14px;padding-top:60px;}
+  .gonka-landing {padding:0 14px; padding-top:70px;}
   .gonka-header {
     position: fixed;
     top: 0;

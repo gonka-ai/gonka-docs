@@ -50,6 +50,51 @@
         </div>
         </a>
       </div>
+
+      <!-- Horizontal scroll row under Chat with AI -->
+      <div class="gonka-carousel">
+        <div class="carousel-track">
+          <div class="partner-card">
+            <span class="partner-label">Auditor</span>
+            <div class="partner-logos">
+              <img src="images/logos/certik.svg" alt="CertiK" />
+            </div>
+          </div>
+          <div class="partner-card">
+            <span class="partner-label">Community Partners</span>
+            <div class="partner-logos">
+              <img src="images/logos/web3.svg" alt="Web3" />
+              <img src="images/logos/hardyaka.svg" alt="Hard Yaka" />
+              <img src="images/logos/bitfury.svg" alt="Bitfury" />
+            </div>
+          </div>
+          <div class="partner-card">
+            <span class="partner-label">Select Hosts</span>
+            <div class="partner-logos">
+              <img src="images/logos/gcore.svg" alt="Gcore" />
+              <img src="images/logos/hyperfusion.svg" alt="Hyperfusion" />
+              <img src="images/logos/6block.svg" alt="6block" />
+            </div>
+          </div>
+          <div class="partner-card">
+            <span class="partner-label">Select AI Developers</span>
+            <div class="partner-logos">
+              <img src="images/logos/aiden.svg" alt="Aiden" />
+            </div>
+          </div>
+          <div class="partner-card">
+            <span class="partner-label">Protocol Creator</span>
+            <div class="partner-logos">
+              <img src="images/logos/productscience.svg" alt="Product Science" />
+              <span class="partner-label">backed by</span>
+              <img src="images/logos/coatue.svg" alt="Coatue" />
+              <img src="images/logos/slow.svg" alt="Slow" />
+              <img src="images/logos/mantis.svg" alt="Mantis" />
+              <img src="images/logos/k5.svg" alt="K5" />
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>  
 

@@ -6,7 +6,7 @@ This guide shows how to update your validator profile with the human-readable na
 
 - You must be the operator of the validator (you hold the operator key).
 - Your node must be running and connected to the network.
-- If you want a verified avatar, have an identity service (for example, Keybase).
+- If you want a verified avatar, have an identity service (for example, [Keybase](https://keybase.io/)).
 
 ## Fields / Parameters
 
@@ -62,8 +62,8 @@ Run this command to edit your validator information. Make sure to replace `cold-
 ./inferenced tx staking edit-validator \
   --chain-id="gonka-mainnet" \
   --from <cold-key-name>  \
-  --new-moniker "YourNewValidatorName" \
-  --website "https://updated.website" \
+  --new-moniker <YourNewValidatorName> \
+  --website <https://updated.website> \
   --identity <PGP-64-ID> \
   --keyring-backend file \
   --node <NODE_URL>/chain-rpc/ \

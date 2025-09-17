@@ -56,20 +56,8 @@ Copy your 64-bit PGP. You will need it for `--identity` flag in the command belo
 
 ### Update your node info 
 
-Below are examples of how to create a new validator or edit an existing one with these fields.
+Run this command to edit your validator information. Make sure to replace `<account_cold_key>`, `YourNewValidatorName`, `https://updated.website`, and `<NewIdentity-ID>` with your own values. 
 
-**Create Validator (with profile info).**
-```
-./inferenced tx staking create-validator \
-  --chain-id="gonka-mainnet" \
-  --from <account_cold_key> \
-  --keyring-backend file \
-  --moniker="YourValidatorName" \
-  --website="https://yourvalidator.website" \
-  --identity="<YourIdentity-ID>" \
-```
-
-**Edit Existing Validator Info**
 ```
 ./inferenced tx staking edit-validator \
   --chain-id="gonka-mainnet" \

@@ -14,7 +14,7 @@ Here are the **only** fields you can set or edit.
 
 | Field    | Flag       | Purpose / What is displayed                                                                 |
 |----------|------------|----------------------------------------------------------------------------------------------|
-| Moniker  | `--moniker`  | The public name of your validator, shown in explorers.                  |
+| Moniker  | `--new-moniker`  | The public name of your validator, shown in explorers.                  |
 | Website  | `--website`  | Link to your validator’s website or project page. Displayed so delegators can learn more.    |
 | Identity | `--identity` | Typically used to provide a verification/proof identity (e.g., [Keybase](https://keybase.io/), which many explorers use to fetch your avatar/logo.  You need to download the application from the website to generate a PRP key to fetch your logo. |
 
@@ -56,30 +56,48 @@ Copy your 64-bit PGP. You will need it for `--identity` flag in the command belo
 
 ### Update your node info 
 
-Run this command to edit your validator information. Make sure to replace `<account_cold_key>`, `YourNewValidatorName`, `https://updated.website`, and `<NewIdentity-ID>` with your own values. 
+Run this command to edit your validator information. Make sure to replace `<cold-key-name>`, `YourNewValidatorName`, `https://updated.website`, and `<NewIdentity-ID>` with your own values. 
 
 ```
 ./inferenced tx staking edit-validator \
   --chain-id="gonka-mainnet" \
-  --from <account_cold_key> \
-  --moniker="YourNewValidatorName" \
-  --website="https://updated.website" \
-  --identity="<NewIdentity-ID>"
+  --from <cold-key-name>  \
+  --new-moniker "YourNewValidatorName" \
+  --website "https://updated.website" \
+  --identity <PGP-64-ID> \
+  --keyring-backend file \
+  --node <NODE_URL>/chain-rpc/ \
+  --yes
 ```
 
 Once you send the transaction, wait for it to be included in a block and confirmed by the network.
-Check using a query:
+Check your validator info:
 ```
-./inferenced query staking validator <validator_operator_address> --chain-id=gonka-mainnet
+./inferenced query staking delegator-validators \
+  <cold-key-address> \
+  --node <NODE_URL>/chain-rpc/
 ```
 This should show the updated moniker, website, and identity.
 
 **Example output**
 ```
-description:
-  moniker: "Your Validator Name"
-  identity: "<identity value you set>"
-  website: "https://yourvalidator.website"
+...
+validators:
+- commission:
+    commission_rates:
+      max_change_rate: "0.010000000000000000"
+      max_rate: "0.200000000000000000"
+      rate: "0.100000000000000000"
+    update_time: "2025-08-27T23:56:24.580275479Z"
+  consensus_pubkey:
+    type: tendermint/PubKeyEd25519
+    value: XMTuK2T6ojmAfcDzv5scXtl9QkgYaqwAnnyo7BdLKS4=
+  delegator_shares: "186.000000000000000000"
+  description:
+    details: Created after Proof of Compute
+    identity: 673C81B66A67ED67
+    moniker: gonkavaloper18lluv53n4h9z34qu20vxcvypgdkhsg6n02fcaq
+    website: https://gonka.ai
 ```
 
 Wait for the explorer to index the new data (may take several minutes to hours). Then check your explorer — your name, website, and avatar should appear.

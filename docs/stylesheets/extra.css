@@ -6,6 +6,9 @@
 
 /* == 0. Layout constraints ===================================== */
 .md-grid{max-width:1440px;}
+/* Landing page: allow full-width grid while keeping content centered via inner wrapper */
+body:has(.gonka-landing) .md-grid{max-width:100%;}
+body:has(.gonka-landing) .md-main__inner{margin:0;}
 
 /* == 1. Typography ============================================= */
 .md-typeset h1{font-weight:600;}  /* page title            */
@@ -140,6 +143,7 @@ html,body{height:100%;}
 
 /* Header strip */
 .gonka-header{position:absolute;top:0;left:0;right:0;width:100%;display:flex;padding:14px;justify-content:space-between;align-items:center;z-index:30;}
+body:has(.gonka-landing) .gonka-header{padding-left:calc(max((100vw - 1440px)/2, 32px));padding-right:calc(max((100vw - 1440px)/2, 32px));}
 .gonka-docs-link{display:flex;align-items:center;gap:8px;}
 .gonka-docs-link span{font-size:15px;font-weight:400;text-decoration:none;color:#000!important;}
 .gonka-docs-link:hover{text-decoration:underline;}
@@ -187,7 +191,7 @@ html,body{height:100%;}
 }
 
 /* Dark mode landing page styles */
-[data-md-color-scheme="slate"] .is-landing-page {
+body[data-md-color-scheme="slate"]:has(.gonka-landing) {
   background-color: #000 !important;
   --md-default-bg-color: #000;
 }
@@ -219,6 +223,8 @@ html,body{height:100%;}
   font-feature-settings: 'ss02' on, 'ss03' on, 'ss04' on, 'cv10' on;
   margin-bottom:.5rem;
 }
+.gonka-inner{max-width:1440px;margin:0 auto;padding:0 32px;}
+@media (max-width:500px){.gonka-inner{padding:0 14px;}}
 .tagline{
   font-size: 22px;
   line-height: 100%;
@@ -276,9 +282,15 @@ html,body{height:100%;}
 
 .gonka-carousel .carousel-track{
   display:flex;
-  gap:16px;
   overflow-x:auto;
   padding-bottom:8px; /* room for scrollbar */
+  gap:16px;
+  /* make leading/trailing inset visible and respected by scroll snapping */
+  padding-left:16px;
+  padding-right:16px;
+  scroll-padding-left:16px;
+  scroll-padding-right:16px;
+
   -webkit-overflow-scrolling:touch;
   scroll-snap-type:x mandatory;
 }
@@ -311,6 +323,12 @@ html,body{height:100%;}
 .partner-logos img{height:33px; width:auto; filter: grayscale(1); opacity:0.8; background:transparent; padding:0; border-radius:0;}
 @media (max-width:500px){
   .partner-logos img{height:28px;}
+  .gonka-carousel .carousel-track{
+    padding-left:14px;
+    padding-right:14px;
+    scroll-padding-left:14px;
+    scroll-padding-right:14px;
+  }
 }
 
 /* Footer */
@@ -339,10 +357,9 @@ html,body{height:100%;}
   .footer-inner{flex-wrap:wrap;gap:2rem 3rem;}
   .brand{flex-basis:100%;padding-right:0;}
   .footer-col{flex:1 1 45%;}
-  .gonka-landing{padding:0 14px;}
 }
 @media (max-width:500px){
-  .gonka-landing {padding:0 14px; padding-top:70px;}
+  .gonka-landing { padding-top:70px; }
   .gonka-header {
     position: fixed;
     top: 0;

@@ -275,29 +275,37 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
 /* --- Carousel under Chat with AI ---------------------------------- */
 .gonka-carousel{
   margin-top:58px; /* desktop spacing below chat card */
+  /* scroll container handles overflow and snap */
+  overflow-x:auto;
+  padding-bottom:8px; /* room for scrollbar */
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+  /* default desktop gutters */
+  padding-left:16px;
+  padding-right:16px;
+  scroll-padding-left:16px;
+  scroll-padding-right:16px;
 }
 @media (max-width:500px){
   .gonka-carousel{margin-top:40px;} /* mobile spacing */
 }
 
 .gonka-carousel .carousel-track{
-  display:flex;
-  overflow-x:auto;
-  padding-bottom:8px; /* room for scrollbar */
+  display:inline-flex; /* shrink-wrap content width */
+  width:max-content;   /* ensures centering when not overflowing */
   gap:16px;
-  /* make leading/trailing inset visible and respected by scroll snapping */
-  padding-left:16px;
-  padding-right:16px;
-  scroll-padding-left:16px;
-  scroll-padding-right:16px;
-
-  -webkit-overflow-scrolling:touch;
-  scroll-snap-type:x mandatory;
 }
 
-.gonka-carousel .carousel-track::-webkit-scrollbar{height:8px;}
-.gonka-carousel .carousel-track::-webkit-scrollbar-thumb{background:#E5E5E5;border-radius:8px;}
-.gonka-carousel .carousel-track::-webkit-scrollbar-track{background:transparent;}
+/* Scrollbar styling for the carousel */
+.gonka-carousel::-webkit-scrollbar{height:8px;}
+/* Light theme: gray thumb */
+.gonka-carousel::-webkit-scrollbar-thumb{background:#E5E5E5;border-radius:8px;background-clip:padding-box;border:2px solid transparent;}
+.gonka-carousel::-webkit-scrollbar-track{background:transparent;}
+/* Dark theme: white thumb */
+[data-md-color-scheme="slate"] .gonka-carousel::-webkit-scrollbar-thumb{background:#FFFFFF;}
+/* Firefox */
+.gonka-carousel{scrollbar-width:thin;scrollbar-color:#E5E5E5 transparent;}
+[data-md-color-scheme="slate"] .gonka-carousel{scrollbar-color:#FFFFFF transparent;}
 
 .partner-card{
   flex:0 0 auto;
@@ -323,12 +331,17 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
 .partner-logos img{height:33px; width:auto; filter: grayscale(1); opacity:0.8; background:transparent; padding:0; border-radius:0;}
 @media (max-width:500px){
   .partner-logos img{height:28px;}
-  .gonka-carousel .carousel-track{
+  .gonka-carousel{
     padding-left:14px;
     padding-right:14px;
     scroll-padding-left:14px;
     scroll-padding-right:14px;
   }
+}
+
+/* Desktop only: center track when total content < viewport */
+@media (min-width:821px){
+  .gonka-carousel .carousel-track{margin:0 auto;}
 }
 
 /* Footer */

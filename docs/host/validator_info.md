@@ -1,4 +1,4 @@
-# How to add or edit validator public info 
+# How to edit validator public info 
 
 This guide shows how to update your validator profile with the human-readable name, website, and avatar/profile identity so that explorers display correct information.
 

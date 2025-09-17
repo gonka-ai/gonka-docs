@@ -56,7 +56,7 @@ Copy your 64-bit PGP. You will need it for `--identity` flag in the command belo
 
 ### Update your node info 
 
-Run this command to edit your validator information. Make sure to replace `<cold-key-name>`, `YourNewValidatorName`, `https://updated.website`, and `<NewIdentity-ID>` with your own values. 
+Run this command to edit your validator information. Make sure to replace `cold-key-name`, `YourNewValidatorName`, `https://updated.website`, and `PGP-64-ID` with your own values. 
 
 ```
 ./inferenced tx staking edit-validator \

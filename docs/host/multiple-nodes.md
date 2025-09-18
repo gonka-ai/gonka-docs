@@ -64,7 +64,10 @@ docker compose -f docker-compose.yml logs -f
 ```
 
 !!! note
-    Address set as `DAPI_API__POC_CALLBACK_URL` for network node, should be accessible from ALL inference nodes (9100 port of `api` container by default)
+    `DAPI_API__POC_CALLBACK_URL` is the URL for the `api` container's callback server.
+    The `api` container passes this URL to MLNodes, which then send PoC nonces to this address.
+
+    For **multi-node setups**, this address must be reachable from all MLNodes. Replace internal docker network address (`http://api:9100`) with your address in private network of your cluster (e.g.: `http://<NETWORK_NODE_PRIVATE_IP>:9100`).
 
 ### The Network Node Status
 

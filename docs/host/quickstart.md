@@ -364,7 +364,7 @@ http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 
 You may turn off your server before this stage and start it again right before the next Proof of Compute.
-To track when the next Proof of Compute session will begin, check the dashboard here:
+To track when the next Proof of Compute session will begin, check [the dashboard](https://gonka.ai/wallet/dashboard/) here:
 ```
 http://node2.gonka.ai:8000/dashboard/gonka/validator
 ```
@@ -381,6 +381,8 @@ Using the public IP of the genesis node.
 ```bash
 curl http://node2.gonka.ai:26657/status
 ```
+
+Once your node is visible in the Dashboard, you may also want to update your public profile (host name, website, avatar). This helps other participants identify your node in the network. You can find [the instructions here](https://gonka.ai/host/validator_info/).
 
 ## Stopping and Cleaning Up Your Node
 

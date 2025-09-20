@@ -394,8 +394,8 @@ curl -X POST http://<api_node_static_ip>:<admin_port>/nodes/<id>/disable
 2. Wait for the next epoch. Do not stop the node yet. The disable flag takes effect only after the next epoch starts.
 3. Verify removal and weight. Confirm both for every disabled node:
 
-- It is not present in the active participants list
-- Its effective weight equals 0
+    - It is not present in the active participants list
+    - Its effective weight equals 0
 
 4. Stop the MLNode.
 5. Make sure you are in `gonka/deploy/join` folder. To stop all running containers:

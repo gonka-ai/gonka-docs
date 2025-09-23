@@ -145,6 +145,7 @@
         <ul>
           <li><a href="https://github.com/gonka-ai/gonka/">GitHub</a></li>
           <li><a href="https://discord.com/invite/RADwCT2U6R">Events</a></li>
+          <li><a href="https://what-is-gonka.hashnode.dev">Blog</a></li>
         </ul>
       </div>
 

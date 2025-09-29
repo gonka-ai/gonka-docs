@@ -15,8 +15,8 @@ This guide explains how to manually issue and configure SSL certificates with Le
 
 3. Generate SSL certificates. Use Certbot inside a disposable Docker container to issue certificates using `Let's Encrypt`:
   ```
-  DOMAIN=<FULL_DOMAIN_NAME> // like gonka.productscience.ai
-  ACCOUNT_EMAIL=<EMAIL_ADDRESS> // to recieve notification when certificate is close to expire
+  DOMAIN=<FULL_DOMAIN_NAME> // www.yourfulldomainname.com
+  ACCOUNT_EMAIL=<EMAIL_ADDRESS> // to receive notification when certificate is close to expiring
   mkdir -p secrets/nginx-ssl secrets/certbot
   docker run --rm -it \
     -v "$(pwd)/secrets/certbot:/etc/letsencrypt" \
@@ -26,7 +26,6 @@ This guide explains how to manually issue and configure SSL certificates with Le
     --deploy-hook 'install -m 0644 "$RENEWED_LINEAGE/fullchain.pem" /mnt/nginx-ssl/cert.pem; install -m 0600 "$RENEWED_LINEAGE/privkey.pem" /mnt/nginx-ssl/private.key'
   ```
   See the screenshot below for how it should look.
-
   <a href="/images/manualsslsetup.png" target="_blank"><img src="/images/manualsslsetup.png" style="width:500px; height:auto;"></a>
 
 4. Edit `config.env` and add the following variables:

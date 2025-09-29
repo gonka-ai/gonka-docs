@@ -1,6 +1,6 @@
 # Manual SSL Setup Instructions
 
-This guide explains how to manually issue and configure SSL certificates with Let’s Encrypt (via Dockerized Certbot) and update the proxy configuration for the `gonka` project.
+This guide explains how to manually issue and configure SSL certificates with `Let’s Encrypt` (via Dockerized Certbot) and update the proxy configuration.
 
 1. Navigate to the project directory:
   ```

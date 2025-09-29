@@ -33,7 +33,7 @@ This guide explains how to manually issue and configure SSL certificates with `L
   ```
   export NGINX_MODE="both"
   export API_SSL_PORT="8443" // ADDITIONAL PORT TO USE FOR SSL
-  export SERVER_NAME="gonka.productscience.ai" // FULL DOMAIN NAME
+  export SERVER_NAME="yourfulldomainname.com" // FULL DOMAIN NAME
   export SSL_CERT_SOURCE="./secrets/nginx-ssl"
   ```
 

@@ -25,9 +25,10 @@ This guide explains how to manually issue and configure SSL certificates with `L
     -d "$DOMAIN" --email "$ACCOUNT_EMAIL" --agree-tos --no-eff-email \
     --deploy-hook 'install -m 0644 "$RENEWED_LINEAGE/fullchain.pem" /mnt/nginx-ssl/cert.pem; install -m 0600 "$RENEWED_LINEAGE/privkey.pem" /mnt/nginx-ssl/private.key'
   ```
+
   See the screenshot below for how it should look.
 
-        [![See the screenshot below for how it should look.](/images/manualsslsetup.png)](/images/manualsslsetup.png)
+  [![See the screenshot below for how it should look.](/images/manualsslsetup.png)](/images/manualsslsetup.png)
 
 4. Edit `config.env` and add the following variables:
   ```

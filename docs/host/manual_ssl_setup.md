@@ -15,7 +15,7 @@ This guide explains how to manually issue and configure SSL certificates with `L
 
 3. Generate SSL certificates. Use Certbot inside a disposable Docker container to issue certificates using `Let's Encrypt`:
   ```
-  DOMAIN=<FULL_DOMAIN_NAME> // www.yourfulldomainname.com
+  DOMAIN=<FULL_DOMAIN_NAME> // like gonka.productscience.ai
   ACCOUNT_EMAIL=<EMAIL_ADDRESS> // to receive notification when certificate is close to expiring
   mkdir -p secrets/nginx-ssl secrets/certbot
   docker run --rm -it \
@@ -27,13 +27,13 @@ This guide explains how to manually issue and configure SSL certificates with `L
   ```
   See the screenshot below for how it should look.
 
-  [![See the screenshot below for how it should look.](/images/manualsslsetup.png)](/images/manualsslsetup.png)
+        [![See the screenshot below for how it should look.](/images/manualsslsetup.png)](/images/manualsslsetup.png)
 
 4. Edit `config.env` and add the following variables:
   ```
   export NGINX_MODE="both"
   export API_SSL_PORT="8443" // ADDITIONAL PORT TO USE FOR SSL
-  export SERVER_NAME="yourfulldomainname.com" // FULL DOMAIN NAME
+  export SERVER_NAME="gonka.productscience.ai" // FULL DOMAIN NAME
   export SSL_CERT_SOURCE="./secrets/nginx-ssl"
   ```
 

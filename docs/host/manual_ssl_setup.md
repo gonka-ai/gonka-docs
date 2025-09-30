@@ -27,8 +27,8 @@ This guide explains how to manually issue and configure SSL certificates with `L
       --deploy-hook 'install -m 0644 "$RENEWED_LINEAGE/fullchain.pem" /mnt/nginx-ssl/cert.pem; install -m 0600 "$RENEWED_LINEAGE/privkey.pem" /mnt/nginx-ssl/private.key'
     ```
 
-!!! note "What happens during this step?"
-    When you run the Certbot command, the container will pause and display a TXT DNS record that you must create manually at your DNS provider.  This is required for domain ownership verification. Certbot will validate the record and, if successful, save the new SSL certificate and private key into `./secrets/nginx-ssl/`.
+        !!! note "What happens during this step?"
+            When you run the Certbot command, the container will pause and display a TXT DNS record that you must create manually at your DNS provider.  This is required for domain ownership verification. Certbot will validate the record and, if successful, save the new SSL certificate and private key into `./secrets/nginx-ssl/`.
 
     See the screenshot below for how it should look.
 

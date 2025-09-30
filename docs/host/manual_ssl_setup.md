@@ -8,7 +8,7 @@ This guide explains how to manually issue and configure SSL certificates with `L
     ```
 
 2. Switch to the branch with the updated proxy configuration:
-     ```
+    ```
     git fetch origin gl/service-proxy-ssl
     git switch -c gl/service-proxy-ssl --track origin/gl/service-proxy-ssl
     ```

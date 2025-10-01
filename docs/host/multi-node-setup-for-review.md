@@ -138,7 +138,7 @@ This will deploy the inference node and start handling inference and Proof of Co
 ### Register
 
 !!! note
-    Usually, it takes the server a couple of minutes to start. However, if your server does not accept requests after 5 minutes, please [contact us](mail to: hello@productscience.ai) for assistance.
+    Usually, it takes the server a couple of minutes to start. However, if your server does not accept requests after 5 minutes, please [contact us](mailto: hello@productscience.ai) for assistance.
 
 1.Register each Inference Node with the Network Node to make it operational. The recommended method is via the Admin API for dynamic management, which is accessible from the terminal of your Network Node server.
 ```

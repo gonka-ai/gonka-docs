@@ -1,4 +1,3 @@
-[TODO] Translate this page to Simplified Chinese.
 
 # Developer Quickstart
 Gonka is a decentralized, cryptographically verified protocol for provable inference. Gonka provides a secure, censorship-resistant, and self-sovereign developer experience.

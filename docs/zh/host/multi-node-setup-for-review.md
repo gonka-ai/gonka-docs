@@ -1,4 +1,3 @@
-[TODO] Translate this page to Simplified Chinese.
 
 # Multi-Node Setup
 This guide extends [Quickstart](https://gonka.ai/host/quickstart/) and shows how to deploy a Network Node (no GPU) and one or more Inference Nodes on separate GPU servers.

@@ -1,4 +1,3 @@
-[TODO] Translate this page to Simplified Chinese.
 
 # Internal onboarding guide
 

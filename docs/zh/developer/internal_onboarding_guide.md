@@ -1,24 +1,23 @@
+# 内部入职指南
 
-# Internal onboarding guide
+要开始使用 Gonka 网络并访问你的代币，你首先需要创建一个 Gonka 账户。
+有几种方法可以做到这一点：
 
-To start using Gonka Network and access your coins, you first need to create a Gonka Account.
-There are several ways to do this:
+- 通过 Keplr 钱包 — 设置更简单，支持 Google 连接（推荐）或助记词（有限：无桥接支持）。
+- 通过 Leap 钱包 — 通过助记词简单设置，但也没有桥接支持。
+- 通过 `inferenced` CLI 工具 — 完整功能，包括桥接交易。
 
-- Via Keplr wallet — easier setup, supports Connect with Google (recommended) or mnemonic phrase (limited: no bridge support).
-- Via Leap wallet — simple setup via mnemonic phrase, but also no bridge support.
-- Via `inferenced` CLI tool — full functionality, including bridge transactions.
+=== "选项 1：通过 Keplr（外部钱包）"
 
-=== "Option 1: Via Keplr (external wallet)"
-
-    Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
+    访问[Keplr 官方网站](https://www.keplr.app/){target=_blank}并点击"获取 Keplr 钱包"。
     
     <a href="/images/dashboard_keplr_step_2_1.png" target="_blank"><img src="/images/dashboard_keplr_step_2_1.png" style="width:500px; height:auto;"></a>
     
-    Choose an extension for your browser.
+    为你的浏览器选择扩展程序。
     
     <a href="/images/dashboard_keplr_step_2_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_2.png" style="width:500px; height:auto;"></a>
     
-    Add the selected extension to your browser.
+    将选定的扩展程序添加到你的浏览器。
     
     === "Firefox"
     
@@ -28,51 +27,51 @@ There are several ways to do this:
     
         <a href="/images/dashboard_keplr_step_2_3_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3_2.png" style="width:500px; height:auto;"></a>
     
-    Click "Create a new wallet".
+    点击"创建新钱包"。
 
     <a href="/images/dashboard_keplr_step_2_4.png" target="_blank"><img src="/images/dashboard_keplr_step_2_4.png" style="width:500px; height:auto;"></a>
 
-    === "Connect with Google"
+    === "通过 Google 连接"
 
-        Click "Connect with Google".
+        点击"通过 Google 连接"。
     
         <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
     
-        Set Up Your Wallet.
+        设置你的钱包。
     
         <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
     
-        Backup your private key securely and never share your private key. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Keep this in a safe place.
+        安全备份你的私钥，永远不要分享你的私钥。任何拥有你私钥的人都可以访问你的资产。如果你失去对 Gmail 账户的访问权限，恢复钱包的唯一方法是使用你的私钥。请将其保存在安全的地方。
     
         <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
-    === "Create new recovery phrase"
+    === "创建新恢复短语"
 
-        !!! note "Important Notice: Limited Functionality"
+        !!! note "重要通知：功能有限"
 
-            This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via Keplr (external wallet, "Connect with Google") or Option 3: Via `inferenced` CLI tool instead.
+            此选项使用助记词创建账户，不支持通过桥进行交易。如果你想通过桥执行交易，请使用选项 1：通过 Keplr（外部钱包，"通过 Google 连接"）或选项 3：通过 `inferenced` CLI 工具。
         
-        Click "Create new recovery phrase"
+        点击"创建新恢复短语"
     
         <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
 
-        DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
+        不要与任何人分享你的恢复短语。任何拥有你恢复短语的人都可以完全控制你的资产。请时刻警惕网络钓鱼攻击。安全备份短语。没有恢复短语，你将永远无法恢复账户。
     
         <a href="/images/keplr_new_recovery_phrase.png" target="_blank"><img src="/images/keplr_new_recovery_phrase.png" style="width:500px; height:auto;"></a>
     
-        Verify your recovery phrase, create wallet name and password.
+        验证你的恢复短语，创建钱包名称和密码。
     
         <a href="/images/keplr_verify_your_recovery_phrase.png" target="_blank"><img src="/images/keplr_verify_your_recovery_phrase.png" style="width:500px; height:auto;"></a>
     
-        Select Cosmos Hub and Ethereum.
+        选择 Cosmos Hub 和 Ethereum。
         
         <a href="/images/dashboard_keplr_step_2_7.png" target="_blank"><img src="/images/dashboard_keplr_step_2_7.png" style="width:500px; height:auto;"></a>
             
-        Your Keplr wallet has been created.
+        你的 Keplr 钱包已创建。
         
         <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
         
-    Choose a random node from the `inference_url` list of genesis-nodes.
+    从创世节点的 `inference_url` 列表中选择随机节点。
 
     - [http://185.216.21.98:8000](http://185.216.21.98:8000)
     - [http://69.19.136.233:8000](http://69.19.136.233:8000)
@@ -86,68 +85,116 @@ There are several ways to do this:
     - [http://47.236.19.22:18000](http://47.236.19.22:18000)
     - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
     
-    ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-        Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants).
+    ??? note "从活跃主机列表中选择随机节点的另一种完全去中心化方法"
+        打开主机列表：[http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)。
         
-        Choose any active Host from the list.
+        从列表中选择任何活跃主机。
         
-        Copy their `inference_url` value.
+        复制他们的 `inference_url` 值。
         
-    Paste the `inference_url` into your browser to load the dashboard.
+    将 `inference_url` 粘贴到浏览器中以加载仪表盘。
     
-    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
+    打开后，你将看到从主机节点直接流式传输的实时数据 — 包括网络统计、活跃工作负载和推理指标。
     
-    In the top-right corner, click "Connect Wallet" to get started.
+    在右上角，点击"连接钱包"开始。
     
     <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
     
-    Select Keplr and hit Connect.
+    选择 Keplr 并点击连接。
     
     <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
     
-    You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
+    你将看到提示将自定义 Gonka 链添加到钱包。批准并添加 Gonka 链。
     
     <a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:500px; height:auto;"></a>
         
-    Done! Your Gonka Developer account has been successfully created.
+    完成！你的 Gonka 开发者账户已成功创建。
     
     <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:500px; height:auto;"></a>
 
-    Open Keplr, navigate to “Copy Address” in your wallet, tap or click “Copy Address”. It looks like a long string of letters and numbers (e.g., gonka1... ). This address is public—you can safely share it with others to receive payments.
+    打开 Keplr，导航到钱包中的"复制地址"，点击"复制地址"，并分享复制的地址 — 这是公钥，所以是安全的。
     
     <a href="/images/keplr_copy_address.png" target="_blank"><img src="/images/keplr_copy_address.png" style="width:auto; height:337.5px;"></a>
 
-=== "Option 2: Via Leap (external wallet)"
+    点击扩展程序窗口右上角的账户图标。
+            
+    <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
 
-    !!! note "Important Notice: Limited Functionality"
+    导航到三个点并点击"查看私钥"。
 
-        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via Keplr (external wallet, "Connect with Google") or Option 3: Via `inferenced` CLI tool instead.
+    <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/keplr_view_private_key.png" style="width:auto; height:337.5px;"></a>
+
+    输入你的密码。
+   
+    <a href="/images/keplr_enter_your_password.png" target="_blank"><img src="/images/keplr_enter_your_password.png" style="width:auto; height:337.5px;"></a>
+
+    复制你的私钥并安全存储（建议硬拷贝）。   
+
+    ??? note "可选：如何在 Keplr 钱包中添加额外的 Gonka 账户 — 点击查看步骤"
+
+        打开扩展程序并点击扩展程序窗口右上角的账户图标。
+            
+        <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
+            
+        点击"添加钱包"按钮。
+            
+        <a href="/images/dashboard_ping_pub_3_5_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_2.png" style="width:auto; height:337.5px; display:block;"></a>
+            
+        点击"导入现有钱包"。
+            
+        <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:450px; height:auto; display:block;"></a>
+            
+        点击"使用恢复短语或私钥"
     
-    Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
+    
+        粘贴你的私钥。你可以导入使用恢复（助记词/种子）短语创建的账户。但是，桥功能将受到限制，因为桥需要直接访问原始私钥来签名交易并确保与以太坊的完全互操作性。
+    
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
+            
+        为你的钱包起一个名称以便参考。
+            
+        <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
+            
+        选择 Cosmos Hub 和 Ethereum。
+    
+        <a href="/images/dashboard_ping_pub_3_5_6.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_6.png" style="width:450px; height:auto; display:block;"></a>
+            
+        完成 — 你的 Gonka 账户已成功导入 Keplr！
+            
+        <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
+
+=== "选项 2：通过 Leap（外部钱包）"
+
+    !!! note "重要通知：功能有限"
+
+        此选项使用助记词创建账户，不支持通过桥进行交易。如果你想通过桥执行交易，请使用选项 1：通过 Keplr（外部钱包，"通过 Google 连接"）或选项 3：通过 `inferenced` CLI 工具。
+    
+    访问[Leap 官方网站](https://www.leapwallet.io/){target=_blank}并点击"下载 Leap"。
     
     <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:500px; height:auto;"></a>
     
-    Add the selected extension to your browser.
+    将选定的扩展程序添加到你的浏览器。
     
     <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
     
-    Click "Create a new wallet".
+    点击"创建新钱包"。
     
     <a href="/images/dashboard_leap_step_2_3.png" target="_blank"><img src="/images/dashboard_leap_step_2_3.png" style="width:500px; height:auto;"></a>
 
-    Save your secret recovery phrase. Write down these words, your secret recovery phrase is the only way to recover your wallet and funds!
+    保存你的秘密恢复短语。写下这些单词，你的秘密恢复短语是恢复钱包和资金的唯一方法！
 
     <a href="/images/leap_your_secret_recovery_phrase.png" target="_blank"><img src="/images/leap_your_secret_recovery_phrase.png" style="width:500px; height:auto;"></a>
 
-    Choose a password to secure & lock your wallet. Agree to the Terms & Conditions.
+    选择密码来保护并锁定你的钱包。同意条款和条件。
 
     <a href="/images/leap_create_your_password.png" target="_blank"><img src="/images/leap_create_your_password.png" style="width:500px; height:auto;"></a>
 
-    Your Leap wallet has been created.
+    你的 Leap 钱包已创建。
 
     <a href="/images/leap_you_are_all_set.png" target="_blank"><img src="/images/leap_you_are_all_set.png" style="width:500px; height:auto;"></a>
 
-    Choose a random node from the `inference_url` list of genesis-nodes
+    从创世节点的 `inference_url` 列表中选择随机节点
     
     - [http://185.216.21.98:8000](http://185.216.21.98:8000)
     - [http://69.19.136.233:8000](http://69.19.136.233:8000)
@@ -161,63 +208,100 @@ There are several ways to do this:
     - [http://47.236.19.22:18000](http://47.236.19.22:18000)
     - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
     
-    ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-        Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
+    ??? note "从活跃主机列表中选择随机节点的另一种完全去中心化方法"
+        打开主机列表：[http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
         
-        Choose any active Host from the list.
+        从列表中选择任何活跃主机。
         
-        Copy their `inference_url` value.
+        复制他们的 `inference_url` 值。
         
-    Paste the `inference_url` into your browser to load the dashboard.
+    将 `inference_url` 粘贴到浏览器中以加载仪表盘。
     
-    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
+    打开后，你将看到从主机节点直接流式传输的实时数据 — 包括网络统计、活跃工作负载和推理指标。
     
-    In the top-right corner, click "Connect Wallet" to get started.
+    在右上角，点击"连接钱包"开始。
     
     <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
     
-    Select Leap and hit Connect.
+    选择 Leap 并点击连接。
     
     <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
     
-    You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
+    你将看到提示将自定义 Gonka 链添加到钱包。批准并添加 Gonka 链。
     
     <a href="/images/leap_add_network.png" target="_blank"><img src="/images/leap_add_network.png" style="width:500px; height:auto;"></a>
 
-    Done! Your Gonka Developer account has been successfully created.
+    完成！你的 Gonka 开发者账户已成功创建。
 
-    Open Leap, navigate to “Copy Address” in your wallet, tap or click “Copy Address”. It looks like a long string of letters and numbers (e.g., gonka1... ). This address is public—you can safely share it with others to receive payments.
+    <a href="/images/leap_created_gonka_account.png" target="_blank"><img src="/images/leap_created_gonka_account.png" style="width:500px; height:auto;"></a>
 
-    <a href="/images/leap_copy_address.png" target="_blank"><img src="/images/leap_copy_address.png" style="width:auto; height:337.5px;"></a>
+    打开扩展程序并导航到左上角的菜单。
+            
+    <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
 
-=== "Option 3: Via `inferenced` CLI tool"
-    Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
+    点击"安全与隐私"。
+
+    <a href="/images/leap_security_privacy.png" target="_blank"><img src="/images/leap_security_privacy.png" style="width:auto; height:337.5px;"></a>
+
+    点击"显示私钥"。
+   
+    <a href="/images/leap_show_private_key.png" target="_blank"><img src="/images/leap_show_private_key.png" style="width:auto; height:337.5px;"></a>
+
+    输入你的密码。
+    
+    <a href="/images/leap_enter_password.png" target="_blank"><img src="/images/leap_enter_password.png" style="width:auto; height:337.5px;"></a>
+
+    复制你的私钥并安全存储（建议硬拷贝）。   
+
+    ??? note "可选：如何向 Leap 钱包添加额外的 Gonka 账户 — 点击查看步骤"            
+        打开扩展程序并点击扩展程序窗口顶部中央的青蛙图标和钱包名称按钮。
+            
+        <a href="/images/dashboard_leap_step_3_5_1.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_1.png" style="width:250px; height:auto;"></a>
+            
+        点击"创建/导入钱包"按钮。
+            
+        <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
+            
+        选择"使用私钥导入"。你可以导入使用恢复（助记词/种子）短语创建的账户。但是，桥功能将受到限制，因为桥需要直接访问原始私钥来签名交易并确保与以太坊的完全互操作性。
+            
+        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
+    
+        粘贴你的私钥或恢复（助记词/种子）短语。
+    
+        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:250px; height:auto;"></a>
+            
+        完成 — 你的 Gonka 账户已成功导入 Leap 钱包（点击顶部中央的青蛙图标和钱包名称按钮可在钱包间切换）。
+            
+        <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
+
+=== "选项 3：通过 `inferenced` CLI 工具"
+    下载 `inferenced` CLI 工具（最新 `inferenced` 二进制文件[在此](https://github.com/gonka-ai/gonka/releases)）。
     
     
-    ??? note "Enabling Execution on Mac OS"
-        On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
+    ??? note "在 Mac OS 上启用执行"
+        在 Mac OS 上，下载 inferenced 二进制文件后，你可能需要手动启用执行权限。请按照以下步骤操作：
         
-        1.	Open a terminal and navigate to the directory where the binary is located.
+        1.	打开终端并导航到二进制文件所在的目录。
         
-        2.	Run the following command to grant execution permission:
+        2.	运行以下命令授予执行权限：
         ```
         chmod +x inferenced
         ```
-        3.	Try running `./inferenced --help` to ensure it's working.
+        3.	尝试运行 `./inferenced --help` 以确保它正常工作。
             
-        4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
+        4.	如果在尝试运行 `inferenced` 时看到安全警告，请转到系统设置 → 隐私与安全。
         
-        5.	Scroll down to the warning about `inferenced` and click "Allow Anyway".
+        5.	向下滚动到关于 `inferenced` 的警告并点击"仍要允许"。
     
-    You can create an account with the following command:
+    你可以使用以下命令创建账户：
     ```bash
     ./inferenced create-client $ACCOUNT_NAME \
       --node-address $NODE_URL
     ```
     
-    Make sure to securely save your passphrase — you'll need it for future access.
+    确保安全保存你的密码短语 — 将来访问时需要。
     
-    This command creates a new account, securely stores its keys in the `~/.inference` directory, and returns your new account address:
+    此命令创建新账户，安全地将其密钥存储在 `~/.inference` 目录中，并返回你的新账户地址：
     
     ```bash
     - address: <your-account-address>
@@ -225,24 +309,29 @@ There are several ways to do this:
       pubkey: '{"@type":"...","key":"..."}'
       type: local
     ```
-
-    Save this data. This address is public, you can safely share it with others to receive payments.
-
-    Export your private key.
+    
+    账户存储你的余额，将其添加到环境变量 `GONKA_ADDRESS` 或 `.env` 文件中。
+    
+    ```bash
+    export GONKA_ADDRESS=<your-account-address>
+    ```
+    
+    将私钥添加到环境变量
+    
+    如果你想执行请求：
+    
+    导出你的私钥（仅用于演示/测试）。
     ```bash
     ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
     ```
     
-    This command outputs a plain-text private key. Backup your private key securely and never share your private key. Anyone with your private key can have access to your assets. 
+    此命令输出纯文本私钥。
+    
+    将其添加到环境变量 `GONKA_PRIVATE_KEY` 或 `.env` 文件中。
+    ```bash
+    export GONKA_PRIVATE_KEY=<your-private-key>
+    ```
 
-Sharing Your Address Safely
+一旦你的账户准备就绪，你可以[开始使用网络](https://gonka.ai/developer/quickstart/)。
 
-- Always copy and paste your address (don’t type it by hand).
-- Double-check the first and last 4 characters before sending.
-- Some wallets let you generate a QR code—useful for in-person sharing.
-- You never share your seed phrase or private key. Only the public address is for sharing.
-
-Receiving Crypto
-
-- Give your public address to the sender.
-- Once they send funds, you can check your wallet balance or look up your address on a block explorer in Gonka Dashboard (links above).
+**需要帮助？** 加入我们的[Discord 服务器](https://discord.gg/fvhNxdFMvB)获取一般咨询、技术问题或安全担忧的帮助。

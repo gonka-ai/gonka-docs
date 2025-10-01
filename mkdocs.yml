@@ -32,9 +32,6 @@ nav:
         - FAQ: FAQ.md
         - Errors: Errors.md
         - Get help: help.md
-  - API Reference:
-     - API Reference: api-reference/api-reference.md
-     - REST API: api-reference/rest-api.md
 
 # Visual
 theme:

@@ -120,8 +120,6 @@ plugins:
           name: 中文
           build: true
           nav_translations:
-            Home: 首页
-            Docs: 文档
             Introduction: 介绍
             Developer: 开发者
             Quickstart: 快速上手

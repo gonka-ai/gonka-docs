@@ -12,6 +12,7 @@
         </svg>
     </a>
     <a href="./introduction/" class="gonka-docs-link">
+      <span>文档</span> 
       <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.5 13.5L10.5 6.5" stroke="black" stroke-width="1.5"/>
         <path d="M3.83398 6.5H10.5007V13.1667" stroke="black" stroke-width="1.5"/>

@@ -61,7 +61,6 @@ theme:
   include_search_page: false
   language: en
   features:
-    - navigation.tabs
     - navigation.sections
     - navigation.expand
     - navigation.top

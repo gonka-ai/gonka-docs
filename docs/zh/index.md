@@ -48,15 +48,15 @@
           <div class="partner-card">
             <span class="partner-label">Auditor</span>
             <div class="partner-logos">
-              <img src="docs/images/logos/certik.svg" alt="CertiK" />
+              <img src="../images/logos/certik.svg" alt="CertiK" />
             </div>
           </div>
           <div class="partner-card">
             <span class="partner-label">Community Partners</span>
             <div class="partner-logos">
-              <img src="docs/images/logos/web3.svg" alt="Web3" />
-              <img src="docs/images/logos/hardyaka.svg" alt="Hard Yaka" />
-              <img src="docs/images/logos/bitfury.svg" alt="Bitfury" />
+              <img src="../images/logos/web3.svg" alt="Web3" />
+              <img src="../images/logos/hardyaka.svg" alt="Hard Yaka" />
+              <img src="../images/logos/bitfury.svg" alt="Bitfury" />
             </div>
           </div>
           <div class="partner-card">

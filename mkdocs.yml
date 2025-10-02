@@ -6,7 +6,6 @@ site_description: >-
 
 # Content
 nav:
-  - Home: index.md
   - Docs:
       - Introduction: introduction.md
       - Developer:

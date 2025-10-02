@@ -95,6 +95,19 @@ extra_javascript:
   - js/links.js
 
 plugins:
+  - minify:
+      minify_html: false
+  - search:
+      separator: '[\\s-]+'
+      lang:
+        - en
+        - zh
+  - mkdocs-video:
+      is_video: true
+      video_muted: true
+      video_controls: true
+      css_style:
+        width: "50%"
   - i18n:
       reconfigure_material: true
       docs_structure: folder
@@ -106,34 +119,33 @@ plugins:
         - locale: zh
           name: 中文
           build: true
-      nav_translations:
-        zh:
-          Home: 首页
-          Docs: 文档
-          Introduction: 介绍
-          Developer: 开发者
-          Quickstart: 快速上手
-          Details: 细节
-          Host: 节点
-          "Multiple nodes": 多节点
-          "Network Node API": 网络节点 API
-          "Key Management": 密钥管理
-          "Access account": 访问账户
-          "Benchmark to Choose Optimal Deployment Config for LLMs": LLM 部署配置基准
-          "Hardware Specifications": 硬件规格
-          Genesis: 创世
-          "How to edit validator public info": 编辑验证者公开信息
-          Wallet: 钱包
-          Dashboard: 仪表盘
-          "Wallet & Transfer Guide": 钱包与转账指南
-          Pricing: 价格
-          "Model licenses": 模型许可
-          "Transactions & Governance": 交易与治理
-          "Software Upgrades": 软件升级
-          Help: 帮助
-          FAQ: 常见问题
-          Errors: 错误
-          "Get help": 获取支持
+          nav_translations:
+            Home: 首页
+            Docs: 文档
+            Introduction: 介绍
+            Developer: 开发者
+            Quickstart: 快速上手
+            Details: 细节
+            Host: 节点
+            "Multiple nodes": 多节点
+            "Network Node API": 网络节点 API
+            "Key Management": 密钥管理
+            "Access account": 访问账户
+            "Benchmark to Choose Optimal Deployment Config for LLMs": LLM 部署配置基准
+            "Hardware Specifications": 硬件规格
+            Genesis: 创世
+            "How to edit validator public info": 编辑验证者公开信息
+            Wallet: 钱包
+            Dashboard: 仪表盘
+            "Wallet & Transfer Guide": 钱包与转账指南
+            Pricing: 价格
+            "Model licenses": 模型许可
+            "Transactions & Governance": 交易与治理
+            "Software Upgrades": 软件升级
+            Help: 帮助
+            FAQ: 常见问题
+            Errors: 错误
+            "Get help": 获取支持
 
 strict: true
 

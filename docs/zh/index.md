@@ -1,10 +1,3 @@
----
-title: ""
-hide:
-  - navigation
-  - toc
-  - breadcrumbs
----
 <!-- prettier-ignore:start -->
 <div class="gonka-landing">
   <!-- Header -->

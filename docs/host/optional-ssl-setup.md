@@ -80,10 +80,15 @@ Use the credential(s) that match your provider. Click a provider to jump to the 
     **Cloudflare**{#cloudflare-dns-token-how-to}
 
     1) Open the Cloudflare Dashboard.
+    
     2) Go to Profile → API Tokens.
+    
     3) Click Create Token.
+    
     4) Use Edit zone DNS template or set permissions: Zone:Read and DNS:Edit.
+    
     5) Limit the token to your DNS zone and create it.
+    
     6) Copy the token and set CF_DNS_API_TOKEN.
 
 ??? details "AWS Route53"
@@ -133,9 +138,13 @@ Use the credential(s) that match your provider. Click a provider to jump to the 
     ```
 
     **Option B — Console**
+    
     1) Create an IAM policy limited to your hosted zone (ChangeResourceRecordSets and list permissions).
+    
     2) Create an IAM user with programmatic access.
+    
     3) Attach the policy to the user.
+    
     4) Create an access key pair and set AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_REGION.
 
 ??? details "Google Cloud DNS"
@@ -163,9 +172,13 @@ Use the credential(s) that match your provider. Click a provider to jump to the 
     echo "GCE_SERVICE_ACCOUNT_JSON_B64=$GCE_SERVICE_ACCOUNT_JSON_B64"
     ```
     **Option B — Console**
+    
     1) IAM & Admin → Service Accounts → Create service account (e.g., acme-dns).
+    
     2) Grant the service account role: DNS Administrator (`roles/dns.admin`).
+    
     3) Service account → Keys → Add key → Create new key (JSON) → Download.
+    
     4) Base64-encode the JSON key to a single line and set `GCE_SERVICE_ACCOUNT_JSON_B64`. Set `GCE_PROJECT` to your project ID.
 
 ??? details "Azure DNS"
@@ -203,23 +216,31 @@ Use the credential(s) that match your provider. Click a provider to jump to the 
     echo "AZURE_TENANT_ID=$AZURE_TENANT_ID"
     ```
     **Option B — Portal**
+    
     1) Go to Microsoft Entra ID → App registrations → New registration. Copy Application (client) ID and Directory (tenant) ID.
+    
     2) Go to Certificates & secrets → New client secret. Copy the secret value and set `AZURE_CLIENT_SECRET`.
+    
     3) Copy your Subscription ID and set `AZURE_SUBSCRIPTION_ID`.
+    
     4) In your DNS zone, open Access control (IAM) → Add role assignment → DNS Zone Contributor → assign to the registered app.
 
 ??? details "DigitalOcean DNS"
     **DigitalOcean DNS**{#digitalocean-dns-credentials-how-to}
 
     1) Open DigitalOcean Control Panel.
+    
     2) Go to API → Tokens.
+    
     3) Generate a write‑scoped token and set `DO_AUTH_TOKEN`.
 
 ??? details "Hetzner DNS"
     **Hetzner DNS**{#hetzner-dns-credentials-how-to}
 
     1) Open https://dns.hetzner.com.
+    
     2) Go to API Tokens.
+    
     3) Create a new token and set `HETZNER_API_KEY`.
 
 #### 3) Start (or enable) SSL components
@@ -249,10 +270,12 @@ Only `proxy` and `proxy-ssl` need to be (re)started for SSL changes. Other servi
 
 #### 5) Renewal & when you must act
 **Automatic:**
+
 - Certificate renewals (issuer reuses `./secrets/nginx-ssl`).
 - Nginx picks up renewed certs on container restart.
 
 **You act when:**
+
 - Rotating **DNS credentials** → update env & restart `proxy-ssl`.
 - Changing `CERT_ISSUER_DOMAIN` or subdomains → update env, ensure DNS records exist, then restart `proxy` and `proxy-ssl`.
 - Moving hosts/IPs → update DNS to point to the new proxy **before** issuing/renewing.

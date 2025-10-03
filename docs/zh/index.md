@@ -46,13 +46,13 @@
       <div class="gonka-carousel">
         <div class="carousel-track">
           <div class="partner-card">
-            <span class="partner-label">Auditor</span>
+            <span class="partner-label">审计方</span>
             <div class="partner-logos">
               <img src="../images/logos/certik.svg" alt="CertiK" />
             </div>
           </div>
           <div class="partner-card">
-            <span class="partner-label">Community Partners</span>
+            <span class="partner-label">社区合作伙伴</span>
             <div class="partner-logos">
               <img src="../images/logos/web3.svg" alt="Web3" />
               <img src="../images/logos/hardyaka.svg" alt="Hard Yaka" />
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="partner-card">
-            <span class="partner-label">Select Hosts</span>
+            <span class="partner-label">优选主机</span>
             <div class="partner-logos">
               <img src="../images/logos/gcore.svg" alt="Gcore" />
               <img src="../images/logos/hyperfusion.svg" alt="Hyperfusion" />
@@ -68,16 +68,16 @@
             </div>
           </div>
           <div class="partner-card">
-            <span class="partner-label">Select AI Developers</span>
+            <span class="partner-label">优选 AI 开发者</span>
             <div class="partner-logos">
               <img src="../images/logos/aiden.svg" alt="Aiden" />
             </div>
           </div>
           <div class="partner-card">
-            <span class="partner-label">Protocol Creator</span>
+            <span class="partner-label">协议创建者</span>
             <div class="partner-logos">
               <img src="../images/logos/productscience.svg" alt="Product Science" />
-              <span class="partner-label">backed by</span>
+              <span class="partner-label">支持方</span>
               <img src="../images/logos/coatue.svg" alt="Coatue" />
               <img src="../images/logos/slow.svg" alt="Slow" />
               <img src="../images/logos/mantis.svg" alt="Mantis" />

@@ -8,31 +8,31 @@ site_description: >-
 nav:
   - Home: index.md
   - Docs:
-      - Introduction: introduction.md
-      - Developer:
-        - Quickstart: developer/quickstart.md
-        - Details: developer/details.md
-      - Host:
-        - Quickstart: host/quickstart.md
-        - Multiple nodes: host/multiple-nodes.md
-        - Network Node API: host/network-node-api.md
-        - Key Management: host/key-management.md
-        - Access account: host/access-account.md
-        - Benchmark to Choose Optimal Deployment Config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
-        - Hardware Specifications: host/hardware-specifications.md
-        - Genesis: host/genesis.md
-        - How to edit validator public info: host/validator_info.md
-      - Wallet:
-        - Dashboard: wallet/dashboard.md
-        - Wallet & Transfer Guide: wallet/wallet-and-transfer-guide.md
-        - Pricing: wallet/pricing.md
-      - Model licenses: model-licenses.md
-      - Transactions & Governance: transactions-and-governance.md
-      - Software Upgrades: software-upgrades.md
-      - Help:
-        - FAQ: FAQ.md
-        - Errors: Errors.md
-        - Get help: help.md
+  - Introduction: introduction.md
+  - Developer:
+    - Quickstart: developer/quickstart.md
+    - Details: developer/details.md
+  - Host:
+    - Quickstart: host/quickstart.md
+    - Multiple nodes: host/multiple-nodes.md
+    - Network Node API: host/network-node-api.md
+    - Key Management: host/key-management.md
+    - Access account: host/access-account.md
+    - Benchmark to Choose Optimal Deployment Config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
+    - Hardware Specifications: host/hardware-specifications.md
+    - Genesis: host/genesis.md
+    - How to edit validator public info: host/validator_info.md
+  - Wallet:
+    - Dashboard: wallet/dashboard.md
+    - Wallet & Transfer Guide: wallet/wallet-and-transfer-guide.md
+    - Pricing: wallet/pricing.md
+  - Model licenses: model-licenses.md
+  - Transactions & Governance: transactions-and-governance.md
+  - Software Upgrades: software-upgrades.md
+  - Help:
+    - FAQ: FAQ.md
+    - Errors: Errors.md
+    - Get help: help.md
 
 # Visual
 theme:

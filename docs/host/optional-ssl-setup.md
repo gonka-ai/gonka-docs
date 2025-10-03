@@ -216,23 +216,31 @@ Use the credential(s) that match your provider. Click a provider to jump to the 
     echo "AZURE_TENANT_ID=$AZURE_TENANT_ID"
     ```
     **Option B — Portal**
+    
     1) Go to Microsoft Entra ID → App registrations → New registration. Copy Application (client) ID and Directory (tenant) ID.
+    
     2) Go to Certificates & secrets → New client secret. Copy the secret value and set `AZURE_CLIENT_SECRET`.
+    
     3) Copy your Subscription ID and set `AZURE_SUBSCRIPTION_ID`.
+    
     4) In your DNS zone, open Access control (IAM) → Add role assignment → DNS Zone Contributor → assign to the registered app.
 
 ??? details "DigitalOcean DNS"
     **DigitalOcean DNS**{#digitalocean-dns-credentials-how-to}
 
     1) Open DigitalOcean Control Panel.
+    
     2) Go to API → Tokens.
+    
     3) Generate a write‑scoped token and set `DO_AUTH_TOKEN`.
 
 ??? details "Hetzner DNS"
     **Hetzner DNS**{#hetzner-dns-credentials-how-to}
 
     1) Open https://dns.hetzner.com.
+    
     2) Go to API Tokens.
+    
     3) Create a new token and set `HETZNER_API_KEY`.
 
 #### 3) Start (or enable) SSL components

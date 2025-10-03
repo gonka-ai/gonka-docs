@@ -21,6 +21,7 @@ nav:
     - Hardware Specifications: host/hardware-specifications.md
     - Genesis: host/genesis.md
     - How to edit validator public info: host/validator_info.md
+    - SSL setup: host/optional-ssl-setup.md
   - Wallet:
     - Dashboard: wallet/dashboard.md
     - Wallet & Transfer Guide: wallet/wallet-and-transfer-guide.md
@@ -132,6 +133,7 @@ plugins:
             "Hardware Specifications": 硬件规格
             Genesis: 创世
             "How to edit validator public info": 编辑验证者公开信息
+            SSL setup: SSL 设置
             Wallet: 钱包
             Dashboard: 仪表盘
             "Wallet & Transfer Guide": 钱包与转账指南

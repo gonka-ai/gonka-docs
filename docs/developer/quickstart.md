@@ -461,7 +461,7 @@ Do not forget to write it down, you will need it in the next step.
     )
 
     response = client.chat.completions.create(
-        model="Qwen/QwQ-32B",
+        model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages=[
             { "role": "user", "content": "Write a one-sentence bedtime story about a unicorn" }
         ]
@@ -491,7 +491,7 @@ Do not forget to write it down, you will need it in the next step.
     });
 
     const response = await client.chat.completions.create({
-        model: "Qwen/QwQ-32B",
+        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages: [
             { role: "user", content: "Hello! Tell me a short joke." }
         ]
@@ -531,7 +531,7 @@ Do not forget to write it down, you will need it in the next step.
         }
 
         response, err := client.CreateChatCompletion(
-            "Qwen/QwQ-32B",
+            "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
             []gonka.ChatCompletionMessage{
                 {
                     Role:    "user",

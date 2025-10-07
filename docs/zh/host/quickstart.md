@@ -39,7 +39,7 @@
 | 大（Large） | `DeepSeek R1` / `Qwen3-235B` | ≥ 2 | 每个 ML 节点 8× H200 | 640 GB |
 | 中（Medium） | `Qwen3-32B` / `Gemma-3-27B-it` | ≥ 2 | 每个 ML 节点 4× A100 或 2× H100 | 80 GB |
 
-以上为参考架构。你可按需调整节点数量或硬件分配，但建议遵循核心原则：每个网络节点应在三层模型中均部署多个 ML 节点。
+这是一个参考架构。你可以根据需要调整节点数量或硬件分配，但我们建议遵循核心原则：每个节点都应在两个模型类别中支持多个 ML 节点。
 
 更多关于最优部署配置的细节见[此处](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
@@ -149,7 +149,7 @@ cp config.env.template config.env
 更多最优部署配置细节请参考[此处](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
 !!! note
-    当前网络支持以下模型：`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、`Qwen/Qwen3-32B-FP8`。是否新增或修改支持模型由治理决定；治理流程与提案方式详见「[交易与治理指南](https://gonka.ai/transactions-and-governance/)」。
+    当前网络支持以下模型：`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`。是否新增或修改支持模型由治理决定；治理流程与提案方式详见「[交易与治理指南](https://gonka.ai/transactions-and-governance/)」。
 
 ### 【服务器】编辑网络节点配置
 

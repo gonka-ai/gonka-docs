@@ -15,7 +15,6 @@ You can interact with the dashboard in two ways:
     1. Choose a random node from the `inference_url` list of genesis-nodes:
     
         - [http://185.216.21.98:8000](http://185.216.21.98:8000)  
-        - [http://69.19.136.233:8000](http://69.19.136.233:8000)  
         - [http://36.189.234.197:18026](http://36.189.234.197:18026)  
         - [http://36.189.234.237:17241](http://36.189.234.237:17241)  
         - [http://93.119.168.58:8000](http://93.119.168.58:8000)  

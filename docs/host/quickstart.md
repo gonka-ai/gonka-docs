@@ -17,7 +17,6 @@ The protocol currently supports the following model classes:
 
 - Large Models — `DeepSeek R1`, `Qwen3-235B`, `gpt-oss-120b`
 - Medium Models — `Qwen3-32B`, `Gemma-3-27b-it`
-- Small Models — `Qwen2.5-7B`
 
 !!! note "Governance and model classification"
     - The exact deployment parameters for each category are defined in the genesis configuration.
@@ -26,7 +25,7 @@ The protocol currently supports the following model classes:
     - For details on governance procedures and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### Configuration for Optimal Rewards
-To earn the highest rewards and maintain reliability, each Network Node should serve all three model classes, with a minimum of 2 MLNodes per class. This setup:
+To earn the highest rewards and maintain reliability, each Network Node should serve two model classes, with a minimum of 2 MLNodes per class. This setup:
 
 - Improves protocol-level redundancy and fault tolerance
 - Enhances model-level validation performance
@@ -39,7 +38,6 @@ To run a valid node, you need machines with [supported GPU(s)](/host/hardware-sp
 |-----------------|------------------------------------------|-------------------|-------------------------------------------------|----------------|
 | **Large**       | `DeepSeek R1` / `Qwen3-235B`                | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
 | **Medium**      | `Qwen3-32B` / `Gemma-3-27B-it`              | ≥ 2               | 4× A100 or 2× H100 per MLNode                   | 80 GB          |
-| **Small**       | `Qwen2.5-7B`                              | ≥ 2               | 2× 3090 or 8× 3090 per MLNode                   | 24 GB          |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple MLNodes across all three model tiers.
 
@@ -148,17 +146,10 @@ After cloning the repository, you’ll find the following key configuration file
 | `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML node                                   |
 | `node-config.json`            | Configuration file used by Network Node, it describes inference nodes managed by this Network Node |
 
-The next files have examples of node-config.json for different GPU servers:
-
-| File                          | Description                                                                      |
-|-------------------------------|----------------------------------------------------------------------------------|
-| `node-config-qwq.json`       | `Qwen/QwQ-32B` on A100/H100                     |
-| `node-config-qwq-4x3090.json` |  `QwQ-32B` on 4x3090                                   |
-
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 !!! note        
-    The network currently supports the following models `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, `Qwen/Qwen3-32B-FP8`, `Qwen/QwQ-32B`, `RedHatAI/Qwen2.5-7B-Instruct-quantized.w8a16`, `Qwen/Qwen2.5-7B-Instruct`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+    The network currently supports the following models: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### [Server] Edit Your Network Node Configuration
 
@@ -213,7 +204,7 @@ To make sure the model weights are ready for inference, you should download them
 
 ```bash
 mkdir -p $HF_HOME
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct
+huggingface-cli download Qwen3-32B
 ```
 
 ## [Server] Launch node

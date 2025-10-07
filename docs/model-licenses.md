@@ -5,7 +5,5 @@
 - [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b/blob/main/LICENSE)
 - [Llama-3.1-70B](https://ollama.com/library/llama3:70b/blobs/4fa551d4f938)
 - [Llama-3.1-405B](https://ollama.com/library/llama3.1:405b/blobs/0ba8f0e314b4)
-- [Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE)
 - [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B/blob/main/LICENSE)
 - [Qwen3-235B](https://huggingface.co/Qwen/Qwen3-235B-A22B/blob/main/LICENSE)
-- [QwQ-32B](https://huggingface.co/Qwen/QwQ-32B)

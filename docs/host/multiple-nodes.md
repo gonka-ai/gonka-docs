@@ -99,10 +99,10 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 
 Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired.
-Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`.
+Right now, the network supports two models: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, `Qwen/Qwen3-32B-FP8`.
 
 ```
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct
+huggingface-cli download Qwen/Qwen3-32B-FP8
 ```
 
 **1.3. Ports open for network node connections**
@@ -158,19 +158,16 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `poc_port`       | The port which is used for **MLNode management**.   | `8080` (port mapped to `8080` of MLNode's `nginx`)                                                   |
 | `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500`                                                     |
 | `models`         | A **supported models** that the inference node can process.                              | (see below)    |
-| `model_name`         | - The name of the model.                              | `Qwen/QwQ-32B`    |
-| `model_args`         | - vLLM arguments for the inference of the model.                              | `"--quantization","fp8","--kv-cache-dtype","fp8"`    |
+| `model_name`         | The name of the model.                              | `Qwen/Qwen3-32B-FP8`    |
+| `model_args`         | vLLM arguments for the inference of the model.                              | `"--quantization","fp8","--kv-cache-dtype","fp8"`    |
 
-Right now, the network supports two models: `Qwen/Qwen2.5-7B-Instruct` and `Qwen/QwQ-32B`, both quantized to FP8 and the QwQ model uses an FP8 KV cache.
+Right now, the network supports two models: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`.
 
-To ensure correct setup and optimal performance, use the arguments that best matches your model and GPU layout.
+To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout.
 
 | Model and GPU layout                    | vLLM arguments                                                                           |
 |-----------------------------------------|---------------------------------------------------------------------------------------|
 | `Qwen/Qwen2`            | `"--quantization","fp8"`                                      |
-| `Qwen/QwQ-32B` on 8xA100 or 8xH100  | `"--quantization","fp8","--kv-cache-dtype","fp8"`                                |
-| `Qwen/QwQ-32B` on 8x3090 or 8x4090  | `"--quantization","fp8","--kv-cache-dtype","fp8","--tensor-parallel-size","4"`                        |
-| `Qwen/QwQ-32B` on 8x3080            | `"--quantization","fp8","--kv-cache-dtype","fp8","--tensor-parallel-size","4","--pipeline-parallel-size","2"`                       |
 
 !!! note "vLLM performance tuning reference"
     For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/) guide.

@@ -52,7 +52,6 @@ Do not forget to write it down, you will need it in the next step.
     Set the `NODE_URL` to one of the genesis nodes:
     ```bash title="Genesis Node List"
     http://185.216.21.98:8000
-    http://69.19.136.233:8000
     http://36.189.234.197:18026
     http://36.189.234.237:17241
     http://93.119.168.58:8000

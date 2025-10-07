@@ -98,10 +98,10 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 
 创建可写目录（如 `~/hf-cache`），并按需预加载模型。
-当前网络支持两个模型：`Qwen/Qwen2.5-7B-Instruct` 与 `Qwen/QwQ-32B`。
+当前网络支持两个模型：`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`。
 
 ```
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct
+huggingface-cli download Qwen/Qwen3-32B-FP8
 ```
 
 **1.3 为与网络节点通信开放端口**
@@ -160,16 +160,13 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `model_name` | 模型名称 | `Qwen/QwQ-32B` |
 | `model_args` | vLLM 推理参数 | `"--quantization","fp8","--kv-cache-dtype","fp8"` |
 
-当前网络支持两个模型：`Qwen/Qwen2.5-7B-Instruct` 与 `Qwen/QwQ-32B`，均使用 FP8 量化；其中 QwQ 使用 FP8 KV 缓存。
+当前网络支持两个模型：`Qwen/Qwen2.5-7B-Instruct` 与 `Qwen/QwQ-32B`，均使用 FP8 量化.
 
 为获得正确配置与最优性能，请根据模型与 GPU 拓扑选择参数：
 
 | 模型与硬件布局 | vLLM 参数 |
 |----------------|-----------|
 | `Qwen/Qwen2` | `"--quantization","fp8"` |
-| `Qwen/QwQ-32B`（8×A100 或 8×H100） | `"--quantization","fp8","--kv-cache-dtype","fp8"` |
-| `Qwen/QwQ-32B`（8×3090 或 8×4090） | `"--quantization","fp8","--kv-cache-dtype","fp8","--tensor-parallel-size","4"` |
-| `Qwen/QwQ-32B`（8×3080） | `"--quantization","fp8","--kv-cache-dtype","fp8","--tensor-parallel-size","4","--pipeline-parallel-size","2"` |
 
 !!! note "vLLM 性能调优参考"
     针对不同 GPU 硬件的最优部署与 vLLM 参数选择，请参考「[为 LLM 选择最优部署配置的基准指南](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)」。

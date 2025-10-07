@@ -461,7 +461,7 @@ export NODE_URL=<http://random-node-url>
     )
 
     response = client.chat.completions.create(
-        model="Qwen/QwQ-32B",
+        model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages=[
             { "role": "user", "content": "写一个关于独角兽的一句话睡前故事" }
         ]
@@ -491,7 +491,7 @@ export NODE_URL=<http://random-node-url>
     });
 
     const response = await client.chat.completions.create({
-        model: "Qwen/QwQ-32B",
+        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages: [
             { role: "user", content: "你好！给我讲个短笑话。" }
         ]
@@ -531,7 +531,7 @@ export NODE_URL=<http://random-node-url>
         }
 
         response, err := client.CreateChatCompletion(
-            "Qwen/QwQ-32B",
+            "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
             []gonka.ChatCompletionMessage{
                 {
                     Role:    "user",

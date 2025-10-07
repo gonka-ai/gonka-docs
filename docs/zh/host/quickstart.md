@@ -17,7 +17,6 @@
 
 - 大模型（Large）— `DeepSeek R1`、`Qwen3-235B`、`gpt-oss-120b`
 - 中模型（Medium）— `Qwen3-32B`、`Gemma-3-27b-it`
-- 小模型（Small）— `Qwen2.5-7B`
 
 !!! note "治理与模型分类"
     - 各类别的具体部署参数由创世配置（genesis）定义。
@@ -39,7 +38,6 @@
 |---------|----------|------------------|----------|--------|
 | 大（Large） | `DeepSeek R1` / `Qwen3-235B` | ≥ 2 | 每个 ML 节点 8× H200 | 640 GB |
 | 中（Medium） | `Qwen3-32B` / `Gemma-3-27B-it` | ≥ 2 | 每个 ML 节点 4× A100 或 2× H100 | 80 GB |
-| 小（Small） | `Qwen2.5-7B` | ≥ 2 | 每个 ML 节点 2× 3090 或 8× 3090 | 24 GB |
 
 以上为参考架构。你可按需调整节点数量或硬件分配，但建议遵循核心原则：每个网络节点应在三层模型中均部署多个 ML 节点。
 
@@ -148,17 +146,10 @@ cp config.env.template config.env
 | `docker-compose.mlnode.yml` | 启动 ML 节点的 Docker Compose 文件 |
 | `node-config.json` | 网络节点使用的配置，描述该节点所管理的推理节点 |
 
-以下文件为不同 GPU 服务器的 `node-config.json` 示例：
-
-| 文件 | 说明 |
-|------|------|
-| `node-config-qwq.json` | `Qwen/QwQ-32B` 运行于 A100/H100 |
-| `node-config-qwq-4x3090.json` | `QwQ-32B` 运行于 4×3090 |
-
 更多最优部署配置细节请参考[此处](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
 !!! note
-    当前网络支持以下模型：`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、`Qwen/Qwen3-32B-FP8`、`Qwen/QwQ-32B`、`RedHatAI/Qwen2.5-7B-Instruct-quantized.w8a16`、`Qwen/Qwen2.5-7B-Instruct`。是否新增或修改支持模型由治理决定；治理流程与提案方式详见「[交易与治理指南](https://gonka.ai/transactions-and-governance/)」。
+    当前网络支持以下模型：`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、`Qwen/Qwen3-32B-FP8`。是否新增或修改支持模型由治理决定；治理流程与提案方式详见「[交易与治理指南](https://gonka.ai/transactions-and-governance/)」。
 
 ### 【服务器】编辑网络节点配置
 
@@ -212,7 +203,7 @@ source config.env
 
 ```bash
 mkdir -p $HF_HOME
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct
+huggingface-cli download Qwen/Qwen3-32B-FP8
 ```
 
 ## 【服务器】启动节点

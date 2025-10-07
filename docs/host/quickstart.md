@@ -25,7 +25,7 @@ The protocol currently supports the following model classes:
     - For details on governance procedures and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### Configuration for Optimal Rewards
-To earn the highest rewards and maintain reliability, each Network Node should serve all three model classes, with a minimum of 2 MLNodes per class. This setup:
+To earn the highest rewards and maintain reliability, each Network Node should serve two model classes, with a minimum of 2 MLNodes per class. This setup:
 
 - Improves protocol-level redundancy and fault tolerance
 - Enhances model-level validation performance
@@ -149,7 +149,7 @@ After cloning the repository, you’ll find the following key configuration file
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 !!! note        
-    The network currently supports the following models `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, `Qwen/Qwen3-32B-FP8`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+    The network currently supports the following models: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### [Server] Edit Your Network Node Configuration
 

@@ -157,10 +157,10 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `poc_port` | 用于 **ML 节点管理** 的端口 | `8080`（映射到 ML 节点 `nginx` 的 `8080`） |
 | `max_concurrent` | 该节点可处理的**最大并发请求数** | `500` |
 | `models` | 支持的模型集合 | 见下 |
-| `model_name` | 模型名称 | `Qwen/QwQ-32B` |
+| `model_name` | 模型名称 | `Qwen/Qwen3-32B-FP8` |
 | `model_args` | vLLM 推理参数 | `"--quantization","fp8","--kv-cache-dtype","fp8"` |
 
-当前网络支持两个模型：`Qwen/Qwen2.5-7B-Instruct` 与 `Qwen/QwQ-32B`，均使用 FP8 量化.
+当前网络支持两个模型：`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`，均使用 FP8 量化.
 
 为获得正确配置与最优性能，请根据模型与 GPU 拓扑选择参数：
 

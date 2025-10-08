@@ -1,4 +1,3 @@
-<!-- prettier-ignore:start -->
 <div class="gonka-landing">
   <!-- Header -->
   <header class="gonka-header">
@@ -27,7 +26,6 @@
       <span class="nowrap">Qwen3-235B inference for free. </span>
       <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">Join Discord.</a>
     </p>
-
     <!-- Hero -->
     <section class="gonka-hero">
       <div class="gonka-inner">
@@ -41,59 +39,91 @@
           </a>
         </div>
       </div>
-
-      <!-- Horizontal scroll row under Chat with AI -->
-      <div class="gonka-carousel">
-        <div class="carousel-track">
-          <div class="partner-card">
-            <span class="partner-label">Auditor</span>
-            <div class="partner-logos">
-              <img src="images/logos/certik.svg" alt="CertiK" />
-            </div>
-          </div>
-          <div class="partner-card">
-            <span class="partner-label">Community Partners</span>
-            <div class="partner-logos">
-              <img src="images/logos/web3.svg" alt="Web3" />
-              <img src="images/logos/hardyaka.svg" alt="Hard Yaka" />
-              <img src="images/logos/bitfury.svg" alt="Bitfury" />
-            </div>
-          </div>
-          <div class="partner-card">
-            <span class="partner-label">Select Hosts</span>
-            <div class="partner-logos">
-              <img src="images/logos/gcore.svg" alt="Gcore" />
-              <img src="images/logos/hyperfusion.svg" alt="Hyperfusion" />
-              <img src="images/logos/6block.svg" alt="6block" />
-            </div>
-          </div>
-          <div class="partner-card">
-            <span class="partner-label">Select AI Developers</span>
-            <div class="partner-logos">
-              <img src="images/logos/aiden.svg" alt="Aiden" />
-            </div>
-          </div>
-          <div class="partner-card">
-            <span class="partner-label">Protocol Creator</span>
-            <div class="partner-logos">
-              <img src="images/logos/productscience.svg" alt="Product Science" />
-              <span class="partner-label">backed by</span>
-              <img src="images/logos/coatue.svg" alt="Coatue" />
-              <img src="images/logos/slow.svg" alt="Slow" />
-              <img src="images/logos/mantis.svg" alt="Mantis" />
-              <img src="images/logos/k5.svg" alt="K5" />
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   </main>  
 
-  <!-- Footer – 4 plain columns ---------------------------------------->
+<!-- Footer – 4 plain columns -->
 <footer class="gonka-footer">
+  <!-- Horizontal Animated Carousel row over inner footer -->
+  <div class="gonka-carousel">
+    <div class="carousel-track">
+      <div class="partner-card">
+        <span class="partner-label">Auditor</span>
+        <div class="partner-logos">
+          <a href="https://www.certik.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/certik.svg" alt="CertiK" />
+          </a>
+        </div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-label">Community Partners</span>
+        <div class="partner-logos">
+          <a href="https://web3.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/web3.svg" alt="Web3.com Ventures" />
+          </a>
+          <a href="https://www.hardyaka.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/hardyaka.svg" alt="HardYaka" />
+          </a>
+          <a href="https://bitfury.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/bitfury.svg" alt="Bitfury" />
+          </a>
+          <a href="https://qtum.ai/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/qtum.svg" alt="Qtum" />
+          </a>
+        </div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-label">Select Hosts</span>
+        <div class="partner-logos">
+          <a href="https://gcore.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/gcore.svg" alt="Gcore" />
+          </a>
+          <a href="https://hyperfusion.io/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/hyperfusion.svg" alt="Hyperfusion" />
+          </a>
+          <a href="https://6block.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/6block.svg" alt="6blocks" />
+          </a>
+        </div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-label">Exchange Partners</span>
+        <div class="partner-logos">
+          <a href="https://uphold.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/uphold.svg" alt="Uphold" />
+          </a>
+        </div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-label">Select AI Developers</span>
+        <div class="partner-logos">
+          <img src="images/logos/aiden.svg" alt="Aiden" />
+        </div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-label">Protocol Creator</span>
+        <div class="partner-logos">
+          <a href="https://productscience.ai/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/productscience.svg" alt="Product Science" />
+          </a>
+          <span class="partner-label">backed by</span>
+          <a href="https://www.coatue.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/coatue.svg" alt="Coatue" />
+          </a>
+          <a href="https://slow.co/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/slow.svg" alt="Slow Ventures" />
+          </a>
+          <a href="https://www.mantisvc.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/mantis.svg" alt="Mantis" />
+          </a>
+          <a href="https://k5ventures.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/k5.svg" alt="K5" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="footer-inner">
-
-    <!-- Brand row --------------------------------------------------->
     <div class="brand">
       <a class="brand-logo" href="/">
         <svg width="34" height="33" viewBox="0 0 42 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,9 +166,9 @@
           </svg>
         </a>
       </div>
-    </div>
 
-    <!-- 4 columns ---------------------------------------------------->
+  </div>  
+    <!-- 4 columns -->
     <div class="footer-cols">
       <div class="footer-col">
         <h4>Community</h4>
@@ -148,7 +178,6 @@
           <li><a href="https://what-is-gonka.hashnode.dev">Blog</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4>Protocol</h4>
         <ul>
@@ -156,14 +185,12 @@
           <li><a href="/pow-security-analysis.pdf">Transformer‑Based Proof‑of‑Work</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4>GNK</h4>
         <ul>
           <li><a href="/tokenomics.pdf">Gonka Tokenomics</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4>Legal</h4>
         <ul>
@@ -178,7 +205,6 @@
 
 </div>
 
-<!-- prettier-ignore:end -->
 
 <script>
   // Ensure dark mode attribute is respected early on landing without adding persistent classes
@@ -223,6 +249,108 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Check initial scroll position
     handleScroll();
+  }
+  
+  // Smooth infinite carousel
+  const carouselTrack = document.querySelector('.gonka-carousel .carousel-track');
+  if (carouselTrack) {
+    // Capture the first set of cards before cloning
+    const originals = Array.from(carouselTrack.querySelectorAll('.partner-card'));
+    let raf = null;
+    let offset = 0;   // current scroll offset in [0, period)
+    let period = 0;   // width of one full set (A → A')
+    const speed = 72; // px per second (tweak as desired)
+    let lastTs = null;
+
+    // Ensure we have enough copies (A, A', A'', ...) to cover viewport + one period
+    function ensureCopies(minCopies) {
+      const have = Math.floor(carouselTrack.children.length / originals.length);
+      const need = Math.max(2, minCopies | 0);
+      for (let i = have; i < need; i++) {
+        originals.forEach(card => carouselTrack.appendChild(card.cloneNode(true)));
+      }
+    }
+
+    // Measure repeat period using DOM positions: distance from first original to first clone
+    function measurePeriod() {
+      const first = originals[0];
+      const firstClone = carouselTrack.children[originals.length];
+      if (!first || !firstClone) return 0;
+      let p = firstClone.offsetLeft - first.offsetLeft;
+      if (p <= 0) {
+        const r1 = first.getBoundingClientRect();
+        const r2 = firstClone.getBoundingClientRect();
+        p = r2.left - r1.left;
+      }
+      return p;
+    }
+
+    function frame(ts) {
+      if (lastTs == null) lastTs = ts;
+      const dt = (ts - lastTs) / 1000; // seconds
+      lastTs = ts;
+
+      // Advance by time, not by frames, then wrap with modulo to avoid any overshoot jump
+      offset += speed * dt;
+      if (period > 0) {
+        offset = offset % period; // keep in [0, period)
+        carouselTrack.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (raf == null) {
+        lastTs = null;
+        raf = requestAnimationFrame(frame);
+      }
+    }
+    function stop() {
+      if (raf != null) {
+        cancelAnimationFrame(raf);
+        raf = null;
+        lastTs = null;
+      }
+    }
+
+    // Initial clones and measurements
+    ensureCopies(2);
+    period = measurePeriod();
+    const vpW0 = carouselTrack.parentElement.getBoundingClientRect().width;
+    const minCopies0 = period > 0 ? Math.max(2, Math.ceil((vpW0 + period) / period)) : 3;
+    ensureCopies(minCopies0);
+    period = measurePeriod();
+
+    // Recalculate on resize/font load while preserving progress to prevent visual snap
+    function recompute() {
+      const progress = period > 0 ? (offset % period) / period : 0;
+      stop();
+      period = measurePeriod();
+      const vpW = carouselTrack.parentElement.getBoundingClientRect().width;
+      const minCopies = period > 0 ? Math.max(2, Math.ceil((vpW + period) / period)) : 3;
+      ensureCopies(minCopies);
+      period = measurePeriod();
+      if (period > 0) {
+        offset = progress * period;
+        carouselTrack.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      } else {
+        offset = 0;
+      }
+      start();
+    }
+
+    window.addEventListener('resize', recompute);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(recompute);
+    }
+
+    // GPU hint & pause on hover
+    carouselTrack.style.willChange = 'transform';
+    carouselTrack.parentElement.addEventListener('mouseenter', stop);
+    carouselTrack.parentElement.addEventListener('mouseleave', start);
+
+    // Start animation
+    start();
   }
 });
 </script>

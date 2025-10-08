@@ -41,6 +41,8 @@
       </div>
     </section>
   </main>  
+    </section>
+  </main>  
 
 <!-- Footer – 4 plain columns -->
 <footer class="gonka-footer">
@@ -160,6 +162,9 @@
 
   </div>  
     <!-- 4 columns -->
+
+  </div>  
+    <!-- 4 columns -->
     <div class="footer-cols">
       <div class="footer-col">
         <h4>Community</h4>
@@ -240,6 +245,108 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Check initial scroll position
     handleScroll();
+  }
+  
+  // Smooth infinite carousel
+  const carouselTrack = document.querySelector('.gonka-carousel .carousel-track');
+  if (carouselTrack) {
+    // Capture the first set of cards before cloning
+    const originals = Array.from(carouselTrack.querySelectorAll('.partner-card'));
+    let raf = null;
+    let offset = 0;   // current scroll offset in [0, period)
+    let period = 0;   // width of one full set (A → A')
+    const speed = 72; // px per second (tweak as desired)
+    let lastTs = null;
+
+    // Ensure we have enough copies (A, A', A'', ...) to cover viewport + one period
+    function ensureCopies(minCopies) {
+      const have = Math.floor(carouselTrack.children.length / originals.length);
+      const need = Math.max(2, minCopies | 0);
+      for (let i = have; i < need; i++) {
+        originals.forEach(card => carouselTrack.appendChild(card.cloneNode(true)));
+      }
+    }
+
+    // Measure repeat period using DOM positions: distance from first original to first clone
+    function measurePeriod() {
+      const first = originals[0];
+      const firstClone = carouselTrack.children[originals.length];
+      if (!first || !firstClone) return 0;
+      let p = firstClone.offsetLeft - first.offsetLeft;
+      if (p <= 0) {
+        const r1 = first.getBoundingClientRect();
+        const r2 = firstClone.getBoundingClientRect();
+        p = r2.left - r1.left;
+      }
+      return p;
+    }
+
+    function frame(ts) {
+      if (lastTs == null) lastTs = ts;
+      const dt = (ts - lastTs) / 1000; // seconds
+      lastTs = ts;
+
+      // Advance by time, not by frames, then wrap with modulo to avoid any overshoot jump
+      offset += speed * dt;
+      if (period > 0) {
+        offset = offset % period; // keep in [0, period)
+        carouselTrack.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (raf == null) {
+        lastTs = null;
+        raf = requestAnimationFrame(frame);
+      }
+    }
+    function stop() {
+      if (raf != null) {
+        cancelAnimationFrame(raf);
+        raf = null;
+        lastTs = null;
+      }
+    }
+
+    // Initial clones and measurements
+    ensureCopies(2);
+    period = measurePeriod();
+    const vpW0 = carouselTrack.parentElement.getBoundingClientRect().width;
+    const minCopies0 = period > 0 ? Math.max(2, Math.ceil((vpW0 + period) / period)) : 3;
+    ensureCopies(minCopies0);
+    period = measurePeriod();
+
+    // Recalculate on resize/font load while preserving progress to prevent visual snap
+    function recompute() {
+      const progress = period > 0 ? (offset % period) / period : 0;
+      stop();
+      period = measurePeriod();
+      const vpW = carouselTrack.parentElement.getBoundingClientRect().width;
+      const minCopies = period > 0 ? Math.max(2, Math.ceil((vpW + period) / period)) : 3;
+      ensureCopies(minCopies);
+      period = measurePeriod();
+      if (period > 0) {
+        offset = progress * period;
+        carouselTrack.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      } else {
+        offset = 0;
+      }
+      start();
+    }
+
+    window.addEventListener('resize', recompute);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(recompute);
+    }
+
+    // GPU hint & pause on hover
+    carouselTrack.style.willChange = 'transform';
+    carouselTrack.parentElement.addEventListener('mouseenter', stop);
+    carouselTrack.parentElement.addEventListener('mouseleave', start);
+
+    // Start animation
+    start();
   }
   
   // Smooth infinite carousel

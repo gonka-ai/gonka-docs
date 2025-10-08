@@ -67,9 +67,6 @@
           <a href="https://bitfury.com/" target="_blank" rel="noopener noreferrer">
             <img src="images/logos/bitfury.svg" alt="Bitfury" />
           </a>
-          <a href="https://qtum.ai/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/qtum.svg" alt="Qtum" />
-          </a>
         </div>
       </div>
       <div class="partner-card">
@@ -87,17 +84,11 @@
         </div>
       </div>
       <div class="partner-card">
-        <span class="partner-label">Exchange Partners</span>
-        <div class="partner-logos">
-          <a href="https://uphold.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/uphold.svg" alt="Uphold" />
-          </a>
-        </div>
-      </div>
-      <div class="partner-card">
         <span class="partner-label">Select AI Developers</span>
         <div class="partner-logos">
-          <img src="images/logos/aiden.svg" alt="Aiden" />
+          <a href="https://aidenai.io/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/aiden.svg" alt="Aiden" />
+          </a>
         </div>
       </div>
       <div class="partner-card">

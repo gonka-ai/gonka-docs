@@ -205,63 +205,67 @@ source config.env
 
 === "8xH200 or 8xH100"
 
-!!! note "node-config.json"
-    ```
-    [
-        {
-            "id": "node1",
-            "host": "inference",
-            "inference_port": 5000,
-            "poc_port": 8080,
-            "max_concurrent": 500,
-            "models": {
-                "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
-                    "args": [
-                        "--tensor-parallel-size","4"
-                    ]
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+                        "args": [
+                            "--tensor-parallel-size","4"
+                        ]
+                    }
                 }
             }
-        }
-    ]
-    ```
+        ]
+        ```
 
 === "1xH100"
-    ```
-    [
-        {
-            "id": "node1",
-            "host": "inference",
-            "inference_port": 5000,
-            "poc_port": 8080,
-            "max_concurrent": 500,
-            "models": {
-                "Qwen/Qwen3-32B-FP8": {
-                    "args": []
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "Qwen/Qwen3-32B-FP8": {
+                        "args": []
+                    }
                 }
             }
-        }
-    ]
-    ```
+        ]
+        ```
 
 === "8x4090"
-    ```
-    [
-        {
-            "id": "node1",
-            "host": "inference",
-            "inference_port": 5000,
-            "poc_port": 8080,
-            "max_concurrent": 500,
-            "models": {
-                "Qwen/Qwen3-32B-FP8": {
-                    "args": [
-                        "--tensor-parallel-size","4"
-                    ]
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "Qwen/Qwen3-32B-FP8": {
+                        "args": [
+                            "--tensor-parallel-size","4"
+                        ]
+                    }
                 }
             }
-        }
-    ]
-    ```
+        ]
+        ```
 
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
@@ -284,7 +288,7 @@ To make sure the model weights are ready for inference, you should download them
     huggingface-cli download Qwen/Qwen3-32B-FP8
     ```
 
-## [Server] Launch node
+## Launch Nodes
     
 ### 1. [Server] Pull Docker Images (Containers)
 

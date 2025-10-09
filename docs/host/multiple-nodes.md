@@ -168,7 +168,7 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 | Model and GPU layout                    | vLLM arguments                                                                           |
 |-----------------------------------------|---------------------------------------------------------------------------------------|
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` on 8xH100 or 8xH200           | `"--tensor-parallel-size","4"`                                      |
-| `Qwen/Qwen3-32B-FP8` on 1xH100  | ``                                |
+| `Qwen/Qwen3-32B-FP8` on 1xH100  |                                 |
 | `Qwen/Qwen3-32B-FP8` on 8x4090  | `"--tensor-parallel-size","4"`                        |
 | `Qwen/Qwen3-32B-FP8` on 8x3080  | `"--tensor-parallel-size","4","--pipeline-parallel-size","2"`                       |
 

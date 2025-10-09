@@ -64,7 +64,12 @@ Each server to deploy MLNode should have:
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
 - 8000 - Application service (configurable)
 
-## Setup Your Network Node 
+## Setup Your Nodes
+
+The quickstart instruction is designed to run both the Network Node and the inference node on a single machine (one server setup). 
+
+??? note "Multiple nodes deployment"
+    If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://gonka.ai/host/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same Network Node.
 
 ### Key Management Overview
 Before configuring your Network Node, you need to set up cryptographic keys for secure operations.  
@@ -124,7 +129,7 @@ pyramid sweet dumb critic lamp various remove token talent drink announce tiny l
     
     **Important**: Always keep your mnemonic phrase as backup regardless of future hardware wallet adoption.
 
-## [Server] Download Deployment Files
+### [Server] Download Deployment Files
 Clone the repository with the base deploy scripts:
 
 ```bash
@@ -146,12 +151,7 @@ After cloning the repository, you’ll find the following key configuration file
 | `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML node                                   |
 | `node-config.json`            | Configuration file used by Network Node, it describes inference nodes managed by this Network Node |
 
-For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
-
-!!! note        
-    The network currently supports the following models: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
-
-### [Server] Edit Your Network Node Configuration
+### [Server] Edit Environment Variables
 
 !!! note "config.env"
     ```
@@ -198,20 +198,93 @@ source config.env
 !!! note "Using Environment Variables"
     The examples in the following sections will reference these environment variables (e.g., `$PUBLIC_URL`, `$ACCOUNT_PUBKEY`, `$SEED_API_URL`) in both local machine commands and server commands. Make sure to run `source config.env` in each terminal session where you'll be executing these commands.
 
+### [Server] Edit Inference Node Description for the Server
+
+!!! note        
+    The network currently supports the following models: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`. The governance makes decisions regarding the addition or modification of supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+
+=== "8xH200 or 8xH100"
+
+!!! note "node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+                    "args": [
+                        "--tensor-parallel-size","4"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+
+=== "1xH100"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "Qwen/Qwen3-32B-FP8": {
+                    "args": []
+                }
+            }
+        }
+    ]
+    ```
+
+=== "8x4090"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "Qwen/Qwen3-32B-FP8": {
+                    "args": [
+                        "--tensor-parallel-size","4"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+
+For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
+
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
 To make sure the model weights are ready for inference, you should download them before deployment.
 
-```bash
-mkdir -p $HF_HOME
-huggingface-cli download Qwen3-32B
-```
+=== "8xH100 or 8xH200"
+
+    ```bash
+    mkdir -p $HF_HOME
+    huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+    huggingface-cli download Qwen/Qwen3-32B-FP8
+    ```
+
+=== "Other GPUs"
+
+    ```bash
+    mkdir -p $HF_HOME
+    huggingface-cli download Qwen/Qwen3-32B-FP8
+    ```
 
 ## [Server] Launch node
-The quickstart instruction is designed to run both the Network Node and the inference node on a single machine (one server setup). 
-
-??? note "Multiple nodes deployment"
-    If you are deploying multiple GPU nodes, please refer to the detailed [Multiple nodes deployment guide](https://gonka.ai/host/multiple-nodes/) for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same Network Node.
     
 ### 1. [Server] Pull Docker Images (Containers)
 

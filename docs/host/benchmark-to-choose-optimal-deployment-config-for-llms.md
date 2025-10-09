@@ -2,14 +2,14 @@
 ## Intro
 Effective GPU utilization is critical for deploying large language models. Gonka Nodes utilize a customized vLLM inference engine that supports both high-performance inference and its validation.
 
-To achieve the best results, vLLM requires careful, server-specific configuration. The optimal performance depends on both GPUs' characteristics and the speed of cross-GPU data transfer. This guide provides instructions on how to select vLLM parameters using the Qwen/QwQ-32 model as an example. We will also describe which parameters can be tuned for optimal performance without affecting validation and which parameters must remain unchanged.
+To achieve the best results, vLLM requires careful, server-specific configuration. The optimal performance depends on both GPUs' characteristics and the speed of cross-GPU data transfer. This guide provides instructions on how to select vLLM parameters using the Qwen/Qwen3-32B-FP8 model as an example. We will also describe which parameters can be tuned for optimal performance without affecting validation and which parameters must remain unchanged.
 
 [Link to our vLLM fork](https://github.com/product-science/vllm/tree/productscience/v0.8.1).
 
 ## Understanding vLLM Parameters
 To configure a vLLM-based model deployment, you define `args` for each model:
 ```
-"Qwen/Qwen2.5-7B-Instruct": {
+"Qwen/Qwen3-32B-FP8": {
     "args": [
         "--tensor-parallel-size",
         "4",
@@ -50,7 +50,7 @@ pip install git+https://github.com/product-science/compressa-perf.git
 The benchmark tool uses a YAML configuration file to define test parameters. A default configuration file is available [here](https://github.com/product-science/inference-ignite/blob/main/mlnode/packages/benchmarks/resources/config.yml).
 
 ### 3. Run the Performance Test
-Once your model is deployed, you can test its performance. Use the following command, replacing `<IP>` and `<INFERENCE_PORT>` with your specific deployment details, and `MODEL_NAME` with the name of the model you're testing (e.g., `Qwen/QwQ-32B`):
+Once your model is deployed, you can test its performance. Use the following command, replacing `<IP>` and `<INFERENCE_PORT>` with your specific deployment details, and `MODEL_NAME` with the name of the model you're testing (e.g., `Qwen/Qwen3-32B-FP8`):
 ```
 compressa-perf \
         measure-from-yaml \
@@ -82,15 +82,11 @@ Ensure the performance tool (`compressa-perf`) is installed and the necessary co
 
 ### 1. Establish Initial Configuration with Mandatory Parameters
 
-- Identify all mandatory parameters specified by the network (e.g., `--kv-cache-dtype fp8`, `--quantization fp8`)
 - Define base configuration:
 === "JSON"
 ```JSON
 "MODEL_NAME": {
     "args": [
-        "--kv-cache-dtype", "fp8", 
-        "--quantization", "fp8",
- ...
     ]
 } 
 ```
@@ -132,10 +128,8 @@ def inference_up(
 model_name = "MODEL_NAME"
 model_config = {
    "args": [
-       "--quantization", "fp8",
        "--tensor-parallel-size", "8",
        "--pipeline-parallel-size", "1",
-       "--kv-cache-dtype", "fp8"
    ]
 }
 
@@ -159,32 +153,29 @@ Run the `compressa-perf` tool to measure the performance of the deployed configu
 ### 4. Compare Performance Results Across Configurations
 Analyze the collected metrics (such as `TTFT`, `Latency`, and `Throughput`) from each tested configuration. Compare these results to identify the setup that provides the best performance for the server environment.
 
-## Example: `Qwen/QwQ-32B` at 8x4070 STi server
+## Example: `Qwen/Qwen3-32B-FP8` at 8x4070 STi server
 Let’s assume we have a server with 8x4070 S Ti. Each GPU has 16GB VRAM.
 We have deployed the `MLNode` container to this server, with the following port mappings:
 
 - API management port (default 8080) is mapped to `http://24.124.32.70:46195`
 - Inference port (default 5000) is mapped to `http://24.124.32.70:46085`
 
-For this example, we'll use the `Qwen/QwQ-32B` model, which is one of the models deployed at Gonka. It has the following mandatory parameters:
+For this example, we'll use the `Qwen/Qwen3-32B-FP8` model, which is one of the models deployed at Gonka. It has the following mandatory parameters:
 
 - `--kv-cache-dtype fp8`
 - `--quantization fp8`
 
 ### 1. Establish Initial Configuration with Mandatory Parameters
-Based on these mandatory parameters, the initial configuration for `Qwen/QwQ-32B` must include:
+Based on these mandatory parameters, the initial configuration for `Qwen/Qwen3-32B-FP8` must include:
 === "JSON"
 ```JSON
-"Qwen/QwQ-32B": {
+"Qwen/Qwen3-32B-FP8": {
     "args": [
-        "--kv-cache-dtype", "fp8", 
-        "--quantization", "fp8",
- ...
     ]
 } 
 ```
 ### 2. Define Potential Deployment Configurations for Testing
-The `Qwen/QwQ-32B` model with those parameters requires at least 80GB of VRAM for efficient deployment. Therefore, we need to use at least 6x4070S Ti for each instance. We can’t fit two instances in this server and want to use all GPUs, let’s deploy a single instance that uses 8 GPUs (TP * PP = 8).
+The `Qwen/Qwen3-32B-FP8` model with those parameters requires at least 80GB of VRAM for efficient deployment. Therefore, we need to use at least 6x4070S Ti for each instance. We can’t fit two instances in this server and want to use all GPUs, let’s deploy a single instance that uses 8 GPUs (TP * PP = 8).
 Potential configuration can include:
 
 - **TP=8, PP=1**
@@ -205,13 +196,11 @@ Use a Python script to deploy the model:
 === "Python"
 ```Python
 ...
-model_name = "Qwen/QwQ-32B"
+model_name = Qwen/Qwen3-32B-FP8"
 model_config = {
    "args": [
-       "--quantization", "fp8",
        "--tensor-parallel-size", "8",
        "--pipeline-parallel-size", "1",
-       "--kv-cache-dtype", "fp8"
    ]
 }
 
@@ -278,7 +267,7 @@ compressa-perf \
         measure-from-yaml \
         --no-sign \
         --node_url http://24.124.32.70:46085 \
-        --model_name Qwen/QwQ-32B \
+        --model_name Qwen/Qwen3-32B-FP8 \
         config.yml
 ```
 !!! note "Check Logs If Errors Occur"
@@ -298,13 +287,11 @@ Use a Python script to deploy the model:
 === "Python"
 ```Python
 ...
-model_name = "Qwen/QwQ-32B"
+model_name = "Qwen/Qwen3-32B-FP8"
 model_config = {
    "args": [
-       "--quantization", "fp8",
        "--tensor-parallel-size", "4",
        "--pipeline-parallel-size", "2",
-       "--kv-cache-dtype", "fp8"
    ]
 }
 
@@ -328,7 +315,7 @@ compressa-perf \
         measure-from-yaml \
         --no-sign \
         --node_url http://24.124.32.70:46085 \
-        --model_name Qwen/QwQ-32B \
+        --model_name Qwen/Qwen3-32B-FP8 \
         config.yml
 ```
 When the test finishes, we can check the results:

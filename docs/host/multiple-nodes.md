@@ -37,10 +37,11 @@ This section describes how to deploy a distributed setup with a network node and
     All inference nodes should be registered with the same network node, regardless of their geographic location. Whether the clusters are deployed in different regions or across multiple data centers, each inference node should always connect back to the same network node. 
 
 !!! note
-    `DAPI_API__POC_CALLBACK_URL` is the URL for the `api` container's callback server.
-    The `api` container passes this URL to MLNodes, which then send PoC nonces to this address.
+    Before starting the network node, make sure the `DAPI_API__POC_CALLBACK_URL` variable in your `config.env` file on the network server is set correctly. This value defines the callback URL for the API container, it is passed to all MLNodes so they know where to send Proof-of-Compute (PoC) nonces.
 
-    For **multi-node setups**, this address must be reachable from all MLNodes. Replace internal Docker network address (`http://api:9100`) with your address in the private network of your cluster (e.g., `http://<NETWORK_NODE_PRIVATE_IP>:9100`).
+    For multi-node setups, this URL must be reachable from all MLNodes in your cluster. Do not leave the default internal Docker address (http://api:9100), since it will not be accessible from external ML nodes. Instead, replace it with the private network address (or DNS name) of your network node server, for example: `DAPI_API__POC_CALLBACK_URL=http://<NETWORK_NODE_PRIVATE_IP>:9100`. If the network node’s API container has already been started with an incorrect value, update the `config.env` and restart the api container.
+
+    Make sure port `9100` is open and reachable from all inference (ML) nodes in your network.
 
 ## Starting the network node
 

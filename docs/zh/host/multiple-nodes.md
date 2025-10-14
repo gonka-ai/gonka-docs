@@ -36,6 +36,11 @@
 !!! note "建议"
     无论推理节点位于何处，均应注册到同一个网络节点。无论集群跨地域或跨数据中心，所有推理节点都应连接回相同的网络节点。
 
+!!! note
+    `DAPI_API__POC_CALLBACK_URL` 是 `api` 容器回调服务的地址。`api` 容器会将该地址分发给各个 ML 节点，后者将 PoC nonce 发送到此地址。
+
+    对于**多节点**部署，该地址必须能被所有 ML 节点访问。请将内部 Docker 网络地址（`http://api:9100`）替换为你集群私网可达地址（例如：`http://<NETWORK_NODE_PRIVATE_IP>:9100`）。
+
 ## 启动网络节点
 
 请确保已先完成[快速开始](https://gonka.ai/host/quickstart/)第 3.3 步（密钥管理与主机注册）。
@@ -62,11 +67,6 @@ source config.env && \
 docker compose -f docker-compose.yml up -d && \
 docker compose -f docker-compose.yml logs -f
 ```
-
-!!! note
-    `DAPI_API__POC_CALLBACK_URL` 是 `api` 容器回调服务的地址。`api` 容器会将该地址分发给各个 ML 节点，后者将 PoC nonce 发送到此地址。
-
-    对于**多节点**部署，该地址必须能被所有 ML 节点访问。请将内部 Docker 网络地址（`http://api:9100`）替换为你集群私网可达地址（例如：`http://<NETWORK_NODE_PRIVATE_IP>:9100`）。
 
 ### 网络节点状态
 

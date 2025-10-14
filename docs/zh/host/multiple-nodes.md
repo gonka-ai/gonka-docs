@@ -37,9 +37,8 @@
     无论推理节点位于何处，均应注册到同一个网络节点。无论集群跨地域或跨数据中心，所有推理节点都应连接回相同的网络节点。
 
 !!! note
-    `DAPI_API__POC_CALLBACK_URL` 是 `api` 容器回调服务的地址。`api` 容器会将该地址分发给各个 ML 节点，后者将 PoC nonce 发送到此地址。
-
-    对于**多节点**部署，该地址必须能被所有 ML 节点访问。请将内部 Docker 网络地址（`http://api:9100`）替换为你集群私网可达地址（例如：`http://<NETWORK_NODE_PRIVATE_IP>:9100`）。
+    在启动网络节点之前，请确保网络服务器上的 `config.env` 文件中，DAPI_API__POC_CALLBACK_URL 变量已正确设置。该变量定义了 API 容器的回调地址（callback URL），该地址会传递给所有 ML 节点，以便它们知道将计算证明（Proof-of-Compute, PoC）的 nonce 发送到哪里。
+    在多节点部署环境中，此 URL 必须能被集群中所有 ML 节点访问。请不要保留默认的 Docker 内部地址（`http://api:9100`），因为外部 ML 节点无法访问它。应将其替换为网络节点服务器的 私有网络地址（或内部 DNS 名称），例如：`DAPI_API__POC_CALLBACK_URL=http://<NETWORK_NODE_PRIVATE_IP>:9100`. 如果网络节点的 API 容器已经使用错误的值启动，请修改 config.env 后 重新启动 api 容器. 请确保端口 `9100` 已开启，并且在您的网络环境中可被所有推理（ML）节点访问。
 
 ## 启动网络节点
 

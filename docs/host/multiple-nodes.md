@@ -33,9 +33,6 @@ Before proceeding, complete the [Quickstart guide](https://gonka.ai/host/quickst
 ## Starting the network and inference node
 This section describes how to deploy a distributed setup with a network node and multiple inference nodes.
 
-!!! note "Recommendation"
-    All inference nodes should be registered with the same network node, regardless of their geographic location. Whether the clusters are deployed in different regions or across multiple data centers, each inference node should always connect back to the same network node. 
-
 !!! note
     Before starting the network node, make sure the `DAPI_API__POC_CALLBACK_URL` variable in your `config.env` file on the network server is set correctly. This value defines the callback URL for the API container, it is passed to all MLNodes so they know where to send Proof-of-Compute (PoC) nonces.
 

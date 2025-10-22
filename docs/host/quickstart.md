@@ -338,7 +338,7 @@ We start these specific containers first because:
     
     During the registration command on [step 3.2.](https://gonka.ai/host/quickstart/#32-server-register-host) (`inferenced register-new-participant`), the Consensus Key is linked to your Account Key (Cold Key) on-chain, establishing your node as a valid participant in the network.
     
-    If you delete or overwrite the .tmkms folder, your Consensus Key will be lost. This key is what links your node to the blockchain’s validator set. Once .tmkms is gone, you must start the entire setup from scratch, including generating a new Consensus Key (via tmkms) (see “[I Cleared or Overwrote My Consensus Key](https://gonka.ai/FAQ/#i-cleared-or-overwrote-my-consensus-key)” on the FAQ page). 
+    If you delete or overwrite the `.tmkms` folder, your Consensus Key will be lost. This key is what links your node to the blockchain’s validator set. Once `.tmkms` is gone, you must start the entire setup from scratch, including generating a new Consensus Key (via `tmkms`) (see “[I Cleared or Overwrote My Consensus Key](https://gonka.ai/FAQ/#i-cleared-or-overwrote-my-consensus-key)” on the FAQ page). 
 
 ### 3. Complete Key Setup and Host Registration
 

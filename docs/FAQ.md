@@ -218,3 +218,52 @@ docker pause api
 ```
 docker unpause api
 ```
+
+## I Cleared or Overwrote My Consensus Key
+
+If you are using **tmkms** and deleted the `.tmkms` folder, simply restart **tmkms** — it will automatically generate a new key.
+To register the new consensus key, submit the following transaction:
+```
+./inferenced tx inference submit-new-participant \
+    <PUBLIC_URL> \
+    --validator-key <CONSENSUS_KEY> \
+    --keyring-backend file \
+    --unordered \
+    --from <COLD_KEY_NAME> \
+    --timeout-duration 1m \
+    --node http://<node-url>/chain-rpc/ \
+    --chain-id gonka-mainnet
+```
+## I Deleted the Warm Key
+Back up the **cold key** on your local device, outside the server.
+1. Stop the API container:
+```
+docker compose down api --no-deps
+```
+2. Set `KEY_NAME` for the warm key in your `config.env` file.
+3. [SERVER]: Recreate the warm key:
+```
+source config.env && docker compose run --rm --no-deps -it api /bin/sh
+```
+4. Then execute inside the container:
+```
+printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | \
+inferenced keys add "$KEY_NAME" --keyring-backend file
+```
+5. [LOCAL]: From your local device (where you backed up the cold key), run the transaction:
+```
+./inferenced tx inference grant-ml-ops-permissions \
+    gonka-account-key \
+    <address-of-warm-key-you-just-created> \
+    --from gonka-account-key \
+    --keyring-backend file \
+    --gas 2000000 \
+    --node http://<node-url>/chain-rpc/
+6. Start the API container:
+```
+source config.env && docker compose up -d
+```
+
+
+
+

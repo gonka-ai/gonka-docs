@@ -99,6 +99,7 @@ chmod +x inferenced
 
 ??? note "About Account Key (Cold Key)"
     The Account Key is your primary, high-privilege key. It is created locally and never stored on your servers.
+    
     - Control: Master key that grants permissions to all other keys
     - Security: Must be stored offline on a secure, air-gapped machine
     - Usage: Only for granting permissions and validator registration
@@ -321,7 +322,7 @@ We start these specific containers first because:
 - **`api`** - is deliberately excluded at this stage because we need to create the ML Operational Key inside it in the next step
 
 !!! note "Recommendation"
-    You can check logs to verify the initial services started successfully:
+    You can check logs to verify that the initial services started successfully:
     
     ```bash
     docker compose logs tmkms node -f
@@ -334,6 +335,7 @@ We start these specific containers first because:
     - Security: Warm storage with double-signing prevention
     - Usage: Block validation and network consensus participation
     - Recovery: Can be rotated by Account Key or authorized delegates
+    
     During the registration command on [step 3.2.](https://gonka.ai/host/quickstart/#32-server-register-host) (`inferenced register-new-participant`), the Consensus Key is linked to your Account Key (Cold Key) on-chain, establishing your node as a valid participant in the network.
     
     If you delete or overwrite the .tmkms folder, your Consensus Key will be lost. This key is what links your node to the blockchain’s validator set. Once .tmkms is gone, you must start the entire setup from scratch, including generating a new Consensus Key (via tmkms) (see “[I Cleared or Overwrote My Consensus Key](https://gonka.ai/FAQ/#i-cleared-or-overwrote-my-consensus-key)” on the FAQ page). 
@@ -363,6 +365,7 @@ printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add 
 !!! note "Important"
     Do not run this command twice.
     The ML Operational Key (Warm Key) is generated once per server and must be preserved across restarts.
+    
     - If you accidentally deleted it or reinitialized, follow the recovery instructions in the FAQ: “[I Deleted the Warm Key](https://gonka.ai/FAQ/#i-deleted-the-warm-key)”.
     - When restarting your node, skip this step entirely — the key is already generated and stored persistently inside the API container.
 

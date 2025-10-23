@@ -502,7 +502,7 @@ curl -X POST http://<api_node_static_ip>:<admin_port>/nodes/<id>/disable
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
 ```
-6. This stops and removes all services defined in the `docker-compose.yml` file without deleting volumes or data unless explicitly configured.
+6. This stops and removes all services defined in the `docker-compose.yml` and `docker-compose.mlnode.yml` file without deleting volumes or data unless explicitly configured.
 
 ### How to clean up your node (full reset)
 

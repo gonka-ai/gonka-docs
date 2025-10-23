@@ -229,23 +229,29 @@ docker unpause api
 
 ## 我删除了暖密钥
 
-1. 请在本地设备（非服务器）上备份冷密钥。
-停止 API 容器：
+1) 请在本地设备（非服务器）上备份冷密钥。 停止 API 容器：
+   
 ```
 docker compose down api --no-deps
 ```
-2. 在 `config.env` 文件中设置暖密钥的 `KEY_NAME`。
+
+2) 在 `config.env` 文件中设置暖密钥的 `KEY_NAME`。
    
-3.［服务器操作］：重新创建暖密钥：
+3) ［服务器操作］：重新创建暖密钥：
+   
 ```
 source config.env && docker compose run --rm --no-deps -it api /bin/sh
 ```
-4. 然后在容器内执行：
+
+4) 然后在容器内执行：
+   
 ```
 printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | \
 inferenced keys add "$KEY_NAME" --keyring-backend file
 ```
-5. ［本地操作］：在您本地设备（保存了冷密钥的机器）上，运行以下交易命令：
+
+5)［本地操作］：在您本地设备（保存了冷密钥的机器）上，运行以下交易命令：
+
 ```
 ./inferenced tx inference grant-ml-ops-permissions \
     gonka-account-key \
@@ -255,7 +261,9 @@ inferenced keys add "$KEY_NAME" --keyring-backend file
     --gas 2000000 \
     --node http://<node-url>/chain-rpc/
 ```
-6. 启动 API 容器：
+
+6) 启动 API 容器：
+   
 ```
 source config.env && docker compose up -d
 ```

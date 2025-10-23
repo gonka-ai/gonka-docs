@@ -235,6 +235,7 @@ docker unpause api
 docker compose down api --no-deps
 ```
 2. 在 `config.env` 文件中设置暖密钥的 `KEY_NAME`。
+   
 3.［服务器操作］：重新创建暖密钥：
 ```
 source config.env && docker compose run --rm --no-deps -it api /bin/sh
@@ -253,6 +254,7 @@ inferenced keys add "$KEY_NAME" --keyring-backend file
     --keyring-backend file \
     --gas 2000000 \
     --node http://<node-url>/chain-rpc/
+```
 6. 启动 API 容器：
 ```
 source config.env && docker compose up -d

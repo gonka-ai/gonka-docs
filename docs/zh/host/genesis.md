@@ -331,4 +331,4 @@ INF Genesis time is in the future. Sleeping until then... genTime=2025-08-14T09:
 
     从 `docker-compose.yml` 配置文件中删除创世特定变量，以过渡到正常操作模式。
 
-如需额外支持，请参阅[快速开始指南](https://gonka.ai/host/quickstart)或加入[社区 Discord](https://discord.com/invite/pUSEmYX4JP)。
+如需额外支持，请参阅[快速开始指南](https://gonka.ai/host/quickstart)或加入[社区 Discord](https://discord.com/invite/RADwCT2U6R)。

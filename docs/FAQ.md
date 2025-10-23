@@ -241,6 +241,7 @@ Back up the **cold key** on your local device, outside the server.
 docker compose down api --no-deps
 ```
 2. Set `KEY_NAME` for the warm key in your `config.env` file.
+   
 3. [SERVER]: Recreate the warm key:
 ```
 source config.env && docker compose run --rm --no-deps -it api /bin/sh
@@ -259,6 +260,7 @@ inferenced keys add "$KEY_NAME" --keyring-backend file
     --keyring-backend file \
     --gas 2000000 \
     --node http://<node-url>/chain-rpc/
+```
 6. Start the API container:
 ```
 source config.env && docker compose up -d

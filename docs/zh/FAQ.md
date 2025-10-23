@@ -210,3 +210,50 @@ docker pause api
 ```
 docker unpause api
 ```
+## 我清除了或覆盖了我的共识密钥（I Cleared or Overwrote My Consensus Key）
+
+如果您正在使用 tmkms 并删除了 `.tmkms` 文件夹，只需重新启动 tmkms —— 它会自动生成一个新的共识密钥。
+
+要注册新的共识密钥，请提交以下交易：
+```
+./inferenced tx inference submit-new-participant \
+    <PUBLIC_URL> \
+    --validator-key <CONSENSUS_KEY> \
+    --keyring-backend file \
+    --unordered \
+    --from <COLD_KEY_NAME> \
+    --timeout-duration 1m \
+    --node http://<node-url>/chain-rpc/ \
+    --chain-id gonka-mainnet
+```
+
+## 我删除了暖密钥（I Deleted the Warm Key）
+
+1. 请在本地设备（非服务器）上备份冷密钥。
+停止 API 容器：
+```
+docker compose down api --no-deps
+```
+2. 在 `config.env` 文件中设置暖密钥的 `KEY_NAME`。
+3.［服务器操作］：重新创建暖密钥：
+```
+source config.env && docker compose run --rm --no-deps -it api /bin/sh
+```
+4. 然后在容器内执行：
+```
+printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | \
+inferenced keys add "$KEY_NAME" --keyring-backend file
+```
+5. ［本地操作］：在您本地设备（保存了冷密钥的机器）上，运行以下交易命令：
+```
+./inferenced tx inference grant-ml-ops-permissions \
+    gonka-account-key \
+    <address-of-warm-key-you-just-created> \
+    --from gonka-account-key \
+    --keyring-backend file \
+    --gas 2000000 \
+    --node http://<node-url>/chain-rpc/
+6. 启动 API 容器：
+```
+source config.env && docker compose up -d
+```

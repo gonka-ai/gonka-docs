@@ -334,4 +334,4 @@
 
 一旦你的账户准备就绪，你可以[开始使用网络](https://gonka.ai/developer/quickstart/)。
 
-**需要帮助？** 加入我们的[Discord 服务器](https://discord.gg/fvhNxdFMvB)获取一般咨询、技术问题或安全担忧的帮助。
+**需要帮助？** 加入我们的[Discord 服务器](https://discord.com/invite/RADwCT2U6R)获取一般咨询、技术问题或安全担忧的帮助。

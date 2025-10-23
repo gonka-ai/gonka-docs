@@ -92,4 +92,4 @@ Company Participant:
 !!! warning "Production Deployment"
     Before deploying to production, ensure you understand the complete key management workflow and have tested key recovery procedures in a safe environment.
 
-**Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with key management, security concerns, or technical issues.
+**Need help?** Join our [Discord server](https://discord.com/invite/RADwCT2U6R) for assistance with key management, security concerns, or technical issues.

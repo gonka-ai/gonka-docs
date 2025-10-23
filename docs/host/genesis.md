@@ -332,4 +332,4 @@ INF Genesis time is in the future. Sleeping until then... genTime=2025-08-14T09:
 
     Remove genesis-specific variables from `docker-compose.yml` configuration files to transition to normal operation mode.
 
-For additional support, see the [Quickstart Guide](https://gonka.ai/host/quickstart) or join [the community Discord](https://discord.com/invite/pUSEmYX4JP).
+For additional support, see the [Quickstart Guide](https://gonka.ai/host/quickstart) or join [the community Discord](https://discord.com/invite/RADwCT2U6R).

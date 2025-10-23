@@ -70,10 +70,11 @@
 在配置网络节点之前，需要先完成加密密钥的设置以确保安全运行。  
 **建议在生产环境上线前阅读「[密钥管理指南](/host/key-management/)」。**
 
-我们使用双密钥体系：
+我们使用三密钥体系：
 
-- **账户密钥（Account Key）**（冷钱包）：在你本地安全机器上创建，用于高价值操作
-- **ML 运营密钥（ML Operational Key）**（暖钱包）：在服务器上创建，用于自动化 AI 业务交易
+- 账户密钥（Account Key，冷钱包）：在本地安全设备上创建，用于高价值或关键操作。
+- 共识密钥（Consensus Key，TMKMS 暖存储）：由安全的 TMKMS 服务托管，用于区块验证和参与网络共识。
+- ML 运营密钥（ML Operational Key，暖钱包）：在服务器上创建，用于自动化 AI 工作负载交易。
 
 ### 【本地】安装 CLI 工具
 `inferenced` CLI 用于本地账户管理与网络操作。可创建/管理 Gonka 账户、注册主机并执行多种网络操作。
@@ -90,6 +91,14 @@ chmod +x inferenced
 
 ### 【本地】创建账户密钥
 **重要：在本地安全机器上执行（不要在服务器上）**
+
+??? note "关于账户密钥（冷密钥）"
+    账户密钥是您的主要高权限密钥。它在本地创建，永远不会存储在服务器上。
+    
+    - 控制：主密钥，拥有对所有其他密钥的授权权限
+    - 安全：必须离线保存于安全、隔离的设备上
+    - 用途：仅用于授权操作和验证者注册
+    - 恢复：由助记词保护——一旦丢失，所有访问权限将永久失效
 
 使用 `file` keyring 后端（也可在支持平台使用 `os` 后端以提升安全性）创建账户密钥：
 
@@ -241,11 +250,31 @@ docker compose up tmkms node -d --no-deps
     
     若看到链节点持续处理区块事件，则说明运行正常。
 
+??? note "关于共识密钥（Consensus Key）"
+    - 控制：由安全的 TMKMS 服务托管
+    - 安全：采用暖存储机制，并具备防止双重签名的保护措施
+    - 用途：用于区块验证及参与网络共识
+    - 恢复：可由账户密钥（Account Key）或授权代表进行轮换
+    
+    在注册命令的第 [3.2](https://gonka.ai/zh/host/quickstart/#32host) 步（`inferenced register-new-participant`）中，共识密钥会在链上与您的账户密钥（冷密钥）进行绑定，从而使您的节点成为网络中的有效参与者。
+    
+    如果您删除或覆盖了 .tmkms 文件夹，您的共识密钥将会丢失。该密钥用于将您的节点与区块链的验证者集合（validator set）关联。一旦 .tmkms 被删除，您必须从头重新执行整个设置流程，包括通过 tmkms 生成新的共识密钥（参见常见问题页面中的“我清除了或覆盖了我的共识密钥”一节）。
+
 ### 3. 完成密钥配置并注册主机（Host）
 
 现在需要创建暖密钥、注册主机，并授予权限：
 
 #### 3.1.【服务器】创建 ML 运营密钥
+
+??? note "关于 ML 运营密钥（暖密钥）"
+
+    - 控制：由账户密钥（Account Key）授权，用于特定的机器学习交易
+    - 安全：以加密文件形式存储在服务器上，通过程序化方式访问
+    - 用途：用于自动化交易（推理请求、证明提交、奖励发放）
+    - 恢复：可由账户密钥随时轮换或撤销
+    
+    该密钥需要保持持续可用性，因此除非必要，请勿删除或更换。
+
 在 `api` 容器内使用 `file` keyring 后端创建暖密钥（便于程序化访问）。密钥将存储在映射到容器 `/root/.inference` 的持久卷中：
 ```bash
 docker compose run --rm --no-deps -it api /bin/sh
@@ -255,6 +284,15 @@ docker compose run --rm --no-deps -it api /bin/sh
 ```bash
 printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
 ```
+
+!!! note "重要提示"
+
+    请勿重复运行此命令。
+    ML 运营密钥（暖密钥）在每台服务器上仅生成一次，必须在重启后保持完整。
+    
+    如果您不小心删除或重新初始化了该密钥，请参考常见问题（FAQ）中的恢复指南：“我删除了暖密钥（I Deleted the Warm Key）”。
+    
+    在重新启动节点时，请完全跳过此步骤 —— 该密钥已生成并持久存储在 API 容器内。
 
 **示例输出：**
 ```
@@ -385,14 +423,18 @@ curl -X POST http://<api_node_static_ip>:<admin_port>/nodes/<id>/disable
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
 ```
-上述命令会停止并移除 `docker-compose.yml` 中定义的所有服务，但不会删除卷或数据（除非显式配置）。
+6. 上述命令会停止并移除 `docker-compose.yml` & `docker-compose.mlnode.yml` 中定义的所有服务，但不会删除卷或数据（除非显式配置）。
 
-6. 如需清理缓存并重新开始，可删除本地 `.inference` 与 `.dapi` 文件夹（推理运行时缓存与身份）：
+### 如何清理节点（完全重置）
+
+如果您希望完全重置节点并删除所有数据（用于重新部署或迁移），请按照以下清理步骤操作。
+
+1. 如需清理缓存并重新开始，可删除本地 `.inference` 与 `.dapi` 文件夹（推理运行时缓存与身份）：
 ```bash
 rm -rf .inference .dapi .tmkms
 ```
 
-7.（可选）清理模型权重缓存：
+2.（可选）清理模型权重缓存：
 ```bash
 rm -rf $HF_HOME
 ```

@@ -334,4 +334,4 @@ There are several ways to do this:
 
 Once your account is ready, you can [start using the network](https://gonka.ai/developer/quickstart/).
 
-**Need help?** Join our [Discord server](https://discord.gg/fvhNxdFMvB) for assistance with general inquiries, technical issues, or security concerns.  
+**Need help?** Join our [Discord server](https://discord.com/invite/RADwCT2U6R) for assistance with general inquiries, technical issues, or security concerns.  

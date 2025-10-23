@@ -410,7 +410,7 @@ curl http://node2.gonka.ai:26657/status
 ### 如何停止 ML 节点
 1. 禁用每个 ML 节点：
 ```
-curl -X POST http://<api_node_static_ip>:<admin_port>/nodes/<id>/disable
+curl -X POST http://<api_node_static_ip>:<admin_port>/admin/v1/nodes/<id>/disable
 ```
 2. 等待下一个 epoch，在此之前不要停止节点。禁用标记仅在下一个 epoch 生效。
 3. 验证移除与权重：对每个被禁用节点确认：

@@ -442,4 +442,4 @@ rm -rf $HF_HOME
 !!! note
     删除 `$HF_HOME` 后，后续需要重新从 Hugging Face 下载大体量的模型文件，或重新挂载 NFS 缓存。
 
-**需要帮助？** 欢迎加入我们的 [Discord 服务器](https://discord.gg/fvhNxdFMvB)，获取通用咨询、技术支持或安全相关帮助。  
+**需要帮助？** 欢迎加入我们的 [Discord 服务器](https://discord.com/invite/RADwCT2U6R)，获取通用咨询、技术支持或安全相关帮助。  

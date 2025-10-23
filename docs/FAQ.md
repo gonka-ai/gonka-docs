@@ -237,25 +237,28 @@ To register the new consensus key, submit the following transaction:
 ## I Deleted the Warm Key
 Back up the **cold key** on your local device, outside the server.
 
-1. Stop the API container:
+1) Stop the API container:
+   
 ```
 docker compose down api --no-deps
 ```
 
-2. Set `KEY_NAME` for the warm key in your `config.env` file.
+2) Set `KEY_NAME` for the warm key in your `config.env` file.
    
-3. [SERVER]: Recreate the warm key:
+3) [SERVER]: Recreate the warm key:
    
 ```
 source config.env && docker compose run --rm --no-deps -it api /bin/sh
 ```
-4. Then execute inside the container:
+
+4) Then execute inside the container:
 
 ```
 printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | \
 inferenced keys add "$KEY_NAME" --keyring-backend file
 ```
-5. [LOCAL]: From your local device (where you backed up the cold key), run the transaction:
+
+5) [LOCAL]: From your local device (where you backed up the cold key), run the transaction:
    
 ```
 ./inferenced tx inference grant-ml-ops-permissions \
@@ -266,7 +269,9 @@ inferenced keys add "$KEY_NAME" --keyring-backend file
     --gas 2000000 \
     --node http://<node-url>/chain-rpc/
 ```
-6. Start the API container:
+
+6) Start the API container:
+   
 ```
 source config.env && docker compose up -d
 ```

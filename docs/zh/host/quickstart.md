@@ -258,7 +258,7 @@ docker compose up tmkms node -d --no-deps
     
     在注册命令的第 [3.2](https://gonka.ai/zh/host/quickstart/#32host) 步（`inferenced register-new-participant`）中，共识密钥会在链上与您的账户密钥（冷密钥）进行绑定，从而使您的节点成为网络中的有效参与者。
     
-    如果您删除或覆盖了 .tmkms 文件夹，您的共识密钥将会丢失。该密钥用于将您的节点与区块链的验证者集合（validator set）关联。一旦 .tmkms 被删除，您必须从头重新执行整个设置流程，包括通过 tmkms 生成新的共识密钥（参见常见问题页面中的“我清除了或覆盖了我的共识密钥”一节）。
+    如果您删除或覆盖了 .tmkms 文件夹，您的共识密钥将会丢失。该密钥用于将您的节点与区块链的验证者集合（validator set）关联。一旦 .tmkms 被删除，您必须从头重新执行整个设置流程，包括通过 tmkms 生成新的共识密钥（[参见常见问题页面中的“我清除了或覆盖了我的共识密钥”一节](https://gonka.ai/zh/FAQ/#_14)）。
 
 ### 3. 完成密钥配置并注册主机（Host）
 
@@ -290,7 +290,7 @@ printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add 
     请勿重复运行此命令。
     ML 运营密钥（暖密钥）在每台服务器上仅生成一次，必须在重启后保持完整。
     
-    如果您不小心删除或重新初始化了该密钥，请参考常见问题（FAQ）中的恢复指南：“我删除了暖密钥（I Deleted the Warm Key）”。
+    如果您不小心删除或重新初始化了该密钥，请参考常见问题（FAQ）中的恢复指南：“[我删除了暖密钥](https://gonka.ai/zh/FAQ/#_15)”。
     
     在重新启动节点时，请完全跳过此步骤 —— 该密钥已生成并持久存储在 API 容器内。
 

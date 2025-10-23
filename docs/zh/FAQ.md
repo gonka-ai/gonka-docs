@@ -210,7 +210,7 @@ docker pause api
 ```
 docker unpause api
 ```
-## 我清除了或覆盖了我的共识密钥（I Cleared or Overwrote My Consensus Key）
+## 我清除了或覆盖了我的共识密钥
 
 如果您正在使用 tmkms 并删除了 `.tmkms` 文件夹，只需重新启动 tmkms —— 它会自动生成一个新的共识密钥。
 
@@ -227,7 +227,7 @@ docker unpause api
     --chain-id gonka-mainnet
 ```
 
-## 我删除了暖密钥（I Deleted the Warm Key）
+## 我删除了暖密钥
 
 1. 请在本地设备（非服务器）上备份冷密钥。
 停止 API 容器：

@@ -278,7 +278,7 @@ source config.env && docker compose up -d
 
 ## How to decommission an old cluster?
 
-Follow this guide to safely shut down an old cluster without impacting network reputation or stability.
+Follow this guide to safely shut down an old cluster without impacting reputation.
 
 1) Disable all MLNodes. Use the following command to disable each mlnode:
 

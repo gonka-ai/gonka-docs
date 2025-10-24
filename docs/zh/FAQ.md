@@ -267,3 +267,39 @@ inferenced keys add "$KEY_NAME" --keyring-backend file
 ```
 source config.env && docker compose up -d
 ```
+
+## 如何安全下线旧集群？
+
+按照以下步骤操作，可以安全地关闭旧集群，而不会影响网络声誉或稳定性。
+
+1）禁用所有 MLNode. 使用以下命令禁用每个 MLNode：
+```
+curl -X POST http://localhost:9200/admin/v1/nodes/<id>/disable
+```
+
+查看所有节点 ID：
+```
+curl http://localhost:9200/admin/v1/nodes | jq '.[].node.id'
+```
+
+2) 验证节点是否已停用. 未计划参与下一轮 Proof-of-Compute（PoC，计算证明）的节点将在下一次 PoC 期间自动停止；
+仍在计划中的节点会在再经历一个 epoch（周期）后停止。 你可以通过以下命令检查节点状态（查看 mlnode 字段）：
+
+```
+curl http://<inference_url>/v1/epochs/current/participants
+```
+
+当节点状态显示为 “disabled” 后，即可安全关闭对应的 MLNode 服务器。
+
+3) 关闭 Network Node. 在所有 MLNode 都已停用并关闭后，即可关闭 Network Node（网络节点）。 在执行前，建议（但非必须）备份以下文件：
+   
+```
+- .dapi/api-config.yaml
+- .dapi/gonka.db (created after on-chain upgrade)
+- .inference/config/
+- .inference/keyring-file/
+- .tmkms/
+```
+
+即使未进行备份，也可以通过 Account Key（账户密钥） 重新恢复集群设置。
+

@@ -280,7 +280,7 @@ source config.env && docker compose up -d
 
 Follow this guide to safely shut down an old cluster without impacting reputation.
 
-1) Disable all MLNodes. Use the following command to disable each mlnode:
+1) Use the following command to disable each MLNode:
 
 ```
 curl -X POST http://localhost:9200/admin/v1/nodes/<id>/disable
@@ -291,7 +291,7 @@ You can list all node IDs with:
 curl http://localhost:9200/admin/v1/nodes | jq '.[].node.id'
 ```
 
-2) Verify node deactivation. Nodes that are not scheduled for the next Proof-of-Compute (PoC) will automatically stop during the next PoC. Nodes that are scheduled will remain active for one more epoch before stopping. You can verify a node’s status in the mlnode field at:
+2) Nodes that are not scheduled for the next Proof-of-Compute (PoC) will automatically stop during the next PoC. Nodes that are scheduled will remain active for one more epoch before stopping. You can verify a node’s status in the mlnode field at:
 
 ```
 curl http://<inference_url>/v1/epochs/current/participants
@@ -299,7 +299,7 @@ curl http://<inference_url>/v1/epochs/current/participants
   
 Once a node is marked as disabled, it is safe to power off the MLNode server.
 
-4) Shut down the Network Node. After all MLNodes have been disabled and powered off, you can shut down the Network Node. Before doing so, it’s recommended (but optional) to back up the following files:
+3) After all MLNodes have been disabled and powered off, you can shut down the Network Node. Before doing so, it’s recommended (but optional) to back up the following files:
 
 ```
 - .dapi/api-config.yaml

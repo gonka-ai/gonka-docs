@@ -291,7 +291,8 @@ You can list all node IDs with:
 curl http://localhost:9200/admin/v1/nodes | jq '.[].node.id'
 ```
 
-2) Nodes that are not scheduled for the next Proof-of-Compute (PoC) will automatically stop during the next PoC. Nodes that are scheduled will remain active for one more epoch before stopping. You can verify a node’s status in the mlnode field at:
+2) Nodes that are not scheduled to serve inference during the next Proof-of-Compute (PoC) will automatically stop during that PoC.
+Nodes that are scheduled to serve inference will remain active for one more epoch before stopping. You can verify a node’s status in the mlnode field at:
 
 ```
 curl http://<inference_url>/v1/epochs/current/participants

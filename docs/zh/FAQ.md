@@ -282,8 +282,8 @@ curl -X POST http://localhost:9200/admin/v1/nodes/<id>/disable
 curl http://localhost:9200/admin/v1/nodes | jq '.[].node.id'
 ```
 
-2) 验证节点是否已停用. 未计划参与下一轮 Proof-of-Compute（PoC，计算证明）的节点将在下一次 PoC 期间自动停止；
-仍在计划中的节点会在再经历一个 epoch（周期）后停止。 你可以通过以下命令检查节点状态（查看 mlnode 字段）：
+2) 未被安排在下一轮 Proof-of-Compute（PoC）期间执行推理任务的节点将在该 PoC 自动停止。
+被安排执行推理任务的节点将在再经历一个 epoch（周期）后停止运行。 你可以通过以下命令检查节点状态（查看 mlnode 字段）：
 
 ```
 curl http://<inference_url>/v1/epochs/current/participants

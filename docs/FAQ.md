@@ -129,9 +129,18 @@ Voting power is never derived solely from holding coins. GNK coins serve as econ
 Yes. All key governance rules — quorum, majority threshold, and veto threshold — are on-chain configurable and can be updated via Governance Proposals. This allows the network to evolve decision-making rules as participation patterns and compute economic changes.
 
 ## My node was jailed. What does it mean?
-If the validator hasn't participated in signing blocks for 50 blocks in a row, it becomes jailed for a short period of time (about 15 min). It doesn't prevent getting the reward for inference if there were no issues with that detected. So, the reward is not lost. After a short period (15 min currently), nodes can be unjailed. You should use the cold key to set unjail transactions:
+Your validator has been jailed because it signed fewer than 50 blocks out of the last 100 blocks (the requirement counts the total number of signed blocks in that window, not consecutive ones). This means your node was temporarily excluded (about 15 minutes) from block production to protect network stability.
+There are several possible reasons for this:
+
+- **Consensus Key Mismatch**. The consensus key used by your node may differ from the one registered on-chain for your validator. Make sure the consensus key you are using matches the one registered on-chain for your validator.
+- **Unstable Network Connection**. Network instability or interruptions can prevent your node from reaching consensus, causing missed signatures. Ensure your node has a stable, low-latency connection and isn’t overloaded by other processes.
+
+**Rewards**: Even if your node is jailed, you will continue to receive most of the rewards as a Host as long as it remains active in inference or other validator-related work. So, the reward is not lost unless inference issues are detected. 
+
+**How to Unjail Your Node**: To resume normal operation, unjail your validator once the issue is resolved. Use your cold key to submit the unjail transaction:
+
 ```
-export NODE_URL=http://47.236.19.22:18000
+export NODE_URL=http://<NODE_URL>:<port>
  ./inferenced tx slashing unjail \
     --from <cold_key_name> \
     --keyring-backend file \

@@ -1,10 +1,10 @@
-# How to edit validator public info 
+# How to edit Host public info 
 
-This guide shows how to update your validator profile with the human-readable name, website, and avatar/profile identity so that explorers display correct information.
+This guide shows how to update your Host/Validator profile with the human-readable name, website, and avatar/profile identity so that explorers display correct information.
 
 ## Prerequisites
 
-- You must be the operator of the validator (you hold the operator key).
+- You must be the operator of the Host/Validator (you hold the operator key).
 - Your node must be running and connected to the network.
 - If you want a verified avatar, have an identity service (for example, [Keybase](https://keybase.io/)).
 
@@ -14,8 +14,8 @@ Here are the **only** fields you can set or edit.
 
 | Field    | Flag       | Purpose / What is displayed                                                                 |
 |----------|------------|----------------------------------------------------------------------------------------------|
-| Moniker  | `--new-moniker`  | The public name of your validator, shown in explorers.                  |
-| Website  | `--website`  | Link to your validator’s website or project page. Displayed so delegators can learn more.    |
+| Moniker  | `--new-moniker`  | The public name of your Host/Validator, shown in explorers.                  |
+| Website  | `--website`  | Link to your Host/Validator’s website or project page. Displayed so delegators can learn more.    |
 | Identity | `--identity` | Typically used to provide a verification/proof identity (e.g., [Keybase](https://keybase.io/), which many explorers use to fetch your avatar/logo.  You need to download the application from the website to generate a PRP key to fetch your logo. |
 
 ## Step-by-step guide
@@ -56,7 +56,7 @@ Copy your 64-bit PGP. You will need it for `--identity` flag in the command belo
 
 ### Update your node info 
 
-Run this command to edit your validator information. Make sure to replace `cold-key-name`, `YourNewValidatorName`, `https://updated.website`, and `PGP-64-ID` with your own values. 
+Run this command to edit your Host/Validator information. Make sure to replace `cold-key-name`, `YourNewValidatorName`, `https://updated.website`, and `PGP-64-ID` with your own values. 
 
 ```
 ./inferenced tx staking edit-validator \
@@ -71,7 +71,7 @@ Run this command to edit your validator information. Make sure to replace `cold-
 ```
 
 Once you send the transaction, wait for it to be included in a block and confirmed by the network.
-Check your validator info:
+Check your Host/Validator info:
 ```
 ./inferenced query staking delegator-validators \
   <cold-key-address> \

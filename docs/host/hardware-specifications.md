@@ -1,7 +1,6 @@
 # Hardware Specifications
 
-Criteria: Nvidia GPUs belonging to generations after Tesla, with a minimum of 16 GB VRAM per GPU.
-Each MLNode container must work with at least 40GB VRAM total.
+Criteria: Supports NVIDIA GPUs of generations newer than Tesla, provided that at least 40 GB total GPU VRAM is available to each MLNode container. Any combination of GPUs is allowed, as long as the system can host the LLMs approved by network governance and participate in PoC.
 
 | NVIDIA GPU         | Release Date  | VRAM           | Architecture | Generation            |
 |---------------------|---------------|----------------|--------------|-----------------------|

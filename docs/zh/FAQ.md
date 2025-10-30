@@ -207,9 +207,9 @@ curl -X POST "${PORT:-8080}:8080"/api/v1/pow/init/generate" \
 ```
 2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
 ```
-进行该测试时，MLNode 不应在 API 节点上注册为活跃参与者。
 
-如果你的节点尚未激活，可在测试前临时暂停 API 容器，测试完成后再恢复：
+为了进行这个测试，ML 节点目前 不应 向 API 节点注册。
+如果你的节点尚未成为活跃参与节点，你可以按照以下步骤进行：
 
 1) 暂停 API 容器：
 ```

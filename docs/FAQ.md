@@ -213,9 +213,8 @@ Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_
 ```
 2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
 ```
-For this test, the MLNode should **not** be registered as an active participant in the API node. 
 
-If your node is not active yet, you can achieve the correct behavior by temporarily pausing the API container before running the test, and unpausing it afterward.
+For this test, the ML node should not be registered with the `API` node yet. If your node is not an active participant yet, you can do the following:
 
 1) Pause the API container:
 ```

@@ -1,11 +1,11 @@
 # Wallet & Transfer Guide
 
-This guide explains how to work with wallets and tokens on the network: how to get your wallet address, check your balance, send tokens, and track transactions.
+This guide explains how to work with wallets and coins on the network: how to get your wallet address, check your balance, send coins, and track transactions.
 Before you can perform any wallet operations, you need to access your account. Follow the instructions below based on your role in the network.
 
 **Are you a Host?**
 
-You contribute computational resources and receive tokens as rewards.
+You contribute computational resources and receive coins as rewards.
 Before proceeding, you need access to your wallet, which is automatically created when the chain-node container runs for the first time.
 Go [here](https://gonka.ai/host/access-account/) to learn how to access your account. 
 
@@ -36,7 +36,7 @@ This command lists all the wallet keys (accounts) you’ve created locally, alon
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A+Qpbyhtsdl5N/6O6S/qJ9uvtbI7OFFsO5dcNrpEU0nv"}'
   type: local
 ```
-Write down the address (used to receive tokens and query balance).
+Write down the address (used to receive coins and query balance).
 
 ---
 
@@ -47,7 +47,7 @@ To check your balance, ensure you have sufficient funds before transferring, or 
 ```bash
 inferenced query bank balances <address> [--node <node_rpc_url>]
 ```
-This shows how many tokens are in your wallet.
+This shows how many coins are in your wallet.
 
 **Example:**
 
@@ -59,9 +59,9 @@ inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --no
 
 ## Send Coins
 
-In Cosmos, a fund transfer means sending tokens from one account (wallet address) to another within a Cosmos-based blockchain. These transfers are used to pay for services or simply send value between users. You perform transfers using the Cosmos SDK command-line tool — specifically, the inferenced CLI. Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and token denomination.
+In Cosmos, a fund transfer means sending coins from one account (wallet address) to another within a Cosmos-based blockchain. These transfers are used to pay for services or simply send value between users. You perform transfers using the Cosmos SDK command-line tool — specifically, the inferenced CLI. Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and coin denomination.
 
-Once you know your balance and have the recipient’s address, you can send tokens.
+Once you know your balance and have the recipient’s address, you can send coins.
 
 ```bash
 inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]

@@ -1,0 +1,556 @@
+/*───────────────────────────────────────────────────────────────
+   NFT Landing Page Styles
+   Purpose: Styles for Gonka NFT landing page
+────────────────────────────────────────────────────────────────*/
+
+/* == 0. Base layout & constraints ============================ */
+body:has(.gonka-nft-landing) {
+  --md-default-bg-color: #FAFAFA;
+  background-color: #242424 !important;
+}
+
+.gonka-landing.gonka-nft-landing {
+  padding-top: 0;
+  position: relative;
+  justify-content: flex-start;
+  align-items: stretch;
+  color: #FAFAFA;
+}
+
+.gonka-landing.gonka-nft-landing svg {
+  display: block;
+}
+
+.gonka-nft-landing .gonka-inner {
+  width: 100%;
+  padding-inline: 42px;
+}
+
+@media (max-width: 1023px) {
+  .gonka-nft-landing .gonka-inner {
+    padding-inline: 20px;
+  }
+}
+
+.gonka-main.nft-main {
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+/* == 1. Header =============================================== */
+.nft-header .gonka-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 76px;
+}
+
+@media (max-width: 1023px) {
+  .nft-header .gonka-inner {
+    flex-direction: column;
+  }
+}
+
+.nft-header {
+  background-color: #FAFAFA !important;
+}
+
+.nft-header a {
+  color: #242424;
+  transition: color 0.3s ease-out;
+}
+
+.nft-header a:hover {
+  color: #4a4a4a;
+}
+
+.nft-header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nft-mobile-menu-toggle {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .nft-header .gonka-inner {
+    position: relative;
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+
+  .nft-header-right {
+    position: absolute;
+    top: 90px;
+    inset-inline: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease-out;
+  }
+
+  .nft-header.menu-open .nft-header-right {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .gonka-nft-landing .nft-header.menu-open ~ .gonka-main .nft-hero .gonka-inner {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nft-social-link svg {
+    width: 45px;
+    height: 45px;
+  }
+
+  .gonka-docs-link span {
+    font-size: 30px;
+  }
+
+  .gonka-docs-link svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .nft-mobile-menu-toggle {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+}
+
+/* == 2. Hero section ========================================== */
+.nft-hero {
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  aspect-ratio: 1440/340;
+  color: #242424;
+  background: url("../images/nft/hero-shapes.svg") no-repeat bottom left/cover;
+}
+
+@container (min-height: 0) {
+  .nft-hero .gonka-inner {
+    padding-bottom: 19cqh;
+    transition: opacity 0.3s ease-out;
+  }
+}
+
+@media (max-width: 1439px) {
+  .nft-hero {
+    aspect-ratio: 1024/632;
+  }
+}
+
+@media (max-width: 1023px) {
+  .nft-hero {
+    aspect-ratio: none;
+    height: 504px;
+  }
+}
+
+.nft-hero-title,
+.nft-hero-subtitle {
+  margin: 0 !important;
+  line-height: 100% !important;
+  font-weight: 600 !important;
+  font-size: 110px !important;
+  letter-spacing: 0 !important;
+  color: #242424 !important;
+}
+
+@media (max-width: 1023px) {
+  .nft-hero-title {
+    font-size: 70px !important;
+  }
+
+  .nft-hero-subtitle {
+    font-size: 50px !important;
+  }
+}
+
+/* == 3. NFT Levels section =================================== */
+.nft-levels-section {
+  padding-block: 50px;
+}
+
+.nft-levels-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 130px;
+  counter-reset: nft-level;
+}
+
+@media (max-width: 1023px) {
+  .nft-levels-grid {
+    gap: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nth-levels-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.nft-level-card {
+  position: relative;
+  counter-increment: nft-level;
+}
+
+.nft-level-card::before {
+  content: counter(nft-level);
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight: 800;
+  font-size: 26px;
+}
+
+.nft-level-graphic {
+  width: 163px;
+  background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .nft-level-graphic {
+    width: 100%;
+  }
+}
+
+.nft-level-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: Manrope, sans-serif;
+  font-size: 30px;
+  line-height: 100%;
+}
+
+.nft-level-title svg {
+  margin-top: 3px;
+  transition: 0.3s ease-out;
+}
+
+.nft-level-card:hover .nft-level-title {
+  text-shadow:
+    0px 2px 4px rgba(252, 252, 252, 0.25),
+    0px -2px 4px rgba(252, 252, 252, 0.25),
+    2px 0px 4px rgba(252, 252, 252, 0.25),
+    -2px 0px 4px rgba(252, 252, 252, 0.25);
+}
+
+.nft-level-card:hover .nft-level-title svg {
+  transform: translateX(15px);
+  filter:
+    drop-shadow(0px 2px 4px rgba(252, 252, 252, 0.25))
+    drop-shadow(0px -2px 4px rgba(252, 252, 252, 0.25))
+    drop-shadow(2px 0px 4px rgba(252, 252, 252, 0.25))
+    drop-shadow(-2px 0px 4px rgba(252, 252, 252, 0.25));
+}
+
+.nft-level-subtitle {
+  font-family: Manrope, sans-serif;
+  font-size: 16px;
+  font-weight: 250;
+}
+
+/* == 4. CTA section ========================================== */
+.nft-cta-section {
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 65px;
+}
+
+@media (max-width: 1023px) {
+  .nft-cta-section {
+    margin-bottom: 213px;
+  }
+}
+
+.nft-cta-lines {
+  position: absolute;
+  inset-block: 0;
+  left: 100%;
+  display: flex;
+  gap: 0;
+}
+
+@media (max-width: 1439px) {
+  .nft-cta-lines {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .nft-cta-lines {
+    inset: unset;
+    left: -20px;
+    right: -20px;
+    top: 100%;
+    margin-top: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+}
+
+.nft-cta-lines div {
+  background-color: #FAFAFA;
+}
+
+@media (min-width: 1024px) {
+  .nft-cta-section.cta-expanded .nft-cta-lines {
+    margin-left: 40px;
+    gap: 40px;
+    transition: 0.3s ease-out;
+  }
+}
+
+.nft-cta-lines div:nth-child(1) { width: 110px }
+.nft-cta-lines div:nth-child(2) { width: 68px }
+.nft-cta-lines div:nth-child(3) { width: 47px }
+.nft-cta-lines div:nth-child(4) { width: 27px }
+.nft-cta-lines div:nth-child(5) { width: 13px }
+.nft-cta-lines div:nth-child(6) { width: 8px }
+
+@media (max-width: 1023px) {
+  .nft-cta-lines div:nth-child(1) { width: auto; height: 46px }
+  .nft-cta-lines div:nth-child(2) { width: auto; height: 28px }
+  .nft-cta-lines div:nth-child(3) { width: auto; height: 21px }
+  .nft-cta-lines div:nth-child(4) { width: auto; height: 11px }
+  .nft-cta-lines div:nth-child(5) { width: auto; height: 6px }
+  .nft-cta-lines div:nth-child(6) { display: none }
+}
+
+.nft-cta-content {
+  position: relative;
+  display: flex;
+  width: 858px;
+  background-color: #FAFAFA;
+  padding-block: 55.5px;
+}
+
+@media (max-width: 1023px) {
+  .nft-cta-content {
+    width: 100%;
+    justify-content: center;
+    padding-block: 30px;
+  }
+
+  .nft-cta-content::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 100%;
+    width: 20px;
+    background-color: #FAFAFA;
+  }
+}
+
+.nft-cta-content::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  right: 100%;
+  width: 100vw;
+  background-color: #FAFAFA;
+}
+
+.nft-cta-button {
+  display: flex;
+  gap: 62px;
+  padding-block: 10px;
+  padding-left: 20px;
+  padding-right: 40px;
+  color: #FAFAFA !important;
+  background-color: #242424;
+}
+
+@media (max-width: 768px) {
+  .nft-cta-button {
+    padding-right: 20px;
+    gap: 22px;
+  }
+}
+
+@media (max-width: 425px) {
+  .nft-cta-button {
+    gap: 16px;
+  }
+}
+
+.nft-cta-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nft-cta-title {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 46px;
+  line-height: 100%;
+}
+
+.nft-cta-subtitle {
+  font-family: Manrope, sans-serif;
+  font-size: 18px;
+  line-height: 100%;
+}
+
+@media (max-width: 1023px) {
+  .nft-cta-title {
+    font-size: 32px;
+  }
+
+  .nft-cta-subtitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 375px) {
+  .nft-cta-title {
+    font-size: 24px;
+    line-height: 120%;
+  }
+
+  .nft-cta-subtitle {
+    font-size: 16px;
+  }
+}
+
+.nft-cta-button .nft-cta-title,
+.nft-cta-button .nft-cta-subtitle,
+.nft-cta-button svg {
+  transition: 0.3s ease-out;
+}
+
+.nft-cta-button:hover .nft-cta-title,
+.nft-cta-button:hover .nft-cta-subtitle {
+  text-shadow:
+    0px 2px 4px rgba(252, 252, 252, 0.25),
+    0px -2px 4px rgba(252, 252, 252, 0.25),
+    2px 0px 4px rgba(252, 252, 252, 0.25),
+    -2px 0px 4px rgba(252, 252, 252, 0.25);
+}
+
+.nft-cta-button:hover svg {
+  transform: translateX(15px);
+  filter:
+    drop-shadow(0px 2px 4px rgba(252, 252, 252, 0.25))
+    drop-shadow(0px -2px 4px rgba(252, 252, 252, 0.25))
+    drop-shadow(2px 0px 4px rgba(252, 252, 252, 0.25))
+    drop-shadow(-2px 0px 4px rgba(252, 252, 252, 0.25));
+}
+
+/* == 5. About section ======================================== */
+.nft-about-section {
+  display: flex;
+  aspect-ratio: 1024/582;
+  margin-block: 50px;
+  background: url("../images/nft/body-shapes.svg") no-repeat right/cover;
+}
+
+@media (max-width: 1439px) {
+  .nft-about-section {
+    aspect-ratio: 1024/632;
+  }
+}
+
+@media (min-width: 1023px) {
+  .nft-about-section {
+    container-type: size;
+  }
+}
+
+@media (max-width: 1023px) {
+  .nft-about-section {
+    margin-top: 0;
+    aspect-ratio: auto;
+    background: none;
+  }
+}
+
+.nft-about-section .gonka-inner {
+  display: flex;
+}
+
+.nft-about-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 1023px) {
+  @container (min-height: 0) {
+    .nft-about-content {
+      padding-bottom: 19cqh;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .nft-about-content {
+    gap: 20px;
+  }
+}
+
+.nft-about-block {
+  display: flex;
+  width: 50%;
+  font-family: Manrope, sans-serif;
+  font-size: 34px;
+  line-height: 100%;
+}
+
+@media (max-width: 1439px) {
+  .nft-about-block {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .nft-about-block {
+    width: auto;
+    font-size: 20px;
+  }
+}
+
+.nft-about-block:nth-child(2) {
+  align-self: flex-end;
+}
+
+/* == 6. Footer ================================================ */
+.gonka-footer.nft-footer .gonka-carousel {
+  margin-top: 50px;
+  margin-bottom: 72px;
+}
+
+.nft-footer-wrapper {
+  background-color: #000;
+}
+
+.nft-footer .brand {
+  align-items: flex-start;
+}
+
+.nft-footer .brand-logo {
+  color: #FAFAFA;
+}
+
+.nft-footer .brand-logo:hover {
+  color: #787878;
+}
+
+.nft-footer .footer-col h4 {
+  color: #FAFAFA;
+}

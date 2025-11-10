@@ -34,6 +34,19 @@ There are several ways to do this:
                 
                 <a href="/images/keplr_mobile_google_private_key_2.PNG" target="_blank"><img src="/images/keplr_mobile_google_private_key_2.PNG" style="width:auto; height:337.5px;"></a>
 
+            === "Via recovery phrase"
+            
+                Choose “Create new recovery phrase”.
+                
+                <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
+                
+                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
+                
+                <a href="/images/keplr_mobile_recovery_phrase_step_1.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_1.PNG" style="width:auto; height:337.5px;"></a>
+                
+                Verify your recovery phrase, create a wallet name, and a password.
+                
+                <a href="/images/keplr_mobile_recovery_phrase_step_2.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_2.PNG" style="width:auto; height:337.5px;"></a>
             
             Deselect “All Native Chains” (or keep them selected — you can add or remove chains in your wallet at any time). 
 
@@ -56,20 +69,6 @@ There are several ways to do this:
             <a href="/images/keplr_mobile_address.PNG" target="_blank"><img src="/images/keplr_mobile_address.PNG" style="width:auto; height:337.5px;"></a>
 
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe.
-
-            === "Via recovery phrase"
-            
-                Choose “Create new recovery phrase”.
-                
-                <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
-                
-                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
-                
-                <a href="/images/keplr_mobile_recovery_phrase_step_1.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_1.PNG" style="width:auto; height:337.5px;"></a>
-                
-                Verify your recovery phrase, create a wallet name, and a password.
-                
-                <a href="/images/keplr_mobile_recovery_phrase_step_2.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_2.PNG" style="width:auto; height:337.5px;"></a>
 
         === "Keplr browser extention"
 

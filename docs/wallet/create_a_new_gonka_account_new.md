@@ -14,60 +14,60 @@ There are several ways to do this:
 
             Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
             
-            <a href="/images/keplr_mobile_website_main.png" target="_blank"><img src="/images/keplr_mobile_website_main.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_website_main.PNG" target="_blank"><img src="/images/keplr_mobile_website_main.PNG" style="width:auto; height:337.5px;"></a>
             
             Scroll down to the Mobile App section and choose your operating system. Download the app.
             
-            <a href="/images/keplr_mobile_website_mobileos.png" target="_blank"><img src="/images/keplr_mobile_website_mobileos.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_website_mobileos.PNG" target="_blank"><img src="/images/keplr_mobile_website_mobileos.PNG" style="width:auto; height:337.5px;"></a>
             
             Click “Create a new wallet”.
             
-            <a href="/images/keplr_mobile_create_new_wallet.png" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_create_new_wallet.PNG" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.PNG" style="width:auto; height:337.5px;"></a>
 
             === "Via recovery phrase"
             
                 Choose “Create new recovery phrase”.
                 
-                <a href="/images/keplr_mobile_recovery_phrase.png" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
                 
                 DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
                 
-                <a href="/images/keplr_mobile_recovery_phrase_step_1.png" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_1.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_recovery_phrase_step_1.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_1.PNG" style="width:auto; height:337.5px;"></a>
                 
                 Verify your recovery phrase, create a wallet name, and a password.
                 
-                <a href="/images/keplr_mobile_recovery_phrase_step_2.png" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_2.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_recovery_phrase_step_2.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_2.PNG" style="width:auto; height:337.5px;"></a>
 
             === "Via Connect with Google"
 
                 Click "Connect with Google". Follow the instructions to sign in via Gmail.
                 
-                <a href="/images/keplr_mobile_create_new_wallet.png" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_create_new_wallet.PNG" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.PNG" style="width:auto; height:337.5px;"></a>
                 
                 Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Store your private key in a safe and secure place
                 
-                <a href="/images/keplr_mobile_google_private_key_2.png" target="_blank"><img src="/images/keplr_mobile_google_private_key_2.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_google_private_key_2.PNG" target="_blank"><img src="/images/keplr_mobile_google_private_key_2.PNG" style="width:auto; height:337.5px;"></a>
 
             
             Deselect “All Native Chains” (or keep them selected — you can add or remove chains in your wallet at any time). 
 
-            <a href="/images/keplr_mobile_recovery_phrase_step_3.png" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_3.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_recovery_phrase_step_3.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_3.PNG" style="width:auto; height:337.5px;"></a>
 
             Then type “Gonka” into the search bar and select the Gonka chain to add it to your wallet.
 
-            <a href="/images/keplr_mobile_recovery_phrase_step_3_gonka.png" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_3_gonka.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_recovery_phrase_step_3_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_3_gonka.PNG" style="width:auto; height:337.5px;"></a>
 
             You have created your wallet in Keplr. Now, follow the instructions below to find your public key.
 
-            <a href="/images/keplr_mobile_all_set.png" target="_blank"><img src="/images/keplr_mobile_all_set.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_all_set.PNG" target="_blank"><img src="/images/keplr_mobile_all_set.PNG" style="width:auto; height:337.5px;"></a>
 
             Open the Keplr mobile app and log in to your wallet. On the home screen, scroll down to the Gonka chain and tap it.
 
-            <a href="/images/keplr_mobile_start_screen.png" target="_blank"><img src="/images/keplr_mobile_start_screen.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
             Above your balance, you will see your Gonka address. Tap the copy icon to copy your full Gonka public address.
 
-            <a href="/images/keplr_mobile_address.png" target="_blank"><img src="/images/keplr_mobile_address.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_address.PNG" target="_blank"><img src="/images/keplr_mobile_address.PNG" style="width:auto; height:337.5px;"></a>
 
             You copied your Gonka public key. You can share it with anyone who will send you payments. Sharing it is safe.
 
@@ -292,11 +292,11 @@ There are several ways to do this:
 
             Click “Add/Remove” Chains.
 
-            <a href="/images/keplr_mobile_add_remove_chain.png" target="_blank"><img src="/images/keplr_mobile_add_remove_chain.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_add_remove_chain.PNG" target="_blank"><img src="/images/keplr_mobile_add_remove_chain.PNG" style="width:auto; height:337.5px;"></a>
 
             Type “Gonka” in the search bar and select the Gonka chain.
 
-            <a href="/images/keplr_mobile_add_remove_chain_gonka.png" target="_blank"><img src="/images/keplr_mobile_add_remove_chain_gonka.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_add_remove_chain_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_add_remove_chain_gonka.PNG" style="width:auto; height:337.5px;"></a>
 
             On the home screen, scroll down to the Gonka chain and tap it.
 
@@ -304,7 +304,7 @@ There are several ways to do this:
 
             Above your balance, you will see your Gonka address. Tap the copy icon to copy your full Gonka public address.
 
-            <a href="/images/keplr_mobile_copy_address_gonka.png" target="_blank"><img src="/images/keplr_mobile_copy_address_gonka.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_copy_address_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_copy_address_gonka.PNG" style="width:auto; height:337.5px;"></a>
 
             You copied your Gonka public key. You can share it with anyone who will send you payments. Sharing it is safe.
 
@@ -358,8 +358,6 @@ There are several ways to do this:
 
                 You copied your Gonka public key. You can share it with anyone who will send you payments. Sharing it is safe. 
                 To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.
-
-    === "I have an external wallet"
 
         === "Leap web"
 

@@ -30,7 +30,7 @@ There are several ways to do this:
                 
                 <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
                 
-                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
+                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
                 
                 <a href="/images/keplr_mobile_recovery_phrase_step_1.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_1.PNG" style="width:auto; height:337.5px;"></a>
                 
@@ -125,7 +125,7 @@ There are several ways to do this:
             
                 <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
         
-                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
+                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
             
                 <a href="/images/keplr_new_recovery_phrase.png" target="_blank"><img src="/images/keplr_new_recovery_phrase.png" style="width:500px; height:auto;"></a>
             
@@ -286,9 +286,9 @@ There are several ways to do this:
 
         === "Keplr mobile app"
 
-            Open Keplr mobile app and login to your wallet. Select menu on the top left corner.
+            Open Keplr mobile app and login to your wallet. Select the menu in the top left corner.
             
-            <a href="/images/keplr_mobile_start_screen.png" target="_blank"><img src="/images/keplr_mobile_start_screen.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
             Click “Add/Remove” Chains.
 
@@ -300,7 +300,7 @@ There are several ways to do this:
 
             On the home screen, scroll down to the Gonka chain and tap it.
 
-            <a href="/images/keplr_mobile_start_screen.png" target="_blank"><img src="/images/keplr_mobile_start_screen.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
             Above your balance, you will see your Gonka address. Tap the copy icon to copy your full Gonka public address.
 

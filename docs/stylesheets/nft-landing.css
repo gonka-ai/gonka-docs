@@ -61,7 +61,7 @@ body:has(.gonka-nft-landing) {
 }
 
 .nft-header a:hover {
-  color: #4a4a4a;
+  color: #7b7b7b;
 }
 
 .nft-header-right {
@@ -384,11 +384,13 @@ body:has(.gonka-nft-landing) {
 
 @media (max-width: 425px) {
   .nft-cta-button {
+    flex: 1;
     gap: 16px;
   }
 }
 
 .nft-cta-text {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }

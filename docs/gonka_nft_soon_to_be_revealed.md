@@ -301,18 +301,7 @@
 </script>
 
 <script>
-// Mobile menu toggle
 document.addEventListener('DOMContentLoaded', function() {
-  const menuToggle = document.querySelector('.nft-mobile-menu-toggle');
-  const mobileMenu = document.querySelector('.nft-mobile-menu');
-
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', function() {
-      mobileMenu.classList.toggle('active');
-      menuToggle.classList.toggle('active');
-    });
-  }
-
   // Mobile header shadow on scroll
   const header = document.querySelector('.gonka-header');
   if (header) {
@@ -435,10 +424,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mobile menu toggle
   const menuToggle = document.querySelector('.nft-mobile-menu-toggle');
   const header = document.querySelector('.nft-header');
+  const menuIcon = menuToggle?.querySelector('use');
 
-  if (menuToggle && header) {
+  if (menuToggle && header && menuIcon) {
     menuToggle.addEventListener('click', function() {
-      header.classList.toggle('menu-open');
+      const isOpen = header.classList.toggle('menu-open');
+
+      // Switch icon
+      if (isOpen) {
+        menuIcon.setAttribute('href', '/images/nft/icons-sprite.svg#icon-close');
+        menuToggle.setAttribute('aria-label', 'Close menu');
+      } else {
+        menuIcon.setAttribute('href', '/images/nft/icons-sprite.svg#icon-menu');
+        menuToggle.setAttribute('aria-label', 'Menu');
+      }
     });
   }
 });

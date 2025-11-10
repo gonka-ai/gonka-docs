@@ -20,10 +20,16 @@
     <path d="M3.83398 6.5H10.5007V13.1667" stroke="currentColor" stroke-width="1.5"/>
   </symbol>
 
-  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none">
-    <path d="M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    <path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    <path d="M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <symbol id="icon-menu" viewBox="0 0 46 45" fill="none">
+    <path d="M0 13H45" stroke="currentColor" stroke-width="2"/>
+    <path d="M0 22.6427H45" stroke="currentColor" stroke-width="2"/>
+    <path d="M0 32.2857H45" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+
+
+  <symbol id="icon-close" viewBox="0 0 45 45" fill="none">
+    <path d="M37.9097 38.4099L6.08986 6.5901" stroke="currentColor" stroke-width="2"/>
+    <path d="M6.19092 38.5108L38.0107 6.69098" stroke="currentColor" stroke-width="2"/>
   </symbol>
 
   <symbol id="icon-gonka-logo-footer" viewBox="0 0 42 41" fill="none">

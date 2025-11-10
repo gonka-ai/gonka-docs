@@ -24,20 +24,6 @@ There are several ways to do this:
             
             <a href="/images/keplr_mobile_create_new_wallet.PNG" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.PNG" style="width:auto; height:337.5px;"></a>
 
-            === "Via recovery phrase"
-            
-                Choose “Create new recovery phrase”.
-                
-                <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
-                
-                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
-                
-                <a href="/images/keplr_mobile_recovery_phrase_step_1.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_1.PNG" style="width:auto; height:337.5px;"></a>
-                
-                Verify your recovery phrase, create a wallet name, and a password.
-                
-                <a href="/images/keplr_mobile_recovery_phrase_step_2.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_2.PNG" style="width:auto; height:337.5px;"></a>
-
             === "Via Connect with Google"
 
                 Click "Connect with Google". Follow the instructions to sign in via Gmail.
@@ -65,11 +51,25 @@ There are several ways to do this:
 
             <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
-            Above your balance, you will see your Gonka address. Tap the copy icon to copy your full Gonka public address.
+            Above your balance, you will see your Gonka address. Tap the copy icon to copy your full Gonka public account address.
 
             <a href="/images/keplr_mobile_address.PNG" target="_blank"><img src="/images/keplr_mobile_address.PNG" style="width:auto; height:337.5px;"></a>
 
-            You copied your Gonka public key. You can share it with anyone who will send you payments. Sharing it is safe.
+            You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe.
+
+            === "Via recovery phrase"
+            
+                Choose “Create new recovery phrase”.
+                
+                <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
+                
+                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
+                
+                <a href="/images/keplr_mobile_recovery_phrase_step_1.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_1.PNG" style="width:auto; height:337.5px;"></a>
+                
+                Verify your recovery phrase, create a wallet name, and a password.
+                
+                <a href="/images/keplr_mobile_recovery_phrase_step_2.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_2.PNG" style="width:auto; height:337.5px;"></a>
 
         === "Keplr browser extention"
 
@@ -150,7 +150,7 @@ There are several ways to do this:
 
             <a href="/images/keplr_copy_address_2.png" target="_blank"><img src="/images/keplr_copy_address_2.png" style="width:auto; height:337.5px;"></a>
 
-            You copied your Gonka public key. You can share it with anyone who will send you payments. Sharing it is safe. 
+            You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
             To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.
 
             ??? note "Optional: How to add an additional Gonka account in Keplr wallet — click to view steps"
@@ -302,11 +302,11 @@ There are several ways to do this:
 
             <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
-            Above your balance, you will see your Gonka address. Tap the copy icon to copy your full Gonka public address.
+            Above your balance, you will see your Gonka address. Tap the copy icon to copy your full Gonka public account address.
 
             <a href="/images/keplr_mobile_copy_address_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_copy_address_gonka.PNG" style="width:auto; height:337.5px;"></a>
 
-            You copied your Gonka public key. You can share it with anyone who will send you payments. Sharing it is safe.
+            You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe.
 
         === "Keplr browser extention"
 
@@ -356,7 +356,7 @@ There are several ways to do this:
 
                 <a href="/images/keplr_web_copy_gonka_address.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address.png" style="width:auto; height:337.5px;"></a>
 
-                You copied your Gonka public key. You can share it with anyone who will send you payments. Sharing it is safe. 
+                You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
                 To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.
 
         === "Leap browser extention"

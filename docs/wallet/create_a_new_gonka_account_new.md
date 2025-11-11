@@ -4,7 +4,10 @@ To start using Gonka Network, you first need to create a Gonka Account.
 There are several ways to do this:
 
 - Via external wallet (Keplr or Leap)
-- Via `inferenced` CLI tool 
+- Via `inferenced` CLI tool
+
+!!! note "Important note" 
+    At the moment, there is no bridge to Ethereum. Any potential bridge deployment would be subject to on-chain governance. If the network were to vote for Ethereum bridge deployment, it is expected that only accounts created via Keplr “Connect with Google” or via the `inferenced` CLI tool would be compatible. Accounts created using a recovery phrase may not be compatible with such a bridge and might not be usable with it.
 
 === "External wallet"
 
@@ -170,7 +173,7 @@ There are several ways to do this:
             
                 <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
             
-                Paste your private key. You can import an account created using a recovery (mnemonic/seed) phrase. However, bridge functionality will be limited, as the bridge requires direct access to the raw private key to sign transactions and ensure full interoperability with Ethereum.
+                Paste your private key. You can import an account created using a recovery (mnemonic/seed) phrase. 
             
                 <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
                     
@@ -269,7 +272,7 @@ There are several ways to do this:
                     
                 <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
                     
-                Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase. However, bridge functionality will be limited, as the bridge requires direct access to the raw private key to sign transactions and ensure full interoperability with Ethereum. 
+                Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase.  
                     
                 <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
             
@@ -428,7 +431,7 @@ There are several ways to do this:
                     
                 <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
                     
-                Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase. However, bridge functionality will be limited, as the bridge requires direct access to the raw private key to sign transactions and ensure full interoperability with Ethereum. 
+                Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase.  
                     
                 <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
             

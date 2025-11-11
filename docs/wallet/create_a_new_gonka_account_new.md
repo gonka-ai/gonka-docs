@@ -53,7 +53,7 @@ There are several ways to do this:
             
             Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
 
-            <a href="/images/keplr_mobile_recovery_phrase_step_3_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_3_gonka.PNG" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_deselect_chains.PNG.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:auto; height:337.5px;"></a>
 
             You have created your wallet in Keplr. Now, follow the instructions below to find your account address.
 

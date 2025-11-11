@@ -335,12 +335,12 @@ There are several ways to do this:
             
                 <a href="/images/dashboard_keplr_step_2_3_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3_2.png" style="width:500px; height:auto;"></a>
 
-                After installing the extension, you should see it in the top-right panel of your browser. 
+            After installing the extension, you should see it in the top-right panel of your browser. 
                 
-                <a href="/images/keplr_extension.png" target="_blank"><img src="/images/keplr_extension.png" style="width:500px; height:auto;"></a>
+            <a href="/images/keplr_extension.png" target="_blank"><img src="/images/keplr_extension.png" style="width:500px; height:auto;"></a>
 
-                At this point, the extension is installed, but not yet connected to your wallet. 
-                Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to  and continue with the setup process.
+            At this point, the extension is installed, but not yet connected to your wallet. 
+            Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to  and continue with the setup process.
 
             #### Add Gonka network to your wallet
 

@@ -100,10 +100,10 @@ chmod +x inferenced
 ??? note "About Account Key (Cold Key)"
     The Account Key is your primary, high-privilege key. It is created locally and never stored on your servers.
     
-    - Control: Master key that grants permissions to all other keys
-    - Security: Must be stored offline on a secure, air-gapped machine
-    - Usage: Only for granting permissions and validator registration
-    - Recovery: Protected by mnemonic phrase - if lost, all access is permanently lost
+    - Master key that grants permissions to all other keys
+    - Must be stored offline on a secure, air-gapped machine
+    - Only for granting permissions and validator registration
+    - Protected by mnemonic phrase - if lost, all access is permanently lost
 
 Create your Account Key using the `file` keyring backend (you can also use `os` for enhanced security on supported systems):
 
@@ -331,10 +331,10 @@ We start these specific containers first because:
     If you see the chain node continuously processing block events, then the setup is working correctly.
 
 ??? note "About Consensus Key"
-    - Control: Managed by secure TMKMS service
-    - Security: Warm storage with double-signing prevention
-    - Usage: Block validation and network consensus participation
-    - Recovery: Can be rotated by Account Key or authorized delegates
+    - Managed by secure TMKMS service
+    - Warm storage with double-signing prevention
+    - Block validation and network consensus participation
+    - Can be rotated by Account Key or authorized delegates
     
     During the registration command on [step 3.2.](https://gonka.ai/host/quickstart/#32-server-register-host) (`inferenced register-new-participant`), the Consensus Key is linked to your Account Key (Cold Key) on-chain, establishing your node as a valid participant in the network.
     
@@ -347,10 +347,10 @@ Now we need to complete the key management setup by creating the warm key, regis
 #### 3.1. [Server] Create ML Operational Key
 
 ??? note "About ML Operational Key (Warm Key)"
-    - Control: Authorized by Account Key for ML-specific transactions
-    - Security: Encrypted file on server, accessed programmatically
-    - Usage: Automated transactions (inference requests, proof submissions, rewards)
-    - Recovery: Can be rotated/revoked by Account Key at any time
+    - Authorized by Account Key for ML-specific transactions
+    - Encrypted file on server, accessed programmatically
+    - Automated transactions (inference requests, proof submissions, rewards)
+    - Can be rotated/revoked by Account Key at any time
     - Needs constant availability, so do not remove or rotate it unless necessary.
 
 Create the warm key inside the `api` container using the `file` keyring backend (required for programmatic access). The key will be stored in a persistent volume mapped to `/root/.inference` of the container:

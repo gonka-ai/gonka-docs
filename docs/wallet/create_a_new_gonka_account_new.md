@@ -145,11 +145,11 @@ There are several ways to do this:
 
             Open Keplr, navigate, and click on “Copy Address” in your wallet.
 
-            <a href="/images/keplr_copy_address.png" target="_blank"><img src="/images/keplr_copy_address.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_copy_address_2.png" target="_blank"><img src="/images/keplr_copy_address_2.png" style="width:auto; height:337.5px;"></a>
 
             Click the Copy button next to the Gonka chain.
 
-            <a href="/images/keplr_copy_address_2.png" target="_blank"><img src="/images/keplr_copy_address_2.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_web_copy_gonka_address.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address.png" style="width:auto; height:337.5px;"></a>
 
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
             To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.
@@ -509,8 +509,6 @@ There are several ways to do this:
             ```bash
             curl http://node2.gonka.ai:8000/v1/epochs/current/participants
             ```
-        
-    Create an account
         
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
         

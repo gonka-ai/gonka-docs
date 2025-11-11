@@ -250,7 +250,7 @@ There are several ways to do this:
             
             Select Leap and hit Connect.
             
-            <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
+            <a href="/images/dashboard_connect_leap.png" target="_blank"><img src="/images/dashboard_connect_leap.png" style="width:500px; height:auto;"></a>
             
             Since Gonka network is still in an early stage, it is not included in wallets by default. Because of this, we need to add it manually. When the prompt appears, approve it to add the Gonka chain to your wallet. Once the Gonka network is added, your Gonka account will be created automatically.
             
@@ -417,7 +417,7 @@ There are several ways to do this:
             
             Select Leap and hit Connect.
             
-            <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
+            <a href="/images/dashboard_connect_leap.png" target="_blank"><img src="/images/dashboard_connect_leap.png" style="width:500px; height:auto;"></a>
             
             Since Gonka network is still in an early stage, it is not included in wallets by default. Because of this, we need to add it manually. When the prompt appears, approve it to add the Gonka chain to your wallet. Once the Gonka network is added, your Gonka account will be created automatically..
 

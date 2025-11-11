@@ -33,7 +33,7 @@ There are several ways to do this:
                 
                 <a href="/images/keplr_mobile_create_new_wallet.PNG" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.PNG" style="width:auto; height:337.5px;"></a>
                 
-                Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Store your private key in a safe and secure place
+                Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is by using your private key. Store your private key in a safe and secure place. Never share your private key with anyone.
                 
                 <a href="/images/keplr_mobile_google_private_key_2.PNG" target="_blank"><img src="/images/keplr_mobile_google_private_key_2.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -63,7 +63,7 @@ There are several ways to do this:
 
             <a href="/images/keplr_mobile_all_set.PNG" target="_blank"><img src="/images/keplr_mobile_all_set.PNG" style="width:auto; height:337.5px;"></a>
 
-            Open the Keplr mobile app and log in to your wallet. On the home screen, scroll down to the Gonka chain and tap it.
+            On the home screen, scroll down to the Gonka chain and tap it.
 
             <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -109,7 +109,7 @@ There are several ways to do this:
                 
                 <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
 
-                Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Store your private key in a safe and secure place
+                Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is by using your private key. Store your private key in a safe and secure place. Never share your private key with anyone.
             
                 <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
@@ -142,9 +142,8 @@ There are several ways to do this:
                 You have created your wallet in Keplr. Now, follow the instructions below to find your account address.
 
                 <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
-
             
-            Open Keplr, navigate and click to “Copy Address” in your wallet.
+            Open Keplr, navigate, and click on “Copy Address” in your wallet.
 
             <a href="/images/keplr_copy_address.png" target="_blank"><img src="/images/keplr_copy_address.png" style="width:auto; height:337.5px;"></a>
 
@@ -288,7 +287,7 @@ There are several ways to do this:
 
         === "Keplr mobile app"
 
-            Open Keplr mobile app and login to your wallet. Select the menu in the top left corner.
+            Open Keplr mobile app and log in to your wallet. Select the menu in the top left corner.
             
             <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 

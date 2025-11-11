@@ -93,7 +93,11 @@ There are several ways to do this:
             
                 <a href="/images/dashboard_keplr_step_2_3_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3_2.png" style="width:500px; height:auto;"></a>
 
-            After installing the extension, you should see it in the top-right panel of your browser. At this point, the extension is installed, but your wallet and Gonka account have not been created yet. Please continue to the next step to set them up.
+            After installing the extension, you should see it in the top-right panel of your browser. 
+            
+            <a href="/images/keplr_extension.png" target="_blank"><img src="/images/keplr_extension.png" style="width:500px; height:auto;"></a>
+            
+            At this point, the extension is installed, but your wallet and Gonka account have not been created yet. Please continue to the next step to set them up.
 
             Open the Keplr browser extension. Click "Create a new wallet".
             
@@ -142,8 +146,7 @@ There are several ways to do this:
                 You have created your wallet in Keplr. Now, follow the instructions below to find your account address.
 
                 <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
-
-            
+ 
             Open Keplr, navigate and click to “Copy Address” in your wallet.
 
             <a href="/images/keplr_copy_address.png" target="_blank"><img src="/images/keplr_copy_address.png" style="width:auto; height:337.5px;"></a>
@@ -199,7 +202,11 @@ There are several ways to do this:
             
             <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
             
-            After installing the extension, you should see it in the top-right panel of your browser. At this point, the extension is installed, but your wallet and your Gonka account are not created yet. Please continue to the next step to set them up.
+            After installing the extension, you should see it in the top-right panel of your browser. 
+            
+            <a href="/images/leap_extension.png" target="_blank"><img src="/images/leap_extension.png" style="width:500px; height:auto;"></a>
+            
+            At this point, the extension is installed, but your wallet and your Gonka account are not created yet. Please continue to the next step to set them up.
 
             Click "Create a new wallet".
             
@@ -332,7 +339,11 @@ There are several ways to do this:
             
                 <a href="/images/dashboard_keplr_step_2_3_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3_2.png" style="width:500px; height:auto;"></a>
 
-                After installing the extension, you should see it in the top-right panel of your browser. At this point, the extension is installed, but not yet connected to your wallet. 
+                After installing the extension, you should see it in the top-right panel of your browser. 
+                
+                <a href="/images/keplr_extension.png" target="_blank"><img src="/images/keplr_extension.png" style="width:500px; height:auto;"></a>
+
+                At this point, the extension is installed, but not yet connected to your wallet. 
                 Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to add Gonka network to your wallet and continue with the setup process.
 
                 ### Add Gonka network to your wallet
@@ -371,7 +382,11 @@ There are several ways to do this:
             
             <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
             
-            After installing the extension, you should see it in the top-right panel of your browser. At this point, the extension is installed, but not yet connected to your wallet.
+            After installing the extension, you should see it in the top-right panel of your browser. 
+            
+            <a href="/images/leap_extension.png" target="_blank"><img src="/images/leap_extension.png" style="width:500px; height:auto;"></a>
+            
+            At this point, the extension is installed, but not yet connected to your wallet.
             Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to add Gonka network to your wallet and continue with the setup process.
            
             ### Add Gonka network to your wallet

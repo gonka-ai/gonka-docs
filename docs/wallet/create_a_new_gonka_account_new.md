@@ -51,11 +51,7 @@ There are several ways to do this:
                 
                 <a href="/images/keplr_mobile_recovery_phrase_step_2.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_2.PNG" style="width:auto; height:337.5px;"></a>
             
-            By default, the native chains will be pre-selected. You can leave them selected or deselect them, both options are fine and you can always adjust this later.
-
-            <a href="/images/keplr_mobile_recovery_phrase_step_3.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_3.PNG" style="width:auto; height:337.5px;"></a>
-
-            Then, type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
+            Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
 
             <a href="/images/keplr_mobile_recovery_phrase_step_3_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_3_gonka.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -117,7 +113,7 @@ There are several ways to do this:
             
                 <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
-                By default, the native chains will be pre-selected. You can leave them selected or deselect them, both options are fine and you can always adjust this later. Then, type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
+                Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
 
                 <a href="/images/keplr_deselect_chains.png" target="_blank"><img src="/images/keplr_deselect_chains.png" style="width:500px; height:auto;"></a>
 
@@ -139,7 +135,7 @@ There are several ways to do this:
             
                 <a href="/images/keplr_verify_your_recovery_phrase.png" target="_blank"><img src="/images/keplr_verify_your_recovery_phrase.png" style="width:500px; height:auto;"></a>
 
-                By default, the native chains will be pre-selected. You can leave them selected or deselect them, both options are fine and you can always adjust this later. Then, type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
+                Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
 
                 <a href="/images/keplr_deselect_chains.png" target="_blank"><img src="/images/keplr_deselect_chains.png" style="width:500px; height:auto;"></a>
 

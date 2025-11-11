@@ -465,8 +465,6 @@ There are several ways to do this:
     !!! note "What is the inferenced CLI tool?"
         The `inferenced` CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
 
-    ## 1. Define variables
-
     Before creating an account, set up the required environment variables:
     
     ```bash
@@ -516,63 +514,63 @@ There are several ways to do this:
             curl http://node2.gonka.ai:8000/v1/epochs/current/participants
             ```
         
-    ## 2. Create an account
+    Create an account
         
-        Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
+    Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
         
-        ??? note "Enabling Execution on Mac OS"
-            On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
-            
-            1.	Open a terminal and navigate to the directory where the binary is located.
-            
-            2.	Run the following command to grant execution permission:
-            ```
-            chmod +x inferenced
-            ```
-            3.	Try running `./inferenced --help` to ensure it's working.
-                
-            4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
-            
-            5.	Scroll down to the warning about `inferenced` and click "Allow Anyway".
+    ??? note "Enabling Execution on Mac OS"
+        On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
+         
+        1.	Open a terminal and navigate to the directory where the binary is located.
         
-        You can create an account with the following command:
-        ```bash
-        ./inferenced create-client $ACCOUNT_NAME \
-          --node-address $NODE_URL
+        2.	Run the following command to grant execution permission:
         ```
+        chmod +x inferenced
+        ```
+        3.	Try running `./inferenced --help` to ensure it's working.
+            
+        4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
+            
+        5.	Scroll down to the warning about `inferenced` and click "Allow Anyway".
         
-        Make sure to securely save your passphrase — you'll need it for future access.
+    You can create an account with the following command:
+    ```bash
+    ./inferenced create-client $ACCOUNT_NAME \
+         --node-address $NODE_URL
+    ```
         
-        This command will:
+    Make sure to securely save your passphrase — you'll need it for future access.
         
-        - Generate a keypair
-        - Save it to `~/.inference`
-        - Return your account address, public key, and mnemonic phrase (store it securely in a hard copy as well!)
+    This command will:
+        
+    - Generate a keypair
+    - Save it to `~/.inference`
+    - Return your account address, public key, and mnemonic phrase (store it securely in a hard copy as well!)
     
-        ```bash
-        - address: <your-account-address>
-          name: ACCOUNT_NAME
-          pubkey: '{"@type":"...","key":"..."}'
-          type: local
-        ```
+    ```bash
+     - address: <your-account-address>
+       name: ACCOUNT_NAME
+       pubkey: '{"@type":"...","key":"..."}'
+       type: local
+      ```
             
-        You will use this account address to receive payments. This is your public address, and it is safe to share.
+    You will use this account address to receive payments. This is your public address, and it is safe to share.
             
-        To access your Gonka private key, export your private key and store it securely. The command below outputs a plain-text private key. A private key is a secret code that gives full access to your wallet and the funds inside it. It is used to confirm (sign) transactions and prove that you are the owner of the wallet.
+    To access your Gonka private key, export your private key and store it securely. The command below outputs a plain-text private key. A private key is a secret code that gives full access to your wallet and the funds inside it. It is used to confirm (sign) transactions and prove that you are the owner of the wallet.
         
-        - Whoever has the private key controls the wallet.
-        - If you lose it, you lose access.
-        - If someone else gets it, they can take your funds.
+    - Whoever has the private key controls the wallet.
+    - If you lose it, you lose access.
+    - If someone else gets it, they can take your funds.
 
-        So the private key must always be stored securely and never shared with anyone.
+    So the private key must always be stored securely and never shared with anyone.
         
-        ```bash
-        ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
-        ```
+    ```bash
+    ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
+    ```
         
-        To retrieve a list of all locally stored accounts, execute the following command:
-        ```
-        inferenced keys list [--keyring-backend test]
-        ```
+    To retrieve a list of all locally stored accounts, execute the following command:
+    ```
+     inferenced keys list [--keyring-backend test]
+    ```
 
-        Now you can add your Gonka account to wallets like Keplr or Leap by importing it using your public and private keys.
+    Now you can add your Gonka account to wallets like Keplr or Leap by importing it using your public and private keys.

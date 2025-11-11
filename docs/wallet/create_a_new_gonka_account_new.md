@@ -547,11 +547,11 @@ There are several ways to do this:
     - Save it to `~/.inference`
     - Return your account address, public key, and mnemonic phrase (store it securely in a hard copy as well!)
     
-    ```
-     - address: <your-account-address>
-       name: ACCOUNT_NAME
-       pubkey: '{"@type":"...","key":"..."}'
-       type: local
+    ```bash
+    - address: <your-account-address>
+      name: ACCOUNT_NAME
+      pubkey: '{"@type":"...","key":"..."}'
+      type: local
     ```
             
     You will use this account address to receive payments. This is your public address, and it is safe to share.

@@ -22,44 +22,44 @@ At network launch, Hosts use a **three-key system**:
 ## Security Model
 
 ### Account Key (Cold Wallet) - **CRITICAL**
-- **Control**: Master key that grants permissions to all other keys
-- **Security**: Must be stored offline on a secure, air-gapped machine
-- **Usage**: Only for granting permissions and validator registration
-- **Recovery**: Protected by mnemonic phrase - **if lost, all access is permanently lost**
+- Master key that grants permissions to all other keys
+- Must be stored offline on a secure, air-gapped machine
+- Only for granting permissions and validator registration
+- Protected by mnemonic phrase - **if lost, all access is permanently lost**
 
 ### ML Operational Key (Warm Wallet)
-- **Control**: Authorized by Account Key for ML-specific transactions
-- **Security**: Encrypted file on server, accessed programmatically
-- **Usage**: Automated transactions (inference requests, proof submissions, rewards)
-- **Recovery**: Can be rotated/revoked by Account Key at any time
+- Authorized by Account Key for ML-specific transactions
+- Encrypted file on server, accessed programmatically
+- Automated transactions (inference requests, proof submissions, rewards)
+- Can be rotated/revoked by Account Key at any time
 
 ### Consensus Key (TMKMS - Warm Storage)
-- **Control**: Managed by secure TMKMS service
-- **Security**: Warm storage with double-signing prevention
-- **Usage**: Block validation and network consensus participation
-- **Recovery**: Can be rotated by Account Key or authorized delegates
+- Managed by secure TMKMS service
+- Warm storage with double-signing prevention
+- Block validation and network consensus participation
+- Can be rotated by Account Key or authorized delegates
   
 ## Best Practices
 
 ### Security Guidelines
 
 1. **Account Key Protection** 
-    - **Storage**: Secure local machine with encrypted storage and minimal internet exposure
+    - Secure local machine with encrypted storage and minimal internet exposure
         - *Secure local machine*: A dedicated computer with restricted access, not used for daily browsing/email, ideally air-gapped or with limited network connectivity
-    - **Keyring Backend**: Use `file` or `os` keyring backend for secure local storage
-    - **Passphrases**: Use strong, unique passphrases for keyring protection
-    - **Backup**: Maintain offline backup of mnemonic phrase in secure location
-    - **Usage**: Never use for routine operations - only for granting permissions and validator actions
+    - Use `file` or `os` keyring backend for secure local storage
+    - Use strong, unique passphrases for keyring protection
+    - Maintain offline backup of mnemonic phrase in secure location
+    - Never use for routine operations - only for granting permissions and validator actions
 
 2. **Hardware Wallet Support**
     - **Current Status**: Not supported at network launch 
     - **Critical**: Always save and securely store your mnemonic phrase as your ultimate recovery method
 
 3. **ML Operational Key Management**
-     - **Keyring Backend**: Must use `file` keyring backend for server-based storage with programmatic access
-     - **Security**: Store encrypted on server with strong passphrase protection
-     - **Rotation**: Regularly rotate ML Operational Keys using Account Key authorization
-     - **Access**: Enable programmatic access by containers while maintaining encryption at rest
+     - Must use `file` keyring backend for server-based storage with programmatic access
+     - Store encrypted on server with strong passphrase protection
+     - Regularly rotate ML Operational Keys using Account Key authorization
+     - Enable programmatic access by containers while maintaining encryption at rest
 
 4. **Operational Security**
      - Implement proper backup and recovery procedures for all keys

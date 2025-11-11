@@ -56,7 +56,7 @@ There are several ways to do this:
 
             <a href="/images/keplr_mobile_recovery_phrase_step_3_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_3_gonka.PNG" style="width:auto; height:337.5px;"></a>
 
-            You have created your wallet in Keplr. Now, follow the instructions below to find your public key.
+            You have created your wallet in Keplr. Now, follow the instructions below to find your account address.
 
             <a href="/images/keplr_mobile_all_set.PNG" target="_blank"><img src="/images/keplr_mobile_all_set.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -64,7 +64,7 @@ There are several ways to do this:
 
             <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
-            Above your balance, you will see your Gonka address. Tap the copy icon to copy your full Gonka public account address.
+            Above your balance, you will see your Gonka account address. Tap the copy icon to copy your full Gonka account address.
 
             <a href="/images/keplr_mobile_address.PNG" target="_blank"><img src="/images/keplr_mobile_address.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -114,7 +114,7 @@ There are several ways to do this:
 
                 <a href="/images/keplr_deselect_chains.png" target="_blank"><img src="/images/keplr_deselect_chains.png" style="width:500px; height:auto;"></a>
 
-                You have created your wallet in Keplr. Now, follow the instructions below to find your public key.
+                You have created your wallet in Keplr. Now, follow the instructions below to find your account address.
 
                 <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
 
@@ -136,7 +136,7 @@ There are several ways to do this:
 
                 <a href="/images/keplr_deselect_chains.png" target="_blank"><img src="/images/keplr_deselect_chains.png" style="width:500px; height:auto;"></a>
 
-                You have created your wallet in Keplr. Now, follow the instructions below to find your public key.
+                You have created your wallet in Keplr. Now, follow the instructions below to find your account address.
 
                 <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
 
@@ -254,7 +254,7 @@ There are several ways to do this:
         
             <a href="/images/leap_created_gonka_account.png" target="_blank"><img src="/images/leap_created_gonka_account.png" style="width:500px; height:auto;"></a>
         
-            Open the wallet extension. Below your zero (“-”) balance, you will see Gonka address (for example gonka...5e6r) — click that to copy your full public key. You can safely share this public key with anyone who wants to send you payments. 
+            Open the wallet extension. Below your zero (“-”) balance, you will see Gonka account address (for example, gonka...5e6r) — click that to copy your account address. You can safely share this with anyone who wants to send you payments. 
                     
             <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
         
@@ -301,7 +301,7 @@ There are several ways to do this:
 
             <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
-            Above your balance, you will see your Gonka address. Tap the copy icon to copy your full Gonka public account address.
+            Above your balance, you will see your Gonka account address. Tap the copy icon to copy your full Gonka account address.
 
             <a href="/images/keplr_mobile_copy_address_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_copy_address_gonka.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -413,7 +413,7 @@ There are several ways to do this:
 
             <a href="/images/leap_created_gonka_account.png" target="_blank"><img src="/images/leap_created_gonka_account.png" style="width:500px; height:auto;"></a>
         
-            Open the wallet extension. Below your zero (“-”) balance, you will see Gonka address (for example gonka...5e6r) — click that to copy your full public key. You can safely share this public key with anyone who wants to send you payments. 
+            Open the wallet extension. Below your zero (“-”) balance, you will see Gonka account address (for example, gonka...5e6r) — click that to copy your account address. You can safely share this with anyone who wants to send you payments. 
                     
             <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
         

@@ -23,7 +23,7 @@ There are several ways to do this:
             
             <a href="/images/keplr_mobile_website_mobileos.PNG" target="_blank"><img src="/images/keplr_mobile_website_mobileos.PNG" style="width:auto; height:337.5px;"></a>
             
-            Click “Create a new wallet”.
+            Open the app. Click “Create a new wallet”.
             
             <a href="/images/keplr_mobile_create_new_wallet.PNG" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -31,7 +31,7 @@ There are several ways to do this:
 
                 Click "Connect with Google". Follow the instructions to sign in via Gmail.
                 
-                <a href="/images/keplr_mobile_create_new_wallet.PNG" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.PNG" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
                 
                 Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is by using your private key. Store your private key in a safe and secure place. Never share your private key with anyone.
                 

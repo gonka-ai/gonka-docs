@@ -7,7 +7,7 @@ There are several ways to do this:
 - Via `inferenced` CLI tool
 
 !!! note "Important note" 
-    At the moment, there is no bridge to Ethereum. Any potential bridge deployment would be subject to on-chain governance. If the network were to vote for Ethereum bridge deployment, it is expected that only accounts created via Keplr “Connect with Google” or via the `inferenced` CLI tool would be compatible. Accounts created using a recovery phrase may not be compatible with such a bridge and might not be usable with it.
+    At the moment, there is no bridge to Ethereum. Any potential bridge deployment would be subject to on-chain governance. If the network were to vote in favor of deploying an Ethereum bridge, only wallets created from a direct private key (not restored from a standard mnemonic/seed phrase) — such as those generated via `inferenced` CLI tool or the “Connect with Google” flow — would be eligible. Accounts created using a recovery (mnemonic/seed) phrase may not be compatible with the bridge. In that case, you would need to export the private key and create a wallet that uses that private key for direct transactions.
 
 === "External wallet"
 

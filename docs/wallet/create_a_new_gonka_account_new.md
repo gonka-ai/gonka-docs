@@ -70,7 +70,7 @@ There are several ways to do this:
 
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe.
 
-        === "Keplr browser extention"
+        === "Keplr browser extension"
 
             Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
             
@@ -186,7 +186,7 @@ There are several ways to do this:
                     
                 <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
 
-        === "Leap mobile app"
+        === "Leap browser extension"
     
             Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
             
@@ -307,7 +307,7 @@ There are several ways to do this:
 
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe.
 
-        === "Keplr browser extention"
+        === "Keplr browser extension"
 
             Install an extension for your browser (if you have extension installed, go to the step “Add Gonka network to your wallet”).
             
@@ -358,7 +358,7 @@ There are several ways to do this:
                 You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
                 To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.
 
-        === "Leap browser extention"
+        === "Leap browser extension"
 
             Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
             

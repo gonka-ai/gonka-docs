@@ -9,11 +9,11 @@ There are several ways to do this:
 !!! note "Important note" 
     At the moment, there is no bridge to Ethereum. Any potential bridge deployment would be subject to on-chain governance. If the network were to vote for Ethereum bridge deployment, it is expected that only accounts created via Keplr “Connect with Google” or via the `inferenced` CLI tool would be compatible. Accounts created using a recovery phrase may not be compatible with such a bridge and might not be usable with it.
 
-=== "External wallet"
+=== "#External wallet"
 
-    === "I do not have an external wallet"
+    === "##I do not have an external wallet"
 
-        === "Keplr mobile app"
+        === "###Keplr mobile app"
 
             Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
             
@@ -73,7 +73,7 @@ There are several ways to do this:
 
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe.
 
-        === "Keplr browser extension"
+        === "##Keplr browser extension"
 
             Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
             
@@ -192,7 +192,7 @@ There are several ways to do this:
                     
                 <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
 
-        === "Leap browser extension"
+        === "###Leap browser extension"
     
             Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
             
@@ -291,9 +291,9 @@ There are several ways to do this:
                     
                 <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
 
-    === "I have an external wallet"
+    === "##I have an external wallet"
 
-        === "Keplr mobile app"
+        === "###Keplr mobile app"
 
             Open Keplr mobile app and log in to your wallet. Select the menu in the top left corner.
             
@@ -317,9 +317,9 @@ There are several ways to do this:
 
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe.
 
-        === "Keplr browser extension"
+        === "###Keplr browser extension"
 
-            Install an extension for your browser (if you have extension installed, go to the step “Add Gonka network to your wallet”).
+            Install an extension for your browser (if you have extension installed, go to the step [“Add Gonka network to your wallet”](https://gonka.ai/wallet/create_a_new_gonka_account_new/#add-gonka-network-to-your-wallet)).
             
             Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
             
@@ -344,9 +344,9 @@ There are several ways to do this:
                 <a href="/images/keplr_extension.PNG" target="_blank"><img src="/images/keplr_extension.PNG" style="width:500px; height:auto;"></a>
 
                 At this point, the extension is installed, but not yet connected to your wallet. 
-                Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to add Gonka network to your wallet and continue with the setup process.
+                Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to  and continue with the setup process.
 
-            ### Add Gonka network to your wallet
+            #### Add Gonka network to your wallet
 
             Here is the guide on how to add the Gonka network to your wallet and how your Gonka account will be created.
             Open Keplr browser extension. Navigate to the menu on the top left corner”.
@@ -372,7 +372,7 @@ There are several ways to do this:
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
             To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.
 
-        === "Leap browser extension"
+        === "###Leap browser extension"
 
             Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
             
@@ -458,7 +458,7 @@ There are several ways to do this:
                     
                 <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
 
-=== "Via `inferenced` CLI tool"
+=== "#Via `inferenced` CLI tool"
     
     This guide explains how to create a Gonka Network account using the inferenced CLI tool. Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
 
@@ -547,12 +547,12 @@ There are several ways to do this:
     - Save it to `~/.inference`
     - Return your account address, public key, and mnemonic phrase (store it securely in a hard copy as well!)
     
-    ```bash
+    ```
      - address: <your-account-address>
        name: ACCOUNT_NAME
        pubkey: '{"@type":"...","key":"..."}'
        type: local
-      ```
+    ```
             
     You will use this account address to receive payments. This is your public address, and it is safe to share.
             

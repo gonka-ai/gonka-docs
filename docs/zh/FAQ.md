@@ -182,9 +182,15 @@ docker unpause api
 ```
 
 **2. 发送 PoC 模拟请求**
-模拟测试的核心是向您的 MLNode 发送一个 POST `/v1/pow/init/generate` 请求。您可以使用以下 `curl` 命令示例。
+模拟测试的核心是向您的 MLNode 发送一个 POST `/v1/pow/init/generate` 请求，这与 api 节点在 PoC 阶段开始时发送的请求相同：
+[https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32)
+PoC 使用以下模型参数：
+[https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41)
+
+您可以使用以下 curl 命令示例。
 
 请求示例：
+
 ```
 curl -X POST "http://<您的MLNode主机地址>:8080/api/v1/pow/init/generate" \
   -H "Content-Type: application/json" \
@@ -216,6 +222,7 @@ curl -X POST "http://<您的MLNode主机地址>:8080/api/v1/pow/init/generate" \
 
 请求发送目标：
 请将上述请求发送至您的 MLNode 代理容器的 8080 端口，或直接发送至 MLNode 容器的 8080 端口。
+[https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26 ](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26 )
 
 **3. 如何判断模拟成功？**
 ```

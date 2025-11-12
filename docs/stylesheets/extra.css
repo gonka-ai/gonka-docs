@@ -439,3 +439,182 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
 .login-button:hover{background:#8D8D8D;}
 .signup-button{background:#666;}
 .signup-button:hover{background:#8D8D8D;}
+
+/* == 8. Quickstart Configuration Questionnaire ========================= */
+.quickstart-questionnaire {
+  margin: 1.5rem 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.quickstart-question {
+  margin: 1rem 0;
+}
+
+.quickstart-question h4 {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--md-default-fg-color);
+}
+
+.quickstart-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.quickstart-option-btn {
+  padding: 0.5rem 0.75rem;
+  background: var(--md-default-bg-color);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-align: left;
+  transition: all 0.2s ease;
+  color: var(--md-default-fg-color);
+  line-height: 1.5;
+}
+
+.quickstart-option-btn:hover,
+.quickstart-option-btn:focus {
+  border-color: var(--md-accent-fg-color);
+  background: rgba(58, 138, 197, 0.05);
+}
+
+.quickstart-option-btn:active {
+  border-color: var(--md-accent-fg-color);
+  background: rgba(58, 138, 197, 0.1);
+}
+
+[data-md-color-scheme="slate"] .quickstart-option-btn {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-md-color-scheme="slate"] .quickstart-option-btn:hover,
+[data-md-color-scheme="slate"] .quickstart-option-btn:focus {
+  border-color: var(--md-accent-fg-color);
+  background: rgba(58, 138, 197, 0.15);
+}
+
+[data-md-color-scheme="slate"] .quickstart-option-btn:active {
+  border-color: var(--md-accent-fg-color);
+  background: rgba(58, 138, 197, 0.25);
+}
+
+.quickstart-back-btn,
+.quickstart-reset-btn,
+.quickstart-copy-btn {
+  padding: 0.4rem 0.75rem;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  background: var(--md-default-bg-color);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: all 0.2s ease;
+  color: var(--md-default-fg-color);
+  line-height: 1.5;
+}
+
+.quickstart-back-btn:hover,
+.quickstart-reset-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.quickstart-copy-btn {
+  background: var(--md-accent-fg-color);
+  color: #fff;
+  border: none;
+}
+
+.quickstart-copy-btn:hover {
+  background: var(--md-accent-fg-color);
+  opacity: 0.9;
+}
+
+[data-md-color-scheme="slate"] .quickstart-back-btn,
+[data-md-color-scheme="slate"] .quickstart-reset-btn {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-md-color-scheme="slate"] .quickstart-back-btn:hover,
+[data-md-color-scheme="slate"] .quickstart-reset-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#quickstart-config-result {
+  display: none;
+  margin-top: 1.5rem;
+}
+
+#quickstart-config-result .admonition {
+  margin: 0;
+}
+
+#quickstart-config-result p {
+  margin-bottom: 0.75rem;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+#quickstart-config-display {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+#quickstart-config-display pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  overflow-x: auto;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+#quickstart-config-display code {
+  background: transparent;
+  padding: 0;
+  font-family: var(--md-code-font);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.quickstart-note {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(58, 138, 197, 0.1);
+  border-left: 3px solid var(--md-accent-fg-color);
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+[data-md-color-scheme="slate"] .quickstart-note {
+  background: rgba(58, 138, 197, 0.2);
+}
+
+@media (max-width: 500px) {
+  .quickstart-options {
+    gap: 0.4rem;
+  }
+  
+  .quickstart-option-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* Conditional sections - hidden by default, shown when class is added */
+.quickstart-conditional {
+  display: none;
+}
+
+.quickstart-conditional.quickstart-visible {
+  display: block;
+}

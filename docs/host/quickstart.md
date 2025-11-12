@@ -160,44 +160,220 @@ After cloning the repository, you’ll find the following key configuration file
 | `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML node                                   |
 | `node-config.json`            | The configuration file used by the Network Node, describes the inference nodes managed by this Network Node |
 
-### [Server] Edit Environment Variables
+### [Server] Setup Environment Variables
 
-!!! note "config.env"
-    ```
-    export KEY_NAME=<FILLIN>								    # Edit as described below
-    export KEYRING_PASSWORD=<FILLIN>                            # Edit as described below
-    export API_PORT=8000									    # Edit as described below
-    export PUBLIC_URL=http://<HOST>:<PORT>					    # Edit as described below
-    export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>		        # Edit as described below
-    export ACCOUNT_PUBKEY=<ACCOUNT_PUBKEY_FROM_STEP_ABOVE>      # Use the pubkey from your Account Key (without quotes)
-    export NODE_CONFIG=./node-config.json					    # Keep as is
-    export HF_HOME=/mnt/shared								    # Directory you used for cache
-    export SEED_API_URL=http://node2.gonka.ai:8000			    # Keep as is 
-    export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657	    # Keep as is
-    export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000		    # Keep as is
-    export DAPI_API__POC_CALLBACK_URL=http://api:9100		    # Keep as is
-    export DAPI_CHAIN_NODE__URL=http://node:26657			    # Keep as is
-    export DAPI_CHAIN_NODE__P2P_URL=http://node:26656		    # Keep as is
-    export RPC_SERVER_URL_1=http://node1.gonka.ai:26657		    # Keep as is
-    export RPC_SERVER_URL_2=http://node2.gonka.ai:26657		    # Keep as is
-    export PORT=8080                                            # Keep as is
-    export INFERENCE_PORT=5050                                  # Keep as is
-    export KEYRING_BACKEND=file                                 # Keep as is
-    ```
+<!-- CONDITION START: data-show-when='["non-finished"]' -->
+!!! note "Configuration Required"
+    Please complete the questionnaire to generate your `config.env` configuration. The environment variables depend on your choices (HTTP/HTTPS, SSL certificate method, etc.).
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["domainNo"]' -->
+!!! warning "HTTPS Not Available Without Domain Name"
+    SSL/TLS certificates can only be issued for domain names (e.g., `example.com`), not for direct IP addresses. Since you indicated you don't have a domain name configured, your node will be set up with **HTTP only** (port 8000). 
+    
+    If you need HTTPS security, you'll need to:
+    
+    1. Obtain a domain name and configure DNS to point to your server's IP address
+    2. Press the **"Reset"** button above and select **"Yes"** when asked about having a domain name
+    
+    For production deployments, HTTPS is strongly recommended to encrypt API communications and protect sensitive data.
+<!-- CONDITION END -->
+
+<div id="quickstart-questionnaire" class="quickstart-questionnaire">
+  <div id="quickstart-questions"></div>
+  
+  <div id="quickstart-config-result" style="display: none;">
+    <div class="admonition note">
+      <p class="admonition-title">config.env</p>
+      <div id="quickstart-config-display">
+        <pre><code></code></pre>
+      </div>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.7rem; color: var(--md-default-fg-color--light);">Copy the configuration above and proceed to edit the values as described below.</p>
+    <button class="quickstart-copy-btn">Copy to Clipboard</button>
+    <button class="quickstart-reset-btn">Reset</button>
+  </div>
+</div>
+
+<!-- CONDITION START: data-show-when='["finished"]' -->
+### [Server] Edit Environment Variables
 
 Which variables to edit:
 
-| Variable               | What to do                                                                                                                                                               |
-|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `KEY_NAME`            | Manually define a unique identifier for your node.                                                                                                                      |
-| `KEYRING_PASSWORD`    | Set a password for encrypting the ML Operational Key stored in the `file` keyring backend on the server.                                                        |
-| `API_PORT`           | Set the port where your node will be available on the machine (default is 8000).                                                                                                   |
-| `PUBLIC_URL`        | Specify the `Public URL` where your node will be available externally (e.g.: `http://<your-static-ip>:<port>`, mapped to 0.0.0.0:8000).                                                  |
-| `P2P_EXTERNAL_ADDRESS` | Specify the `Public URL` where your node will be available externally for P2P connections (e.g.: `http://<your-static-ip>:<port1>`, mapped to 0.0.0.0:5000).                           |
-| `HF_HOME`           | Set the path where Hugging Face models will be cached. Set this to a writable local directory (e.g., `~/hf-cache`). |
-| `ACCOUNT_PUBKEY`           | Use the public key from your Account Key created above (the value after `"key":` without quotes) |
+<div id="quickstart-edit-table"></div>
 
 All other variables can be left as is.
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto"]' -->
+**How to get variables from domain providers:**
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "cloudflare"]' -->
+??? details "Cloudflare"
+    1) Open the Cloudflare Dashboard.
+    
+    2) Go to Profile → API Tokens.
+    
+    3) Click Create Token.
+    
+    4) Use Edit zone DNS template or set permissions: Zone:Read and DNS:Edit.
+    
+    5) Limit the token to your DNS zone and create it.
+    
+    6) Copy the token and set `CF_DNS_API_TOKEN`.
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "route53"]' -->
+??? details "AWS Route53"
+    **Option A — AWS CLI**
+    ```bash
+    HOSTED_ZONE_ID="Z123EXAMPLE"
+    cat > route53-acme.json <<'JSON'
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+        "Effect": "Allow",
+        "Action": ["route53:ChangeResourceRecordSets"],
+        "Resource": "arn:aws:route53:::hostedzone/${HOSTED_ZONE_ID}"
+        },
+        {
+        "Effect": "Allow",
+        "Action": [
+            "route53:ListHostedZones",
+            "route53:ListHostedZonesByName",
+            "route53:ListResourceRecordSets",
+            "route53:GetChange"
+        ],
+        "Resource": "*"
+        }
+    ]
+    }
+    JSON
+
+    aws iam create-policy \
+    --policy-name acme-dns-route53-${HOSTED_ZONE_ID} \
+    --policy-document file://route53-acme.json | jq -r .Policy.Arn
+
+    USER_NAME="acme-dns"
+    POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName=='acme-dns-route53-${HOSTED_ZONE_ID}'].Arn" -o tsv)
+    aws iam create-user --user-name "$USER_NAME" >/dev/null || true
+    aws iam attach-user-policy --user-name "$USER_NAME" --policy-arn "$POLICY_ARN"
+    CREDS=$(aws iam create-access-key --user-name "$USER_NAME")
+    AWS_ACCESS_KEY_ID=$(echo "$CREDS" | jq -r .AccessKey.AccessKeyId)
+    AWS_SECRET_ACCESS_KEY=$(echo "$CREDS" | jq -r .AccessKey.SecretAccessKey)
+
+    echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+    echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+    echo "AWS_REGION=<your-aws-region>"
+    ```
+
+    **Option B — Console**
+    
+    1) Create an IAM policy limited to your hosted zone (ChangeResourceRecordSets and list permissions).
+    
+    2) Create an IAM user with programmatic access.
+    
+    3) Attach the policy to the user.
+    
+    4) Create an access key pair and set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_REGION`.
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "gcloud"]' -->
+??? details "Google Cloud DNS"
+    **Option A — gcloud CLI:**
+    ```bash
+    PROJECT_ID="<your-gcp-project>"
+    SA_NAME="acme-dns"
+    SA_EMAIL="$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com"
+
+    gcloud config set project "$PROJECT_ID"
+    # 1) Service account
+    gcloud iam service-accounts create "$SA_NAME" \
+    --display-name "ACME DNS for proxy-ssl"
+    # 2) Role
+    gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+    --member "serviceAccount:$SA_EMAIL" \
+    --role "roles/dns.admin"
+    # 3) Key → base64 (single line)
+    gcloud iam service-accounts keys create key.json --iam-account "$SA_EMAIL"
+    GCE_SERVICE_ACCOUNT_JSON_B64=$(base64 < key.json | tr -d '\n')
+
+    echo "GCE_PROJECT=$PROJECT_ID"
+    echo "GCE_SERVICE_ACCOUNT_JSON_B64=$GCE_SERVICE_ACCOUNT_JSON_B64"
+    ```
+    **Option B — Console**
+    
+    1) IAM & Admin → Service Accounts → Create service account (e.g., acme-dns).
+    
+    2) Grant the service account role: DNS Administrator (`roles/dns.admin`).
+    
+    3) Service account → Keys → Add key → Create new key (JSON) → Download.
+    
+    4) Base64-encode the JSON key to a single line and set `GCE_SERVICE_ACCOUNT_JSON_B64`. Set `GCE_PROJECT` to your project ID.
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "azure"]' -->
+??? details "Azure DNS"
+    **Option A — Azure CLI** (quick)
+    ```bash
+    # 1) Login and choose subscription
+    az login
+    az account set --subscription "<your-subscription-name-or-id>"
+
+    # 2) Set where your DNS zone lives
+    RG="<<your-dns-resource-group>>"
+    ZONE="<<your-zone>>"         # e.g., gonka.ai
+    SP_NAME="gonka-acme-$(date +%s)"
+
+    SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+    SCOPE="/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG/providers/Microsoft.Network/dnszones/$ZONE"
+
+    CREDS=$(az ad sp create-for-rbac \
+    --name "$SP_NAME" \
+    --role "DNS Zone Contributor" \
+    --scopes "$SCOPE" \
+    --only-show-errors)
+
+    # 4) Extract values
+    AZURE_CLIENT_ID=$(echo "$CREDS" | jq -r .appId)
+    AZURE_CLIENT_SECRET=$(echo "$CREDS" | jq -r .password)
+    AZURE_TENANT_ID=$(echo "$CREDS" | jq -r .tenant)
+
+    # 5) Print for your env file
+    echo "AZURE_CLIENT_ID=$AZURE_CLIENT_ID"
+    echo "AZURE_CLIENT_SECRET=$AZURE_CLIENT_SECRET"
+    echo "AZURE_SUBSCRIPTION_ID=$SUBSCRIPTION_ID"
+    echo "AZURE_TENANT_ID=$AZURE_TENANT_ID"
+    ```
+    **Option B — Portal**
+    
+    1) Go to Microsoft Entra ID → App registrations → New registration. Copy Application (client) ID and Directory (tenant) ID.
+    
+    2) Go to Certificates & secrets → New client secret. Copy the secret value and set `AZURE_CLIENT_SECRET`.
+    
+    3) Copy your Subscription ID and set `AZURE_SUBSCRIPTION_ID`.
+    
+    4) In your DNS zone, open Access control (IAM) → Add role assignment → DNS Zone Contributor → assign to the registered app.
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "digitalocean"]' -->
+??? details "DigitalOcean DNS"
+    1) Open DigitalOcean Control Panel.
+    
+    2) Go to API → Tokens.
+    
+    3) Generate a write‑scoped token and set `DO_AUTH_TOKEN`.
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "hetzner"]' -->
+??? details "Hetzner DNS"
+    1) Open https://dns.hetzner.com.
+    
+    2) Go to API Tokens.
+    
+    3) Create a new token and set `HETZNER_API_KEY`.
+<!-- CONDITION END -->
+<!-- CONDITION END -->
 
 **Load the configuration:**
 ```bash
@@ -206,6 +382,9 @@ source config.env
 
 !!! note "Using Environment Variables"
     The examples in the following sections will reference these environment variables (e.g., `$PUBLIC_URL`, `$ACCOUNT_PUBKEY`, `$SEED_API_URL`) in both local machine commands and server commands. Make sure to run `source config.env` in each terminal session where you'll be executing these commands.
+<!-- CONDITION END -->
+
+
 
 ### [Server] Edit Inference Node Description for the Server
 
@@ -437,15 +616,101 @@ Transaction confirmed successfully!
 Block height: 174
 ```
 
-#### 3.4. [Server] Launch Full Node
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
+#### 3.4. [Server] Manual SSL Certificate Setup
+
+If you selected manual SSL certificate setup in the questionnaire above, follow these steps to configure your SSL certificates:
+
+##### Prepare directories
+
+```bash
+mkdir -p secrets/nginx-ssl secrets/certbot
+```
+
+##### Generate certificates (Dockerized Certbot; DNS‑01)
+
+```bash
+DOMAIN=<FULL_DOMAIN_NAME>
+ACCOUNT_EMAIL=<EMAIL_ADDRESS>    # renewal notices
+mkdir -p secrets/nginx-ssl secrets/certbot
+
+docker run --rm -it \
+  -v "$(pwd)/secrets/certbot:/etc/letsencrypt" \
+  -v "$(pwd)/secrets/nginx-ssl:/mnt/nginx-ssl" \
+  certbot/certbot certonly --manual --preferred-challenges dns \
+  -d "$DOMAIN" --email "$ACCOUNT_EMAIL" --agree-tos --no-eff-email \
+  --deploy-hook 'install -m 0644 "$RENEWED_LINEAGE/fullchain.pem" /mnt/nginx-ssl/cert.pem; \
+                 install -m 0600 "$RENEWED_LINEAGE/privkey.pem"   /mnt/nginx-ssl/private.key'
+```
+
+!!! note "DNS Challenge"
+    Certbot will pause and show the **TXT DNS** record to add at your provider. After validation, `cert.pem` and `private.key` will appear in `./secrets/nginx-ssl/`.
+
+##### Verify certificate files
+
+Ensure the certificate files are in place:
+
+```bash
+ls -la secrets/nginx-ssl/
+```
+
+You should see:
+- `cert.pem` (fullchain certificate)
+- `private.key` (private key with mode 0600)
+
+The `config.env` file generated by the questionnaire already includes the necessary SSL configuration variables:
+- `SERVER_NAME=<FULL_DOMAIN_NAME>`
+- `SSL_CERT_SOURCE=./secrets/nginx-ssl`
+
+Make sure to edit `SERVER_NAME` with your actual domain name before proceeding.
+
+<!-- CONDITION END -->
+
+## 4. [Server] Launch Full Node
 
 Finally, launch all containers, including the API:
+
+<!-- CONDITION START: data-show-when='["protocolHttp"]' -->
+Launch all containers:
+
 ```bash
 source config.env && \
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ```
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto"]' -->
+Launch all containers with automatic SSL certificate management:
+
+```bash
+source config.env && \
+docker compose --profile "ssl" \
+  -f docker-compose.yml -f docker-compose.mlnode.yml \
+  up -d
+```
+
+The `--profile "ssl"` flag enables the `proxy-ssl` container which automatically manages SSL certificates.
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
+Launch all containers with manual SSL certificates:
+
+```bash
+source config.env && \
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
+```
+<!-- CONDITION END -->
 
 ## Verify Node Status
+
+<!-- CONDITION START: data-show-when='["protocolHttps"]' -->
+Verify HTTPS is working:
+
+```bash
+curl -I https://<FULL_DOMAIN_NAME>:8443/health   # Expect: HTTP/2 200 OK
+```
+<!-- CONDITION END -->
+
 Open this URL, replacing `<your-gonka-cold-address>` with your address:
 ```
 http://node2.gonka.ai:8000/v1/participants/<your-gonka-cold-address>

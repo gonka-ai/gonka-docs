@@ -92,7 +92,8 @@ extra_css:
   - stylesheets/nft-landing.css
 
 extra_javascript:
-  - js/links.js
+  - assets/javascripts/links.js
+  - assets/javascripts/quickstart-configurator.js
 
 plugins:
   - minify:

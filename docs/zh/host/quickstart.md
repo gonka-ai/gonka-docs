@@ -101,10 +101,10 @@ chmod +x inferenced
 ??? note "关于账户密钥（冷密钥）"
     账户密钥是您的主要高权限密钥。它在本地创建，永远不会存储在服务器上。
     
-    - 控制：主密钥，拥有对所有其他密钥的授权权限
-    - 安全：必须离线保存于安全、隔离的设备上
-    - 用途：仅用于授权操作和验证者注册
-    - 恢复：由助记词保护——一旦丢失，所有访问权限将永久失效
+    - 主密钥，拥有对所有其他密钥的授权权限
+    - 必须离线保存于安全、隔离的设备上
+    - 仅用于授权操作和验证者注册
+    - 由助记词保护——一旦丢失，所有访问权限将永久失效
 
 使用 `file` keyring 后端（也可在支持平台使用 `os` 后端以提升安全性）创建账户密钥：
 
@@ -161,49 +161,220 @@ cp config.env.template config.env
 | `docker-compose.mlnode.yml` | 启动 ML 节点的 Docker Compose 文件 |
 | `node-config.json` | 网络节点使用的配置，描述该节点所管理的推理节点 |
 
-更多最优部署配置细节请参考[此处](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
+### 【服务器】设置环境变量
 
-!!! note
-    当前网络支持以下模型：`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`。是否新增或修改支持模型由治理决定；治理流程与提案方式详见「[交易与治理指南](https://gonka.ai/transactions-and-governance/)」。
+<!-- CONDITION START: data-show-when='["non-finished"]' -->
+!!! note "需要配置"
+    请完成下面的问卷以生成您的 `config.env` 配置。环境变量取决于您的选择（HTTP/HTTPS、SSL 证书方法等）。
+<!-- CONDITION END -->
 
-### 【服务器】编辑网络节点配置
+<!-- CONDITION START: data-show-when='["domainNo"]' -->
+!!! warning "无域名时无法使用 HTTPS"
+    SSL/TLS 证书只能为域名（如 `example.com`）颁发，不能为直接 IP 地址颁发。由于您表示没有配置域名，您的节点将仅使用 **HTTP**（端口 8000）进行设置。
+    
+    如果您需要 HTTPS 安全保护，您需要：
+    
+    1. 获取域名并将 DNS 配置为指向您服务器的 IP 地址
+    2. 按上方的 **"重置"** 按钮，并在询问是否拥有域名时选择 **"是"**
+    
+    对于生产环境部署，强烈建议使用 HTTPS 以加密 API 通信并保护敏感数据。
+<!-- CONDITION END -->
 
-!!! note "config.env"
-    ```
-    export KEY_NAME=<FILLIN>                                   # 按下文说明修改
-    export KEYRING_PASSWORD=<FILLIN>                           # 按下文说明修改
-    export API_PORT=8000                                       # 按下文说明修改
-    export PUBLIC_URL=http://<HOST>:<PORT>                     # 按下文说明修改
-    export P2P_EXTERNAL_ADDRESS=tcp://<HOST>:<PORT>            # 按下文说明修改
-    export ACCOUNT_PUBKEY=<ACCOUNT_PUBKEY_FROM_STEP_ABOVE>     # 使用上文创建的账户公钥（不带引号）
-    export NODE_CONFIG=./node-config.json                      # 保持不变
-    export HF_HOME=/mnt/shared                                 # 你的模型缓存目录
-    export SEED_API_URL=http://node2.gonka.ai:8000             # 保持不变
-    export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657       # 保持不变
-    export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000         # 保持不变
-    export DAPI_API__POC_CALLBACK_URL=http://api:9100          # 保持不变
-    export DAPI_CHAIN_NODE__URL=http://node:26657              # 保持不变
-    export DAPI_CHAIN_NODE__P2P_URL=http://node:26656          # 保持不变
-    export RPC_SERVER_URL_1=http://node1.gonka.ai:26657        # 保持不变
-    export RPC_SERVER_URL_2=http://node2.gonka.ai:26657        # 保持不变
-    export PORT=8080                                           # 保持不变
-    export INFERENCE_PORT=5050                                 # 保持不变
-    export KEYRING_BACKEND=file                                # 保持不变
-    ```
+<div id="quickstart-questionnaire" class="quickstart-questionnaire">
+  <div id="quickstart-questions"></div>
+  
+  <div id="quickstart-config-result" style="display: none;">
+    <div class="admonition note">
+      <p class="admonition-title">config.env</p>
+      <div id="quickstart-config-display">
+        <pre><code></code></pre>
+      </div>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.7rem; color: var(--md-default-fg-color--light);">复制上面的配置，然后继续编辑下面描述的值。</p>
+    <button class="quickstart-copy-btn">复制到剪贴板</button>
+    <button class="quickstart-reset-btn">重置</button>
+  </div>
+</div>
+
+<!-- CONDITION START: data-show-when='["finished"]' -->
+### 【服务器】编辑环境变量
 
 需要修改的变量：
 
-| 变量 | 操作说明 |
-|------|----------|
-| `KEY_NAME` | 手动指定节点的唯一标识符 |
-| `KEYRING_PASSWORD` | 设置用于加密服务器上 `file` keyring 中 ML 运营密钥的口令 |
-| `API_PORT` | 设置该节点在机器上的服务端口（默认 8000） |
-| `PUBLIC_URL` | 指定节点对外可访问的 `Public URL`（如 `http://<your-static-ip>:<port>`，映射到 0.0.0.0:8000） |
-| `P2P_EXTERNAL_ADDRESS` | 指定对外 P2P 连接的地址（如 `http://<your-static-ip>:<port1>`，映射到 0.0.0.0:5000） |
-| `HF_HOME` | 设置 Hugging Face 模型缓存目录（如 `~/hf-cache`） |
-| `ACCOUNT_PUBKEY` | 使用上文创建的账户密钥的公钥（`"key":` 后的值，不含引号） |
+<div id="quickstart-edit-table"></div>
 
 其他变量保持默认即可。
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto"]' -->
+**如何从域名提供商获取变量：**
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "cloudflare"]' -->
+??? details "Cloudflare"
+    1) 打开 Cloudflare 控制面板。
+    
+    2) 转到 个人资料 → API 令牌。
+    
+    3) 点击创建令牌。
+    
+    4) 使用编辑区域 DNS 模板或设置权限：区域:读取 和 DNS:编辑。
+    
+    5) 将令牌限制为您的 DNS 区域并创建它。
+    
+    6) 复制令牌并设置 `CF_DNS_API_TOKEN`。
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "route53"]' -->
+??? details "AWS Route53"
+    **选项 A — AWS CLI**
+    ```bash
+    HOSTED_ZONE_ID="Z123EXAMPLE"
+    cat > route53-acme.json <<'JSON'
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+        "Effect": "Allow",
+        "Action": ["route53:ChangeResourceRecordSets"],
+        "Resource": "arn:aws:route53:::hostedzone/${HOSTED_ZONE_ID}"
+        },
+        {
+        "Effect": "Allow",
+        "Action": [
+            "route53:ListHostedZones",
+            "route53:ListHostedZonesByName",
+            "route53:ListResourceRecordSets",
+            "route53:GetChange"
+        ],
+        "Resource": "*"
+        }
+    ]
+    }
+    JSON
+
+    aws iam create-policy \
+    --policy-name acme-dns-route53-${HOSTED_ZONE_ID} \
+    --policy-document file://route53-acme.json | jq -r .Policy.Arn
+
+    USER_NAME="acme-dns"
+    POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName=='acme-dns-route53-${HOSTED_ZONE_ID}'].Arn" -o tsv)
+    aws iam create-user --user-name "$USER_NAME" >/dev/null || true
+    aws iam attach-user-policy --user-name "$USER_NAME" --policy-arn "$POLICY_ARN"
+    CREDS=$(aws iam create-access-key --user-name "$USER_NAME")
+    AWS_ACCESS_KEY_ID=$(echo "$CREDS" | jq -r .AccessKey.AccessKeyId)
+    AWS_SECRET_ACCESS_KEY=$(echo "$CREDS" | jq -r .AccessKey.SecretAccessKey)
+
+    echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+    echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+    echo "AWS_REGION=<your-aws-region>"
+    ```
+
+    **选项 B — 控制台**
+    
+    1) 创建一个限制为您的托管区域的 IAM 策略（ChangeResourceRecordSets 和列表权限）。
+    
+    2) 创建一个具有编程访问权限的 IAM 用户。
+    
+    3) 将策略附加到用户。
+    
+    4) 创建访问密钥对并设置 `AWS_ACCESS_KEY_ID`、`AWS_SECRET_ACCESS_KEY` 和 `AWS_REGION`。
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "gcloud"]' -->
+??? details "Google Cloud DNS"
+    **选项 A — gcloud CLI：**
+    ```bash
+    PROJECT_ID="<your-gcp-project>"
+    SA_NAME="acme-dns"
+    SA_EMAIL="$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com"
+
+    gcloud config set project "$PROJECT_ID"
+    # 1) 服务账户
+    gcloud iam service-accounts create "$SA_NAME" \
+    --display-name "ACME DNS for proxy-ssl"
+    # 2) 角色
+    gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+    --member "serviceAccount:$SA_EMAIL" \
+    --role "roles/dns.admin"
+    # 3) 密钥 → base64（单行）
+    gcloud iam service-accounts keys create key.json --iam-account "$SA_EMAIL"
+    GCE_SERVICE_ACCOUNT_JSON_B64=$(base64 < key.json | tr -d '\n')
+
+    echo "GCE_PROJECT=$PROJECT_ID"
+    echo "GCE_SERVICE_ACCOUNT_JSON_B64=$GCE_SERVICE_ACCOUNT_JSON_B64"
+    ```
+    **选项 B — 控制台**
+    
+    1) IAM 和管理 → 服务账户 → 创建服务账户（例如，acme-dns）。
+    
+    2) 授予服务账户角色：DNS 管理员（`roles/dns.admin`）。
+    
+    3) 服务账户 → 密钥 → 添加密钥 → 创建新密钥（JSON）→ 下载。
+    
+    4) 将 JSON 密钥进行 base64 编码为单行并设置 `GCE_SERVICE_ACCOUNT_JSON_B64`。将 `GCE_PROJECT` 设置为您的项目 ID。
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "azure"]' -->
+??? details "Azure DNS"
+    **选项 A — Azure CLI**（快速）
+    ```bash
+    # 1) 登录并选择订阅
+    az login
+    az account set --subscription "<your-subscription-name-or-id>"
+
+    # 2) 设置您的 DNS 区域所在位置
+    RG="<<your-dns-resource-group>>"
+    ZONE="<<your-zone>>"         # 例如，gonka.ai
+    SP_NAME="gonka-acme-$(date +%s)"
+
+    SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+    SCOPE="/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG/providers/Microsoft.Network/dnszones/$ZONE"
+
+    CREDS=$(az ad sp create-for-rbac \
+    --name "$SP_NAME" \
+    --role "DNS Zone Contributor" \
+    --scopes "$SCOPE" \
+    --only-show-errors)
+
+    # 4) 提取值
+    AZURE_CLIENT_ID=$(echo "$CREDS" | jq -r .appId)
+    AZURE_CLIENT_SECRET=$(echo "$CREDS" | jq -r .password)
+    AZURE_TENANT_ID=$(echo "$CREDS" | jq -r .tenant)
+
+    # 5) 打印到您的环境文件
+    echo "AZURE_CLIENT_ID=$AZURE_CLIENT_ID"
+    echo "AZURE_CLIENT_SECRET=$AZURE_CLIENT_SECRET"
+    echo "AZURE_SUBSCRIPTION_ID=$SUBSCRIPTION_ID"
+    echo "AZURE_TENANT_ID=$AZURE_TENANT_ID"
+    ```
+    **选项 B — 门户**
+    
+    1) 转到 Microsoft Entra ID → 应用注册 → 新注册。复制应用程序（客户端）ID 和目录（租户）ID。
+    
+    2) 转到证书和机密 → 新建客户端机密。复制机密值并设置 `AZURE_CLIENT_SECRET`。
+    
+    3) 复制您的订阅 ID 并设置 `AZURE_SUBSCRIPTION_ID`。
+    
+    4) 在您的 DNS 区域中，打开访问控制（IAM）→ 添加角色分配 → DNS 区域参与者 → 分配给注册的应用。
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "digitalocean"]' -->
+??? details "DigitalOcean DNS"
+    1) 打开 DigitalOcean 控制面板。
+    
+    2) 转到 API → 令牌。
+    
+    3) 生成一个写入范围的令牌并设置 `DO_AUTH_TOKEN`。
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "hetzner"]' -->
+??? details "Hetzner DNS"
+    1) 打开 https://dns.hetzner.com。
+    
+    2) 转到 API 令牌。
+    
+    3) 创建新令牌并设置 `HETZNER_API_KEY`。
+<!-- CONDITION END -->
+<!-- CONDITION END -->
 
 **加载配置：**
 ```bash
@@ -212,6 +383,7 @@ source config.env
 
 !!! note "环境变量的使用"
     下面示例会在本地与服务器命令中引用这些环境变量（如 `$PUBLIC_URL`、`$ACCOUNT_PUBKEY`、`$SEED_API_URL`）。请在每个将要执行命令的终端会话中运行一次 `source config.env`。
+<!-- CONDITION END -->
 
 ### 【服务器】预下载模型权重到 Hugging Face 缓存（HF_HOME）
 推理节点会从 Hugging Face 下载模型权重。为确保推理时模型已就绪，建议在部署前预下载：
@@ -365,15 +537,100 @@ Transaction confirmed successfully!
 Block height: 174
 ```
 
-#### 3.4.【服务器】启动完整节点
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
+#### 3.4. 【服务器】手动 SSL 证书设置
+
+如果您在问卷中选择了手动 SSL 证书设置，请按照以下步骤配置您的 SSL 证书：
+
+##### 准备目录
+
+```bash
+mkdir -p secrets/nginx-ssl secrets/certbot
+```
+
+##### 生成证书（Docker 化 Certbot；DNS‑01）
+
+```bash
+DOMAIN=<完整域名>
+ACCOUNT_EMAIL=<邮箱地址>    # 续期通知
+mkdir -p secrets/nginx-ssl secrets/certbot
+
+docker run --rm -it \
+  -v "$(pwd)/secrets/certbot:/etc/letsencrypt" \
+  -v "$(pwd)/secrets/nginx-ssl:/mnt/nginx-ssl" \
+  certbot/certbot certonly --manual --preferred-challenges dns \
+  -d "$DOMAIN" --email "$ACCOUNT_EMAIL" --agree-tos --no-eff-email \
+  --deploy-hook 'install -m 0644 "$RENEWED_LINEAGE/fullchain.pem" /mnt/nginx-ssl/cert.pem; \
+                 install -m 0600 "$RENEWED_LINEAGE/privkey.pem"   /mnt/nginx-ssl/private.key'
+```
+
+!!! note "DNS 验证"
+    Certbot 将暂停并显示需要在您的提供商处添加的 **TXT DNS** 记录。验证后，`cert.pem` 和 `private.key` 将出现在 `./secrets/nginx-ssl/` 目录中。
+
+##### 验证证书文件
+
+确保证书文件已就位：
+
+```bash
+ls -la secrets/nginx-ssl/
+```
+
+您应该看到：
+- `cert.pem`（完整链证书）
+- `private.key`（私钥，模式 0600）
+
+问卷生成的 `config.env` 文件已包含必要的 SSL 配置变量：
+- `SERVER_NAME=<完整域名>`
+- `SSL_CERT_SOURCE=./secrets/nginx-ssl`
+
+在继续之前，请确保将 `SERVER_NAME` 编辑为您的实际域名。
+
+<!-- CONDITION END -->
+
+## 4. 【服务器】启动完整节点
 
 最后，启动包括 API 在内的全部容器：
+
+<!-- CONDITION START: data-show-when='["protocolHttp"]' -->
+启动所有容器：
+
 ```bash
 source config.env && \
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ```
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto"]' -->
+使用自动 SSL 证书管理启动所有容器：
+
+```bash
+source config.env && \
+docker compose --profile "ssl" \
+  -f docker-compose.yml -f docker-compose.mlnode.yml \
+  up -d
+```
+
+`--profile "ssl"` 标志启用 `proxy-ssl` 容器，该容器会自动管理 SSL 证书。
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
+使用手动 SSL 证书启动所有容器：
+
+```bash
+source config.env && \
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
+```
+<!-- CONDITION END -->
 
 ## 验证节点状态
+
+<!-- CONDITION START: data-show-when='["protocolHttps"]' -->
+验证 HTTPS 是否正常工作：
+
+```bash
+curl -I https://<完整域名>:8443/health   # 预期：HTTP/2 200 OK
+```
+<!-- CONDITION END -->
 打开以下链接，并将 `<your-gonka-cold-address>` 替换为你的地址：
 ```
 http://node2.gonka.ai:8000/v1/participants/<your-gonka-cold-address>

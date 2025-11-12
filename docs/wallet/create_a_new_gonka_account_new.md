@@ -149,7 +149,7 @@ There are several ways to do this:
 
             Click the Copy button next to the Gonka chain.
 
-            <a href="/images/keplr_web_copy_gonka_address.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_web_copy_gonka_address_2.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address_2.png" style="width:auto; height:337.5px;"></a>
 
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
             To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.
@@ -363,7 +363,7 @@ There are several ways to do this:
 
             Click the Copy button next to the Gonka chain.
 
-            <a href="/images/keplr_web_copy_gonka_address.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address.png" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_web_copy_gonka_address_2.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address_2.png" style="width:auto; height:337.5px;"></a>
 
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
             To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.

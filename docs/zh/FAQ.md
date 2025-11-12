@@ -161,13 +161,14 @@ export NODE_URL=http://<NODE_URL>:<port>
 当节点处于监禁状态时，会显示 `jailed: true`。
 
 ## 如何模拟计算证明（PoC）？
-在 PoC 阶段开始时，`api` 容器会发送 `POST /v1/pow/init/generate` 请求：[https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32)
-
-PoC 使用如下模型参数：[https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41)
-
-可通过如下 `curl` 请求启动 PoC：
+You may want to simulate PoC on a mlnode yourself to make sure that everything will work when the PoC phase begins on the chain.
+To run this test you either need to have a running  mlnode that isn't yet registered with the api node or pause the api node. To pause the api node use `docker pause api`. Once you’re finished with the test you can unpause: `docker unpause api`.
+For the test itself you will be sending POST `/v1/pow/init/generate` request to mlnode, the same that api node sends at the start of the POC phase:
+https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32
+The following model params are used for PoC: https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41
+Here’s how you can send this  request with `curl`:
 ```
-curl -X POST "${PORT:-8080}:8080"/api/v1/pow/init/generate" \
+curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
   -H "Content-Type: application/json" \
   -d '{
     "node_id": 0,
@@ -194,33 +195,25 @@ curl -X POST "${PORT:-8080}:8080"/api/v1/pow/init/generate" \
     "url": "http://api:9100"
   }'
 ```
-`DAPI_API__POC_CALLBACK_URL` 的值用于上面的 `url` 字段。使用真实地址可测试网络设置。
-
-将此请求发送到 MLNode 代理容器的 `8080` 端口，或直接发送到 MLNode 的 `8080`（参考部署文件：<https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26>）。
-
-如果测试成功，你会看到类似如下的日志：
+Send this request to `8080` port of MLNode's proxy container or directly to MLNode's `8080` https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26
+If the test runs successfully, you will see logs similar to the following:
 ```
 2025-08-25 20:53:33,568 - pow.compute.controller - INFO - Created 4 GPU groups:
-...
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 0: GpuGroup(devices=[0], primary=0) (VRAM: 79.2GB)
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 1: GpuGroup(devices=[1], primary=1) (VRAM: 79.2GB)
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 2: GpuGroup(devices=[2], primary=2) (VRAM: 79.2GB)
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 3: GpuGroup(devices=[3], primary=3) (VRAM: 79.2GB)
+2025-08-25 20:53:33,758 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [0]
+2025-08-25 20:53:33,944 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [1]
+2025-08-25 20:53:34,151 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [2]
+2025-08-25 20:53:34,353 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [3]
 ```
-随后，服务将开始向 `DAPI_API__POC_CALLBACK_URL` 发送生成的随机数（nonce）：
+Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_URL`.
 ```
 2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
 ```
+The http://api:9100 url won’t be available if you paused the api container or if mlnode container and api containers don’t share the same docker network. Expect to see error messages saying that the mlnode failed to send  generated batches. The important part is to make sure that the generation process is happening.
 
-为了进行这个测试，ML 节点目前 不应 向 API 节点注册。
-如果你的节点尚未成为活跃参与节点，你可以按照以下步骤进行：
-
-1) 暂停 API 容器：
-```
-docker pause api
-```
-2) 运行测试。
-
-3) 取消暂停 API 容器：
-```
-docker unpause api
-```
 ## 我清除了或覆盖了我的共识密钥
 
 如果您正在使用 tmkms 并删除了 `.tmkms` 文件夹，只需重新启动 tmkms —— 它会自动生成一个新的共识密钥。

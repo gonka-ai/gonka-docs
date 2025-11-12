@@ -172,6 +172,7 @@ export NODE_URL=http://<NODE_URL>:<port>
 - 或者，您可以将 API 节点暂停，以独占系统资源进行测试。
   
 **1. 暂停 API 节点**
+
 在测试开始前，建议先暂停 API 节点容器。
 ```
 docker pause api
@@ -182,6 +183,7 @@ docker unpause api
 ```
 
 **2. 发送 PoC 模拟请求**
+
 模拟测试的核心是向您的 MLNode 发送一个 POST `/v1/pow/init/generate` 请求，这与 api 节点在 PoC 阶段开始时发送的请求相同：
 [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32)
 PoC 使用以下模型参数：

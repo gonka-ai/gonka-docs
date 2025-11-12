@@ -160,22 +160,38 @@ export NODE_URL=http://<NODE_URL>:<port>
 
 当节点处于监禁状态时，会显示 `jailed: true`。
 
-## 如何模拟计算证明（PoC）？
-You may want to simulate PoC on a mlnode yourself to make sure that everything will work when the PoC phase begins on the chain.
-To run this test you either need to have a running  mlnode that isn't yet registered with the api node or pause the api node. To pause the api node use `docker pause api`. Once you’re finished with the test you can unpause: `docker unpause api`.
-For the test itself you will be sending POST `/v1/pow/init/generate` request to mlnode, the same that api node sends at the start of the POC phase:
-https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32
-The following model params are used for PoC: https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41
-Here’s how you can send this  request with `curl`:
+## 如何本地模拟计算证明（PoC）?
+在本教程中，您将学习如何在本地环境模拟 PoC 流程，以确保在链上 PoC 阶段正式开始时，您的节点能够稳定运行。
+模拟前提条件
+
+进行模拟测试前，请确保满足以下任一条件：
+
+- 您有一个正在运行但尚未在 API 节点上注册的 MLNode。
+- 或者，您可以将 API 节点暂停，以独占系统资源进行测试。
+
+1. 暂停 API 节点
+在测试开始前，建议先暂停 API 节点容器。
 ```
-curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
+docker pause api
+```
+测试完成后，使用以下命令恢复：
+```
+docker unpause api
+```
+
+2. 发送 PoC 模拟请求
+模拟测试的核心是向您的 MLNode 发送一个 POST /v1/pow/init/generate 请求。您可以使用以下 `curl` 命令示例。
+
+请求示例：
+```
+curl -X POST "http://<您的MLNode主机地址>:8080/api/v1/pow/init/generate" \
   -H "Content-Type: application/json" \
   -d '{
     "node_id": 0,
     "node_count": 1,
-    "block_hash": "EXAMPLE_BLOCK_HASH",
-    "block_height": 1,
-    "public_key": "EXAMPLE_PUBLIC_KEY",
+    "block_hash": "EXAMPLE_BLOCK_HASH",  # 请替换为示例或测试值
+    "block_height": 1,                   # 请替换为示例或测试值
+    "public_key": "EXAMPLE_PUBLIC_KEY",  # 请替换为示例或测试值
     "batch_size": 1,
     "r_target": 10.0,
     "fraud_threshold": 0.01,
@@ -195,24 +211,25 @@ curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
     "url": "http://api:9100"
   }'
 ```
-Send this request to `8080` port of MLNode's proxy container or directly to MLNode's `8080` https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26
-If the test runs successfully, you will see logs similar to the following:
+
+请求发送目标：
+请将上述请求发送至您的 MLNode 代理容器的 8080 端口，或直接发送至 MLNode 容器的 8080 端口。
+
+3. 如何判断模拟成功？
+请求发送后，请观察节点日志。如果模拟成功，您将看到类似以下的GPU资源分配与计算日志，这表明PoC计算流程已正确启动：
 ```
 2025-08-25 20:53:33,568 - pow.compute.controller - INFO - Created 4 GPU groups:
 2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 0: GpuGroup(devices=[0], primary=0) (VRAM: 79.2GB)
-2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 1: GpuGroup(devices=[1], primary=1) (VRAM: 79.2GB)
-2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 2: GpuGroup(devices=[2], primary=2) (VRAM: 79.2GB)
-2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 3: GpuGroup(devices=[3], primary=3) (VRAM: 79.2GB)
+...
 2025-08-25 20:53:33,758 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [0]
-2025-08-25 20:53:33,944 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [1]
-2025-08-25 20:53:34,151 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [2]
-2025-08-25 20:53:34,353 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [3]
-```
-Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_URL`.
-```
+...
 2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
 ```
-The http://api:9100 url won’t be available if you paused the api container or if mlnode container and api containers don’t share the same docker network. Expect to see error messages saying that the mlnode failed to send  generated batches. The important part is to make sure that the generation process is happening.
+
+重要提示 & 常见问题
+关于发送错误：在模拟环境中，您很可能会看到 MLNode 尝试向 http://api:9100 发送数据但失败的报错信息。这是正常现象！
+原因：如果您暂停了 API 容器，或者 MLNode 与 API 容器不在同一 Docker 网络中，该 URL 自然无法访问。
+成功的标志：本次模拟测试的核心目标是验证计算过程本身。只要您在日志中看到了上述的 GPU 分组信息和批次计算信息，即证明 PoC 生成环节工作正常，无需担忧最终发送回调的失败报错。
 
 ## 我清除了或覆盖了我的共识密钥
 

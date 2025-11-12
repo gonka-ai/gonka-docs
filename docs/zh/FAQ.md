@@ -160,16 +160,18 @@ export NODE_URL=http://<NODE_URL>:<port>
 
 当节点处于监禁状态时，会显示 `jailed: true`。
 
-## 如何本地模拟计算证明（PoC）?
+## 如何本地模拟计算证明（PoC）
+
 在本教程中，您将学习如何在本地环境模拟 PoC 流程，以确保在链上 PoC 阶段正式开始时，您的节点能够稳定运行。
-模拟前提条件
+
+**模拟前提条件**
 
 进行模拟测试前，请确保满足以下任一条件：
 
 - 您有一个正在运行但尚未在 API 节点上注册的 MLNode。
 - 或者，您可以将 API 节点暂停，以独占系统资源进行测试。
-
-1. 暂停 API 节点
+  
+**1. 暂停 API 节点**
 在测试开始前，建议先暂停 API 节点容器。
 ```
 docker pause api
@@ -179,8 +181,8 @@ docker pause api
 docker unpause api
 ```
 
-2. 发送 PoC 模拟请求
-模拟测试的核心是向您的 MLNode 发送一个 POST /v1/pow/init/generate 请求。您可以使用以下 `curl` 命令示例。
+**2. 发送 PoC 模拟请求**
+模拟测试的核心是向您的 MLNode 发送一个 POST `/v1/pow/init/generate` 请求。您可以使用以下 `curl` 命令示例。
 
 请求示例：
 ```
@@ -215,9 +217,9 @@ curl -X POST "http://<您的MLNode主机地址>:8080/api/v1/pow/init/generate" \
 请求发送目标：
 请将上述请求发送至您的 MLNode 代理容器的 8080 端口，或直接发送至 MLNode 容器的 8080 端口。
 
-3. 如何判断模拟成功？
-请求发送后，请观察节点日志。如果模拟成功，您将看到类似以下的GPU资源分配与计算日志，这表明PoC计算流程已正确启动：
+**3. 如何判断模拟成功？**
 ```
+请求发送后，请观察节点日志。如果模拟成功，您将看到类似以下的GPU资源分配与计算日志，这表明PoC计算流程已正确启动：
 2025-08-25 20:53:33,568 - pow.compute.controller - INFO - Created 4 GPU groups:
 2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 0: GpuGroup(devices=[0], primary=0) (VRAM: 79.2GB)
 ...
@@ -226,10 +228,11 @@ curl -X POST "http://<您的MLNode主机地址>:8080/api/v1/pow/init/generate" \
 2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
 ```
 
-重要提示 & 常见问题
-关于发送错误：在模拟环境中，您很可能会看到 MLNode 尝试向 http://api:9100 发送数据但失败的报错信息。这是正常现象！
-原因：如果您暂停了 API 容器，或者 MLNode 与 API 容器不在同一 Docker 网络中，该 URL 自然无法访问。
-成功的标志：本次模拟测试的核心目标是验证计算过程本身。只要您在日志中看到了上述的 GPU 分组信息和批次计算信息，即证明 PoC 生成环节工作正常，无需担忧最终发送回调的失败报错。
+**重要提示 & 常见问题**
+
+- 关于发送错误：在模拟环境中，您很可能会看到 MLNode 尝试向 http://api:9100 发送数据但失败的报错信息。这是正常现象！
+        - 原因：如果您暂停了 API 容器，或者 MLNode 与 API 容器不在同一 Docker 网络中，该 URL 自然无法访问。
+- 成功的标志：本次模拟测试的核心目标是验证计算过程本身。只要您在日志中看到了上述的 GPU 分组信息和批次计算信息，即证明 PoC 生成环节工作正常，无需担忧最终发送回调的失败报错。
 
 ## 我清除了或覆盖了我的共识密钥
 

@@ -210,6 +210,9 @@ After cloning the repository, you’ll find the following key configuration file
 </div>
 
 <!-- CONDITION START: data-show-when='["finished"]' -->
+
+If your node cannot connect to the default seed node, [see the FAQ for details.](https://gonka.ai/FAQ/#my-node-cannot-connect-to-the-default-seed-node-specified-in-the-configenv)
+
 ### [Server] Edit Environment Variables
 
 Which variables to edit:

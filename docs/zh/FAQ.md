@@ -336,7 +336,7 @@ curl http://<inference_url>/v1/epochs/current/participants
 
 即使未进行备份，也可以通过 Account Key（账户密钥） 重新恢复集群设置。
 
-# 如果您的节点无法连接到配置文件中指定的默认种子节点，该怎么办？
+## 如果您的节点无法连接到配置文件中指定的默认种子节点，该怎么办？
 
 如果您的节点无法连接到默认的种子节点，您可以在 config.env 中更新三个变量，将节点指向其他可用的种子节点。
 1. `SEED_API_URL` – 种子节点的 HTTP 端点（用于 API 通信）。

@@ -211,6 +211,9 @@ cp config.env.template config.env
 </div>
 
 <!-- CONDITION START: data-show-when='["finished"]' -->
+
+如果您的节点无法连接到默认的种子节点，[请查看常见问题（FAQ）获取详细说明。](https://gonka.ai/zh/FAQ/#_17)
+
 ### 【服务器】编辑环境变量
 
 需要修改的变量：

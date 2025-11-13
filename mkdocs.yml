@@ -21,7 +21,6 @@ nav:
     - Hardware specifications: host/hardware-specifications.md
     - Genesis: host/genesis.md
     - How to edit Host public info: host/host_info.md
-    - SSL setup: host/optional-ssl-setup.md
   - Wallet:
     - Dashboard: wallet/dashboard.md
     - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md

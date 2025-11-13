@@ -350,31 +350,31 @@ SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
 3. `SEED_NODE_P2P_URL` - the P2P address used for networking between nodes.
 You must obtain the P2P port from the seed node’s status endpoint.
 
-Query the node:
-```
-http://<host>:<http_port>/chain-rpc/status
-```
-Example
-```
-http://node3.gonka.ai:8000/chain-rpc/status
-```
-Find `listen_addr` in the response, for example:
-```
-""listen_addr"": ""tcp://0.0.0.0:5000""
-```
-
-Use that port:
-```
-export SEED_NODE_P2P_URL=tcp://<host>:<p2p_port>
-```
-Example
-```
-export SEED_NODE_P2P_URL=tcp://node3.gonka.ai:5000
-```
-
-Final result example
-```
-export SEED_API_URL=http://node2.gonka.ai:8000
-export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
-export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
-```
+    Query the node:
+    ```
+    http://<host>:<http_port>/chain-rpc/status
+    ```
+    Example
+    ```
+    http://node3.gonka.ai:8000/chain-rpc/status
+    ```
+    Find `listen_addr` in the response, for example:
+    ```
+    ""listen_addr"": ""tcp://0.0.0.0:5000""
+    ```
+    
+    Use that port:
+    ```
+    export SEED_NODE_P2P_URL=tcp://<host>:<p2p_port>
+    ```
+    Example
+    ```
+    export SEED_NODE_P2P_URL=tcp://node3.gonka.ai:5000
+    ```
+    
+    Final result example
+    ```
+    export SEED_API_URL=http://node2.gonka.ai:8000
+    export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+    export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
+    ```

@@ -128,20 +128,20 @@ plugins:
             Host: 节点
             "Multiple nodes": 多节点
             "Network Node API": 网络节点 API
-            "Key Management": 密钥管理
+            Key Management: 密钥管理
             "Access account": 访问账户
-            "Benchmark to Choose Optimal Deployment Config for LLMs": LLM 部署配置基准
+            Benchmark to Choose Optimal Deployment Config for LLMs: LLM 部署配置基准
             "Hardware Specifications": 硬件规格
             Genesis: 创世
-            "How to edit validator public info": 编辑验证者公开信息
+            How to edit validator public info: 如何编辑验证者的公开信息
             SSL setup: SSL 设置
             Wallet: 钱包
             Dashboard: 仪表盘
-            "Wallet & Transfer Guide": 钱包与转账指南
+            Wallet & Transfer Guide: 钱包与转账指南
             Pricing: 价格
             "Model licenses": 模型许可
-            "Transactions & Governance": 交易与治理
-            "Software Upgrades": 软件升级
+            Transactions & Governance: 交易与治理
+            Software Upgrades: 软件升级
             Help: 帮助
             FAQ: 常见问题
             Errors: 错误

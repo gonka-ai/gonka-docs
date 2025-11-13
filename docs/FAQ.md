@@ -1,30 +1,32 @@
 # FAQ
 
-## What is Gonka?
+## Basic
+
+### What is Gonka?
 Gonka is a decentralized network for high‑efficiency AI compute — run by those who run it. It functions as a cost-effective and efficient alternative to centralized cloud services for AI model training and inference. As a protocol, it's not a company or a start-up.
     
-## What is the GNK coin?
+### What is the GNK coin?
 GNK is the native coin of the Gonka network. It is used to incentivize participants, price resources, and ensure the sustainable growth of the network.
     
-## What makes the protocol efficient?
+### What makes the protocol efficient?
 Our difference from the "big players" is the pricing and the fact that, despite the size of the user, the inference is being distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).
     
-## How does the network operate?
+### How does the network operate?
 The network's operation is collaborative and depends on the role you wish to take:
 
 - As a [Developer](https://gonka.ai/developer/quickstart/): You can use the network's computational resources to build and deploy your AI applications.
 - As a [Host](https://gonka.ai/host/quickstart/): You can contribute your computational resources to power the network. The protocol is designed to reward you for your contribution, ensuring the network's continuity and sovereignty.
     
-## Where can I find information on key management?
+### Where can I find information on key management?
 You can find a dedicated section on [Key Management](https://gonka.ai/host/key-management/) in the documentation. It outlines the procedures and best practices for securely managing your application's keys on the network.
     
-## What is the incentive for contributing computational resources?
+### What is the incentive for contributing computational resources?
 We've created a dedicated document focused on [Tokenomics](https://gonka.ai/tokenomics.pdf), where you can find all the information about how the incentive in being measured.
     
-## What are the hardware requirements?
+### What are the hardware requirements?
 You can find the minimum and recommended [hardware specifications](https://gonka.ai/host/hardware-specifications/) clearly outlined in the documentation. You should review this section to ensure your hardware meets the requirements for effective contribution.
 
-## What if I want to stop mining but still use my account when I come back?
+### What if I want to stop mining but still use my account when I come back?
 To restore a Network Node in the future, it will be sufficient to back up:
 
 - cold key (most important, everything else can be rotated)
@@ -33,7 +35,9 @@ To restore a Network Node in the future, it will be sufficient to back up:
 - node key from `.inference/config .inference/config/node_key.json`
 - password for warm key `KEYRING_PASSWORD`
 
-## What types of changes require a Governance Proposal?
+## Governance
+
+### What types of changes require a Governance Proposal?
 Governance Proposals are required for any on-chain changes that affect the network, for example:
 
 - Updating module parameters (`MsgUpdateParams`)
@@ -41,10 +45,10 @@ Governance Proposals are required for any on-chain changes that affect the netwo
 - Adding, updating, or deprecating inference models
 - Any other actions that must be approved and executed via the governance module
 
-## Who can create a Governance Proposal?
+### Who can create a Governance Proposal?
 Anyone with a valid governance key (cold account) can pay the required fee and create a Governance Proposal. However, each proposal must still be approved by active participants through PoC-weighted voting. Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.com/invite/kFFVWtNYjs)) to increase the likelihood of approval. See [the full guide](https://gonka.ai/transactions-and-governance/).
   
-## What’s the difference between Governance Proposals and Improvement Proposals?
+### What’s the difference between Governance Proposals and Improvement Proposals?
 Governance Proposals → on-chain proposals. Used for changes that directly affect the network and require on-chain voting. Examples:
 
 - Updating network parameters (`MsgUpdateParams`)
@@ -58,7 +62,7 @@ Improvement Proposals → off-chain proposals under the control of active partic
 - Reviewed and discussed through GitHub Pull Request
 - Approved proposals are merged into the repository
 
-## How are Improvement Proposals reviewed and approved?
+### How are Improvement Proposals reviewed and approved?
 - Create a Markdown proposal in the [/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals) folder.
 - Open a Pull Request with your proposal.
 - Community review:
@@ -68,13 +72,13 @@ Improvement Proposals → off-chain proposals under the control of active partic
         - If the community agrees, the PR is merged.
         - Approved proposals become part of the official community roadmap.
 
-## Can an Improvement Proposal lead to a Governance Proposal?
+### Can an Improvement Proposal lead to a Governance Proposal?
 Yes. Often, an Improvement Proposal is used to explore ideas and gather consensus before drafting a Governance Proposal. For example:
 
 - You might first propose a new model integration as an Improvement Proposal.
 - After the community agrees, an on-chain Governance Proposal is created to update parameters or trigger the software upgrade.
 
-## How does the voting process work?
+### How does the voting process work?
 - Once a proposal is submitted and funded with the minimum deposit, it enters the voting period
 - Voting options: `yes`, `no`, `no_with_veto`, `abstain`
   
@@ -98,20 +102,20 @@ To vote, you can use the command below. This example votes yes, but you can repl
       --yes
 ```
 
-## How can I track the status of a Governance Proposal?
+### How can I track the status of a Governance Proposal?
 You can query the proposal status at any time using the CLI:
 ```
 export NODE_URL=http://47.236.19.22:18000
 ./inferenced query gov tally 2 -o json --node $NODE_URL/chain-rpc/
 ```
 
-## What happens if a proposal fails?
+### What happens if a proposal fails?
 - If a proposal does not meet quorum → it automatically fails
 - If the majority votes `no` → proposal rejected, no on-chain changes
 - If a significant percentage votes `no_with_veto` (above veto threshold) → proposal is rejected and flagged, signaling strong community disagreement
 - Deposits may or may not be refunded, depending on chain settings
 
-## How is governance power calculated in Gonka?
+### How is governance power calculated in Gonka?
 Gonka uses a PoC-weighted voting model:
 
 - Proof-of-Compute (PoC): Voting power is proportional to your verified compute contribution.
@@ -122,13 +126,15 @@ Gonka uses a PoC-weighted voting model:
 
 For the first 180 epochs (approximately 6 months), new participants can participate in governance and earn voting weight through PoC alone, without collateral requirements. During this period, the full governance rights are available, while voting weight remains tied to verified compute activity.
 
-## Why does Gonka require locking GNK coins for governance power?
+### Why does Gonka require locking GNK coins for governance power?
 Voting power is never derived solely from holding coins. GNK coins serve as economic collateral, not as a source of influence. Influence is earned through continuous computational contribution, while locking GNK collateral is required to secure participation in governance and enforce accountability.
 
-## Can governance parameters themselves be changed?
+### Can governance parameters themselves be changed?
 Yes. All key governance rules — quorum, majority threshold, and veto threshold — are on-chain configurable and can be updated via Governance Proposals. This allows the network to evolve decision-making rules as participation patterns and compute economic changes.
 
-## My node was jailed. What does it mean?
+## Hosts FAQ
+
+### My node was jailed. What does it mean?
 Your validator has been jailed because it signed fewer than 50 blocks out of the last 100 blocks (the requirement counts the total number of signed blocks in that window, not consecutive ones). This means your node was temporarily excluded (about 15 minutes) from block production to protect network stability.
 There are several possible reasons for this:
 
@@ -158,7 +164,7 @@ Then, to check if the node was unjailed:
 ```
 When a node is jailed, it shows `jailed: true`.
 
-## How to simulate Proof-of-Compute (PoC)?
+### How to simulate Proof-of-Compute (PoC)?
 
 You may want to simulate PoC on a MLNode yourself to make sure that everything will work when the PoC phase begins on the chain.
 
@@ -219,7 +225,7 @@ Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_
 ```
 The http://api:9100 url won’t be available if you paused the api container or if MLNode container and api containers don’t share the same docker network. Expect to see error messages saying that the MLNode failed to send generated batches. The important part is to make sure that the generation process is happening.
 
-## I Cleared or Overwrote My Consensus Key
+### I Cleared or Overwrote My Consensus Key
 
 If you are using **tmkms** and deleted the `.tmkms` folder, simply restart **tmkms** — it will automatically generate a new key.
 To register the new consensus key, submit the following transaction:
@@ -234,7 +240,7 @@ To register the new consensus key, submit the following transaction:
     --node http://<node-url>/chain-rpc/ \
     --chain-id gonka-mainnet
 ```
-## I Deleted the Warm Key
+### I Deleted the Warm Key
 Back up the **cold key** on your local device, outside the server.
 
 1) Stop the API container:
@@ -276,7 +282,7 @@ inferenced keys add "$KEY_NAME" --keyring-backend file
 source config.env && docker compose up -d
 ```
 
-## How to decommission an old cluster?
+### How to decommission an old cluster?
 
 Follow this guide to safely shut down an old cluster without impacting reputation.
 
@@ -312,7 +318,7 @@ Once a node is marked as disabled, it is safe to power off the MLNode server.
 
 If you skip the backup, the setup can still be restored later using your Account Key.
 
-# What should I do if my node cannot connect to the default seed node specified in the config?
+### What should I do if my node cannot connect to the default seed node specified in the `config.env`?
 
 If your node cannot connect to the default seed node, simply point it to another one by updating three variables in `config.env`.
 

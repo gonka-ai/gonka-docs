@@ -260,6 +260,24 @@ There are several ways to do this:
                     
             <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
         
+            Now, save your private key. In the browser extension navigate to the menu in the top-left corner.
+        
+            <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
+            
+            Click "Security & Privacy".
+            
+            <a href="/images/leap_security_privacy.png" target="_blank"><img src="/images/leap_security_privacy.png" style="width:auto; height:337.5px;"></a>
+            
+            Click "Show private key". 
+            
+            <a href="/images/leap_show_private_key.png" target="_blank"><img src="/images/leap_show_private_key.png" style="width:auto; height:337.5px;"></a>
+            
+            Enter your password.
+            
+            <a href="/images/leap_enter_password.png" target="_blank"><img src="/images/leap_enter_password.png" style="width:auto; height:337.5px;"></a>
+            
+            Copy your private key and store it securely (a hard copy is preferred).  Anyone with your private key can have access to your assets. Never share your private key with anyone.
+            
             To access your wallet on a mobile device, download the Leap app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.            
                  
             ??? note "Optional: How to add an additional Gonka account to Leap wallet — click to view steps"            
@@ -453,6 +471,24 @@ There are several ways to do this:
                     
             <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
         
+            Now, save your private key. In the browser extension navigate to the menu in the top-left corner.
+        
+            <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
+            
+            Click "Security & Privacy".
+            
+            <a href="/images/leap_security_privacy.png" target="_blank"><img src="/images/leap_security_privacy.png" style="width:auto; height:337.5px;"></a>
+            
+            Click "Show private key". 
+            
+            <a href="/images/leap_show_private_key.png" target="_blank"><img src="/images/leap_show_private_key.png" style="width:auto; height:337.5px;"></a>
+            
+            Enter your password.
+            
+            <a href="/images/leap_enter_password.png" target="_blank"><img src="/images/leap_enter_password.png" style="width:auto; height:337.5px;"></a>
+            
+            Copy your private key and store it securely (a hard copy is preferred).  Anyone with your private key can have access to your assets. Never share your private key with anyone.
+            
             To access your wallet on a mobile device, download the Leap app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.            
                  
             ??? note "Optional: How to add an additional Gonka account to Leap wallet — click to view steps"            

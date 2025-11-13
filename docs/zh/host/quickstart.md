@@ -662,6 +662,8 @@ http://node2.gonka.ai:8000/v1/participants/<your-gonka-cold-address>
 http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 
+[你可以在自己的 MLNode 上模拟执行 Proof of Compute，以确保在链上 PoC 阶段开始时一切都能正常运行。](https://gonka.ai/zh/FAQ/#poc)
+
 你也可以在此阶段前关闭服务器，并在下一次计算证明前重新启动。下一次会话开始时间可在[仪表盘](https://gonka.ai/wallet/dashboard/)查询：
 ```
 http://node2.gonka.ai:8000/dashboard/gonka/validator

@@ -336,3 +336,61 @@ curl http://<inference_url>/v1/epochs/current/participants
 
 即使未进行备份，也可以通过 Account Key（账户密钥） 重新恢复集群设置。
 
+# 如果您的节点无法连接到配置文件中指定的默认种子节点，该怎么办？
+
+如果您的节点无法连接到默认的种子节点，您可以在 config.env 中更新三个变量，将节点指向其他可用的种子节点。
+1. `SEED_API_URL` – 种子节点的 HTTP 端点（用于 API 通信）。
+从下面的列表中选择任意一个 URL，并将其直接赋值给 `SEED_API_URL`。
+```
+export SEED_API_URL=<chosen_http_url>
+```
+可用的创世种子节点 API 地址：
+```
+http://185.216.21.98:8000
+http://36.189.234.197:18026
+http://36.189.234.237:17241
+http://node1.gonka.ai:8000
+http://node2.gonka.ai:8000
+http://node3.gonka.ai:8000
+http://47.236.26.199:8000
+http://47.236.19.22:18000
+http://gonka.spv.re:8000
+```
+2. `SEED_NODE_RPC_UR`L – 同一种子节点的 RPC 端点。
+使用与 `SEED_API_URL` 相同的主机名，但端口始终为 26657。
+```
+export SEED_NODE_RPC_URL=http://<host>:26657
+```
+示例：
+```
+SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+```
+3. `SEED_NODE_P2P_UR`L – 供节点之间通信使用的 P2P 地址。
+您需要从种子节点的状态端点中获取 P2P 端口。
+
+查询节点：
+```
+http://<host>:<http_port>/chain-rpc/status
+```
+示例：
+```
+http://node3.gonka.ai:8000/chain-rpc/status
+```
+在返回结果中找到 `listen_addr` 字段，例如：
+```
+"listen_addr": "tcp://0.0.0.0:5000"
+```
+使用该端口：
+```
+export SEED_NODE_P2P_URL=tcp://<host>:<p2p_port>
+```
+示例：
+```
+export SEED_NODE_P2P_URL=tcp://node3.gonka.ai:5000
+```
+最终示例：
+```
+export SEED_API_URL=http://node2.gonka.ai:8000
+export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000
+```

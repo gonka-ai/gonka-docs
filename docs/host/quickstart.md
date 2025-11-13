@@ -9,10 +9,8 @@ To join the network, you need to deploy two services:
 
 The guide describes a scenario in which both services are deployed on the same machine, and each Host has one MLNode. Services are deployed as Docker containers.
 
-!!! note "Live Demo — How to Launch a Node (Quickstart for Hosts)"
-    The video recording of the demo session for launching a node via the quickstart is available below.  
-    Some steps in the recording may differ from the instructions below, as the quickstart is updated continuously based on community feedback.  
-    Always follow the written quickstart - it reflects the current and correct procedure.
+??? note "Live Demo — How to Launch a Node (Quickstart for Hosts)"
+    The video recording of the demo session for launching a node via the quickstart is available below. Some steps in the recording may differ from the instructions below, as the quickstart is updated continuously based on community feedback. Always follow the written quickstart - it reflects the current and correct procedure.
 
     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
       <iframe

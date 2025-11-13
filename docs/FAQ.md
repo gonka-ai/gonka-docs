@@ -318,7 +318,7 @@ Once a node is marked as disabled, it is safe to power off the MLNode server.
 
 If you skip the backup, the setup can still be restored later using your Account Key.
 
-### What should I do if my node cannot connect to the default seed node specified in the `config.env`?
+### My node cannot connect to the default seed node specified in the `config.env`
 
 If your node cannot connect to the default seed node, simply point it to another one by updating three variables in `config.env`.
 

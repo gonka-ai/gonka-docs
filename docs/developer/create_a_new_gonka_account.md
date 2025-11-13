@@ -217,7 +217,7 @@ There are several ways to do this:
             
             <a href="/images/dashboard_leap_step_2_3.png" target="_blank"><img src="/images/dashboard_leap_step_2_3.png" style="width:500px; height:auto;"></a>
         
-            Backup your recovery phrase securely. Anyone with yourrecovery phrase can have access to your assets. Store your recovery phrase in a safe and secure place. Never share your recovery phrase with anyone.
+            Backup your recovery phrase securely. Anyone with your recovery phrase can have access to your assets. Store your recovery phrase in a safe and secure place. Never share your recovery phrase with anyone.
         
             <a href="/images/leap_your_secret_recovery_phrase.png" target="_blank"><img src="/images/leap_your_secret_recovery_phrase.png" style="width:500px; height:auto;"></a>
         

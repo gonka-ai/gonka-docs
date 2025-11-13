@@ -312,5 +312,63 @@ Once a node is marked as disabled, it is safe to power off the MLNode server.
 
 If you skip the backup, the setup can still be restored later using your Account Key.
 
+# What should I do if my node cannot connect to the default seed node specified in the config?
 
+If your node cannot connect to the default seed node, simply point it to another one by updating three variables in `config.env`.
 
+1. `SEED_API_URL` - HTTP endpoint of the seed node (used for API communication).
+Choose any URL from the list below and assign it directly to `SEED_API_URL`.
+```
+export SEED_API_URL=<chosen_http_url>
+```
+Available genesis API URLs:
+```
+http://185.216.21.98:8000
+http://36.189.234.197:18026
+http://36.189.234.237:17241
+http://node1.gonka.ai:8000
+http://node2.gonka.ai:8000
+http://node3.gonka.ai:8000
+http://47.236.26.199:8000
+http://47.236.19.22:18000
+http://gonka.spv.re:8000
+```
+2. `SEED_NODE_RPC_URL` - the RPC endpoint of the same seed node. Use the same host as in `SEED_API_URL`, but always port 26657.
+```
+export SEED_NODE_RPC_URL=http://<host>:26657
+```
+Example
+```
+SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+```
+3. `SEED_NODE_P2P_URL` - the P2P address used for networking between nodes.
+You must obtain the P2P port from the seed node’s status endpoint.
+
+Query the node:
+```
+http://<host>:<http_port>/chain-rpc/status
+```
+Example
+```
+http://node3.gonka.ai:8000/chain-rpc/status
+```
+Find `listen_addr` in the response, for example:
+```
+""listen_addr"": ""tcp://0.0.0.0:5000""
+```
+
+Use that port:
+```
+export SEED_NODE_P2P_URL=tcp://<host>:<p2p_port>
+```
+Example
+```
+export SEED_NODE_P2P_URL=tcp://node3.gonka.ai:5000
+```
+
+Final result example
+```
+export SEED_API_URL=http://node2.gonka.ai:8000
+export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
+```

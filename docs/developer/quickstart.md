@@ -4,8 +4,8 @@ name: index.md
 
 # Developer Quickstart
 
-!!! note "Inference for free" 
-    During the initial network phase, controlled by a governance parameter `GracePeriodEndEpoch` with a proposed default of 90 epochs (~90 days), the dynamic pricing system is bypassed and all inference costs are set to zero (until ~ November 20, 2025).
+!!! note "Symbolic pricing during the initial network phase" 
+    During the initial network phase, controlled by the governance parameter `GracePeriodEndEpoch` with a proposed default of 90 epochs (~90 days), the dynamic pricing system is bypassed and all inference costs are set to a purely symbolic level, until approximately November 20, 2025.
 
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
 

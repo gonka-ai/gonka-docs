@@ -742,6 +742,8 @@ Once your node completes the Proof of Compute stage (which runs every 24 hours),
 http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 
+You can [simulate the Proof of Compute on a MLNode yourself](https://gonka.ai/FAQ/#how-to-simulate-proof-of-compute-poc) to make sure that everything will work when the PoC phase begins on the chain.
+
 You may turn off your server before this stage and start it again right before the next Proof of Compute.
 To track when the next Proof of Compute session will begin, check [the dashboard](https://gonka.ai/wallet/dashboard/) here:
 ```

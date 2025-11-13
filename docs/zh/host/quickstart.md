@@ -15,6 +15,20 @@
 
 注意：本指南默认每台主机仅运行一个推理节点。
 
+??? note "直播演示 — 如何启动节点（主机快速入门）"
+    视频录制可在下方查看。由于 quickstart 会根据社区反馈持续更新，录制中的某些步骤可能与下方的说明略有不同。请始终以书面版 quickstart 为准，它反映当前且正确的操作流程。
+    
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+      <iframe
+        src="https://www.youtube.com/embed/DWOeHQoU_LY"
+        title="Gonka: Live Demo — How to Launch a Node (Quickstart for Hosts)"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+      </iframe>
+    </div>
+
 ## 先决条件
 本节为参与 Gonka 网络上线所需的硬件基础设施提供配置指导。目标是使你的部署与网络预期对齐，从而最大化协议奖励。
 

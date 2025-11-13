@@ -6,8 +6,18 @@ There are several ways to do this:
 - Via external wallet (Keplr or Leap)
 - Via `inferenced` CLI tool
 
-!!! note "Important note" 
-    At the moment, there is no bridge to Ethereum. Any potential bridge deployment would be subject to on-chain governance. If the network were to vote in favor of deploying an Ethereum bridge, only wallets created from a direct private key (not restored from a standard mnemonic/seed phrase) — such as those generated via `inferenced` CLI tool or the “Connect with Google” flow — would be eligible. Accounts created using a recovery (mnemonic/seed) phrase may not be compatible with the bridge. In that case, you would need to export the private key and create a wallet that uses that private key for direct transactions.
+!!! note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
+    An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
+    
+    Eligible (you can export/use a raw private key):
+    
+    - Accounts created via `inferenced` CLI tool
+    - Accounts created via the “Connect with Google” flow in Keplr
+    - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
+
+    Not eligible (no private key export):
+    
+    - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if future bridge compatibility matters.
 
 === "External wallet"
 
@@ -27,29 +37,13 @@ There are several ways to do this:
             
             <a href="/images/keplr_mobile_create_new_wallet.PNG" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.PNG" style="width:auto; height:337.5px;"></a>
 
-            === "Via Connect with Google"
-
-                Click "Connect with Google". Follow the instructions to sign in via Gmail.
+            Click "Connect with Google". Follow the instructions to sign in via Gmail.
                 
-                <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
                 
-                Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is by using your private key. Store your private key in a safe and secure place. Never share your private key with anyone.
+            Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is by using your private key. Store your private key in a safe and secure place. Never share your private key with anyone.
                 
-                <a href="/images/keplr_mobile_google_private_key_2.PNG" target="_blank"><img src="/images/keplr_mobile_google_private_key_2.PNG" style="width:auto; height:337.5px;"></a>
-
-            === "Via recovery phrase"
-            
-                Choose “Create new recovery phrase”.
-                
-                <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
-                
-                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
-                
-                <a href="/images/keplr_mobile_recovery_phrase_step_1.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_1.PNG" style="width:auto; height:337.5px;"></a>
-                
-                Verify your recovery phrase, create a wallet name, and a password.
-                
-                <a href="/images/keplr_mobile_recovery_phrase_step_2.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase_step_2.PNG" style="width:auto; height:337.5px;"></a>
+            <a href="/images/keplr_mobile_google_private_key_2.PNG" target="_blank"><img src="/images/keplr_mobile_google_private_key_2.PNG" style="width:auto; height:337.5px;"></a>
             
             Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
 
@@ -99,49 +93,25 @@ There are several ways to do this:
             
             <a href="/images/dashboard_keplr_step_2_4.png" target="_blank"><img src="/images/dashboard_keplr_step_2_4.png" style="width:500px; height:auto;"></a>
             
-            === "Connect with Google"
-
-                Click "Connect with Google".
+            Click "Connect with Google".
                 
-                <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
+            <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
                 
-                Set Up Your Wallet. Store your password in a safe and secure place.
+            Set Up Your Wallet. Store your password in a safe and secure place.
                 
-                <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
+            <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
 
-                Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is by using your private key. Store your private key in a safe and secure place. Never share your private key with anyone.
+            Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is by using your private key. Store your private key in a safe and secure place. Never share your private key with anyone.
             
-                <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
+            <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
-                Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
+            Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
 
-                <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
+            <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
 
-                You have created your wallet in Keplr. Now, follow the instructions below to find your account address.
+            You have created your wallet in Keplr. Now, follow the instructions below to find your account address.
 
-                <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
-
-            === "Create new recovery phrase"
-
-                Click "Create new recovery phrase"
-            
-                <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
-        
-                DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
-            
-                <a href="/images/keplr_new_recovery_phrase.png" target="_blank"><img src="/images/keplr_new_recovery_phrase.png" style="width:500px; height:auto;"></a>
-            
-                Set Up Your Wallet. Store your password in a safe and secure place.
-            
-                <a href="/images/keplr_verify_your_recovery_phrase.png" target="_blank"><img src="/images/keplr_verify_your_recovery_phrase.png" style="width:500px; height:auto;"></a>
-
-                Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
-
-                <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
-
-                You have created your wallet in Keplr. Now, follow the instructions below to find your account address.
-
-                <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
+            <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
 
             Open Keplr, navigate, and click on “Copy Address” in your wallet.
 
@@ -314,6 +284,19 @@ There are several ways to do this:
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe.
 
         === "Keplr browser extension"
+
+            !!! note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
+                An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
+    
+                Eligible (you can export/use a raw private key):
+    
+                - Accounts created via `inferenced` CLI tool
+                - Accounts created via the “Connect with Google” flow in Keplr
+                - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
+
+                Not eligible (no private key export):
+    
+                - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if future bridge compatibility matters.
 
             Install an extension for your browser (if you have extension installed, go to the step [“Add Gonka network to your wallet”](https://gonka.ai/wallet/create_a_new_gonka_account_new/#add-gonka-network-to-your-wallet)).
             

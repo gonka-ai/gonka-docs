@@ -38,6 +38,19 @@ There are several ways to do this:
             <a href="/images/keplr_mobile_create_new_wallet.PNG" target="_blank"><img src="/images/keplr_mobile_create_new_wallet.PNG" style="width:auto; height:337.5px;"></a>
 
             Click "Connect with Google". Follow the instructions to sign in via Gmail.
+
+            ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
+                An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
+                
+                Eligible (you can export/use a raw private key):
+                
+                - Accounts created via `inferenced` CLI tool
+                - Accounts created via the “Connect with Google” flow in Keplr
+                - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
+            
+                Not eligible (no private key export):
+                
+                - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if future bridge compatibility matters.
                 
             <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
                 
@@ -142,7 +155,20 @@ There are several ways to do this:
             
                 <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
             
-                Paste your private key. You can import an account created using a recovery (mnemonic/seed) phrase. 
+                Paste your private key.
+
+                ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
+                    An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
+                    
+                    Eligible (you can export/use a raw private key):
+                    
+                    - Accounts created via `inferenced` CLI tool
+                    - Accounts created via the “Connect with Google” flow in Keplr
+                    - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
+                
+                    Not eligible (no private key export):
+                    
+                    - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if future bridge compatibility matters.
             
                 <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
                     
@@ -152,7 +178,7 @@ There are several ways to do this:
                     
                 Make sure Gonka chain is selected.
 
-                <a href="/images/keplr_deselect_chains.png" target="_blank"><img src="/images/keplr_deselect_chains.png" style="width:500px; height:auto;"></a>
+                <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
 
                 Done — your Gonka account has been successfully imported into Keplr!
                     
@@ -178,11 +204,11 @@ There are several ways to do this:
             
             <a href="/images/dashboard_leap_step_2_3.png" target="_blank"><img src="/images/dashboard_leap_step_2_3.png" style="width:500px; height:auto;"></a>
         
-            Save your secret recovery phrase. Write down these words, your secret recovery phrase is the only way to recover your wallet and funds!
+            Backup your recovery phrase securely. Anyone with yourrecovery phrase can have access to your assets. Store your recovery phrase in a safe and secure place. Never share your recovery phrase with anyone.
         
             <a href="/images/leap_your_secret_recovery_phrase.png" target="_blank"><img src="/images/leap_your_secret_recovery_phrase.png" style="width:500px; height:auto;"></a>
         
-            Choose a password to secure & lock your wallet. Agree to the Terms & Conditions.
+            Choose a password to secure & lock your wallet.  Store your password in a safe and secure place. Agree to the Terms & Conditions.
         
             <a href="/images/leap_create_your_password.png" target="_blank"><img src="/images/leap_create_your_password.png" style="width:500px; height:auto;"></a>
         
@@ -261,6 +287,19 @@ There are several ways to do this:
 
         === "Keplr mobile app"
 
+            ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
+                An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
+                
+                Eligible (you can export/use a raw private key):
+                
+                - Accounts created via `inferenced` CLI tool
+                - Accounts created via the “Connect with Google” flow in Keplr
+                - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
+            
+                Not eligible (no private key export):
+                
+                - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if future bridge compatibility matters.
+
             Open Keplr mobile app and log in to your wallet. Select the menu in the top left corner.
             
             <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
@@ -285,7 +324,7 @@ There are several ways to do this:
 
         === "Keplr browser extension"
 
-            !!! note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
+            ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
                 An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
     
                 Eligible (you can export/use a raw private key):
@@ -402,7 +441,7 @@ There are several ways to do this:
             
             <a href="/images/dashboard_connect_leap.png" target="_blank"><img src="/images/dashboard_connect_leap.png" style="width:500px; height:auto;"></a>
             
-            Since Gonka network is still in an early stage, it is not included in wallets by default. Because of this, we need to add it manually. When the prompt appears, approve it to add the Gonka chain to your wallet. Once the Gonka network is added, your Gonka account will be created automatically..
+            Since Gonka network is still in an early stage, it is not included in wallets by default. Because of this, we need to add it manually. When the prompt appears, approve it to add the Gonka chain to your wallet. Once the Gonka network is added, your Gonka account will be created automatically.
 
             <a href="/images/leap_add_network.png" target="_blank"><img src="/images/leap_add_network.png" style="width:500px; height:auto;"></a>
         

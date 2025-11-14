@@ -108,13 +108,13 @@ You can interact with the dashboard in two ways:
                 
         <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
                         
-        Give your wallet a name for easy reference.
+        Set Up Your Wallet. Store your password in a safe and secure place.
                         
-        <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
+        <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:450px; height:auto;"></a>
                         
-        Make sure Gonka chain is selected.
+        Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
     
-        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
+        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:450px; height:auto;"></a>
     
         Done — your Gonka account has been successfully imported into Keplr!
                         

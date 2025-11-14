@@ -85,11 +85,11 @@ You can interact with the dashboard in two ways:
 
         Click "Import an Existing Wallet".
                         
-        <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:450px; height:auto; display:block;"></a>
+        <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:500px; height:auto;"></a>
                         
         Click "Use recovery phrase or private key"
                 
-        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:500px; height:auto;"></a>
                 
         Paste your private key.
     
@@ -106,19 +106,19 @@ You can interact with the dashboard in two ways:
                         
             - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if future bridge compatibility matters.
                 
-        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:500px; height:auto;"></a>
                         
         Set Up Your Wallet. Store your password in a safe and secure place.
                         
-        <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:450px; height:auto;"></a>
+        <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
                         
         Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
     
-        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:450px; height:auto;"></a>
+        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
     
         Done — your Gonka account has been successfully imported into Keplr!
                         
-        <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
+        <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:500px; height:auto;"></a>
     
     === "Leap"
     
@@ -175,12 +175,22 @@ You can interact with the dashboard in two ways:
     
     <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
     
-    ??? note "Adding Gonka to Leap Wallet"
-        Since Gonka network is still in an early stage, it is not included in Leap wallet by default. Because of this, you need to add it manually. When the prompt appears, approve it to add the Gonka chain to your wallet.
+    3.4.
+
+    === "Keplr"
+
+        Approve requested connection to Gonka network. 
+
+        <a href="/images/keplr_approve_connection.png" target="_blank"><img src="/images/keplr_approve_connection.png" style="width:250px; height:auto;"></a>
+
+    === "Leap"
+    
+        ??? note "Adding Gonka to Leap Wallet"
+            Since Gonka network is still in an early stage, it is not included in Leap wallet by default. Because of this, you need to add it manually. When the prompt appears, approve it to add the Gonka chain to your wallet.
         
         <a href="/images/dashboard_ping_pub_3_3-leap.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3-leap.png" style="width:500px; height:auto;"></a>
     
-    3.4. Done! You successfully added your account to the wallet.
+    3.5. Done! You successfully added your account to the wallet.
     
     <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:500px; height:auto;"></a>
      

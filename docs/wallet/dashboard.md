@@ -12,7 +12,7 @@ You can interact with the dashboard in two ways:
 
     If you want to explore the network or see real-time inference metrics before setting up your own account, follow these steps:
     
-    1. Choose a random node from the `inference_url` list of genesis-nodes:
+    1. Here is the list of genesis nodes. Choose a random node from the list below and open it in a new browser window/tab.
     
         - [http://185.216.21.98:8000](http://185.216.21.98:8000)  
         - [http://36.189.234.197:18026](http://36.189.234.197:18026)  
@@ -26,12 +26,11 @@ You can interact with the dashboard in two ways:
     
         ??? note "Alternative: fully decentralized way to choose a random node"
             Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants).  
+            Choose any active Host from the list.
+            Copy their `inference_url` value.
+            Paste the `inference_url` into your browser to load the dashboard.
     
-            Choose any active Host from that list.
-    
-    2. Copy and paste the chosen `inference_url` into your browser to load the dashboard.
-    
-    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
+    2. Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
     
     !!! note "Why is this important?"
         This architecture ensures decentralization: no single central server controls the network. In preview mode, functionality is limited. You can view balances, transactions, and some analytics. If you want to send coins, manage your personal accounts, or analyze your private AI token usage, unlock [Full mode](https://gonka.ai/wallet/dashboard/#__tabbed_1_2).
@@ -44,7 +43,7 @@ You can interact with the dashboard in two ways:
     
     To unlock the full functionality of the dashboard, you need a Gonka account.
     
-    - Already have one? Proceed to the "Set Up External Wallet" section below.
+    - Already have one? Proceed to the ["Set Up External Wallet"](https://gonka.ai/wallet/dashboard/#2-set-up-external-wallet) section below.
     - New user? Visit [the Developer](https://gonka.ai/developer/quickstart/){target=_blank} or [Host](https://gonka.ai/host/quickstart/){target=_blank} Quickstart to create an account.
     
     ### 2. Set Up External Wallet
@@ -53,11 +52,11 @@ You can interact with the dashboard in two ways:
     ??? note "What is a wallet?"
         A crypto wallet serves as a secure container for a user's public and private cryptographic keys, enabling them to manage, transfer, and purchase cryptocurrencies. Gonka is built on the Cosmos-SDK blockchain framework and can be accessed using Keplr or Leap wallet (other wallet support is coming soon).
         
-    - If you have a Keplr or Leap wallet, proceed to the ["Connect wallet"](https://gonka.ai/wallet/dashboard/#3-connect-wallet) section.
+    - If you have a Keplr or Leap wallet browser extention, proceed to the ["Connect wallet"](https://gonka.ai/wallet/dashboard/#3-connect-wallet) section.
     - If you haven't set it up yet, follow the steps below.
     
     === "Keplr"
-        Install an extension for your browser (if you have extension installed, go to the step [“Add Gonka network to your wallet”](https://gonka.ai/developer/create_a_new_gonka_account/#add-gonka-network-to-your-wallet_1).
+        Install an extension for your browser.
             
         Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
             
@@ -148,70 +147,70 @@ You can interact with the dashboard in two ways:
     
     <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:500px; height:auto;"></a>
      
-??? note "Optional: How to add an additional Gonka account in Keplr wallet — click to view steps"
-    
-    Open the extension and click on the account icon in the top-right corner of the extension window.
-                    
-    <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
-                    
-     Click the "Add wallet" button.
-                    
-    <a href="/images/dashboard_ping_pub_3_5_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_2.png" style="width:auto; height:337.5px; display:block;"></a>
-                    
-    Click "Import an Existing Wallet".
-                    
-    <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:450px; height:auto; display:block;"></a>
-                    
-    Click "Use recovery phrase or private key"
-            
-    <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
-            
-    Paste your private key.
-
-    ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
-        An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
-                    
-        Eligible (you can export/use a raw private key):
-                    
-        - Accounts created via `inferenced` CLI tool
-        - Accounts created via the “Connect with Google” flow in Keplr
-        - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
+    ??? note "Optional: How to add an additional Gonka account in Keplr wallet — click to view steps"
+        
+        Open the extension and click on the account icon in the top-right corner of the extension window.
+                        
+        <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
+                        
+         Click the "Add wallet" button.
+                        
+        <a href="/images/dashboard_ping_pub_3_5_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_2.png" style="width:auto; height:337.5px; display:block;"></a>
+                        
+        Click "Import an Existing Wallet".
+                        
+        <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:450px; height:auto; display:block;"></a>
+                        
+        Click "Use recovery phrase or private key"
                 
-        Not eligible (no private key export):
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
+                
+        Paste your private key.
+    
+        ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
+            An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
+                        
+            Eligible (you can export/use a raw private key):
+                        
+            - Accounts created via `inferenced` CLI tool
+            - Accounts created via the “Connect with Google” flow in Keplr
+            - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
                     
-        - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if future bridge compatibility matters.
-            
-    <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
-                    
-    Give your wallet a name for easy reference.
-                    
-    <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
-                    
-    Make sure Gonka chain is selected.
-
-    <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
-
-    Done — your Gonka account has been successfully imported into Keplr!
-                    
-    <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
-
-??? note "Optional: How to add an additional Gonka account to Leap wallet — click to view steps"            
+            Not eligible (no private key export):
+                        
+            - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if future bridge compatibility matters.
+                
+        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
+                        
+        Give your wallet a name for easy reference.
+                        
+        <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
+                        
+        Make sure Gonka chain is selected.
+    
+        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
+    
+        Done — your Gonka account has been successfully imported into Keplr!
+                        
+        <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
+    
+    ??? note "Optional: How to add an additional Gonka account to Leap wallet — click to view steps"            
         Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
-                    
-    <a href="/images/dashboard_leap_step_3_5_1.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_1.png" style="width:250px; height:auto;"></a>
-                    
-     Click the "Create/Import wallet" button.
-                    
-    <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
-                    
-    Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase.  
-                    
-    <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
-            
-    Paste your private key or a recovery (mnemonic/seed) phrase.
-            
-    <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:250px; height:auto;"></a>
-                    
-    Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
-                    
-    <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
+                        
+        <a href="/images/dashboard_leap_step_3_5_1.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_1.png" style="width:250px; height:auto;"></a>
+                        
+         Click the "Create/Import wallet" button.
+                        
+        <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
+                        
+        Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase.  
+                        
+        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
+                
+        Paste your private key or a recovery (mnemonic/seed) phrase.
+                
+        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:250px; height:auto;"></a>
+                        
+        Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
+                        
+        <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>

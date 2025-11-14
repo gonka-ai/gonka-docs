@@ -406,7 +406,7 @@ There are several ways to do this:
 
             <a href="/images/keplr_web_add_remove_chains.png" target="_blank"><img src="/images/keplr_web_add_remove_chains.png" style="width:auto; height:337.5px;"></a>
 
-            Type “Gonka” in serach bar and select “Gonka” chain.
+            Type “Gonka” in search bar and select “Gonka” chain.
                 
             <a href="/images/keplr_web_add_remove_chains_gonka.png" target="_blank"><img src="/images/keplr_web_add_remove_chains_gonka.png" style="width:auto; height:337.5px;"></a>
 

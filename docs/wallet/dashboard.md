@@ -138,10 +138,10 @@ You can interact with the dashboard in two ways:
     
     <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
     
-    !!! note "Adding Gonka to Leap Wallet"
+    ??? note "Adding Gonka to Leap Wallet"
         Since Gonka network is still in an early stage, it is not included in Leap wallet by default. Because of this, we need to add it manually. When the prompt appears, approve it to add the Gonka chain to your wallet. For Leap you will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
         
-    <a href="/images/dashboard_ping_pub_3_3-leap.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3-leap.png" style="width:500px; height:auto;"></a>
+        <a href="/images/dashboard_ping_pub_3_3-leap.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3-leap.png" style="width:500px; height:auto;"></a>
     
     3.4. Done! You successfully added your account to the wallet.
     

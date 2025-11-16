@@ -78,7 +78,7 @@ Each server to deploy MLNode should have:
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
 - 8000 - Application service (configurable)
 
-!!! note “CRITICAL WARNING: Ports 9100 and 9200 MUST NOT be publicly accessible”
+!!! note "CRITICAL WARNING: Ports 9100 and 9200 MUST NOT be publicly accessible"
     Ports 9100 and 9200 are internal service ports. If exposed to the public internet they create a severe security vulnerability. A third party could stop your node at any point, if the ports are exposed.
     Requirement:
     

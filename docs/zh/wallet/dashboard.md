@@ -33,7 +33,7 @@
     2. 打开后，你将看到直接来自该主机节点的实时数据流——包括网络统计、活跃工作负载和推理指标。
     
     !!! note "为什么这很重要？"
-        这种架构确保了去中心化：没有任何单一中心化服务器控制网络。在预览模式下，功能有限。你可以查看余额、交易和部分分析。如果你想发送代币、管理个人账户或分析你的私有 AI 令牌使用情况，请解锁[完整模式](https://gonka.ai/wallet/dashboard/#__tabbed_1_2)。
+        这种架构确保了去中心化：没有任何单一中心化服务器控制网络。在预览模式下，功能有限。你可以查看余额、交易和部分分析。如果你想发送代币、管理个人账户或分析你的私有 AI 令牌使用情况，请解锁[完整模式](https://gonka.ai/zh/wallet/dashboard/#__tabbed_1_2)。
 
 === "**完整模式**"
     
@@ -43,8 +43,8 @@
     
     要解锁仪表盘的完整功能，你需要一个 Gonka 账户。
     
-    - 已有账户？继续阅读下面的["设置外部钱包"](https://gonka.ai/wallet/dashboard/#2-set-up-external-wallet)部分。
-    - 新用户？访问[开发者快速开始](https://gonka.ai/developer/quickstart/){target=_blank}或[主机快速开始](https://gonka.ai/host/quickstart/){target=_blank}创建账户。
+    - 已有账户？继续阅读下面的["设置外部钱包"](https://gonka.ai/zh/wallet/dashboard/#2)部分。
+    - 新用户？访问[开发者快速开始](https://gonka.ai/zh/developer/quickstart/){target=_blank}或[主机快速开始](https://gonka.ai/zh/developer/quickstart/){target=_blank}创建账户。
     
     ### 2. 设置外部钱包
     要通过钱包与仪表盘交互，我们建议使用 [Keplr](https://www.keplr.app/){target=_blank} 或 [Leap](https://www.leapwallet.io/){target=_blank}（专为基于 Cosmos 的链构建的浏览器扩展钱包）。
@@ -52,7 +52,7 @@
     ??? note "什么是钱包？"
         加密货币钱包是用作用户公钥和私钥的安全容器，使他们能够管理、转移和购买加密货币。Gonka 基于 Cosmos-SDK 区块链框架构建，可以使用 Keplr 或 Leap 钱包访问（即将支持其他钱包）。
         
-    - 如果你已安装 Keplr 或 Leap 钱包浏览器扩展，请继续阅读["连接钱包"](https://gonka.ai/wallet/dashboard/#3-connect-wallet)部分。
+    - 如果你已安装 Keplr 或 Leap 钱包浏览器扩展，请继续阅读["连接钱包"](https://gonka.ai/zh/wallet/dashboard/#3)部分。
     - 如果尚未设置，请按照以下步骤操作。
     
     === "Keplr"
@@ -165,7 +165,7 @@
 
     ### 3. 连接钱包
 
-    3.1.  按照[预览模式](https://gonka.ai/wallet/dashboard/#__tabbed_1_1)说明打开 Gonka 仪表盘。 
+    3.1.  按照[预览模式](https://gonka.ai/zh/wallet/dashboard/)说明打开 Gonka 仪表盘。 
     
     3.2. 在右上角，点击"Connect Wallet"开始。
     

@@ -7,7 +7,6 @@ Before you can perform any wallet operations, you need to access your account. F
 
 You contribute computational resources and receive tokens as rewards.
 Before proceeding, you need access to your wallet, which is automatically created when the chain-node container runs for the first time.
-Go [here](https://gonka.ai/host/access-account/) to learn how to access your account. 
 
 **Are you a Developer?**
 

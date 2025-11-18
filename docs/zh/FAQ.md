@@ -352,6 +352,7 @@ http://36.189.234.237:17241
 http://node1.gonka.ai:8000
 http://node2.gonka.ai:8000
 http://node3.gonka.ai:8000
+https://node4.gonka.ai
 http://47.236.26.199:8000
 http://47.236.19.22:18000
 http://gonka.spv.re:8000

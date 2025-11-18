@@ -396,7 +396,7 @@ export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
 export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000
 ```
 
-### 如何更改种子节点？
+## 如何更改种子节点？
 要重新配置种子节点，请重置节点并重新构建其推理数据：
 ```
 source config.env

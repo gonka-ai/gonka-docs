@@ -16,7 +16,6 @@ nav:
     - Multiple nodes: host/multiple-nodes.md
     - Network Node API: host/network-node-api.md
     - Key management: host/key-management.md
-    - Access account: host/access-account.md
     - Benchmark to choose optimal deployment config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
     - Hardware specifications: host/hardware-specifications.md
     - Genesis: host/genesis.md
@@ -129,7 +128,6 @@ plugins:
             "Multiple nodes": 多节点
             "Network Node API": 网络节点 API
             Key Management: 密钥管理
-            "Access account": 访问账户
             Benchmark to Choose Optimal Deployment Config for LLMs: LLM 部署配置基准
             "Hardware Specifications": 硬件规格
             Genesis: 创世

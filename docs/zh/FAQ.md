@@ -395,3 +395,36 @@ export SEED_API_URL=http://node2.gonka.ai:8000
 export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
 export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000
 ```
+
+### 如何更改种子节点？
+要重新配置种子节点，请重置节点并重新构建其推理数据：
+```
+source config.env
+docker compose down node
+sudo rm -rf .inference/data/ .inference/.node_initialized
+sudo mkdir -p .inference/data/
+```
+重新启动节点后，你可以在以下位置查看实际应用的种子节点：
+```
+sudo cat .inference/config/config.toml
+```
+查找字段：
+```
+seeds = [...]
+```
+当文件 `.node_initialized` 被创建后，系统将不再自动更新种子节点。
+从那时起：
+
+- 种子节点列表将按原样使用
+- 所有更改必须手动进行
+- 你可以添加任意数量的种子节点
+
+种子节点格式是一个以逗号分隔的字符串：
+```
+seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
+```
+要从任何正在运行的节点查看其已知的 peers，请使用 chain RPC：
+```
+curl http://47.236.26.199:8000/chain-rpc/net_info | jq
+```
+此命令将显示当前节点看到的所有 peers。

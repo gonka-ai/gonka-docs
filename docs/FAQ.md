@@ -397,6 +397,18 @@ Look for the field:
 seeds = [...]
 ```
 Once the file `.node_initialized` is created, the system no longer updates seed nodes automatically.
-From that moment on, seeds are changed only manually.
+After that point:
 
-You can manually specify any number of seed nodes in `.inference/config/config.toml`. Just edit the seeds array directly.
+- The seed list is used as-is
+- Any changes must be done manually
+- You can add as many seed nodes as you want
+
+The format is a single comma-separated string:
+```
+seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
+```
+To view known peers from any running node, use chain RPC:
+```
+curl http://47.236.26.199:8000/chain-rpc/net_info | jq
+```
+This displays all peers the node currently sees.

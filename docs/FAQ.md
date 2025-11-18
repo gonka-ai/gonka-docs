@@ -379,3 +379,24 @@ You must obtain the P2P port from the seed node’s status endpoint.
     export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
     export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
     ```
+
+### How do I change the seed nodes?
+To reconfigure the seed nodes, reset the node and rebuild its inference data:
+```
+source config.env
+docker compose down node
+sudo rm -rf .inference/data/ .inference/.node_initialized
+sudo mkdir -p .inference/data/
+```
+After restarting the node, you can view the actual applied seeds in:
+```
+sudo cat .inference/config/config.toml
+```
+Look for the field:
+```
+seeds = [...]
+```
+Once the file `.node_initialized` is created, the system no longer updates seed nodes automatically.
+From that moment on, seeds are changed only manually.
+
+You can manually specify any number of seed nodes in `.inference/config/config.toml`. Just edit the seeds array directly.

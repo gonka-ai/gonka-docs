@@ -7,7 +7,6 @@
 
 你向网络贡献算力并获得代币奖励。
 继续之前，你需要访问你的钱包。钱包会在链节点（chain-node）容器首次运行时自动创建。
-请前往[这里](https://gonka.ai/host/access-account/)了解如何访问你的账户。
 
 **你是开发者（Developer）吗？**
 

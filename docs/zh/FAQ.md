@@ -423,7 +423,7 @@ seeds = [...]
 ```
 seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
 ```
-要从任何正在运行的节点查看其已知的 peers，请使用 chain RPC：
+要从任何正在运行的节点查看其已知的 对等节点，请使用 chain RPC：
 ```
 curl http://47.236.26.199:8000/chain-rpc/net_info | jq
 ```

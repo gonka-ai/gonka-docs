@@ -387,10 +387,18 @@
       editMemo: { en: 'Set a strong shared secret for certificate issuance. Generate a secure random string.', zh: '设置用于证书颁发的强共享密钥。生成安全的随机字符串。' }
     },
     {
+      key: 'ACME_ACCOUNT_EMAIL',
+      value: '<EMAIL_ADDRESS>',
+      comment: { en: 'Email address', zh: '电子邮件地址' },
+      insertAfter: 'CERT_ISSUER_JWT_SECRET',
+      conditionalRules: ['protocolHttps', 'certMethodAuto'],
+      editMemo: { en: 'Set your email address. It is required by Let’s Encrypt to issue the certificate.', zh: '设置您的电子邮件地址。Let’s Encrypt 颁发证书时需要此信息。' }
+    },
+    {
       key: 'ACME_DNS_PROVIDER',
       value: '<PROVIDER>',
       comment: { en: 'DNS provider', zh: 'DNS 提供商' },
-      insertAfter: 'CERT_ISSUER_JWT_SECRET',
+      insertAfter: 'ACME_ACCOUNT_EMAIL',
       conditionalRules: ['protocolHttps', 'certMethodAuto'],
       requiresProvider: true,
       providerPlaceholder: true

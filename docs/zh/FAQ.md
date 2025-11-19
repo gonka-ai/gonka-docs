@@ -428,3 +428,17 @@ seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p
 curl http://47.236.26.199:8000/chain-rpc/net_info | jq
 ```
 此命令将显示当前节点看到的所有 peers。
+
+## 硬件、节点权重以及 MLNode 配置实际上是如何被验证的？
+
+链本身并不会验证真实硬件。链上只验证参与者的总权重（total participant weight），并且这也是用于权重分配和奖励计算的唯一数值。至于这些权重如何在多个 MLNode 之间拆分，以及任何“硬件类型”或其他描述性字段，都只是信息性的字段，主机可以自由修改。
+
+真实硬件从未被验证——它只作为一个自报告字段存在，参与者可以填入任何他们想填的内容。
+
+当创建或更新节点时（例如通过 `POST http://localhost:9200/admin/v1/nodes`，对应的处理代码见
+[https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62](https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62)），可以显式指定 hardware 字段。
+如果省略该字段，API 服务会尝试从 MLNode 自动检测硬件信息。
+
+在实际使用中，许多主机会运行一个代理 MLNode，其后端连接多个服务器；自动检测只能看到其中一个服务器，这种部署方式完全有效。
+
+无论配置如何，所有的权重分配和奖励计算只依赖参与者的总权重，而 MLNode 之间的内部拆分或上报的硬件类型，都不会影响链上的任何验证逻辑。

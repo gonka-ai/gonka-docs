@@ -427,7 +427,7 @@ seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p
 ```
 curl http://47.236.26.199:8000/chain-rpc/net_info | jq
 ```
-此命令将显示当前节点看到的所有 peers。
+此命令将显示当前节点看到的所有 对等节点。
 
 ## 硬件、节点权重以及 MLNode 配置实际上是如何被验证的？
 

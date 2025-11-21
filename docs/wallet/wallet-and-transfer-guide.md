@@ -46,6 +46,7 @@ To check your balance, ensure you have sufficient funds before transferring, or 
 ```bash
 inferenced query bank balances <address> [--node <node_rpc_url>]
 ```
+
 This shows how many coins are in your wallet.
     
 **Example:**
@@ -53,6 +54,7 @@ This shows how many coins are in your wallet.
 ```bash
 inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --node http://node2.gonka.ai:26657
 ```
+
 ---
 
 ## Send Coins

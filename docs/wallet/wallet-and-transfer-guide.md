@@ -117,7 +117,7 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
             
          <a href="/images/keplr_receiver_txs_2.png" target="_blank"><img src="/images/keplr_receiver_txs_2.png" style="width:250px; height:auto;"></a>
             
-         They show you their QR code or copy and send you their address.
+         They copy and send you their address.
     
         <a href="/images/keplr_receiver_txs_3.png" target="_blank"><img src="/images/keplr_receiver_txs_3.png" style="width:250px; height:auto;"></a>
     

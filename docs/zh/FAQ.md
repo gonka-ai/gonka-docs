@@ -462,36 +462,30 @@ rm -rf <data-backup...>
 
 以下是可选步骤，说明如何提前预下载二进制文件，以在升级过程中避免依赖 GitHub。此步骤仅在 v0.2.5 升级提案获批时才相关。
 
-1. 创建目录
-    ```
-    sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.5/bin \
-                  .inference/cosmovisor/upgrades/v0.2.5/bin && \
-    ```
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.5/bin \
+              .inference/cosmovisor/upgrades/v0.2.5/bin && \
 
-2. DAPI：下载 → 校验 → 解压到 bin → 赋予执行权限
-    ```
-    wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.5/decentralized-api-amd64.zip" && \
-    echo "6fd12cd92e8226866be76a5e63a57e1b0041c7679db047af75e764e98668cb91 decentralized-api.zip" | sha256sum --check && \
-    sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.5/bin/ && \
-    sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api && \
-    echo "DAPI Installed and Verified" && \
-    ```
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.5/decentralized-api-amd64.zip" && \
+echo "6fd12cd92e8226866be76a5e63a57e1b0041c7679db047af75e764e98668cb91 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.5/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
 
-3. Inference：下载 → 校验 → 解压到 bin → 赋予执行权限
-    ```
-    wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.5/inferenced-amd64.zip" && \
-    echo "fab7be9bcdb4e21f058e6d19cfd698b6862bf6f5a8aeecbf9165907fc7edcc64 inferenced.zip" | sha256sum --check && \
-    sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.5/bin/ && \
-    sudo chmod +x .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
-    echo "Inference Installed and Verified" && \
-    ```
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.5/inferenced-amd64.zip" && \
+echo "fab7be9bcdb4e21f058e6d19cfd698b6862bf6f5a8aeecbf9165907fc7edcc64 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.5/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
+echo "Inference Installed and Verified" && \
 
-4. 清理并最终检查
-    ```
-    rm decentralized-api.zip inferenced.zip && \
-    echo "--- Final Verification ---" && \
-    sudo ls -l .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api && \
-    sudo ls -l .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
-    echo "8c6898e99acb3b1acb4e196398003453ea50f82d92ce4e2ebcec99a795f8d735 .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api" | sudo sha256sum --check && \
-    echo "9187b69322ba73f745c8ed2fbad713a39ce0e39ed15f7a48dacf9356693ed1a0 .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced" | sudo sha256sum --check
-    ```
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
+echo "8c6898e99acb3b1acb4e196398003453ea50f82d92ce4e2ebcec99a795f8d735 .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api" | sudo sha256sum --check && \
+echo "9187b69322ba73f745c8ed2fbad713a39ce0e39ed15f7a48dacf9356693ed1a0 .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced" | sudo sha256sum --check
+```

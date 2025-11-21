@@ -1,11 +1,11 @@
 # Wallet & Transfer Guide
 
-This guide explains how to work with wallets and tokens on the network: how to get your wallet address, check your balance, send tokens, and track transactions.
+This guide explains how to work with wallets and coins on the network: how to get your wallet address, check your balance, send coins, and track transactions.
 Before you can perform any wallet operations, you need to access your account. Follow the instructions below based on your role in the network.
 
 **Are you a Host?**
 
-You contribute computational resources and receive tokens as rewards.
+You contribute computational resources and receive coins as rewards.
 Before proceeding, you need access to your wallet, which is automatically created when the chain-node container runs for the first time.
 
 **Are you a Developer?**
@@ -35,26 +35,54 @@ This command lists all the wallet keys (accounts) you’ve created locally, alon
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A+Qpbyhtsdl5N/6O6S/qJ9uvtbI7OFFsO5dcNrpEU0nv"}'
   type: local
 ```
-Write down the address (used to receive tokens and query balance).
+Write down the address (used to receive coins and query balance).
 
 ---
 
 ## Query Balance
 
+To check your balance, ensure you have sufficient funds before transferring, or to verify a successful transfer, use the following command:
+    
+```bash
+inferenced query bank balances <address> [--node <node_rpc_url>]
+```
+This shows how many coins are in your wallet.
+    
+**Example:**
+    
+```bash
+inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --node http://node2.gonka.ai:26657
+```
+---
+
+## Send Coins
+
+In Cosmos, a fund transfer means sending coins from one account (wallet address) to another within a Cosmos-based blockchain. These transfers are used to pay for services or simply send value between users. 
+
 === "CLI"
 
-    To check your balance, ensure you have sufficient funds before transferring, or to verify a successful transfer, use the following command:
+    You can perform transfers using the Cosmos SDK command-line tool — specifically, the `inferenced` CLI. Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and coin denomination.
+    
+    Once you know your balance and have the recipient’s address, you can send coins.
     
     ```bash
-    inferenced query bank balances <address> [--node <node_rpc_url>]
+    inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
     ```
-    This shows how many tokens are in your wallet.
-    
+
     **Example:**
-    
+
     ```bash
-    inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --node http://node2.gonka.ai:26657
+    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100igonka --chain-id gonka-mainnet
     ```
+    
+    When specifying coins, you can use the following denominations:
+    
+    - `ngonka` (exponent 0)
+    - `ugonka` (exponent 3)
+    - `migonka` (exponent 6)
+    - `igonka` (exponent 9, base unit)
+    - `kigonka` (exponent 12)
+    - `mcigonka` (exponent 15)
 
 === "Keplr (web-extension)"
 
@@ -99,33 +127,6 @@ Write down the address (used to receive tokens and query balance).
     Wait for the Transaction successful notification. You will not see the transaction in the Activity tab because Gonka is a non native chain.
     
     <a href="/images/keplr_sender_txs_6.png" target="_blank"><img src="/images/keplr_sender_txs_6.png" style="width:250px; height:auto;"></a>
-
----
-
-## Send Coins
-
-In Cosmos, a fund transfer means sending tokens from one account (wallet address) to another within a Cosmos-based blockchain. These transfers are used to pay for services or simply send value between users. You perform transfers using the Cosmos SDK command-line tool — specifically, the inferenced CLI. Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and token denomination.
-
-Once you know your balance and have the recipient’s address, you can send tokens.
-
-```bash
-inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
-```
-
-**Example:**
-
-```bash
-inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100igonka --chain-id gonka-mainnet
-```
-
-When specifying coins, you can use the following denominations:
-
-- `ngonka` (exponent 0)
-- `ugonka` (exponent 3)
-- `migonka` (exponent 6)
-- `igonka` (exponent 9, base unit)
-- `kigonka` (exponent 12)
-- `mcigonka` (exponent 15)
 
 ---
 

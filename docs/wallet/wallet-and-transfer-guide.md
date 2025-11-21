@@ -102,7 +102,7 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
     
     === "If you already know the receiver’s Gonka wallet address" 
             
-        Paste the receiver’s Gonka wallet address into the address field.
+        Paste the receiver’s Gonka wallet address into the address field. Specify the amount you intend to send.
     
         <a href="/images/keplr_sender_txs_4.png" target="_blank"><img src="/images/keplr_sender_txs_4.png" style="width:250px; height:auto;"></a>
     
@@ -111,15 +111,19 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
     
         The receiver should open their Keplr wallet where their Gonka account is added. They click on "Copy address" above their balance.
     
-         <a href="/images/keplr_receiver_txs_1.png" target="_blank"><img src="/images/keplr_receiver_txs_1.png" style="width:250px; height:auto;"></a>
+        <a href="/images/keplr_receiver_txs_1.png" target="_blank"><img src="/images/keplr_receiver_txs_1.png" style="width:250px; height:auto;"></a>
       
-         They search for the Gonka chain.
+        They search for the Gonka chain.
             
-         <a href="/images/keplr_receiver_txs_2.png" target="_blank"><img src="/images/keplr_receiver_txs_2.png" style="width:250px; height:auto;"></a>
+        <a href="/images/keplr_receiver_txs_2.png" target="_blank"><img src="/images/keplr_receiver_txs_2.png" style="width:250px; height:auto;"></a>
             
-         They copy and send you their address.
+        They copy and send you their address.
     
         <a href="/images/keplr_receiver_txs_3.png" target="_blank"><img src="/images/keplr_receiver_txs_3.png" style="width:250px; height:auto;"></a>
+
+        Paste the receiver’s Gonka wallet address into the address field. Specify the amount you intend to send.
+    
+        <a href="/images/keplr_sender_txs_4.png" target="_blank"><img src="/images/keplr_sender_txs_4.png" style="width:250px; height:auto;"></a>
     
     
     Approve the transaction.
@@ -146,7 +150,7 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
     
     === "If you already know the receiver’s Gonka wallet address" 
             
-        Paste the receiver’s Gonka wallet address into the address field.
+        Paste the receiver’s Gonka wallet address into the address field. Specify the amount you intend to send.
     
         <a href="/images/keplr_mobile_sender_4.PNG" target="_blank"><img src="/images/keplr_mobile_sender_4.PNG" style="width:250px; height:auto;"></a>
     
@@ -168,6 +172,10 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
          They copy and send you their address.
     
         <a href="/images/keplr_mobile_receiver_4.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_4.PNG" style="width:250px; height:auto;"></a>
+
+        Paste the receiver’s Gonka wallet address into the address field. Specify the amount you intend to send.
+    
+        <a href="/images/keplr_mobile_sender_4.PNG" target="_blank"><img src="/images/keplr_mobile_sender_4.PNG" style="width:250px; height:auto;"></a>
     
     
     Approve the transaction.

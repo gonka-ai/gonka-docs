@@ -78,6 +78,26 @@ Each server to deploy MLNode should have:
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
 - 8000 - Application service (configurable)
 
+!!! note "CRITICAL WARNING: Ports 9100 and 9200 MUST NOT be publicly accessible"
+    Ports 9100 and 9200 are internal service ports. If exposed to the public internet they create a severe security vulnerability. A third party could stop your node at any point, if the ports are exposed.
+    
+    **Requirement:**
+    
+    - Allow access to 9100 and 9200 only from a private network.
+    - Never expose these ports to the public internet.
+    If your MLNode container and Network node containers are on the same machine, you can simply edit `gonka/deploy/join/docker-compose.yml`:
+    ```
+    api:
+       ports:
+          - "127.0.0.1:9100:9100"
+          - "127.0.0.1:9200:9200"
+    ```
+    Instead of:
+    ```
+          - "9100:9100"
+          - "9200:9200"
+    ```
+
 ## Setup Your Nodes
 
 The quickstart instructions are designed to run both the Network Node and the inference node on a single machine (one server setup). 

@@ -335,6 +335,7 @@ http://36.189.234.237:17241
 http://node1.gonka.ai:8000
 http://node2.gonka.ai:8000
 http://node3.gonka.ai:8000
+https://node4.gonka.ai
 http://47.236.26.199:8000
 http://47.236.19.22:18000
 http://gonka.spv.re:8000
@@ -378,3 +379,53 @@ You must obtain the P2P port from the seed node’s status endpoint.
     export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
     export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
     ```
+
+### How do I change the seed nodes?
+To reconfigure the seed nodes, reset the node and rebuild its inference data:
+```
+source config.env
+docker compose down node
+sudo rm -rf .inference/data/ .inference/.node_initialized
+sudo mkdir -p .inference/data/
+```
+After restarting the node, you can view the actual applied seeds in:
+```
+sudo cat .inference/config/config.toml
+```
+Look for the field:
+```
+seeds = [...]
+```
+Once the file `.node_initialized` is created, the system no longer updates seed nodes automatically.
+After that point:
+
+- The seed list is used as-is
+- Any changes must be done manually
+- You can add as many seed nodes as you want
+
+The format is a single comma-separated string:
+```
+seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
+```
+To view known peers from any running node, use chain RPC:
+```
+curl http://47.236.26.199:8000/chain-rpc/net_info | jq
+```
+This displays all peers the node currently sees.
+
+### How are Hardware, Node Weight, and MLNode configuration actually validated?
+
+The chain does not verify real hardware. It only validates the total participant weight, and this is the sole value used for weight distribution and reward calculation. Any breakdown of this weight across MLNodes, as well as any “hardware type” or other descriptive fields, is purely informational and can be freely modified by the host. Real hardware is never validated (it exists only as a self-reported field, and participants may report anything they want). When creating or updating a node (for example, via `POST http://localhost:9200/admin/v1/nodes` as shown in the handler code at [https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62](https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62)), the hardware field can be explicitly specified. If it is omitted, the API service attempts to auto-detect hardware information from the MLNode. In practice, many hosts run a proxy MLNode behind which multiple servers operate; auto-detection only sees one of these servers, which is a fully valid setup. Regardless of configuration, all weight distribution and rewards rely solely on the participant’s total weight, and the internal split across MLNodes or the reported hardware types never affect on-chain validation.
+
+### How much free disk space is required for a Cosmovisor update, and how can I safely remove old backups from the `.inference` directory?
+Cosmovisor creates a full backup in the `.inference` state folder whenever it performs an update. For example, you can see a folder like `data-backup-<some_date>`.
+As of November 20, 2025, the size of the data directory is about 150 GB, so each backup will take approximately the same amount of space.
+To safely run the update, it is recommended to have 250+ GB of free disk space.
+You can remove old backups to free space, although in some cases this may still be insufficient and you might need to expand the server disk.
+To remove an old backup directory, you can use:
+```
+sudo su
+cd .inference
+ls -la   # view the list of folders. There will be folders like data-backup... DO NOT DELETE ANYTHING EXCEPT THESE
+rm -rf <data-backup...>
+```

@@ -1,7 +1,7 @@
 # Pricing
 
 !!! note "Symbolic pricing during the initial network phase" 
-    During the initial network phase, controlled by the governance parameter `GracePeriodEndEpoch` with a proposed default of 90 epochs (~90 days), the dynamic pricing system is bypassed and all inference costs are set to a purely symbolic level, until approximately November 20, 2025.
+    During the initial network phase, controlled by the governance parameter `GracePeriodEndEpoch` with a proposed default of 90 epochs (~90 days), the dynamic pricing system is bypassed and all inference costs are set to a purely symbolic level.
 
 The network uses an automatic dynamic pricing mechanism for inference costs.
 Each model has a real-time AI token price that is recalculated every block based on actual demand and utilization metrics.

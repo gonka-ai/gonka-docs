@@ -352,6 +352,7 @@ http://36.189.234.237:17241
 http://node1.gonka.ai:8000
 http://node2.gonka.ai:8000
 http://node3.gonka.ai:8000
+https://node4.gonka.ai
 http://47.236.26.199:8000
 http://47.236.19.22:18000
 http://gonka.spv.re:8000
@@ -393,4 +394,65 @@ export SEED_NODE_P2P_URL=tcp://node3.gonka.ai:5000
 export SEED_API_URL=http://node2.gonka.ai:8000
 export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
 export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000
+```
+
+## 如何更改种子节点？
+要重新配置种子节点，请重置节点并重新构建其推理数据：
+```
+source config.env
+docker compose down node
+sudo rm -rf .inference/data/ .inference/.node_initialized
+sudo mkdir -p .inference/data/
+```
+重新启动节点后，你可以在以下位置查看实际应用的种子节点：
+```
+sudo cat .inference/config/config.toml
+```
+查找字段：
+```
+seeds = [...]
+```
+当文件 `.node_initialized` 被创建后，系统将不再自动更新种子节点。
+从那时起：
+
+- 种子节点列表将按原样使用
+- 所有更改必须手动进行
+- 你可以添加任意数量的种子节点
+
+种子节点格式是一个以逗号分隔的字符串：
+```
+seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
+```
+要从任何正在运行的节点查看其已知的 对等节点，请使用 chain RPC：
+```
+curl http://47.236.26.199:8000/chain-rpc/net_info | jq
+```
+此命令将显示当前节点看到的所有 对等节点。
+
+## 硬件、节点权重以及 MLNode 配置实际上是如何被验证的？
+
+链本身并不会验证真实硬件。链上只验证参与者的总权重（total participant weight），并且这也是用于权重分配和奖励计算的唯一数值。至于这些权重如何在多个 MLNode 之间拆分，以及任何“硬件类型”或其他描述性字段，都只是信息性的字段，主机可以自由修改。
+
+真实硬件从未被验证——它只作为一个自报告字段存在，参与者可以填入任何他们想填的内容。
+
+当创建或更新节点时（例如通过 `POST http://localhost:9200/admin/v1/nodes`，对应的处理代码见
+[https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62](https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62)），可以显式指定 hardware 字段。
+如果省略该字段，API 服务会尝试从 MLNode 自动检测硬件信息。
+
+在实际使用中，许多主机会运行一个代理 MLNode，其后端连接多个服务器；自动检测只能看到其中一个服务器，这种部署方式完全有效。
+
+无论配置如何，所有的权重分配和奖励计算只依赖参与者的总权重，而 MLNode 之间的内部拆分或上报的硬件类型，都不会影响链上的任何验证逻辑。
+
+## Cosmovisor 更新需要多少可用磁盘空间，以及如何安全删除 `.inference` 目录中的旧备份？
+
+Cosmovisor 在执行更新时会在 `.inference` 状态目录中创建完整备份。例如，你可能会看到类似 `data-backup-<some_date>` 的文件夹。截止 2025 年 11 月 20 日，data 目录的大小约为 150 GB，因此每个备份也大约需要相同的空间。为了安全地执行更新，建议至少预留 250 GB 以上 的可用磁盘空间。
+
+你可以删除旧备份以释放空间，但在某些情况下仍可能不足，这时可能需要扩容服务器磁盘。
+
+要删除旧的备份目录，你可以使用以下命令：
+```
+sudo su
+cd .inference
+ls -la   # 查看文件夹列表。会看到类似 data-backup… 的目录。除了这些目录外，千万不要删除任何其他内容。
+rm -rf <data-backup...>
 ```

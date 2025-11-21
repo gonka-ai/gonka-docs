@@ -317,6 +317,22 @@
       conditionalRules: ['protocolHttp'],
       editMemo: { en: 'Set the port where your node will be available on the machine (default is 8000).', zh: '设置节点在机器上可用的端口（默认为 8000）。' }
     },
+    {
+      key: 'PUBLIC_URL',
+      value: 'http://<HOST>:<PORT>',
+      comment: { en: 'Edit as described below', zh: '按以下说明编辑' },
+      insertAfter: 'API_PORT',
+      conditionalRules: ['protocolHttp'],
+      editMemo: { en: 'Set the public URL where your node will be accessible (e.g., `http://your-domain.com:8000` or `http://your-ip:8000`).', zh: '设置节点可访问的公共 URL（例如 `http://your-domain.com:8000` 或 `http://your-ip:8000`）。' }
+    },
+    {
+      key: 'P2P_EXTERNAL_ADDRESS',
+      value: 'tcp://<HOST>:<PORT>',
+      comment: { en: 'Edit as described below', zh: '按以下说明编辑' },
+      insertAfter: 'PUBLIC_URL',
+      conditionalRules: ['protocolHttp'],
+      editMemo: { en: 'Set the P2P external address for your node (e.g., `tcp://your-domain.com:5000` or `tcp://your-ip:5000`).', zh: '设置节点的 P2P 外部地址（例如 `tcp://your-domain.com:5000` 或 `tcp://your-ip:5000`）。' }
+    },
     
     // Conditional rows - HTTPS protocol
     {
@@ -333,6 +349,22 @@
       insertAfter: 'NGINX_MODE',
       conditionalRules: ['protocolHttps'],
       editMemo: { en: 'Set the HTTPS port where your node will be available on the machine (default is 8443).', zh: '设置节点在机器上可用的 HTTPS 端口（默认为 8443）。' }
+    },
+    {
+      key: 'PUBLIC_URL',
+      value: 'https://<HOST>:<PORT>',
+      comment: { en: 'Edit as described below', zh: '按以下说明编辑' },
+      insertAfter: 'API_SSL_PORT',
+      conditionalRules: ['protocolHttps'],
+      editMemo: { en: 'Set the public URL where your node will be accessible (e.g., `https://your-domain.com:8443` or `https://your-domain.com`).', zh: '设置节点可访问的公共 URL（例如 `https://your-domain.com:8443` 或 `https://your-domain.com`）。' }
+    },
+    {
+      key: 'P2P_EXTERNAL_ADDRESS',
+      value: 'tcp://<HOST>:<PORT>',
+      comment: { en: 'Edit as described below', zh: '按以下说明编辑' },
+      insertAfter: 'PUBLIC_URL',
+      conditionalRules: ['protocolHttps'],
+      editMemo: { en: 'Set the P2P external address for your node (e.g., `tcp://your-domain.com:5000` or `tcp://your-ip:5000`).', zh: '设置节点的 P2P 外部地址（例如 `tcp://your-domain.com:5000` 或 `tcp://your-ip:5000`）。' }
     },
     
     // Conditional rows - Automatic certificate setup
@@ -355,10 +387,18 @@
       editMemo: { en: 'Set a strong shared secret for certificate issuance. Generate a secure random string.', zh: '设置用于证书颁发的强共享密钥。生成安全的随机字符串。' }
     },
     {
+      key: 'ACME_ACCOUNT_EMAIL',
+      value: '<EMAIL_ADDRESS>',
+      comment: { en: 'Email address', zh: '电子邮件地址' },
+      insertAfter: 'CERT_ISSUER_JWT_SECRET',
+      conditionalRules: ['protocolHttps', 'certMethodAuto'],
+      editMemo: { en: 'Set your email address. It is required by Let’s Encrypt to issue the certificate.', zh: '设置您的电子邮件地址。Let’s Encrypt 颁发证书时需要此信息。' }
+    },
+    {
       key: 'ACME_DNS_PROVIDER',
       value: '<PROVIDER>',
       comment: { en: 'DNS provider', zh: 'DNS 提供商' },
-      insertAfter: 'CERT_ISSUER_JWT_SECRET',
+      insertAfter: 'ACME_ACCOUNT_EMAIL',
       conditionalRules: ['protocolHttps', 'certMethodAuto'],
       requiresProvider: true,
       providerPlaceholder: true

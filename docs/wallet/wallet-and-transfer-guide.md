@@ -1,13 +1,12 @@
 # Wallet & Transfer Guide
 
-This guide explains how to work with wallets and tokens on the network: how to get your wallet address, check your balance, send tokens, and track transactions.
+This guide explains how to work with wallets and coins on the network: how to get your wallet address, check your balance, send coins, and track transactions.
 Before you can perform any wallet operations, you need to access your account. Follow the instructions below based on your role in the network.
 
 **Are you a Host?**
 
-You contribute computational resources and receive tokens as rewards.
+You contribute computational resources and receive coins as rewards.
 Before proceeding, you need access to your wallet, which is automatically created when the chain-node container runs for the first time.
-Go [here](https://gonka.ai/host/access-account/) to learn how to access your account. 
 
 **Are you a Developer?**
 
@@ -36,21 +35,22 @@ This command lists all the wallet keys (accounts) you’ve created locally, alon
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A+Qpbyhtsdl5N/6O6S/qJ9uvtbI7OFFsO5dcNrpEU0nv"}'
   type: local
 ```
-Write down the address (used to receive tokens and query balance).
+Write down the address (used to receive coins and query balance).
 
 ---
 
 ## Query Balance
 
 To check your balance, ensure you have sufficient funds before transferring, or to verify a successful transfer, use the following command:
-
+    
 ```bash
 inferenced query bank balances <address> [--node <node_rpc_url>]
 ```
-This shows how many tokens are in your wallet.
 
+This shows how many coins are in your wallet.
+    
 **Example:**
-
+    
 ```bash
 inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --node http://node2.gonka.ai:26657
 ```
@@ -59,28 +59,134 @@ inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --no
 
 ## Send Coins
 
-In Cosmos, a fund transfer means sending tokens from one account (wallet address) to another within a Cosmos-based blockchain. These transfers are used to pay for services or simply send value between users. You perform transfers using the Cosmos SDK command-line tool — specifically, the inferenced CLI. Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and token denomination.
+In Cosmos, a fund transfer means sending coins from one account (wallet address) to another within a Cosmos-based blockchain. These transfers are used to pay for services or simply send value between users. 
 
-Once you know your balance and have the recipient’s address, you can send tokens.
+=== "CLI"
 
-```bash
-inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
-```
+    You can perform transfers using the Cosmos SDK command-line tool — specifically, the `inferenced` CLI. Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and coin denomination.
+    
+    Once you know your balance and have the recipient’s address, you can send coins.
+    
+    ```bash
+    inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
+    ```
 
-**Example:**
+    **Example:**
 
-```bash
-inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100igonka --chain-id gonka-mainnet
-```
+    ```bash
+    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100igonka --chain-id gonka-mainnet
+    ```
+    
+    When specifying coins, you can use the following denominations:
+    
+    - `ngonka` (exponent 0)
+    - `ugonka` (exponent 3)
+    - `migonka` (exponent 6)
+    - `igonka` (exponent 9, base unit)
+    - `kigonka` (exponent 12)
+    - `mcigonka` (exponent 15)
 
-When specifying coins, you can use the following denominations:
+=== "Keplr (web-extension)"
 
-- `ngonka` (exponent 0)
-- `ugonka` (exponent 3)
-- `migonka` (exponent 6)
-- `igonka` (exponent 9, base unit)
-- `kigonka` (exponent 12)
-- `mcigonka` (exponent 15)
+    To make a transfer on the Gonka chain between Gonka accounts using the Keplr wallet, log in and open to your Keplr wallet.
+    
+    <a href="/images/keplr_sender_txs_1.png" target="_blank"><img src="/images/keplr_sender_txs_1.png" style="width:250px; height:auto;"></a>
+    
+    Search for the Gonka chain on the home screen.
+    
+    <a href="/images/keplr_sender_txs_2.png" target="_blank"><img src="/images/keplr_sender_txs_1.png" style="width:250px; height:auto;"></a>
+    
+    Click “Send”.
+    
+    <a href="/images/keplr_sender_txs_3.png" target="_blank"><img src="/images/keplr_sender_txs_3.png" style="width:250px; height:auto;"></a>
+    
+    === "If you already know the receiver’s Gonka wallet address" 
+            
+        Paste the receiver’s Gonka wallet address into the address field. Specify the amount you intend to send.
+    
+        <a href="/images/keplr_sender_txs_4.png" target="_blank"><img src="/images/keplr_sender_txs_4.png" style="width:250px; height:auto;"></a>
+    
+    
+    === "If you do not know the receiver’s Gonka wallet address"
+    
+        The receiver should open their Keplr wallet where their Gonka account is added. They click on "Copy address" above their balance.
+    
+        <a href="/images/keplr_receiver_txs_1.png" target="_blank"><img src="/images/keplr_receiver_txs_1.png" style="width:250px; height:auto;"></a>
+      
+        They search for the Gonka chain.
+            
+        <a href="/images/keplr_receiver_txs_2.png" target="_blank"><img src="/images/keplr_receiver_txs_2.png" style="width:250px; height:auto;"></a>
+            
+        They copy and send you their address.
+    
+        <a href="/images/keplr_receiver_txs_3.png" target="_blank"><img src="/images/keplr_receiver_txs_3.png" style="width:250px; height:auto;"></a>
+
+        Paste the receiver’s Gonka wallet address into the address field. Specify the amount you intend to send.
+    
+        <a href="/images/keplr_sender_txs_4.png" target="_blank"><img src="/images/keplr_sender_txs_4.png" style="width:250px; height:auto;"></a>
+    
+    
+    Approve the transaction.
+    
+    <a href="/images/keplr_sender_txs_5.png" target="_blank"><img src="/images/keplr_sender_txs_5.png" style="width:250px; height:auto;"></a>
+    
+    Wait for the Transaction successful notification. You will not see the transaction in the Activity tab because Gonka is a non native chain.
+    
+    <a href="/images/keplr_sender_txs_6.png" target="_blank"><img src="/images/keplr_sender_txs_6.png" style="width:250px; height:auto;"></a>
+
+=== "Keplr (mobile app)"
+
+    To make a transfer on the Gonka chain between Gonka accounts using the Keplr wallet, log in and open to your Keplr wallet.
+    
+    <a href="/images/keplr_mobile_sender_1.PNG" target="_blank"><img src="/images/keplr_mobile_sender_1.PNG" style="width:250px; height:auto;"></a>
+    
+    Search for the Gonka chain on the home screen.
+    
+    <a href="/images/keplr_mobile_sender_2.PNG" target="_blank"><img src="/images/keplr_mobile_sender_2.PNG" style="width:250px; height:auto;"></a>
+    
+    Click “Send”.
+    
+    <a href="/images/keplr_mobile_sender_3.PNG" target="_blank"><img src="/images/keplr_mobile_sender_3.PNG" style="width:250px; height:auto;"></a>
+    
+    === "If you already know the receiver’s Gonka wallet address" 
+            
+        Paste the receiver’s Gonka wallet address into the address field. Specify the amount you intend to send.
+    
+        <a href="/images/keplr_mobile_sender_4.PNG" target="_blank"><img src="/images/keplr_mobile_sender_4.PNG" style="width:250px; height:auto;"></a>
+    
+    
+    === "If you do not know the receiver’s Gonka wallet address"
+    
+        The receiver should open their Keplr wallet where their Gonka account is added.  
+    
+         <a href="/images/keplr_mobile_receiver_1.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_1.PNG" style="width:250px; height:auto;"></a>
+      
+         They search for the Gonka chain and click.
+            
+         <a href="/images/keplr_mobile_receiver_2.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_2.PNG" style="width:250px; height:auto;"></a>
+
+         They copy their address above their balance or click "Receive" and copy their address in the next step below.
+
+         <a href="/images/keplr_mobile_receiver_3.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_3.PNG" style="width:250px; height:auto;"></a>
+
+         They copy and send you their address.
+    
+        <a href="/images/keplr_mobile_receiver_4.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_4.PNG" style="width:250px; height:auto;"></a>
+
+        Paste the receiver’s Gonka wallet address into the address field. Specify the amount you intend to send.
+    
+        <a href="/images/keplr_mobile_sender_4.PNG" target="_blank"><img src="/images/keplr_mobile_sender_4.PNG" style="width:250px; height:auto;"></a>
+    
+    
+    Approve the transaction.
+    
+    <a href="/images/keplr_mobile_sender_5.PNG" target="_blank"><img src="/images/keplr_mobile_sender_5.PNG" style="width:250px; height:auto;"></a>
+    
+    Wait for the screen confirming that the transaction was successful. You will not see the transaction in the Activity tab because Gonka is a non native chain.
+    
+    <a href="/images/keplr_mobile_sender_6.PNG" target="_blank"><img src="/images/keplr_mobile_sender_6.PNG" style="width:250px; height:auto;"></a>
+
+
 
 ---
 

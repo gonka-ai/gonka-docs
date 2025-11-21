@@ -41,18 +41,64 @@ Write down the address (used to receive tokens and query balance).
 
 ## Query Balance
 
-To check your balance, ensure you have sufficient funds before transferring, or to verify a successful transfer, use the following command:
+=== "CLI"
 
-```bash
-inferenced query bank balances <address> [--node <node_rpc_url>]
-```
-This shows how many tokens are in your wallet.
+    To check your balance, ensure you have sufficient funds before transferring, or to verify a successful transfer, use the following command:
+    
+    ```bash
+    inferenced query bank balances <address> [--node <node_rpc_url>]
+    ```
+    This shows how many tokens are in your wallet.
+    
+    **Example:**
+    
+    ```bash
+    inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --node http://node2.gonka.ai:26657
+    ```
 
-**Example:**
+=== "Keplr (web-extension)"
 
-```bash
-inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --node http://node2.gonka.ai:26657
-```
+    To make a transfer on the Gonka chain between Gonka accounts using the Keplr wallet, log in and open to your Keplr wallet.
+    
+    <a href="/images/keplr_sender_txs_1.png" target="_blank"><img src="/images/keplr_sender_txs_1.png" style="width:250px; height:auto;"></a>
+    
+    Search for the Gonka chain on the home screen.
+    
+    <a href="/images/keplr_sender_txs_2.png" target="_blank"><img src="/images/keplr_sender_txs_1.png" style="width:250px; height:auto;"></a>
+    
+    Click “Send”.
+    
+    <a href="/images/keplr_sender_txs_3.png" target="_blank"><img src="/images/keplr_sender_txs_3.png" style="width:250px; height:auto;"></a>
+    
+    === "If you already know the receiver’s Gonka wallet address" 
+            
+        Paste the receiver’s Gonka wallet address into the address field.
+    
+        <a href="/images/keplr_sender_txs_4.png" target="_blank"><img src="/images/keplr_sender_txs_4.png" style="width:250px; height:auto;"></a>
+    
+    
+    === "If you do not know the receiver’s Gonka wallet address"
+    
+        The receiver should open their Keplr wallet where their Gonka account is added.
+    
+         <a href="/images/keplr_receiver_txs_1.png" target="_blank"><img src="/images/keplr_receiver_txs_1.png" style="width:250px; height:auto;"></a>
+      
+         They search for the Gonka chain on the home screen.
+            
+         <a href="/images/keplr_receiver_txs_2.png" target="_blank"><img src="/images/keplr_receiver_txs_2.png" style="width:250px; height:auto;"></a>
+            
+         They show you their QR code or copy and send you their address.
+    
+        <a href="/images/keplr_receiver_txs_3.png" target="_blank"><img src="/images/keplr_receiver_txs_3.png" style="width:250px; height:auto;"></a>
+    
+    
+    Approve the transaction.
+    
+    <a href="/images/keplr_sender_txs_5.png" target="_blank"><img src="/images/keplr_sender_txs_5.png" style="width:250px; height:auto;"></a>
+    
+    Wait for the Transaction successful notification. You will not see the transaction in the Activity tab because Gonka is a non native chain.
+    
+    <a href="/images/keplr_sender_txs_6.png" target="_blank"><img src="/images/keplr_sender_txs_6.png" style="width:250px; height:auto;"></a>
 
 ---
 

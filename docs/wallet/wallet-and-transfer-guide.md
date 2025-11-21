@@ -130,6 +130,56 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
     
     <a href="/images/keplr_sender_txs_6.png" target="_blank"><img src="/images/keplr_sender_txs_6.png" style="width:250px; height:auto;"></a>
 
+=== "Keplr (mobile app)"
+
+    To make a transfer on the Gonka chain between Gonka accounts using the Keplr wallet, log in and open to your Keplr wallet.
+    
+    <a href="/images/keplr_mobile_sender_1.PNG" target="_blank"><img src="/images/keplr_mobile_sender_1.PNG" style="width:250px; height:auto;"></a>
+    
+    Search for the Gonka chain on the home screen.
+    
+    <a href="/images/keplr_mobile_sender_2.PNG" target="_blank"><img src="/images/keplr_mobile_sender_2.PNG" style="width:250px; height:auto;"></a>
+    
+    Click “Send”.
+    
+    <a href="/images/keplr_mobile_sender_3.PNG" target="_blank"><img src="/images/keplr_mobile_sender_3.PNG" style="width:250px; height:auto;"></a>
+    
+    === "If you already know the receiver’s Gonka wallet address" 
+            
+        Paste the receiver’s Gonka wallet address into the address field.
+    
+        <a href="/images/keplr_mobile_sender_4.PNG" target="_blank"><img src="/images/keplr_mobile_sender_4.PNG" style="width:250px; height:auto;"></a>
+    
+    
+    === "If you do not know the receiver’s Gonka wallet address"
+    
+        The receiver should open their Keplr wallet where their Gonka account is added.  
+    
+         <a href="/images/keplr_mobile_receiver_1.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_1.PNG" style="width:250px; height:auto;"></a>
+      
+         They search for the Gonka chain and click.
+            
+         <a href="/images/keplr_mobile_receiver_2.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_2.PNG" style="width:250px; height:auto;"></a>
+
+         They copy their address above their balance or click "Receive" and copy their address in the next step below.
+
+         <a href="/images/keplr_mobile_receiver_3.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_3.PNG" style="width:250px; height:auto;"></a>
+
+         They copy and send you their address.
+    
+        <a href="/images/keplr_mobile_receiver_4.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_4.PNG" style="width:250px; height:auto;"></a>
+    
+    
+    Approve the transaction.
+    
+    <a href="/images/keplr_mobile_sender_5.PNG" target="_blank"><img src="/images/keplr_mobile_sender_5.PNG" style="width:250px; height:auto;"></a>
+    
+    Wait for the screen confirming that the transaction was successful. You will not see the transaction in the Activity tab because Gonka is a non native chain.
+    
+    <a href="/images/keplr_mobile_sender_6.PNG" target="_blank"><img src="/images/keplr_mobile_sender_6.PNG" style="width:250px; height:auto;"></a>
+
+
+
 ---
 
 ## Check Transaction Status

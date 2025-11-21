@@ -109,7 +109,7 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
     
     === "If you do not know the receiver’s Gonka wallet address"
     
-        The receiver should open their Keplr wallet where their Gonka account is added.
+        The receiver should open their Keplr wallet where their Gonka account is added. They click on "Copy address" above their balance.
     
          <a href="/images/keplr_receiver_txs_1.png" target="_blank"><img src="/images/keplr_receiver_txs_1.png" style="width:250px; height:auto;"></a>
       

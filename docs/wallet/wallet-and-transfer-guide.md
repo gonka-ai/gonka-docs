@@ -113,7 +113,7 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
     
          <a href="/images/keplr_receiver_txs_1.png" target="_blank"><img src="/images/keplr_receiver_txs_1.png" style="width:250px; height:auto;"></a>
       
-         They search for the Gonka chain on the home screen.
+         They search for the Gonka chain.
             
          <a href="/images/keplr_receiver_txs_2.png" target="_blank"><img src="/images/keplr_receiver_txs_2.png" style="width:250px; height:auto;"></a>
             

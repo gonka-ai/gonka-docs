@@ -489,3 +489,12 @@ sudo ls -l .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
 echo "8c6898e99acb3b1acb4e196398003453ea50f82d92ce4e2ebcec99a795f8d735 .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api" | sudo sha256sum --check && \
 echo "9187b69322ba73f745c8ed2fbad713a39ce0e39ed15f7a48dacf9356693ed1a0 .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced" | sudo sha256sum --check
 ```
+只有当所有命令在执行过程中未出现任何错误，并成功输出确认信息时，二进制文件才被视为已成功下载和安装。
+```
+Inference Installed and Verified
+--- Final Verification ---
+-rwxr-xr-x 1 root root 216176168 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api
+-rwxr-xr-x 1 root root 212197496 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced
+.dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api: OK
+.inference/cosmovisor/upgrades/v0.2.5/bin/inferenced: OK
+```

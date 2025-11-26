@@ -175,7 +175,14 @@ For the test itself you will be sending POST `/v1/pow/init/generate` request to 
 
 The following model params are used for PoC: [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41)
 
-Here’s how you can send this  request with `curl`:
+If your node is in the `INFERENCE` state then you first need to transition the node to the stopped state:
+
+```
+curl -X POST "http://<ml-node-host>:<port>/api/v1/stop" \
+  -H "Content-Type: application/json"
+```
+
+Now you can send a request to initiate PoC:
 
 ```
 curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \

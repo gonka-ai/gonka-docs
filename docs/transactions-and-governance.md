@@ -53,7 +53,7 @@ For `MsgUpdateParams`, modules typically expect the **full** params object and t
 
 ## 3) Know the voting options & the (very) short gov flow
 
-- **Options:** `yes`, `no`, `nowithveto`, `abstain`. `NoWithVeto` is a “no” plus a veto signal; `Abstain` contributes to quorum without supporting or opposing. ([Cosmos SDK Documentation](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"), [Cosmos Tutorials](https://tutorials.cosmos.network/tutorials/8-understand-sdk-modules/4-gov.html?utm_source=chatgpt.com "Understand the Gov Module"))
+- **Options:** `yes`, `no`, `no_with_veto`, `abstain`. `NoWithVeto` is a “no” plus a veto signal; `Abstain` contributes to quorum without supporting or opposing. ([Cosmos SDK Documentation](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"), [Cosmos Tutorials](https://tutorials.cosmos.network/tutorials/8-understand-sdk-modules/4-gov.html?utm_source=chatgpt.com "Understand the Gov Module"))
 - **Flow:** proposals open (after deposit) → voting period runs → outcome decided by quorum/threshold/veto parameters → if **passed**, messages execute via the gov module. You may **change your vote any time before the voting period ends**; the **last** vote counts. ([Cosmos Hub](https://hub.cosmos.network/main/governance/process?utm_source=chatgpt.com "On-Chain Proposal Process"))
 
 ## 4) Cast (or change) your vote
@@ -61,7 +61,7 @@ For `MsgUpdateParams`, modules typically expect the **full** params object and t
 Run this from the same machine that holds your Cold Account Key (you’ll be prompted for the keyring password because `--keyring-backend=file`):
 
 ```bash
-# options: yes | no | nowithveto | abstain
+# options: yes | no | no_with_veto | abstain
 # Example: vote "yes"
 # As an example, this is yes!
 inferenced tx gov vote <proposal_id> yes \
@@ -199,7 +199,7 @@ inferenced tx gov deposit <proposal_id> <amount> \
 ## Vote
 Again, this will need to be from you private machine with your Governance account:
 ```bash
-# options: yes | no | nowithveto | abstain
+# options: yes | no | no_with_veto | abstain
 inferenced tx gov vote <proposal_id> yes \
   --from <cold-key-name> \
   --keyring-backend file \

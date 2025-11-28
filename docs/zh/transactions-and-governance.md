@@ -53,7 +53,7 @@ diff -u current_params.json proposed_params.json || true
 
 ## 3) 了解投票选项和（非常）简短的治理流程
 
-- **选项：** `yes`、`no`、`nowithveto`、`abstain`。`NoWithVeto` 是"否"加上否决信号；`Abstain` 有助于法定人数而不支持或反对。([Cosmos SDK 文档](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK")、[Cosmos 教程](https://tutorials.cosmos.network/tutorials/8-understand-sdk-modules/4-gov.html?utm_source=chatgpt.com "Understand the Gov Module"))
+- **选项：** `yes`、`no`、`no_with_veto`、`abstain`。`NoWithVeto` 是"否"加上否决信号；`Abstain` 有助于法定人数而不支持或反对。([Cosmos SDK 文档](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK")、[Cosmos 教程](https://tutorials.cosmos.network/tutorials/8-understand-sdk-modules/4-gov.html?utm_source=chatgpt.com "Understand the Gov Module"))
 - **流程：** 提案开放（存款后）→ 投票期运行 → 结果由法定人数/阈值/否决参数决定 → 如果**通过**，消息通过治理模块执行。你可以在**投票期结束前的任何时间更改投票**；**最后一次**投票计入。([Cosmos Hub](https://hub.cosmos.network/main/governance/process?utm_source=chatgpt.com "On-Chain Proposal Process"))
 
 ## 4) 投票（或更改）你的投票
@@ -61,7 +61,7 @@ diff -u current_params.json proposed_params.json || true
 从持有你冷账户密钥的同一台机器运行此命令（系统会提示你输入密钥环密码，因为 `--keyring-backend=file`）：
 
 ```bash
-# 选项：yes | no | nowithveto | abstain
+# 选项：yes | no | no_with_veto | abstain
 # 示例：投票"是"
 # 作为示例，这是是！
 inferenced tx gov vote <proposal_id> yes \
@@ -199,7 +199,7 @@ inferenced tx gov deposit <proposal_id> <amount> \
 ## 投票
 同样，这需要从你的私人机器使用你的治理账户：
 ```bash
-# 选项：yes | no | nowithveto | abstain
+# 选项：yes | no | no_with_veto | abstain
 inferenced tx gov vote <proposal_id> yes \
   --from <cold-key-name> \
   --keyring-backend file \

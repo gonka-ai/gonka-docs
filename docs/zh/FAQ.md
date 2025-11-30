@@ -1,7 +1,7 @@
 # 常见问题（FAQ）
 
 ## 什么是 Gonka？
-Gonka 是一个由参与者共同运行的去中心化高效 AI 计算网络，为 AI 模型的训练与推理提供相较中心化云更具性价比与高效的替代方案。作为协议，它不是公司或创业团队。
+Gonka 是一个由参与者共同运行的去中心化高效 AI 计算网络，为 AI 模型的训练与推理提供相较中心化云服务更具性价比与高效的替代方案。作为协议，它不是公司或创业团队。
     
 ## 什么是 GNK 代币？
 GNK 是 Gonka 网络的原生代币，用于激励参与者、为资源定价，并保障网络的可持续增长。
@@ -62,7 +62,7 @@ GNK 是 Gonka 网络的原生代币，用于激励参与者、为资源定价，
 - 在[/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals)文件夹中创建 Markdown 提案。
 - 为你的提案打开一个 Pull Request。
 - 社区评审：
-        - 活跃贡献者与维护者在 PR 讨论串中讨论提案。
+        - 活跃贡献者与维护者在 PR 帖中讨论提案。
         - 公开收集反馈、建议与修订。
 - 通过与合并：
         - 若社区达成一致，PR 将被合并。
@@ -260,7 +260,7 @@ curl -X POST "http://<您的MLNode主机地址>:8080/api/v1/pow/init/generate" \
     --chain-id gonka-mainnet
 ```
 
-## 我删除了暖密钥
+## 我删除了热密钥
 
 1) 请在本地设备（非服务器）上备份冷密钥。 停止 API 容器：
    
@@ -268,9 +268,9 @@ curl -X POST "http://<您的MLNode主机地址>:8080/api/v1/pow/init/generate" \
 docker compose down api --no-deps
 ```
 
-2) 在 `config.env` 文件中设置暖密钥的 `KEY_NAME`。
+2) 在 `config.env` 文件中设置热密钥的 `KEY_NAME`。
    
-3) ［服务器操作］：重新创建暖密钥：
+3) ［服务器操作］：重新创建热密钥：
    
 ```
 source config.env && docker compose run --rm --no-deps -it api /bin/sh

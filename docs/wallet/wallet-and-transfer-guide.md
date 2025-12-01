@@ -79,12 +79,10 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
     
     When specifying coins, you can use the following denominations:
     
-    - `ngonka` (exponent 0)
+    - `ngonka` (exponent 0, base unit)
     - `ugonka` (exponent 3)
-    - `migonka` (exponent 6)
-    - `igonka` (exponent 9, base unit)
-    - `kigonka` (exponent 12)
-    - `mcigonka` (exponent 15)
+    - `mgonka` (exponent 6)
+    - `gonka` (exponent 9)
 
 === "Keplr (web-extension)"
 

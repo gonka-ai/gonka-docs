@@ -790,22 +790,75 @@ Once your node is visible in the Dashboard, you may also want to update your pub
 ## Stopping and Cleaning Up Your Node
 
 ### How to stop MLNode
-1. Disable each MLNode.
+
+Check the epoch you are currently in.
+
+Open the URL: [http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest)
+
+You can use the URL any other active participant). 
+
+In the response, look for:
+```
+"latest_epoch": {
+    "index": 88,
+    ...
+}
+```
+
+Remember the latest epoch index your node worked for. 
+
+In the same JSON response, find:
+```
+"next_epoch_stages": {
+  ...
+  "claim_money": <block_number>
+}
+```
+This block number indicates the block after which you can claim the reward. However, it is important to understand you should proceed with disabling each MLNode now (do not wait for this block before disabling your MLNodes).
+
+Disable each MLNode.
+
 ```
 curl -X POST http://<api_node_static_ip>:<admin_port>/admin/v1/nodes/<id>/disable
 ```
-2. Wait for the next epoch. Do not stop the node yet. The disable flag takes effect only after the next epoch starts.
-3. Verify removal and weight. Confirm both for every disabled node:
+Wait for the next epoch. Do not stop the Network Node or the MLNodes yet. The disable flag takes effect only after the next epoch starts.
 
-    - It is not present in the active participants list
-    - Its effective weight equals 0
+Keep your Network Node online and synced, it should handle the reward claim automatically.
+To check that your latest reward was claimed, after the `claim_money` block run the following command (replace `<YOUR_ADDRESS>` and `<EPOCH>` with your actual values):
+```
+inferenced query inference show-epoch-performance-summary <EPOCH> <YOUR_ADDRESS> --node http://node1.gonka.ai:8000/chain-rpc/ --output json
+```
+Example: 
+```
+Output:
+{
+  "epochPerformanceSummary": {
+    "epoch_index": "87",
+    "participant_id": "<YOUR_ADDRESS>",
+    "missed_requests": "1",
+    "rewarded_coins": "123456",
+    "claimed": true
+  }
+}
+```
+If the result shows `claimed = true`, your reward has already been claimed.
+If it shows `false`, proceed to the manual claim step.
 
-4. Stop the MLNode.
-5. Make sure you are in `gonka/deploy/join` folder. To stop all running containers:
-```bash
+!!! note "Manually claim the reward (if needed)"
+    Run:
+    ```
+    curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
+     -H "Content-Type: application/json" \
+     -d '{"force_claim": true}'
+     ```
+
+Verify removal and weight. If you disabled all your nodes then your participant should be absent from the active participants list. In case you can still see your participant in the list then it means the network still expects you to participate in the epoch and if you proceed with disabling your node you may miss inferences which will affect your reputation. 
+
+Make sure you are in `gonka/deploy/join` folder. To stop all running containers:
+```
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
 ```
-6. This stops and removes all services defined in the `docker-compose.yml` and `docker-compose.mlnode.yml` file without deleting volumes or data unless explicitly configured.
+This stops and removes all services defined in the `docker-compose.yml` and `docker-compose.mlnode.yml` files without deleting volumes or data unless explicitly configured.
 
 ### How to clean up your node (full reset)
 

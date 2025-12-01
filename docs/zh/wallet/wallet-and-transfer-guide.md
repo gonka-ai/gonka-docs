@@ -69,21 +69,127 @@ inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --no
 
 ---
 
-## 发送代币
+## Send Coins
 
-在 Cosmos 中，转账是指在同一条 Cosmos 系区块链上将代币从一个账户（钱包地址）发送到另一个账户。典型用途包括支付服务费用或进行价值转移。你将使用 Cosmos SDK 的命令行工具（此处为 `inferenced` CLI）发起转账。每笔转账都会记录在链上，并且需要有效的发送方、接收方、金额与代币单位。
+在 Cosmos 中，资金转账指的是在 Cosmos 生态的区块链上，从一个账户（钱包地址）向另一个账户发送代币。
+这些转账可用于支付服务费用，或在用户之间简单地传递价值。
 
-当你确认余额且知道接收方地址后，就可以发送代币：
+=== "CLI"
 
-```bash
-inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
-```
+    你可以使用 Cosmos SDK 的命令行工具 — 具体来说是 `inferenced` CLI — 来执行转账操作。
+每笔转账都会记录在区块链上，并且需要有效的发送方、接收方、金额和代币单位。
+    
+    在你确认余额并获取接收方的地址后，就可以发送代币了。
+    
+    ```bash
+    inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
+    ```
 
-**示例：**
+    **示例:**
 
-```bash
-inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka --chain-id gonka-mainnet
-```
+    ```bash
+    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka --chain-id gonka-mainnet
+    ```
+
+=== "Keplr (web-extension)"
+
+    要使用 Keplr 钱包在 Gonka 链上进行 Gonka 账户之间的转账，请先登录并打开你的 Keplr 钱包。
+    
+    <a href="/images/keplr_sender_txs_1.png" target="_blank"><img src="/images/keplr_sender_txs_1.png" style="width:250px; height:auto;"></a>
+    
+    在主界面中搜索 Gonka 链。
+    
+    <a href="/images/keplr_sender_txs_2.png" target="_blank"><img src="/images/keplr_sender_txs_1.png" style="width:250px; height:auto;"></a>
+    
+    点击 “Send”。
+    
+    <a href="/images/keplr_sender_txs_3.png" target="_blank"><img src="/images/keplr_sender_txs_3.png" style="width:250px; height:auto;"></a>
+    
+    === "如果你已经知道接收方的 Gonka 钱包地址" 
+            
+        将接收方的 Gonka 钱包地址粘贴到地址栏中，并输入你要发送的金额。
+    
+        <a href="/images/keplr_sender_txs_4.png" target="_blank"><img src="/images/keplr_sender_txs_4.png" style="width:250px; height:auto;"></a>
+    
+    
+    === "如果你不知道接收方的 Gonka 钱包地址"
+    
+        接收方需要打开已添加 Gonka 账户的 Keplr 钱包，然后点击余额上方的“Copy address”。
+    
+        <a href="/images/keplr_receiver_txs_1.png" target="_blank"><img src="/images/keplr_receiver_txs_1.png" style="width:250px; height:auto;"></a>
+      
+        他们搜索 Gonka 链。
+            
+        <a href="/images/keplr_receiver_txs_2.png" target="_blank"><img src="/images/keplr_receiver_txs_2.png" style="width:250px; height:auto;"></a>
+            
+        他们复制地址并发送给你。
+    
+        <a href="/images/keplr_receiver_txs_3.png" target="_blank"><img src="/images/keplr_receiver_txs_3.png" style="width:250px; height:auto;"></a>
+
+        将接收方的 Gonka 钱包地址粘贴到地址栏中，并输入你要发送的金额。
+    
+        <a href="/images/keplr_sender_txs_4.png" target="_blank"><img src="/images/keplr_sender_txs_4.png" style="width:250px; height:auto;"></a>
+    
+    
+    批准交易.
+    
+    <a href="/images/keplr_sender_txs_5.png" target="_blank"><img src="/images/keplr_sender_txs_5.png" style="width:250px; height:auto;"></a>
+    
+    等待交易成功通知。你不会在 Activity（活动）标签页看到该交易，因为 Gonka 是非原生链。
+    
+    <a href="/images/keplr_sender_txs_6.png" target="_blank"><img src="/images/keplr_sender_txs_6.png" style="width:250px; height:auto;"></a>
+
+=== "Keplr (mobile app)"
+
+    要使用 Keplr 钱包在 Gonka 链上进行 Gonka 账户之间的转账，请先登录并打开你的 Keplr 钱包。
+    
+    <a href="/images/keplr_mobile_sender_1.PNG" target="_blank"><img src="/images/keplr_mobile_sender_1.PNG" style="width:250px; height:auto;"></a>
+    
+    在主界面中搜索 Gonka 链。
+    
+    <a href="/images/keplr_mobile_sender_2.PNG" target="_blank"><img src="/images/keplr_mobile_sender_2.PNG" style="width:250px; height:auto;"></a>
+    
+    点击 “Send”。
+    
+    <a href="/images/keplr_mobile_sender_3.PNG" target="_blank"><img src="/images/keplr_mobile_sender_3.PNG" style="width:250px; height:auto;"></a>
+    
+    === "如果你已经知道接收方的 Gonka 钱包地址" 
+            
+        将接收方的 Gonka 钱包地址粘贴到地址栏中，并输入你要发送的金额。
+    
+        <a href="/images/keplr_mobile_sender_4.PNG" target="_blank"><img src="/images/keplr_mobile_sender_4.PNG" style="width:250px; height:auto;"></a>
+    
+    
+    === "如果你不知道接收方的 Gonka 钱包地址"
+    
+        接收方需要打开已添加 Gonka 账户的 Keplr 钱包。  
+    
+         <a href="/images/keplr_mobile_receiver_1.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_1.PNG" style="width:250px; height:auto;"></a>
+      
+         他们搜索 Gonka 链并点击进入。
+            
+         <a href="/images/keplr_mobile_receiver_2.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_2.PNG" style="width:250px; height:auto;"></a>
+
+         他们可以点击余额上方的地址进行复制，或点击“Receive”并在下一步页面中复制他们的地址。
+
+         <a href="/images/keplr_mobile_receiver_3.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_3.PNG" style="width:250px; height:auto;"></a>
+
+         他们复制地址并将其发送给你。
+    
+        <a href="/images/keplr_mobile_receiver_4.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_4.PNG" style="width:250px; height:auto;"></a>
+
+        将接收方的 Gonka 钱包地址粘贴到地址栏中，并输入你要发送的金额。
+    
+        <a href="/images/keplr_mobile_sender_4.PNG" target="_blank"><img src="/images/keplr_mobile_sender_4.PNG" style="width:250px; height:auto;"></a>
+    
+    
+    批准交易。
+    
+    <a href="/images/keplr_mobile_sender_5.PNG" target="_blank"><img src="/images/keplr_mobile_sender_5.PNG" style="width:250px; height:auto;"></a>
+    
+    等待显示交易成功的确认页面。你不会在 Activity（活动）标签页看到该交易，因为 Gonka 是非原生链。
+    
+    <a href="/images/keplr_mobile_sender_6.PNG" target="_blank"><img src="/images/keplr_mobile_sender_6.PNG" style="width:250px; height:auto;"></a>
 
 ---
 

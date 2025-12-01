@@ -74,15 +74,22 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
     **Example:**
 
     ```bash
-    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100igonka --chain-id gonka-mainnet
+    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka --chain-id gonka-mainnet
     ```
     
-    When specifying coins, you can use the following denominations:
+    **Denominations**
     
-    - `ngonka` (exponent 0, base unit)
-    - `ugonka` (exponent 3)
-    - `mgonka` (exponent 6)
-    - `gonka` (exponent 9)
+    On-chain, the only valid denomination is `ngonka`. All balances, fees, and transactions must use `ngonka` exclusively.
+    The Cosmos SDK may allow defining additional denominations, but these are non-operative — the SDK does not perform automatic conversions between them.
+    `gonka` is used purely as an off-chain, human-friendly display unit. It represents 1 billion `ngonka`, and does not exist on the chain itself.
+    
+    **Effective Units**
+
+    | Unit   | Purpose                         | On-chain? | Ratio                               |
+    |--------|----------------------------------|-----------|--------------------------------------|
+    | `ngonka` | Base unit used on the network    | Yes       | 1                                    |
+    | `gonka`  | Human-readable display unit      | No        | 1 `gonka` = 1,000,000,000 `ngonka`       |
+
 
 === "Keplr (web-extension)"
 

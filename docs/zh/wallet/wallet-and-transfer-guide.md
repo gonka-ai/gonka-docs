@@ -74,12 +74,10 @@ inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100
 
 指定金额时，可使用以下面额：
 
-- `ngonka`（指数 0）
+- `ngonka`（指数 0，基础单位）
 - `ugonka`（指数 3）
-- `migonka`（指数 6）
-- `igonka`（指数 9，基础单位）
-- `kigonka`（指数 12）
-- `mcigonka`（指数 15）
+- `mgonka`（指数 6）
+- `gonka`（指数 9）
 
 ---
 

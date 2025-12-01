@@ -791,11 +791,7 @@ Once your node is visible in the Dashboard, you may also want to update your pub
 
 ### How to stop MLNode
 
-Check the epoch you are currently in.
-
-Open the URL: [http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest)
-
-You can use the URL any other active participant). 
+Check the epoch you are currently in. Open the URL: [http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest) (You can use the URL any other active participant). 
 
 In the response, look for:
 ```
@@ -850,7 +846,7 @@ If it shows `false`, proceed to the manual claim step.
     curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
      -H "Content-Type: application/json" \
      -d '{"force_claim": true}'
-     ```
+    ```
 
 Verify removal and weight. If you disabled all your nodes then your participant should be absent from the active participants list. In case you can still see your participant in the list then it means the network still expects you to participate in the epoch and if you proceed with disabling your node you may miss inferences which will affect your reputation. 
 

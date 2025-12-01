@@ -69,15 +69,21 @@ inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id
 **示例：**
 
 ```bash
-inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100igonka --chain-id gonka-mainnet
+inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka --chain-id gonka-mainnet
 ```
 
-指定金额时，可使用以下面额：
+**计量单位（Denominations）**
 
-- `ngonka`（指数 0，基础单位）
-- `ugonka`（指数 3）
-- `mgonka`（指数 6）
-- `gonka`（指数 9）
+在链上，唯一有效的计量单位是 `ngonka`。所有余额、手续费和交易必须全部使用 `ngonka`。  
+Cosmos SDK 虽然允许定义额外的计量单位，但这些单位并不具有实际效用 —— SDK **不会**在它们之间执行任何自动换算。  
+`gonka` 仅作为链下、面向用户的显示单位使用。它代表 10 亿（1,000,000,000）`ngonka`，并不存在于链上。
+
+**有效单位（Effective Units）**
+
+| Unit     | 用途（Purpose）               | 链上可用？（On-chain?） | 比例（Ratio）                                |
+|----------|-------------------------------|--------------------------|-----------------------------------------------|
+| `ngonka` | 网络中的基础单位               | 是（Yes）               | 1                                             |
+| `gonka`  | 便于阅读的显示单位（链下）     | 否（No）                | 1 `gonka` = 1,000,000,000 `ngonka`            |
 
 ---
 

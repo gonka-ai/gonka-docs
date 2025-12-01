@@ -711,22 +711,77 @@ curl http://node2.gonka.ai:26657/status
 ## 停止与清理节点
 
 ### 如何停止 ML 节点
-1. 禁用每个 ML 节点：
+
+请查看你当前所处的 epoch。打开以下链接：
+[http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest)￼（你也可以使用任何其他活跃参与者的链接）。
+
+在返回结果中，查找以下字段：
+```
+"latest_epoch": {
+    "index": 88,
+    ...
+}
+```
+
+记住你的节点最后运行所在的 epoch 索引。
+
+在同一个 JSON 返回结果中，查找：
+```
+"next_epoch_stages": {
+  ...
+  "claim_money": <block_number>
+}
+```
+该区块高度表示你可以领取奖励的区块之后的位置。
+但需要注意的是，你现在就应该开始禁用每个 MLNode（不要等到达到这个区块后再禁用你的 MLNodes）。
+
+禁用每个 MLNode。
+
 ```
 curl -X POST http://<api_node_static_ip>:<admin_port>/admin/v1/nodes/<id>/disable
 ```
-2. 等待下一个 epoch，在此之前不要停止节点。禁用标记仅在下一个 epoch 生效。
-3. 验证移除与权重：对每个被禁用节点确认：
+等待下一个 epoch。此时不要停止 Network Node 或 MLNodes。
+禁用标记只有在下一个 epoch 开始后才会生效。
 
-    - 不再出现在活跃参与者列表中
-    - 有效权重为 0
+保持你的 Network Node 在线并保持同步，它会自动处理奖励领取。
 
-4. 停止 ML 节点。
-5. 确认位于 `gonka/deploy/join` 目录，停止所有容器：
-```bash
+要检查最近一次奖励是否已被领取，在经过 `claim_money` 区块后，运行以下命令（将 `<YOUR_ADDRESS>` 和 `<EPOCH>` 替换为你的实际值）：
+```
+inferenced query inference show-epoch-performance-summary <EPOCH> <YOUR_ADDRESS> --node http://node1.gonka.ai:8000/chain-rpc/ --output json
+```
+示例: 
+```
+Output:
+{
+  "epochPerformanceSummary": {
+    "epoch_index": "87",
+    "participant_id": "<YOUR_ADDRESS>",
+    "missed_requests": "1",
+    "rewarded_coins": "123456",
+    "claimed": true
+  }
+}
+```
+如果结果显示 `claimed = true`，说明你的奖励已成功领取。
+如果显示 `false`，请继续执行手动领取步骤。
+
+!!! note "如有需要，手动领取奖励"
+    运行:
+    ```
+    curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
+     -H "Content-Type: application/json" \
+     -d '{"force_claim": true}'
+    ```
+
+验证移除情况和权重。如果你已经禁用了所有节点，那么你的参与者信息应当从活跃参与者列表中消失。
+如果你仍然能在列表中看到你的参与者，这意味着网络仍然期望你在当前 epoch 中继续参与，而如果你此时停止节点，你可能会错过推理任务，从而影响你的信誉。
+
+确保你位于 `gonka/deploy/join` 目录下。
+要停止所有正在运行的容器：
+```
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
 ```
-6. 上述命令会停止并移除 `docker-compose.yml` & `docker-compose.mlnode.yml` 中定义的所有服务，但不会删除卷或数据（除非显式配置）。
+该命令会停止并移除 `docker-compose.yml` 和 `docker-compose.mlnode.yml` 中定义的所有服务，除非进行了特别配置，否则不会删除卷或数据。
 
 ### 如何清理节点（完全重置）
 

@@ -64,8 +64,11 @@ Example MLNode configuration:
 !!! note "Supported models and vLLM arguments"
     The network currently supports the following models (subject to governance decisions):
 
+    - `Qwen/Qwen2.5-7B-Instruct`
     - `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
     - `Qwen/Qwen3-32B-FP8`
+    - `Qwen/QwQ-32B`
+    - `RedHatAI/Qwen2.5-7B-Instruct-quantized.w8a16`
 
     For recommended vLLM arguments for each model and GPU layout, see the [Benchmark to Choose Optimal Deployment Config for LLMs](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/) guide.
 

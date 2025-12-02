@@ -330,8 +330,7 @@ curl -X DELETE "$ADMIN_API_URL/admin/v1/nodes/node1"
 
 **Expected result**
 
-- On success, returns `200 OK` with a JSON boolean indicating success (e.g. `true`).
-- The internal configuration is synchronized so that the deleted node is removed from the Network Node’s dynamic configuration.
+- On success, returns `200 OK and a json representation of the deleted node
 
 !!! warning "Irreversible operation"
     Deleting an MLNode cannot be undone. To re-add the node, you must register it again using the **Add a New MLNode** or **Batch Add** endpoints.

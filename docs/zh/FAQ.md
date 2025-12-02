@@ -498,3 +498,18 @@ Inference Installed and Verified
 .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api: OK
 .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced: OK
 ```
+
+## 如何防止 NATS 出现无限制的内存增长？
+
+NATS 当前被配置为无限期保存所有消息，这会导致内存使用量持续增长。
+推荐的解决方案是在两个 NATS 流中为消息设置 24 小时的存活时间（TTL）。
+
+1. 安装 NATS CLI。请按照以下链接中的说明安装 Golang：[https://go.dev/doc/install](https://go.dev/doc/install). 然后安装 NATS CLI：
+   ```
+   go install github.com/nats-io/natscli/nats@latest
+   ```
+2. 如果已经安装了 NATS CLI，请运行：
+    ```
+    nats stream info txs_to_send --server localhost:<your_nats_server_port>
+    nats stream info txs_to_observe --server localhost:<your_nats_server_port>
+    ```

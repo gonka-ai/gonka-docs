@@ -4,9 +4,6 @@ name: index.md
 
 # Developer Quickstart
 
-!!! note "Symbolic pricing during the initial network phase" 
-    During the initial network phase, controlled by the governance parameter `GracePeriodEndEpoch` with a proposed default of 90 epochs (~90 days), the dynamic pricing system is bypassed and all inference costs are set to a purely symbolic level. For the most up-to-date parameters, always refer to the on-chain code.
-
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
 
 ??? note "How Gonka differs from traditional AI APIs"

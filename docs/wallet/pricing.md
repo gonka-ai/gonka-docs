@@ -70,12 +70,16 @@ The system defines a stability zone for network utilization between 40% and 60%,
 
 ## Supported denominations
 
-| Denomination  | Name    | Value        | Description             |
-|---------------|---------|--------------|-------------------------|
-| coin          | gonka   | 1            | Base unit               |
-| milli-coins   | mgonka  | 0.001        | 1 thousandth of gonka   |
-| micro-coins   | ugonka  | 0.000001     | 1 millionth of gonka    |
-| nano-coins    | ngonka  | 0.000000001  | 1 billionth of gonka    |
+On-chain, the only valid denomination is `ngonka`. All balances, fees, and transactions must use `ngonka` exclusively.
+The Cosmos SDK may allow defining additional denominations, but these are non-operative — the SDK does not perform automatic conversions between them.
+`gonka` is used purely as an off-chain, human-friendly display unit. It represents 1 billion `ngonka`, and does not exist on the chain itself.
+    
+**Effective Units**
+
+| Unit   | Purpose                         | On-chain? | Ratio                               |
+|--------|----------------------------------|-----------|--------------------------------------|
+| `ngonka` | Base unit used on the network    | Yes       | 1                                    |
+| `gonka`  | Human-readable display unit      | No        | 1 `gonka` = 1,000,000,000 `ngonka`       |
 
 ## Benefits and Economic Impacts
 

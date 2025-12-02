@@ -477,14 +477,11 @@ Inference Installed and Verified
 NATS is currently configured to store all messages indefinitely, which leads to continuous growth in memory usage.
 A recommended solution is to configure a 24-hour time-to-live (TTL) for messages in both NATS streams.
 
-1. Install the NATS CLI.
-   Install Golang by following the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install)
-   
-   Then install the NATS CLI:
+1. Install the NATS CLI. Install Golang by following the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install). Then install the NATS CLI:
    ```
    go install github.com/nats-io/natscli/nats@latest
    ```
-3. If you already have the NATS CLI installed, run:
+2. If you already have the NATS CLI installed, run:
     ```
     nats stream info txs_to_send --server localhost:<your_nats_server_port>
     nats stream info txs_to_observe --server localhost:<your_nats_server_port>

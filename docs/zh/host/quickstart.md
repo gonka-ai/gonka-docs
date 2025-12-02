@@ -732,7 +732,7 @@ curl http://node2.gonka.ai:26657/status
   "claim_money": <block_number>
 }
 ```
-该区块高度表示你可以领取奖励的区块之后的位置。
+该区块高度表示从该区块之后你才能领取奖励。
 但需要注意的是，你现在就应该开始禁用每个 MLNode（不要等到达到这个区块后再禁用你的 MLNodes）。
 
 禁用每个 MLNode。

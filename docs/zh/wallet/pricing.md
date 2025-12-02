@@ -70,12 +70,16 @@
 
 ## 支持的计价单位
 
-| Denomination  | Name    | Value        | Description             |
-|---------------|---------|--------------|-------------------------|
-| coin          | gonka   | 1            | Base unit               |
-| milli-coins   | mgonka  | 0.001        | 1 thousandth of gonka   |
-| micro-coins   | ugonka  | 0.000001     | 1 millionth of gonka    |
-| nano-coins    | ngonka  | 0.000000001  | 1 billionth of gonka    |
+在链上，唯一有效的计量单位是 `ngonka`。所有余额、手续费和交易必须全部使用 `ngonka`。  
+Cosmos SDK 虽然允许定义额外的计量单位，但这些单位并不具有实际效用 —— SDK **不会**在它们之间执行任何自动换算。  
+`gonka` 仅作为链下、面向用户的显示单位使用。它代表 10 亿（1,000,000,000）`ngonka`，并不存在于链上。
+
+**有效单位（Effective Units）**
+
+| Unit     | 用途（Purpose）               | 链上可用？（On-chain?） | 比例（Ratio）                                |
+|----------|-------------------------------|--------------------------|-----------------------------------------------|
+| `ngonka` | 网络中的基础单位               | 是（Yes）               | 1                                             |
+| `gonka`  | 便于阅读的显示单位（链下）     | 否（No）                | 1 `gonka` = 1,000,000,000 `ngonka`            |
 
 ## 经济效益与影响
 

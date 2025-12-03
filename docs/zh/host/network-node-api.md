@@ -148,4 +148,4 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 - 包含完整区块头元数据、提议者地址、提交签名等
 - 用于验证 Host 数据的包含与提交
 
-**需要帮助？** 加入 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 获取通用问题、技术问题或安全事宜的支持。
+**需要帮助？** [请先查看我们的常见问题页面](https://gonka.ai/zh/FAQ/)，或加入我们的[Discord 服务器](https://discord.com/invite/RADwCT2U6R) 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。

@@ -789,7 +789,7 @@ Once your node is visible in the Dashboard, you may also want to update your pub
 
 ## Stopping and Cleaning Up Your Node
 
-### How to stop MLNode
+### How to stop your node
 
 Check the epoch you are currently in. Open the URL: [http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest) (You can use the URL any other active participant). 
 

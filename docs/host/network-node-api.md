@@ -147,4 +147,4 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 - Includes full block header metadata, proposer address, commit signatures, etc.
 - Useful for verifying the inclusion and commitment of Host data
 
-**Need help?** Join [Discord server](https://discord.com/invite/RADwCT2U6R) for assistance with general inquiries, technical issues, or security concerns.
+**Need help?**  Find answers on [FAQ page](https://gonka.ai/FAQ/), or join [Discord server](https://discord.com/invite/RADwCT2U6R) for assistance with general inquiries, technical issues, or security concerns.  

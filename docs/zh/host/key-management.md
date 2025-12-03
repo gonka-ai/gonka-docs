@@ -92,4 +92,4 @@ Gonka 网络实现了**基于角色的密钥管理系统**，将自动化功能�
 !!! warning "生产部署"
     在生产部署之前，确保你理解完整的密钥管理工作流，并在安全环境中测试了密钥恢复程序。
 
-**需要帮助？** 加入我们的[Discord 服务器](https://discord.com/invite/RADwCT2U6R) 获取密钥管理、安全担忧或技术问题的帮助。
+**需要帮助？** [请先查看我们的常见问题页面](https://gonka.ai/zh/FAQ/)，或加入我们的[Discord 服务器](https://discord.com/invite/RADwCT2U6R) 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。

@@ -710,7 +710,7 @@ curl http://node2.gonka.ai:26657/status
 
 ## 停止与清理节点
 
-### 如何停止 ML 节点
+### 如何停止节点
 
 请查看你当前所处的 epoch。打开以下链接：
 [http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest)￼（你也可以使用任何其他活跃参与者的链接）。

@@ -547,4 +547,4 @@ export NODE_URL=<http://random-node-url>
 要从另一种语言执行推理，请参阅[Gonka OpenAI 客户端库仓库](https://github.com/gonka-ai/gonka-openai)，并相应调整示例。
 
 ---
-**需要帮助？** 加入我们的[Discord 服务器](https://discord.com/invite/RADwCT2U6R) 获取一般咨询、技术问题或安全担忧的帮助。  
+**需要帮助？** [请先查看我们的常见问题页面](https://gonka.ai/zh/FAQ/)，或加入我们的[Discord 服务器](https://discord.com/invite/RADwCT2U6R) 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。

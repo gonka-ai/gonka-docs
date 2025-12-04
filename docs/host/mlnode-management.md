@@ -49,7 +49,7 @@ Example MLNode configuration:
 ```json
 {
   "id": "node1",
-  "host": "http://10.0.0.21",
+  "host": "10.0.0.21",
   "inference_port": 5050,
   "poc_port": 8080,
   "max_concurrent": 500,
@@ -111,7 +111,7 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes" \
   -H "Content-Type: application/json" \
   -d '{
     "id": "node1",
-    "host": "http://10.0.0.21",
+    "host": "10.0.0.21",
     "inference_port": 5050,
     "poc_port": 8080,
     "max_concurrent": 500,
@@ -136,7 +136,7 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes" \
       -H "Content-Type: application/json" \
       -d '{
         "id": "node-235b",
-        "host": "http://10.0.0.22",
+        "host": "10.0.0.22",
         "inference_port": 5050,
         "poc_port": 8080,
         "max_concurrent": 500,
@@ -169,7 +169,7 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
   -d '[
     {
       "id": "node1",
-      "host": "http://10.0.0.21",
+      "host": "10.0.0.21",
       "inference_port": 5050,
       "poc_port": 8080,
       "max_concurrent": 500,
@@ -181,7 +181,7 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
     },
     {
       "id": "node2",
-      "host": "http://10.0.0.22",
+      "host": "10.0.0.22",
       "inference_port": 5050,
       "poc_port": 8080,
       "max_concurrent": 500,
@@ -330,7 +330,7 @@ curl -X DELETE "$ADMIN_API_URL/admin/v1/nodes/node1"
 
 **Expected result**
 
-- On success, returns `200 OK and a json representation of the deleted node
+- On success, returns `200 OK` with a JSON representation of the deleted node.
 
 !!! warning "Irreversible operation"
     Deleting an MLNode cannot be undone. To re-add the node, you must register it again using the **Add a New MLNode** or **Batch Add** endpoints.

@@ -283,7 +283,7 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/node1/enable"
 
 ## Disabling an MLNode
 
-Use this endpoint to **disable** an MLNode without deleting it. The node remains registered but is marked as administratively disabled and will not be used for new work.
+Use this endpoint to **disable** an MLNode without deleting it. The node remains registered but is marked as administratively disabled. It will remain active until the end of the epoch, but it won't participate in the upcoming PoC and as a result won't be included in the next epoch.
 
 **Endpoint**
 

@@ -189,9 +189,13 @@ docker unpause api
 PoC 使用以下模型参数：
 [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41)
 
-您可以使用以下 curl 命令示例。
+如果您的节点处于 `INFERENCE` 状态，则需要先将其切换到停止状态：
+```
+curl -X POST "http://<ml-node-host>:<port>/api/v1/stop" \
+  -H "Content-Type: application/json"
+```
 
-请求示例：
+现在您可以发送请求来启动 PoC：
 
 ```
 curl -X POST "http://<您的MLNode主机地址>:8080/api/v1/pow/init/generate" \

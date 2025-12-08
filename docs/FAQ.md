@@ -528,11 +528,12 @@ This means updating `inference_url` is a safe, non-destructive operation.
     ```
     cosmovisor run tx inference submit-new-participant  http://my-new-url.com:8070 --from <your-node-address> --yes
     ```
-!!! note
-    Make sure you are using the correct (latest) binary. Inside the container, do NOT use `inferenced` or `./inferenced`. These resolve to the outdated `/usr/bin/inferenced` binary. Always use:
-    ```
-    cosmovisor run <command>        
-    ```
+    
+    !!! note
+        Make sure you are using the correct (latest) binary. Inside the container, do NOT use `inferenced` or `./inferenced`. These resolve to the outdated `/usr/bin/inferenced` binary. Always use:
+        ```
+        cosmovisor run <command>        
+        ```
     
 3. Exit the container:
    ```

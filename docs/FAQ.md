@@ -541,22 +541,22 @@ This means updating `inference_url` is a safe, non-destructive operation.
    ```
 4. For verification:
    
-=== "Participants list"
-
-    Visit:
-    ```
-    http://node2.gonka.ai:8000/v1/participants/<YOUR_ACCOUNT_ADDRESS>
-    ```
-    You can use the URL of any other active participant. Check that `inference_url` reflects your updated value.
-
-=== "CLI"
-
-    Run:
-    ```
-    cosmovisor run query inference show-participant \
-    <YOUR_ACCOUNT_ADDRESS> \
-    --node <seed_api_url>/chain-rpc/
-    ```
+    === "Participants list"
+    
+        Visit:
+        ```
+        http://node2.gonka.ai:8000/v1/participants/<YOUR_ACCOUNT_ADDRESS>
+        ```
+        You can use the URL of any other active participant. Check that `inference_url` reflects your updated value.
+    
+    === "CLI"
+    
+        Run:
+        ```
+        cosmovisor run query inference show-participant \
+        <YOUR_ACCOUNT_ADDRESS> \
+        --node <seed_api_url>/chain-rpc/
+        ```
    
 
 

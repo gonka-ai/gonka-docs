@@ -128,6 +128,7 @@ plugins:
             Host: 节点
             "Multiple nodes": 多节点
             "Network Node API": 网络节点 API
+            "MLNode Management": ML节点管理
             Key Management: 密钥管理
             Benchmark to Choose Optimal Deployment Config for LLMs: LLM 部署配置基准
             "Hardware Specifications": 硬件规格

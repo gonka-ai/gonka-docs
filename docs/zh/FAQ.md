@@ -536,11 +536,12 @@ NATS 当前被配置为无限期保存所有消息，这会导致内存使用量
     ```
     cosmovisor run tx inference submit-new-participant  http://my-new-url.com:8070 --from <your-node-address> --yes
     ```
-!!! note
-    请确保你使用的是正确（最新）版本的二进制文件。 在容器内部请不要使用 `inferenced` `./inferenced` 这些命令指向旧的 `/usr/bin/inferenced`。 始终使用：
-    ```
-    cosmovisor run <command>        
-    ```
+    
+    !!! note
+        请确保你使用的是正确（最新）版本的二进制文件。 在容器内部请不要使用 `inferenced` `./inferenced` 这些命令指向旧的 `/usr/bin/inferenced`。 始终使用：
+        ```
+        cosmovisor run <command>        
+        ```
     
 3. 退出容器
    ```
@@ -548,19 +549,19 @@ NATS 当前被配置为无限期保存所有消息，这会导致内存使用量
    ```
 4. 验证更新结果
    
-=== "Participants list"
-
-    访问：
-    ```
-    http://node2.gonka.ai:8000/v1/participants/<YOUR_ACCOUNT_ADDRESS>
-    ```
-    你可以使用任意一个活动节点的 URL。 确认 `inference_url` 已更新为你新的地址。
-
-=== "CLI"
-
-    执行：
-    ```
-    cosmovisor run query inference show-participant \
-    <YOUR_ACCOUNT_ADDRESS> \
-    --node <seed_api_url>/chain-rpc/
-    ```
+    === "Participants list"
+    
+        访问：
+        ```
+        http://node2.gonka.ai:8000/v1/participants/<YOUR_ACCOUNT_ADDRESS>
+        ```
+        你可以使用任意一个活动节点的 URL。 确认 `inference_url` 已更新为你新的地址。
+    
+    === "CLI"
+    
+        执行：
+        ```
+        cosmovisor run query inference show-participant \
+        <YOUR_ACCOUNT_ADDRESS> \
+        --node <seed_api_url>/chain-rpc/
+        ```

@@ -493,28 +493,28 @@ A recommended solution is to configure a 24-hour time-to-live (TTL) for messages
     nats stream info txs_to_send --server localhost:<your_nats_server_port>
     nats stream info txs_to_observe --server localhost:<your_nats_server_port>
     ```
-
 ### How to change `inference_url`?
 
 You may need to update your `inference_url` if:
 
-- You changed your API domain
-- You moved your API node to a new machine
-- You reconfigured HTTPS / reverse proxy
-- You are migrating infrastructure and want your Host entry to point to a new endpoint
+- You changed your API domain;
+- You moved your API node to a new machine;
+- You reconfigured HTTPS / reverse proxy;
+- You are migrating infrastructure and want your Host entry to point to a new endpoint.
 
 This operation does not require re-registration, re-deployment, or key regeneration. Updating your `inference_url` is performed through the same transaction used for initial registration (the `submit-new-participant msg`).
 
 The chain logic checks whether your Host (participant) already exists:
 
-- If the participant does not exist, the transaction creates a new one.
-- If the participant already exists, only three fields may be updated: InferenceURL, ValidatorKey, WorkerKey.
+- If the participant does not exist, the transaction creates a new one;
+- If the participant already exists, only three fields may be updated: `InferenceURL`, `ValidatorKey`, `WorkerKey`.
 
 All other fields are preserved automatically.
 
 This means updating `inference_url` is a safe, non-destructive operation.
 
 !!! note
+
     When a Node updates its execution URL, the new URL becomes active immediately for inference requests coming from other Nodes. However, the URL recorded in `ActiveParticipants` is not updated until the next epoch because modifying it earlier would invalidate the cryptographic proof associated with the participant set. To avoid service disruption, it is recommended to keep both the previous and the new URLs operational until the next epoch completes.
 
 [Server] Perform the update from your server, inside the API container, using your existing ML Operational Key (Warm Key).
@@ -528,11 +528,12 @@ This means updating `inference_url` is a safe, non-destructive operation.
     ```
     cosmovisor run tx inference submit-new-participant  http://my-new-url.com:8070 --from <your-node-address> --yes
     ```
-    !!! note
-        Make sure you are using the correct (latest) binary. Inside the container, do NOT use `inferenced` or `./inferenced`. These resolve to the outdated `/usr/bin/inferenced` binary. Always use:
-        ```
-        cosmovisor run <command>
-        ```
+!!! note
+    Make sure you are using the correct (latest) binary. Inside the container, do NOT use `inferenced` or `./inferenced`. These resolve to the outdated `/usr/bin/inferenced` binary. Always use:
+    ```
+    cosmovisor run <command>        
+    ```
+    
 3. Exit the container:
    ```
    exit

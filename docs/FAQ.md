@@ -493,32 +493,3 @@ A recommended solution is to configure a 24-hour time-to-live (TTL) for messages
     nats stream info txs_to_send --server localhost:<your_nats_server_port>
     nats stream info txs_to_observe --server localhost:<your_nats_server_port>
     ```
-### Can I change the model that an ML node serves during an epoch?
-
-Yes, you can change the model an ML node serves in the middle of an epoch, as long as the new model is governance-approved. After uploading the new model, you must update the node’s configuration so it begins serving that model:
-```
-curl -X PUT http://localhost:9200/admin/v1/nodes/:id \
-     -H ""Content-Type: application/json"" \
-     -d '{
-       ""models"": {
-         ""<model_name>"": {
-           ""args"": [
-             <model_args>
-           ]
-         }
-       }
-     }'
-```
-However, the timing of the update matters.
-
-If your node still owes validations near the end of the epoch and you remove the model required for those validation tasks, the node will not be able to complete them. This can cause you to lose the rewards for the entire epoch.
-
-If you operate several ML nodes, the risk is lower. You may update models on some nodes at any time as long as at least one node continues to serve the required model and can complete remaining validations.
-
-The optimal workflow is: 
-```
-Claim rewards for the previous epoch → beginning of a new epoch → update your models.
-```
-At this moment, you have no outstanding validations and no risk of forfeiting rewards.
-
-Typically, you do not need to restart the node, the node reloads the configuration dynamically.

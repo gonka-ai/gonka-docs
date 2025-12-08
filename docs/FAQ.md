@@ -517,29 +517,20 @@ This means updating `inference_url` is a safe, non-destructive operation.
 
     When a Node updates its execution URL, the new URL becomes active immediately for inference requests coming from other Nodes. However, the URL recorded in `ActiveParticipants` is not updated until the next epoch because modifying it earlier would invalidate the cryptographic proof associated with the participant set. To avoid service disruption, it is recommended to keep both the previous and the new URLs operational until the next epoch completes.
 
-[Server] Perform the update from your server, inside the API container, using your existing ML Operational Key (Warm Key).
+[Locally] Perform the update locally, using your Cold Key:
+    ```
+    ./inferenced tx inference submit-new-participant \
+        <PUBLIC_URL> \
+        --validator-key <CONSENSUS_KEY> \
+        --keyring-backend file \
+        --unordered \
+        --from <COLD_KEY_NAME> \
+        --timeout-duration 1m \
+        --node http://<node-url>/chain-rpc/ \
+        --chain-id gonka-mainnet
+    ```
 
-1. Enter the API container
-    ```
-    cd gonka/deploy/join
-    docker compose run --rm --no-deps -it api /bin/sh
-    ```
-2. Inside the container:
-    ```
-    cosmovisor run tx inference submit-new-participant  http://my-new-url.com:8070 --from <your-node-address> --yes
-    ```
-    
-    !!! note
-        Make sure you are using the correct (latest) binary. Inside the container, do NOT use `inferenced` or `./inferenced`. These resolve to the outdated `/usr/bin/inferenced` binary. Always use:
-        ```
-        cosmovisor run <command>        
-        ```
-    
-3. Exit the container:
-   ```
-   exit
-   ```
-4. For verification:
+For verification:
    
     === "Participants list"
     

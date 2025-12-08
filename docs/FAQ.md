@@ -529,3 +529,5 @@ This means updating `inference_url` is a safe, non-destructive operation.
         --node http://<node-url>/chain-rpc/ \
         --chain-id gonka-mainnet
     ```
+Verify the update by following the link below and replacing the ending with your node address.
+[http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/<your-node-address>](http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/<your-node-address>)

@@ -499,33 +499,3 @@ NATS 当前被配置为无限期保存所有消息，这会导致内存使用量
     nats stream info txs_to_send --server localhost:<your_nats_server_port>
     nats stream info txs_to_observe --server localhost:<your_nats_server_port>
     ```
-
-## 我可以在一个 epoch 期间更换 ML 节点所服务的模型吗？
-
-可以。只要新模型是经过治理机制批准的，你就可以在 epoch 中途更换 ML 节点所服务的模型。上传新模型后，你必须更新节点的配置，使其开始服务该模型：
-```
-curl -X PUT http://localhost:9200/admin/v1/nodes/:id \
-     -H ""Content-Type: application/json"" \
-     -d '{
-       ""models"": {
-         ""<model_name>"": {
-           ""args"": [
-             <model_args>
-           ]
-         }
-       }
-     }'
-```
-但是，更换模型的 时间点非常重要。
-
-如果你的节点在 epoch 接近结束时仍有未完成的验证任务，而你移除了这些验证任务所需的模型，那么节点将无法完成验证。这可能导致你 失去整个 epoch 的奖励。
-
-如果你拥有多个 ML 节点，风险会更低。只要至少有一个节点继续服务所需模型，并能够完成剩余的验证任务，你就可以在任何时间更新其他节点的模型。
-
-最佳操作流程是：
-```
-领取上一个 epoch 的奖励 → 新 epoch 开始 → 更新模型。
-```
-在这个时间点，你没有未完成的验证任务，也不会有丢失奖励的风险。
-
-通常情况下，你 不需要重启节点，节点会自动重新加载更新后的配置。

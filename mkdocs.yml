@@ -13,13 +13,14 @@ nav:
     - Details: developer/details.md
   - Host:
     - Quickstart: host/quickstart.md
+    - Benchmark to choose optimal deployment config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
+    - Genesis: host/genesis.md
+    - Hardware specifications: host/hardware-specifications.md
+    - How to edit Host public info: host/host_info.md
+    - Key management: host/key-management.md
+    - MLNode Management: host/mlnode-management.md
     - Multiple nodes: host/multiple-nodes.md
     - Network Node API: host/network-node-api.md
-    - Key management: host/key-management.md
-    - Benchmark to choose optimal deployment config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
-    - Hardware specifications: host/hardware-specifications.md
-    - Genesis: host/genesis.md
-    - How to edit Host public info: host/host_info.md
   - Wallet:
     - Dashboard: wallet/dashboard.md
     - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md

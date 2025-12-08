@@ -537,4 +537,4 @@ NATS 当前被配置为无限期保存所有消息，这会导致内存使用量
         --node http://<node-url>/chain-rpc/ \
         --chain-id gonka-mainnet
     ```
-请按照下方链接进行验证，并将结尾部分替换为你的节点地址：[http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/<your-node-address>](http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/<your-node-address>)
+请按照下方链接进行验证，并将结尾部分替换为你的节点地址：[http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve](http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve)

@@ -525,29 +525,20 @@ NATS 当前被配置为无限期保存所有消息，这会导致内存使用量
 
     当节点更新其执行 URL 时，新 URL 会立即用于来自其他节点的推理请求。然而，ActiveParticipants 中记录的 URL 直到下一个 epoch 才会更新，因为过早修改会使参与者集合的加密证明失效。 为避免服务中断，建议在当前 epoch 完成之前同时保持旧 URL 和新 URL 可用。
 
-【服务器端】使用现有的 ML Operational Key（Warm Key）从服务器内部执行更新
-
-1.  进入 API 容器
+[在本地] 使用你的冷钥进行本地更新：
     ```
-    cd gonka/deploy/join
-    docker compose run --rm --no-deps -it api /bin/sh
-    ```
-2. 在容器内执行更新：
-    ```
-    cosmovisor run tx inference submit-new-participant  http://my-new-url.com:8070 --from <your-node-address> --yes
+    ./inferenced tx inference submit-new-participant \
+        <PUBLIC_URL> \
+        --validator-key <CONSENSUS_KEY> \
+        --keyring-backend file \
+        --unordered \
+        --from <COLD_KEY_NAME> \
+        --timeout-duration 1m \
+        --node http://<node-url>/chain-rpc/ \
+        --chain-id gonka-mainnet
     ```
     
-    !!! note
-        请确保你使用的是正确（最新）版本的二进制文件。 在容器内部请不要使用 `inferenced` `./inferenced` 这些命令指向旧的 `/usr/bin/inferenced`。 始终使用：
-        ```
-        cosmovisor run <command>        
-        ```
-    
-3. 退出容器
-   ```
-   exit
-   ```
-4. 验证更新结果
+验证更新结果
    
     === "Participants list"
     

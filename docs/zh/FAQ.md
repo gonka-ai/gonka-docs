@@ -499,3 +499,68 @@ NATS 当前被配置为无限期保存所有消息，这会导致内存使用量
     nats stream info txs_to_send --server localhost:<your_nats_server_port>
     nats stream info txs_to_observe --server localhost:<your_nats_server_port>
     ```
+
+## 如何修改 `inference_url`?
+
+如果出现以下情况，你可能需要更新你的 `inference_url`：
+
+- 你更换了 API 域名
+- 你将 API 节点迁移到了新机器
+- 你重新配置了 HTTPS / 反向代理
+- 你正在迁移基础设施，希望让 Host 指向新的端点
+
+此操作不需要重新注册、重新部署或重新生成密钥。
+更新 `inference_url` 是通过与初始注册相同的交易完成的（即 `submit-new-participant msg`）。
+
+链上逻辑会检查你的 Host（participant）是否已存在：
+
+- 如果 participant 不存在，则创建新的 participant
+- 如果 participant 已存在，则只有三个字段可以更新：InferenceURL, ValidatorKey, WorkerKey
+
+其他字段会自动保留。
+
+这意味着更新 `inference_url` 是一个安全且非破坏性的操作。
+
+!!! note
+
+    当节点更新其执行 URL 时，新 URL 会立即用于来自其他节点的推理请求。然而，ActiveParticipants 中记录的 URL 直到下一个 epoch 才会更新，因为过早修改会使参与者集合的加密证明失效。 为避免服务中断，建议在当前 epoch 完成之前同时保持旧 URL 和新 URL 可用。
+
+【服务器端】使用现有的 ML Operational Key（Warm Key）从服务器内部执行更新
+
+1.  进入 API 容器
+    ```
+    cd gonka/deploy/join
+    docker compose run --rm --no-deps -it api /bin/sh
+    ```
+2. 在容器内执行更新：
+    ```
+    cosmovisor run tx inference submit-new-participant  http://my-new-url.com:8070 --from <your-node-address> --yes
+    ```
+!!! note
+    请确保你使用的是正确（最新）版本的二进制文件。 在容器内部请不要使用 `inferenced` `./inferenced` 这些命令指向旧的 `/usr/bin/inferenced`。 始终使用：
+    ```
+    cosmovisor run <command>        
+    ```
+    
+3. 退出容器
+   ```
+   exit
+   ```
+4. 验证更新结果
+   
+=== "Participants list"
+
+    访问：
+    ```
+    http://node2.gonka.ai:8000/v1/participants/<YOUR_ACCOUNT_ADDRESS>
+    ```
+    你可以使用任意一个活动节点的 URL。 确认 `inference_url` 已更新为你新的地址。
+
+=== "CLI"
+
+    执行：
+    ```
+    cosmovisor run query inference show-participant \
+    <YOUR_ACCOUNT_ADDRESS> \
+    --node <seed_api_url>/chain-rpc/
+    ```

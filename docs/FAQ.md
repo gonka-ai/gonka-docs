@@ -387,38 +387,91 @@ You must obtain the P2P port from the seed node’s status endpoint.
     export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
     ```
 
-### How do I change the seed nodes?
-To reconfigure the seed nodes, reset the node and rebuild its inference data:
-```
-source config.env
-docker compose down node
-sudo rm -rf .inference/data/ .inference/.node_initialized
-sudo mkdir -p .inference/data/
-```
-After restarting the node, you can view the actual applied seeds in:
-```
-sudo cat .inference/config/config.toml
-```
-Look for the field:
-```
-seeds = [...]
-```
-Once the file `.node_initialized` is created, the system no longer updates seed nodes automatically.
-After that point:
+### How to change the seed nodes?
 
-- The seed list is used as-is
-- Any changes must be done manually
-- You can add as many seed nodes as you want
+There are two distinct ways to update seed nodes, depending on whether the node has already been initialized.
 
-The format is a single comma-separated string:
-```
-seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
-```
-To view known peers from any running node, use chain RPC:
-```
-curl http://47.236.26.199:8000/chain-rpc/net_info | jq
-```
-This displays all peers the node currently sees.
+=== "Option 1. Manually edit seed nodes (after initialization)"
+
+    Once the file `.node_initialized` is created, the system no longer updates seed nodes automatically.
+    After that point:
+    
+    - The seed list is used as-is
+    - Any changes must be done manually
+    - You can add as many seed nodes as you want
+    
+    The format is a single comma-separated string:
+    ```
+    seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
+    ```
+    To view known peers from any running node, use chain RPC:
+    ```
+    curl http://47.236.26.199:8000/chain-rpc/net_info | jq
+    ```
+
+    In response, look for:
+    
+    - `listen_addr` -  P2P endpoint
+    - `rpc_addr` - RPC endpoint
+   
+    Example: 
+
+    ```
+         % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100 94098    0 94098    0     0  91935      0 --:--:--  0:00:01 --:--:-- 91982
+    {
+      "jsonrpc": "2.0",
+      "id": -1,
+      "result": {
+        "listening": true,
+        "listeners": [
+          "Listener(@tcp://47.236.26.199:5000)"
+        ],
+        "n_peers": "50",
+        "peers": [
+          {
+            "node_info": {
+              "protocol_version": {
+                "p2p": "8",
+                "block": "11",
+                "app": "0"
+              },
+              "id": "ce6f26b9508839c29e0bfd9e3e20e01ff4dda360",
+              "listen_addr": "tcp://85.234.78.106:5000",
+              "network": "gonka-mainnet",
+              "version": "0.38.17",
+              "channels": "40202122233038606100",
+              "moniker": "my-node",
+              "other": {
+                "tx_index": "on",
+                "rpc_address": "tcp://0.0.0.0:26657"
+              }
+            },
+    ...
+    ```
+
+    This displays all peers the node currently sees.
+
+=== "Reinitialize the Node (seeds auto-applied from environment)"
+
+    Use this method if you want the node to regenerate its configuration and automatically apply the seed nodes defined in config.env.
+    ```
+    source config.env
+    docker compose down node
+    sudo rm -rf .inference/data/ .inference/.node_initialized
+    sudo mkdir -p .inference/data/
+    ```
+    After restarting the node, it will behave like a fresh installation and recreate its configuration, including the seeds from the environment variables.
+    To verify which seeds were actually applied:
+    
+    ```
+    sudo cat .inference/config/config.toml
+    ```
+    Look for the field:
+    ```
+    seeds = [...]
+    ```
 
 ### How are Hardware, Node Weight, and MLNode configuration actually validated?
 

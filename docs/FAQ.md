@@ -455,7 +455,7 @@ There are two distinct ways to update seed nodes, depending on whether the node 
 
 === "Option 2. Reinitialize the Node (seeds auto-applied from environment)"
 
-    Use this method if you want the node to regenerate its configuration and automatically apply the seed nodes defined in config.env.
+    Use this method if you want the node to regenerate its configuration and automatically apply the seed nodes defined in `config.env`.
     ```
     source config.env
     docker compose down node

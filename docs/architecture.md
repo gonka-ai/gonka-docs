@@ -14,7 +14,9 @@ Inference requests move across independent Hosts (all network participants, not 
 
 The diagram below shows the flow of an inference request through the Gonka network. Green arrows indicate communication over the public internet, while yellow arrows indicate communication within a Host’s private network.
 
-<a href="/images/inference_flow.png" target="_blank"><img src="/images/inference_flow.png" style="width:500px; height:auto;"></a>
+<a href="/images/inference_flow.png" target="_blank">
+  <img src="/images/inference_flow.png" style="width:100%; height:auto; max-width:100%;">
+</a>
 
 The following sequence describes how an inference request moves through the Gonka network as illustrated in the diagram above:
 
@@ -41,7 +43,9 @@ Each Sprint begins simultaneously for all Hosts, ensuring fairness by eliminatin
 
 Sprints are deliberately short, concentrating computational effort into a tightly bounded and efficient window. They occur at regular, precisely defined intervals aligned with blockchain block production, taking only a small fraction of the total epoch length. By design, Spring duration is minimized so that the majority of epoch remains available for meaningful work, such as LLM inference and training. This predictable rhythm allows Sprint execution to integrate naturally into the overall operation of the decentralized AI network without interfering with productive workloads.
 
-<a href="/images/poc_timeline.png" target="_blank"><img src="/images/poc_timeline.png" style="width:500px; height:auto;"></a>
+<a href="/images/poc_timeline.png" target="_blank">
+  <img src="/images/poc_timeline.png" style="width:100%; height:auto; max-width:100%;">
+</a>
 
 An epoch concludes with auto claiming rewards for epoch N and a Host set cutoff. The new Proof of Compute phase (Sprint) begins to determine Hosts weights for the upcoming Epoch. Once Sprint is completed and weights are assigned, this marks the start of the new epoch.
 

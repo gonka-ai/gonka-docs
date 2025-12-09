@@ -453,7 +453,7 @@ There are two distinct ways to update seed nodes, depending on whether the node 
 
     This displays all peers the node currently sees.
 
-=== "Reinitialize the Node (seeds auto-applied from environment)"
+=== "Option 2. Reinitialize the Node (seeds auto-applied from environment)"
 
     Use this method if you want the node to regenerate its configuration and automatically apply the seed nodes defined in config.env.
     ```

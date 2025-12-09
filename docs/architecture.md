@@ -8,8 +8,8 @@ Gonka only records transactions and artifacts for inference validation. The actu
 Inference requests move across independent Hosts (all network participants, not a central scheduler). The system is decentralized, with no single point directing inference requests to the network nodes. In practice, each Host deploys at least two nodes: 
 
 - Network Node handles communication and consists of: 
-  - a Chain Node that connects to the blockchain
-  - an API Node that manages user requests
+    - a Chain Node that connects to the blockchain
+    - an API Node that manages user requests
 - One or more ML Nodes (inference) which perform LLM inferences (ML Nodes could be deployed across multiple servers).
 
 The diagram below shows the flow of an inference request through the Gonka network. Green arrows indicate communication over the public internet, while yellow arrows indicate communication within a Host’s private network.

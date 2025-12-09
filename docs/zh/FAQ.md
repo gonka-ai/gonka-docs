@@ -383,37 +383,90 @@ export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000
 ```
 
 ## 如何更改种子节点？
-要重新配置种子节点，请重置节点并重新构建其推理数据：
-```
-source config.env
-docker compose down node
-sudo rm -rf .inference/data/ .inference/.node_initialized
-sudo mkdir -p .inference/data/
-```
-重新启动节点后，你可以在以下位置查看实际应用的种子节点：
-```
-sudo cat .inference/config/config.toml
-```
-查找字段：
-```
-seeds = [...]
-```
-当文件 `.node_initialized` 被创建后，系统将不再自动更新种子节点。
-从那时起：
 
-- 种子节点列表将按原样使用
-- 所有更改必须手动进行
-- 你可以添加任意数量的种子节点
+根据节点是否已经初始化，有两种不同方式来更新 Seed 节点。
 
-种子节点格式是一个以逗号分隔的字符串：
-```
-seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
-```
-要从任何正在运行的节点查看其已知的 对等节点，请使用 chain RPC：
-```
-curl http://47.236.26.199:8000/chain-rpc/net_info | jq
-```
-此命令将显示当前节点看到的所有 对等节点。
+=== "方式 1. 手动编辑 Seed 节点（节点已初始化后）"
+
+    一旦生成 .node_initialized 文件，系统将不再自动更新 Seed 节点。 从此之后：
+    
+        - Seed 列表将按原样使用
+        - 所有更改都必须手动进行
+        - 你可以添加任意数量的 Seed 节点
+    
+    Seed 的格式是一个逗号分隔的字符串：
+    ```
+    seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
+    ```
+    要查看任意运行中的节点所发现的已知 peers，可调用链的 RPC：
+    ```
+    curl http://47.236.26.199:8000/chain-rpc/net_info | jq
+    ```
+
+    在响应中关注：
+    
+    - `listen_addr` -  P2P 端点
+    - `rpc_addr` - RPC 端点
+   
+    示例：
+
+    ```
+         % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100 94098    0 94098    0     0  91935      0 --:--:--  0:00:01 --:--:-- 91982
+    {
+      "jsonrpc": "2.0",
+      "id": -1,
+      "result": {
+        "listening": true,
+        "listeners": [
+          "Listener(@tcp://47.236.26.199:5000)"
+        ],
+        "n_peers": "50",
+        "peers": [
+          {
+            "node_info": {
+              "protocol_version": {
+                "p2p": "8",
+                "block": "11",
+                "app": "0"
+              },
+              "id": "ce6f26b9508839c29e0bfd9e3e20e01ff4dda360",
+              "listen_addr": "tcp://85.234.78.106:5000",
+              "network": "gonka-mainnet",
+              "version": "0.38.17",
+              "channels": "40202122233038606100",
+              "moniker": "my-node",
+              "other": {
+                "tx_index": "on",
+                "rpc_address": "tcp://0.0.0.0:26657"
+              }
+            },
+    ...
+    ```
+
+    这里显示了节点当前看到的所有 peers。
+
+=== "方式 2. 重新初始化节点（从环境变量自动应用 Seed）"
+
+    如果你希望节点重新生成配置，并自动应用 `config.env` 中定义的 Seed 节点，请使用此方法。.
+    ```
+    source config.env
+    docker compose down node
+    sudo rm -rf .inference/data/ .inference/.node_initialized
+    sudo mkdir -p .inference/data/
+    ```
+    节点重启后，将像全新安装一样运行，并根据环境变量重新生成配置，包括其中的 Seed 值。
+
+    要验证最终应用的 Seed：
+    
+    ```
+    sudo cat .inference/config/config.toml
+    ```
+    查找字段：
+    ```
+    seeds = [...]
+    ```
 
 ## 硬件、节点权重以及 MLNode 配置实际上是如何被验证的？
 

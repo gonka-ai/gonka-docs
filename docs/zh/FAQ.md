@@ -704,3 +704,46 @@ pruning-interval    = "100"
     运行后，将现有的 `tmkms` 卷移动到新节点（首先在现有节点上禁用区块签名）。
     
     这是该方法的一般思路。如果您决定尝试并有任何问题，欢迎在 [Discord](https://discord.com/invite/RADwCT2U6R) 上联系我们。
+
+## 自动 `ClaimReward` 未执行，我该怎么办？
+
+发现了一个可能导致自动 `ClaimReward` 交易失败的问题。
+`TxManager` 的最大 gas 设置过低（虽然 gas 目前是免费的，但仍会进行估算）
+
+修复方法：
+[https://github.com/gonka-ai/gonka/commit/0ac84b0b4d3f89e3c67c33e22aff3d9800c5c988](https://github.com/gonka-ai/gonka/commit/0ac84b0b4d3f89e3c67c33e22aff3d9800c5c988)
+[https://github.com/gonka-ai/gonka/tree/release/v0.2.5-post7](https://github.com/gonka-ai/gonka/tree/release/v0.2.5-post7)
+
+1) 下载新的二进制文件：
+```
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.5-post7/bin && \
+wget -q -O decentralized-api.zip "https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.5-post7/decentralized-api-amd64.zip" && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/decentralized-api && \
+sudo rm -f .dapi/data/upgrade-info.json && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sfT upgrades/v0.2.5-post7 .dapi/cosmovisor/current && \
+test "$(readlink .dapi/cosmovisor/current)" = "upgrades/v0.2.5-post7" \
+  && echo "Symlink OK: points to upgrades/v0.2.5-post7" \
+  || echo "Symlink FAILED: does not point to upgrades/v0.2.5-post7" && \
+test "$(sha256sum .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/decentralized-api | cut -d' ' -f1)" = "040ade21ce37886e53bb2c4fd0c8eb8cce6827a44c841a14cbf788d748ce9da3" \
+  && echo "Hash OK: binary matches expected sha256" \
+  || echo "Hash FAILED: binary does not match expected sha256"
+```
+
+2) 重启 `api` 容器：
+```
+docker restart api
+```
+
+3) 如果您有未领取的奖励，等待约 5 分钟后执行：
+```
+curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
+    -H "Content-Type: application/json" \
+    -d '{"force_claim": true, "epoch_id": 106}'
+```
+
+要检查您是否有未领取的奖励，可以使用：
+```
+curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epoch_performance_summary/106/<ACCOUNT_ADDRESS> | jq
+```

@@ -50,7 +50,7 @@ Governance Proposals are required for any on-chain changes that affect the netwo
 - Any other actions that must be approved and executed via the governance module
 
 ### Who can create a Governance Proposal?
-Anyone with a valid governance key (cold account) can pay the required fee and create a Governance Proposal. However, each proposal must still be approved by active participants through PoC-weighted voting. Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.com/invite/kFFVWtNYjs)) to increase the likelihood of approval. See [the full guide](https://gonka.ai/transactions-and-governance/).
+Anyone with a valid governance key (cold account) can pay the required fee and create a Governance Proposal. However, each proposal must still be approved by active participants through PoC-weighted voting. Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.com/invite/RADwCT2U6R)) to increase the likelihood of approval. See [the full guide](https://gonka.ai/transactions-and-governance/).
 
 ### What happens if a proposal fails?
 - If a proposal does not meet quorum → it automatically fails
@@ -81,9 +81,11 @@ Improvement Proposals → off-chain proposals under the control of active partic
 - Create a Markdown proposal in the [/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals) folder.
 - Open a Pull Request with your proposal.
 - Community review:
+  
         - Active contributors and maintainers discuss the proposal in the PR thread.
         - Feedback, suggestions, and refinements are discussed openly.
 - Approval and merge:
+  
         - If the community agrees, the PR is merged.
         - Approved proposals become part of the official community roadmap.
 
@@ -173,33 +175,33 @@ Follow this guide to safely shut down an old cluster without impacting reputatio
 
 1) Use the following command to disable each MLNode:
 
-```
-curl -X POST http://localhost:9200/admin/v1/nodes/<id>/disable
-```
+    ```
+    curl -X POST http://localhost:9200/admin/v1/nodes/<id>/disable
+    ```
 
-You can list all node IDs with:
-```
-curl http://localhost:9200/admin/v1/nodes | jq '.[].node.id'
-```
+    You can list all node IDs with:
+    ```
+    curl http://localhost:9200/admin/v1/nodes | jq '.[].node.id'
+    ```
 
 2) Nodes that are not scheduled to serve inference during the next Proof-of-Compute (PoC) will automatically stop during that PoC.
 Nodes that are scheduled to serve inference will remain active for one more epoch before stopping. You can verify a node’s status in the mlnode field at:
 
-```
-curl http://<inference_url>/v1/epochs/current/participants
-```
+    ```
+    curl http://<inference_url>/v1/epochs/current/participants
+    ```
   
-Once a node is marked as disabled, it is safe to power off the MLNode server.
+    Once a node is marked as disabled, it is safe to power off the MLNode server.
 
 3) After all MLNodes have been disabled and powered off, you can shut down the Network Node. Before doing so, it’s recommended (but optional) to back up the following files:
 
-```
-- .dapi/api-config.yaml
-- .dapi/gonka.db (created after on-chain upgrade)
-- .inference/config/
-- .inference/keyring-file/
-- .tmkms/
-```
+    ```
+    - .dapi/api-config.yaml
+    - .dapi/gonka.db (created after on-chain upgrade)
+    - .inference/config/
+    - .inference/keyring-file/
+    - .tmkms/
+    ```
 
 If you skip the backup, the setup can still be restored later using your Account Key.
 
@@ -351,9 +353,15 @@ There are two distinct ways to update seed nodes, depending on whether the node 
     seeds = [...]
     ```
 
-### How are Hardware, Node Weight, and MLNode configuration actually validated?
+### How are Hardware, Node Weight, and ML Node configuration actually validated?
 
-The chain does not verify real hardware. It only validates the total participant weight, and this is the sole value used for weight distribution and reward calculation. Any breakdown of this weight across MLNodes, as well as any “hardware type” or other descriptive fields, is purely informational and can be freely modified by the host. Real hardware is never validated (it exists only as a self-reported field, and participants may report anything they want). When creating or updating a node (for example, via `POST http://localhost:9200/admin/v1/nodes` as shown in the handler code at [https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62](https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62)), the hardware field can be explicitly specified. If it is omitted, the API service attempts to auto-detect hardware information from the MLNode. In practice, many hosts run a proxy MLNode behind which multiple servers operate; auto-detection only sees one of these servers, which is a fully valid setup. Regardless of configuration, all weight distribution and rewards rely solely on the participant’s total weight, and the internal split across MLNodes or the reported hardware types never affect on-chain validation.
+The chain does **not** verify real hardware. It only validates the total participant weight, and this is the sole value used for weight distribution and reward calculation. 
+
+Any breakdown of this weight across ML Nodes, as well as any “hardware type” or other descriptive fields, is purely informational and can be freely modified by the Host.  
+
+When creating or updating a node (for example, via `POST http://localhost:9200/admin/v1/nodes` as shown in the handler code at [https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62](https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62)), the hardware field can be explicitly specified. If it is omitted, the API service attempts to auto-detect hardware information from the ML Node. 
+
+In practice, many hosts run a proxy ML Node behind which multiple servers operate; auto-detection only sees one of these servers, which is a fully valid setup. Regardless of configuration, all weight distribution and rewards rely solely on the Host total weight, and the internal split across ML Nodes or the reported hardware types never affect on-chain validation.
 
 ## Keys & security
     
@@ -417,11 +425,11 @@ Back up the **cold key** on your local device, outside the server.
 
 ### How to simulate Proof-of-Compute (PoC)?
 
-You may want to simulate PoC on a MLNode yourself to make sure that everything will work when the PoC phase begins on the chain.
+You may want to simulate PoC on a ML Node yourself to make sure that everything will work when the PoC phase begins on the chain.
 
-To run this test you either need to have a running  MLNode that isn't yet registered with the api node or pause the api node. To pause the api node use `docker pause api`. Once you’re finished with the test you can unpause: `docker unpause api`.
+To run this test you either need to have a running  ML Node that isn't yet registered with the api node or pause the api node. To pause the api node use `docker pause api`. Once you’re finished with the test you can unpause: `docker unpause api`.
 
-For the test itself you will be sending POST `/v1/pow/init/generate` request to mlnode, the same that api node sends at the start of the POC phase:
+For the test itself you will be sending POST `/v1/pow/init/generate` request to ML Node, the same that api node sends at the start of the POC phase:
 [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32)
 
 The following model params are used for PoC: [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41)
@@ -463,7 +471,7 @@ curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
     "url": "http://api:9100"
   }'
 ```
-Send this request to `8080` port of MLNode's proxy container or directly to MLNode's `8080` [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26)
+Send this request to `8080` port of ML Node's proxy container or directly to ML Node's `8080` [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26)
 
 If the test runs successfully, you will see logs similar to the following:
 ```
@@ -481,7 +489,7 @@ Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_
 ```
 2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
 ```
-The http://api:9100 url won’t be available if you paused the api container or if MLNode container and api containers don’t share the same docker network. Expect to see error messages saying that the MLNode failed to send generated batches. The important part is to make sure that the generation process is happening.
+The http://api:9100 url won’t be available if you paused the api container or if ML Node container and api containers don’t share the same docker network. Expect to see error messages saying that the ML Node failed to send generated batches. The important part is to make sure that the generation process is happening.
 
 ## Updates & maintenance
 
@@ -618,19 +626,19 @@ There are several ways how to reset `application.db`:
 === "OPTION 1: Full resync from snapshot" 
 
     1) Stop node
-    ```
-    docker stop node
-    ```
+        ```
+        docker stop node
+        ```
     
     2) Remove data 
-    ```
-    sudo rm -rf .inference/data/ .inference/.node_initialized sudo mkdir -p .inference/data/
-    ```
+        ```
+        sudo rm -rf .inference/data/ .inference/.node_initialized sudo mkdir -p .inference/data/
+        ```
     
     3) Start node
-    ```
-    docker start node
-    ```
+        ```
+        docker start node
+        ```
     
     This approach may take some time during which the node will not be able to record transactions.
     
@@ -643,54 +651,54 @@ There are several ways how to reset `application.db`:
     1) Prepare new `application.db` ( `node` container's still running)
     
     1.1) Prepare temporary home directory for `inferenced`
-    ```
-    mkdir -p .inference/temp
-    cp -r .inference/config .inference/temp/config
-    mkdir -p .inference/temp/data/
-    ```
+        ```
+        mkdir -p .inference/temp
+        cp -r .inference/config .inference/temp/config
+        mkdir -p .inference/temp/data/
+        ```
     
     1.2) Copy snapshots: 
-    ```
-    cp -r .inference/data/snapshots .inference/temp/data/
-    ```
+        ```
+        cp -r .inference/data/snapshots .inference/temp/data/
+        ```
     
     1.3) List snapshots 
-    ```
-    inferenced snapshots list --home .inference/temp
-    ```
+        ```
+        inferenced snapshots list --home .inference/temp
+        ```
     
     Copy height for the latest snapshot. 
     
     1.4) Start restoring from snapshot ( `node` container is still running) 
-    ```
-    inferenced snapshots restore <INSERRT_HEIGHT> 3  --home .inference/temp
-    ```
+        ```
+        inferenced snapshots restore <INSERRT_HEIGHT> 3  --home .inference/temp
+        ```
     
     This might take some time. Once it is finished, you'll have new `application.db` in `.inference/temp/data/application.db`
     
     2) Replace `application.db` with new one
     
     2.1) Stop `node` container (from another terminal window) 
-    ```
-    docker stop node
-    ```
+        ```
+        docker stop node
+        ```
     
     2.2) Move original `application.db` 
-    ```
-    mv .inference/data/application.db .inference/temp/application.db-backup
-    mv .inference/wasm .inference/wasm.db-backup
-    ```
+        ```
+        mv .inference/data/application.db .inference/temp/application.db-backup
+        mv .inference/wasm .inference/wasm.db-backup
+        ```
     
     2.3) Replace it with new one 
-    ```
-    cp -r .inference/temp/data/application.db .inference/data/application.db
-    cp -r .inference/temp/wasm .inference/wasm
-    ```
+        ```
+        cp -r .inference/temp/data/application.db .inference/data/application.db
+        cp -r .inference/temp/wasm .inference/wasm
+        ```
     
     2.4) Start `node` container (from another terminal window): 
-    ```
-    docker start node
-    ```
+        ```
+        docker start node
+        ```
     
     3) Wait till `node` container is synchronized and delete `.inference/temp/`
     
@@ -714,6 +722,7 @@ The `TxManager` max gas was set too low (gas is free for now but it's still esti
 
 The fix:
 [https://github.com/gonka-ai/gonka/commit/0ac84b0b4d3f89e3c67c33e22aff3d9800c5c988](https://github.com/gonka-ai/gonka/commit/0ac84b0b4d3f89e3c67c33e22aff3d9800c5c988)
+
 [https://github.com/gonka-ai/gonka/tree/release/v0.2.5-post7](https://github.com/gonka-ai/gonka/tree/release/v0.2.5-post7)
 
 1) Download new binary:
@@ -752,7 +761,7 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Errors
 
-### `ERROR No epoch models available for this node`
+### `No epoch models available for this node`
 
 Here you can find examples of common errors and typical log entries that may appear in node logs.
 

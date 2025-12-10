@@ -1,6 +1,6 @@
 # FAQ
 
-## Basic
+## Overview
 
 ### What is Gonka?
 Gonka is a decentralized network for high‑efficiency AI compute — run by those who run it. It functions as a cost-effective and efficient alternative to centralized cloud services for AI model training and inference. As a protocol, it's not a company or a start-up.
@@ -16,24 +16,28 @@ The network's operation is collaborative and depends on the role you wish to tak
 
 - As a [Developer](https://gonka.ai/developer/quickstart/): You can use the network's computational resources to build and deploy your AI applications.
 - As a [Host](https://gonka.ai/host/quickstart/): You can contribute your computational resources to power the network. The protocol is designed to reward you for your contribution, ensuring the network's continuity and sovereignty.
-    
-### Where can I find information on key management?
-You can find a dedicated section on [Key Management](https://gonka.ai/host/key-management/) in the documentation. It outlines the procedures and best practices for securely managing your application's keys on the network.
-    
+
 ### What is the incentive for contributing computational resources?
 We've created a dedicated document focused on [Tokenomics](https://gonka.ai/tokenomics.pdf), where you can find all the information about how the incentive in being measured.
     
 ### What are the hardware requirements?
 You can find the minimum and recommended [hardware specifications](https://gonka.ai/host/hardware-specifications/) clearly outlined in the documentation. You should review this section to ensure your hardware meets the requirements for effective contribution.
 
-### What if I want to stop mining but still use my account when I come back?
-To restore a Network Node in the future, it will be sufficient to back up:
+## Tokenomics
 
-- cold key (most important, everything else can be rotated)
-- secres from tmkms: `.tmkms/secrets/`
-- keyring from `.inference .inference/keyring-file/`
-- node key from `.inference/config .inference/config/node_key.json`
-- password for warm key `KEYRING_PASSWORD`
+### How is governance power calculated in Gonka?
+Gonka uses a PoC-weighted voting model:
+
+- Proof-of-Compute (PoC): Voting power is proportional to your verified compute contribution.
+- Collateral commitment:
+    - 20% of PoC-derived voting weight is activated automatically.
+    - To unlock the remaining 80%, you must lock GNK coins as collateral.
+- This ensures that governance influence reflects real compute work + economic collateral.
+
+For the first 180 epochs (approximately 6 months), new participants can participate in governance and earn voting weight through PoC alone, without collateral requirements. During this period, the full governance rights are available, while voting weight remains tied to verified compute activity.
+
+### Why does Gonka require locking GNK coins for governance power?
+Voting power is never derived solely from holding coins. GNK coins serve as economic collateral, not as a source of influence. Influence is earned through continuous computational contribution, while locking GNK collateral is required to secure participation in governance and enforce accountability.
 
 ## Governance
 
@@ -47,7 +51,18 @@ Governance Proposals are required for any on-chain changes that affect the netwo
 
 ### Who can create a Governance Proposal?
 Anyone with a valid governance key (cold account) can pay the required fee and create a Governance Proposal. However, each proposal must still be approved by active participants through PoC-weighted voting. Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.com/invite/kFFVWtNYjs)) to increase the likelihood of approval. See [the full guide](https://gonka.ai/transactions-and-governance/).
-  
+
+### What happens if a proposal fails?
+- If a proposal does not meet quorum → it automatically fails
+- If the majority votes `no` → proposal rejected, no on-chain changes
+- If a significant percentage votes `no_with_veto` (above veto threshold) → proposal is rejected and flagged, signaling strong community disagreement
+- Deposits may or may not be refunded, depending on chain settings
+
+### Can governance parameters themselves be changed?
+Yes. All key governance rules — quorum, majority threshold, and veto threshold — are on-chain configurable and can be updated via Governance Proposals. This allows the network to evolve decision-making rules as participation patterns and compute economic changes.
+
+## Improvement proposals
+
 ### What’s the difference between Governance Proposals and Improvement Proposals?
 Governance Proposals → on-chain proposals. Used for changes that directly affect the network and require on-chain voting. Examples:
 
@@ -77,6 +92,8 @@ Yes. Often, an Improvement Proposal is used to explore ideas and gather consensu
 
 - You might first propose a new model integration as an Improvement Proposal.
 - After the community agrees, an on-chain Governance Proposal is created to update parameters or trigger the software upgrade.
+
+## Voting 
 
 ### How does the voting process work?
 - Once a proposal is submitted and funded with the minimum deposit, it enters the voting period
@@ -109,30 +126,16 @@ export NODE_URL=http://47.236.19.22:18000
 ./inferenced query gov tally 2 -o json --node $NODE_URL/chain-rpc/
 ```
 
-### What happens if a proposal fails?
-- If a proposal does not meet quorum → it automatically fails
-- If the majority votes `no` → proposal rejected, no on-chain changes
-- If a significant percentage votes `no_with_veto` (above veto threshold) → proposal is rejected and flagged, signaling strong community disagreement
-- Deposits may or may not be refunded, depending on chain settings
+## Running a Node
 
-### How is governance power calculated in Gonka?
-Gonka uses a PoC-weighted voting model:
+### What if I want to stop mining but still use my account when I come back?
+To restore a Network Node in the future, it will be sufficient to back up:
 
-- Proof-of-Compute (PoC): Voting power is proportional to your verified compute contribution.
-- Collateral commitment:
-    - 20% of PoC-derived voting weight is activated automatically.
-    - To unlock the remaining 80%, you must lock GNK coins as collateral.
-- This ensures that governance influence reflects real compute work + economic collateral.
-
-For the first 180 epochs (approximately 6 months), new participants can participate in governance and earn voting weight through PoC alone, without collateral requirements. During this period, the full governance rights are available, while voting weight remains tied to verified compute activity.
-
-### Why does Gonka require locking GNK coins for governance power?
-Voting power is never derived solely from holding coins. GNK coins serve as economic collateral, not as a source of influence. Influence is earned through continuous computational contribution, while locking GNK collateral is required to secure participation in governance and enforce accountability.
-
-### Can governance parameters themselves be changed?
-Yes. All key governance rules — quorum, majority threshold, and veto threshold — are on-chain configurable and can be updated via Governance Proposals. This allows the network to evolve decision-making rules as participation patterns and compute economic changes.
-
-## Hosts FAQ
+- cold key (most important, everything else can be rotated)
+- secres from tmkms: `.tmkms/secrets/`
+- keyring from `.inference .inference/keyring-file/`
+- node key from `.inference/config .inference/config/node_key.json`
+- password for warm key `KEYRING_PASSWORD`
 
 ### My node was jailed. What does it mean?
 Your validator has been jailed because it signed fewer than 50 blocks out of the last 100 blocks (the requirement counts the total number of signed blocks in that window, not consecutive ones). This means your node was temporarily excluded (about 15 minutes) from block production to protect network stability.
@@ -163,131 +166,6 @@ Then, to check if the node was unjailed:
     --node $NODE_URL/chain-rpc/
 ```
 When a node is jailed, it shows `jailed: true`.
-
-### How to simulate Proof-of-Compute (PoC)?
-
-You may want to simulate PoC on a MLNode yourself to make sure that everything will work when the PoC phase begins on the chain.
-
-To run this test you either need to have a running  MLNode that isn't yet registered with the api node or pause the api node. To pause the api node use `docker pause api`. Once you’re finished with the test you can unpause: `docker unpause api`.
-
-For the test itself you will be sending POST `/v1/pow/init/generate` request to mlnode, the same that api node sends at the start of the POC phase:
-[https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32)
-
-The following model params are used for PoC: [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41)
-
-If your node is in the `INFERENCE` state then you first need to transition the node to the stopped state:
-
-```
-curl -X POST "http://<ml-node-host>:<port>/api/v1/stop" \
-  -H "Content-Type: application/json"
-```
-
-Now you can send a request to initiate PoC:
-
-```
-curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "node_id": 0,
-    "node_count": 1,
-    "block_hash": "EXAMPLE_BLOCK_HASH",
-    "block_height": 1,
-    "public_key": "EXAMPLE_PUBLIC_KEY",
-    "batch_size": 1,
-    "r_target": 10.0,
-    "fraud_threshold": 0.01,
-    "params": {
-      "dim": 1792,
-      "n_layers": 64,
-      "n_heads": 64,
-      "n_kv_heads": 64,
-      "vocab_size": 8196,
-      "ffn_dim_multiplier": 10.0,
-      "multiple_of": 8192,
-      "norm_eps": 1e-5,
-      "rope_theta": 10000.0,
-      "use_scaled_rope": false,
-      "seq_len": 256
-    },
-    "url": "http://api:9100"
-  }'
-```
-Send this request to `8080` port of MLNode's proxy container or directly to MLNode's `8080` [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26)
-
-If the test runs successfully, you will see logs similar to the following:
-```
-2025-08-25 20:53:33,568 - pow.compute.controller - INFO - Created 4 GPU groups:
-2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 0: GpuGroup(devices=[0], primary=0) (VRAM: 79.2GB)
-2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 1: GpuGroup(devices=[1], primary=1) (VRAM: 79.2GB)
-2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 2: GpuGroup(devices=[2], primary=2) (VRAM: 79.2GB)
-2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 3: GpuGroup(devices=[3], primary=3) (VRAM: 79.2GB)
-2025-08-25 20:53:33,758 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [0]
-2025-08-25 20:53:33,944 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [1]
-2025-08-25 20:53:34,151 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [2]
-2025-08-25 20:53:34,353 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [3]
-```
-Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_URL`.
-```
-2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
-```
-The http://api:9100 url won’t be available if you paused the api container or if MLNode container and api containers don’t share the same docker network. Expect to see error messages saying that the MLNode failed to send generated batches. The important part is to make sure that the generation process is happening.
-
-### I Cleared or Overwrote My Consensus Key
-
-If you are using **tmkms** and deleted the `.tmkms` folder, simply restart **tmkms** — it will automatically generate a new key.
-To register the new consensus key, submit the following transaction:
-```
-./inferenced tx inference submit-new-participant \
-    <PUBLIC_URL> \
-    --validator-key <CONSENSUS_KEY> \
-    --keyring-backend file \
-    --unordered \
-    --from <COLD_KEY_NAME> \
-    --timeout-duration 1m \
-    --node http://<node-url>/chain-rpc/ \
-    --chain-id gonka-mainnet
-```
-### I Deleted the Warm Key
-Back up the **cold key** on your local device, outside the server.
-
-1) Stop the API container:
-   
-```
-docker compose down api --no-deps
-```
-
-2) Set `KEY_NAME` for the warm key in your `config.env` file.
-   
-3) [SERVER]: Recreate the warm key:
-   
-```
-source config.env && docker compose run --rm --no-deps -it api /bin/sh
-```
-
-4) Then execute inside the container:
-
-```
-printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | \
-inferenced keys add "$KEY_NAME" --keyring-backend file
-```
-
-5) [LOCAL]: From your local device (where you backed up the cold key), run the transaction:
-   
-```
-./inferenced tx inference grant-ml-ops-permissions \
-    gonka-account-key \
-    <address-of-warm-key-you-just-created> \
-    --from gonka-account-key \
-    --keyring-backend file \
-    --gas 2000000 \
-    --node http://<node-url>/chain-rpc/
-```
-
-6) Start the API container:
-   
-```
-source config.env && docker compose up -d
-```
 
 ### How to decommission an old cluster?
 
@@ -330,31 +208,31 @@ If you skip the backup, the setup can still be restored later using your Account
 If your node cannot connect to the default seed node, simply point it to another one by updating three variables in `config.env`.
 
 1. `SEED_API_URL` - HTTP endpoint of the seed node (used for API communication).
-Choose any URL from the list below and assign it directly to `SEED_API_URL`.
-```
-export SEED_API_URL=<chosen_http_url>
-```
-Available genesis API URLs:
-```
-http://185.216.21.98:8000
-http://36.189.234.197:18026
-http://36.189.234.237:17241
-http://node1.gonka.ai:8000
-http://node2.gonka.ai:8000
-http://node3.gonka.ai:8000
-https://node4.gonka.ai
-http://47.236.26.199:8000
-http://47.236.19.22:18000
-http://gonka.spv.re:8000
-```
+    Choose any URL from the list below and assign it directly to `SEED_API_URL`.
+    ```
+    export SEED_API_URL=<chosen_http_url>
+    ```
+    Available genesis API URLs:
+    ```
+    http://185.216.21.98:8000
+    http://36.189.234.197:18026
+    http://36.189.234.237:17241
+    http://node1.gonka.ai:8000
+    http://node2.gonka.ai:8000
+    http://node3.gonka.ai:8000
+    https://node4.gonka.ai
+    http://47.236.26.199:8000
+    http://47.236.19.22:18000
+    http://gonka.spv.re:8000
+    ```
 2. `SEED_NODE_RPC_URL` - the RPC endpoint of the same seed node. Use the same host as in `SEED_API_URL`, but always port 26657.
-```
-export SEED_NODE_RPC_URL=http://<host>:26657
-```
-Example
-```
-SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
-```
+    ```
+    export SEED_NODE_RPC_URL=http://<host>:26657
+    ```
+    Example
+    ```
+    SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+    ```
 3. `SEED_NODE_P2P_URL` - the P2P address used for networking between nodes.
 You must obtain the P2P port from the seed node’s status endpoint.
 
@@ -477,6 +355,136 @@ There are two distinct ways to update seed nodes, depending on whether the node 
 
 The chain does not verify real hardware. It only validates the total participant weight, and this is the sole value used for weight distribution and reward calculation. Any breakdown of this weight across MLNodes, as well as any “hardware type” or other descriptive fields, is purely informational and can be freely modified by the host. Real hardware is never validated (it exists only as a self-reported field, and participants may report anything they want). When creating or updating a node (for example, via `POST http://localhost:9200/admin/v1/nodes` as shown in the handler code at [https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62](https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62)), the hardware field can be explicitly specified. If it is omitted, the API service attempts to auto-detect hardware information from the MLNode. In practice, many hosts run a proxy MLNode behind which multiple servers operate; auto-detection only sees one of these servers, which is a fully valid setup. Regardless of configuration, all weight distribution and rewards rely solely on the participant’s total weight, and the internal split across MLNodes or the reported hardware types never affect on-chain validation.
 
+## Keys & security
+    
+### Where can I find information on key management?
+You can find a dedicated section on [Key Management](https://gonka.ai/host/key-management/) in the documentation. It outlines the procedures and best practices for securely managing your application's keys on the network.
+
+### I Cleared or Overwrote My Consensus Key
+
+If you are using **tmkms** and deleted the `.tmkms` folder, simply restart **tmkms** — it will automatically generate a new key.
+To register the new consensus key, submit the following transaction:
+```
+./inferenced tx inference submit-new-participant \
+    <PUBLIC_URL> \
+    --validator-key <CONSENSUS_KEY> \
+    --keyring-backend file \
+    --unordered \
+    --from <COLD_KEY_NAME> \
+    --timeout-duration 1m \
+    --node http://<node-url>/chain-rpc/ \
+    --chain-id gonka-mainnet
+```
+
+### I Deleted the Warm Key
+Back up the **cold key** on your local device, outside the server.
+
+1) Stop the API container:
+    ```
+    docker compose down api --no-deps
+    ```
+
+2) Set `KEY_NAME` for the warm key in your `config.env` file.
+   
+3) [SERVER]: Recreate the warm key:
+    ```
+    source config.env && docker compose run --rm --no-deps -it api /bin/sh
+    ```
+
+4) Then execute inside the container:
+    ```
+    printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | \
+    inferenced keys add "$KEY_NAME" --keyring-backend file
+    ```
+
+5) [LOCAL]: From your local device (where you backed up the cold key), run the transaction:
+    ```
+    ./inferenced tx inference grant-ml-ops-permissions \
+        gonka-account-key \
+        <address-of-warm-key-you-just-created> \
+        --from gonka-account-key \
+        --keyring-backend file \
+        --gas 2000000 \
+        --node http://<node-url>/chain-rpc/
+    ```
+
+6) Start the API container:
+    ```
+    source config.env && docker compose up -d
+    ```
+    
+## Proof-of-Compute (PoC)
+
+### How to simulate Proof-of-Compute (PoC)?
+
+You may want to simulate PoC on a MLNode yourself to make sure that everything will work when the PoC phase begins on the chain.
+
+To run this test you either need to have a running  MLNode that isn't yet registered with the api node or pause the api node. To pause the api node use `docker pause api`. Once you’re finished with the test you can unpause: `docker unpause api`.
+
+For the test itself you will be sending POST `/v1/pow/init/generate` request to mlnode, the same that api node sends at the start of the POC phase:
+[https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/service/routes.py#L32)
+
+The following model params are used for PoC: [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/mlnode/packages/pow/src/pow/models/utils.py#L41)
+
+If your node is in the `INFERENCE` state then you first need to transition the node to the stopped state:
+
+```
+curl -X POST "http://<ml-node-host>:<port>/api/v1/stop" \
+  -H "Content-Type: application/json"
+```
+
+Now you can send a request to initiate PoC:
+
+```
+curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "node_id": 0,
+    "node_count": 1,
+    "block_hash": "EXAMPLE_BLOCK_HASH",
+    "block_height": 1,
+    "public_key": "EXAMPLE_PUBLIC_KEY",
+    "batch_size": 1,
+    "r_target": 10.0,
+    "fraud_threshold": 0.01,
+    "params": {
+      "dim": 1792,
+      "n_layers": 64,
+      "n_heads": 64,
+      "n_kv_heads": 64,
+      "vocab_size": 8196,
+      "ffn_dim_multiplier": 10.0,
+      "multiple_of": 8192,
+      "norm_eps": 1e-5,
+      "rope_theta": 10000.0,
+      "use_scaled_rope": false,
+      "seq_len": 256
+    },
+    "url": "http://api:9100"
+  }'
+```
+Send this request to `8080` port of MLNode's proxy container or directly to MLNode's `8080` [https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26](https://github.com/gonka-ai/gonka/blob/312044d28c7170d7f08bf88e41427396f3b95817/deploy/join/docker-compose.mlnode.yml#L26)
+
+If the test runs successfully, you will see logs similar to the following:
+```
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO - Created 4 GPU groups:
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 0: GpuGroup(devices=[0], primary=0) (VRAM: 79.2GB)
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 1: GpuGroup(devices=[1], primary=1) (VRAM: 79.2GB)
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 2: GpuGroup(devices=[2], primary=2) (VRAM: 79.2GB)
+2025-08-25 20:53:33,568 - pow.compute.controller - INFO -   Group 3: GpuGroup(devices=[3], primary=3) (VRAM: 79.2GB)
+2025-08-25 20:53:33,758 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [0]
+2025-08-25 20:53:33,944 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [1]
+2025-08-25 20:53:34,151 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [2]
+2025-08-25 20:53:34,353 - pow.compute.controller - INFO - Using batch size: 247 for GPU group [3]
+```
+Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_URL`.
+```
+2025-08-25 20:54:58,822 - pow.service.sender - INFO - Sending generated batch to http://api:9100/
+```
+The http://api:9100 url won’t be available if you paused the api container or if MLNode container and api containers don’t share the same docker network. Expect to see error messages saying that the MLNode failed to send generated batches. The important part is to make sure that the generation process is happening.
+
+## Updates & maintenance
+
 ### How much free disk space is required for a Cosmovisor update, and how can I safely remove old backups from the `.inference` directory?
 Cosmovisor creates a full backup in the `.inference` state folder whenever it performs an update. For example, you can see a folder like `data-backup-<some_date>`.
 As of November 20, 2025, the size of the data directory is about 150 GB, so each backup will take approximately the same amount of space.
@@ -532,6 +540,8 @@ Inference Installed and Verified
 .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced: OK
 ```
 
+## Performance & troubleshooting
+
 ### How to prevent unbounded memory growth in NATS?
 
 NATS is currently configured to store all messages indefinitely, which leads to continuous growth in memory usage.
@@ -570,7 +580,7 @@ This means updating `inference_url` is a safe, non-destructive operation.
 
     When a Node updates its execution URL, the new URL becomes active immediately for inference requests coming from other Nodes. However, the URL recorded in `ActiveParticipants` is not updated until the next epoch because modifying it earlier would invalidate the cryptographic proof associated with the participant set. To avoid service disruption, it is recommended to keep both the previous and the new URLs operational until the next epoch completes.
 
-[Locally] Perform the update locally, using your Cold Key:
+[LOCAL] Perform the update locally, using your Cold Key:
     ```
     ./inferenced tx inference submit-new-participant \
         <PUBLIC_URL> \
@@ -707,35 +717,49 @@ The fix:
 [https://github.com/gonka-ai/gonka/tree/release/v0.2.5-post7](https://github.com/gonka-ai/gonka/tree/release/v0.2.5-post7)
 
 1) Download new binary:
-```
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.5-post7/bin && \
-wget -q -O decentralized-api.zip "https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.5-post7/decentralized-api-amd64.zip" && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/decentralized-api && \
-sudo rm -f .dapi/data/upgrade-info.json && \
-sudo rm -rf .dapi/cosmovisor/current && \
-sudo ln -sfT upgrades/v0.2.5-post7 .dapi/cosmovisor/current && \
-test "$(readlink .dapi/cosmovisor/current)" = "upgrades/v0.2.5-post7" \
-  && echo "Symlink OK: points to upgrades/v0.2.5-post7" \
-  || echo "Symlink FAILED: does not point to upgrades/v0.2.5-post7" && \
-test "$(sha256sum .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/decentralized-api | cut -d' ' -f1)" = "040ade21ce37886e53bb2c4fd0c8eb8cce6827a44c841a14cbf788d748ce9da3" \
-  && echo "Hash OK: binary matches expected sha256" \
-  || echo "Hash FAILED: binary does not match expected sha256"
-```
+    ```
+    sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.5-post7/bin && \
+    wget -q -O decentralized-api.zip "https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.5-post7/decentralized-api-amd64.zip" && \
+    sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/ && \
+    sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/decentralized-api && \
+    sudo rm -f .dapi/data/upgrade-info.json && \
+    sudo rm -rf .dapi/cosmovisor/current && \
+    sudo ln -sfT upgrades/v0.2.5-post7 .dapi/cosmovisor/current && \
+    test "$(readlink .dapi/cosmovisor/current)" = "upgrades/v0.2.5-post7" \
+      && echo "Symlink OK: points to upgrades/v0.2.5-post7" \
+      || echo "Symlink FAILED: does not point to upgrades/v0.2.5-post7" && \
+    test "$(sha256sum .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/decentralized-api | cut -d' ' -f1)" = "040ade21ce37886e53bb2c4fd0c8eb8cce6827a44c841a14cbf788d748ce9da3" \
+      && echo "Hash OK: binary matches expected sha256" \
+      || echo "Hash FAILED: binary does not match expected sha256"
+    ```
 
 2) Restart `api` container:
-```
-docker restart api
-```
+    ```
+    docker restart api
+    ```
 
 3) If you have unclaimed reward, wait for ~5 minutes and execute: 
-```
-curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
-    -H "Content-Type: application/json" \
-    -d '{"force_claim": true, "epoch_id": 106}'
-```
+    ```
+    curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
+        -H "Content-Type: application/json" \
+        -d '{"force_claim": true, "epoch_id": 106}'
+    ```
 
 To check if you have unclaimed reward you can use:
 ```
 curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epoch_performance_summary/106/<ACCOUNT_ADDRESS> | jq
 ```
+
+## Errors
+
+### `ERROR No epoch models available for this node`
+
+Here you can find examples of common errors and typical log entries that may appear in node logs.
+
+```
+2025/08/28 08:37:08 ERROR No epoch models available for this node subsystem=Nodes node_id=node1
+2025/08/28 08:37:08 INFO Finalizing state transition for node subsystem=Nodes node_id=node1 from_status=FAILED to_status=FAILED from_poc_status="" to_poc_status="" succeeded=false blockHeight=92476
+```
+It’s not actually an error. It just indicates that your node hasn’t been assigned a model yet. Most likely, this is because your node hasn’t participated in a Sprint, hasn’t received Voting Power, and therefore hasn’t had a model assigned.
+If your node has already passed PoC, you shouldn’t see this log anymore. If not, PoC takes place every ~24 hours.
+

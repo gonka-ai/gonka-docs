@@ -591,3 +591,116 @@ NATS 当前被配置为无限期保存所有消息，这会导致内存使用量
         --chain-id gonka-mainnet
     ```
 请按照下方链接进行验证，并将结尾部分替换为你的节点地址：[http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve](http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve)
+
+## 为什么我的 `application.db` 变得如此大，如何修复？
+
+部分节点存在 `application.db` 文件不断增大的问题。
+
+`.inference/data/application.db` 存储链的状态历史（而非区块），默认保存 362880 个状态。
+
+状态历史包含每个状态的完整默克尔树，将其保留更短的时间是安全的。例如，仅保留 1000 个区块。
+
+可以在 `.inference/config/app.toml` 中设置修剪参数：
+
+```
+...
+pruning = "custom"
+pruning-keep-recent = "1000"
+pruning-interval    = "100"
+```
+
+新配置将在重启 `node` 容器后生效。但存在一个问题——即使启用了修剪，数据库清理也非常缓慢。
+
+有几种方法可以重置 `application.db`：
+
+=== "选项 1：从快照完全重新同步"
+
+    1) 停止节点
+    ```
+    docker stop node
+    ```
+    
+    2) 删除数据
+    ```
+    sudo rm -rf .inference/data/ .inference/.node_initialized sudo mkdir -p .inference/data/
+    ```
+    
+    3) 启动节点
+    ```
+    docker start node
+    ```
+    
+    此方法可能需要一些时间，在此期间节点将无法记录交易。
+    
+    请使用可用的可信节点下载快照。
+
+=== "选项 2：从本地快照重新同步"
+
+    快照默认启用，存储在 `.inference/data/snapshots`
+    
+    1) 准备新的 `application.db`（`node` 容器仍在运行）
+    
+    1.1) 为 `inferenced` 准备临时主目录
+    ```
+    mkdir -p .inference/temp
+    cp -r .inference/config .inference/temp/config
+    mkdir -p .inference/temp/data/
+    ```
+    
+    1.2) 复制快照：
+    ```
+    cp -r .inference/data/snapshots .inference/temp/data/
+    ```
+    
+    1.3) 列出快照
+    ```
+    inferenced snapshots list --home .inference/temp
+    ```
+    
+    复制最新快照的高度。
+    
+    1.4) 开始从快照恢复（`node` 容器仍在运行）
+    ```
+    inferenced snapshots restore <INSERRT_HEIGHT> 3  --home .inference/temp
+    ```
+    
+    这可能需要一些时间。完成后，您将在 `.inference/temp/data/application.db` 中获得新的 `application.db`
+    
+    2) 用新的 `application.db` 替换旧的
+    
+    2.1) 停止 `node` 容器（从另一个终端窗口）
+    ```
+    docker stop node
+    ```
+    
+    2.2) 移动原始 `application.db`
+    ```
+    mv .inference/data/application.db .inference/temp/application.db-backup
+    mv .inference/wasm .inference/wasm.db-backup
+    ```
+    
+    2.3) 用新的替换它
+    ```
+    cp -r .inference/temp/data/application.db .inference/data/application.db
+    cp -r .inference/temp/wasm .inference/wasm
+    ```
+    
+    2.4) 启动 `node` 容器（从另一个终端窗口）：
+    ```
+    docker start node
+    ```
+    
+    3) 等待 `node` 容器同步完成，然后删除 `.inference/temp/`
+    
+    如果您有多个节点，建议逐个清理。
+
+=== "选项 3：实验性方案"
+
+    另一个选项可能是在单独的仅 CPU 机器上启动 `node` 容器的单独实例，并在严格验证器模式下设置：
+    
+    - 保留非常短的历史记录
+    - 仅将 RPC 和 API 访问限制为 `api` 容器
+    
+    运行后，将现有的 `tmkms` 卷移动到新节点（首先在现有节点上禁用区块签名）。
+    
+    这是该方法的一般思路。如果您决定尝试并有任何问题，欢迎在 [Discord](https://discord.com/invite/RADwCT2U6R) 上联系我们。

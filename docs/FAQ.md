@@ -7,6 +7,13 @@ Gonka is a decentralized network for high‑efficiency AI compute — run by tho
     
 ### What is the GNK coin?
 GNK is the native coin of the Gonka network. It is used to incentivize participants, price resources, and ensure the sustainable growth of the network.
+
+### Can I buy GNK coin?
+No, you cannot buy GNK coin on exchanges right now because the coin has not been listed yet.
+However, there are two ways to obtain GNK before listing:
+
+- Mine as a Host — GNK coins can already be minted by contributing computational resources to the network.
+- Participate in the [bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.
     
 ### What makes the protocol efficient?
 Our difference from the "big players" is the pricing and the fact that, despite the size of the user, the inference is being distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).
@@ -22,6 +29,24 @@ We've created a dedicated document focused on [Tokenomics](https://gonka.ai/toke
     
 ### What are the hardware requirements?
 You can find the minimum and recommended [hardware specifications](https://gonka.ai/host/hardware-specifications/) clearly outlined in the documentation. You should review this section to ensure your hardware meets the requirements for effective contribution.
+
+## What wallets can I use to store GNK coins?
+You can store GNK coin in several supported wallets within the Cosmos ecosystem:
+
+- Keplr
+- Leap Wallet
+- `inferenced` CLI - a command-line utility for local account management and network operations in Gonka.
+
+## Where can I find useful information about Gonka?
+
+Below are the most important resources for learning about the Gonka ecosystem:
+
+- [gonka.ai](https://gonka.ai/) — the main entry point for project information and ecosystem overview.
+- [Whitepaper](https://gonka.ai/whitepaper.pdf) — technical documentation describing the architecture, consensus model, Proof-of-Compute, etc.
+- [Tokenomics](https://gonka.ai/tokenomics.pdf) — project tokenomics overview, including supply, distribution, incentives, and economic design.
+- [GitHub](https://github.com/gonka-ai/gonka/) — access to the project’s source code, repositories, development activity, and open-source contributions.
+- [Discord](https://discord.com/invite/RADwCT2U6R) — the primary place for community discussions, announcements, and technical support.
+- [X (Twitter)](https://x.com/gonka_ai) — news, updates, and announcements.
 
 ## Tokenomics
 

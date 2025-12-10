@@ -106,11 +106,11 @@ Improvement Proposals → off-chain proposals under the control of active partic
 - Create a Markdown proposal in the [/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals) folder.
 - Open a Pull Request with your proposal.
 - Community review:
-  - Active contributors and maintainers discuss the proposal in the PR thread.
-  - Feedback, suggestions, and refinements are discussed openly.
+      - Active contributors and maintainers discuss the proposal in the PR thread.
+      - Feedback, suggestions, and refinements are discussed openly.
 - Approval and merge:
-  - If the community agrees, the PR is merged.
-  - Approved proposals become part of the official community roadmap.
+      - If the community agrees, the PR is merged.
+      - Approved proposals become part of the official community roadmap.
 
 ### Can an Improvement Proposal lead to a Governance Proposal?
 Yes. Often, an Improvement Proposal is used to explore ideas and gather consensus before drafting a Governance Proposal. For example:
@@ -124,7 +124,7 @@ Yes. Often, an Improvement Proposal is used to explore ideas and gather consensu
 - Once a proposal is submitted and funded with the minimum deposit, it enters the voting period
 - Voting options: `yes`, `no`, `no_with_veto`, `abstain`
   
-  - `yes` → approve the proposal
+    - `yes` → approve the proposal
     - `no` → reject the proposal
     - `no_with_veto` → reject and signal a strong objection
     - `abstain` → neither approve nor reject, but counts toward quorum
@@ -219,13 +219,11 @@ Once a node is marked as disabled, it is safe to power off the MLNode server.
 
 3) After all MLNodes have been disabled and powered off, you can shut down the Network Node. Before doing so, it’s recommended (but optional) to back up the following files:
 
-```
-- .dapi/api-config.yaml
-- .dapi/gonka.db (created after on-chain upgrade)
-- .inference/config/
-- .inference/keyring-file/
-- .tmkms/
-```
+- `.dapi/api-config.yaml`
+- `.dapi/gonka.db` (created after on-chain upgrade)
+- `.inference/config/`
+- `.inference/keyring-file/`
+- `.tmkms/`
 
 If you skip the backup, the setup can still be restored later using your Account Key.
 
@@ -531,9 +529,8 @@ rm -rf <data-backup...>
 ```
 
 ### How can I pre-download the binaries to avoid GitHub during the upgrade?
-(Applicable only if the v0.2.5 Upgrade Proposal is approved.)
 
-Here is an optional instruction on how the binaries can be pre-downloaded in advance to avoid relying on GitHub during the upgrade. This step is only relevant if the v0.2.5 Upgrade Proposal is approved.
+Here is an optional instruction on how the binaries can be pre-downloaded in advance to avoid relying on GitHub during the upgrade. 
 
 ```
 # 1. Create Directories

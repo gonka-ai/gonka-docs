@@ -33,8 +33,8 @@ You can find the minimum and recommended [hardware specifications](https://gonka
 ### What wallets can I use to store GNK coins?
 You can store GNK coin in several supported wallets within the Cosmos ecosystem:
 
-- Keplr
-- Leap Wallet
+- [Keplr](https://www.keplr.app/)
+- [Leap Wallet](https://www.leapwallet.io/)
 - `inferenced` CLI - a command-line utility for local account management and network operations in Gonka.
 
 ### Where can I find useful information about Gonka?

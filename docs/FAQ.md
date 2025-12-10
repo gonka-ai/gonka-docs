@@ -81,14 +81,11 @@ Improvement Proposals → off-chain proposals under the control of active partic
 - Create a Markdown proposal in the [/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals) folder.
 - Open a Pull Request with your proposal.
 - Community review:
-  
-        - Active contributors and maintainers discuss the proposal in the PR thread.
-        - Feedback, suggestions, and refinements are discussed openly.
-  
+  - Active contributors and maintainers discuss the proposal in the PR thread.
+  - Feedback, suggestions, and refinements are discussed openly.
 - Approval and merge:
-  
-        - If the community agrees, the PR is merged.
-        - Approved proposals become part of the official community roadmap.
+  - If the community agrees, the PR is merged.
+  - Approved proposals become part of the official community roadmap.
 
 ### Can an Improvement Proposal lead to a Governance Proposal?
 Yes. Often, an Improvement Proposal is used to explore ideas and gather consensus before drafting a Governance Proposal. For example:
@@ -176,15 +173,15 @@ Follow this guide to safely shut down an old cluster without impacting reputatio
 
 1) Use the following command to disable each ML Node:
     
-    ```
-    curl -X POST http://localhost:9200/admin/v1/nodes/<id>/disable
-    ```
+```
+curl -X POST http://localhost:9200/admin/v1/nodes/<id>/disable
+```
 
 You can list all node IDs with:
 
-    ```
-    curl http://localhost:9200/admin/v1/nodes | jq '.[].node.id'
-    ```
+```
+curl http://localhost:9200/admin/v1/nodes | jq '.[].node.id'
+```
 
 2) Nodes that are not scheduled to serve inference during the next Proof-of-Compute (PoC) will automatically stop during that PoC.
 Nodes that are scheduled to serve inference will remain active for one more epoch before stopping. You can verify a node’s status in the mlnode field at:

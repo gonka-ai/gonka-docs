@@ -84,6 +84,7 @@ Improvement Proposals → off-chain proposals under the control of active partic
   
         - Active contributors and maintainers discuss the proposal in the PR thread.
         - Feedback, suggestions, and refinements are discussed openly.
+  
 - Approval and merge:
   
         - If the community agrees, the PR is merged.
@@ -173,13 +174,14 @@ When a node is jailed, it shows `jailed: true`.
 
 Follow this guide to safely shut down an old cluster without impacting reputation.
 
-1) Use the following command to disable each MLNode:
-
+1) Use the following command to disable each ML Node:
+    
     ```
     curl -X POST http://localhost:9200/admin/v1/nodes/<id>/disable
     ```
 
-    You can list all node IDs with:
+You can list all node IDs with:
+
     ```
     curl http://localhost:9200/admin/v1/nodes | jq '.[].node.id'
     ```
@@ -187,21 +189,21 @@ Follow this guide to safely shut down an old cluster without impacting reputatio
 2) Nodes that are not scheduled to serve inference during the next Proof-of-Compute (PoC) will automatically stop during that PoC.
 Nodes that are scheduled to serve inference will remain active for one more epoch before stopping. You can verify a node’s status in the mlnode field at:
 
-    ```
-    curl http://<inference_url>/v1/epochs/current/participants
-    ```
-  
-    Once a node is marked as disabled, it is safe to power off the MLNode server.
+```
+curl http://<inference_url>/v1/epochs/current/participants
+```
+
+Once a node is marked as disabled, it is safe to power off the MLNode server.
 
 3) After all MLNodes have been disabled and powered off, you can shut down the Network Node. Before doing so, it’s recommended (but optional) to back up the following files:
 
-    ```
-    - .dapi/api-config.yaml
-    - .dapi/gonka.db (created after on-chain upgrade)
-    - .inference/config/
-    - .inference/keyring-file/
-    - .tmkms/
-    ```
+```
+- .dapi/api-config.yaml
+- .dapi/gonka.db (created after on-chain upgrade)
+- .inference/config/
+- .inference/keyring-file/
+- .tmkms/
+```
 
 If you skip the backup, the setup can still be restored later using your Account Key.
 
@@ -251,7 +253,7 @@ You must obtain the P2P port from the seed node’s status endpoint.
     ""listen_addr"": ""tcp://0.0.0.0:5000""
     ```
     
-    Use that port:
+    Use this port:
     ```
     export SEED_NODE_P2P_URL=tcp://<host>:<p2p_port>
     ```

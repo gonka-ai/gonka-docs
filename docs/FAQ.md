@@ -583,3 +583,116 @@ This means updating `inference_url` is a safe, non-destructive operation.
         --chain-id gonka-mainnet
     ```
 Verify the update by following the link below and replacing the ending with your node address [http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve](http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve)
+
+### Why is my `application.db` growing so large, and how do I fix it?
+
+Some nodes have an issue with growing size of `application.db`. 
+
+`.inference/data/application.db` stores the history of states for the chain (not blocks), by default it's state for 362880. 
+
+The state history contains a full merkle tree per each state and it's safe to have it preserved for significantly shorter length. For example, only for 1000 blocks.
+
+The pruning parameters can be set in `.inference/config/app.toml`:
+
+```
+...
+pruning = "custom"
+pruning-keep-recent = "1000"
+pruning-interval    = "100"
+```
+
+New configuration will be used after restart of the `node` container. But there is a problem - even when pruning is enabled, database clean is really slow.
+
+There are several ways how to reset `application.db`: 
+
+=== "OPTION 1: Full resync from snapshot" 
+
+    1) Stop node
+    ```
+    docker stop node
+    ```
+    
+    2) Remove data 
+    ```
+    sudo rm -rf .inference/data/ .inference/.node_initialized sudo mkdir -p .inference/data/
+    ```
+    
+    3) Start node
+    ```
+    docker start node
+    ```
+    
+    This approach may take some time during which the node will not be able to record transactions.
+    
+    Please use available trusted nodes to download snapshot.
+
+=== "OPTION 2: Resync from local snapshot" 
+
+    Snapshots are enabled by default and stored in `.inference/data/snapshots`
+    
+    1) Prepare new `application.db` ( `node` container's still running)
+    
+    1.1) Prepare temporary home directory for `inferenced`
+    ```
+    mkdir -p .inference/temp
+    cp -r .inference/config .inference/temp/config
+    mkdir -p .inference/temp/data/
+    ```
+    
+    1.2) Copy snapshots: 
+    ```
+    cp -r .inference/data/snapshots .inference/temp/data/
+    ```
+    
+    1.3) List snapshots 
+    ```
+    inferenced snapshots list --home .inference/temp
+    ```
+    
+    Copy height for the latest snapshot. 
+    
+    1.4) Start restoring from snapshot ( `node` container is still running) 
+    ```
+    inferenced snapshots restore <INSERRT_HEIGHT> 3  --home .inference/temp
+    ```
+    
+    This might take some time. Once it is finished, you'll have new `application.db` in `.inference/temp/data/application.db`
+    
+    2) Replace `application.db` with new one
+    
+    2.1) Stop `node` container (from another terminal window) 
+    ```
+    docker stop node
+    ```
+    
+    2.2) Move original `application.db` 
+    ```
+    mv .inference/data/application.db .inference/temp/application.db-backup
+    mv .inference/wasm .inference/wasm.db-backup
+    ```
+    
+    2.3) Replace it with new one 
+    ```
+    cp -r .inference/temp/data/application.db .inference/data/application.db
+    cp -r .inference/temp/wasm .inference/wasm
+    ```
+    
+    2.4) Start `node` container (from another terminal window): 
+    ```
+    docker start node
+    ```
+    
+    3) Wait till `node` container is synchronized and delete `.inference/temp/`
+    
+    If you have several nodes, it is recommended cleaning one by one.
+
+=== "OPTION 3: Experimental"
+
+    Additional option might be to start separate instance of `node` container on separate CPU only machine and setup in strict validator mode:
+    
+    - preserve really short history
+    - limit RPC and API access only to `api` container
+    
+    Once it's running, move existing `tmkms` volume to the new node (disable block signing on existing one first). 
+    
+    This is the general idea of the approach. If you decide to try it and have any questions, feel free to reach out on [Discord](https://discord.com/invite/RADwCT2U6R).

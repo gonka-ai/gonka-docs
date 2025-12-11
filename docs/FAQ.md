@@ -9,12 +9,16 @@ Gonka is a decentralized network for high‑efficiency AI compute — run by tho
 GNK is the native coin of the Gonka network. It is used to incentivize participants, price resources, and ensure the sustainable growth of the network.
 
 ### Can I buy GNK coin?
-No, you cannot buy GNK coin on exchanges right now because the coin has not been listed yet.
-However, there are two ways to obtain GNK before listing:
 
-- Mine as a Host — GNK coins can already be minted by contributing computational resources to the network.
-- Participate in the [bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.
-    
+No, you cannot buy GNK on exchanges right now because the coin has not been listed yet.
+Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
+
+However, there are currently only two legitimate ways to obtain GNK before the listing:
+	1.	[Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be minted by contributing computational resources to the network.
+	2.	Participate in [the bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.
+
+Important note: be cautious of scam offers, especially on Solana or other chains claiming that GNK is already tradable. Any coin currently circulating on public networks is not an official GNK asset. Always verify information through official channels.
+
 ### What makes the protocol efficient?
 Our difference from the "big players" is the pricing and the fact that, despite the size of the user, the inference is being distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).
     

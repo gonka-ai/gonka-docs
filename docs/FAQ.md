@@ -15,8 +15,8 @@ Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updat
 
 However, there are currently only two legitimate ways to obtain GNK before the listing:
 
-	1.	[Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be minted by contributing computational resources to the network.
-	2.	Participate in [the bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.
+- [Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be minted by contributing computational resources to the network.
+- Participate in [the bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.
 
 !!! note "Important"
 	Be cautious of scam offers, especially on Solana or other chains claiming that GNK is already tradable. Any coin currently circulating on public networks is not an official GNK asset. Always verify information through official channels.

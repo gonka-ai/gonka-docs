@@ -47,11 +47,11 @@ Sprints are deliberately short, concentrating computational effort into a tightl
   <img src="/images/poc_timeline.png" style="width:100%; height:auto; max-width:100%;">
 </a>
 
-An epoch concludes with auto claiming rewards for epoch N and a Host set cutoff. The new Proof of Compute phase (Sprint) begins to determine Hosts weights for the upcoming Epoch. Once Sprint is completed and weights are assigned, this marks the start of the new epoch.
+An epoch concludes with auto claiming rewards for epoch N. The new Proof of Compute phase (Sprint) begins to determine Hosts weights for the upcoming Epoch. Once Sprint is completed and weights are assigned, this marks the start of the new epoch.
 
-Throughout the epoch, Hosts run and validate inferences. When the epoch ends, the chain performs pruning of all inference records to prevent state bloat, ensuring long-term efficiency of the system.
+Throughout the epoch, Hosts run and validate inferences. 
 
-If for some reason a reward for epoch N was not claimed, each Host’s API node automatically submits a reward claim transaction in epoch N+1 for epoch N using the seed that was signed at the start of epoch N. The claim is retried every 30 minutes until it succeeds. Importantly, the Host must remain online and pass all verification checks within this limited window, otherwise, the chain cannot finalize the claim, and the reward remains unclaimed. Unclaimed rewards from earlier epochs are permanently burned.
+If for some reason a reward for epoch N was not claimed, each Host’s API node automatically submits a reward claim transaction in epoch N+1 for epoch N using the seed that was signed at the start of epoch N. The claim is retried every 30 minutes until it succeeds. Importantly, the Host must remain online and pass all verification checks within this limited window, otherwise, the chain cannot finalize the claim, and the reward remains unclaimed. Unclaimed rewards from earlier epochs are permanently burned (rewards for epoch N are permanently burned at the moment the host set cutoff occurs at the end of epoch N+1).
 
 As part of the claim process, the chain verifies that Host completed all required work for the epoch. The protocol also allows overdue inference-validation artifacts to be submitted during this window, giving Hosts a final opportunity to execute any pending validations before rewards are finalized.
 

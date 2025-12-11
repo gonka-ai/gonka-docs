@@ -34,7 +34,7 @@ The network's operation is collaborative and depends on the role you wish to tak
 
 No. This documentation covers the primary concepts, standard workflows, and the most common operational scenarios of the protocol, but it is not exhaustive.
 
-Because Gonka is a decentralized network, various parameters, mechanisms, and governance-driven behaviors may evolve through on-chain voting and community decisions. Certain details may change after publication, and not all edge cases or future updates may be reflected immediately.
+Because Gonka is an open-source and decentralized network, various parameters, mechanisms, and governance-driven behaviors may evolve through on-chain voting and community decisions. Certain details may change after publication, and not all edge cases or future updates may be reflected immediately.
 
 For Hosts, Developers, and contributors, **the ultimate source of truth is the code itself**. If any discrepancy arises between this documentation and the code, the code always prevails.
 

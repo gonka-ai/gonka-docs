@@ -13,7 +13,7 @@ GNK is the native coin of the Gonka network. It is used to incentivize participa
 No, you cannot buy GNK on exchanges right now because the coin has not been listed yet.
 Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
 
-However, there are currently only two legitimate ways to obtain GNK before the listing:
+However, there are currently two legitimate ways to obtain GNK before the listing:
 
 - [Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be minted by contributing computational resources to the network.
 - Participate in [the bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.

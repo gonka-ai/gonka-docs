@@ -14,10 +14,12 @@ No, you cannot buy GNK on exchanges right now because the coin has not been list
 Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
 
 However, there are currently only two legitimate ways to obtain GNK before the listing:
+
 	1.	[Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be minted by contributing computational resources to the network.
 	2.	Participate in [the bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.
 
-Important note: be cautious of scam offers, especially on Solana or other chains claiming that GNK is already tradable. Any coin currently circulating on public networks is not an official GNK asset. Always verify information through official channels.
+!!! note "Important"
+	Be cautious of scam offers, especially on Solana or other chains claiming that GNK is already tradable. Any coin currently circulating on public networks is not an official GNK asset. Always verify information through official channels.
 
 ### What makes the protocol efficient?
 Our difference from the "big players" is the pricing and the fact that, despite the size of the user, the inference is being distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).

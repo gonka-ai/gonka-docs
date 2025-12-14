@@ -13,6 +13,7 @@ nav:
     - Details: developer/details.md
   - Host:
     - Quickstart: host/quickstart.md
+    - Architecture: architecture.md
     - Benchmark to choose optimal deployment config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
     - Genesis: host/genesis.md
     - Hardware specifications: host/hardware-specifications.md

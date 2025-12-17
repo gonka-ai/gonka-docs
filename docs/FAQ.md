@@ -550,39 +550,39 @@ Here is an optional instruction on how the binaries can be pre-downloaded in adv
 
 ```
 # 1. Create Directories
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.5/bin \
-              .inference/cosmovisor/upgrades/v0.2.5/bin && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.6/bin \
+              .inference/cosmovisor/upgrades/v0.2.6/bin && \
 
 # 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.5/decentralized-api-amd64.zip" && \
-echo "6fd12cd92e8226866be76a5e63a57e1b0041c7679db047af75e764e98668cb91 decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.5/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api && \
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6/decentralized-api-amd64.zip" && \
+echo "abb5e3ba1db4beb6c1109b5a0cd1fbf226e19c108dc4f30a565582056123c394 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.6/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
 echo "DAPI Installed and Verified" && \
 
 # 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.5/inferenced-amd64.zip" && \
-echo "fab7be9bcdb4e21f058e6d19cfd698b6862bf6f5a8aeecbf9165907fc7edcc64 inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.5/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6/inferenced-amd64.zip" && \
+echo "cdbcfe214ce7eb2bab993bb344447b84602fb77e32c9a05f48e0671dd469c832 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
 echo "Inference Installed and Verified" && \
 
 # 4. Cleanup and Final Check
 rm decentralized-api.zip inferenced.zip && \
 echo "--- Final Verification ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
-echo "8c6898e99acb3b1acb4e196398003453ea50f82d92ce4e2ebcec99a795f8d735 .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api" | sudo sha256sum --check && \
-echo "9187b69322ba73f745c8ed2fbad713a39ce0e39ed15f7a48dacf9356693ed1a0 .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced" | sudo sha256sum --check
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
+echo "c71accb395b39b086b8ee3254b2d6c19c8fb3bcd692f3c12a7a5b9ed3f243577 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api" | sudo sha256sum --check && \
+echo "cd916e8e6054cfc595a6d67b8ba69279a8f16816fb2cf48a4c2fa0eeac27a7a9 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced" | sudo sha256sum --check
 ```
 The binaries are considered successfully downloaded and installed only if all commands complete without errors and the confirmation message is displayed.
 ```
 Inference Installed and Verified
 --- Final Verification ---
--rwxr-xr-x 1 root root 216176168 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api
--rwxr-xr-x 1 root root 212197496 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced
-.dapi/cosmovisor/upgrades/v0.2.5/bin/decentralized-api: OK
-.inference/cosmovisor/upgrades/v0.2.5/bin/inferenced: OK
+-rwxr-xr-x 1 root root 223784000 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api
+-rwxr-xr-x 1 root root 214540968 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced
+.dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api: OK
+.inference/cosmovisor/upgrades/v0.2.6/bin/inferenced: OK
 ```
 
 ## Performance & troubleshooting

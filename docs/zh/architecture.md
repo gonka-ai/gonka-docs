@@ -12,8 +12,8 @@ Gonka 只记录用于推理验证的交易和工件。实际计算在链下进�
 
 下面的图表显示了推理请求通过 Gonka 网络的流程。绿色箭头表示通过公共互联网的通信，黄色箭头表示主机私有网络内的通信。
 
-<a href="/images/inference_flow.png" target="_blank">
-  <img src="/images/inference_flow.png" style="width:100%; height:auto; max-width:100%;">
+<a href="/images/inference_flow_chinese.png" target="_blank">
+  <img src="/images/inference_flow_chinese.png" style="width:100%; height:auto; max-width:100%;">
 </a>
 
 以下序列描述了推理请求如何通过 Gonka 网络移动，如上图所示：
@@ -41,8 +41,8 @@ Gonka 以周期（epoch）运行，每个周期持续 17280 个区块（约 24 �
 
 Sprint 被故意设计得很短，将计算工作集中在紧密且有界的有效窗口内。它们以与区块链区块生产对齐的规律、精确定义的间隔发生，只占用总周期长度的一小部分。通过设计，Sprint 持续时间被最小化，以便周期的大部分时间可用于有意义的工作，例如 LLM 推理和训练。这种可预测的节奏允许 Sprint 执行自然地集成到去中心化 AI 网络的整体运营中，而不会干扰生产性工作负载。
 
-<a href="/images/poc_timeline.png" target="_blank">
-  <img src="/images/poc_timeline.png" style="width:100%; height:auto; max-width:100%;">
+<a href="/images/poc_timeline_chinese.png" target="_blank">
+  <img src="/images/poc_timeline_chinese.png" style="width:100%; height:auto; max-width:100%;">
 </a>
 
 一个周期以自动申领周期 N 的奖励结束。新的计算证明阶段（Sprint）开始确定即将到来的周期的主机权重。一旦 Sprint 完成并分配了权重，这标志着新周期的开始。

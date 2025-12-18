@@ -2,7 +2,7 @@
 
 You will perform governance actions from your **Cold Account Machine**, using the **cold-key-name** stored in your file keyring. This is the governance key you created when joining the network ([see quickstart](https://gonka.ai/host/quickstart/#create-account-key-local-machine)).
 Transactions are sent through an RPC endpoint (here referred to as `$SEED_URL/chain-rpc/`). If you do not specify `--node`, the CLI defaults to `tcp://localhost:26657`. Unless you run your own node locally, always provide `--node $SEED_URL/chain-rpc/`.
-Unordered transactions are supported and recommended here to avoid sequence contention. ([docs.cosmos.network](https://docs.cosmos.network/main/learn/beginner/tx-lifecycle?utm_source=chatgpt.com "Transaction Lifecycle | Explore the SDK"))
+Unordered transactions are supported and recommended here to avoid sequence contention. ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/learn/beginner/tx-lifecycle))
 
 **Always include these flags in transaction commands:**
 
@@ -13,7 +13,7 @@ Unordered transactions are supported and recommended here to avoid sequence cont
 - `--node $SEED_URL/chain-rpc/` → required unless you run a local RPC node.
 - `--yes` → auto-approve broadcasting.
 
-For background on transaction lifecycle and gas, see [Cosmos SDK: Transactions](https://docs.cosmos.network/main/learn/beginner/tx-lifecycle) and [Gas & Fees](https://docs.cosmos.network/main/build/modules/auth).
+For background on transaction lifecycle and gas, see [Cosmos SDK: Transactions](https://docs.cosmos.network/sdk/v0.53/learn/beginner/tx-lifecycle) and [Gas & Fees](https://docs.cosmos.network/sdk/v0.53/learn/intro/sdk-design#modules).
 
 # Vote on a Proposal (quick path)
 

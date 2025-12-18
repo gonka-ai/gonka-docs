@@ -30,7 +30,7 @@ inferenced query gov proposals -o json --node $SEED_URL/chain-rpc/
 inferenced query gov proposal $PROPOSAL_ID -o json --node $SEED_URL/chain-rpc/
 ```
 
-Confirm the **id**, **title**, **summary**, and (if present) **metadata** match what was shared with you. If the proposal includes embedded messages, you’ll also see their `@type` and fields here. (Cosmos gov v1 stores proposal content on-chain and exposes it via `query gov proposal`.) ([Cosmos SDK Documentation](https://docs.cosmos.network/v0.46/modules/gov/07_client.html?utm_source=chatgpt.com "Client - Cosmos SDK"))
+Confirm the **id**, **title**, **summary**, and (if present) **metadata** match what was shared with you. If the proposal includes embedded messages, you’ll also see their `@type` and fields here. (Cosmos gov v1 stores proposal content on-chain and exposes it via `query gov proposal`.) ([Cosmos SDK Documentation](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README#query))
 
 ## 2) Review the contents carefully (especially param updates)
 
@@ -49,12 +49,12 @@ inferenced query gov proposal $PROPOSAL_ID -o json --node $SEED_URL/chain-rpc/ \
 diff -u current_params.json proposed_params.json || true
 ```
 
-For `MsgUpdateParams`, modules typically expect the **full** params object and the `authority` to be the **gov module account** (that’s normal—just confirm it). ([Cosmos SDK Documentation](https://docs.cosmos.network/main/build/modules/bank?utm_source=chatgpt.com "x/bank | Explore the SDK"), [Cosmos Hub](https://hub.cosmos.network/main/governance/proposal-types/param-change?utm_source=chatgpt.com "Parameter Changes | Cosmos Hub"))
+For `MsgUpdateParams`, modules typically expect the **full** params object and the `authority` to be the **gov module account** (that’s normal—just confirm it). ([Cosmos SDK Documentation](https://docs.cosmos.network/sdk/v0.53/build/modules/bank/README), [Cosmos Hub](https://docs.cosmos.network/hub/v25/governance/proposal-types/README)
 
 ## 3) Know the voting options & the (very) short gov flow
 
-- **Options:** `yes`, `no`, `no_with_veto`, `abstain`. `NoWithVeto` is a “no” plus a veto signal; `Abstain` contributes to quorum without supporting or opposing. ([Cosmos SDK Documentation](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"), [Cosmos Tutorials](https://tutorials.cosmos.network/tutorials/8-understand-sdk-modules/4-gov.html?utm_source=chatgpt.com "Understand the Gov Module"))
-- **Flow:** proposals open (after deposit) → voting period runs → outcome decided by quorum/threshold/veto parameters → if **passed**, messages execute via the gov module. You may **change your vote any time before the voting period ends**; the **last** vote counts. ([Cosmos Hub](https://hub.cosmos.network/main/governance/process?utm_source=chatgpt.com "On-Chain Proposal Process"))
+- **Options:** `yes`, `no`, `no_with_veto`, `abstain`. `NoWithVeto` is a “no” plus a veto signal; `Abstain` contributes to quorum without supporting or opposing. ([Cosmos SDK Documentation](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README), [Cosmos Tutorials](https://tutorials.cosmos.network/tutorials/8-understand-sdk-modules/4-gov.html)
+- **Flow:** proposals open (after deposit) → voting period runs → outcome decided by quorum/threshold/veto parameters → if **passed**, messages execute via the gov module. You may **change your vote any time before the voting period ends**; the **last** vote counts. ([Cosmos Hub](https://hub.cosmos.network/main/governance/process))
 
 ## 4) Cast (or change) your vote
 
@@ -82,14 +82,14 @@ inferenced query gov tally $PROPOSAL_ID -o json --node $SEED_URL/chain-rpc/
 inferenced query gov votes $PROPOSAL_ID -o json --node $SEED_URL/chain-rpc/
 ```
 
-(Cosmos CLI exposes `vote`, `votes`, and tally queries; voters can re-vote until the period ends.) ([Cosmos SDK Documentation](https://docs.cosmos.network/v0.46/modules/gov/07_client.html?utm_source=chatgpt.com "Client - Cosmos SDK"))
+(Cosmos CLI exposes `vote`, `votes`, and tally queries; voters can re-vote until the period ends.) ([Cosmos SDK Documentation](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README))
 
 
 ---
 
 ## Submit a Parameter Change Proposal
 
-**TL;DR:** draft a proposal with a `MsgUpdateParams`, include **all** params for that module, ensure the deposit meets `min_deposit`, submit, then track/deposit/vote. `MsgUpdateParams` requires providing the full parameter set for the target module. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/formatting?utm_source=chatgpt.com "Formatting a Proposal - Cosmos Hub"))
+**TL;DR:** draft a proposal with a `MsgUpdateParams`, include **all** params for that module, ensure the deposit meets `min_deposit`, submit, then track/deposit/vote. `MsgUpdateParams` requires providing the full parameter set for the target module. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/formatting))
 ### 1) Get the governance module address (authority)
 
 Many modules’ `MsgUpdateParams` require `authority` to be the **gov module account**. You can get this by running this on a machine that has joined the node (your full node/server:)
@@ -98,7 +98,7 @@ Many modules’ `MsgUpdateParams` require `authority` to be the **gov module acc
 inferenced query auth module-accounts --node $SEED_URL/chain-rpc/ | grep -B2 'name: gov'
 ```
 
-The gov module executes proposal messages if they pass. Copy that address for the `authority` field. ([docs.cosmos.network](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"))
+The gov module executes proposal messages if they pass. Copy that address for the `authority` field. ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README))
 ### 2) Export current params for the target module
 
 You will edit these, but include the **entire** object in the proposal. Again, run this on your main server connected to the node
@@ -108,14 +108,14 @@ You will edit these, but include the **entire** object in the proposal. Again, r
 inferenced query inference params -o json --node $SEED_URL/chain-rpc/ > current_params.json
 ```
 
-`MsgUpdateParams` expects the full struct, not partial fields. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/submitting?utm_source=chatgpt.com "Submitting a Proposal - Cosmos Hub"))
+`MsgUpdateParams` expects the full struct, not partial fields. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/submitting))
 ### 3) Check the minimum deposit
 
 ```bash
 inferenced query gov params -o json --node $SEED_URL/chain-rpc/ | jq '.params.min_deposit'
 ```
 
-Your proposal’s `deposit` must meet/exceed `min_deposit`. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/process?utm_source=chatgpt.com "On-Chain Proposal Process"))
+Your proposal’s `deposit` must meet/exceed `min_deposit`. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/process))
 ### 4) Draft the proposal file
 
 Use the built-in wizard to scaffold `draft_proposal.json`, then choose **other** → pick your message type (e.g., `/inference.inference.MsgUpdateParams`).
@@ -125,7 +125,7 @@ inferenced tx gov draft-proposal
 # fills draft_proposal.json and draft_metadata.json
 ```
 
-The `draft-proposal` helper is part of modern gov v1 CLIs. ([docs.cosmos.network](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"), [hub.cosmos.network](https://hub.cosmos.network/main/governance/submitting?utm_source=chatgpt.com "Submitting a Proposal - Cosmos Hub"))
+The `draft-proposal` helper is part of modern gov v1 CLIs. ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README), [hub.cosmos.network](https://hub.cosmos.network/main/governance/submitting))
 
 You will want to select the message you are proposing. To change the parameters for the main chain, use `/inference.inference.MsgUpdateParams`
 
@@ -151,7 +151,7 @@ Edit `draft_proposal.json` so it looks like:
 }
 ```
 
-> Reminder: include the **entire** `params` object, not just the fields you changed. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/submitting?utm_source=chatgpt.com "Submitting a Proposal - Cosmos Hub"))
+> Reminder: include the **entire** `params` object, not just the fields you changed. ([hub.cosmos.network](https://hub.cosmos.network/main/governance/submitting))
 
 ### 5) Submit the proposal
 This MUST be done on your private machine with your cold account information.
@@ -167,7 +167,7 @@ inferenced tx gov submit-proposal ./draft_proposal.json \
 ```
 You will need to enter your passphrase to send the proposal.
 
-Governance proposals in v1 are JSON files with embedded messages executed by the gov module if the vote passes. ([docs.cosmos.network](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"))
+Governance proposals in v1 are JSON files with embedded messages executed by the gov module if the vote passes. ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README))
 
 ### 6) Ensure your proposal is on-chain
 
@@ -192,7 +192,7 @@ inferenced tx gov deposit <proposal_id> <amount> \
   --yes
 ```
 
-([docs.cosmos.network](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"))
+([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README))
 
 ---
 
@@ -209,7 +209,7 @@ inferenced tx gov vote <proposal_id> yes \
   --yes
 ```
 
-(There’s no auto-YES for proposers; cast your vote explicitly.) ([docs.cosmos.network](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"))
+(There’s no auto-YES for proposers; cast your vote explicitly.) ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README))
 
 ---
 
@@ -224,11 +224,11 @@ inferenced query gov tally <proposal_id> -o json --node $SEED_URL/chain-rpc/
 inferenced query gov proposals -o json --node $SEED_URL/chain-rpc/
 ```
 
-([docs.cosmos.network](https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com "x/gov | Explore the SDK"))
+([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README))
 
 ---
 
 ## Notes
 
-- **Unordered tx semantics.** When using `--unordered`, the tx carries an expiry via `--timeout-duration`, and its sequence is left unset. External tooling that expects monotonic sequences must not rely on them for these txs. ([docs.cosmos.network](https://docs.cosmos.network/main/learn/beginner/tx-lifecycle?utm_source=chatgpt.com "Transaction Lifecycle | Explore the SDK"))
-- **Gas tuning.** If simulations are tight or validators use higher min gas prices, raise `--gas-adjustment` or set `--gas-prices` per network policy. ([docs.cosmos.network](https://docs.cosmos.network/main/build/modules/auth?utm_source=chatgpt.com "x/auth | Explore the SDK"))
+- **Unordered tx semantics.** When using `--unordered`, the tx carries an expiry via `--timeout-duration`, and its sequence is left unset. External tooling that expects monotonic sequences must not rely on them for these txs. ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/learn/beginner/tx-lifecycle))
+- **Gas tuning.** If simulations are tight or validators use higher min gas prices, raise `--gas-adjustment` or set `--gas-prices` per network policy. ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/learn/beginner/tx-lifecycle))

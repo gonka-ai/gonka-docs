@@ -1,4 +1,4 @@
-# Governance & Transactions (Cosmos SDK 0.53)
+# Transactions & Governance (Cosmos SDK 0.53)
 
 You will perform governance actions from your **Cold Account Machine**, using the **cold-key-name** stored in your file keyring. This is the governance key you created when joining the network ([see quickstart](https://gonka.ai/host/quickstart/#create-account-key-local-machine)).
 Transactions are sent through an RPC endpoint (here referred to as `$SEED_URL/chain-rpc/`). If you do not specify `--node`, the CLI defaults to `tcp://localhost:26657`. Unless you run your own node locally, always provide `--node $SEED_URL/chain-rpc/`.

@@ -544,6 +544,49 @@ ls -la   # view the list of folders. There will be folders like data-backup... D
 rm -rf <data-backup...>
 ```
 
+
+### How can I pre-download the binaries to avoid GitHub during the upgrade?
+
+Here is an optional instruction on how the binaries can be pre-downloaded in advance to avoid relying on GitHub during the upgrade. 
+
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.6/bin \
+              .inference/cosmovisor/upgrades/v0.2.6/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6-post1/decentralized-api-amd64.zip" && \
+echo "52ac4c55313f77eff7da4f7160396837c8810f9bf84a860c21c0299599968aaa decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.6/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6-post1/inferenced-amd64.zip" && \
+echo "afa5772b8c7014d3fd9015651aa543ace4196c227ce59ee3f9fed3fcd98f4650 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
+echo "e762ed88926d5d58f42ae5c3455d7fe2eb9c1a0881355c942dd8596d731986d8 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api" | sudo sha256sum --check && \
+echo "ac885fd431dffab3ebf06cddc3afdcf8df9e5219cb5424ed66910b2484da2368 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced" | sudo sha256sum --check
+```
+The binaries are considered successfully downloaded and installed only if all commands complete without errors and the confirmation message is displayed.
+```
+Inference Installed and Verified
+--- Final Verification ---
+-rwxr-xr-x 1 root root 223800320 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api
+-rwxr-xr-x 1 root root 214556584 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced
+.dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api: OK
+.inference/cosmovisor/upgrades/v0.2.6/bin/inferenced: OK
+```
+
+
 ## Performance & troubleshooting
 
 ### How to prevent unbounded memory growth in NATS?

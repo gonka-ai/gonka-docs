@@ -531,19 +531,81 @@ The http://api:9100 url won’t be available if you paused the api container or 
 
 ## Updates & maintenance
 
-### How much free disk space is required for a Cosmovisor update, and how can I safely remove old backups from the `.inference` directory?
-Cosmovisor creates a full backup in the `.inference` state folder whenever it performs an update. For example, you can see a folder like `data-backup-<some_date>`.
-As of November 20, 2025, the size of the data directory is about 150 GB, so each backup will take approximately the same amount of space.
-To safely run the update, it is recommended to have 250+ GB of free disk space.
-You can remove old backups to free space, although in some cases this may still be insufficient and you might need to expand the server disk.
-To remove an old backup directory, you can use:
+### Restart halt at 1812408
+
+#### 1. Pause your API node container
+
 ```
-sudo su
-cd .inference
-ls -la   # view the list of folders. There will be folders like data-backup... DO NOT DELETE ANYTHING EXCEPT THESE
-rm -rf <data-backup...>
+docker pause api
 ```
 
+#### 2. Patch the consensus node container and launch it
+
+2.1. Stop `node` container:
+```
+docker stop node
+```
+
+2.2. Rollback to the succefull block:
+```
+source config.env && docker compose run -it --no-deps  node /bin/sh -c "inferenced rollback"
+```
+
+On succesfull finish it shows:
+```
+<INSER>
+
+2.3. Start `node` container:
+```
+docker start node
+```
+
+Once it successfully started, log shows:
+
+```
+8:35AM INF updating validator power module=x/staking new_power=626 operator=gonkavaloper1zrzapmfar303hfdqpfglkcxn5xf0s5957q6d02
+8:35AM INF creating new validator module=x/staking power=3174 pubkey=EEC80EE0754C70ACA6BA157D5A6AB3EB4377CBB6
+8:35AM INF updating validator power module=x/staking new_power=5271 operator=gonkavaloper1zvuzj7ya9zafw309prasd0r4jhykf47mtcsxxt
+8:35AM INF creating new validator module=x/staking power=4664 pubkey=8830D92326ADD280998485B1385C7F1539FFFD59
+8:35AM INF updating validator power module=x/staking new_power=4814 operator=gonkavaloper1zzkxnpq2txntwh5eu49jk67x42yh8wyshn86vf
+8:35AM INF finalized block block_app_hash=69559BB6F3C8F2EEBD15C61D04B2B7F49DBE6A6448D950F688AF9F95DDE36BBA height=1812408 module=consensus num_txs_res=1406 num_val_updates=0
+8:35AM INF executed block app_hash=69559BB6F3C8F2EEBD15C61D04B2B7F49DBE6A6448D950F688AF9F95DDE36BBA height=1812408 module=consensus
+8:35AM INF committed state block_app_hash=6B77D80600F909A3A3F3162C1A971A394F317EB9AAE781C9502CD156A54425ED height=1812408 module=consensus
+8:35AM INF Completed ABCI Handshake - CometBFT and App are synced appHash=69559BB6F3C8F2EEBD15C61D04B2B7F49DBE6A6448D950F688AF9F95DDE36BBA appHeight=1812407 module=consensus
+8:35AM INF Version info abci=2.0.0 block=11 commit_hash= module=server p2p=8 tendermint_version=0.38.17
+```
+
+2.4. Wait until after block 1812800 and blocks start producing regularly without delays for 3-5 minutes in a raw
+
+2.5. Start your API node container again
+
+```
+docker unpause api
+```
+
+2.6. After one hour passes, and any time before the next PoC, check that your reward was claimed, and claim it again if needed
+
+
+# Download Binary
+```
+sudo rm -rf inferenced.zip inferenced-amd64.zip .inference/cosmovisor/upgrades/v0.2.5/
+sudo mkdir -p .inference/cosmovisor/upgrades/v0.2.5/bin/
+wget -q -O inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.5-post11/inferenced-amd64.zip' && \
+echo "19194f92858ae8533d585bd1fe8f62ae4573ed92678b1966638df499c706043e inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.5/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
+echo "Inference Installed"
+```
+
+# Link Binary
+```
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.5 .inference/cosmovisor/current
+echo "b9247acd6d1cf6c497663ed2f0a14c341e9bd9a6df0abaa09c70d9d6fc162712 .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check
+```
+
+**2.7. IMPORTANT:** Pre-download once again binaries for upgrade v0.2.6 using instruction above. `inderenced` binaries have changed.
 
 ### How can I pre-download the binaries to avoid GitHub during the upgrade?
 
@@ -588,6 +650,20 @@ Inference Installed and Verified
 -rwxr-xr-x 1 root root 214556584 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced
 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api: OK
 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced: OK
+```
+
+
+### How much free disk space is required for a Cosmovisor update, and how can I safely remove old backups from the `.inference` directory?
+Cosmovisor creates a full backup in the `.inference` state folder whenever it performs an update. For example, you can see a folder like `data-backup-<some_date>`.
+As of November 20, 2025, the size of the data directory is about 150 GB, so each backup will take approximately the same amount of space.
+To safely run the update, it is recommended to have 250+ GB of free disk space.
+You can remove old backups to free space, although in some cases this may still be insufficient and you might need to expand the server disk.
+To remove an old backup directory, you can use:
+```
+sudo su
+cd .inference
+ls -la   # view the list of folders. There will be folders like data-backup... DO NOT DELETE ANYTHING EXCEPT THESE
+rm -rf <data-backup...>
 ```
 
 

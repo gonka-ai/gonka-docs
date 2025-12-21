@@ -614,7 +614,7 @@ docker unpause api
 #### 6. After one hour passes, and any time before the next PoC, check that your reward was claimed, and claim it again if needed
 
 
-#### **3.7. IMPORTANT:** Pre-download once again binaries for upgrade v0.2.6 using instruction above. `inderenced` binaries have changed.
+#### **7. IMPORTANT:** Pre-download once again binaries for upgrade v0.2.6 using instruction above. `inderenced` binaries have changed.
 
 ### How can I pre-download the binaries to avoid GitHub during the upgrade?
 

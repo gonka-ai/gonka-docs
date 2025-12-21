@@ -553,7 +553,12 @@ source config.env && docker compose run -it --no-deps  node /bin/sh -c "inferenc
 
 On succesfull finish it shows:
 ```
-<INSER>
+8:41AM INF Setting up upgrade handlers module=baseapp
+8:41AM INF Applying upgrade module=baseapp upgradeInfo={"time":"0001-01-01T00:00:00Z"}
+8:41AM INF Successfully initialized denom metadata base=ngonka module=baseapp units=4
+8:41AM INF Successfully registered denom metadata module=baseapp
+8:41AM INF WASM keeper check: pinned codes enumerated successfully. Keeper is functional. module=baseapp
+Rolled back state to height 1812407 and hash 6B77D80600F909A3A3F3162C1A971A394F317EB9AAE781C9502CD156A54425ED
 
 2.3. Start `node` container:
 ```
@@ -575,7 +580,7 @@ Once it successfully started, log shows:
 8:35AM INF Version info abci=2.0.0 block=11 commit_hash= module=server p2p=8 tendermint_version=0.38.17
 ```
 
-2.4. Wait until after block 1812800 and blocks start producing regularly without delays for 3-5 minutes in a raw
+2.4. Wait until after block 1812800 and ensure that blocks are being produced regularly without delays for 3-5 minutes in a row
 
 2.5. Start your API node container again
 
@@ -790,7 +795,7 @@ There are several ways how to reset `application.db`:
     
     1.4) Start restoring from snapshot ( `node` container is still running) 
         ```
-        inferenced snapshots restore <INSERRT_HEIGHT> 3  --home .inference/temp
+        inferenced snapshots restore <INSERT_HEIGHT> 3  --home .inference/temp
         ```
     
     This might take some time. Once it is finished, you'll have new `application.db` in `.inference/temp/data/application.db`

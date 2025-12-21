@@ -562,8 +562,9 @@ sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
 echo "DAPI Installed and Verified" && \
 
 # 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
 wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6-post1/inferenced-amd64.zip" && \
-echo "afa5772b8c7014d3fd9015651aa543ace4196c227ce59ee3f9fed3fcd98f4650 inferenced.zip" | sha256sum --check && \
+echo "bee12a0a3bc8fdea98fd1db1c6d6000633a2ec6c202f65e560393517dd6fcacc inferenced.zip" | sha256sum --check && \
 sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
 sudo chmod +x .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
 echo "Inference Installed and Verified" && \
@@ -574,8 +575,11 @@ echo "--- Final Verification ---" && \
 sudo ls -l .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
 sudo ls -l .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
 echo "e762ed88926d5d58f42ae5c3455d7fe2eb9c1a0881355c942dd8596d731986d8 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api" | sudo sha256sum --check && \
-echo "ac885fd431dffab3ebf06cddc3afdcf8df9e5219cb5424ed66910b2484da2368 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced" | sudo sha256sum --check
+echo "87630947bcc7f2b9b3b4c8429ee0429be21d220264811ca2517fdb4d7d36629a .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced" | sudo sha256sum --check
 ```
+
+
+
 The binaries are considered successfully downloaded and installed only if all commands complete without errors and the confirmation message is displayed.
 ```
 Inference Installed and Verified

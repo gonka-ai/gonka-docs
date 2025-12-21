@@ -559,8 +559,10 @@ On succesfull finish it shows:
 8:41AM INF Successfully registered denom metadata module=baseapp
 8:41AM INF WASM keeper check: pinned codes enumerated successfully. Keeper is functional. module=baseapp
 Rolled back state to height 1812407 and hash 6B77D80600F909A3A3F3162C1A971A394F317EB9AAE781C9502CD156A54425ED
+```
 
 2.3. Start `node` container:
+
 ```
 docker start node
 ```

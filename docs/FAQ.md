@@ -760,7 +760,8 @@ There are several ways how to reset `application.db`:
     
     2) Remove data 
         ```
-        sudo rm -rf .inference/data/ .inference/.node_initialized sudo mkdir -p .inference/data/
+        sudo rm -rf .inference/data/ .inference/.node_initialized
+        sudo mkdir -p .inference/data/
         ```
     
     3) Start node

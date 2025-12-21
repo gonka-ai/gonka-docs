@@ -533,20 +533,41 @@ The http://api:9100 url won’t be available if you paused the api container or 
 
 ### Restart halt at 1812408
 
-#### 1. Pause your API node container
+#### 1. Download Binary
+
+```
+sudo rm -rf inferenced.zip inferenced-amd64.zip .inference/cosmovisor/upgrades/v0.2.5/
+sudo mkdir -p .inference/cosmovisor/upgrades/v0.2.5/bin/
+wget -q -O inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.5-post11/inferenced-amd64.zip' && \
+echo "19194f92858ae8533d585bd1fe8f62ae4573ed92678b1966638df499c706043e inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.5/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
+echo "Inference Installed"
+```
+
+#### 2. Link Binaries
+```
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.5 .inference/cosmovisor/current
+echo "b9247acd6d1cf6c497663ed2f0a14c341e9bd9a6df0abaa09c70d9d6fc162712 .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check
+```
+
+
+#### 2. Pause your API node container
 
 ```
 docker pause api
 ```
 
-#### 2. Patch the consensus node container and launch it
+#### 3. Patch the consensus node container and launch it
 
-2.1. Stop `node` container:
+3.1. Stop `node` container:
 ```
 docker stop node
 ```
 
-2.2. Rollback to the succefull block:
+3.2. Rollback to the succefull block:
 ```
 source config.env && docker compose run -it --no-deps  node /bin/sh -c "inferenced rollback"
 ```
@@ -561,7 +582,7 @@ On succesfull finish it shows:
 Rolled back state to height 1812407 and hash 6B77D80600F909A3A3F3162C1A971A394F317EB9AAE781C9502CD156A54425ED
 ```
 
-2.3. Start `node` container:
+3.3. Start `node` container:
 
 ```
 docker start node
@@ -582,37 +603,18 @@ Once it successfully started, log shows:
 8:35AM INF Version info abci=2.0.0 block=11 commit_hash= module=server p2p=8 tendermint_version=0.38.17
 ```
 
-2.4. Wait until after block 1812800 and ensure that blocks are being produced regularly without delays for 3-5 minutes in a row
+#### 4. Wait until after block 1812800 and ensure that blocks are being produced regularly without delays for 3-5 minutes in a row
 
-2.5. Start your API node container again
+#### 5. Start your API node container again
 
 ```
 docker unpause api
 ```
 
-2.6. After one hour passes, and any time before the next PoC, check that your reward was claimed, and claim it again if needed
+#### 6. After one hour passes, and any time before the next PoC, check that your reward was claimed, and claim it again if needed
 
 
-# Download Binary
-```
-sudo rm -rf inferenced.zip inferenced-amd64.zip .inference/cosmovisor/upgrades/v0.2.5/
-sudo mkdir -p .inference/cosmovisor/upgrades/v0.2.5/bin/
-wget -q -O inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.5-post11/inferenced-amd64.zip' && \
-echo "19194f92858ae8533d585bd1fe8f62ae4573ed92678b1966638df499c706043e inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.5/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.5/bin/inferenced && \
-echo "Inference Installed"
-```
-
-# Link Binary
-```
-echo "--- Final Verification ---" && \
-sudo rm -rf .inference/cosmovisor/current
-sudo ln -sf upgrades/v0.2.5 .inference/cosmovisor/current
-echo "b9247acd6d1cf6c497663ed2f0a14c341e9bd9a6df0abaa09c70d9d6fc162712 .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check
-```
-
-**2.7. IMPORTANT:** Pre-download once again binaries for upgrade v0.2.6 using instruction above. `inderenced` binaries have changed.
+#### **3.7. IMPORTANT:** Pre-download once again binaries for upgrade v0.2.6 using instruction above. `inderenced` binaries have changed.
 
 ### How can I pre-download the binaries to avoid GitHub during the upgrade?
 

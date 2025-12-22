@@ -844,50 +844,6 @@ There are several ways how to reset `application.db`:
     
     This is the general idea of the approach. If you decide to try it and have any questions, feel free to reach out on [Discord](https://discord.com/invite/RADwCT2U6R).
 
-### Automatic `ClaimReward` didn’t go through, what should I do?
-
-An issue was found which can lead to failure of automatic `ClaimReward` transactions.
-The `TxManager` max gas was set too low (gas is free for now but it's still estimated)
-
-The fix:
-[https://github.com/gonka-ai/gonka/commit/0ac84b0b4d3f89e3c67c33e22aff3d9800c5c988](https://github.com/gonka-ai/gonka/commit/0ac84b0b4d3f89e3c67c33e22aff3d9800c5c988)
-
-[https://github.com/gonka-ai/gonka/tree/release/v0.2.5-post7](https://github.com/gonka-ai/gonka/tree/release/v0.2.5-post7)
-
-1) Download new binary:
-    ```
-    sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.5-post7/bin && \
-    wget -q -O decentralized-api.zip "https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.5-post7/decentralized-api-amd64.zip" && \
-    sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/ && \
-    sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/decentralized-api && \
-    sudo rm -f .dapi/data/upgrade-info.json && \
-    sudo rm -rf .dapi/cosmovisor/current && \
-    sudo ln -sfT upgrades/v0.2.5-post7 .dapi/cosmovisor/current && \
-    test "$(readlink .dapi/cosmovisor/current)" = "upgrades/v0.2.5-post7" \
-      && echo "Symlink OK: points to upgrades/v0.2.5-post7" \
-      || echo "Symlink FAILED: does not point to upgrades/v0.2.5-post7" && \
-    test "$(sha256sum .dapi/cosmovisor/upgrades/v0.2.5-post7/bin/decentralized-api | cut -d' ' -f1)" = "040ade21ce37886e53bb2c4fd0c8eb8cce6827a44c841a14cbf788d748ce9da3" \
-      && echo "Hash OK: binary matches expected sha256" \
-      || echo "Hash FAILED: binary does not match expected sha256"
-    ```
-
-2) Restart `api` container:
-    ```
-    docker restart api
-    ```
-
-3) If you have unclaimed reward, wait for ~5 minutes and execute: 
-    ```
-    curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
-        -H "Content-Type: application/json" \
-        -d '{"force_claim": true, "epoch_id": 106}'
-    ```
-
-To check if you have unclaimed reward you can use:
-```
-curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epoch_performance_summary/106/<ACCOUNT_ADDRESS> | jq
-```
-
 ## Errors
 
 ### `No epoch models available for this node`

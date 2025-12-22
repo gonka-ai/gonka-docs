@@ -714,7 +714,7 @@ pruning-interval    = "100"
 
 ### 自动 `ClaimReward` 未通过，我该怎么办？
 
-如果您有未领取的奖励 分钟后执行： 
+如果您有尚未领取的奖励，请执行以下操作：
 ```
 curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
     -H "Content-Type: application/json" \

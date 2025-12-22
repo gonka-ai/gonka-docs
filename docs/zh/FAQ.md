@@ -711,6 +711,21 @@ pruning-interval    = "100"
     
     这是该方法的一般思路。如果您决定尝试并有任何问题，请随时在 [Discord](https://discord.com/invite/RADwCT2U6R) 上联系我们。
 
+
+### 自动 `ClaimReward` 未通过，我该怎么办？
+
+如果您有未领取的奖励 分钟后执行： 
+```
+curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
+    -H "Content-Type: application/json" \
+    -d '{"force_claim": true, "epoch_id": 106}'
+```
+
+要检查您是否有未领取的奖励，可以使用：
+```
+curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epoch_performance_summary/106/<ACCOUNT_ADDRESS> | jq
+```
+
 ## 错误
 
 ### `No epoch models available for this node`

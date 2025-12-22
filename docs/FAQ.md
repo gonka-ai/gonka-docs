@@ -844,6 +844,19 @@ There are several ways how to reset `application.db`:
     
     This is the general idea of the approach. If you decide to try it and have any questions, feel free to reach out on [Discord](https://discord.com/invite/RADwCT2U6R).
 
+### Automatic `ClaimReward` didn’t go through, what should I do?
+
+If you have unclaimed reward, execute:
+```
+curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
+    -H "Content-Type: application/json" \
+    -d '{"force_claim": true, "epoch_id": 106}'
+```
+To check if you have unclaimed reward you can use:
+```
+curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epoch_performance_summary/106/<ACCOUNT_ADDRESS> | jq
+```
+
 ## Errors
 
 ### `No epoch models available for this node`

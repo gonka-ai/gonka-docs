@@ -770,6 +770,54 @@ To check if you have unclaimed reward you can use:
 curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epoch_performance_summary/106/<ACCOUNT_ADDRESS> | jq
 ```
 
+## Upgrades
+
+### Are there multiple valid binaries after the latest upgrade (0.2.6)?
+
+=== "Option 1: Binaries applied automatically during the upgrade (Cosmovisor)"
+
+	These binaries were applied automatically during the upgrade process and downloaded into the `cosmovisor` directory. This option was subject to governance voting. Release reference: [https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.6-post1](https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.6-post1)
+	
+	`API` container
+	```
+	$ sudo ls -la .dapi/cosmovisor/current
+	lrwxrwxrwx 1 root root 15 Dec 22 15:02 .dapi/cosmovisor/current -> upgrades/v0.2.6
+	
+	$sudo sha256sum .dapi/cosmovisor/current/bin/decentralized-api
+	e762ed88926d5d58f42ae5c3455d7fe2eb9c1a0881355c942dd8596d731986d8  .dapi/cosmovisor/current/bin/decentralized-api
+	```
+
+	`Node` container
+	```
+	$sudo ls -la .inference/cosmovisor/current
+	lrwxrwxrwx 1 root root 15 Dec 22 15:27 .inference/cosmovisor/current -> upgrades/v0.2.6
+	
+	$sudo sha256sum .inference/cosmovisor/current/bin/inferenced
+	87630947bcc7f2b9b3b4c8429ee0429be21d220264811ca2517fdb4d7d36629a  .inference/cosmovisor/current/bin/inferenced
+	```
+
+=== "Option 2: Binaries built inside Docker images"
+
+	This option uses the same codebase, but the binaries are built directly inside the `Docker images`. It is intended for Hosts who connect nodes after the upgrade, without relying on automatic Cosmovisor updates. These containers are currently available in `main` branch under the tag `0.2.6-post2`.
+	
+	`API` container
+	```
+	$sudo ls -la .dapi/cosmovisor/current
+	lrwxrwxrwx 1 root root 7 Dec 24 21:29 .dapi/cosmovisor/current -> genesis
+	
+	$sudo sha256sum .dapi/cosmovisor/current/bin/decentralized-api
+	8ef3d54b1aab2f93053cb0d5c18a7b2ee443ba6492134af00a3276f6455925fc  .dapi/cosmovisor/current/bin/decentralized-api
+	```
+
+	`Node` container
+	```
+	$sudo ls -la .inference/cosmovisor/current
+	lrwxrwxrwx 1 root root 7 Dec 24 21:29 .inference/cosmovisor/current -> genesis
+	
+	$sudo sha256sum .inference/cosmovisor/current/bin/inferenced
+	9832944bc9060ccbbb060464ee306b370df894e596292c014caf307dcd18ab5c  .inference/cosmovisor/current/bin/inferenced
+	```
+	
 ## Errors
 
 ### `No epoch models available for this node`

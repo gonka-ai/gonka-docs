@@ -628,7 +628,8 @@ pruning-interval    = "100"
     
     2) 删除数据 
         ```
-        sudo rm -rf .inference/data/ .inference/.node_initialized sudo mkdir -p .inference/data/
+        sudo rm -rf .inference/data/ .inference/.node_initialized
+        sudo mkdir -p .inference/data/
         ```
     
     3) 启动节点

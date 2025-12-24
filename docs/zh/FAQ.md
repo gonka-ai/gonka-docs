@@ -529,7 +529,51 @@ curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
 ```
 如果您暂停了 api 容器，或者 ML 节点容器和 api 容器不共享同一个 docker 网络，则 http://api:9100 url 将不可用。预计会看到错误消息，说明 ML 节点无法发送生成的批次。重要的是确保生成过程正在发生。
 
-## 更新和维护
+### 如何在升级期间预下载二进制文件以避免依赖 GitHub？
+
+以下是在升级期间预下载二进制文件以避免依赖 GitHub 的可选说明。
+
+```
+# 1. 创建目录
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.6/bin \
+              .inference/cosmovisor/upgrades/v0.2.6/bin && \
+
+# 2. DAPI：下载 -> 验证 -> 直接解压到 bin -> 赋予执行权限
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6-post1/decentralized-api-amd64.zip" && \
+echo "52ac4c55313f77eff7da4f7160396837c8810f9bf84a860c21c0299599968aaa decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.6/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference：下载 -> 验证 -> 直接解压到 bin -> 赋予执行权限
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6-post1/inferenced-amd64.zip" && \
+echo "bee12a0a3bc8fdea98fd1db1c6d6000633a2ec6c202f65e560393517dd6fcacc inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. 清理和最终检查
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
+echo "e762ed88926d5d58f42ae5c3455d7fe2eb9c1a0881355c942dd8596d731986d8 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api" | sudo sha256sum --check && \
+echo "87630947bcc7f2b9b3b4c8429ee0429be21d220264811ca2517fdb4d7d36629a .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced" | sudo sha256sum --check
+```
+
+
+
+只有当所有命令都完成且没有错误并显示确认消息时，二进制文件才被认为已成功下载和安装。
+```
+Inference Installed and Verified
+--- Final Verification ---
+-rwxr-xr-x 1 root root 223800320 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api
+-rwxr-xr-x 1 root root 214556584 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced
+.dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api: OK
+.inference/cosmovisor/upgrades/v0.2.6/bin/inferenced: OK
+```
+
 
 ### Cosmovisor 更新需要多少可用磁盘空间，以及如何安全地从 `.inference` 目录中删除旧备份？
 Cosmovisor 在执行更新时会在 `.inference` 状态文件夹中创建完整备份。例如，您可以看到类似 `data-backup-<some_date>` 的文件夹。
@@ -582,7 +626,7 @@ NATS 当前配置为无限期存储所有消息，这会导致内存使用量持
 
 !!! note
 
-    当节点更新其执行 URL 时，新 URL 会立即生效，用于来自其他节点的推理请求。但是，`ActiveParticipants` 中记录的 URL 直到下一个 epoch 才会更新，因为更早修改会使与参与者集相关的加密证明无效。为避免服务中断，建议在当前 epoch 完成之前同时保持旧 URL 和新 URL 运行。
+    当节点更新其执行 URL 时，新 URL 会立即生效，用于来自其他节点的推理请求。但是，`ActiveParticipants` 中记录的 URL 直到下一个 epoch 才会更新，因为更早修改会使与参与者集相关的加密证明无效。为避免服务中断，建议在下一个 epoch 完成之前同时保持旧 URL 和新 URL 运行。
 
 [本地] 使用您的冷密钥在本地执行更新：
     ```
@@ -628,7 +672,8 @@ pruning-interval    = "100"
     
     2) 删除数据 
         ```
-        sudo rm -rf .inference/data/ .inference/.node_initialized sudo mkdir -p .inference/data/
+        sudo rm -rf .inference/data/ .inference/.node_initialized
+        sudo mkdir -p .inference/data/
         ```
     
     3) 启动节点
@@ -667,7 +712,7 @@ pruning-interval    = "100"
     
     1.4) 开始从快照恢复（`node` 容器仍在运行） 
         ```
-        inferenced snapshots restore <INSERRT_HEIGHT> 3  --home .inference/temp
+        inferenced snapshots restore <INSERT_HEIGHT> 3  --home .inference/temp
         ```
     
     这可能需要一些时间。完成后，您将在 `.inference/temp/data/application.db` 中获得新的 `application.db`

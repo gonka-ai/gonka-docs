@@ -770,7 +770,54 @@ curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
 ```
 curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epoch_performance_summary/106/<ACCOUNT_ADDRESS> | jq
 ```
+## 升级
 
+### 在最新升级（0.2.6）之后，是否存在多个有效的二进制文件？
+
+=== "选项 1：在升级过程中自动应用的二进制文件（Cosmovisor）"
+
+	这些二进制文件在升级过程中被自动应用，并下载到了 cosmovisor 目录中。该选项经过了治理投票批准。发布版本参考：[https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.6-post1](https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.6-post1)
+	
+	`API` 容器
+	```
+	$ sudo ls -la .dapi/cosmovisor/current
+	lrwxrwxrwx 1 root root 15 Dec 22 15:02 .dapi/cosmovisor/current -> upgrades/v0.2.6
+	
+	$sudo sha256sum .dapi/cosmovisor/current/bin/decentralized-api
+	e762ed88926d5d58f42ae5c3455d7fe2eb9c1a0881355c942dd8596d731986d8  .dapi/cosmovisor/current/bin/decentralized-api
+	```
+
+	`Node` 容器
+	```
+	$sudo ls -la .inference/cosmovisor/current
+	lrwxrwxrwx 1 root root 15 Dec 22 15:27 .inference/cosmovisor/current -> upgrades/v0.2.6
+	
+	$sudo sha256sum .inference/cosmovisor/current/bin/inferenced
+	87630947bcc7f2b9b3b4c8429ee0429be21d220264811ca2517fdb4d7d36629a  .inference/cosmovisor/current/bin/inferenced
+	```
+
+=== "选项 2：在 Docker 镜像内构建的二进制文件"
+
+	该选项使用相同的代码库，但二进制文件是直接在 Docker 镜像中构建的。它适用于在升级完成后才接入节点的 Hosts，无需依赖 Cosmovisor 的自动升级机制。这些容器当前可在 main 分支中找到，标签为`0.2.6-post2`.
+	
+	`API` 容器
+	```
+	$sudo ls -la .dapi/cosmovisor/current
+	lrwxrwxrwx 1 root root 7 Dec 24 21:29 .dapi/cosmovisor/current -> genesis
+	
+	$sudo sha256sum .dapi/cosmovisor/current/bin/decentralized-api
+	8ef3d54b1aab2f93053cb0d5c18a7b2ee443ba6492134af00a3276f6455925fc  .dapi/cosmovisor/current/bin/decentralized-api
+	```
+
+	`Node` 容器
+	```
+	$sudo ls -la .inference/cosmovisor/current
+	lrwxrwxrwx 1 root root 7 Dec 24 21:29 .inference/cosmovisor/current -> genesis
+	
+	$sudo sha256sum .inference/cosmovisor/current/bin/inferenced
+	9832944bc9060ccbbb060464ee306b370df894e596292c014caf307dcd18ab5c  .inference/cosmovisor/current/bin/inferenced
+	```
+	
 ## 错误
 
 ### `No epoch models available for this node`

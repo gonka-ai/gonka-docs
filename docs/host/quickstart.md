@@ -82,18 +82,16 @@ Each server to deploy MLNode should have:
     The following ports are internal-only:
     
     - `9100`, `9200` — Network Node internal API
-    — `5050` — ML Node / vLLM inference API
-    — `8080` — ML Node API
+    - `5050` — ML Node / vLLM inference API
+    - `8080` — ML Node API
     
     If any of these ports are exposed to the public internet, your node is vulnerable. A third party can freely send requests, overload your ML Node, disrupt mining, or cause your node to drop out of an epoch.
     
     **Requirements:**
     
-    — Allow access to these ports only from localhost or a private network
-    
-    — Never expose them publicly
-    
-    — Docker defaults are NOT secure
+    - Allow access to these ports only from localhost or a private network
+    - Never expose them publicly
+    - Docker defaults are NOT secure
     
     === "CASE 1: ML Node and Network Node on the SAME machine"
         Bind ports to localhost only.        
@@ -107,7 +105,7 @@ Each server to deploy MLNode should have:
               - "127.0.0.1:9100:9100"
               - "127.0.0.1:9200:9200"
         ```
-      **ML Node (`docker-compose.ML Node.yml`)**
+      **ML Node (`docker-compose.mlnode.yml`)**
         ```
         ports:
           - "127.0.0.1:${PORT:-8080}:8080"
@@ -121,7 +119,7 @@ Each server to deploy MLNode should have:
         - "8080:8080"
         
     === "CASE 2: ML Node and Network Node on DIFFERENT machines"
-        If ML Node and Network node containers are on different machines, the fix described in Case 1 won't work and the particular way of protecting these ports depends on your setup. You should setup connection between ML Node and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up `DAPI_API__POC_CALLBACK_URL` variable in config. This URL must point to a private/internal address, not a public address.
+        If ML Node and Network Node containers are on different machines, the fix described in Case 1 won't work and the particular way of protecting these ports depends on your setup. You should setup connection between ML Node and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up `DAPI_API__POC_CALLBACK_URL` variable in config. This URL must point to a private/internal address, not a public address.
 
 ## Setup Your Nodes
 

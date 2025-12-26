@@ -93,18 +93,21 @@ Each server to deploy MLNode should have:
     — Docker defaults are NOT secure
     
     === "CASE 1: ML Node and Network Node on the SAME machine"
+    
         Bind ports to localhost only.        
+        
         **Network Node (`docker-compose.yml`)**
+        
         If your ML Node container and Network node containers are on the same machine, you can simply edit `gonka/deploy/join/docker-compose.yml`:
-        api:
         ```
+        api:
            ports:
               - "127.0.0.1:9100:9100"
               - "127.0.0.1:9200:9200"
         ```
-      **  ML Node (`docker-compose.ML Node.yml`)**
-        ports:
+      **ML Node (`docker-compose.ML Node.yml`)**
         ```
+        ports:
           - "127.0.0.1:${PORT:-8080}:8080"
           - "127.0.0.1:${INFERENCE_PORT:-5050}:5000"
         ```

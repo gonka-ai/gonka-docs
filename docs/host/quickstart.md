@@ -80,6 +80,7 @@ Each server to deploy MLNode should have:
 
 !!! note "CRITICAL WARNING:  Ports 9100, 9200 on API node, and 8080,5050 on MLNode MUST NOT be publicly accessible"
     The following ports are internal-only:
+    
     - `9100`, `9200` — Network Node internal API
     — `5050` — ML Node / vLLM inference API
     — `8080` — ML Node API
@@ -89,11 +90,12 @@ Each server to deploy MLNode should have:
     **Requirements:**
     
     — Allow access to these ports only from localhost or a private network
+    
     — Never expose them publicly
+    
     — Docker defaults are NOT secure
     
     === "CASE 1: ML Node and Network Node on the SAME machine"
-    
         Bind ports to localhost only.        
         
         **Network Node (`docker-compose.yml`)**

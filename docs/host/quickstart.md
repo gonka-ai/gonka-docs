@@ -78,28 +78,45 @@ Each server to deploy MLNode should have:
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
 - 8000 - Application service (configurable)
 
-!!! note "CRITICAL WARNING: Ports 9100 and 9200 MUST NOT be publicly accessible"
-    Ports 9100 and 9200 are internal service ports. If exposed to the public internet they create a severe security vulnerability. A third party could stop your node at any point, if the ports are exposed.
+!!! note "CRITICAL WARNING:  Ports 9100, 9200 on API node, and 8080,5050 on MLNode MUST NOT be publicly accessible"
+    The following ports are internal-only:
+    - `9100`, `9200` — Network Node internal API
+    — `5050` — ML Node / vLLM inference API
+    — `8080` — ML Node API
     
-    **Requirement:**
+    If any of these ports are exposed to the public internet, your node is vulnerable. A third party can freely send requests, overload your ML Node, disrupt mining, or cause your node to drop out of an epoch.
     
-    - Allow access to 9100 and 9200 only from a private network.
-    - Never expose these ports to the public internet.
-
-    If your MLNode container and Network node containers are on the **same machine**, you can simply edit `gonka/deploy/join/docker-compose.yml`:
-    ```
-    api:
-       ports:
-          - "127.0.0.1:9100:9100"
-          - "127.0.0.1:9200:9200"
-    ```
-    Instead of:
-    ```
-          - "9100:9100"
-          - "9200:9200"
-    ```
-
-    If MLNode and Network node containers are on **different machines**, the fix above won't work and the particular way of protecting these ports depends on your setup. You should setup connection between MLNode and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up `DAPI_API__POC_CALLBACK_URL` variable in config.
+    **Requirements:**
+    
+    — Allow access to these ports only from localhost or a private network
+    — Never expose them publicly
+    — Docker defaults are NOT secure
+    
+    === "CASE 1: ML Node and Network Node on the SAME machine"
+        Bind ports to localhost only.        
+        **Network Node (`docker-compose.yml`)**
+        If your ML Node container and Network node containers are on the same machine, you can simply edit `gonka/deploy/join/docker-compose.yml`:
+        api:
+        ```
+           ports:
+              - "127.0.0.1:9100:9100"
+              - "127.0.0.1:9200:9200"
+        ```
+      **  ML Node (`docker-compose.ML Node.yml`)**
+        ports:
+        ```
+          - "127.0.0.1:${PORT:-8080}:8080"
+          - "127.0.0.1:${INFERENCE_PORT:-5050}:5000"
+        ```
+        Do NOT use:
+        
+        - "9100:9100"
+        - "9200:9200"
+        - "5050:5000"
+        - "8080:8080"
+        
+    === "CASE 2: ML Node and Network Node on DIFFERENT machines"
+        If ML Node and Network node containers are on different machines, the fix described in Case 1 won't work and the particular way of protecting these ports depends on your setup. You should setup connection between ML Node and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up `DAPI_API__POC_CALLBACK_URL` variable in config. This URL must point to a private/internal address, not a public address.
 
 ## Setup Your Nodes
 

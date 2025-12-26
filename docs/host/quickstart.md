@@ -4,10 +4,10 @@
 
 To join the network, you need to deploy two services:
 
-- **Network node** – a service consisting of two nodes: a **chain node** and an **API node**. This service handles all communication. The **chain node** connects to the blockchain, while the **API node** manages user requests.
-- **Inference (ML) node** – a service that performs inference of large language models (LLMs) on GPU(s). You need at least one **ML node** to join the network.
+- **Network Node** – a service consisting of two nodes: a **Chain Node** and an **API Node**. This service handles all communication. The **Chain Node** connects to the blockchain, while the **API Node** manages user requests.
+- **Inference (ML) node** – a service that performs inference of large language models (LLMs) on GPU(s). You need at least one **ML Node** to join the network.
 
-The guide describes a scenario in which both services are deployed on the same machine, and each Host has one MLNode. Services are deployed as Docker containers.
+The guide describes a scenario in which both services are deployed on the same machine, and each Host has one ML Node. Services are deployed as Docker containers.
 
 ??? note "Live Demo — How to Launch a Node (Quickstart for Hosts)"
     The video recording of the demo session for launching a node via the quickstart is available below. Some steps in the recording may differ from the instructions below, as the quickstart is updated continuously based on community feedback. Always follow the written quickstart - it reflects the current and correct procedure.
@@ -39,7 +39,7 @@ The protocol currently supports the following model classes:
     - For details on governance procedures and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 ### Configuration for Optimal Rewards
-To earn the highest rewards and maintain reliability, each Network Node should serve two model classes, with a minimum of 2 MLNodes per class. This setup:
+To earn the highest rewards and maintain reliability, each Network Node should serve two model classes, with a minimum of 2 ML Nodes per class. This setup:
 
 - Improves protocol-level redundancy and fault tolerance
 - Enhances model-level validation performance
@@ -48,12 +48,12 @@ To earn the highest rewards and maintain reliability, each Network Node should s
 ### Proposed Hardware Configuration
 To run a valid node, you need machines with [supported GPU(s)](/host/hardware-specifications/). We recommend grouping your hardware into 2–5 Network Nodes, each configured to support all model classes. Below is a reference layout:
 
-| **Model Class** | **Model Name**                          | **MLNodes (min)** | **Example Hardware**                            | **Minimum VRAM per MLNode** |
+| **Model Class** | **Model Name**                          | **ML Nodes (min)** | **Example Hardware**                            | **Minimum VRAM per ML Node** |
 |-----------------|------------------------------------------|-------------------|-------------------------------------------------|----------------|
 | **Large**       | `DeepSeek R1` / `Qwen3-235B`                | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
 | **Medium**      | `Qwen3-32B` / `Gemma-3-27B-it`              | ≥ 2               | 4× A100 or 2× H100 per MLNode                   | 80 GB          |
 
-This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple MLNodes across all three model tiers.
+This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple ML Nodes across all three model tiers.
 
 More details about the optimal deployment configuration can be found [here](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
@@ -64,12 +64,12 @@ The server hosting the Network Node should have:
 - 1TB NVMe SSD
 - 100Mbps minimum network connection (1Gbps preferred)
 
-The final requirements will depend on the number of MLNodes connected and their total throughput.
+The final requirements will depend on the number of ML Nodes connected and their total throughput.
 
-Each server to deploy MLNode should have:
+Each server to deploy ML Node should have:
 
 - at least 1.5x RAM of GPU VRAM
-- a 16-core CPU (Network Node and MLNode can be deployed on the same server).
+- a 16-core CPU (Network Node and ML Node can be deployed on the same server).
 - NVIDIA Container Toolkit installed and configured, with a CUDA Toolkit version between 12.6 and 12.9. You can check the version with `nvidia-smi`.
 
 ### Ports open for public connections
@@ -78,7 +78,7 @@ Each server to deploy MLNode should have:
 - 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
 - 8000 - Application service (configurable)
 
-!!! note "CRITICAL WARNING:  Ports 9100, 9200 on API node, and 8080,5050 on MLNode MUST NOT be publicly accessible"
+!!! note "CRITICAL WARNING:  Ports 9100, 9200 on API Node, and 8080,5050 on ML Node MUST NOT be publicly accessible"
     The following ports are internal-only:
     
     - `9100`, `9200` — Network Node internal API
@@ -92,34 +92,37 @@ Each server to deploy MLNode should have:
     - Allow access to these ports only from localhost or a private network
     - Never expose them publicly
     - Docker defaults are NOT secure
-    
+
     === "CASE 1: ML Node and Network Node on the SAME machine"
         Bind ports to localhost only.        
         
         **Network Node (`docker-compose.yml`)**
         
-        If your ML Node container and Network node containers are on the same machine, you can simply edit `gonka/deploy/join/docker-compose.yml`:
+        If your ML Node container and Network Node containers are on the same machine, you can simply edit `gonka/deploy/join/docker-compose.yml`:
         ```
         api:
            ports:
               - "127.0.0.1:9100:9100"
               - "127.0.0.1:9200:9200"
         ```
-      **ML Node (`docker-compose.mlnode.yml`)**
+        
+        **ML Node (`docker-compose.mlnode.yml`)**
         ```
         ports:
           - "127.0.0.1:${PORT:-8080}:8080"
           - "127.0.0.1:${INFERENCE_PORT:-5050}:5000"
         ```
+        
         Do NOT use:
         
         - "9100:9100"
         - "9200:9200"
         - "5050:5000"
         - "8080:8080"
-        
+    
     === "CASE 2: ML Node and Network Node on DIFFERENT machines"
         If ML Node and Network Node containers are on different machines, the fix described in Case 1 won't work and the particular way of protecting these ports depends on your setup. You should setup connection between ML Node and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up `DAPI_API__POC_CALLBACK_URL` variable in config. This URL must point to a private/internal address, not a public address.
+
 
 ## Setup Your Nodes
 
@@ -214,7 +217,7 @@ After cloning the repository, you’ll find the following key configuration file
 |-------------------------------|----------------------------------------------------------------------------------|
 | `config.env`                  | Contains environment variables for the Network Node                              |
 | `docker-compose.yml`          | Docker Compose file to launch the Network Node                                   |
-| `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML node                                   |
+| `docker-compose.mlnode.yml`   | Docker Compose file to launch the ML Node                                   |
 | `node-config.json`            | The configuration file used by the Network Node, describes the inference nodes managed by this Network Node |
 
 ### [Server] Setup Environment Variables
@@ -566,7 +569,7 @@ We start these specific containers first because:
     docker compose logs tmkms node -f
     ```
 
-    If you see the chain node continuously processing block events, then the setup is working correctly.
+    If you see the Chain Node continuously processing block events, then the setup is working correctly.
 
 ??? note "About Consensus Key"
     - Managed by secure TMKMS service
@@ -833,14 +836,14 @@ In the same JSON response, find:
   "claim_money": <block_number>
 }
 ```
-This block number indicates the block after which you can claim the reward. However, it is important to understand you should proceed with disabling each MLNode now (do not wait for this block before disabling your MLNodes).
+This block number indicates the block after which you can claim the reward. However, it is important to understand you should proceed with disabling each ML Node now (do not wait for this block before disabling your ML Nodes).
 
-Disable each MLNode.
+Disable each ML Node.
 
 ```
 curl -X POST http://<api_node_static_ip>:<admin_port>/admin/v1/nodes/<id>/disable
 ```
-Wait for the next epoch. Do not stop the Network Node or the MLNodes yet. The disable flag takes effect only after the next epoch starts.
+Wait for the next epoch. Do not stop the Network Node or the ML Nodes yet. The disable flag takes effect only after the next epoch starts.
 
 Keep your Network Node online and synced, it should handle the reward claim automatically.
 To check that your latest reward was claimed, after the `claim_money` block run the following command (replace `<YOUR_ADDRESS>` and `<EPOCH>` with your actual values):

@@ -89,7 +89,7 @@ Each server to deploy ML Node should have:
     
     **Requirements:**
     
-    - Allow access to these ports only from localhost or a private network
+    - Allow access to these ports only from localhost, a private network or whitelisting
     - Never expose them publicly
     - Docker defaults are NOT secure
 

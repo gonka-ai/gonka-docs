@@ -24,11 +24,11 @@ nav:
     - Network Node API: host/network-node-api.md
   - Wallet:
     - Dashboard: wallet/dashboard.md
-    - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md
     - Pricing: wallet/pricing.md
+    - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md
   - Model licenses: model-licenses.md
-  - Transactions & governance: transactions-and-governance.md
   - Software upgrades: software-upgrades.md
+  - Transactions & governance: transactions-and-governance.md
   - Help:
     - FAQ: FAQ.md
     - Errors: Errors.md

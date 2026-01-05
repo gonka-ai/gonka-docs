@@ -5,9 +5,11 @@ A higher-than-usual missed inference rate is currently observed on the network.
 In many cases, this is caused by a bug where inference requests in an unsupported format were not marked as completed, even though the request itself was processed. The following update addresses this behavior.
 
 Reference: [https://github.com/gonka-ai/gonka/pull/517](https://github.com/gonka-ai/gonka/pull/517) 
+
 This `API` version improves resilience around failed inference handling and reduces missed inference accounting issues. It also introduces batching for PoCBatch and PoCValidation transactions.
 
 **Upgrade timing**
+
 Applying the update is safe when Confirmation PoC is not active.
 
 To verify the current state:
@@ -17,6 +19,7 @@ curl "http://136.243.34.19:8000/v1/epochs/latest" | jq '.is_confirmation_poc_act
 Outside of Confirmation PoC, this value should return `false` .
 
 **Installation**
+
 Download and install the new binary, then restart the `API` container:
 ```
 # Download Binary

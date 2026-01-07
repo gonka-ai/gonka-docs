@@ -88,7 +88,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 
 投票方式（ `yes` / `no` / `abstain` / `no_with_veto` ）
 ```
-export NODE_URL=http://node3.gonka.ai:8000
+export NODE_URL=http://node1.gonka.ai:8000
 ./inferenced tx gov vote 19 yes \
   --from <cold_key_name> \
   --keyring-backend file \

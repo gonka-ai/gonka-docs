@@ -26,6 +26,7 @@ The Genesis Validator Enhancement was originally introduced during the early sta
 **Protocol stability fixes (network-wide)**
 
 This upgrade formalizes critical fixes that were previously distributed via a manual API update and are already in use on the network. These fixes:
+
 - address incorrect accounting of failed inference requests (including cases where requests in unsupported formats were processed but not marked as completed) 
 - improve resilience around failed inference handling
 - introduce batching for `PoCBatch` and `PoCValidation` transactions. 
@@ -44,6 +45,7 @@ Preparatory changes included in this upgrade enable future governance-based cont
 **Epoch 117 rewards distribution**
 
 This proposal covers two reward distributions related to chain halt (epoch 117):
+
 - Nodes that were active during Epoch 117 but did not receive their epoch reward will receive the missed reward for that epoch.
 - All nodes that were active during Epoch 117 will receive an additional payout equal to 1.083× the Epoch 117 reward, applied uniformly across all eligible nodes, including those that received the original reward.
 
@@ -74,6 +76,7 @@ export NODE_URL=http://node3.gonka.ai:8000
 ```
 
 **Timelines and Deadlines**
+
 Voting ends: January 8th, 2026, at 04:23:14 UTC.
 Upgrade proposed at block: 2.054.000.
 Estimated upgrade time: January 8, 2026, at 08:10:00 UTC.
@@ -93,6 +96,7 @@ If your `application.db` takes a lot of space you can use techniques from [here]
 
 Full technical details of the Genesis Validator Enhancement are available here:
 [https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection](https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection)
+
 Full Technical Review (GitHub PR): [https://github.com/gonka-ai/gonka/pull/503](https://github.com/gonka-ai/gonka/pull/503)  
 
 ## January 5, 2026

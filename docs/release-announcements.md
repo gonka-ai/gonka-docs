@@ -1,5 +1,100 @@
 # Release announcements
 
+## January 6, 2026
+
+### v0.2.7 Upgrade Proposal: Genesis Validator Enhancement Enters Governance
+
+An on-chain governance proposal related to the Genesis Validator Enhancement has been published and is now open for voting.
+
+Recent network growth has introduced several challenges. Over the past days, the network has experienced multiple issues, some of which appear to be caused by deliberate attempts to disrupt or stress the system. This proposal aims to strengthen network resilience under increased load and adverse conditions through a set of temporary measures.
+
+The Genesis Validator Enhancement was originally introduced during the early stage of the network as a temporary defensive mechanism and was active during the first two months of operation. The proposal now under governance is to temporarily reactivate this existing mechanism in response to current network conditions and activate some additional protective measures.
+
+#### Key Changes 
+
+**Genesis Validator Enhancement (temporary)**
+
+- Temporary reactivation of the Genesis Validator Enhancement — a previously used limited in duration defensive mechanism proposed to be reactivated.
+- Consensus protection during network growth. During its prior operation:
+    - Three Guardian validators collectively held approximately 34% of consensus voting power
+    - No additional rewards were granted to Guardian validators
+    - This configuration helped prevent consensus stalls in edge cases
+- The Genesis Validator Enhancement will be deactivated automatically when both of the following conditions are satisfied:
+    - total network power reaches 15.000.000.
+    - block 3.000.000 is reached
+
+**Protocol stability fixes (network-wide)**
+
+This upgrade formalizes critical fixes that were previously distributed via a manual API update and are already in use on the network. These fixes:
+- address incorrect accounting of failed inference requests (including cases where requests in unsupported formats were processed but not marked as completed) 
+- improve resilience around failed inference handling
+- introduce batching for `PoCBatch` and `PoCValidation` transactions. 
+
+By including them here, the behavior becomes a protocol-level rule applied consistently across the network.
+
+**Temporary participation and execution limitations**
+
+- Host-level registration: Registration of new Hosts will be halted until block 2.222.222 (approximately two weeks from now). This measure is intended to stabilize the network and prepare it for further growth. 
+- Developer-lever registration. Registration of new developer addresses will be paused during the stabilization period.  A predefined `allowlist` of developer addresses becomes effective immediately. Developer addresses included in the allowlist will be able to perform inference execution during this period. All limitations applicable to developer addresses, including developer-level registration and inference execution, will remain in effect until block 2.294.222 (approximately 19 days).
+
+**Governance-controlled mechanism** 
+
+Preparatory changes included in this upgrade enable future governance-based control over participant onboarding and inference execution without requiring an additional software upgrade. No such governance-activated constraints are enabled as part of this proposal, subject to additional governance vote.
+
+**Epoch 117 rewards distribution**
+
+This proposal covers two reward distributions related to chain halt (epoch 117):
+- Nodes that were active during Epoch 117 but did not receive their epoch reward will receive the missed reward for that epoch.
+- All nodes that were active during Epoch 117 will receive an additional payout equal to 1.083× the Epoch 117 reward, applied uniformly across all eligible nodes, including those that received the original reward.
+
+#### Note on duration and enforcement
+All protections reactivated or introduced by this upgrade are temporary and do not require manual governance intervention for removal.
+
+**How to Vote**
+
+You can fetch the proposal details and cast your vote using the `inferenced` command.
+
+To check the voting status:
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced query gov votes 19 -o json --node $NODE_URL/chain-rpc/
+```
+
+To vote ( `yes` , `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=http://node3.gonka.ai:8000
+./inferenced tx gov vote 19 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+**Timelines and Deadlines**
+Voting ends: January 8th, 2026, at 04:23:14 UTC.
+Upgrade proposed at block: 2.054.000.
+Estimated upgrade time: January 8, 2026, at 08:10:00 UTC.
+
+#### ATTENTION HOSTS
+
+**Attention 1**
+
+Please review the proposal and vote if you are a host.
+Be online around the upgrade window to follow instructions if issues arise.
+
+**Attention 2**
+Cosmovisor creates a full backup in the `.inference/data` state folder whenever it performs an update, please make sure your disk has enough space. Read [here](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory) how to safely remove old backups from the `.inference` directory.
+If your `application.db` takes a lot of space you can use techniques from [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) to clean it up.
+
+#### Reference
+
+Full technical details of the Genesis Validator Enhancement are available here:
+[https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection](https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection)
+Full Technical Review (GitHub PR): [https://github.com/gonka-ai/gonka/pull/503](https://github.com/gonka-ai/gonka/pull/503)  
+
 ## January 5, 2026
 A higher-than-usual missed inference rate is currently observed on the network.
 In many cases, this is caused by a bug where inference requests in an unsupported format were not marked as completed, even though the request itself was processed. The following update addresses this behavior.

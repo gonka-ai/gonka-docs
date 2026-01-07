@@ -77,9 +77,9 @@ export NODE_URL=http://node3.gonka.ai:8000
 
 **Timelines and Deadlines**
 
-Voting ends: January 8th, 2026, at 04:23:14 UTC.
-Upgrade proposed at block: 2.054.000.
-Estimated upgrade time: January 8, 2026, at 08:10:00 UTC.
+- Voting ends: January 8th, 2026, at 04:23:14 UTC.
+- Upgrade proposed at block: 2.054.000.
+- Estimated upgrade time: January 8, 2026, at 08:10:00 UTC.
 
 #### ATTENTION HOSTS
 

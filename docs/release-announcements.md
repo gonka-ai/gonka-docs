@@ -76,7 +76,8 @@ This proposal covers two reward distributions related to chain halt (epoch 117):
 - Nodes that were active during Epoch 117 but did not receive their epoch reward will receive the missed reward for that epoch.
 - All nodes that were active during Epoch 117 will receive an additional payout equal to 1.083× the Epoch 117 reward, applied uniformly across all eligible nodes, including those that received the original reward.
 
-#### Note on duration and enforcement
+**Note on duration and enforcement**
+
 All protections reactivated or introduced by this upgrade are temporary and do not require manual governance intervention for removal.
 
 **Next Steps:**
@@ -160,7 +161,7 @@ This option is risky - if the upgrade fails, you will not have a backup to resto
 
 ## January 6, 2026
 
-### v0.2.7 Upgrade Proposal: Genesis Validator Enhancement Enters Governance
+**v0.2.7 Upgrade Proposal: Genesis Validator Enhancement Enters Governance**
 
 An on-chain governance proposal related to the Genesis Validator Enhancement has been published and is now open for voting.
 
@@ -168,7 +169,7 @@ Recent network growth has introduced several challenges. Over the past days, the
 
 The Genesis Validator Enhancement was originally introduced during the early stage of the network as a temporary defensive mechanism and was active during the first two months of operation. The proposal now under governance is to temporarily reactivate this existing mechanism in response to current network conditions and activate some additional protective measures.
 
-#### Key Changes 
+**Key Changes**
 
 **Genesis Validator Enhancement (temporary)**
 
@@ -207,7 +208,8 @@ This proposal covers two reward distributions related to chain halt (epoch 117):
 - Nodes that were active during Epoch 117 but did not receive their epoch reward will receive the missed reward for that epoch.
 - All nodes that were active during Epoch 117 will receive an additional payout equal to 1.083× the Epoch 117 reward, applied uniformly across all eligible nodes, including those that received the original reward.
 
-#### Note on duration and enforcement
+**Note on duration and enforcement**
+
 All protections reactivated or introduced by this upgrade are temporary and do not require manual governance intervention for removal.
 
 **How to Vote**
@@ -239,7 +241,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 - Upgrade proposed at block: 2.054.000.
 - Estimated upgrade time: January 8, 2026, at 08:10:00 UTC.
 
-#### ATTENTION HOSTS
+**ATTENTION HOSTS**
 
 **Attention 1**
 
@@ -250,7 +252,7 @@ Be online around the upgrade window to follow instructions if issues arise.
 Cosmovisor creates a full backup in the `.inference/data` state folder whenever it performs an update, please make sure your disk has enough space. Read [here](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory) how to safely remove old backups from the `.inference` directory.
 If your `application.db` takes a lot of space you can use techniques from [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) to clean it up.
 
-#### Reference
+**Reference**
 
 Full technical details of the Genesis Validator Enhancement are available here:
 [https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection](https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection)

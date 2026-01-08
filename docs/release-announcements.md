@@ -1,5 +1,148 @@
 # Release announcements
 
+## January 8, 2026
+
+**Network Update — Follow-Up**
+
+The patch addressing the recent consensus issue is ready, and detailed instructions will be shared shortly.
+Participation from every active Host is critical for the network to move forward and restore normal operation. Please stay online and be ready to apply the update once the instructions are published.
+
+## January 8, 2026
+
+**Network Update — Consensus Failure During PoC**
+
+During the Proof-of-Compute (PoC), a consensus failure was observed on the network.
+The issue has been identified, and a patch is being prepared to address the root cause. Further instructions and technical details will be shared shortly.
+Hosts are advised to stay online and monitor updates, as follow-up actions may be required once the patch is released.
+
+## January 8, 2026
+
+**v0.2.7 Upgrade Proposal: Genesis Validator Enhancement Live on Mainnet**
+
+The on-chain governance vote for the v0.2.7 Upgrade Proposal: Genesis Validator Enhancement has concluded; the proposal has been APPROVED and successfully deployed on the mainnet.
+
+**Key Changes Now Active:**
+
+
+**Genesis Validator Enhancement (temporary)**
+
+- Temporary reactivation of the Genesis Validator Enhancement — a previously used limited in duration defensive mechanism proposed to be reactivated.
+- Consensus protection during network growth. During its prior operation:
+    - Three Guardian validators collectively held approximately 34% of consensus voting power
+    - No additional rewards were granted to Guardian validators
+    - This configuration helped prevent consensus stalls in edge cases
+- The Genesis Validator Enhancement will be deactivated automatically when both of the following conditions are satisfied:
+    - total network power reaches 15.000.000.
+    - block 3.000.000 is reached
+
+**Protocol stability fixes (network-wide)**
+
+This upgrade formalizes critical fixes that were previously distributed via a manual API update and are already in use on the network. These fixes:
+
+- address incorrect accounting of failed inference requests (including cases where requests in unsupported formats were processed but not marked as completed) 
+- improve resilience around failed inference handling
+- introduce batching for `PoCBatch` and `PoCValidation` transactions. 
+
+By including them here, the behavior becomes a protocol-level rule applied consistently across the network.
+
+**Temporary participation and execution limitations**
+
+- Host-level registration: Registration of new Hosts will be halted until block 2.222.222 (approximately two weeks from now). This measure is intended to stabilize the network and prepare it for further growth. 
+- Developer-lever registration. Registration of new developer addresses will be paused during the stabilization period.  A predefined `allowlist` of developer addresses becomes effective immediately. Developer addresses included in the allowlist will be able to perform inference execution during this period. All limitations applicable to developer addresses, including developer-level registration and inference execution, will remain in effect until block 2.294.222 (approximately 19 days).
+
+**Governance-controlled mechanism** 
+
+Preparatory changes included in this upgrade enable future governance-based control over participant onboarding and inference execution without requiring an additional software upgrade. No such governance-activated constraints are enabled as part of this proposal, subject to additional governance vote.
+
+**Epoch 117 rewards distribution**
+
+This proposal covers two reward distributions related to chain halt (epoch 117):
+
+- Nodes that were active during Epoch 117 but did not receive their epoch reward will receive the missed reward for that epoch.
+- All nodes that were active during Epoch 117 will receive an additional payout equal to 1.083× the Epoch 117 reward, applied uniformly across all eligible nodes, including those that received the original reward.
+
+#### Note on duration and enforcement
+All protections reactivated or introduced by this upgrade are temporary and do not require manual governance intervention for removal.
+
+**Next Steps:**
+
+- No further actions are required by hosts.
+- Cosmovisor creates a full backup in the `.inference` state folder whenever it performs an update. To safely run the update, it is recommended to have 250+ GB of free disk space. [Read here](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory) how to safely remove old backups from the `.inference` directory.
+
+**Notes:**
+
+- Full technical details of the Genesis Validator Enhancement are available here:
+[https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection](https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection)
+- Full Technical Review (GitHub PR): [https://github.com/gonka-ai/gonka/pull/503](https://github.com/gonka-ai/gonka/pull/503)  
+
+## January 7, 2026
+
+The upgrade proposal for version **v0.2.7** has been approved through on-chain governance.
+
+**Upgrade Details**
+
+- Upgrade height: block 2.054.000
+- Estimated time: January 8, 2026, at 08:10:00 UTC.
+
+Pre-downloading binaries in advance may help avoid relying on GitHub availability during the upgrade window.
+
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.7/bin \
+              .inference/cosmovisor/upgrades/v0.2.7/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.7/decentralized-api-amd64.zip" && \
+echo "03555ba60431e72bd01fe1fb1812a211828331f5767ad78316fdd1bcca0e2d52 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.7/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.7/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.7/inferenced-amd64.zip" && \
+echo "b7c9034a2a4e1b2fdd525bd45aa32540129c55176fd7a223a1e13a7e177b3246 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.7/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced && \
+echo "d07e97c946ba00194dfabeaf0098219031664dace999416658c57b760b470a74 .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api" | sudo sha256sum --check && \
+echo "09c0e06f7971be87ab00fb08fc10e21ff86f9dff6fc80d82529991aa631cd0a9 .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced" | sudo sha256sum --check
+```
+Binaries can be considered successfully installed once all commands complete without errors and the confirmation message is displayed.
+```
+Inference Installed and Verified
+--- Final Verification ---
+-rwxr-xr-x 1 root root 224376384 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api
+-rwxr-xr-x 1 root root 215172352 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced
+.dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api: OK
+.inference/cosmovisor/upgrades/v0.2.7/bin/inferenced: OK
+```
+
+**ATTENTION**
+
+- Please be online around the upgrade window to follow instructions if issues arise.
+- Cosmovisor creates a full backup of the `.inference/data` directory during upgrades. Make sure sufficient disk space is available. If disk usage is high, older backups in `.inference` [can be safely removed. ](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- Large `application.db` files can be reduced using [these techniques.](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)
+
+**Optional: skipping Cosmovisor backup**
+
+Cosmovisor supports skipping the automatic state backup during upgrades by setting the environment variable `UNSAFE_SKIP_BACKUP=true` for the `node` container.
+
+This may reduce disk usage and upgrade time. However, if the upgrade fails, no backup will be available to restore the previous state.
+
+## January 7, 2026
+
+**Important note for Hosts**
+
+There is an option to skip the automatic backup during Cosmovisor upgrades by setting the environment variable `UNSAFE_SKIP_BACKUP=true` for `node` container.
+This option is risky - if the upgrade fails, you will not have a backup to restore the state.
+
 ## January 6, 2026
 
 ### v0.2.7 Upgrade Proposal: Genesis Validator Enhancement Enters Governance

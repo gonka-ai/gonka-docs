@@ -529,51 +529,6 @@ Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_
 ```
 The http://api:9100 url won’t be available if you paused the api container or if ML Node container and api containers don’t share the same docker network. Expect to see error messages saying that the ML Node failed to send generated batches. The important part is to make sure that the generation process is happening.
 
-### How can I pre-download the binaries to avoid GitHub during the upgrade?
-
-Here is an optional instruction on how the binaries can be pre-downloaded in advance to avoid relying on GitHub during the upgrade. 
-
-```
-# 1. Create Directories
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.7/bin \
-              .inference/cosmovisor/upgrades/v0.2.7/bin && \
-
-# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.7/decentralized-api-amd64.zip" && \
-echo "03555ba60431e72bd01fe1fb1812a211828331f5767ad78316fdd1bcca0e2d52 decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.7/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api && \
-echo "DAPI Installed and Verified" && \
-
-# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.7/bin/ && \
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.7/inferenced-amd64.zip" && \
-echo "b7c9034a2a4e1b2fdd525bd45aa32540129c55176fd7a223a1e13a7e177b3246 inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.7/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced && \
-echo "Inference Installed and Verified" && \
-
-# 4. Cleanup and Final Check
-rm decentralized-api.zip inferenced.zip && \
-echo "--- Final Verification ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced && \
-echo "d07e97c946ba00194dfabeaf0098219031664dace999416658c57b760b470a74 .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api" | sudo sha256sum --check && \
-echo "09c0e06f7971be87ab00fb08fc10e21ff86f9dff6fc80d82529991aa631cd0a9 .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced" | sudo sha256sum --check
-```
-
-
-The binaries are considered successfully downloaded and installed only if all commands complete without errors and the confirmation message is displayed.
-```
-Inference Installed and Verified
---- Final Verification ---
--rwxr-xr-x 1 root root 224376384 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api
--rwxr-xr-x 1 root root 215172352 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced
-.dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api: OK
-.inference/cosmovisor/upgrades/v0.2.7/bin/inferenced: OK
-```
-
-
 ### How much free disk space is required for a Cosmovisor update, and how can I safely remove old backups from the `.inference` directory?
 Cosmovisor creates a full backup in the `.inference` state folder whenever it performs an update. For example, you can see a folder like `data-backup-<some_date>`.
 As of November 20, 2025, the size of the data directory is about 150 GB, so each backup will take approximately the same amount of space.
@@ -772,6 +727,28 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 ## Upgrades
 
 ## Errors
+
+In case of panic on block `2058539`:
+
+```
+# Download Binary
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.7/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.7-post1/bin/
+wget -q -O  inferenced.zip 'https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.7-post1/inferenced-amd64.zip' && \
+echo "130e1fc5d4ea256e2fdd2ad7e42f03649f5048822b76bf32c06ed691632371d5  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.7-post1/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.7-post1/bin/inferenced && \
+echo "Inference Installed and Verified"
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.7-post1 .inference/cosmovisor/current
+echo "02d98dc7b1dc37fabc1b53c96abedd0194d7013140733fccb9c0fb5266cfd636 .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+
+# Restart 
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
 
 ### `No epoch models available for this node`
 

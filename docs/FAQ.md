@@ -535,43 +535,42 @@ Here is an optional instruction on how the binaries can be pre-downloaded in adv
 
 ```
 # 1. Create Directories
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.6/bin \
-              .inference/cosmovisor/upgrades/v0.2.6/bin && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.7/bin \
+              .inference/cosmovisor/upgrades/v0.2.7/bin && \
 
 # 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6-post1/decentralized-api-amd64.zip" && \
-echo "52ac4c55313f77eff7da4f7160396837c8810f9bf84a860c21c0299599968aaa decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.6/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.7/decentralized-api-amd64.zip" && \
+echo "03555ba60431e72bd01fe1fb1812a211828331f5767ad78316fdd1bcca0e2d52 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.7/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api && \
 echo "DAPI Installed and Verified" && \
 
 # 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6-post1/inferenced-amd64.zip" && \
-echo "bee12a0a3bc8fdea98fd1db1c6d6000633a2ec6c202f65e560393517dd6fcacc inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.7/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.7/inferenced-amd64.zip" && \
+echo "b7c9034a2a4e1b2fdd525bd45aa32540129c55176fd7a223a1e13a7e177b3246 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.7/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced && \
 echo "Inference Installed and Verified" && \
 
 # 4. Cleanup and Final Check
 rm decentralized-api.zip inferenced.zip && \
 echo "--- Final Verification ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
-echo "e762ed88926d5d58f42ae5c3455d7fe2eb9c1a0881355c942dd8596d731986d8 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api" | sudo sha256sum --check && \
-echo "87630947bcc7f2b9b3b4c8429ee0429be21d220264811ca2517fdb4d7d36629a .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced" | sudo sha256sum --check
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced && \
+echo "d07e97c946ba00194dfabeaf0098219031664dace999416658c57b760b470a74 .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api" | sudo sha256sum --check && \
+echo "09c0e06f7971be87ab00fb08fc10e21ff86f9dff6fc80d82529991aa631cd0a9 .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced" | sudo sha256sum --check
 ```
-
 
 
 The binaries are considered successfully downloaded and installed only if all commands complete without errors and the confirmation message is displayed.
 ```
 Inference Installed and Verified
 --- Final Verification ---
--rwxr-xr-x 1 root root 223800320 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api
--rwxr-xr-x 1 root root 214556584 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced
-.dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api: OK
-.inference/cosmovisor/upgrades/v0.2.6/bin/inferenced: OK
+-rwxr-xr-x 1 root root 224376384 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api
+-rwxr-xr-x 1 root root 215172352 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced
+.dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api: OK
+.inference/cosmovisor/upgrades/v0.2.7/bin/inferenced: OK
 ```
 
 
@@ -772,52 +771,6 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
-### Are there multiple valid binaries after the latest upgrade (0.2.6)?
-
-=== "Option 1: Binaries applied automatically during the upgrade (Cosmovisor)"
-
-	These binaries were applied automatically during the upgrade process and downloaded into the `cosmovisor` directory. This option was subject to governance voting. Release reference: [https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.6-post1](https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.6-post1)
-	
-	`API` container
-	```
-	$ sudo ls -la .dapi/cosmovisor/current
-	lrwxrwxrwx 1 root root 15 Dec 22 15:02 .dapi/cosmovisor/current -> upgrades/v0.2.6
-	
-	$sudo sha256sum .dapi/cosmovisor/current/bin/decentralized-api
-	e762ed88926d5d58f42ae5c3455d7fe2eb9c1a0881355c942dd8596d731986d8  .dapi/cosmovisor/current/bin/decentralized-api
-	```
-
-	`Node` container
-	```
-	$sudo ls -la .inference/cosmovisor/current
-	lrwxrwxrwx 1 root root 15 Dec 22 15:27 .inference/cosmovisor/current -> upgrades/v0.2.6
-	
-	$sudo sha256sum .inference/cosmovisor/current/bin/inferenced
-	87630947bcc7f2b9b3b4c8429ee0429be21d220264811ca2517fdb4d7d36629a  .inference/cosmovisor/current/bin/inferenced
-	```
-
-=== "Option 2: Binaries built inside Docker images"
-
-	This option uses the same codebase, but the binaries are built directly inside the `Docker images`. It is intended for Hosts who connect nodes after the upgrade, without relying on automatic Cosmovisor updates. These containers are currently available in `main` branch under the tag `0.2.6-post2`.
-	
-	`API` container
-	```
-	$sudo ls -la .dapi/cosmovisor/current
-	lrwxrwxrwx 1 root root 7 Dec 24 21:29 .dapi/cosmovisor/current -> genesis
-	
-	$sudo sha256sum .dapi/cosmovisor/current/bin/decentralized-api
-	8ef3d54b1aab2f93053cb0d5c18a7b2ee443ba6492134af00a3276f6455925fc  .dapi/cosmovisor/current/bin/decentralized-api
-	```
-
-	`Node` container
-	```
-	$sudo ls -la .inference/cosmovisor/current
-	lrwxrwxrwx 1 root root 7 Dec 24 21:29 .inference/cosmovisor/current -> genesis
-	
-	$sudo sha256sum .inference/cosmovisor/current/bin/inferenced
-	9832944bc9060ccbbb060464ee306b370df894e596292c014caf307dcd18ab5c  .inference/cosmovisor/current/bin/inferenced
-	```
-	
 ## Errors
 
 ### `No epoch models available for this node`

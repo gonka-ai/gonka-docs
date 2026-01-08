@@ -726,7 +726,7 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
-## Errors
+### Upgrade v0.2.7
 
 In case of panic on block `2058539`:
 
@@ -749,6 +749,9 @@ echo "02d98dc7b1dc37fabc1b53c96abedd0194d7013140733fccb9c0fb5266cfd636 .inferenc
 # Restart 
 source config.env && docker compose up node --no-deps --force-recreate -d
 ```
+
+
+## Errors
 
 ### `No epoch models available for this node`
 

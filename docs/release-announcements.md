@@ -2,6 +2,21 @@
 
 ## January 8, 2026
 
+**Network Update — Patch Ready for Deployment**
+
+The patch addressing the recent consensus failure observed during PoC is now available.
+
+[GUIDE](https://gonka.ai/FAQ/#upgrade-v027)
+
+To restore reliable consensus progress, installation of the patch by **at least 67%** of active network power is required.
+
+Until this threshold is reached, consensus advancement may remain unstable.
+
+**Hosts are encouraged to apply the patch promptly and remain online after upgrading.
+Further instructions will be shared if necessary.**
+
+## January 8, 2026
+
 **Network Update — Follow-Up**
 
 The patch addressing the recent consensus issue is ready, and detailed instructions will be shared shortly.

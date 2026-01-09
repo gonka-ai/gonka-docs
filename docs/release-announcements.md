@@ -20,7 +20,8 @@ Participants that previously exhibited persistent deviations from these patterns
 
 **Reproducibility and methodology**
 
-The `allowlist` is derived from publicly observable on-chain data using a predefined set of hardware configuration patterns. These patterns are evaluated using open-source scripts available here: [https://github.com/product-science/filter ](https://github.com/product-science/filter )
+The `allowlist` is derived from publicly observable on-chain data using a predefined set of hardware configuration patterns. These patterns are evaluated using open-source scripts available here: [https://github.com/product-science/filter](https://github.com/product-science/filter)
+
 The `allowlist` is available here: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
 
 **Execution characteristics**
@@ -70,9 +71,11 @@ export NODE_URL=http://node1.gonka.ai:8000
 This process is handled entirely through governance and does not require a software upgrade.
 
 **Timelines and Deadlines**
+
 - Voting ends: January 10th, 2026, at 06:46:52 UTC.
 - `Allowlist` activation: After the next PoC execution at block 2089140.
 - `Allowlist` expiration: Automatically at block 2222222.
+  
 Please take a look and vote if you're a host.
 
 ## January 8, 2026

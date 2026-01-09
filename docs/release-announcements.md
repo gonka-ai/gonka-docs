@@ -2,6 +2,76 @@
 
 ## January 8, 2026
 
+**TIME IS NOW: Temporary Participant `Allowlist` for Stabilization Period**
+A new governance vote is currently active following the successful adoption of the patch that resolved the PoC-related consensus failure.
+
+With normal block production restored, the network is entering a short stabilization period ahead of further growth.
+
+This vote defines a participant's `allowlist` ([https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)) for the stabilization window, reflecting the set of participants whose behavior has remained consistent with network expectations.
+
+**Scope of the Vote**
+If approved, the network will temporarily operate with an `allowlist` comprising participants who have not demonstrated non-standard hardware behavior in previous epochs. In practice, the `allowlist` corresponds to participants for whom, across multiple epochs:
+
+- Reported hardware characteristics were evaluated against a predefined set of commonly observed hardware configuration patterns, used to identify deviations and inconsistencies (the exact list of non-standard configuration strings is available here: [https://github.com/product-science/filter/blob/main/filter_strings.txt](https://github.com/product-science/filter/blob/main/filter_strings.txt)), and
+- Observed PoC weight stayed below 150% of the weight demonstrated by other participants using comparable hardware.
+Participants that previously exhibited persistent deviations from these patterns are not part of the `allowlist` until the stabilization window concludes at block 2222222.
+
+**Reproducibility and methodology**
+The `allowlist` is derived from publicly observable on-chain data using a predefined set of hardware configuration patterns. These patterns are evaluated using open-source scripts available here: [https://github.com/product-science/filter ](https://github.com/product-science/filter )
+The `allowlist` is available here: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
+
+**Execution characteristics**
+
+- The `allowlist` takes effect automatically if the proposal is approved.
+- No software upgrade is needed.
+- The `allowlist` becomes active during the next PoC following a successful vote, expected at block: 2089140.
+- From that point, the `allowlist` remains in effect up to and including block ​​2222222.
+- Further adjustments, if needed, remain subject to governance.
+
+**After the stabilization window**
+The `allowlist` is defined with a fixed expiration and does not persist beyond the stabilization window. Once the `allowlist` expires at block 2222222:
+
+- The network reverts to the standard participation rules in effect prior to the stabilization period, or
+- Any alternative configuration must be defined through a separate governance decision.
+
+**How to Vote**
+You can fetch the proposal details and cast your vote using the `inferenced` command.
+Please note that any active node can be used to query or cast a vote. Currently available nodes include:
+
+- http://node1.gonka.ai:8000/
+- http://node2.gonka.ai:8000/
+- https://node4.gonka.ai/
+
+To check the voting status:
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced query gov votes 20 -o json --node $NODE_URL/chain-rpc/
+```
+
+To vote ( `yes` , `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced tx gov vote 20 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+**Next steps after the vote**
+
+This process is handled entirely through governance and does not require a software upgrade.
+
+**Timelines and Deadlines**
+- Voting ends: January 10th, 2026, at 06:46:52 UTC.
+- `Allowlist` activation: After the next PoC execution at block 2089140.
+- `Allowlist` expiration: Automatically at block 2222222.
+Please take a look and vote if you're a host.
+
+## January 8, 2026
+
 **Network Update — Consensus Restored**
 
 Following the deployment of the patch, network consensus has stabilized and is now operating within normal parameters.

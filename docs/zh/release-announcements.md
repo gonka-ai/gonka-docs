@@ -2,6 +2,79 @@
 
 ## 2026年1月8日
 
+**行动刻不容缓：稳定期临时参与者 `allowlist`**
+在成功采用修复 PoC 相关共识故障补丁后，一项新的治理投票现已激活。
+
+随着正常区块生产恢复，网络在进一步扩容前将进入一个短暂的稳定期。
+
+本次投票在稳定期内定义参与者 `allowlist`（[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)），反映在此前运行中行为始终符合网络预期的一组参与者。
+
+**投票范围**
+若提案通过，网络将在稳定期内基于一个 `allowlist` 运行，该名单由在过往 epoch 中未表现出非标准硬件行为的参与者组成。实际操作中，`allowlist` 对应的是这样一组参与者，在多个 epoch 中：
+
+- 其上报的硬件特征与一组预定义、常见的硬件配置模式进行比对，用于识别偏差与不一致（非标准配置字符串的完整列表见此处：[https://github.com/product-science/filter/blob/main/filter_strings.txt](https://github.com/product-science/filter/blob/main/filter_strings.txt)），且
+- 其观察到的 PoC 权重始终低于使用可比硬件的其他参与者所展示权重的 150%。
+
+此前持续表现出与这些模式存在偏差的参与者，在稳定期结束（区块 2222222）之前将不会被纳入 `allowlist`。
+
+**可复现性与方法**
+`allowlist` 基于公开可观测的链上数据，并通过一组预定义的硬件配置模式推导而来。相关模式通过开源脚本进行评估，脚本可在此处获取：[https://github.com/product-science/filter](https://github.com/product-science/filter)
+`allowlist` 名单可在此处查看：[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
+
+**执行特性**
+
+- 若提案通过，`allowlist` 将自动生效。
+- 无需进行任何软件升级。
+- `allowlist` 将在投票成功后的下一次 PoC 中激活，预计在区块 2089140。
+- 自该时刻起，`allowlist` 将持续生效，直至并包含区块 2222222。
+- 如需进一步调整，仍需通过治理流程决定。
+
+**稳定期结束之后**
+`allowlist` 设定了固定的到期时间，不会在稳定期之后继续生效。当 `allowlist` 于区块 2222222 到期后：
+
+- 网络将恢复至稳定期之前生效的标准参与规则，或
+- 任何替代性配置均需通过单独的治理提案加以定义。
+
+**如何投票**
+可使用 `inferenced` 命令获取提案详情并提交投票。
+请注意，任一在线节点均可用于查询或投票。目前可用节点包括：
+
+- http://node1.gonka.ai:8000/
+- http://node2.gonka.ai:8000/
+- https://node4.gonka.ai/
+
+查看投票状态：
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced query gov votes 20 -o json --node $NODE_URL/chain-rpc/
+```
+
+投票（`yes`、`no`、`abstain`、`no_with_veto`）：
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced tx gov vote 20 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+**投票后的下一步**
+
+整个流程完全通过治理处理，无需进行软件升级。
+
+**时间线与截止时间**
+- 投票结束时间：2026 年 1 月 10 日 06:46:52 UTC
+- `allowlist` 激活：在区块 2089140 的下一次 PoC 执行之后
+- `allowlist` 失效：在区块 2222222 自动失效
+
+如您是主机，请审阅提案并参与投票。
+
+## 2026年1月8日
+
 **网络更新 — 共识已恢复**
 
 在补丁部署完成后，网络共识已恢复稳定，目前运行在正常参数范围内。

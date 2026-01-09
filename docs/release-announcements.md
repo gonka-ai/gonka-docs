@@ -3,6 +3,7 @@
 ## January 8, 2026
 
 **TIME IS NOW: Temporary Participant `Allowlist` for Stabilization Period**
+
 A new governance vote is currently active following the successful adoption of the patch that resolved the PoC-related consensus failure.
 
 With normal block production restored, the network is entering a short stabilization period ahead of further growth.
@@ -10,6 +11,7 @@ With normal block production restored, the network is entering a short stabiliza
 This vote defines a participant's `allowlist` ([https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)) for the stabilization window, reflecting the set of participants whose behavior has remained consistent with network expectations.
 
 **Scope of the Vote**
+
 If approved, the network will temporarily operate with an `allowlist` comprising participants who have not demonstrated non-standard hardware behavior in previous epochs. In practice, the `allowlist` corresponds to participants for whom, across multiple epochs:
 
 - Reported hardware characteristics were evaluated against a predefined set of commonly observed hardware configuration patterns, used to identify deviations and inconsistencies (the exact list of non-standard configuration strings is available here: [https://github.com/product-science/filter/blob/main/filter_strings.txt](https://github.com/product-science/filter/blob/main/filter_strings.txt)), and
@@ -17,6 +19,7 @@ If approved, the network will temporarily operate with an `allowlist` comprising
 Participants that previously exhibited persistent deviations from these patterns are not part of the `allowlist` until the stabilization window concludes at block 2222222.
 
 **Reproducibility and methodology**
+
 The `allowlist` is derived from publicly observable on-chain data using a predefined set of hardware configuration patterns. These patterns are evaluated using open-source scripts available here: [https://github.com/product-science/filter ](https://github.com/product-science/filter )
 The `allowlist` is available here: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
 
@@ -29,12 +32,14 @@ The `allowlist` is available here: [https://github.com/product-science/filter/bl
 - Further adjustments, if needed, remain subject to governance.
 
 **After the stabilization window**
+
 The `allowlist` is defined with a fixed expiration and does not persist beyond the stabilization window. Once the `allowlist` expires at block 2222222:
 
 - The network reverts to the standard participation rules in effect prior to the stabilization period, or
 - Any alternative configuration must be defined through a separate governance decision.
 
 **How to Vote**
+
 You can fetch the proposal details and cast your vote using the `inferenced` command.
 Please note that any active node can be used to query or cast a vote. Currently available nodes include:
 

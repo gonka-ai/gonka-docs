@@ -10,6 +10,7 @@
 本次投票在稳定期内定义参与者 `allowlist`（[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)），反映在此前运行中行为始终符合网络预期的一组参与者。
 
 **投票范围**
+
 若提案通过，网络将在稳定期内基于一个 `allowlist` 运行，该名单由在过往 epoch 中未表现出非标准硬件行为的参与者组成。实际操作中，`allowlist` 对应的是这样一组参与者，在多个 epoch 中：
 
 - 其上报的硬件特征与一组预定义、常见的硬件配置模式进行比对，用于识别偏差与不一致（非标准配置字符串的完整列表见此处：[https://github.com/product-science/filter/blob/main/filter_strings.txt](https://github.com/product-science/filter/blob/main/filter_strings.txt)），且
@@ -18,6 +19,7 @@
 此前持续表现出与这些模式存在偏差的参与者，在稳定期结束（区块 2222222）之前将不会被纳入 `allowlist`。
 
 **可复现性与方法**
+
 `allowlist` 基于公开可观测的链上数据，并通过一组预定义的硬件配置模式推导而来。相关模式通过开源脚本进行评估，脚本可在此处获取：[https://github.com/product-science/filter](https://github.com/product-science/filter)
 `allowlist` 名单可在此处查看：[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
 
@@ -30,12 +32,14 @@
 - 如需进一步调整，仍需通过治理流程决定。
 
 **稳定期结束之后**
+
 `allowlist` 设定了固定的到期时间，不会在稳定期之后继续生效。当 `allowlist` 于区块 2222222 到期后：
 
 - 网络将恢复至稳定期之前生效的标准参与规则，或
 - 任何替代性配置均需通过单独的治理提案加以定义。
 
 **如何投票**
+
 可使用 `inferenced` 命令获取提案详情并提交投票。
 请注意，任一在线节点均可用于查询或投票。目前可用节点包括：
 
@@ -67,6 +71,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 整个流程完全通过治理处理，无需进行软件升级。
 
 **时间线与截止时间**
+
 - 投票结束时间：2026 年 1 月 10 日 06:46:52 UTC
 - `allowlist` 激活：在区块 2089140 的下一次 PoC 执行之后
 - `allowlist` 失效：在区块 2222222 自动失效

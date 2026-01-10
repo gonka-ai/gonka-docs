@@ -732,6 +732,11 @@ Make sure to edit `SERVER_NAME` with your actual domain name before proceeding.
 
 Finally, launch all containers, including the API:
 
+<!-- CONDITION START: data-show-when='["non-finished"]' -->
+!!! note "Configuration Required"
+    Please complete the [questionnaire above](#quickstart-questionnaire) to generate the launch commands.
+<!-- CONDITION END -->
+
 <!-- CONDITION START: data-show-when='["protocolHttp"]' -->
 Launch all containers:
 

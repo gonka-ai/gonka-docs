@@ -629,6 +629,11 @@ ls -la secrets/nginx-ssl/
 
 最后，启动包括 API 在内的全部容器：
 
+<!-- CONDITION START: data-show-when='["non-finished"]' -->
+!!! note "需要配置"
+    请完成[上方的问卷](#quickstart-questionnaire)以生成启动命令。
+<!-- CONDITION END -->
+
 <!-- CONDITION START: data-show-when='["protocolHttp"]' -->
 启动所有容器：
 

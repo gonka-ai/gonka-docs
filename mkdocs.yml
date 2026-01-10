@@ -8,6 +8,7 @@ site_description: >-
 nav:
   - Home: index.md
   - Introduction: introduction.md
+  - Glossary: glossary.md
   - Developer:
     - Quickstart: developer/quickstart.md
     - Details: developer/details.md

@@ -170,12 +170,6 @@ Please take a look and vote if you're a host.
 
 Following the deployment of the patch, network consensus has stabilized and is now operating within normal parameters.
 
-Summary of Status:
-
-- Patch Adoption: >67% threshold reached.
-- Network State: Fully operational.
-- Instruction: Nodes should continue standard operation.
-
 ## January 8, 2026
 
 **Network Update — Patch Ready for Deployment**

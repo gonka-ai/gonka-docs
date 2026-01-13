@@ -22,7 +22,7 @@ Please note that any active node can be used to query or cast a vote. Currently 
 - http://node1.gonka.ai:8000/
 - http://node3.gonka.ai:8000/
 - https://node4.gonka.ai/
-- 
+  
 To check the voting status:
 ```
 export NODE_URL=http://node1.gonka.ai:8000
@@ -49,6 +49,7 @@ This process is handled entirely through governance and does not require a softw
 **Timelines and deadlines**
 
 Voting ends: January 12th, 2026, at 06:04:14 UTC.
+
 `Allowlist` expiration: Automatically at block 2,222,222.
 
 ## January 8, 2026

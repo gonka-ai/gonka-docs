@@ -52,6 +52,40 @@ Voting ends: January 12th, 2026, at 06:04:14 UTC.
 
 `Allowlist` expiration: Automatically at block 2,222,222.
 
+## January 10, 2026
+
+**Temporary participant `allowlist` approved. Activates in Epoch 135**
+
+The on-chain governance vote for the temporary participant `allowlist` for the stabilization period has concluded.
+
+The proposal has been approved. This proposal defines a temporary `allowlist` reflecting participants whose behavior has remained consistent across recent epochs.
+
+**Key changes now active**
+
+1) The network will operate with an `allowlist` composed of participants who, across multiple epochs:
+   
+- Reported hardware characteristics matching commonly observed configuration patterns (the list of filtered non-standard configuration strings is available here: [https://github.com/product-science/filter/blob/main/filter_strings.txt](https://github.com/product-science/filter/blob/main/filter_strings.txt))
+- Demonstrated PoC weight not exceeding 150% of the weight observed for comparable hardware
+  
+2) Participants that previously exhibited consistent deviations from these patterns are excluded from the `allowlist` until the stabilization window concludes at block 2,222,222.
+
+**Execution characteristics**
+
+- The `allowlist` becomes active starting from the next epoch (Epoch 135)
+- The activation occurs during the first PoC of Epoch 135
+- No software upgrade is required
+- From that point, the `allowlist` remains in effect up to and including block 2,222,222
+
+**Reproducibility and methodology**
+
+- The `allowlist` is derived exclusively from publicly observable on-chain data
+- Hardware descriptors are evaluated against a predefined set of configuration patterns using open-source scripts: [https://github.com/product-science/filter](https://github.com/product-science/filter) 
+- The resulting `allowlist` is published here: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
+
+**Next Steps**
+
+No action is required from hosts.
+
 ## January 8, 2026
 
 **TIME IS NOW: Temporary Participant `Allowlist` for Stabilization Period**

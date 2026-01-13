@@ -1,5 +1,57 @@
 # 发布公告
 
+## 2026年1月10日
+
+**临时参与者 allowlist 修正**
+
+目前有一项新的治理投票正在进行。该提案通过将若干地址加入 [allowlist](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)，修复了过滤逻辑中的一个边缘情况：这些地址此前由于硬件名称为空且 ML Node 权重为 0而被错误过滤。
+该提案还将少量开发者账户加入允许的开发者列表，并将 allowlist 的过期时间与参与者注册截止区块高度 2,222,222 对齐。
+所有参与逻辑保持不变。本提案仅用于解决现有过滤逻辑中的一个轻微问题。
+
+**可复现性与方法论**
+
+allowlist 基于可公开观察的链上数据生成，并使用一组预定义的硬件配置模式。这些模式通过开源脚本进行评估，脚本地址如下： [https://github.com/product-science/filter](https://github.com/product-science/filter) 
+
+allowlist 文件位于：[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv) 
+
+**如何投票**
+
+你可以使用 inferenced 命令获取提案详情并进行投票。
+
+请注意：任何可用的节点都可以用于查询或投票。目前可用的节点包括：
+
+- http://node1.gonka.ai:8000/
+- http://node3.gonka.ai:8000/
+- https://node4.gonka.ai/
+  
+查看投票状态：
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced query gov votes 21 -o json --node $NODE_URL/chain-rpc/
+```
+
+投票 ( `yes` , `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced tx gov vote 21 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+**投票后的下一步**
+
+该流程完全通过治理机制处理，不需要进行软件升级。
+
+**时间线与截止日期**
+
+投票结束时间：2026年1月12日 06:04:14（UTC）
+Allowlist 过期时间：在区块高度 2,222,222 自动过期。
+
 ## 2026年1月8日
 
 **行动刻不容缓：稳定期临时参与者 `allowlist`**

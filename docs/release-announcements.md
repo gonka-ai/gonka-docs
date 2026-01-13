@@ -1,4 +1,55 @@
-# Release announcements
+# Announcements
+
+## January 10, 2026
+
+**Temporary participant `allowlist` correction**
+
+A new governance vote is currently active. It corrects a filtration edge case by adding several addresses to the [allowlist](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv) that were previously filtered out due to empty hardware names while having zero ML Node weight. The proposal also adds a small number of developer accounts to the allowed developers list and aligns the expiration of the `allowlist` with the participant registration cut-off at block 2,222,222.
+All participation logic remains unchanged. This proposal only resolves a minor issue in the existing filtration logic.
+
+**Reproducibility and methodology**
+
+The `allowlist` is derived from publicly observable on-chain data using a predefined set of hardware configuration patterns. These patterns are evaluated using open-source scripts available here: [https://github.com/product-science/filter](https://github.com/product-science/filter) 
+
+The `allowlist` is available here: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv) 
+
+**How to vote**
+
+You can fetch the proposal details and cast your vote using the `inferenced` command.
+
+Please note that any active node can be used to query or cast a vote. Currently available nodes include:
+
+- http://node1.gonka.ai:8000/
+- http://node3.gonka.ai:8000/
+- https://node4.gonka.ai/
+- 
+To check the voting status:
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced query gov votes 21 -o json --node $NODE_URL/chain-rpc/
+```
+
+To vote ( `yes` , `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced tx gov vote 21 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+**Next steps after the vote**
+
+This process is handled entirely through governance and does not require a software upgrade.
+
+**Timelines and deadlines**
+
+Voting ends: January 12th, 2026, at 06:04:14 UTC.
+`Allowlist` expiration: Automatically at block 2,222,222.
 
 ## January 8, 2026
 

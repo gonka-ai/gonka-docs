@@ -20,7 +20,7 @@ For the Network node, the approximate hardware requirements are:
 
 The final requirements will depend on the number of MLNodes connected and their total throughput.
 
-Before proceeding, complete the [Quickstart guide](https://gonka.ai/host/quickstart/) through step 3.4, which includes:
+Before proceeding, complete the [Quickstart guide](https://gonka.ai/host/quickstart/) through step 3.3, which includes:
 
 - Hardware and software requirements
 - Download deployment files

@@ -27,8 +27,8 @@ nav:
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
     - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md
+  - Announcements: release-announcements.md
   - Model licenses: model-licenses.md
-  - Release announcements: release-announcements.md
   - Software upgrades: software-upgrades.md
   - Transactions & governance: transactions-and-governance.md
   - Help:

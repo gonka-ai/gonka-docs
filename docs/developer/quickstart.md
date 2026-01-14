@@ -6,8 +6,11 @@ name: index.md
 
 !!! note "WARNING"
     New registrations and inference are temporarily paused.
+    
     The network is operating with a temporary `allowlist` until block 2,222,222.
+    
     `Allowlist`: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
+    
     Details: [https://gonka.ai/release-announcements/#january-10-2026_1](https://gonka.ai/release-announcements/#january-10-2026_1)
 
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.

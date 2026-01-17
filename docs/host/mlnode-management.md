@@ -144,7 +144,9 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes" \
           "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
             "args": [
               "--tensor-parallel-size",
-              "4"
+              "4",
+              "--max-model-len",
+              "240000"
             ]
           }
         }
@@ -189,7 +191,9 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
         "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
           "args": [
             "--tensor-parallel-size",
-            "4"
+            "4",
+            "--max-model-len",
+            "240000"
           ]
         }
       }
@@ -235,10 +239,12 @@ curl -X PUT "$ADMIN_API_URL/admin/v1/nodes/node1" \
     "poc_port": 8080,
     "max_concurrent": 800,
     "models": {
-      "Qwen/Qwen3-32B-FP8": {
+      "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
         "args": [
           "--tensor-parallel-size",
-          "4"
+          "4",
+          "--max-model-len",
+          "240000"
         ]
       }
     }

@@ -1,6 +1,6 @@
 # Announcements
 
-## January 16, 2025
+## January 16, 2026
 
 **Stabilization Period Extension**
 
@@ -22,8 +22,8 @@ Hosts not included in the `allowlist` will remain unable to participate in PoC d
 
 The `allowlist` is:
 
-- available here: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv ](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv )
-- derived from publicly observable on-chain data using a predefined set of hardware configuration patterns. These patterns are evaluated using open-source scripts available here: [https://github.com/product-science/filter ](https://github.com/product-science/filter )
+- available here: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
+- derived from publicly observable on-chain data using a predefined set of hardware configuration patterns. These patterns are evaluated using open-source scripts available here:[https://github.com/product-science/filter](https://github.com/product-science/filter)
 
 **Execution characteristics**
 

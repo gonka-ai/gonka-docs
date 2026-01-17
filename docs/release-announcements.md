@@ -75,6 +75,7 @@ This process is handled entirely through governance and does not require a softw
 **Timeline and deadlines**
 
 Voting ends: January 18th, 2026, at 05:28:01 UTC.
+
 `Allowlist` expiration: Automatically at block 2443558.
 
 ## January 10, 2026

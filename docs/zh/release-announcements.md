@@ -1,5 +1,86 @@
 # 公告
 
+## 2026年1月16日
+
+**稳定期延长**
+
+当前有一项新的治理投票正在进行中。
+
+该提案将当前的稳定期延长约两周。延长的时间将用于与即将到来的 PoC 变更及相关网络升级有关的额外测试。关于新的 PoC 开发进展的更多细节可参见此处：
+[https://github.com/gonka-ai/gonka/blob/gm/poc-status/proposals/governance-artifacts/poc-update-status.md](https://github.com/gonka-ai/gonka/blob/gm/poc-status/proposals/governance-artifacts/poc-update-status.md)
+
+此次延长也为 Hosts 提供了时间，以便为新的 PoC 要求准备其部署环境，包括将其 ML Nodes 切换到 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 模型。
+有关更新现有 ML Node 的说明请参见：
+[https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)
+运行多个 ML Nodes 的 Hosts 被建议在多个 epoch 中逐步完成更新。
+
+**投票范围**
+
+如果提案获得通过，网络将在临时期间继续按照现有的 `allowlist` 运行（该列表由未表现出非标准硬件行为的 Hosts 组成）。
+
+Developers 的 `allowlist` 将按相同的时间偏移进行延长，并持续有效至区块 2459375。
+
+未被纳入 `allowlist` 的 Hosts 在延长的稳定期内仍将无法参与 PoC，该稳定期将于区块 2443558 结束。
+
+**可复现性与方法论**
+
+`allowlist`:
+
+- 可在此处获取：[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
+	•	基于公开可观察的链上数据生成，并使用一组预定义的硬件配置模式。这些模式通过开源脚本进行评估，脚本地址为：[https://github.com/product-science/filter](https://github.com/product-science/filter)
+
+**执行特性**
+
+- 若提案获批，`allowlist` 将自动延长。
+- 无需进行软件升级。
+- 如需进一步调整，仍需通过治理流程决定。
+
+**稳定期结束后**
+
+`allowlist` 具有固定的到期时间，不会在延长的稳定期结束后继续生效。当 `allowlist` 于区块 2443558 到期后：
+
+- 网络将恢复到稳定期之前生效的标准参与规则，或
+- 任何替代配置都必须通过单独的治理决议来定义。
+
+**如何投票**
+
+你可以使用 inferenced 命令获取提案详情并进行投票。
+
+请注意，任何正在运行的节点都可用于查询或投票。当前可用的节点包括：
+
+- http://node1.gonka.ai:8000/ 
+- http://node2.gonka.ai:8000/
+- http://node3.gonka.ai:8000/ 
+- https://node4.gonka.ai/ 
+
+查询投票状态：
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced query gov votes 22 -o json --node $NODE_URL/chain-rpc/
+```
+
+进行投票 ( `yes` , `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced tx gov vote 22 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+**投票后的下一步**
+
+该流程完全通过治理机制处理，不需要进行软件升级。
+
+**时间线与截止时间**
+
+投票结束时间：2026年1月18日 05:28:01（UTC）
+`Allowlist` 到期时间：在区块 2443558 自动到期。
+
 ## 2026 年 1 月 10 日
 
 **临时参与者 `allowlist` 修正**

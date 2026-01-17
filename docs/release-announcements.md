@@ -1,5 +1,82 @@
 # Announcements
 
+## January 16, 2025
+
+**Stabilization Period Extension**
+
+A new governance vote is currently active.
+
+The proposal extends the current stabilization period by approximately two weeks. The extended period is intended for additional testing related to upcoming PoC changes and associated network upgrades. More details about new PoC development progress are available here: [https://github.com/gonka-ai/gonka/blob/gm/poc-status/proposals/governance-artifacts/poc-update-status.md](https://github.com/gonka-ai/gonka/blob/gm/poc-status/proposals/governance-artifacts/poc-update-status.md).
+
+The extension also provides time for Hosts to prepare their setups for the new PoC requirements, including switching their ML Nodes to the `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` model. Instructions for updating an existing ML Node are available here: [https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode). Hosts who operate multiple ML Nodes are encouraged to perform updates gradually across multiple epochs.
+
+**Scope of the Vote**
+
+If approved, the network will continue to operate temporarily under the existing `allowlist` (comprising Hosts who have not demonstrated non-standard hardware behaviour). 
+
+The Developers `allowlist` is extended by the same offset and will remain in effect until block 2459375.
+
+Hosts not included in the `allowlist` will remain unable to participate in PoC during the extended stabilization period, which will conclude at block 2443558.
+
+**Reproducibility and methodology**
+
+The `allowlist` is:
+
+- available here: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv ](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv )
+- derived from publicly observable on-chain data using a predefined set of hardware configuration patterns. These patterns are evaluated using open-source scripts available here: [https://github.com/product-science/filter ](https://github.com/product-science/filter )
+
+**Execution characteristics**
+
+- The `allowlist` extends automatically if the proposal is approved.
+- No software upgrade is needed.
+- Further adjustments, if needed, remain subject to governance.
+
+**After the stabilization window**
+
+The `allowlist` has a fixed expiration and does not persist beyond the extended stabilization window. Once the `allowlist` expires at block 2443558:
+
+- The network reverts to the standard participation rules in effect prior to the stabilization period, or
+- Any alternative configuration must be defined through a separate governance decision.
+
+**How to vote**
+
+You can fetch the proposal details and cast your vote using the `inferenced` command.
+
+Please note that any active node can be used to query or cast a vote. Currently available nodes include:
+
+- http://node1.gonka.ai:8000/ 
+- http://node2.gonka.ai:8000/
+- http://node3.gonka.ai:8000/ 
+- https://node4.gonka.ai/ 
+
+To check the voting status:
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced query gov votes 22 -o json --node $NODE_URL/chain-rpc/
+```
+
+To vote ( `yes` , `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=http://node1.gonka.ai:8000
+./inferenced tx gov vote 22 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+**Next steps after the vote**
+
+This process is handled entirely through governance and does not require a software upgrade.
+
+**Timeline and deadlines**
+
+Voting ends: January 18th, 2026, at 05:28:01 UTC.
+`Allowlist` expiration: Automatically at block 2443558.
+
 ## January 10, 2026
 
 **Temporary participant `allowlist` correction**

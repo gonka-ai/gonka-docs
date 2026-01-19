@@ -1,5 +1,22 @@
 # 公告
 
+## 2026年1月19日
+
+**提案更新：稳定期延长已获批准**
+
+关于延长稳定期的最新治理投票已成功通过。稳定期现已正式延长，以便进行更多测试和网络升级。
+
+**主机（Hosts）需要采取的行动**
+
+随着延期确认，请利用这段时间为新的 PoC 要求做好环境准备。
+
+- 模型更新：请将你的 ML 节点切换至 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 模型。
+- 逐步部署：如果你运营多个 ML 节点，建议在多个 epoch 中逐步完成这些更新。
+
+**如何更新**
+
+有关更新现有 ML 节点的说明，请参阅：[https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)
+
 ## 2026年1月16日
 
 **稳定期延长**

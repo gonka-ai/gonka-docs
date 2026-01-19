@@ -1,5 +1,22 @@
 # Announcements
 
+## January 19, 2026
+
+**Proposal Update: Stabilization Period Extension Approved**
+
+The recent governance vote regarding the Stabilization Period Extension has successfully passed. The stabilization period is now officially extended to allow for additional testing and network upgrades.
+
+**ACTION ITEM FOR HOSTS**
+
+With the extension confirmed, please use this time to prepare your setups for the new PoC requirements.
+
+- Model Update: Please switch your ML Nodes to the `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` model.
+- Gradual Rollout: If you operate multiple ML Nodes, you are encouraged to perform these updates gradually across multiple epochs.
+
+**How to update**
+
+Instructions for updating an existing ML Node can be found here: [https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)
+
 ## January 16, 2026
 
 **Stabilization Period Extension**

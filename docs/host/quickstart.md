@@ -1,19 +1,26 @@
 # Setting up your chain 
 
 !!! note "WARNING"
-    The network is currently in a temporary stabilization phase.
-
-    New registrations and inference are paused during this period.
+    The network is currently in a temporary stabilization phase. New registrations and inference are paused during this period.
     
-    To ensure stable operation, participation is limited to an `allowlist` of approved Hosts.
+    To ensure stable operation, participation is limited to an `allowlist`.
     
-    Hosts not on the `allowlist` cannot participate in Proof of Compute (PoC) until the stabilization period ends at block 2,443,558.
-
-    The Developers allowlist remains active until block 2,459,375.
+    - Hosts not on the `allowlist` cannot participate in Proof of Compute (PoC) until the stabilization period ends at block 2,443,558.
+    - The Developers `allowlist` remains active until block 2,459,375.
     
     `Allowlist`: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
     
     Details: [https://gonka.ai/release-announcements](https://gonka.ai/release-announcements)
+
+    **ACTION ITEM FOR HOSTS**
+
+    Please prepare your setups for the new PoC requirements.
+    
+    - **Model Update:** Please switch your ML Nodes to the `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` model.
+    - **Gradual Rollout:** If you operate multiple ML Nodes, you are encouraged to perform these updates gradually across multiple epochs.
+    - Instructions for updating an existing ML Node can be found here: [https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)
+
+    Any alternative configuration must be defined through a separate governance decision.
 
 **Host** (**hardware provider** or **node**) contributes computational resources to the network and is rewarded based on the amount and quality of resources they provide.
 

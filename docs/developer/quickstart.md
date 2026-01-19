@@ -5,19 +5,18 @@ name: index.md
 # Developer Quickstart
 
 !!! note "WARNING"
-    The network is currently in a temporary stabilization phase.
-
-    New registrations and inference are paused during this period.
+    The network is currently in a temporary stabilization phase. New registrations and inference are paused during this period.
     
-    To ensure stable operation, participation is limited to an `allowlist` of approved Hosts.
+    To ensure stable operation, participation is limited to an `allowlist`.
     
-    Hosts not on the `allowlist` cannot participate in Proof of Compute (PoC) until the stabilization period ends at block 2,443,558.
-
-    The Developers allowlist remains active until block 2,459,375.
+    - Hosts not on the `allowlist` cannot participate in Proof of Compute (PoC) until the stabilization period ends at block 2,443,558.
+    - The Developers `allowlist` remains active until block 2,459,375.
     
     `Allowlist`: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
     
     Details: [https://gonka.ai/release-announcements](https://gonka.ai/release-announcements)
+
+    Any alternative configuration must be defined through a separate governance decision.
 
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
 

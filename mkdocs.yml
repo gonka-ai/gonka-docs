@@ -125,6 +125,7 @@ plugins:
           nav_translations:
             Home: 首页
             Introduction: 介绍
+            Glossary: 术语表
             Developer: 开发者
             Quickstart: 快速上手
             Details: 细节

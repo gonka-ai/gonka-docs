@@ -1,5 +1,30 @@
 # 主机节点快速入门
 
+!!! note "警告"
+    网络当前处于临时稳定化阶段。在此期间，新注册和推理功能已暂停。
+
+    为确保网络稳定运行，当前仅允许列入 `allowlist` 的参与方参与。
+
+    - 未列入 `allowlist` 的 Hosts 在稳定化阶段结束（区块高度 2,443,558）之前，无法参与 Proof of Compute（PoC）。
+    - Developers 的 `allowlist` 将持续生效至区块高度 2,459,375。
+
+    `Allowlist`：
+    [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
+
+    详情请参阅：
+    [https://gonka.ai/release-announcements](https://gonka.ai/release-announcements)
+
+    **HOST 行动项**
+
+    请提前准备您的系统配置，以满足新的 PoC 要求。
+
+    - **模型更新：** 请将您的 ML Nodes 切换至 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 模型。
+    - **渐进式部署：** 如果您运行多个 ML Nodes，建议在多个 epoch 中逐步完成更新。
+    - 现有 ML Node 的更新说明请参阅：
+      [https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)
+
+    任何替代配置均需通过单独的治理决策进行定义。
+
 本指南介绍如何以主机身份加入网络。您需要部署以下两项服务，我们将以Docker容器形式在同一台机器上完成部署。
 
 前提条件：确保您已准备好满足要求的GPU硬件。

@@ -763,7 +763,7 @@ pruning-interval    = "100"
 ```
 curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
     -H "Content-Type: application/json" \
-    -d '{"force_claim": true, "epoch_id": 106}'
+    -d '{"force_claim": true, "epoch_index": 106}'
 ```
 
 要检查您是否有未领取的奖励，可以使用：

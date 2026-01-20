@@ -717,7 +717,7 @@ If you have unclaimed reward, execute:
 ```
 curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
     -H "Content-Type: application/json" \
-    -d '{"force_claim": true, "epoch_id": 106}'
+    -d '{"force_claim": true, "epoch_index": 106}'
 ```
 To check if you have unclaimed reward you can use:
 ```

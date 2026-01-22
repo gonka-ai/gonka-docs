@@ -574,6 +574,21 @@ Inference Installed and Verified
 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced: OK
 ```
 
+### 0% 的确认率意味着什么？如果发生这种情况我该怎么办？
+
+0% 的确认率是一种不正常的情况，表示在该 epoch 期间，你的 API 节点没有发送任何 nonce，也就是说该节点完全没有参与确认型计算量证明（Confirmation Proof-of-Compute，CPoC）。
+要进行排查，请检查 API 节点日志 和 ML Node 日志，它们通常可以说明为什么没有发生 nonce 提交。
+
+可能的原因包括：
+
+- API 节点配置错误或处于不可用状态
+- 管理端口或控制端口对公网开放，导致 ML Node 被访问或干扰
+- 共识节点落后于链的最新高度，导致 PoC 参与开始得过晚，超出允许窗口
+- ML Node 驱动程序发生故障
+
+为降低此类风险，请确保管理和控制端口不对公网开放，确认 API 节点正在运行且配置正确，持续监控共识节点的同步状态，并为 ML Node 及其驱动程序的故障设置告警机制。
+
+## 性能和故障排除
 
 ### Cosmovisor 更新需要多少可用磁盘空间，以及如何安全地从 `.inference` 目录中删除旧备份？
 Cosmovisor 在执行更新时会在 `.inference` 状态文件夹中创建完整备份。例如，您可以看到类似 `data-backup-<some_date>` 的文件夹。
@@ -587,8 +602,6 @@ cd .inference
 ls -la   # 查看文件夹列表。会有类似 data-backup... 的文件夹。除了这些，不要删除任何其他内容
 rm -rf <data-backup...>
 ```
-
-## 性能和故障排除
 
 ### 如何防止 NATS 中的无界内存增长？
 

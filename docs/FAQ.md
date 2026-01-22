@@ -529,6 +529,21 @@ Then the service will start sending generated nonces to `DAPI_API__POC_CALLBACK_
 ```
 The http://api:9100 url won’t be available if you paused the api container or if ML Node container and api containers don’t share the same docker network. Expect to see error messages saying that the ML Node failed to send generated batches. The important part is to make sure that the generation process is happening.
 
+### What does a confirmation ratio of 0 mean, and what should I do if this happens?
+
+A 0% confirmation ratio is an unusual condition and indicates that no nonces were sent from your API node during the epoch, meaning the node did not participate in Confirmation Proof-of-Compute (CPoC) at all. To investigate, check the API node logs and ML Node logs, as they should indicate why nonce submission did not occur.
+
+Possible causes include:
+
+- API node misconfiguration or downtime
+- publicly exposed admin or management ports that allow access to ML Nodes
+- consensus node lagging behind the chain, which may delay PoC participation beyond the allowed window
+- ML Node driver failures
+
+To mitigate this risk, ensure that admin and management ports are not publicly accessible, verify that the API node is running and correctly configured, monitor consensus node synchronization, and set up alerts for ML Node and driver failures.
+
+## Performance & troubleshooting
+
 ### How much free disk space is required for a Cosmovisor update, and how can I safely remove old backups from the `.inference` directory?
 Cosmovisor creates a full backup in the `.inference` state folder whenever it performs an update. For example, you can see a folder like `data-backup-<some_date>`.
 As of November 20, 2025, the size of the data directory is about 150 GB, so each backup will take approximately the same amount of space.
@@ -541,9 +556,6 @@ cd .inference
 ls -la   # view the list of folders. There will be folders like data-backup... DO NOT DELETE ANYTHING EXCEPT THESE
 rm -rf <data-backup...>
 ```
-
-
-## Performance & troubleshooting
 
 ### How to prevent unbounded memory growth in NATS?
 

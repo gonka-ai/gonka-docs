@@ -529,51 +529,6 @@ curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
 ```
 如果您暂停了 api 容器，或者 ML 节点容器和 api 容器不共享同一个 docker 网络，则 http://api:9100 url 将不可用。预计会看到错误消息，说明 ML 节点无法发送生成的批次。重要的是确保生成过程正在发生。
 
-### 如何在升级期间预下载二进制文件以避免依赖 GitHub？
-
-以下是在升级期间预下载二进制文件以避免依赖 GitHub 的可选说明。
-
-```
-# 1. 创建目录
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.6/bin \
-              .inference/cosmovisor/upgrades/v0.2.6/bin && \
-
-# 2. DAPI：下载 -> 验证 -> 直接解压到 bin -> 赋予执行权限
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6-post1/decentralized-api-amd64.zip" && \
-echo "52ac4c55313f77eff7da4f7160396837c8810f9bf84a860c21c0299599968aaa decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.6/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
-echo "DAPI Installed and Verified" && \
-
-# 3. Inference：下载 -> 验证 -> 直接解压到 bin -> 赋予执行权限
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.6-post1/inferenced-amd64.zip" && \
-echo "bee12a0a3bc8fdea98fd1db1c6d6000633a2ec6c202f65e560393517dd6fcacc inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.6/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
-echo "Inference Installed and Verified" && \
-
-# 4. 清理和最终检查
-rm decentralized-api.zip inferenced.zip && \
-echo "--- Final Verification ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced && \
-echo "e762ed88926d5d58f42ae5c3455d7fe2eb9c1a0881355c942dd8596d731986d8 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api" | sudo sha256sum --check && \
-echo "87630947bcc7f2b9b3b4c8429ee0429be21d220264811ca2517fdb4d7d36629a .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced" | sudo sha256sum --check
-```
-
-
-
-只有当所有命令都完成且没有错误并显示确认消息时，二进制文件才被认为已成功下载和安装。
-```
-Inference Installed and Verified
---- Final Verification ---
--rwxr-xr-x 1 root root 223800320 Jan  1  2000 .dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api
--rwxr-xr-x 1 root root 214556584 Jan  1  2000 .inference/cosmovisor/upgrades/v0.2.6/bin/inferenced
-.dapi/cosmovisor/upgrades/v0.2.6/bin/decentralized-api: OK
-.inference/cosmovisor/upgrades/v0.2.6/bin/inferenced: OK
-```
-
 ### 0% 的确认率意味着什么？如果发生这种情况我该怎么办？
 
 0% 的确认率是一种不正常的情况，表示在该 epoch 期间，你的 API 节点没有发送任何 nonce，也就是说该节点完全没有参与确认型计算量证明（Confirmation Proof-of-Compute，CPoC）。

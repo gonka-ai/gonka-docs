@@ -556,16 +556,17 @@ What’s New:
 - Protection against excessive requests that have been affecting network nodes
 - Disable training URL
 
-Update Instructions
+**Update instructions**
 
-Step 1: Update proxy image
+**Step 1**: Update proxy image
 ```
 sudo sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f |' docker-compose.yml
 ```
 !!! note "Important"
 	Step 2 disables `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints on this node. After applying it, this node will no longer serve public RPC traffic. If you operate public RPC endpoints, you must run separate RPC-only nodes (without these restrictions) and keep this node private.
 
-Step 2 (Optional): Disable `chain-api`, `chain-rpc`, and `chain-grpc`
+**Step 2 (Optional)**: Disable `chain-api`, `chain-rpc`, and `chain-grpc`
+
 If you want to completely disable `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints:
 ```
 sudo sed -i 's|DASHBOARD_PORT=5173|DASHBOARD_PORT=5173\n      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}\n      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}\n      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}\n|' docker-compose.yml
@@ -596,14 +597,15 @@ proxy:
       - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}
       - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}
 ```
-Step 3: Pull and restart proxy
+**Step 3:** Pull and restart proxy
 ```
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull proxy
 source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps proxy
 ```
-Step 4: Close External Port 26657
-```
+**Step 4:** Close External Port 26657
+
 You can close port 26657 as an external port.
+
 It is optional, but highly recommended:
 ```
 sudo sed -i 's|- "26657:26657"|#- "26657:26657"|g' docker-compose.yml
@@ -617,7 +619,7 @@ node:
       - "5000:26656" #p2p
       #- "26657:26657" #rpc
 ```
-Step 5: Restart the node:
+**Step 5:** Restart the node:
 ```
 source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps node
 ```
@@ -625,14 +627,17 @@ source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-com
 
 If you previously accessed the node status using `curl -s http://localhost:26657/status`, you can now access it from within the containers:
 
-=== Option 1: From the proxy container (using curl)
+=== "Option 1: From the proxy container (using `curl`)"
+
 	```
 	docker exec proxy curl -s node:26657/status | jq
 	```
-=== Option 2: From the node container (using wget)
+=== "Option 2: From the node container (using `wget`)"
+
 	```
 	docker exec node wget -qO- http://localhost:26657/status | jq
 	```
+	
 For continuous monitoring with `watch`:
 ```
 watch -n 5 'docker exec node wget -qO- http://localhost:26657/status | jq -r ".result.sync_info | \"Block: \(.latest_block_height) | Time: \(.latest_block_time) | Syncing: \(.catching_up)\""'

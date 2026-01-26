@@ -544,6 +544,100 @@ To mitigate this risk, ensure that admin and management ports are not publicly a
 
 ## Performance & troubleshooting
 
+### How do I protect my node from DDoS attacks using the proxy pre-release (v0.2.8-pre-release)?
+
+A new proxy version is available with rate limiting and DDoS protection measures.
+
+What’s New:
+
+- Rate limiting on API/RPC endpoints
+- `/v1/poc-batches` endpoint is now blocked by default
+- Optional disabling of `/chain-api` and `/chain-rpc` and `/chain-grpc` endpoints
+- Protection against excessive requests that have been affecting network nodes
+- Disable training URL
+
+Update Instructions
+
+Step 1: Update proxy image
+```
+sudo sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f |' docker-compose.yml
+```
+!!! note "Important"
+	Step 2 disables `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints on this node. After applying it, this node will no longer serve public RPC traffic. If you operate public RPC endpoints, you must run separate RPC-only nodes (without these restrictions) and keep this node private.
+
+Step 2 (Optional): Disable `chain-api`, `chain-rpc`, and `chain-grpc`
+If you want to completely disable `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints:
+```
+sudo sed -i 's|DASHBOARD_PORT=5173|DASHBOARD_PORT=5173\n      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}\n      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}\n      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}\n|' docker-compose.yml
+```
+Disable the training URL that was used for recent attacks:
+```
+sudo sed -i -E -e '/GONKA_API_(EXEMPT|BLOCKED)_ROUTES/d' -e 's|(- GONKA_API_PORT=9000)|\1\n      - GONKA_API_EXEMPT_ROUTES=chat inference\n      - GONKA_API_BLOCKED_ROUTES=poc-batches training|' docker-compose.yml
+```
+After this, your proxy configuration should look like:
+```
+proxy:
+    container_name: proxy
+    image: ghcr.io/product-science/proxy:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f
+    ports:
+      - "${API_PORT:-8000}:80"
+      - "${API_SSL_PORT:-8443}:443"
+    environment:
+      - NGINX_MODE=${NGINX_MODE:-http}
+      - SERVER_NAME=${SERVER_NAME:-}
+      - GONKA_API_PORT=9000
+      - GONKA_API_EXEMPT_ROUTES=chat inference
+      - GONKA_API_BLOCKED_ROUTES=poc-batches training
+      - CHAIN_RPC_PORT=26657
+      - CHAIN_API_PORT=1317
+      - CHAIN_GRPC_PORT=9090
+      - DASHBOARD_PORT=5173
+      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}
+      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}
+      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}
+```
+Step 3: Pull and restart proxy
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull proxy
+source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps proxy
+```
+Step 4: Close External Port 26657
+```
+You can close port 26657 as an external port.
+It is optional, but highly recommended:
+```
+sudo sed -i 's|- "26657:26657"|#- "26657:26657"|g' docker-compose.yml
+```
+This will comment out the port mapping in your node container:
+```
+node:
+    container_name: node
+    ...
+    ports:
+      - "5000:26656" #p2p
+      #- "26657:26657" #rpc
+```
+Step 5: Restart the node:
+```
+source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps node
+```
+**Accessing Node Status After Closing Port 26657**
+
+If you previously accessed the node status using `curl -s http://localhost:26657/status`, you can now access it from within the containers:
+
+=== Option 1: From the proxy container (using curl)
+	```
+	docker exec proxy curl -s node:26657/status | jq
+	```
+=== Option 2: From the node container (using wget)
+	```
+	docker exec node wget -qO- http://localhost:26657/status | jq
+	```
+For continuous monitoring with `watch`:
+```
+watch -n 5 'docker exec node wget -qO- http://localhost:26657/status | jq -r ".result.sync_info | \"Block: \(.latest_block_height) | Time: \(.latest_block_time) | Syncing: \(.catching_up)\""'
+```
+
 ### How much free disk space is required for a Cosmovisor update, and how can I safely remove old backups from the `.inference` directory?
 Cosmovisor creates a full backup in the `.inference` state folder whenever it performs an update. For example, you can see a folder like `data-backup-<some_date>`.
 As of November 20, 2025, the size of the data directory is about 150 GB, so each backup will take approximately the same amount of space.

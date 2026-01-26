@@ -545,6 +545,107 @@ curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
 
 ## 性能和故障排除
 
+### 如何使用代理预发布版本（v0.2.8-pre-release）保护节点免受 DDoS 攻击？
+
+已发布一个新的代理版本，包含速率限制和 DDoS 防护机制。
+
+新增内容：
+
+- 对 API / RPC 端点进行速率限制
+- `/v1/poc-batches` 端点默认被阻止
+- 可选地禁用 `/chain-api`、`/chain-rpc` 和 `/chain-grpc` 端点
+- 防护过量请求，这类请求此前已影响网络节点稳定性
+- 禁用 training URL
+
+**更新说明**
+
+**Step 1**: 更新代理镜像
+```
+sudo sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f |' docker-compose.yml
+```
+!!! note "重要说明"
+	Step 2 会在该节点上禁用 /chain-api、/chain-rpc 和 /chain-grpc 端点。
+	应用此步骤后，该节点将不再提供公共 RPC 服务。
+	如果你需要对外提供公共 RPC 端点，必须运行独立的 RPC 专用节点（不启用这些限制），并将当前节点保持为私有节点。
+
+**Step 2（可选）**：禁用 `chain-api`、`chain-rpc` 和 `chain-grpc`
+
+如果你希望完全禁用 `/chain-api`、`/chain-rpc` 和 `/chain-grpc` 端点：
+```
+sudo sed -i 's|DASHBOARD_PORT=5173|DASHBOARD_PORT=5173\n      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}\n      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}\n      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}\n|' docker-compose.yml
+```
+禁用在近期攻击中被使用的 training URL：
+```
+sudo sed -i -E -e '/GONKA_API_(EXEMPT|BLOCKED)_ROUTES/d' -e 's|(- GONKA_API_PORT=9000)|\1\n      - GONKA_API_EXEMPT_ROUTES=chat inference\n      - GONKA_API_BLOCKED_ROUTES=poc-batches training|' docker-compose.yml
+```
+完成后，你的代理配置应如下所示：
+```
+proxy:
+    container_name: proxy
+    image: ghcr.io/product-science/proxy:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f
+    ports:
+      - "${API_PORT:-8000}:80"
+      - "${API_SSL_PORT:-8443}:443"
+    environment:
+      - NGINX_MODE=${NGINX_MODE:-http}
+      - SERVER_NAME=${SERVER_NAME:-}
+      - GONKA_API_PORT=9000
+      - GONKA_API_EXEMPT_ROUTES=chat inference
+      - GONKA_API_BLOCKED_ROUTES=poc-batches training
+      - CHAIN_RPC_PORT=26657
+      - CHAIN_API_PORT=1317
+      - CHAIN_GRPC_PORT=9090
+      - DASHBOARD_PORT=5173
+      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}
+      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}
+      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}
+```
+**Step 3：**拉取并重启代理
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull proxy
+source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps proxy
+```
+**Step 4：**关闭外部端口 26657
+
+你可以关闭 26657 端口的外部访问。
+
+这是可选的，但强烈建议执行：
+```
+sudo sed -i 's|- "26657:26657"|#- "26657:26657"|g' docker-compose.yml
+```
+这将注释掉 node 容器中的端口映射：
+```
+node:
+    container_name: node
+    ...
+    ports:
+      - "5000:26656" #p2p
+      #- "26657:26657" #rpc
+```
+**Step 5** 重启节点
+```
+source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps node
+```
+**关闭 26657 端口后访问节点状态**
+
+如果你之前通过 `curl -s http://localhost:26657/status` 访问节点状态，现在可以从容器内部访问：
+
+=== "方式一：从 proxy 容器访问（使用 `curl`)"
+
+	```
+	docker exec proxy curl -s node:26657/status | jq
+	```
+=== "方式二：从 node 容器访问（使用 wget)"
+
+	```
+	docker exec node wget -qO- http://localhost:26657/status | jq
+	```
+	
+使用 `watch` 进行持续监控：
+```
+watch -n 5 'docker exec node wget -qO- http://localhost:26657/status | jq -r ".result.sync_info | \"Block: \(.latest_block_height) | Time: \(.latest_block_time) | Syncing: \(.catching_up)\""'
+```
+
 ### Cosmovisor 更新需要多少可用磁盘空间，以及如何安全地从 `.inference` 目录中删除旧备份？
 Cosmovisor 在执行更新时会在 `.inference` 状态文件夹中创建完整备份。例如，您可以看到类似 `data-backup-<some_date>` 的文件夹。
 截至 2025 年 11 月 20 日，数据目录的大小约为 150 GB，因此每个备份将占用大约相同的空间。

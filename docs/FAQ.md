@@ -544,7 +544,7 @@ To mitigate this risk, ensure that admin and management ports are not publicly a
 
 ## Performance & troubleshooting
 
-### How do I protect my node from DDoS attacks using the proxy pre-release (v0.2.8-pre-release)?
+### How do I protect my node from DDoS attacks using the proxy pre-release (v0.2.8)?
 
 A new proxy version is available with rate limiting and DDoS protection measures.
 
@@ -552,7 +552,7 @@ What’s New:
 
 - Rate limiting on API/RPC endpoints
 - `/v1/poc-batches` endpoint is now blocked by default
-- Optional disabling of `/chain-api` and `/chain-rpc` and `/chain-grpc` endpoints
+- Optional disabling of `/chain-api`, `/chain-rpc` and `/chain-grpc` endpoints
 - Protection against excessive requests that have been affecting network nodes
 - Disable training URL
 

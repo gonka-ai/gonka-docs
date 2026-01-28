@@ -550,11 +550,10 @@ A new proxy version is available with rate limiting and DDoS protection measures
 
 What’s New:
 
+- Protection against excessive requests that have been affecting network nodes
 - Rate limiting on API/RPC endpoints
 - `/v1/poc-batches` endpoint is now blocked by default
 - Optional disabling of `/chain-api`, `/chain-rpc` and `/chain-grpc` endpoints
-- Protection against excessive requests that have been affecting network nodes
-- Disable training URL
 
 **Update instructions**
 

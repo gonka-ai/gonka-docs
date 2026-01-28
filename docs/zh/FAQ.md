@@ -561,7 +561,7 @@ curl -X POST "http://<ml-node-host>:<port>/api/v1/pow/init/generate" \
 
 **Step 1**: 更新代理镜像
 ```
-sudo sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f |' docker-compose.yml
+sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f |' docker-compose.yml
 ```
 !!! note "重要说明"
 	Step 2 会在该节点上禁用 /chain-api、/chain-rpc 和 /chain-grpc 端点。
@@ -572,11 +572,11 @@ sudo sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.
 
 如果你希望完全禁用 `/chain-api`、`/chain-rpc` 和 `/chain-grpc` 端点：
 ```
-sudo sed -i 's|DASHBOARD_PORT=5173|DASHBOARD_PORT=5173\n      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}\n      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}\n      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}\n|' docker-compose.yml
+sed -i 's|DASHBOARD_PORT=5173|DASHBOARD_PORT=5173\n      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}\n      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}\n      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}\n|' docker-compose.yml
 ```
 禁用在近期攻击中被使用的 training URL：
 ```
-sudo sed -i -E -e '/GONKA_API_(EXEMPT|BLOCKED)_ROUTES/d' -e 's|(- GONKA_API_PORT=9000)|\1\n      - GONKA_API_EXEMPT_ROUTES=chat inference\n      - GONKA_API_BLOCKED_ROUTES=poc-batches training|' docker-compose.yml
+sed -i -E -e '/GONKA_API_(EXEMPT|BLOCKED)_ROUTES/d' -e 's|(- GONKA_API_PORT=9000)|\1\n      - GONKA_API_EXEMPT_ROUTES=chat inference\n      - GONKA_API_BLOCKED_ROUTES=poc-batches training|' docker-compose.yml
 ```
 完成后，你的代理配置应如下所示：
 ```
@@ -611,7 +611,7 @@ source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-com
 
 这是可选的，但强烈建议执行：
 ```
-sudo sed -i 's|- "26657:26657"|#- "26657:26657"|g' docker-compose.yml
+sed -i 's|- "26657:26657"|#- "26657:26657"|g' docker-compose.yml
 ```
 这将注释掉 node 容器中的端口映射：
 ```

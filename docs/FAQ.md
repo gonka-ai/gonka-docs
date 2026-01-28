@@ -558,7 +558,7 @@ What’s New:
 
 **Step 1**: Update proxy image
 ```
-sudo sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f |' docker-compose.yml
+sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f |' docker-compose.yml
 ```
 !!! note "Important"
 	Step 2 disables `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints on this node. After applying it, this node will no longer serve public RPC traffic. If you operate public RPC endpoints, you must run separate RPC-only nodes (without these restrictions) and keep this node private.
@@ -567,11 +567,11 @@ sudo sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.
 
 If you want to completely disable `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints:
 ```
-sudo sed -i 's|DASHBOARD_PORT=5173|DASHBOARD_PORT=5173\n      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}\n      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}\n      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}\n|' docker-compose.yml
+sed -i 's|DASHBOARD_PORT=5173|DASHBOARD_PORT=5173\n      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}\n      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}\n      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}\n|' docker-compose.yml
 ```
 Disable the training URL that was used for recent attacks:
 ```
-sudo sed -i -E -e '/GONKA_API_(EXEMPT|BLOCKED)_ROUTES/d' -e 's|(- GONKA_API_PORT=9000)|\1\n      - GONKA_API_EXEMPT_ROUTES=chat inference\n      - GONKA_API_BLOCKED_ROUTES=poc-batches training|' docker-compose.yml
+sed -i -E -e '/GONKA_API_(EXEMPT|BLOCKED)_ROUTES/d' -e 's|(- GONKA_API_PORT=9000)|\1\n      - GONKA_API_EXEMPT_ROUTES=chat inference\n      - GONKA_API_BLOCKED_ROUTES=poc-batches training|' docker-compose.yml
 ```
 After this, your proxy configuration should look like:
 ```
@@ -606,7 +606,7 @@ You can close port 26657 as an external port.
 
 It is optional, but highly recommended:
 ```
-sudo sed -i 's|- "26657:26657"|#- "26657:26657"|g' docker-compose.yml
+sed -i 's|- "26657:26657"|#- "26657:26657"|g' docker-compose.yml
 ```
 This will comment out the port mapping in your node container:
 ```

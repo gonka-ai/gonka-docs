@@ -550,8 +550,7 @@ A new proxy version is available with rate limiting and DDoS protection measures
 
 What’s New:
 
-- Protection against excessive requests that have been affecting network nodes
-- Rate limiting on API/RPC endpoints
+- Rate limiting on API/RPC endpoints, as protection against excessive requests that have been affecting network nodes
 - Blocks resource-intensive internal routes like `training` and `poc-batches`
 - Optional disabling of `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints
 

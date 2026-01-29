@@ -401,6 +401,172 @@ curl http://<inference_url>/v1/epochs/current/participants
 
 在实践中，许多主机在代理 ML 节点后面运行多个服务器；自动检测只能看到其中一台服务器，这是一个完全有效的设置。无论配置如何，所有权重分配和奖励都仅依赖于主机总权重，而 ML 节点之间的内部拆分或报告的硬件类型永远不会影响链上验证。
 
+### 如何切换至`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`，升级 ML Nodes，并移除其他模型？
+
+本指南说明 Hosts 应如何根据 v0.2.8 版本中模型可用性的变更，以及即将到来的 PoC v2 更新，对其 ML Nodes 进行调整。从 Epoch 155 起，网络将开始观察 ML Node 配置是否符合 PoC v2 要求。建议 Hosts 在此之前完成 ML Node 配置检查与准备。
+PoC v2 的迁移可在 Epoch 155 之后进行。在迁移阶段结束后，不符合配置要求的 ML Node，其权重可能将不被计入。
+
+**1. 背景：模型可用性变更（v0.2.8 升级）**
+
+作为 v0.2.8 升级的一部分，当前可用的模型集合已发生调整。
+
+**支持的模型（当前有效集）**
+
+目前仅支持以下模型：
+
+- `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- `Qwen/Qwen3-32B-FP8`
+
+在迁移期间，`Qwen/Qwen3-32B-FP8` 仍可运行，但不会计入 PoC v2 的就绪状态或权重分配。参与 PoC v2 必须提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。
+
+**已移除模型**
+
+此前所有受支持的模型均已从有效集移除，不得继续提供服务。
+
+**2. PoC v2 就绪条件（重要）**
+
+成功参与 PoC v2 迁移，需同时满足以下两项条件：
+
+- 所有 ML Nodes 均提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 这是 唯一 会被计入 PoC v2 权重的模型。
+- 所有 ML Nodes 均升级至兼容 PoC v2 的镜像版本：
+    - ghcr.io/product-science/mlnode:3.0.12
+    - ghcr.io/product-science/mlnode:3.0.12-blackwell 
+
+!!! "重要备注”
+	- 仅提供正确模型但未升级 ML Node 并不充分。
+	- 一旦网络切换为单模型配置，未同时满足上述两项条件的节点将不具备参与资格。
+	- ML Node 的升级必须在迁移完成、并在 v0.2.8 升级之后通过单独的治理提案激活 PoC v2 之前完成。
+	- v0.2.8 升级本身并不会启用 PoC v2。
+
+**3. 检查 ML Node 分配状态（推荐的安全步骤）**
+
+在切换模型前，建议先检查当前 ML Node 的分配状态。可查询 Network Node 的 Admin API：
+```
+curl http://127.0.0.1:9200/admin/v1/nodes
+```
+关注字段：
+```
+"timeslot_allocation": [
+  true,
+  false
+]
+```
+字段含义：
+
+- 第一个布尔值：该节点是否在当前 epoch 中提供推理服务
+- 第二个布尔值：该节点是否计划在下一个 PoC 中提供推理服务
+  
+**推荐做法**
+  
+- 优先在第二个值为 false 的节点上进行模型切换
+- 在 PoC v2 行为仍处于观察阶段时，可降低风险
+- 鼓励跨多个 epoch 逐步滚动升级
+  
+**4. 更新 ML Node 模型：仅保留受支持模型**
+
+预下载模型权重（推荐）
+为避免节点启动延迟，建议提前将模型权重下载至  `HF_HOME`：
+```
+mkdir -p $HF_HOME
+huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+```
+使用 ML Node 管理 API，将 ML Node 切换至受支持模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`.  
+
+示例：
+```
+curl -X PUT "http://localhost:9200/admin/v1/nodes/node1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "node1",
+    "host": "inference",
+    "inference_port": 5000,
+    "poc_port": 8080,
+    "max_concurrent": 800,
+    "models": {
+      "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+        "args": [
+          "--tensor-parallel-size",
+          "4",
+          "--max-model-len",
+          "240000"
+        ]
+      }
+    }
+  }'
+```
+通过 Admin API 应用的更改将于下一个 epoch 生效： ([https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode))
+
+!!! 注意
+	`node-config.json` 仅在 Network Node API 首次启动或本地状态/数据库被清除时使用。对于已有节点，模型更新应通过 Admin API 完成。
+	
+**5. 升级 ML Node 镜像（PoC v2 必需）**
+
+编辑 `docker-compose.mlnode.yml` ，更新 ML Node 镜像：
+
+标准 GPU
+```
+image: ghcr.io/product-science/mlnode:3.0.12
+```
+NVIDIA Blackwell GPU
+```
+image: ghcr.io/product-science/mlnode:3.0.12-blackwell
+```
+应用更改并重启服务。在 `gonka/deploy/join`目录下执行：
+```
+source config.env
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
+```
+
+**6. 验证模型服务状态（于下一个 epoch 生效）**
+
+确认 ML Node 仅提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` ，这是 PoC v2 权重及未来权重分配中唯一使用的模型：
+```
+curl http://127.0.0.1:8080/v1/models | jq
+```
+可选：重新检查节点分配状态：
+```
+curl http://127.0.0.1:9200/admin/v1/nodes
+```
+!!! "治理与 PoC v2 激活说明"
+	PoC v2 将分阶段引入，而非一次性启用。
+
+**阶段 1：观察期（v0.2.8 之后的当前状态）**
+
+v0.2.8 升级完成后，PoC v2 的逻辑已可用，但**尚未用于权重分配**。
+
+在此阶段：
+
+- Hosts 可提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 或 `Qwen/Qwen3-32B-FP8`
+- 若希望贡献 PoC v2 权重，Hosts **必须**将 ML Nodes 切换至 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`，并升级至兼容 PoC v2 的版本
+- 网络将观察整体采用情况，以评估 Hosts 对 PoC v2 的就绪度
+
+**阶段 2：治理提案（可选，未来）**
+
+当观察到活跃 Hosts 中有足够比例完成升级（约 50%）后：
+
+- 可能会提交一项**独立的治理提案**
+- 该提案可能请求批准启用 PoC v2 并用于权重分配
+
+该采用比例仅用于观察判断，**不会自动触发任何变更**。
+
+**阶段 3：激活（仅在治理批准后）**
+
+只有在治理提案获得链上批准后，PoC v2 才会正式成为权重分配的生效机制。
+
+在此之前：
+
+- PoC v2 不参与权重分配
+- 现有 PoC 机制仍用于确定权重
+
+**总结检查清单**
+
+在 PoC v2 激活前，请确保：
+
+- ML Node 提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- 配置中已移除所有其他模型
+- ML Node 镜像版本为 `3.0.12` （或 `3.0.12-blackwell`）
+
 ## 密钥和安全
     
 ### 我在哪里可以找到密钥管理的信息？

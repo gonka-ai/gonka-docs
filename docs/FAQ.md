@@ -835,6 +835,38 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
+### Upgrade v0.2.8: Pre-download binaries
+
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.8/bin \
+              .inference/cosmovisor/upgrades/v0.2.8/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.8-post1/decentralized-api-amd64.zip" && \
+echo "45f28afba4758e54988f61cc358f0ad683e7832ab121ccd54b684fe4c9381a75 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.8/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.8/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.8/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.8-post1/inferenced-amd64.zip" && \
+echo "f0f2e3ee8760e40a78087c98c639a7518bf062138141ed4aec2120f5bc622a67 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.8/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.8/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.8/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.8/bin/inferenced && \
+echo "421a761f3a7037d72ee0bd8b3f50a744349f717439c7e0fee28c55948dae9a7c .dapi/cosmovisor/upgrades/v0.2.8/bin/decentralized-api" | sudo sha256sum --check && \
+echo "308c63c7bda4fb668632ac3e13f3f6cccacf54c563c8e9fd473bcb48c7389fe0 .inference/cosmovisor/upgrades/v0.2.8/bin/inferenced" | sudo sha256sum --check
+```
+
+
 ### Upgrade v0.2.7
 
 In case of panic on block `2058539`:

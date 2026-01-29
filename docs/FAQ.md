@@ -437,6 +437,7 @@ Successful participation in the PoC v2 transition requires both of the following
 	- The v0.2.8 upgrade itself does not enable PoC v2.
 
 **3. Check ML Node allocation status (recommended safety step)**
+
 Before changing models, you should inspect the current ML Node allocation. Query your Network Node admin API:
 ```
 curl http://127.0.0.1:9200/admin/v1/nodes
@@ -499,7 +500,7 @@ Changes applied via the Admin API will replace model for the next epoch ([https:
 
 Edit `docker-compose.mlnode.yml` and update the ML Node image:
 
-**Standard GPUs**
+Standard GPUs
 ```
 image: ghcr.io/product-science/mlnode:3.0.12
 ```
@@ -523,38 +524,38 @@ Optionally re-check node allocation:
 ```
 curl http://127.0.0.1:9200/admin/v1/nodes
 ```
-**7. Governance and PoC v2 activation notes**
+!!! note "Governance and PoC v2 activation notes"
 
-PoC v2 is introduced in stages, not activated all at once.
+	PoC v2 is introduced in stages, not activated all at once.
+	
+	**Stage 1. Observation (current state after v0.2.8)**
+	
+	After the v0.2.8 upgrade, PoC v2 logic is available but not active for weight assignment.
+	
+	During this stage:
+	
+	- Hosts are able to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` or `Qwen/Qwen3-32B-FP8`
+	- Hosts must switch their ML Nodes to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and upgrade them to PoC v2-compatible versions in order to contribute to PoC v2 weight.
+	- The network observes adoption to assess Host readiness for moving to PoC v2 weights.
+	  
+	**Stage 2. Governance proposal (optional, future)**
+	Once a sufficient level of adoption among active Hosts is observed (approximately 50%):
+	
+	- A separate governance proposal may be submitted
+	- This proposal may request approval to activate PoC v2 and use PoC v2 for weight assignment
+	
+	The adoption threshold is observational only and does not trigger any automatic changes.
+	
+	**Stage 3. Activation (only after governance approval)**
+	
+	PoC v2 becomes the active method of weight assignment only if and when the governance proposal is approved by the chain.
+	
+	Until this proposal is approved:
+	
+	- PoC v2 remains inactive for weight assignment
+	- The existing PoC mechanism continues to be used to determine weight
 
-**Stage 1. Observation (current state after v0.2.8)**
-
-After the v0.2.8 upgrade, PoC v2 logic is available but not active for weight assignment.
-
-During this stage:
-
-- Hosts are able to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` or `Qwen/Qwen3-32B-FP8`
-- Hosts must switch their ML Nodes to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and upgrade them to PoC v2-compatible versions in order to contribute to PoC v2 weight.
-- The network observes adoption to assess Host readiness for moving to PoC v2 weights.
-  
-**Stage 2. Governance proposal (optional, future)**
-Once a sufficient level of adoption among active Hosts is observed (approximately 50%):
-
-- A separate governance proposal may be submitted
-- This proposal may request approval to activate PoC v2 and use PoC v2 for weight assignment
-
-The adoption threshold is observational only and does not trigger any automatic changes.
-
-**Stage 3. Activation (only after governance approval)**
-
-PoC v2 becomes the active method of weight assignment only if and when the governance proposal is approved by the chain.
-
-Until this proposal is approved:
-
-- PoC v2 remains inactive for weight assignment
-- The existing PoC mechanism continues to be used to determine weight
-
-**8. Summary checklist**
+**Summary checklist**
 
 Before PoC v2 activation, ensure that:
 

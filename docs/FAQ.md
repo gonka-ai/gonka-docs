@@ -401,6 +401,167 @@ When creating or updating a node (for example, via `POST http://localhost:9200/a
 
 In practice, many hosts run a proxy ML Node behind which multiple servers operate; auto-detection only sees one of these servers, which is a fully valid setup. Regardless of configuration, all weight distribution and rewards rely solely on the Host total weight, and the internal split across ML Nodes or the reported hardware types never affect on-chain validation.
 
+### How to switch to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, upgrade ML Nodes, and remove other models?
+This guide explains how Hosts should update their ML Nodes in response to changes in v0.2.8 model availability and the upcoming PoC v2 update. ML Node configuration compliance with PoC v2 is observed starting Epoch 155. Hosts are encouraged to review and prepare their ML Node configuration before that point. Migration to PoC v2 can be scheduled after epoch 155. After the migration phase, weights from ML Nodes that do not meet the configuration requirements may not be counted. 
+
+**1. Background: model availability changes (upgrade v0.2.8)**
+
+As part of the v0.2.8 upgrade, the active model set has been updated.
+
+**Supported models (active set)**
+
+Only the following models remain supported:
+
+- `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- `Qwen/Qwen3-32B-FP8`
+
+`Qwen/Qwen3-32B-FP8` is supported during the migration period, but does not contribute to PoC v2 readiness or weight assignment. Participation in PoC v2 requires serving `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`.
+
+**Removed models**
+
+All previously supported models are removed from the active set and must not be served.
+
+**2. PoC v2 readiness criteria (Important)**
+
+Successful participation in the PoC v2 transition requires both of the following:
+
+- All your ML Nodes serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. This is the only model that contributes to PoC v2  weight.
+- All your ML Nodes are upgraded to a PoC v2–compatible image:
+    - ghcr.io/product-science/mlnode:3.0.12
+    - ghcr.io/product-science/mlnode:3.0.12-blackwell 
+
+!!! note "Important"
+	- Serving the correct model without upgrading the ML Node is not sufficient.
+	- Nodes that do not meet both conditions will not be eligible once the network switches to a single-model configuration.
+	- The ML Node upgrade must be completed before the migration is finished and PoC v2 is activated through a separate governance proposal following the v0.2.8 upgrade.
+	- The v0.2.8 upgrade itself does not enable PoC v2.
+
+**3. Check ML Node allocation status (recommended safety step)**
+Before changing models, you should inspect the current ML Node allocation. Query your Network Node admin API:
+```
+curl http://127.0.0.1:9200/admin/v1/nodes
+```
+Look for the field:
+```
+"timeslot_allocation": [
+  true,
+  false
+]
+```
+Interpretation:
+
+- First boolean: Whether the node is serving inference in the current epoch
+- Second boolean: Whether the node is scheduled to serve inference in the next PoC
+
+**Recommended behavior**
+
+- Prefer changing the model only on nodes where the second value is `false`
+- This reduces risk while PoC v2 behavior is still being observed
+- Gradual rollout across epochs is encouraged
+  
+**4. Update models for ML Nodes: keep the supported model only**
+
+Pre-download model weights (recommended). To avoid startup delays, pre-download weights into `HF_HOME`:
+```
+mkdir -p $HF_HOME
+huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+```
+Use ML Node Management API to switch ML Node to a supported model (`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`).  
+
+For example:
+```
+curl -X PUT "http://localhost:9200/admin/v1/nodes/node1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "node1",
+    "host": "inference",
+    "inference_port": 5000,
+    "poc_port": 8080,
+    "max_concurrent": 800,
+    "models": {
+      "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+        "args": [
+          "--tensor-parallel-size",
+          "4",
+          "--max-model-len",
+          "240000"
+        ]
+      }
+    }
+  }'
+```
+Changes applied via the Admin API will replace model for the next epoch ([https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode))
+
+!!! note
+	`node-config.json` is used only on the first launch of the Network Node API or when the local state/database is removed. Edit it for a fresh restart. For existing nodes, model updates should be performed via the Admin API. 
+	
+**5. Upgrade the ML Node image (required for PoC v2)**
+
+Edit `docker-compose.mlnode.yml` and update the ML Node image:
+
+**Standard GPUs**
+```
+image: ghcr.io/product-science/mlnode:3.0.12
+```
+NVIDIA Blackwell GPUs
+```
+image: ghcr.io/product-science/mlnode:3.0.12-blackwell
+```
+Apply changes and restart services. From `gonka/deploy/join`:
+```
+source config.env
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
+```
+**6. Verify model serving (applied at the next epoch)**
+
+Confirm the ML Node is serving `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only, which is the only model used for PoC v2 weights and future weight assignment:
+```
+curl http://127.0.0.1:8080/v1/models | jq
+```
+Optionally re-check node allocation:
+```
+curl http://127.0.0.1:9200/admin/v1/nodes
+```
+**7. Governance and PoC v2 activation notes**
+
+PoC v2 is introduced in stages, not activated all at once.
+
+**Stage 1. Observation (current state after v0.2.8)**
+
+After the v0.2.8 upgrade, PoC v2 logic is available but not active for weight assignment.
+
+During this stage:
+
+- Hosts are able to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` or `Qwen/Qwen3-32B-FP8`
+- Hosts must switch their ML Nodes to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and upgrade them to PoC v2-compatible versions in order to contribute to PoC v2 weight.
+- The network observes adoption to assess Host readiness for moving to PoC v2 weights.
+  
+**Stage 2. Governance proposal (optional, future)**
+Once a sufficient level of adoption among active Hosts is observed (approximately 50%):
+
+- A separate governance proposal may be submitted
+- This proposal may request approval to activate PoC v2 and use PoC v2 for weight assignment
+
+The adoption threshold is observational only and does not trigger any automatic changes.
+
+**Stage 3. Activation (only after governance approval)**
+
+PoC v2 becomes the active method of weight assignment only if and when the governance proposal is approved by the chain.
+
+Until this proposal is approved:
+
+- PoC v2 remains inactive for weight assignment
+- The existing PoC mechanism continues to be used to determine weight
+
+**8. Summary checklist**
+
+Before PoC v2 activation, ensure that:
+
+- ML Node serves `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- All other models are removed from the configuration
+- ML Node image is `3.0.12` (or `3.0.12-blackwell`)
+
 ## Keys & security
     
 ### Where can I find information on key management?

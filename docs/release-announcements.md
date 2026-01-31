@@ -1,5 +1,95 @@
 # Announcements
 
+## January 31, 2026
+
+**v0.2.9 Upgrade Proposal Enters Governance**
+The upgrade proposal for the next on-chain software version v0.2.9 has now been published on-chain and is open for voting. If approved, the proposal enables PoC v2 for weight assignment and completes the transition away from the legacy PoC mechanism via on-chain governance.
+
+**Key changes**
+
+**PoC v2 activation**
+
+- PoC v2 is used as the active mechanism for weight assignment
+- Confirmation PoC (V2 tracking) is used as the canonical source of results
+- Legacy PoC logic is no longer used for weight calculation
+
+**Model configuration**
+
+- The network operates in a single-model configuration
+- The model used for PoC v2 and weight assignment is `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 
+- ML Nodes serving other models are not included in PoC v2 weight assignment. Where supported, an automatic model switch to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` may occur 
+
+**Eligibility criteria**
+
+For an ML Node to be eligible for PoC v2 weight assignment, both conditions must be met:
+
+- The node serves `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- The node runs a PoC v2–compatible image:
+    - ghcr.io/product-science/mlnode:3.0.12-post1 
+    - ghcr.io/product-science/mlnode:3.0.12-post1-blackwell 
+
+**Reward flow correction for cPoC cases**
+
+In cases where rewards are reduced or excluded due to cPoC penalties, the unaccounted portion is transferred to the Community pool. Previously, such rewards were redistributed among other participants.
+
+**Additional protocol updates**
+
+- Transfer Agent roles are restricted to a [defined](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist) `allowlist` for the initial phase
+- Nodes that participated in PoC generation while ignoring PoC validation have been removed from [the participant](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal) `allowlist` 
+- [Guardian weights](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting) are applied as a deterministic fallback when PoC v2 validation vote thresholds are not reached 
+
+Additional details for these changes are available in the governance artifacts: [https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9) 
+
+**Host preparation**
+
+Hosts are encouraged to verify that all ML Nodes:
+
+- are configured to serve the supported model `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only
+- images are updated to a PoC v2–compatible version
+
+Guidance on switching ML Nodes to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, upgrading ML Node images, and removing other models is available in [the FAQ](https://gonka.ai/FAQ/#how-to-switch-to-qwenqwen3-235b-a22b-instruct-2507-fp8-upgrade-ml-nodes-and-remove-other-models).
+
+**How to vote**
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- http://node3.gonka.ai:8000
+- https://node4.gonka.ai
+
+Cast your vote ( `yes` , `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=https://node4.gonka.ai/
+./inferenced tx gov vote 26 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node4.gonka.ai/
+./inferenced query gov votes 26 -o json --node $NODE_URL/chain-rpc/
+```
+**Deadlines**
+
+- Voting ends: February 1st, 2026, at 22:02:58 UTC
+- Upgrade height: 2451000.
+- Estimated upgrade time: February 2nd, 2026, at 05:10:00 UTC
+
+Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka-ai/gonka/pull/668) and participate in the vote.
+
+**Attention**
+
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly, if needed.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory. Ensure sufficient disk space is available before the upgrade. Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- After the upgrade, Postgres is available as an option for local payload storage.
+
 ## January 19, 2026
 
 **Proposal Update: Stabilization Period Extension Approved**

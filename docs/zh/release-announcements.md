@@ -1,5 +1,99 @@
 # 公告
 
+**2026年1月31日**
+
+**v0.2.9 升级提案进入治理流程**
+
+下一版本链上软件 v0.2.9 的升级提案现已在链上发布并开放投票。若获批准，该提案将启用 PoC v2 作为权重分配机制，并通过链上治理完成从旧版 PoC 机制的过渡。
+
+**关键变更**
+
+**PoC v2 激活**
+
+- PoC v2 作为权重分配的有效机制投入使用
+- 确认型 PoC（V2 tracking）作为结果的规范来源
+- 旧版 PoC 逻辑不再用于权重计算
+
+**模型配置**
+
+- 网络以单模型配置运行
+- 用于 PoC v2 与权重分配的模型为 Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+- 提供其他模型的 ML 节点不纳入 PoC v2 的权重分配；在支持的情况下，可能会自动切换至 Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+
+**资格条件**
+
+ML 节点要符合 PoC v2 权重分配资格，必须同时满足以下两项条件：
+
+- 节点提供 Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+- 节点运行兼容 PoC v2 的镜像：
+	- ghcr.io/product-science/mlnode:3.0.12-post1
+	- ghcr.io/product-science/mlnode:3.0.12-post1-blackwell
+
+**cPoC 场景下的奖励流程修正**
+
+当因 cPoC 处罚导致奖励减少或被排除时，未计入的部分将转入社区池。此前，这部分奖励会在其他参与者之间重新分配。
+
+**其他协议更新**
+
+- [Transfer Agent 角色在初始阶段仅限于一个已定义￼的](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist) allowlist
+- [参与 PoC 生成但忽略 PoC 验证的节点已从参与者](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal)￼ allowlist 中移除
+- 当未达到 PoC v2 验证投票阈值时，[应用Guardian 权重￼作为确定性的兜底机制](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)
+
+上述变更的更多细节可在治理工件中查看：
+[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9)￼
+
+**主机准备**
+
+建议主机确认所有 ML 节点：
+
+- 仅配置并提供受支持的模型 Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+- 镜像已更新至兼容 PoC v2 的版本
+
+关于将 ML 节点切换至 Qwen/Qwen3-235B-A22B-Instruct-2507-FP8、升级 ML 节点镜像以及移除其他模型的指引，请参阅[FAQ](https://gonka.ai/zh/FAQ/#qwenqwen3-235b-a22b-instruct-2507-fp8-ml-nodes)￼。
+
+**如何投票**
+
+提案详情与投票可通过 inferenced 进行。任何活跃节点均可使用，可用节点包括：
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
+- [https://node4.gonka.ai](https://node4.gonka.ai)
+
+提交投票（ yes 、 no 、 abstain 、 no_with_veto ）：
+```
+export NODE_URL=https://node4.gonka.ai/
+./inferenced tx gov vote 26 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+查看投票状态：
+```
+export NODE_URL=https://node4.gonka.ai/
+./inferenced query gov votes 26 -o json --node $NODE_URL/chain-rpc/
+```
+
+**截止时间**
+
+- 投票结束时间：2026年2月1日 22:02:58（UTC）
+- 升级高度：2451000
+- 预计升级时间：2026年2月2日 05:10:00（UTC）
+
+建议主机在 [GitHub](https://github.com/gonka-ai/gonka/pull/668)￼ 上查看该提案并参与投票。
+
+**注意事项**
+
+- 请计划在升级窗口期间保持在线，以便在需要时及时执行后续步骤或缓解措施。
+- 升级期间，Cosmovisor 会在 `.inference/data` 目录中创建完整的状态备份。请在升级前确保有足够的磁盘空间。有关如何安全移除 `.inference` 目录中旧备份的指引，[请参阅文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)￼。
+- 如果 application.db [占用大量磁盘空间，可采用此处￼描述的清理方法](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)。
+- 升级完成后，可选择使用 Postgres 作为本地负载数据存储方案。
+
 ## 2026年1月19日
 
 **提案更新：稳定期延长已获批准**

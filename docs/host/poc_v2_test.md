@@ -34,7 +34,7 @@ cd gonka/deploy/join
 Download the test script:
 
 ```bash
-curl -sLO https://gist.githubusercontent.com/tamazgadaev/5e3709e617c4961128fc70bc23e1a752/raw/run_pow_generation.py
+curl -sLO https://raw.githubusercontent.com/gonka-ai/gonka/tg/poc_v2_test/mlnode/packages/benchmarks/scripts/run_pow_generation.py
 ```
 
 Run the test:
@@ -147,7 +147,7 @@ Once `is_running` shows `true`, wait another 1-2 minutes, then run the test agai
 
 ```bash
 # Download script
-curl -sLO https://gist.githubusercontent.com/tamazgadaev/5e3709e617c4961128fc70bc23e1a752/raw/run_pow_generation.py
+curl -sLO https://raw.githubusercontent.com/gonka-ai/gonka/tg/poc_v2_test/mlnode/packages/benchmarks/scripts/run_pow_generation.py
 
 # Run all phases
 python3 run_pow_generation.py

@@ -4,10 +4,12 @@
 
 This script validates your MLNode PoC v2 setup for the `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` model by running through multiple test phases:
 
-- **Phase 0: Setup Check** — Verifies configuration (container, ports, network connectivity)
-- **Phase 1: Generation + Validation** — Generates PoC v2 artifacts and validates them (self-test)
-- **Phase 2: Fraud Detection** — Tests pre-collected honest/fraud vectors to verify fraud detection works
-- **Phase 3: Batch Sizing** — Benchmarks different batch sizes to find optimal performance for your hardware
+- **Phase 0: Setup Check** (~5 seconds) — Verifies configuration (container, ports, network connectivity)
+- **Phase 1: Generation + Validation** (~40 seconds) — Generates PoC v2 artifacts and validates them (self-test)
+- **Phase 2: Fraud Detection** (~30 seconds) — Tests pre-collected honest/fraud vectors to verify fraud detection works
+- **Phase 3: Batch Sizing** (~3.5 minutes) — Benchmarks different batch sizes to find optimal performance for your hardware
+
+**Total duration: ~5 minutes** (if the model is already loaded). If the model needs to start, add several minutes for vLLM initialization.
 
 ---
 
@@ -61,6 +63,14 @@ Skip setup verification (not recommended):
 
 ```bash
 python3 run_pow_generation.py --skip-check
+```
+
+### Cleanup
+
+After the test completes successfully, you can delete the script — it's not needed for normal MLNode operation:
+
+```bash
+rm run_pow_generation.py
 ```
 
 ---

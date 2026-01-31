@@ -2,7 +2,7 @@
 
 ## Overview
 
-This script validates your MLNode PoC v2 setup by running through multiple test phases:
+This script validates your MLNode PoC v2 setup for the `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` model by running through multiple test phases:
 
 - **Phase 0: Setup Check** — Verifies configuration (container, ports, network connectivity)
 - **Phase 1: Generation + Validation** — Generates PoC v2 artifacts and validates them (self-test)
@@ -43,11 +43,62 @@ Run the test:
 python3 run_pow_generation.py
 ```
 
-For Qwen 32B model, add the `--model` flag:
+### Additional Options
+
+Run only the setup check (recommended before first full run):
 
 ```bash
-python3 run_pow_generation.py --model qwen32b
+python3 run_pow_generation.py --phase 0
 ```
+
+Run only fraud detection test (fastest, no batch receiver needed):
+
+```bash
+python3 run_pow_generation.py --phase 2
+```
+
+Skip setup verification (not recommended):
+
+```bash
+python3 run_pow_generation.py --skip-check
+```
+
+---
+
+## Expected Results
+
+A successful run will show output similar to:
+
+**Phase 1 (Generation)** — You should see nonces being generated with a throughput measurement:
+```
+Generation completed:
+  Total nonces: 150
+  Duration: 30.0s
+  Speed: 300 nonces/min
+```
+
+**Phase 2 (Fraud Detection)** — Both tests should pass:
+```
+  Honest vectors:  ✓ PASS
+  Fraud detection: ✓ PASS
+```
+
+**Phase 3 (Batch Sizing)** — Shows performance for different batch sizes with the best one marked:
+```
+    Batch │   Nonces │   Nonces/min
+  ────────┼──────────┼─────────────
+        8 │      120 │          240
+       16 │      180 │          360  ★
+       32 │      150 │          300
+```
+
+### Key Metrics
+
+- **Nonces/min**: Higher is better. This indicates your node's PoC v2 generation throughput.
+- **Fraud detected: False** on honest vectors means validation is working correctly.
+- **Fraud detected: True** on fraud vectors means the fraud detection system is working.
+
+If Phase 2 shows `✗ FAIL` for either test, your MLNode configuration may have issues — verify the model is correctly loaded.
 
 ---
 
@@ -97,6 +148,13 @@ Once `is_running` shows `true`, wait another 1-2 minutes, then run the test agai
 ```bash
 # Download script
 curl -sLO https://gist.githubusercontent.com/tamazgadaev/5e3709e617c4961128fc70bc23e1a752/raw/run_pow_generation.py
+
+# Run all phases
+python3 run_pow_generation.py
+
+# Run specific phase only
+python3 run_pow_generation.py --phase 0   # Setup check
+python3 run_pow_generation.py --phase 2   # Fraud detection only
 
 # Stop any running generation
 curl -X POST http://localhost:8080/api/v1/inference/pow/stop -H "Content-Type: application/json" -d '{}'

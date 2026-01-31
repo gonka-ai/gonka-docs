@@ -102,6 +102,27 @@ If Phase 2 shows `✗ FAIL` for either test, your MLNode configuration may have 
 
 ---
 
+## Applying Results: Configuring Batch Size
+
+If Phase 3 shows a batch size other than 32 as optimal (marked with ★), you can configure your MLNode to use it permanently.
+
+Edit your `docker-compose.mlnode.yml` and add the `POC_BATCH_SIZE_DEFAULT` environment variable:
+
+```yaml
+environment:
+  - VLLM_ATTENTION_BACKEND=FLASHINFER
+  - POC_BATCH_SIZE_DEFAULT=16   # Change to your optimal value
+```
+
+The default is `32`. After changing, restart your MLNode:
+
+```bash
+docker compose -f docker-compose.mlnode.yml down
+docker compose -f docker-compose.mlnode.yml up -d
+```
+
+---
+
 ## Troubleshooting
 
 ### Stopping generation

@@ -1,15 +1,15 @@
-# MLNode Management
+# ML Node Management
 
-This guide explains how to manage inference nodes (MLNodes) connected to your Network Node using the **Admin API**.
+This guide explains how to manage inference nodes (ML Nodes) connected to your Network Node using the **Admin API**.
 
 You will learn how to:
 
-- Add a new MLNode
-- Add multiple MLNodes in a single batch
-- Update an existing MLNode
-- Enable or disable an MLNode
-- Delete an MLNode
-- List all configured MLNodes
+- Add a new ML Node
+- Add multiple ML Nodes in a single batch
+- Update an existing ML Node
+- Enable or disable an ML Node
+- Delete an ML Node
+- List all configured ML Nodes
 
 All operations are performed against the Network Node’s Admin API and do **not** require a chain transaction. Changes take effect immediately at the Network Node level.
 
@@ -17,7 +17,7 @@ All operations are performed against the Network Node’s Admin API and do **not
 
 ## Prerequisites
 
-Before managing MLNodes, make sure that:
+Before managing ML Nodes, make sure that:
 
 - You have completed the [Quickstart guide](https://gonka.ai/host/quickstart/) through **step 3.3** (key management and Host registration).
 - Your **Network Node** is running and reachable from the server where you execute the `curl` commands.
@@ -33,18 +33,18 @@ If you are calling the Admin API from another machine, replace `localhost` with 
 
 ---
 
-## MLNode Definition
+## ML Node Definition
 
-Each MLNode registered with the Network Node is represented by a JSON object with the following key fields:
+Each ML Node registered with the Network Node is represented by a JSON object with the following key fields:
 
-- `id` – **Unique identifier** for the MLNode (string).
-- `host` – **Static IP or DNS** of the MLNode, or the **Docker container name** if running in the same Docker network as the Network Node.
-- `inference_port` – Port used for inference requests (mapped to port `5000` of the MLNode’s `nginx` container).
-- `poc_port` – Port used for Proof-of-Compute (PoC) and management operations (mapped to port `8080` of the MLNode’s `nginx` container).
-- `max_concurrent` – Maximum number of concurrent inference requests that this MLNode can handle.
+- `id` – **Unique identifier** for the ML Node (string).
+- `host` – **Static IP or DNS** of the ML Node, or the **Docker container name** if running in the same Docker network as the Network Node.
+- `inference_port` – Port used for inference requests (mapped to port `5000` of the ML Node’s `nginx` container).
+- `poc_port` – Port used for Proof-of-Compute (PoC) and management operations (mapped to port `8080` of the ML Node’s `nginx` container).
+- `max_concurrent` – Maximum number of concurrent inference requests that this ML Node can handle.
 - `models` – Map of model names to vLLM arguments.
 
-Example MLNode configuration:
+Example ML Node configuration:
 
 ```json
 {
@@ -54,29 +54,24 @@ Example MLNode configuration:
   "poc_port": 8080,
   "max_concurrent": 500,
   "models": {
-    "Qwen/Qwen3-32B-FP8": {
+    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
       "args": []
+        "--tensor-parallel-size","4"
     }
   }
 }
 ```
 
-!!! note "Supported models and vLLM arguments"
-    The network currently supports the following models (subject to governance decisions):
+!!! note "Supported model and vLLM arguments"
+    The network currently supports the following model (subject to governance decisions):
 
-    - `Qwen/Qwen2.5-7B-Instruct`
     - `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
-    - `Qwen/Qwen3-32B-FP8`
-    - `Qwen/QwQ-32B`
-    - `RedHatAI/Qwen2.5-7B-Instruct-quantized.w8a16`
-
-    For recommended vLLM arguments for each model and GPU layout, see the [Benchmark to Choose Optimal Deployment Config for LLMs](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/) guide.
 
 ---
 
-## Listing MLNodes
+## Listing ML Nodes
 
-Use this endpoint to see all MLNodes currently registered with your Network Node.
+Use this endpoint to see all ML Nodes currently registered with your Network Node.
 
 **Endpoint**
 
@@ -90,43 +85,17 @@ curl -X GET "$ADMIN_API_URL/admin/v1/nodes" | jq
 
 **Expected result**
 
-- Returns a JSON array containing all configured MLNodes and their current configuration.
+- Returns a JSON array containing all configured ML Nodes and their current configuration.
 
 ---
 
-## Adding a New MLNode
+## Adding a New ML Node
 
-Use this operation to register a **single** new MLNode with your Network Node.
+Use this operation to register a **single** new ML Node with your Network Node.
 
 **Endpoint**
 
 - `POST /admin/v1/nodes`
-
-**Request body**
-
-The body should match the MLNode definition described above. Example for a `Qwen/Qwen3-32B-FP8` node:
-
-```bash
-curl -X POST "$ADMIN_API_URL/admin/v1/nodes" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "id": "node1",
-    "host": "10.0.0.21",
-    "inference_port": 5050,
-    "poc_port": 8080,
-    "max_concurrent": 500,
-    "models": {
-      "Qwen/Qwen3-32B-FP8": {
-        "args": []
-      }
-    }
-  }'
-```
-
-**Expected result**
-
-- On success, returns `200 OK` with the newly registered MLNode configuration in JSON.
-- If one or more models are not valid (not approved by governance), the API returns `400 Bad Request` with an error message.
 
 !!! note "Adding a 235B node on 8xH100 or 8xH200"
     Example request for `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` on `8xH100` or `8xH200`:
@@ -152,12 +121,16 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes" \
         }
       }'
     ```
+**Expected result**
+
+On success, returns `200 OK` with the newly registered ML Node configuration in JSON.
+If one or more models are not valid (not approved by governance), the API returns 400 Bad Request with an error message.
 
 ---
 
-## Adding Multiple MLNodes in a Batch
+## Adding Multiple ML Nodes in a Batch
 
-Use this endpoint to register **several MLNodes at once**. The request body is an array of MLNode definitions.
+Use this endpoint to register **several ML Nodes at once**. The request body is an array of ML Node definitions.
 
 **Endpoint**
 
@@ -176,8 +149,12 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
       "poc_port": 8080,
       "max_concurrent": 500,
       "models": {
-        "Qwen/Qwen3-32B-FP8": {
+        "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
           "args": []
+            "--tensor-parallel-size",
+              "4",
+                "--max-model-len",
+                "240
         }
       }
     },
@@ -212,9 +189,9 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
 
 ---
 
-## Updating an Existing MLNode
+## Updating an Existing ML Node
 
-Updating an MLNode is implemented as an **upsert**:
+Updating an ML Node is implemented as an **upsert**:
 
 - If the `id` already exists, the node is **updated**.
 - If the `id` does not exist, a **new** node is created.
@@ -258,9 +235,9 @@ curl -X PUT "$ADMIN_API_URL/admin/v1/nodes/node1" \
 
 ---
 
-## Enabling an MLNode
+## Enabling an ML Node
 
-Use this endpoint to **enable** an MLNode that was previously disabled. This operation does not change the node’s configuration, only its administrative state.
+Use this endpoint to **enable** an ML Node that was previously disabled. This operation does not change the node’s configuration, only its administrative state.
 
 **Endpoint**
 
@@ -287,9 +264,9 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/node1/enable"
 
 ---
 
-## Disabling an MLNode
+## Disabling an ML Node
 
-Use this endpoint to **disable** an MLNode without deleting it. The node remains registered but is marked as administratively disabled. It will remain active until the end of the epoch, but it won't participate in the upcoming PoC and as a result won't be included in the next epoch.
+Use this endpoint to **disable** an ML Node without deleting it. The node remains registered but is marked as administratively disabled. It will remain active until the end of the epoch, but it won't participate in the upcoming PoC and as a result won't be included in the next epoch.
 
 **Endpoint**
 
@@ -315,14 +292,14 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/node1/disable"
 - If the node does not exist, returns `404 Not Found` with an error message.
 
 !!! note "Disabling vs deleting"
-    Disabling an MLNode is **reversible**. You can enable it again later using the `/enable` endpoint.
+    Disabling an ML Node is **reversible**. You can enable it again later using the `/enable` endpoint.
     Deleting a node removes its configuration from the Network Node entirely (see below).
 
 ---
 
-## Deleting an MLNode
+## Deleting an ML Node
 
-Use this endpoint to remove an MLNode configuration entirely from the Network Node.
+Use this endpoint to remove an ML Node configuration entirely from the Network Node.
 
 **Endpoint**
 
@@ -339,13 +316,13 @@ curl -X DELETE "$ADMIN_API_URL/admin/v1/nodes/node1"
 - On success, returns `200 OK` with a JSON representation of the deleted node.
 
 !!! warning "Irreversible operation"
-    Deleting an MLNode cannot be undone. To re-add the node, you must register it again using the **Add a New MLNode** or **Batch Add** endpoints.
+    Deleting an ML Node cannot be undone. To re-add the node, you must register it again using the **Add a New ML Node** or **Batch Add** endpoints.
 
 ---
 
 ## Verifying Changes
 
-After any add/update/enable/disable/delete operation, you can verify the current state of all MLNodes:
+After any add/update/enable/disable/delete operation, you can verify the current state of all ML Nodes:
 
 ```bash
 curl -X GET "$ADMIN_API_URL/admin/v1/nodes" | jq
@@ -357,6 +334,6 @@ For end-to-end verification at the protocol level (after Proof-of-Compute), you 
 curl http://node2.gonka.ai:8000/v1/epochs/current/participants | jq
 ```
 
-This allows you to confirm that your Network Node and its MLNodes are correctly contributing to the network and that their effective weight reflects recent changes.
+This allows you to confirm that your Network Node and its ML Nodes are correctly contributing to the network and that their effective weight reflects recent changes.
 
 

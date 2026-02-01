@@ -460,6 +460,9 @@ source config.env
 
 ### [Server] Edit Inference Node Description for the Server
 
+!!! note
+    The network currently supports the Qwen/Qwen3-235B-A22B-Instruct-2507-FP8 only. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+
 === "8xH200 or 8xH100"
 
     !!! note "edit node-config.json"
@@ -517,7 +520,6 @@ source config.env
                     "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
                         "args": [
                             "--tensor-parallel-size","4"
-                               "--pipeline-parallel-size", "2"
                         ]
                     }
                 }
@@ -527,6 +529,8 @@ source config.env
 
     !!! note 
         In this example (8× RTX 4090, 48 GB VRAM), pipeline parallelism is added to reduce per-GPU memory usage and fit the model.
+
+For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.

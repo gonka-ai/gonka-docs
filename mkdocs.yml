@@ -13,7 +13,7 @@ nav:
     - Quickstart: developer/quickstart.md
     - Details: developer/details.md
   - Host:
-    - Host Quickstart: host/quickstart.md
+    - Quickstart: host/quickstart.md
     - Architecture: architecture.md
     - Benchmark to Choose Optimal Deployment Config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
     - Genesis: host/genesis.md

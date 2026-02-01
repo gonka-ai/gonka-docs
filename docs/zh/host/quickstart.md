@@ -467,7 +467,10 @@ source config.env
 
 ### [服务器] 编辑服务器推理节点描述
 
-=== "8xH200 或 8xH100"
+!!! note
+    当前网络仅支持 Qwen/Qwen3-235B-A22B-Instruct-2507-FP8。是否新增或修改支持的模型由治理决定。治理机制及如何提议新模型见 [交易与治理指南](https://gonka.ai/transactions-and-governance/)。
+
+=== "4xH100（同样适用于 8xH200 或 8xH100）"
 
     !!! note "编辑 node-config.json"
         ```
@@ -481,7 +484,7 @@ source config.env
                 "models": {
                     "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
                         "args": [
-                            "--tensor-parallel-size","4"
+                            "--tensor-parallel-size", "4"
                         ]
                     }
                 }
@@ -489,51 +492,7 @@ source config.env
         ]
         ```
 
-=== "4xH100（最小配置）"
-
-    !!! note "编辑 node-config.json"
-        ```
-        [
-            {
-                "id": "node1",
-                "host": "inference",
-                "inference_port": 5000,
-                "poc_port": 8080,
-                "max_concurrent": 500,
-                "models": {
-                    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
-                        "args": []
-                    }
-                }
-            }
-        ]
-        ```
-
-=== "8x4090"
-
-    !!! note "编辑 node-config.json"
-        ```
-        [
-            {
-                "id": "node1",
-                "host": "inference",
-                "inference_port": 5000,
-                "poc_port": 8080,
-                "max_concurrent": 500,
-                "models": {
-                    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
-                        "args": [
-                            "--tensor-parallel-size","4"
-                               "--pipeline-parallel-size", "2"
-                        ]
-                    }
-                }
-            }
-        ]
-        ```
-
-    !!! note 
-        本例（8× RTX 4090，48 GB 显存）中增加流水线并行以降低单 GPU 显存占用并容纳模型。
+更多关于最优部署配置的说明请参阅 [此链接](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
 ### [服务器] 将模型权重预下载到 Hugging Face 缓存（HF_HOME）
 

@@ -55,17 +55,17 @@ ML 节点配置示例：
   "max_concurrent": 500,
   "models": {
     "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
-      "args": []
-        "--tensor-parallel-size","4"
+      "args": [
+        "--tensor-parallel-size",
+        "4"
+      ]
     }
   }
 }
 ```
 
 !!! note "支持的模型与 vLLM 参数"
-    当前网络支持的模型（以治理决策为准）：
-
-    - `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+    当前网络仅支持 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`（以治理决策为准）。详见 [为 LLM 选择最优部署配置的基准测试指南](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
 ---
 
@@ -150,11 +150,12 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
       "max_concurrent": 500,
       "models": {
         "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
-          "args": []
+          "args": [
             "--tensor-parallel-size",
-              "4",
-                "--max-model-len",
-                "240
+            "4",
+            "--max-model-len",
+            "240000"
+          ]
         }
       }
     },

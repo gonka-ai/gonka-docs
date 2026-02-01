@@ -54,10 +54,10 @@ Guidance on switching ML Nodes to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, upgr
 
 Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
 
-- http://node1.gonka.ai:8000
-- http://node2.gonka.ai:8000
-- http://node3.gonka.ai:8000
-- https://node4.gonka.ai
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
+- [https://node4.gonka.ai](https://node4.gonka.ai)
 
 Cast your vote ( `yes` , `no` , `abstain` , `no_with_veto` ):
 ```
@@ -184,12 +184,12 @@ Successful participation in the PoC v2 transition requires both of the following
     - ghcr.io/product-science/mlnode:3.0.12
     - ghcr.io/product-science/mlnode:3.0.12-blackwell
 
-**Important**
+!!! note "Important"
 
-- Serving the correct model without upgrading the ML Node is not sufficient.
-- Nodes that do not meet both conditions will not be eligible once the network switches to a single-model configuration.
-- The ML Node upgrade must be completed before the migration is finished and PoC v2 is activated through a separate governance proposal following the v0.2.8 upgrade.
-- The v0.2.8 upgrade itself does not enable PoC v2.
+    - Serving the correct model without upgrading the ML Node is not sufficient.
+    - Nodes that do not meet both conditions will not be eligible once the network switches to a single-model configuration.
+    - The ML Node upgrade must be completed before the migration is finished and PoC v2 is activated through a separate governance proposal following the v0.2.8 upgrade.
+    - The v0.2.8 upgrade itself does not enable PoC v2.
 
 **3. Check ML Node allocation status (recommended safety step)**
 
@@ -410,10 +410,10 @@ Serving `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` without upgrading the ML node i
 
 You can fetch the proposal details and cast your vote using the `inferenced` command. Please note that any active node can be used to query or cast a vote. Currently available nodes include:
 
-- http://node1.gonka.ai:8000/
-- http://node2.gonka.ai:8000/
-- http://node3.gonka.ai:8000/
-- https://node4.gonka.ai/
+- [http://node1.gonka.ai:8000/](http://node1.gonka.ai:8000/)
+- [http://node2.gonka.ai:8000/](http://node2.gonka.ai:8000/)
+- [http://node3.gonka.ai:8000/](http://node3.gonka.ai:8000/)
+- [https://node4.gonka.ai/](https://node4.gonka.ai/)
   
 To check the voting status:
 ```
@@ -442,6 +442,7 @@ export NODE_URL=https://node4.gonka.ai/
 Please take a look and vote if you're a host.
 
 **ATTENTION 1:** Please plan to be online during the upgrade window, so any follow-up steps or mitigation instructions can be applied promptly if needed.
+
 **ATTENTION 2:** During upgrades, Cosmovisor creates a full state backup in the `.inference/data directory`. Please ensure sufficient disk space is available. Instructions on safely removing old backups from the `.inference` directory are available [here](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory). If `application.db` occupies a significant amount of disk space, the cleanup techniques described [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) can be used.
 
 **Note:** After the upgrade, Postgres can be configured as storage for local payloads.

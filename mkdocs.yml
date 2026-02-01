@@ -15,6 +15,7 @@ nav:
   - Host:
     - Quickstart: host/quickstart.md
     - Architecture: architecture.md
+    - Benchmark to Choose Optimal Deployment Config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
     - Genesis: host/genesis.md
     - Hardware specifications: host/hardware-specifications.md
     - How to edit Host public info: host/host_info.md
@@ -129,6 +130,7 @@ plugins:
             Quickstart: 快速上手
             Details: 细节
             Host: 节点
+            Benchmark to Choose Optimal Deployment Config for LLMs: LLM 最佳部署配置基准测试
             "Multiple nodes": 多节点
             "Network Node API": 网络节点 API
             "MLNode Management": ML节点管理

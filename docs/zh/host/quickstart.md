@@ -489,7 +489,7 @@ source config.env
         ]
         ```
 
-=== "4xH100"（最小配置）"
+=== "4xH100（最小配置）"
 
     !!! note "编辑 node-config.json"
         ```
@@ -534,8 +534,6 @@ source config.env
 
     !!! note 
         本例（8× RTX 4090，48 GB 显存）中增加流水线并行以降低单 GPU 显存占用并容纳模型。
-
-更多关于最优部署配置的说明见[此链接](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
 ### [服务器] 将模型权重预下载到 Hugging Face 缓存（HF_HOME）
 

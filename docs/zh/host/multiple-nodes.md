@@ -169,6 +169,8 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 |-----------------------------------------|---------------------------------------------------------------------------------------|
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 在 8xH100 或 8xH200 上           | `"--tensor-parallel-size","4"`                                      |
 
+如需根据 GPU 硬件选择最优部署配置与 vLLM 参数的详细说明，请参阅 [为 LLM 选择最优部署配置的基准测试指南](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
+
 若节点添加成功，响应将返回新添加推理节点的**配置**。
 
 ### 获取所有推理节点

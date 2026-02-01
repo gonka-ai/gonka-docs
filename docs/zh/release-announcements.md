@@ -1,5 +1,46 @@
 # 公告
 
+## 2026 年 2 月 1 日
+
+v0.2.9 升级提案的链上治理流程即将结束。
+
+- 投票结束时间： 2026 年 2 月 1 日 22:02:58（UTC）
+- 升级高度： 2,451,000
+- 预计升级时间： 2026 年 2 月 2 日 05:10:00（UTC）
+
+建议各位主机（Hosts）在 [GitHub](https://github.com/gonka-ai/gonka/pull/668)￼ 上查看该提案并参与投票。
+
+建议提前下载二进制文件，以避免在升级窗口期间依赖 GitHub 的可用性。
+
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.9/bin \
+              .inference/cosmovisor/upgrades/v0.2.9/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.9/decentralized-api-amd64.zip" && \
+echo "ac1ad369052a8c3d01af4d463c49cdd16fcbecc365d201232e7a2d08af8501c0 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.9/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.9/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.9/inferenced-amd64.zip" && \
+echo "fc628d77aa516896924fbd8f60b8aa6a14161de4582aaef634de62382ea482eb inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.9/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.9/bin/inferenced && \
+echo "52c79f06a8fc175ca6b3819523bb36afbf601d8a8320b1bb5a3cc089ceef62c4 .dapi/cosmovisor/upgrades/v0.2.9/bin/decentralized-api" | sudo sha256sum --check && \
+echo "ae20517e4bb38293202f7f5d52439d5315cb32c8f3c34a02fa65feaefadd6193 .inference/cosmovisor/upgrades/v0.2.9/bin/inferenced" | sudo sha256sum --check
+```
+
 ## 2026年1月31日
 
 **v0.2.9 升级提案进入治理流程**

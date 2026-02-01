@@ -48,32 +48,20 @@ The guide describes a scenario in which both services are deployed on the same m
 ## Prerequisites
 This  section provides guidance on configuring your hardware infrastructure to participate in Gonka Network launch. The goal is to maximize protocol rewards by aligning your deployment with network expectations.
 
-### Supported Model Classes
-The protocol currently supports the following model classes:
-
-- Large Models — `DeepSeek R1`, `Qwen3-235B`, `gpt-oss-120b`
-- Medium Models — `Qwen3-32B`, `Gemma-3-27b-it`
+### Supported Model
+The protocol currently supports a single model for inference and Proof of Compute (PoC) `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. This model is used for PoC v2 participation and weight assignment. 
 
 !!! note "Governance and model classification"
-    - The exact deployment parameters for each category are defined in the genesis configuration.
     - Models may be classified into a category if approved by governance.
     - Decisions about adding or changing supported models are made by governance.
     - For details on governance procedures and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
-### Configuration for Optimal Rewards
-To earn the highest rewards and maintain reliability, each Network Node should serve two model classes, with a minimum of 2 ML Nodes per class. This setup:
-
-- Improves protocol-level redundancy and fault tolerance
-- Enhances model-level validation performance
-- Aligns with future reward scaling logic
-
 ### Proposed Hardware Configuration
-To run a valid node, you need machines with [supported GPU(s)](/host/hardware-specifications/). We recommend grouping your hardware into 2–5 Network Nodes, each configured to support all model classes. Below is a reference layout:
+To run a valid node, you need machines with [supported GPU(s)](/host/hardware-specifications/). Below is a reference layout:
 
-| **Model Class** | **Model Name**                          | **ML Nodes (min)** | **Example Hardware**                            | **Minimum VRAM per ML Node** |
-|-----------------|------------------------------------------|-------------------|-------------------------------------------------|----------------|
-| **Large**       | `DeepSeek R1` / `Qwen3-235B`                | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
-| **Medium**      | `Qwen3-32B` / `Gemma-3-27B-it`              | ≥ 2               | 4× A100 or 2× H100 per MLNode                   | 80 GB          |
+| **Model Name**                          | **ML Nodes (min)** | **Example Hardware**                            | **Minimum VRAM per ML Node** |
+|------------------------------------------|-------------------|-------------------------------------------------|----------------|
+| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`                | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple ML Nodes across all model tiers.
 
@@ -472,9 +460,6 @@ source config.env
 
 ### [Server] Edit Inference Node Description for the Server
 
-!!! note        
-    The network currently supports the following models: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
-
 === "8xH200 or 8xH100"
 
     !!! note "edit node-config.json"
@@ -497,7 +482,7 @@ source config.env
         ]
         ```
 
-=== "1xH100"
+=== "4xH100" (minimum setup)"
 
     !!! note "edit node-config.json"
         ```
@@ -509,7 +494,7 @@ source config.env
                 "poc_port": 8080,
                 "max_concurrent": 500,
                 "models": {
-                    "Qwen/Qwen3-32B-FP8": {
+                    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
                         "args": []
                     }
                 }
@@ -529,9 +514,10 @@ source config.env
                 "poc_port": 8080,
                 "max_concurrent": 500,
                 "models": {
-                    "Qwen/Qwen3-32B-FP8": {
+                    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
                         "args": [
                             "--tensor-parallel-size","4"
+                               "--pipeline-parallel-size", "2"
                         ]
                     }
                 }
@@ -539,25 +525,20 @@ source config.env
         ]
         ```
 
+    !!! note 
+        In this example (8× RTX 4090, 48 GB VRAM), pipeline parallelism is added to reduce per-GPU memory usage and fit the model.
+
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
 To make sure the model weights are ready for inference, you should download them before deployment.
 
-=== "8xH100 or 8xH200"
+=== "8xH100, 8xH200 or Other GPUs"
 
     ```bash
     mkdir -p $HF_HOME
     huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
-    huggingface-cli download Qwen/Qwen3-32B-FP8
-    ```
-
-=== "Other GPUs"
-
-    ```bash
-    mkdir -p $HF_HOME
-    huggingface-cli download Qwen/Qwen3-32B-FP8
     ```
 
 ## Launch Nodes

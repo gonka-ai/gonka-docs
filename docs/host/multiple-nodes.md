@@ -167,6 +167,8 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 |-----------------------------------------|---------------------------------------------------------------------------------------|
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` on 8xH100 or 8xH200           | `"--tensor-parallel-size","4"`                                      |
 
+For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
+
 If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 
 ### Retrieving All Inference Nodes

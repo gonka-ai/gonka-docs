@@ -97,10 +97,10 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 
 Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired.
-Right now, the network supports two models: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, `Qwen/Qwen3-32B-FP8`.
+Right now, the network supports `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only.
 
 ```
-huggingface-cli download Qwen/Qwen3-32B-FP8
+huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
 ```
 
 **1.3. Ports open for network node connections**
@@ -159,19 +159,13 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `model_name`         | The name of the model.                              | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`    |
 | `model_args`         | vLLM arguments for the inference of the model.                              | `"--tensor-parallel-size","4"`    |
 
-Right now, the network supports two models: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `Qwen/Qwen3-32B-FP8`.
+Right now, the network supports `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only.
 
 To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout.
 
 | Model and GPU layout                    | vLLM arguments                                                                           |
 |-----------------------------------------|---------------------------------------------------------------------------------------|
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` on 8xH100 or 8xH200           | `"--tensor-parallel-size","4"`                                      |
-| `Qwen/Qwen3-32B-FP8` on 1xH100  |                                 |
-| `Qwen/Qwen3-32B-FP8` on 8x4090  | `"--tensor-parallel-size","4"`                        |
-| `Qwen/Qwen3-32B-FP8` on 8x3080  | `"--tensor-parallel-size","4","--pipeline-parallel-size","2"`                       |
-
-!!! note "vLLM performance tuning reference"
-    For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/) guide.
 
 If the node is successfully added, the response will return the **configuration** of the newly added inference node.
 

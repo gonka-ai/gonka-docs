@@ -3,6 +3,7 @@
 ## January 31, 2026
 
 **v0.2.9 Upgrade Proposal Enters Governance**
+
 The upgrade proposal for the next on-chain software version v0.2.9 has now been published on-chain and is open for voting. If approved, the proposal enables PoC v2 for weight assignment and completes the transition away from the legacy PoC mechanism via on-chain governance.
 
 **Key changes**
@@ -89,6 +90,361 @@ Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka
 - During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory. Ensure sufficient disk space is available before the upgrade. Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
 - If `application.db` occupies a significant amount of disk space, the cleanup techniques described [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
 - After the upgrade, Postgres is available as an option for local payload storage.
+
+## January 29, 2026
+
+**PoC validation participation notice**
+
+During the latest epoch, a large number of ML Nodes did not receive PoC weight.
+Analysis shows that this was caused by insufficient participation in PoC validation. In multiple cases, participants published nonces, but validation was either not performed or performed at a level significantly below protocol requirements.
+The following table shows participants who had a weight in the previous epoch, submitted PoC nonces in the current epoch, but either missed PoC validation phase or insufficiently participated in it: [https://docs.google.com/spreadsheets/d/17agQXP77lATT2bNK12OEOzek5wNSptN2ktiSag3QXB0/](https://docs.google.com/spreadsheets/d/17agQXP77lATT2bNK12OEOzek5wNSptN2ktiSag3QXB0/)
+
+Their total weight was about 36%. Together with participants who did not participate in PoC at all, the total weight of those with no or low participation in PoC validation reached about 48%, which is critically high.
+If your node appears in this table with 0 in `validated`, please review your PoC validation logs and configuration to ensure validation is running as expected.
+
+This notebook shows the process that was used to assemble the table above: [https://github.com/gonka-ai/gonka/blob/gm/debug-155-1/debug-validation.ipynb](https://github.com/gonka-ai/gonka/blob/gm/debug-155-1/debug-validation.ipynb).
+
+## January 29, 2026 
+
+**UPGRADE EXECUTED: v0.2.8 is Now Live on Mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.8 has concluded. The proposal has been APPROVED and successfully executed on the mainnet. 
+This upgrade implements the PoC v2 architecture, streamlines model support, and applies critical security and reliability fixes.
+
+**Key Changes Now Active**
+
+**PoC v2 Core Integration**
+
+- vLLM Integration: PoC is integrated directly into vLLM, enabling an immediate switch from inference to PoC without offloading the model.
+- MMR Commitments: Artifact storage is migrated off-chain using Merkle Mountain Range commitments; only `root_hash` and `count` are recorded on-chain.,
+- Dual-Mode Migration: Support for V1 (regular PoC) and V2 (Confirmation PoC) tracking is active.
+
+**Model Availability Updates**
+
+The supported model set is now restricted. All previously supported models are removed from the active set except:
+
+- `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- `Qwen/Qwen3-32B-FP8`
+
+**Security & Reliability Improvements**
+
+- SSRF & DoS: Validation of `InferenceUrl` to reject internal IPs and addition of timeouts to prevent request hangs.
+- Vote Flipping: Rejection of duplicate PoC validations to prevent overwriting.
+- Auth Bypass: Binding of `epochId` to signatures for validation against the correct epoch.
+
+**Host Requirements for PoC v2 Eligibility**
+
+Eligibility for PoC v2 participation requires Hosts to complete the following:
+
+- Model Configuration: Configure the ML node to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- ML Node Upgrade: Utilize a version supporting PoC v2:
+    - ghcr.io/product-science/mlnode:3.0.12
+    - ghcr.io/product-science/mlnode:3.0.12-blackwell
+
+!!! note 
+    Nodes failing to meet both conditions will be ineligible for PoC v2 participation once the network transitions to a single-model configuration. Transition to PoC v2 for weight assignment remains subject to observational adoption thresholds and subsequent governance.
+
+**Maintenance & Operations**
+
+- Cosmovisor: Node and API binary updates are handled automatically. Existing Hosts do not need to perform manual updates on running containers.
+- Disk Space: Cosmovisor creates a full state backup in the `.inference/data` directory. Ensure 250+ GB of free space is available.
+- Postgres: Local payload storage via Postgres is now available for configuration post-upgrade.
+
+Monitoring node status and Discord communication is advised during the post-upgrade window to ensure stability.
+
+## January 28, 2026
+
+**How to switch to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, upgrade ML Nodes, and remove other models?**
+
+This guide explains how Hosts should update their ML Nodes in response to changes in v0.2.8 model availability and the upcoming PoC v2 update. ML Node configuration compliance with PoC v2 is observed starting Epoch 155. Hosts are encouraged to review and prepare their ML Node configuration before that point. Migration to PoC v2 can be scheduled after epoch 155. After the migration phase, weights from ML Nodes that do not meet the configuration requirements may not be counted. 
+
+**1. Background: model availability changes (upgrade v0.2.8)**
+
+As part of the v0.2.8 upgrade, the active model set has been updated.
+
+**Supported models (active set)**
+
+Only the following models remain supported:
+
+- `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- `Qwen/Qwen3-32B-FP8`
+  
+`Qwen/Qwen3-32B-FP8` is supported during the migration period, but does not contribute to PoC v2 readiness or weight assignment. Participation in PoC v2 requires serving `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`.
+
+**Removed models**
+
+All previously supported models are removed from the active set and must not be served.
+
+**3. PoC v2 readiness criteria (Important)**
+
+Successful participation in the PoC v2 transition requires both of the following:
+
+- All your ML Nodes serve Qwen/Qwen3-235B-A22B-Instruct-2507-FP8. This is the only model that contributes to PoC v2  weight.
+- All your ML Nodes are upgraded to a PoC v2–compatible image:
+    - ghcr.io/product-science/mlnode:3.0.12
+    - ghcr.io/product-science/mlnode:3.0.12-blackwell
+
+**Important**
+
+- Serving the correct model without upgrading the ML Node is not sufficient.
+- Nodes that do not meet both conditions will not be eligible once the network switches to a single-model configuration.
+- The ML Node upgrade must be completed before the migration is finished and PoC v2 is activated through a separate governance proposal following the v0.2.8 upgrade.
+- The v0.2.8 upgrade itself does not enable PoC v2.
+
+**3. Check ML Node allocation status (recommended safety step)**
+
+Before changing models, you should inspect the current ML Node allocation. Query your Network Node admin API:
+```
+curl http://127.0.0.1:9200/admin/v1/nodes
+```
+Look for the field:
+```
+"timeslot_allocation": [
+  true,
+  false
+]
+```
+Interpretation:
+
+- First boolean: Whether the node is serving inference in the current epoch
+- Second boolean: Whether the node is scheduled to serve inference in the next PoC
+
+**Recommended behavior**
+
+- Prefer changing the model only on nodes where the second value is `false`
+- This reduces risk while PoC v2 behavior is still being observed
+- Gradual rollout across epochs is encouraged
+
+**4. Update models for ML Nodes: keep the supported model only**
+
+Pre-download model weights (recommended). To avoid startup delays, pre-download weights into `HF_HOME`:
+```
+mkdir -p $HF_HOME
+huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+```
+Use ML Node Management API to switch ML Node to a supported model (`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`).
+
+For example:
+```
+curl -X PUT "http://localhost:9200/admin/v1/nodes/node1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "node1",
+    "host": "inference",
+    "inference_port": 5000,
+    "poc_port": 8080,
+    "max_concurrent": 800,
+    "models": {
+      "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+        "args": [
+          "--tensor-parallel-size",
+          "4",
+          "--max-model-len",
+          "240000"
+        ]
+      }
+    }
+  }'
+```
+Changes applied via the Admin API will replace model for the next epoch [https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)
+
+!!! note 
+
+    `node-config.json` is used only on the first launch of the Network Node API or when the local state/database is removed. Edit it for a fresh restart. For existing nodes, model updates should be performed via the Admin API. 
+
+**5. Upgrade the ML Node image (required for PoC v2)**
+
+Edit `docker-compose.mlnode.yml` and update the ML Node image:
+
+Standard GPUs
+```
+image: ghcr.io/product-science/mlnode:3.0.12
+```
+NVIDIA Blackwell GPUs
+```
+image: ghcr.io/product-science/mlnode:3.0.12-blackwell
+```
+Apply changes and restart services. From `gonka/deploy/join`:
+```
+source config.env
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
+docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
+```
+
+**6. Verify model serving (applied at the next epoch)**
+
+Confirm the ML Node is serving `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only, which is the only model used for PoC v2 weights and future weight assignment:
+```
+curl http://127.0.0.1:8080/v1/models | jq
+```
+Optionally re-check node allocation:
+```
+curl http://127.0.0.1:9200/admin/v1/nodes
+```
+
+!!! note "Governance and PoC v2 activation notes"
+    PoC v2 is introduced in stages, not activated all at once.
+
+    **Stage 1. Observation (current state after v0.2.8)**
+    
+    After the v0.2.8 upgrade, PoC v2 logic is available but not active for weight assignment.
+    
+    During this stage:
+    
+    - Hosts are able to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` or `Qwen/Qwen3-32B-FP8`
+    - Hosts must switch their ML Nodes to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and upgrade them to PoC v2-compatible versions in order to contribute to PoC v2 weight.
+    - The network observes adoption to assess Host readiness for moving to PoC v2 weights.
+    
+    **Stage 2. Governance proposal (optional, future)**
+    
+    Once a sufficient level of adoption among active Hosts is observed (approximately 50%):
+    
+    - A separate governance proposal may be submitted
+    - This proposal may request approval to activate PoC v2 and use PoC v2 for weight assignment
+    
+    The adoption threshold is observational only and does not trigger any automatic changes.
+    
+    **Stage 3. Activation (only after governance approval)**
+    
+    PoC v2 becomes the active method of weight assignment only if and when the governance proposal is approved by the chain.
+    Until this proposal is approved:
+    
+    - PoC v2 remains inactive for weight assignment
+    - The existing PoC mechanism continues to be used to determine weight
+
+**Summary checklist**
+
+Before PoC v2 activation, ensure that:
+
+- ML Node serves `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- All other models are removed from the configuration
+- ML Node image is 3.0.12 (or 3.0.12-blackwell)
+
+## January 28, 2026
+
+The on-chain governance process for the v0.2.8 upgrade proposal is nearing its conclusion.
+
+**Upgrade details**
+
+- Upgrade height: block 2387000
+- Estimated time: January 29th, 2026, at 06:30:00 UTC
+
+Pre-downloading binaries in advance may help avoid relying on GitHub availability during the upgrade window.
+
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.8/bin \
+              .inference/cosmovisor/upgrades/v0.2.8/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.8-post1/decentralized-api-amd64.zip" && \
+echo "45f28afba4758e54988f61cc358f0ad683e7832ab121ccd54b684fe4c9381a75 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.8/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.8/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.8/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.8-post1/inferenced-amd64.zip" && \
+echo "f0f2e3ee8760e40a78087c98c639a7518bf062138141ed4aec2120f5bc622a67 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.8/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.8/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.8/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.8/bin/inferenced && \
+echo "421a761f3a7037d72ee0bd8b3f50a744349f717439c7e0fee28c55948dae9a7c .dapi/cosmovisor/upgrades/v0.2.8/bin/decentralized-api" | sudo sha256sum --check && \
+echo "308c63c7bda4fb668632ac3e13f3f6cccacf54c563c8e9fd473bcb48c7389fe0 .inference/cosmovisor/upgrades/v0.2.8/bin/inferenced" | sudo sha256sum --check
+```
+
+## January 27, 2026
+
+**v0.2.8 Upgrade Proposal Enters Governance**
+
+The upgrade proposal for the next on-chain software version v0.2.8 has now been published on-chain and is open for voting!
+Your review and vote are critical to ensuring the network's stability and future capabilities.
+
+**Key changes in v0.2.8**
+
+**PoC v2 (Core upgrade)**
+
+- Integrates PoC directly into vLLM, enabling an immediate switch from inference to PoC without offloading the model or loading a separate PoC model.
+- Migrates artifact storage off-chain using MMR (Merkle Mountain Range) commitments - only root_hash and count are recorded on-chain.
+- Includes dual-mode migration strategy: V1 for regular PoC, V2 tracking for Confirmation PoC during rollout.
+
+**Model availability changes**
+
+As part of the v0.2.8 upgrade, the set of supported models is updated. All previously supported models are removed from the active set, except for:
+
+- `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- `Qwen/Qwen3-32B-FP8`
+  
+Successful participation in the PoC v2 using `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, together with the required ML Node version, is used to assess readiness for the PoC v2 transition. Once a sufficient level of adoption (~50%) among active Hosts is observed, a separate governance proposal may be submitted to approve and activate the PoC v2 for assigning weights. This threshold is observational and does not trigger any automatic network changes.
+
+After the next network step is approved through governance, the network will temporarily support only `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`.
+
+**Security, correctness, and reliability improvements**
+
+- SSRF & DoS: Validates InferenceUrl to reject internal IPs and adds timeouts to prevent request hangs.
+- Vote Flipping: Prevents overwriting of PoC validations by rejecting duplicates.
+- PoC Exclusion: Fixes getInferenceServingNodeIds to correctly exclude inference-serving nodes.
+- Auth Bypass & Replay: Binds epochId to signatures and validates authorization against the correct epoch.
+
+Due to the volume of changes, only selected items are highlighted here. A comprehensive list of additional updates and fixes is available in the [GitHub pull request.](https://github.com/gonka-ai/gonka/pull/539)
+
+**Host action required**
+
+To participate in the PoC v2 transition, Hosts must complete both of the following steps:
+
+- Verify that your ML node is configured to serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- Upgrade the ML Node to a version that supports PoC v2:
+    - ghcr.io/product-science/mlnode:3.0.12
+    - ghcr.io/product-science/mlnode:3.0.12-blackwell
+
+Serving `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` without upgrading the ML node is not sufficient for PoC v2 participation. Nodes that do not meet both conditions will not be considered eligible for PoC v2 participation once the network switches to the single-model configuration. The ML Node upgrade must be completed before PoC v2 is fully enabled through governance.
+
+**How to vote**
+
+You can fetch the proposal details and cast your vote using the `inferenced` command. Please note that any active node can be used to query or cast a vote. Currently available nodes include:
+
+- http://node1.gonka.ai:8000/
+- http://node2.gonka.ai:8000/
+- http://node3.gonka.ai:8000/
+- https://node4.gonka.ai/
+  
+To check the voting status:
+```
+export NODE_URL=https://node4.gonka.ai/
+./inferenced query gov votes 25 -o json --node $NODE_URL/chain-rpc/
+```
+
+To vote ( `yes` , `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=https://node4.gonka.ai/
+./inferenced tx gov vote 25 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+**Deadlines**
+
+- Voting ends at January 29th, 2026, at 03:02:20 UTC.
+- Upgrade is proposed on block 2387000. The estimated time of this block is January 29th, 2026, at 06:30:00 UTC.
+
+Please take a look and vote if you're a host.
+
+**ATTENTION 1:** Please plan to be online during the upgrade window, so any follow-up steps or mitigation instructions can be applied promptly if needed.
+**ATTENTION 2:** During upgrades, Cosmovisor creates a full state backup in the `.inference/data directory`. Please ensure sufficient disk space is available. Instructions on safely removing old backups from the `.inference` directory are available [here](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory). If `application.db` occupies a significant amount of disk space, the cleanup techniques described [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) can be used.
+
+**Note:** After the upgrade, Postgres can be configured as storage for local payloads.
 
 ## January 19, 2026
 

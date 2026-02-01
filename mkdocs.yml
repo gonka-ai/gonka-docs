@@ -15,7 +15,6 @@ nav:
   - Host:
     - Quickstart: host/quickstart.md
     - Architecture: architecture.md
-    - Benchmark to choose optimal deployment config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
     - Genesis: host/genesis.md
     - Hardware specifications: host/hardware-specifications.md
     - How to edit Host public info: host/host_info.md
@@ -134,7 +133,6 @@ plugins:
             "Network Node API": 网络节点 API
             "MLNode Management": ML节点管理
             Key Management: 密钥管理
-            Benchmark to Choose Optimal Deployment Config for LLMs: LLM 部署配置基准
             "Hardware Specifications": 硬件规格
             Genesis: 创世
             How to edit validator public info: 如何编辑验证者的公开信息

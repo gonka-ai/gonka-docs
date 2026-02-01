@@ -65,9 +65,7 @@ Example ML Node configuration:
 ```
 
 !!! note "Supported model and vLLM arguments"
-    The network currently supports the following model (subject to governance decisions):
-
-    - `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+    The network currently supports `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only (subject to governance decisions). See the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
 
 ---
 

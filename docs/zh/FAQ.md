@@ -1007,6 +1007,66 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 ```
 ## 升级
 
+### 恢复指南：因错过升级导致的共识失败
+
+如果你的节点未能及时应用最新升级，可能会在区块 2459189 处因共识失败而停止运行。这是因为节点仍在运行与当前网络不兼容的旧版本二进制文件。
+
+请按照以下步骤进行恢复。
+
+**1. 在继续之前，确保节点已完全停止。**
+```
+docker stop node
+```
+
+**2. 使用最新发布的版本替换旧的二进制文件。**
+```
+# Download Binary
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post2/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post2/bin/
+wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post2/inferenced-amd64.zip' && \
+echo "8de51bdd1d2c0af5f1da242e10b39ae0ceefd215f94953b9d95e9276f7aa70c7  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post2/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post2/bin/inferenced && \
+echo "Inference Installed and Verified"
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.9-post2 .inference/cosmovisor/current
+echo "75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8afe .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+
+# Restart 
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
+验证二进制文件版本：
+```
+sha256sum .inference/cosmovisor/current/bin/inferenced
+```
+`sha` 必须为 `75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8afe`。
+
+**3. 由于节点在共识过程中停止，必须将 inference 状态回滚到前一个区块。**
+
+运行回滚命令：
+```
+docker exec -it node /root/.inference/cosmovisor/current/bin/inferenced rollback
+```
+
+**4. 再次启动节点：**
+
+```
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
+
+**5. 查看日志，确认节点正在出块且不再发生共识失败：**
+
+```
+docker logs --tail=100 -f node
+```
+你应该看到节点：
+
+- 正在追赶网络最新高度
+- 不再重复出现共识失败错误
+
 ### 区块验证暂停 — 补丁与恢复说明
 
 现已提供补丁，用于解决 PoC 周期内区块验证近期暂停的问题。建议 Host 尽快应用该补丁，以确保 PoC 验证行为正确并安全恢复区块生产。

@@ -18,7 +18,7 @@ Hosts are encouraged to verify that all ML Nodes:
 - are configured to serve the supported model `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only
 - images are updated to a PoC v2–compatible version
 
-Guidance on switching ML Nodes to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, upgrading ML Node images, and removing other models is available in the FAQ.
+Guidance on switching ML Nodes to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, upgrading ML Node images, and removing other models is available in [the FAQ](https://gonka.ai/FAQ/#how-to-switch-to-qwenqwen3-235b-a22b-instruct-2507-fp8-upgrade-ml-nodes-and-remove-other-models).
 
 **Key changes now active**
 

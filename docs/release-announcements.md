@@ -1,5 +1,60 @@
 # Announcements
 
+## February 1, 2026
+
+**UPGRADE EXECUTED: v0.2.9 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.9 has concluded. The proposal has been APPROVED, and the upgrade was successfully executed on the mainnet at block 2451000. This upgrade implemented PoC v2 for weight assignment and completed the transition away from the legacy PoC mechanism.
+
+**Attention**
+
+- The next PoC cycle (the transition from epoch 158 to 159) is critical. Please plan to be online so that any follow-up steps or mitigation instructions can be applied promptly, if needed.
+- Only ML Nodes serving `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` will be eligible to enter the next (159) epoch and participate in PoC v2 weight assignment. ML Nodes running other models will not be included in the participant set for the upcoming epoch.
+  
+**Host preparation**
+
+Hosts are encouraged to verify that all ML Nodes:
+
+- are configured to serve the supported model `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only
+- images are updated to a PoC v2–compatible version
+
+Guidance on switching ML Nodes to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, upgrading ML Node images, and removing other models is available in the FAQ.
+
+**Key changes now active**
+
+**PoC v2 activation**
+
+- PoC v2 is used as the active mechanism for weight assignment
+- Confirmation PoC (V2 tracking) is used as the canonical source of results
+- Legacy PoC logic is no longer used for weight calculation
+
+**Model configuration**
+
+- The network operates in a single-model configuration
+- The model used for PoC v2 and weight assignment is `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 
+- ML Nodes serving other models are not included in PoC v2 weight assignment. Where supported, an automatic model switch to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` may occur 
+
+**Eligibility criteria**
+
+For an ML Node to be eligible for PoC v2 weight assignment, both conditions must be met:
+
+- The node serves `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- The node runs a PoC v2–compatible image:
+    - ghcr.io/product-science/mlnode:3.0.12-post1 
+    - ghcr.io/product-science/mlnode:3.0.12-post1-blackwell 
+
+**Reward flow correction for cPoC cases**
+
+In cases where rewards are reduced or excluded due to cPoC penalties, the unaccounted portion is transferred to the Community pool. Previously, such rewards were redistributed among other participants.
+
+**Additional protocol updates**
+
+- Transfer Agent roles are restricted to a [defined](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist) `allowlist` for the initial phase
+- Nodes that participated in PoC generation while ignoring PoC validation have been removed from the [participant's](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal) `allowlist` 
+- [Guardian weights](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting) are applied as a deterministic fallback when PoC v2 validation vote thresholds are not reached 
+
+Additional details for these changes are available in the governance artifacts: [https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 ](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 )
+
 ## February 1, 2026 
 
 The on-chain governance process for the v0.2.9 upgrade proposal is nearing its conclusion.

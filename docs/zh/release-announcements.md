@@ -51,9 +51,9 @@
 
 **其他协议更新（Additional protocol updates）**
 
-- 在初始阶段，Transfer Agent 角色被限制在一个已定义的￼ allowlist 中
-- 对于在生成 PoC 时忽略 PoC 验证的节点，已将其从参与者￼ allowlist 中移除
-- 当 PoC v2 验证投票未达到阈值时，将应用Guardian 权重￼作为确定性的兜底机制
+- 在初始阶段，Transfer Agent [角色被限制在一个已定义的](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist)￼ `allowlist` 中
+- 对于在生成 PoC 时忽略 PoC 验证的节点，[已将其从参与者](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal)￼ `allowlist` 中移除
+- 当 PoC v2 验证投票未达到阈值时，[将应用Guardian 权重￼作为确定性的兜底机制](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)
 
 有关上述变更的更多详细信息，请参阅治理文档：
 [https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9)

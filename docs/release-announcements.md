@@ -1,5 +1,25 @@
 # Announcements
 
+## February 2, 2026
+
+**Block validation has been paused as a precautionary measure**
+
+Block validation has been paused through the collective action of hosts as a precaution due to a high risk that validation thresholds may not be met during the current PoC cycle.
+Based on the current assessment, the mechanism intended to handle this scenario may not operate as expected. To prevent validator finalization under uncertain or unsafe conditions, the network was halted prior to validator selection.
+
+**Next steps**
+
+The following actions are currently in progress:
+
+- Verifying that no validator set is able to reach the required validation thresholds
+- Confirming the network state prior to validator finalization
+- Preparing a patch to address the identified issue
+
+**Action required**
+
+All hosts must be prepared to install a patch on short notice.
+Please remain online and monitor announcements closely. Further instructions will be shared as soon as the patch is ready.
+
 ## February 1, 2026
 
 **UPGRADE EXECUTED: v0.2.9 is now live on mainnet**

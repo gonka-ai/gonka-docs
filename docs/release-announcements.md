@@ -2,6 +2,36 @@
 
 ## February 2, 2026
 
+**Network Update — Patch Available**
+
+A patch is now available to address the issue that caused the recent pause in block validation during the PoC cycle. Hosts are encouraged to apply the patch as soon as possible to ensure correct PoC validation behavior and allow block production to resume safely.
+
+**Action required**
+
+Hosts are requested to apply the patch as soon as possible to ensure correct PoC validation behavior and allow block production to resume safely.
+```
+# Download Binary
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post2/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post2/bin/
+wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post2/inferenced-amd64.zip' && \
+echo "8de51bdd1d2c0af5f1da242e10b39ae0ceefd215f94953b9d95e9276f7aa70c7  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post2/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post2/bin/inferenced && \
+echo "Inference Installed and Verified"
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.9-post2 .inference/cosmovisor/current
+echo "75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8afe .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+
+# Restart 
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
+Further instructions, including any required coordination steps for resuming block validation, will be shared separately.
+
+## February 2, 2026
+
 **Block validation has been paused as a precautionary measure**
 
 Block validation has been paused through the collective action of hosts as a precaution due to a high risk that validation thresholds may not be met during the current PoC cycle.

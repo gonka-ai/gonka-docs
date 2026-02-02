@@ -19,7 +19,7 @@
 - 仅配置并提供受支持的模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
 - 已将镜像升级至 兼容 PoC v2 的版本
 
-关于如何将 ML 节点切换至 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、升级 ML 节点镜像以及移除其他模型的详细指南，请参阅 FAQ。
+关于如何将 ML 节点切换至 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、升级 ML 节点镜像以及移除其他模型的详细指南，请参阅 [FAQ](https://gonka.ai/zh/FAQ/#qwenqwen3-235b-a22b-instruct-2507-fp8-ml-nodes)。
 
 **当前已生效的关键变更（Key changes now active**
 

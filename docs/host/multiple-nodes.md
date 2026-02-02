@@ -15,7 +15,7 @@ For the Network node, the approximate hardware requirements are:
 
 - 16 cores CPU (amd64)
 - 64+ GB RAM
-- 1TB NVe SSD
+- 1TB NVMe SSD
 - 100Mbps minimum netowork connection (1Gbps preffered)
 
 The final requirements will depend on the number of MLNodes connected and their total throughput.

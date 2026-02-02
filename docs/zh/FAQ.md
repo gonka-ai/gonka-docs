@@ -427,12 +427,12 @@ PoC v2 的迁移可在 Epoch 155 之后进行。在迁移阶段结束后，不�
 
 成功参与 PoC v2 迁移，需同时满足以下两项条件：
 
-- 所有 ML Nodes 均提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 这是 唯一 会被计入 PoC v2 权重的模型。
+- 所有 ML Nodes 均提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`这是 唯一 会被计入 PoC v2 权重的模型。
 - 所有 ML Nodes 均升级至兼容 PoC v2 的镜像版本：
     - ghcr.io/product-science/mlnode:3.0.12
     - ghcr.io/product-science/mlnode:3.0.12-blackwell 
 
-!!! "重要备注”
+!!! note "重要"
 	- 仅提供正确模型但未升级 ML Node 并不充分。
 	- 一旦网络切换为单模型配置，未同时满足上述两项条件的节点将不具备参与资格。
 	- ML Node 的升级必须在迁移完成、并在 v0.2.8 升级之后通过单独的治理提案激活 PoC v2 之前完成。
@@ -528,7 +528,7 @@ curl http://127.0.0.1:8080/v1/models | jq
 ```
 curl http://127.0.0.1:9200/admin/v1/nodes
 ```
-!!! "治理与 PoC v2 激活说明"
+!!! note "治理与 PoC v2 激活说明"
 	PoC v2 将分阶段引入，而非一次性启用。
 
 **阶段 1：观察期（v0.2.8 之后的当前状态）**
@@ -1007,82 +1007,91 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 ```
 ## 升级
 
-### 在最新升级（0.2.6）之后，是否存在多个有效的二进制文件？
+### 区块验证暂停 — 补丁与恢复说明
 
-=== "选项 1：在升级过程中自动应用的二进制文件（Cosmovisor）"
+现已提供补丁，用于解决 PoC 周期内区块验证近期暂停的问题。建议 Host 尽快应用该补丁，以确保 PoC 验证行为正确并安全恢复区块生产。
 
-	这些二进制文件在升级过程中被自动应用，并下载到了 cosmovisor 目录中。该选项经过了治理投票批准。发布版本参考：[https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.6-post1](https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.6-post1)
-	
-	`API` 容器
-	```
-	$ sudo ls -la .dapi/cosmovisor/current
-	lrwxrwxrwx 1 root root 15 Dec 22 15:02 .dapi/cosmovisor/current -> upgrades/v0.2.6
-	
-	$sudo sha256sum .dapi/cosmovisor/current/bin/decentralized-api
-	e762ed88926d5d58f42ae5c3455d7fe2eb9c1a0881355c942dd8596d731986d8  .dapi/cosmovisor/current/bin/decentralized-api
-	```
+**需要执行的操作**
 
-	`Node` 容器
-	```
-	$sudo ls -la .inference/cosmovisor/current
-	lrwxrwxrwx 1 root root 15 Dec 22 15:27 .inference/cosmovisor/current -> upgrades/v0.2.6
-	
-	$sudo sha256sum .inference/cosmovisor/current/bin/inferenced
-	87630947bcc7f2b9b3b4c8429ee0429be21d220264811ca2517fdb4d7d36629a  .inference/cosmovisor/current/bin/inferenced
-	```
-
-=== "选项 2：在 Docker 镜像内构建的二进制文件"
-
-	该选项使用相同的代码库，但二进制文件是直接在 Docker 镜像中构建的。它适用于在升级完成后才接入节点的 Hosts，无需依赖 Cosmovisor 的自动升级机制。这些容器当前可在 main 分支中找到，标签为`0.2.6-post2`.
-	
-	`API` 容器
-	```
-	$sudo ls -la .dapi/cosmovisor/current
-	lrwxrwxrwx 1 root root 7 Dec 24 21:29 .dapi/cosmovisor/current -> genesis
-	
-	$sudo sha256sum .dapi/cosmovisor/current/bin/decentralized-api
-	8ef3d54b1aab2f93053cb0d5c18a7b2ee443ba6492134af00a3276f6455925fc  .dapi/cosmovisor/current/bin/decentralized-api
-	```
-
-	`Node` 容器
-	```
-	$sudo ls -la .inference/cosmovisor/current
-	lrwxrwxrwx 1 root root 7 Dec 24 21:29 .inference/cosmovisor/current -> genesis
-	
-	$sudo sha256sum .inference/cosmovisor/current/bin/inferenced
-	9832944bc9060ccbbb060464ee306b370df894e596292c014caf307dcd18ab5c  .inference/cosmovisor/current/bin/inferenced
-	```
-## 升级
-### 升级 v0.2.8：预先下载二进制文件
+建议 Host 尽快应用该补丁，以确保 PoC 验证行为正确并安全恢复区块生产。
 ```
-# 1. Create Directories
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.8/bin \
-              .inference/cosmovisor/upgrades/v0.2.8/bin && \
+# 下载二进制文件
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post2/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post2/bin/
+wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post2/inferenced-amd64.zip' && \
+echo "8de51bdd1d2c0af5f1da242e10b39ae0ceefd215f94953b9d95e9276f7aa70c7  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post2/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post2/bin/inferenced && \
+echo "Inference Installed and Verified"
 
-# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.8-post1/decentralized-api-amd64.zip" && \
-echo "45f28afba4758e54988f61cc358f0ad683e7832ab121ccd54b684fe4c9381a75 decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.8/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.8/bin/decentralized-api && \
+# 链接二进制文件
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.9-post2 .inference/cosmovisor/current
+echo "75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8afe .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+
+# 重启
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
+有关恢复区块验证的进一步说明（包括任何所需的协调步骤）将另行分享。
+
+### 升级 v0.2.9：预先下载二进制文件
+
+```
+# 1. 创建目录
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.9/bin \
+              .inference/cosmovisor/upgrades/v0.2.9/bin && \
+
+# 2. DAPI：下载 -> 验证 -> 解压到 bin -> 设为可执行
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.9/decentralized-api-amd64.zip" && \
+echo "ac1ad369052a8c3d01af4d463c49cdd16fcbecc365d201232e7a2d08af8501c0 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.9/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.9/bin/decentralized-api && \
 echo "DAPI Installed and Verified" && \
 
-# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.8/bin/ && \
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.8-post1/inferenced-amd64.zip" && \
-echo "f0f2e3ee8760e40a78087c98c639a7518bf062138141ed4aec2120f5bc622a67 inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.8/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.8/bin/inferenced && \
+# 3. Inference：下载 -> 验证 -> 解压到 bin -> 设为可执行
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.9/inferenced-amd64.zip" && \
+echo "fc628d77aa516896924fbd8f60b8aa6a14161de4582aaef634de62382ea482eb inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9/bin/inferenced && \
 echo "Inference Installed and Verified" && \
 
-# 4. Cleanup and Final Check
+# 4. 清理与最终检查
 rm decentralized-api.zip inferenced.zip && \
 echo "--- Final Verification ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.8/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.8/bin/inferenced && \
-echo "421a761f3a7037d72ee0bd8b3f50a744349f717439c7e0fee28c55948dae9a7c .dapi/cosmovisor/upgrades/v0.2.8/bin/decentralized-api" | sudo sha256sum --check && \
-echo "308c63c7bda4fb668632ac3e13f3f6cccacf54c563c8e9fd473bcb48c7389fe0 .inference/cosmovisor/upgrades/v0.2.8/bin/inferenced" | sudo sha256sum --check
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.9/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.9/bin/inferenced && \
+echo "52c79f06a8fc175ca6b3819523bb36afbf601d8a8320b1bb5a3cc089ceef62c4 .dapi/cosmovisor/upgrades/v0.2.9/bin/decentralized-api" | sudo sha256sum --check && \
+echo "ae20517e4bb38293202f7f5d52439d5315cb32c8f3c34a02fa65feaefadd6193 .inference/cosmovisor/upgrades/v0.2.9/bin/inferenced" | sudo sha256sum --check
 ```
-	
+
+
+### 升级 v0.2.7
+
+若在区块 `2058539` 发生 panic：
+
+```
+# 下载二进制文件
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.7/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.7-post1/bin/
+wget -q -O  inferenced.zip 'https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.7-post1/inferenced-amd64.zip' && \
+echo "130e1fc5d4ea256e2fdd2ad7e42f03649f5048822b76bf32c06ed691632371d5  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.7-post1/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.7-post1/bin/inferenced && \
+echo "Inference Installed and Verified"
+
+# 链接二进制文件
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.7-post1 .inference/cosmovisor/current
+echo "02d98dc7b1dc37fabc1b53c96abedd0194d7013140733fccb9c0fb5266cfd636 .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+
+# 重启
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
+
+
 ## 错误
 
 ### `No epoch models available for this node`

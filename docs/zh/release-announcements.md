@@ -2,6 +2,35 @@
 
 ## 2026年2月2日
 
+**网络更新 — 补丁已发布**
+
+现已发布补丁，用于修复在 PoC 周期中导致区块验证暂停的问题。建议各主机尽快应用该补丁，以确保 PoC 验证行为正确，并使区块生产能够安全恢复。
+
+**需要采取的行动**
+
+请各主机尽快应用该补丁，以确保 PoC 验证行为正确，并使区块生产能够安全恢复。
+```
+# Download Binary
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post2/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post2/bin/
+wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post2/inferenced-amd64.zip' && \
+echo "8de51bdd1d2c0af5f1da242e10b39ae0ceefd215f94953b9d95e9276f7aa70c7  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post2/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post2/bin/inferenced && \
+echo "Inference Installed and Verified"
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.9-post2 .inference/cosmovisor/current
+echo "75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8afe .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+
+# Restart 
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
+
+## 2026年2月2日
+
 区块验证已作为预防措施暂停
 
 由于当前 PoC 周期中验证阈值可能无法达到的风险较高，主机参与方通过集体行动，已将区块验证作为预防措施暂停。

@@ -1,5 +1,63 @@
 # 公告
 
+## 2026年2月1日
+
+**升级已完成：v0.2.9 已在主网正式生效**
+
+针对升级提案 v0.2.9 的链上治理投票已结束。该提案已被批准（APPROVED），并已在区块高度 2,451,000 成功完成主网升级。本次升级启用了 PoC v2 作为权重分配机制，并完成了从旧版 PoC 机制的全面迁移。
+
+**注意事项（Attention)**
+
+- 下一轮 PoC 周期（从 epoch 158 过渡到 epoch 159）至关重要。
+请相关节点运营方务必保持在线，以便在需要时能够及时执行后续操作或风险缓解指引。
+- 只有运行 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 模型的 ML 节点 才有资格进入下一轮（第 159 轮）epoch 并参与 PoC v2 权重分配。运行其他模型的 ML 节点将不会被纳入即将到来的 epoch 参与者集合。
+
+**主机准备（Host preparation**
+
+建议所有主机运营方确认其所有 ML 节点：
+
+- 仅配置并提供受支持的模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- 已将镜像升级至 兼容 PoC v2 的版本
+
+关于如何将 ML 节点切换至 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、升级 ML 节点镜像以及移除其他模型的详细指南，请参阅 FAQ。
+
+**当前已生效的关键变更（Key changes now active**
+
+**PoC v2 启用**
+
+- PoC v2 现已作为权重分配的主要机制
+- 确认型 PoC（PoC v2 tracking） 被用作结果的权威来源
+- 旧版 PoC 逻辑已不再用于权重计算
+
+**模型配置（Model configuration)**
+
+- 网络当前运行于 单一模型配置
+- 用于 PoC v2 及权重分配的模型为 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- 提供其他模型的 ML 节点将不参与 PoC v2 权重分配. 在支持的情况下，系统可能会自动切换模型至 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+
+**资格条件（Eligibility criteria)**
+
+要符合 PoC v2 权重分配资格，ML 节点必须同时满足以下两个条件：
+
+- 节点提供 Qwen/Qwen3-235B-A22B-Instruct-2507-FP8 模型
+- 节点运行 兼容 PoC v2 的镜像版本：
+    - ghcr.io/product-science/mlnode:3.0.12-post1
+    - ghcr.io/product-science/mlnode:3.0.12-post1-blackwell
+
+**cPoC 场景下的奖励流向修正（Reward flow correction for cPoC cases）**
+
+在因 cPoC 处罚导致奖励被减少或取消的情况下，未分配的奖励部分将转入社区池（Community Pool）。
+此前，这部分奖励会被重新分配给其他参与者。
+
+**其他协议更新（Additional protocol updates）**
+
+- 在初始阶段，Transfer Agent 角色被限制在一个已定义的￼ allowlist 中
+- 对于在生成 PoC 时忽略 PoC 验证的节点，已将其从参与者￼ allowlist 中移除
+- 当 PoC v2 验证投票未达到阈值时，将应用Guardian 权重￼作为确定性的兜底机制
+
+有关上述变更的更多详细信息，请参阅治理文档：
+[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9)
+
 ## 2026 年 2 月 1 日
 
 v0.2.9 升级提案的链上治理流程即将结束。

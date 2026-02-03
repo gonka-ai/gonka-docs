@@ -1036,7 +1036,7 @@ The `sha` must be `75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8
 
 Run the rollback command:
 ```
-docker exec -it node /root/.inference/cosmovisor/current/bin/inferenced rollback
+source config.env && docker compose run --rm --no-deps -ti node /root/.inference/cosmovisor/current/bin/inferenced rollback
 ```
 
 **4. Start the node again:**

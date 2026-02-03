@@ -5,8 +5,8 @@
     
     To ensure stable operation, participation is limited to an `allowlist`.
     
-    - Hosts not on the `allowlist` cannot participate in Proof of Compute (PoC) until the stabilization period ends at block 2,443,558.
-    - The Developers `allowlist` remains active until block 2,459,375.
+    - Hosts not on the `allowlist` cannot participate in Proof of Compute (PoC) until the stabilization period ends at block 2475000.
+    - The Developers `allowlist` remains active until block 2475000.
     
     `Allowlist`: [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
     

@@ -9,8 +9,8 @@ name: index.md
 
     为确保网络稳定运行，当前仅允许列入 `allowlist` 的参与方参与。
 
-    - 未列入 `allowlist` 的 Hosts 在稳定化阶段结束（区块高度 2,443,558）之前，无法参与 Proof of Compute（PoC）。
-    - Developers 的 `allowlist` 将持续生效至区块高度 2,459,375。
+    - 未列入 `allowlist` 的 Hosts 在稳定化阶段结束（区块高度 2475000）之前，无法参与 Proof of Compute（PoC）。
+    - Developers 的 `allowlist` 将持续生效至区块高度 2475000。
 
     `Allowlist`：
     [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)

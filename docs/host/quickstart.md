@@ -82,19 +82,30 @@ Each server to deploy ML Node should have:
 - a 16-core CPU (Network Node and ML Node can be deployed on the same server).
 - NVIDIA Container Toolkit installed and configured, with a CUDA Toolkit version between 12.6 and 12.9. You can check the version with `nvidia-smi`.
 
-### Ports open for public connections
+### Network access, proxy, and ports (IMPORTANT)
+
+Gonka Network uses a proxy-based architecture to protect nodes from abuse and DDoS attacks. All public HTTP/HTTPS traffic MUST go through the proxy container. Direct exposure of Network Node or ML Node services is not secure.
+
+**Publicly exposed ports**
+
+The following ports may be exposed to the public internet:
 
 - 5000 - Tendermint P2P communication
-- 26657 - Tendermint RPC (querying the blockchain, broadcasting transactions)
-- 8000 - Application service (configurable)
+- 8000 / 8443- Application service via proxy only
 
-!!! note "CRITICAL WARNING:  Ports 9100, 9200 on API Node, and 8080,5050 on ML Node MUST NOT be publicly accessible"
-    The following ports are internal-only:
-    
-    - `9100`, `9200` — Network Node internal API
-    - `5050` — ML Node / vLLM inference API
-    - `8080` — ML Node API
-    
+**Tendermint RPC (Port 26657)**
+
+- 26657 is NOT required to be publicly exposed
+- By default, it is recommended to keep this port internal-only
+
+!!! note "CRITICAL WARNING: Internal Ports"
+
+    The following ports are internal-only and MUST NOT be publicly accessible:
+
+    - 9100, 9200 — Network Node internal API
+    - 5050 — ML Node / vLLM inference API
+    - 8080 — ML Node API
+
     If any of these ports are exposed to the public internet, your node is vulnerable. A third party can freely send requests, overload your ML Node, disrupt mining, or cause your node to drop out of an epoch.
     
     **Requirements:**
@@ -102,6 +113,24 @@ Each server to deploy ML Node should have:
     - Allow access to these ports only from localhost, a private network or whitelisting
     - Never expose them publicly
     - Docker defaults are NOT secure
+
+!!! note "Starting from Upgrade 0.2.8"
+
+    To enhance security and performance by default, the following routing controls and chain service restrictions are automatically applied unless explicitly overridden.
+    ```bash title="API Manual Routes Control"
+          # Defines which routes bypass rate limits (Exempt) vs those completely disabled (Blocked)
+          - GONKA_API_EXEMPT_ROUTES=chat inference
+          - GONKA_API_BLOCKED_ROUTES=poc-batches training
+    ```
+    
+    ```bash title="Chain Routes Disabling"
+          # Disables public access to Chain services by default
+          - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}
+          - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}
+          - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}
+    ```
+
+The following cases describe internal port isolation for Network Node and ML Node services. These rules apply after the proxy is configured as the only public entry point. They do NOT replace the proxy and must be used together with it.
 
     === "CASE 1: ML Node and Network Node on the SAME machine"
         Bind ports to localhost only.        
@@ -131,8 +160,12 @@ Each server to deploy ML Node should have:
         - "8080:8080"
     
     === "CASE 2: ML Node and Network Node on DIFFERENT machines"
-        If ML Node and Network Node containers are on different machines, the fix described in Case 1 won't work and the particular way of protecting these ports depends on your setup. You should setup connection between ML Node and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up `DAPI_API__POC_CALLBACK_URL` variable in config. This URL must point to a private/internal address, not a public address.
+        In this setup, ALL communication between Network Node and ML Node must happen over a private network. Public IPs or public DNS names MUST NOT be used for:
+        
+        - ML Node APIs
+        `DAPI_API__POC_CALLBACK_URL`
 
+        If ML Node and Network Node containers are on different machines, the fix described in Case 1 won't work and the particular way of protecting these ports depends on your setup. You should setup connection between ML Node and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up `DAPI_API__POC_CALLBACK_URL` variable in config. This URL must point to a private/internal address, not a public address.
 
 ## Setup Your Nodes
 

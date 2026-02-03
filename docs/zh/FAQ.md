@@ -1045,7 +1045,7 @@ sha256sum .inference/cosmovisor/current/bin/inferenced
 
 运行回滚命令：
 ```
-docker exec -it node /root/.inference/cosmovisor/current/bin/inferenced rollback
+source config.env && docker compose run --rm --no-deps -ti node /root/.inference/cosmovisor/current/bin/inferenced rollback
 ```
 
 **4. 再次启动节点：**

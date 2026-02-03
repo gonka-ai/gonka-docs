@@ -1034,9 +1034,6 @@ echo "--- Final Verification ---" && \
 sudo rm -rf .inference/cosmovisor/current
 sudo ln -sf upgrades/v0.2.9-post2 .inference/cosmovisor/current
 echo "75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8afe .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
-
-# Restart 
-source config.env && docker compose up node --no-deps --force-recreate -d
 ```
 验证二进制文件版本：
 ```

@@ -128,40 +128,40 @@ Gonka Network uses a proxy-based architecture to protect nodes from abuse and DD
 
 The following cases describe internal port isolation for Network Node and ML Node services. These rules apply after the proxy is configured as the only public entry point. They do NOT replace the proxy and must be used together with it.
 
-    === "CASE 1: ML Node and Network Node on the SAME machine"
-        Bind ports to localhost only.        
+=== "CASE 1: ML Node and Network Node on the SAME machine"
+    Bind ports to localhost only.        
         
-        **Network Node (`docker-compose.yml`)**
+    **Network Node (`docker-compose.yml`)**
         
-        If your ML Node container and Network Node containers are on the same machine, you can simply edit `gonka/deploy/join/docker-compose.yml`:
-        ```
-        api:
-           ports:
-              - "127.0.0.1:9100:9100"
-              - "127.0.0.1:9200:9200"
-        ```
-        
-        **ML Node (`docker-compose.mlnode.yml`)**
-        ```
+    If your ML Node container and Network Node containers are on the same machine, you can simply edit `gonka/deploy/join/docker-compose.yml`:
+    ```
+    api:
         ports:
-          - "127.0.0.1:${PORT:-8080}:8080"
-          - "127.0.0.1:${INFERENCE_PORT:-5050}:5000"
-        ```
-        
-        Do NOT use:
-        
-        - "9100:9100"
-        - "9200:9200"
-        - "5050:5000"
-        - "8080:8080"
+            - "127.0.0.1:9100:9100"
+            - "127.0.0.1:9200:9200"
+    ```
     
-    === "CASE 2: ML Node and Network Node on DIFFERENT machines"
-        In this setup, ALL communication between Network Node and ML Node must happen over a private network. Public IPs or public DNS names MUST NOT be used for:
-        
-        - ML Node APIs
-        `DAPI_API__POC_CALLBACK_URL`
+    **ML Node (`docker-compose.mlnode.yml`)**
+    ```
+    ports:
+        - "127.0.0.1:${PORT:-8080}:8080"
+        - "127.0.0.1:${INFERENCE_PORT:-5050}:5000"
+    ```
 
-        If ML Node and Network Node containers are on different machines, the fix described in Case 1 won't work and the particular way of protecting these ports depends on your setup. You should setup connection between ML Node and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up `DAPI_API__POC_CALLBACK_URL` variable in config. This URL must point to a private/internal address, not a public address.
+    Do NOT use:
+        
+    - "9100:9100"
+    - "9200:9200"
+    - "5050:5000"
+    - "8080:8080"
+    
+=== "CASE 2: ML Node and Network Node on DIFFERENT machines"
+    In this setup, ALL communication between Network Node and ML Node must happen over a private network. Public IPs or public DNS names MUST NOT be used for:
+        
+    - ML Node APIs
+    - `DAPI_API__POC_CALLBACK_URL`
+
+    If ML Node and Network Node containers are on different machines, the fix described in Case 1 won't work and the particular way of protecting these ports depends on your setup. You should setup connection between ML Node and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up `DAPI_API__POC_CALLBACK_URL` variable in config. This URL must point to a private/internal address, not a public address.
 
 ## Setup Your Nodes
 

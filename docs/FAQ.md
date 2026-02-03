@@ -561,7 +561,7 @@ Before PoC v2 activation, ensure that:
 
 - ML Node serves `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
 - All other models are removed from the configuration
-- ML Node image is `3.0.12` (or `3.0.12-blackwell`)
+- ML Node image is `3.0.12-post3` (or `3.0.12-post3-blackwell`)
 
 ## Keys & security
     

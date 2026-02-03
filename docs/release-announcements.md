@@ -2,6 +2,41 @@
 
 ## February 2, 2026
 
+**PoC v2 inference-based weight adjustments**
+
+With PoC v2 active, weight assignment is now based on measured inference performance on the current model `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. As a result, both median GPU weights and relative weight ratios between GPU types have been adjusted.
+
+**Observed GPU weight changes (Epoch 158 → 159)**
+
+  ┌────────────────┬───────────┬───────────┬────────┐
+  │    GPU Type    │ Epoch 158 │ Epoch 159 │ Change │
+  ├────────────────┼───────────┼───────────┼────────┤
+  │ A100-PCIE-40GB │ 129.05    │ 17.31     │ -86.6% │
+  ├────────────────┼───────────┼───────────┼────────┤
+  │ A100-SXM4-80GB │ 204.12    │ 127.75    │ -37.4% │
+  ├────────────────┼───────────┼───────────┼────────┤
+  │ B200           │ 739.81    │ 300.75    │ -59.3% │
+  ├────────────────┼───────────┼───────────┼────────┤
+  │ H100 80GB HBM3 │ 424.73    │ 292.88    │ -31.0% │
+  ├────────────────┼───────────┼───────────┼────────┤
+  │ H100 PCIe      │ 307.03    │ 144.53    │ -52.9% │
+  ├────────────────┼───────────┼───────────┼────────┤
+  │ H200           │ 512.38    │ 303.88    │ -40.7% │
+  └────────────────┴───────────┴───────────┴────────┘
+
+**Context**
+
+- Observed changes indicate that GPU weight differences now reflect model-specific inference throughput rather than nominal hardware specifications. For example, the H100 PCIe weight decreased more than the H100 HBM3 weight, consistent with observed inference behavior for `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`.
+- Under the current model configuration, B200 GPUs do not demonstrate higher inference performance compared to H100-class GPUs, based on observed inference traces.
+- Different performance characteristics may be observed if and when larger or more demanding models are introduced through governance in future epochs (for example, DeepSeek V3.2).
+- Control inference benchmark measurements performed outside of PoC, using standard vLLM-based inference on the same model `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, showed the same relative performance differences between GPU types as observed in PoC v2.
+
+**Action for tracker (dashboard) maintainers**
+
+With the updated weight assignments in effect, tracker (dashboard) maintainers may wish to review their coefficients for epoch 159 and later to ensure consistency with the current PoC v2 weight assignment.
+
+## February 2, 2026
+
 **Network Update — Patch Available**
 
 A patch is now available to address the issue that caused the recent pause in block validation during the PoC cycle. Hosts are encouraged to apply the patch as soon as possible to ensure correct PoC validation behavior and allow block production to resume safely.

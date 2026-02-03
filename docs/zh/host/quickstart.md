@@ -5,8 +5,8 @@
     
     为确保稳定运行，参与仅限于 `allowlist`（白名单）。
     
-    - 未列入 `allowlist` 的主机在稳定期结束（区块 2,443,558）之前无法参与计算证明（PoC）。
-    - 开发者 `allowlist` 将持续至区块 2,459,375。
+    - 未列入 `allowlist` 的主机在稳定期结束（区块 2475000）之前无法参与计算证明（PoC）。
+    - 开发者 `allowlist` 将持续至区块 2475000。
     
     `Allowlist`：[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
     

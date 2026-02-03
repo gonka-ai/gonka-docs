@@ -86,22 +86,18 @@ Each server to deploy ML Node should have:
 
 Gonka Network uses a proxy-based architecture to protect nodes from abuse and DDoS attacks. All public HTTP/HTTPS traffic MUST go through the proxy container. Direct exposure of Network Node or ML Node services is not secure.
 
-**Publicly exposed ports**
+!!! note "Publicly exposed ports"
 
-The following ports may be exposed to the public internet:
+    The following ports may be exposed to the public internet:
 
-- 5000 - Tendermint P2P communication
-- 8000 / 8443- Application service via proxy only
+    - 5000 - Tendermint P2P communication
+    - 8000 / 8443 - Application service via proxy only
 
-**Tendermint RPC (Port 26657)**
-
-- 26657 is NOT required to be publicly exposed
-- By default, it is recommended to keep this port internal-only
-
-!!! note "CRITICAL WARNING: Internal Ports"
+!!! warning "WARNING: Internal ports"
 
     The following ports are internal-only and MUST NOT be publicly accessible:
 
+    - 26657 - Tendermint RPC
     - 9100, 9200 — Network Node internal API
     - 5050 — ML Node / vLLM inference API
     - 8080 — ML Node API

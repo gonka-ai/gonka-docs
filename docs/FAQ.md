@@ -564,7 +564,11 @@ Before PoC v2 activation, ensure that:
 - ML Node image is `3.0.12` (or `3.0.12-blackwell`)
 
 ## Keys & security
-    
+
+### Which CLI version should be used for warm keys created after the v0.2.9 upgrade?
+
+For granting permissions to new warm keys created after the v0.2.9 upgrade, the CLI [version v0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) should be used.
+
 ### Where can I find information on key management?
 You can find a dedicated section on [Key Management](https://gonka.ai/host/key-management/) in the documentation. It outlines the procedures and best practices for securely managing your application's keys on the network.
 

@@ -183,7 +183,10 @@ We use a three-key system:
 ### [Local machine] Install the CLI Tool
 The `inferenced` CLI is required for local account management and network operations. It's a command-line interface utility that allows you to create and manage Gonka accounts, register hosts, and perform various network operations from your local machine.
 
-Download the latest `inferenced` binary from [GitHub releases](https://github.com/gonka-ai/gonka/releases) and make it executable:
+Download the latest `inferenced` binary from [GitHub releases](https://github.com/gonka-ai/gonka/releases) and make it executable.
+
+!!! note "Important"
+    Please make sure you are using the CLI tool [version 0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) or newer. Older versions are not supported for permission granting and may lead to unexpected behavior.
 
 ```bash
 chmod +x inferenced

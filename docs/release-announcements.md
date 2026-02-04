@@ -1,5 +1,11 @@
 # Announcements
 
+## February 4, 2026
+
+**CLI update reminder**
+
+For granting permissions to warm keys created after the v0.2.9 upgrade, the [CLI version v0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.9) should be used.
+
 ## February 3, 2026
 
 **PoC v2 inference-based weight adjustments**

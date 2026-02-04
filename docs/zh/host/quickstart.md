@@ -1,27 +1,5 @@
 # 配置您的链
 
-!!! note "警告"
-    网络当前处于临时稳定化阶段。在此期间，新注册与推理已暂停。
-    
-    为确保稳定运行，参与仅限于 `allowlist`（白名单）。
-    
-    - 未列入 `allowlist` 的主机在稳定期结束（区块 2475000）之前无法参与计算证明（PoC）。
-    - 开发者 `allowlist` 将持续至区块 2475000。
-    
-    `Allowlist`：[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
-    
-    详情：[https://gonka.ai/release-announcements](https://gonka.ai/release-announcements)
-
-    **主机行动项**
-
-    请按新的 PoC 要求准备您的环境。
-    
-    - **模型更新：** 请将您的 ML 节点切换为 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 模型。
-    - **渐进式部署：** 若您运行多个 ML 节点，建议在多个 epoch 内逐步完成更新。
-    - 更新现有 ML 节点的说明见：[https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)
-
-    任何替代配置均须通过单独的治理决策确定。
-
 **主机**（**硬件提供方**或**节点**）向网络提供算力，并根据所提供资源的数量与质量获得奖励。
 
 要加入网络，您需要部署两类服务：

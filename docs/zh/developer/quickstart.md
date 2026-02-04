@@ -4,22 +4,6 @@ name: index.md
 
 # 开发者快速开始
 
-!!! note "警告"
-    网络当前处于临时稳定化阶段。在此期间，新注册和推理功能已暂停。
-
-    为确保网络稳定运行，当前仅允许列入 `allowlist` 的参与方参与。
-
-    - 未列入 `allowlist` 的 Hosts 在稳定化阶段结束（区块高度 2475000）之前，无法参与 Proof of Compute（PoC）。
-    - Developers 的 `allowlist` 将持续生效至区块高度 2475000。
-
-    `Allowlist`：
-    [https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
-
-    详情请参阅：
-    [https://gonka.ai/release-announcements](https://gonka.ai/release-announcements)
-
-    任何替代配置均需通过单独的治理决策进行定义。
-
 本指南介绍如何在 Gonka 中创建开发者账户并使用 Gonka API 提交推理请求。
 
 ??? note "Gonka 与传统 AI API 的区别"

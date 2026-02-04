@@ -1,5 +1,11 @@
 # 公告
 
+## 2026年2月4日
+
+**CLI 更新提醒**
+
+对于在 v0.2.9 升级之后 创建的 warm keys，[在授予权限时应使用 CLI v0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.9)。
+
 ## 2026年2月3日
 
 **PoC v2 基于推理性能的权重调整**

@@ -137,7 +137,10 @@
 
 本地账户管理与网络操作需要 `inferenced` CLI。它是命令行工具，用于在本地机器上创建和管理 Gonka 账户、注册主机及执行各类网络操作。
 
-从 [GitHub 发布页](https://github.com/gonka-ai/gonka/releases) 下载最新 `inferenced` 并赋予可执行权限：
+从 [GitHub 发布页](https://github.com/gonka-ai/gonka/releases) 下载最新 `inferenced` 并赋予可执行权限.
+
+!!! note "重要说明"
+    请确保您正在使用 [0.2.9 或更新版本 的 CLI 工具](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9)。较旧版本 不支持权限授予，并且可能导致不可预期的行为。
 
 ```bash
 chmod +x inferenced

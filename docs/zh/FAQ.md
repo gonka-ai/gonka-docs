@@ -568,6 +568,10 @@ v0.2.8 升级完成后，PoC v2 的逻辑已可用，但**尚未用于权重分�
 - ML Node 镜像版本为 `3.0.12` （或 `3.0.12-blackwell`）
 
 ## 密钥和安全
+
+### 在 v0.2.9 升级之后 创建的 warm keys 应使用哪个 CLI 版本？
+
+对于在 v0.2.9 升级之后 创建的新 warm keys，[在授予权限时应使用 CLI v0.2.9。](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9)
     
 ### 我在哪里可以找到密钥管理的信息？
 您可以在文档中找到关于[密钥管理](https://gonka.ai/zh/host/key-management/)的专门部分。它概述了在网络上安全管理应用程序密钥的程序和最佳实践。

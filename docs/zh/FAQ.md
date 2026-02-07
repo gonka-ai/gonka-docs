@@ -270,7 +270,7 @@ curl http://<inference_url>/v1/epochs/current/participants
     ```
     示例：
     ```
-    SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
+    SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc/ 
     ```
 !!! note "重要"
 
@@ -304,7 +304,7 @@ curl http://<inference_url>/v1/epochs/current/participants
     最终示例：
     ```
     export SEED_API_URL=http://node2.gonka.ai:8000
-    export SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
+    export SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc/
     export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000
     ```
 

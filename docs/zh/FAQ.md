@@ -243,16 +243,15 @@ curl http://<inference_url>/v1/epochs/current/participants
 
 如果您跳过备份，稍后仍可以使用您的账户密钥恢复设置。
 
-### 我的节点无法连接到 `config.env` 中指定的默认种子节点
+### 我的节点无法连接到 config.env 中指定的默认种子节点
 
-如果您的节点无法连接到默认种子节点，只需通过更新 `config.env` 中的三个变量将其指向另一个节点。
+如果你的节点无法连接到默认种子节点，只需在 config.env 中更新以下三个变量，将其指向另一个种子节点即可。
 
-1. `SEED_API_URL` - 种子节点的 HTTP 端点（用于 API 通信）。
-   从下面的列表中选择任何 URL 并直接将其分配给 `SEED_API_URL`。
+1. SEED_API_URL：种子节点的 HTTP 端点（用于 API 通信）。 从下面列表中选择任意一个 URL，并直接赋值给 SEED_API_URL。
     ```
     export SEED_API_URL=<chosen_http_url>
     ```
-    可用的创世 API URL：
+    可用的创世（genesis）API URL：
     ```
     http://185.216.21.98:8000
     http://36.189.234.197:18026
@@ -265,44 +264,48 @@ curl http://<inference_url>/v1/epochs/current/participants
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
     ```
-2. `SEED_NODE_RPC_URL` - 同一种子节点的 RPC 端点。使用与 `SEED_API_URL` 相同的主机，但始终使用端口 `<http_port>/chain-rpc`。
+2. SEED_NODE_RPC_URL：公共 Tendermint RPC 访问必须通过种子节点的 HTTP(S) 代理路径 /<chain-rpc>。 使用与 SEED_API_URL 相同的协议（http 或 https）、主机（host）和端口（port），并在末尾追加 /chain-rpc。
     ```
-    export SEED_NODE_RPC_URL=http://<host>:<http_port>/chain-rpc
+    export SEED_NODE_RPC_URL=http://<host>/chain-rpc
     ```
-    示例
+    示例：
     ```
     SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
     ```
-3. `SEED_NODE_P2P_URL` - 用于节点之间网络的 P2P 地址。
-您必须从种子节点的状态端点获取 P2P 端口。
+!!! note "重要"
 
-    查询节点：
+	- 不要将 http://<host>:26657 用作公共 RPC 端点。
+	26657 端口必须仅限内部访问（localhost/私有网络）。公共 RPC 必须通过 /<chain-rpc> 访问。
+	
+3. SEED_NODE_P2P_URL：用于节点间网络通信的 P2P 地址。 你必须通过同一个 /<chain-rpc> 代理，从种子节点的 status 端点获取 P2P 端口。
+
+    查询节点状态：
     ```
     http://<host>:<http_port>/chain-rpc/status
     ```
-    示例
+    示例：
     ```
     http://node3.gonka.ai:8000/chain-rpc/status
     ```
-    在响应中找到 `listen_addr`，例如：
+    在返回内容中找到 listen_addr，例如：
     ```
     ""listen_addr"": ""tcp://0.0.0.0:5000""
     ```
     
-    使用此端口：
+    使用该端口设置：
     ```
     export SEED_NODE_P2P_URL=tcp://<host>:<p2p_port>
     ```
-    示例
+    示例：
     ```
     export SEED_NODE_P2P_URL=tcp://node3.gonka.ai:5000
     ```
     
-    最终结果示例
+    最终示例：
     ```
     export SEED_API_URL=http://node2.gonka.ai:8000
-    export SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc
-    export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
+    export SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
+    export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000
     ```
 
 ### 如何更改种子节点？

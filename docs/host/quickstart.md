@@ -773,17 +773,17 @@ To track when the next Proof of Compute session will begin, check [the dashboard
 http://node2.gonka.ai:8000/dashboard/gonka/validator
 ```
 
-Once your node is running, check your node status using Tendermint RPC endpoint of your node (26657 of `node` container).
+Once your node is running, check your node status through the proxy.
 ```bash
-curl http://<PUBLIC_IP>:<PUBLIC_RPC_PORT>/status
+curl http://<PUBLIC_IP>:8000/chain-rpc/status
 ```
-On the server, you can use private ones.
+On the server, you can use private ones (from within the container or if 26657 is bound to localhost).
 ```bash
 curl http://0.0.0.0:26657/status
 ```
-Using the public IP of the genesis node.
+Using the public endpoint of the genesis node.
 ```bash
-curl http://node2.gonka.ai:26657/status
+curl http://node2.gonka.ai:8000/chain-rpc/status
 ```
 
 Once your node is visible in the Dashboard, you may also want to update your public profile (host name, website, avatar). This helps other participants identify your node in the network. You can find [the instructions here](https://gonka.ai/host/validator_info/).

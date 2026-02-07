@@ -66,15 +66,15 @@
 ### 对公网开放的端口
 
 - 5000 - Tendermint P2P 通信
-- 26657 - Tendermint RPC（查询区块链、广播交易）
 - 8000 - 应用服务（可配置）
 
 !!! note "重要警告：API 节点端口 9100、9200 与 ML 节点端口 8080、5050 不得对外公开"
     以下端口仅限内部使用：
     
-    - `9100`、`9200` — 网络节点内部 API
-    - `5050` — ML 节点 / vLLM 推理 API
-    - `8080` — ML 节点 API
+    - 26657 — Tendermint RPC（仅限内部，外部访问请使用代理）
+- 9100、9200 — 网络节点内部 API
+- 5050 — ML 节点 / vLLM 推理 API
+- 8080 — ML 节点 API
     
     若这些端口暴露在公网，您的节点将面临风险。第三方可随意发送请求、占满 ML 节点、干扰挖矿或导致节点在 epoch 中掉线。
     
@@ -751,17 +751,17 @@ http://node2.gonka.ai:8000/v1/epochs/current/participants
 http://node2.gonka.ai:8000/dashboard/gonka/validator
 ```
 
-节点运行后，可通过节点的 Tendermint RPC（`node` 容器的 26657 端口）查看状态：
+节点运行后，可通过代理查看状态：
 ```bash
-curl http://<PUBLIC_IP>:<PUBLIC_RPC_PORT>/status
+curl http://<PUBLIC_IP>:8000/chain-rpc/status
 ```
-在服务器上可使用内网地址：
+在服务器上，您可以使用内网地址（从容器内部或若 26657 绑定到 localhost）：
 ```bash
 curl http://0.0.0.0:26657/status
 ```
-使用创世节点公网地址：
+使用创世节点的公共端点：
 ```bash
-curl http://node2.gonka.ai:26657/status
+curl http://node2.gonka.ai:8000/chain-rpc/status
 ```
 
 当节点在仪表盘中可见后，您也可以更新公开资料（主机名、网站、头像），便于其他参与者识别。说明见[此处](https://gonka.ai/host/validator_info/)。

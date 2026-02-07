@@ -242,7 +242,7 @@
     },
     {
       key: 'SEED_NODE_RPC_URL',
-      value: 'http://node2.gonka.ai:26657',
+      value: 'http://node2.gonka.ai:8000/chain-rpc',
       comment: { en: 'Keep as is', zh: '保持原样' },
       conditionalRules: []
     },
@@ -272,13 +272,13 @@
     },
     {
       key: 'RPC_SERVER_URL_1',
-      value: 'http://node1.gonka.ai:26657',
+      value: 'http://node1.gonka.ai:8000/chain-rpc',
       comment: { en: 'Keep as is', zh: '保持原样' },
       conditionalRules: []
     },
     {
       key: 'RPC_SERVER_URL_2',
-      value: 'http://node2.gonka.ai:26657',
+      value: 'http://node2.gonka.ai:8000/chain-rpc',
       comment: { en: 'Keep as is', zh: '保持原样' },
       conditionalRules: []
     },

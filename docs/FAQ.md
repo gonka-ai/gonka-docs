@@ -265,13 +265,13 @@ If your node cannot connect to the default seed node, simply point it to another
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
     ```
-2. `SEED_NODE_RPC_URL` - the RPC endpoint of the same seed node. Use the same host as in `SEED_API_URL`, but always port 26657.
+2. `SEED_NODE_RPC_URL` - the RPC endpoint of the same seed node. Use the same host as in `SEED_API_URL`, but always port `8000/chain-rpc`.
     ```
-    export SEED_NODE_RPC_URL=http://<host>:26657
+    export SEED_NODE_RPC_URL=http://<host>:<http_port>/chain-rpc
     ```
     Example
     ```
-    SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+    SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
     ```
 3. `SEED_NODE_P2P_URL` - the P2P address used for networking between nodes.
 You must obtain the P2P port from the seed node’s status endpoint.
@@ -301,7 +301,7 @@ You must obtain the P2P port from the seed node’s status endpoint.
     Final result example
     ```
     export SEED_API_URL=http://node2.gonka.ai:8000
-    export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+    export SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
     export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
     ```
 

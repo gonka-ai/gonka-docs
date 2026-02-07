@@ -265,16 +265,22 @@ If your node cannot connect to the default seed node, simply point it to another
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
     ```
-2. `SEED_NODE_RPC_URL` - the RPC endpoint of the same seed node. Use the same host as in `SEED_API_URL`, but always port `<http_port>/chain-rpc`.
+2. `SEED_NODE_RPC_URL` - Public Tendermint RPC access MUST go through the seed node HTTP(S) proxy path `/<chain-rpc>`.
+Use the same scheme (http or https), host, and port as in `SEED_API_URL`, and append `/chain-rpc`.
     ```
-    export SEED_NODE_RPC_URL=http://<host>:<http_port>/chain-rpc
+    export SEED_NODE_RPC_URL=http://<host>/chain-rpc
     ```
     Example
     ```
     SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
     ```
+!!! note "Important"
+
+	- Do NOT use `http://<host>:26657` as a public RPC endpoint.
+	- Port `26657` MUST be internal-only (localhost/private network). Public RPC must go via `/<chain-rpc>`.
+	
 3. `SEED_NODE_P2P_URL` - the P2P address used for networking between nodes.
-You must obtain the P2P port from the seed node’s status endpoint.
+You must obtain the P2P port from the seed node’s status endpoint via the same `/<chain-rpc>` proxy.
 
     Query the node:
     ```
@@ -302,7 +308,7 @@ You must obtain the P2P port from the seed node’s status endpoint.
     ```
     export SEED_API_URL=http://node2.gonka.ai:8000
     export SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
-    export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
+    export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000
     ```
 
 ### How to change the seed nodes?

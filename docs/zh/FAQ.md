@@ -265,13 +265,13 @@ curl http://<inference_url>/v1/epochs/current/participants
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
     ```
-2. `SEED_NODE_RPC_URL` - 同一种子节点的 RPC 端点。使用与 `SEED_API_URL` 相同的主机，但始终使用端口 26657。
+2. `SEED_NODE_RPC_URL` - 同一种子节点的 RPC 端点。使用与 `SEED_API_URL` 相同的主机，但始终使用端口 `<http_port>/chain-rpc`。
     ```
-    export SEED_NODE_RPC_URL=http://<host>:26657
+    export SEED_NODE_RPC_URL=http://<host>:<http_port>/chain-rpc
     ```
     示例
     ```
-    SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+    SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
     ```
 3. `SEED_NODE_P2P_URL` - 用于节点之间网络的 P2P 地址。
 您必须从种子节点的状态端点获取 P2P 端口。
@@ -301,7 +301,7 @@ curl http://<inference_url>/v1/epochs/current/participants
     最终结果示例
     ```
     export SEED_API_URL=http://node2.gonka.ai:8000
-    export SEED_NODE_RPC_URL=http://node2.gonka.ai:26657
+    export SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc
     export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000"
     ```
 

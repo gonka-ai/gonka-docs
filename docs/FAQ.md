@@ -272,7 +272,7 @@ Use the same scheme (http or https), host, and port as in `SEED_API_URL`, and ap
     ```
     Example
     ```
-    SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
+    SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc/ 
     ```
 !!! note "Important"
 
@@ -288,7 +288,7 @@ You must obtain the P2P port from the seed node’s status endpoint via the same
     ```
     Example
     ```
-    http://node3.gonka.ai:8000/chain-rpc/status
+    https://node3.gonka.ai/chain-rpc/status
     ```
     Find `listen_addr` in the response, for example:
     ```
@@ -307,7 +307,7 @@ You must obtain the P2P port from the seed node’s status endpoint via the same
     Final result example
     ```
     export SEED_API_URL=http://node2.gonka.ai:8000
-    export SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc 
+    export SEED_NODE_RPC_URL=http://node2.gonka.ai:8000/chain-rpc/
     export SEED_NODE_P2P_URL=tcp://node2.gonka.ai:5000
     ```
 

@@ -1,5 +1,73 @@
 # Announcements
 
+## February 10, 2026 
+
+**PR Review for Upgrade v0.2.10**
+
+[The Pull Request](https://github.com/gonka-ai/gonka/pull/695) for the next on-chain software upgrade, v0.2.10, is open for review. Feedback and suggested improvements are welcome. The current plan is to keep the review window open for about 2 days.
+
+Bounties for meaningful contributions to this PR review may be proposed in the next upgrade. 
+
+This is a call for review of the Pull Request only, and not the start of formal voting. The governance voting process will begin after the review period concludes.
+
+**Key changes**
+
+**[PR #710](https://github.com/gonka-ai/gonka/pull/710) PoC Validation Sampling Optimization**
+
+This upgrade introduces a new PoC validation mechanism that reduces complexity from O(N^2) to O(N x N_SLOTS) by assigning each participant a fixed sampled set of validators. Reference design and analysis: [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/poc/optimize.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/poc/optimize.md)  
+
+**[PR #725](https://github.com/gonka-ai/gonka/pull/725) PR PoC Weight Normalization by Real PoC Time**
+
+This upgrade normalizes PoC participant weights by actual PoC elapsed time to reduce block-time drift effects and keep weight outcomes consistent with real execution duration.
+
+**Other key changes:**
+
+- **[PR #708](https://github.com/gonka-ai/gonka/pull/708)** IBC Upgrade to v8.7.0
+- **[PR #723](https://github.com/gonka-ai/gonka/pull/723)** Testnet bridge setup scripts
+- **[PR #666](https://github.com/gonka-ai/gonka/pull/666)** Artifact storage throughput optimization
+- **[PR #688](https://github.com/gonka-ai/gonka/pull/688)** Punishment statistics from on-chain data
+- **[PR #697](https://github.com/gonka-ai/gonka/pull/697)** Portable BLST build for macOS test builds
+- **[PR #712](https://github.com/gonka-ai/gonka/pull/712)** Require proto-go generation matches committed code
+- **[PR #711](https://github.com/gonka-ai/gonka/pull/711)** PoC test params from chain state
+- **[PR #641](https://github.com/gonka-ai/gonka/pull/641)** Streamvesting transfer with vesting
+- **[PR #659](https://github.com/gonka-ai/gonka/pull/659)** model assignment checks previous-epoch rewards.
+- **[PR #716](https://github.com/gonka-ai/gonka/pull/716)** rename PoC weight function for clarity and correctness.
+
+**API hardening and reliability fixes:**
+
+- **[PR #634](https://github.com/gonka-ai/gonka/pull/634)**: add request body size limits to reduce DoS risk.
+- **[PR #727](https://github.com/gonka-ai/gonka/pull/727)**: follow-up for #634, pass response writer to `http.MaxBytesReader` and align tests.
+- **[PR #638](https://github.com/gonka-ai/gonka/pull/638)**: fix unsafe type assertions in request processing.
+- **[PR #644](https://github.com/gonka-ai/gonka/pull/644)**: avoid rewriting static config on each startup.
+- **[PR #661](https://github.com/gonka-ai/gonka/pull/661)**: prevent API crash on short network drops.
+- **[PR #640](https://github.com/gonka-ai/gonka/pull/640)**: add unit tests for node version endpoint behavior.
+- **[PR #622](https://github.com/gonka-ai/gonka/pull/622)**: propagate refund errors in `InvalidateInference`.
+- **[PR #639](https://github.com/gonka-ai/gonka/pull/639)**: add missing return after error in task claiming path.
+- **[PR #643](https://github.com/gonka-ai/gonka/pull/643)**: sanitize nil participants in executor selection.
+- **[PR #545](https://github.com/gonka-ai/gonka/pull/545)**: minor bug fixes in API flow.
+
+**Upgrade plan**
+
+Binary versions are expected to be updated via an on-chain upgrade proposal. For more information on the upgrade process, refer to [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/docs/upgrades.md.)
+
+Existing hosts don’t need to upgrade their `api` and `node` containers. The updated container versions are intended for new hosts who join after the on-chain upgrade is complete.
+
+**Proposed process**
+
+1. Active hosts review this proposal on GitHub and leave feedback.
+2. After the PR is reviewed by community, a v0.2.10 release is expected to be created from this branch, and an on-chain upgrade proposal for this version can be submitted, starting the formal governance voting process.
+3. If the on-chain proposal passes, this PR is expected to be merged after the upgrade is executed on-chain.
+
+Creating the release from [upgrade-v0.2.10](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10) branch (instead of `main`) minimizes the time that the `/deploy/join/` directory on the `main` branch contains container versions that do not match the on-chain binary versions, ensuring a smoother onboarding experience for new hosts.
+
+**Testing and migration**
+
+Testing guidance and migration details for v0.2.10 are documented [here](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10). Please review carefully.
+
+**Compatibility notes**
+
+If you have any scripts that parse JSON output from the `inferenced` CLI, please re-check them after this upgrade. Due to the ibc-go upgrade to v8.7.0, enums are now encoded as strings instead of numbers, and int64/uint64 values are now also encoded as strings.
+
 ## February 4, 2026
 
 **CLI update reminder**

@@ -1,5 +1,73 @@
 # 公告
 
+## 2026年2月10日 
+
+**v0.2.10 升级 PR 审查**
+
+用于下一次链上软件升级 v0.2.10 的 [Pull Request](https://github.com/gonka-ai/gonka/pull/695) 已开放审查。欢迎提出反馈与改进建议。当前计划将审查窗口开放约 2 天。
+
+针对本次 PR 审查中有意义的贡献，可能会在下一次升级中提出相应的赏金提案。
+
+本通知仅为 Pull Request 的审查征集，并非正式投票的开始。治理投票流程将在审查期结束后启动。
+
+**关键变更**
+
+**[PR #710](https://github.com/gonka-ai/gonka/pull/710) PoC 验证采样优化**
+
+本次升级引入新的 PoC 验证机制：为每个参与者分配一个固定采样的验证者集合，将复杂度从 O(N^2) 降至 O(N × N_SLOTS)。参考设计与分析 [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/poc/optimize.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/poc/optimize.md)  
+
+**[PR #725](https://github.com/gonka-ai/gonka/pull/725) 按真实 PoC 耗时进行 PoC 权重归一化** 
+
+本次升级按 PoC 实际经过时间对参与者权重进行归一化，以减少区块时间漂移带来的影响，并使权重结果与真实执行时长保持一致。
+
+**其他关键变更**
+
+- **[PR #708](https://github.com/gonka-ai/gonka/pull/708)** IBC 升级到 v8.7.0
+- **[PR #723](https://github.com/gonka-ai/gonka/pull/723)** 测试网桥接（bridge）部署脚本
+- **[PR #666](https://github.com/gonka-ai/gonka/pull/666)** 产物（artifact）存储吞吐优化
+- **[PR #688](https://github.com/gonka-ai/gonka/pull/688)** 基于链上数据的惩罚统计
+- **[PR #697](https://github.com/gonka-ai/gonka/pull/697)** 用于 macOS 测试构建的可移植 BLST 构建
+- **[PR #712](https://github.com/gonka-ai/gonka/pull/712)** 要求 proto-go 生成结果与提交的代码一致
+- **[PR #711](https://github.com/gonka-ai/gonka/pull/711)** 从链状态读取 PoC 测试参数
+- **[PR #641](https://github.com/gonka-ai/gonka/pull/641)** 带归属（vesting）的 Streamvesting 转账
+- **[PR #659](https://github.com/gonka-ai/gonka/pull/659)** 模型分配检查上一 epoch 的奖励
+- **[PR #716](https://github.com/gonka-ai/gonka/pull/716)** r为清晰性与正确性重命名 PoC 权重函数
+
+**API 加固与可靠性修复**
+
+- **[PR #634](https://github.com/gonka-ai/gonka/pull/634)**: 增加请求体大小限制，以降低 DoS 风险
+- **[PR #727](https://github.com/gonka-ai/gonka/pull/727)**: #634 的后续修复，将 response writer 传入 http.MaxBytesReader 并对齐测试
+- **[PR #638](https://github.com/gonka-ai/gonka/pull/638)**: 修复请求处理中的不安全类型断言
+- **[PR #644](https://github.com/gonka-ai/gonka/pull/644)**: 避免每次启动都重写静态配置
+- **[PR #661](https://github.com/gonka-ai/gonka/pull/661)**: 防止短暂网络中断导致 API 崩溃
+- **[PR #640](https://github.com/gonka-ai/gonka/pull/640)**: 为节点版本接口行为添加单元测试
+- **[PR #622](https://github.com/gonka-ai/gonka/pull/622)**: 在 `InvalidateInference` 中传播退款错误
+- **[PR #639](https://github.com/gonka-ai/gonka/pull/639)**: 在任务认领路径中，错误处理后补充缺失的 return
+- **[PR #643](https://github.com/gonka-ai/gonka/pull/643)**: 在执行器选择过程中清理（sanitize）nil 参与者
+- **[PR #545](https://github.com/gonka-ai/gonka/pull/545)**: API 流程中的小型 bug 修复
+
+**升级计划**
+
+二进制版本预计将通过链上升级提案进行更新。有关升级流程的更多信息，请参阅： [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/docs/upgrades.md.)
+
+现有主机无需升级其 api 和 node 容器。更新后的容器版本主要面向链上升级完成后新加入的主机。
+
+**拟议流程**
+
+1. 活跃主机在 GitHub 上审查该提案并留下反馈。
+2. PR 完成社区审查后，预计会从该分支创建 v0.2.10 release，并可为该版本提交链上升级提案，从而启动正式的治理投票流程。
+3. 若链上提案通过，预计将在链上完成升级执行后合并该 PR。
+
+从 [upgrade-v0.2.10](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10) 分支（而非 `main`）创建 release，可尽量缩短 main 分支 `/deploy/join/` 目录中“容器版本与链上二进制版本不匹配”的时间，从而确保新主机加入时的体验更顺畅。
+
+**测试与迁移**
+
+v0.2.10 的测试指南与迁移细节记录在此处：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10). 请仔细阅读。
+
+**兼容性说明**
+
+如果你有任何脚本会解析 inferenced CLI 的 JSON 输出，请在本次升级后重新检查。由于 ibc-go 升级到 v8.7.0，枚举（enum）现在会以字符串而非数字编码；同时，int64/uint64 数值也会以字符串形式编码。
+
 ## 2026年2月4日
 
 **CLI 更新提醒**

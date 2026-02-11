@@ -451,7 +451,7 @@ Do not forget to write it down, you will need it in the next step.
 
     client = GonkaOpenAI(
         gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-        source_url=NODE_URL
+        source_url=os.environ.get('NODE_URL')
     )
 
     response = client.chat.completions.create(
@@ -509,36 +509,31 @@ Do not forget to write it down, you will need it in the next step.
     package main
 
     import (
-        "fmt"
+        "context"
+        "log"
         "os"
 
         gonka "github.com/gonka-ai/gonka-openai/go"
     )
 
     func main() {
-        client, err := gonka.NewClient(gonka.Options{
+        client, err := gonka.NewGonkaOpenAI(gonka.Options{
             GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            SourceUrl: os.Getenv("NODE_URL")},
+            SourceUrl:       os.Getenv("NODE_URL"),
         })
         if err != nil {
-            panic(err)
+            log.Fatal(err)
         }
 
-        response, err := client.CreateChatCompletion(
+        resp, err := client.ChatCompletion(context.Background(),
             "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-            []gonka.ChatCompletionMessage{
-                {
-                    Role:    "user",
-                    Content: "Write a haiku about programming",
-                },
-            },
+            gonka.UserMessage("Write a haiku about programming"),
         )
         if err != nil {
-            fmt.Printf("Error: %v\n", err)
-            return
+            log.Fatal(err)
         }
 
-        fmt.Println(response.Choices[0].Message.Content)
+        log.Println(resp.Choices[0].Message.Content)
     }
     ```
 

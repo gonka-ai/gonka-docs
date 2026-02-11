@@ -596,7 +596,7 @@ v0.2.8 升级完成后，PoC v2 的逻辑已可用，但**尚未用于权重分�
 ```
 
 ### 我删除了热密钥
-在本地设备上备份**冷密钥**，在服务器外部。
+请在本地设备上备份冷密钥，不要存放在服务器上。
 
 1) 停止 API 容器：
     ```
@@ -616,7 +616,7 @@ v0.2.8 升级完成后，PoC v2 的逻辑已可用，但**尚未用于权重分�
     inferenced keys add "$KEY_NAME" --keyring-backend file
     ```
 
-5) [本地]：从您的本地设备（您备份了冷密钥的地方），运行交易：
+5) [本地]：在备份了冷密钥的本地设备上，执行以下交易：
     ```
     ./inferenced tx inference grant-ml-ops-permissions \
         gonka-account-key \

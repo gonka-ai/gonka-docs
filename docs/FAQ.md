@@ -433,8 +433,8 @@ Successful participation in the PoC v2 transition requires both of the following
 
 - All your ML Nodes serve `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. This is the only model that contributes to PoC v2  weight.
 - All your ML Nodes are upgraded to a PoC v2–compatible image:
-    - ghcr.io/product-science/mlnode:3.0.12
-    - ghcr.io/product-science/mlnode:3.0.12-blackwell 
+    - ghcr.io/product-science/mlnode:3.0.12-post3
+    - ghcr.io/product-science/mlnode:3.0.12-post3-blackwell 
 
 !!! note "Important"
 	- Serving the correct model without upgrading the ML Node is not sufficient.
@@ -508,11 +508,11 @@ Edit `docker-compose.mlnode.yml` and update the ML Node image:
 
 Standard GPUs
 ```
-image: ghcr.io/product-science/mlnode:3.0.12
+image: ghcr.io/product-science/mlnode:3.0.12-post3
 ```
 NVIDIA Blackwell GPUs
 ```
-image: ghcr.io/product-science/mlnode:3.0.12-blackwell
+image: ghcr.io/product-science/mlnode:3.0.12-post3-blackwell
 ```
 Apply changes and restart services. From `gonka/deploy/join`:
 ```

@@ -31,7 +31,7 @@
 - **[PR #711](https://github.com/gonka-ai/gonka/pull/711)** 从链状态读取 PoC 测试参数
 - **[PR #641](https://github.com/gonka-ai/gonka/pull/641)** 带归属（vesting）的 Streamvesting 转账
 - **[PR #659](https://github.com/gonka-ai/gonka/pull/659)** 模型分配检查上一 epoch 的奖励
-- **[PR #716](https://github.com/gonka-ai/gonka/pull/716)** r为清晰性与正确性重命名 PoC 权重函数
+- **[PR #716](https://github.com/gonka-ai/gonka/pull/716)** 重命名 PoC 权重函数，以提升代码清晰度与准确性
 
 **API 加固与可靠性修复**
 
@@ -56,7 +56,7 @@
 
 1. 活跃主机在 GitHub 上审查该提案并留下反馈。
 2. PR 完成社区审查后，预计会从该分支创建 v0.2.10 release，并可为该版本提交链上升级提案，从而启动正式的治理投票流程。
-3. 若链上提案通过，预计将在链上完成升级执行后合并该 PR。
+3. 若链上提案获得通过，该 PR 预计将在链上执行升级后进行合并。
 
 从 [upgrade-v0.2.10](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10) 分支（而非 `main`）创建 release，可尽量缩短 main 分支 `/deploy/join/` 目录中“容器版本与链上二进制版本不匹配”的时间，从而确保新主机加入时的体验更顺畅。
 

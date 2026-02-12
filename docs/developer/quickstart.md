@@ -431,11 +431,23 @@ Do not forget to write it down, you will need it in the next step.
 
 ## 3. Inference using modified OpenAI SDK
 
+!!! important "Limited Transfer Agent Nodes"
+    Currently, the list of nodes that can be used for inference requests is limited. To check the full list of available transfer agents, use:
+    ```bash
+    curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
+    ```
+
+    **Active Transfer Agents URLs:**
+
+    - http://node1.gonka.ai:8000
+    - http://node2.gonka.ai:8000
+    - https://node3.gonka.ai
+
 === "Python"
     To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/gonka-ai/gonka-openai/tree/main/python). Get started by installing the SDK using pip:
 
     ```
-    pip install gonka-openai
+    pip install gonka-openai==0.2.6
     ```
 
     !!! note "If you encounter build errors, you may need to install system-level libraries"
@@ -470,7 +482,7 @@ Do not forget to write it down, you will need it in the next step.
     To use the Gonka API in server-side JavaScript environments like Node.js, Deno, or Bun, you can use the [Gonka OpenAI SDK for TypeScript and JavaScript](https://github.com/gonka-ai/gonka-openai/tree/main/typescript). Get started by installing the SDK using npm or your preferred package manager:
 
     ```
-    npm install gonka-openai
+    npm install gonka-openai@0.2.6
     ```
 
     With the SDK installed, create a file called `example.mjs` and copy the example code into it:
@@ -500,7 +512,7 @@ Do not forget to write it down, you will need it in the next step.
     To use the Gonka API in Go, you can use the [Gonka OpenAI SDK for Go](https://github.com/gonka-ai/gonka-openai/tree/main/go). Get started by installing the SDK using go get:
 
     ```
-    go get github.com/gonka-ai/gonka-openai/go
+    go get github.com/gonka-ai/gonka-openai/go@v0.2.6
     ```
 
     With the SDK installed, create a file called `example.go` and copy the example code into it:
@@ -514,6 +526,7 @@ Do not forget to write it down, you will need it in the next step.
         "os"
 
         gonka "github.com/gonka-ai/gonka-openai/go"
+        "github.com/openai/openai-go"
     )
 
     func main() {
@@ -525,10 +538,12 @@ Do not forget to write it down, you will need it in the next step.
             log.Fatal(err)
         }
 
-        resp, err := client.ChatCompletion(context.Background(),
-            "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-            gonka.UserMessage("Write a haiku about programming"),
-        )
+        resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+            Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+            Messages: []openai.ChatCompletionMessageParamUnion{
+                openai.UserMessage("Write a haiku about programming"),
+            },
+        })
         if err != nil {
             log.Fatal(err)
         }

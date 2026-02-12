@@ -568,7 +568,7 @@ v0.2.8 升级完成后，PoC v2 的逻辑已可用，但**尚未用于权重分�
 
 - ML Node 提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
 - 配置中已移除所有其他模型
-- ML Node 镜像版本为 `3.0.12` （或 `3.0.12-blackwell`）
+- ML Node 镜像版本为 `3.0.12-post3` （或 `3.0.12-post3-blackwell`）
 
 ## 密钥和安全
 

@@ -431,6 +431,18 @@ export NODE_URL=<http://random-node-url>
 
 ## 3. 使用修改的 OpenAI SDK 进行推理
 
+!!! 重要 "受限的 Transfer Agent 节点"
+    目前，可用于推理（inference）请求的节点列表是受限的。要查看完整的可用 Transfer Agent 列表，请使用:
+    ```bash
+    curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
+    ```
+
+    **当前可用的 Transfer Agent URL：**
+
+    - http://node1.gonka.ai:8000
+    - http://node2.gonka.ai:8000
+    - https://node3.gonka.ai
+
 === "Python"
     要在 Python 中使用 Gonka API，你可以使用[Gonka OpenAI SDK for Python](https://github.com/gonka-ai/gonka-openai/tree/main/python)。通过使用 pip 安装 SDK 开始：
 

@@ -432,8 +432,8 @@ PoC v2 的迁移可在 Epoch 155 之后进行。在迁移阶段结束后，不�
 
 - 所有 ML Nodes 均提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`这是 唯一 会被计入 PoC v2 权重的模型。
 - 所有 ML Nodes 均升级至兼容 PoC v2 的镜像版本：
-    - ghcr.io/product-science/mlnode:3.0.12
-    - ghcr.io/product-science/mlnode:3.0.12-blackwell 
+    - ghcr.io/product-science/mlnode:3.0.12-post3
+    - ghcr.io/product-science/mlnode:3.0.12-post3-blackwell
 
 !!! note "重要"
 	- 仅提供正确模型但未升级 ML Node 并不充分。
@@ -508,11 +508,11 @@ curl -X PUT "http://localhost:9200/admin/v1/nodes/node1" \
 
 标准 GPU
 ```
-image: ghcr.io/product-science/mlnode:3.0.12
+image: ghcr.io/product-science/mlnode:3.0.12-post3
 ```
 NVIDIA Blackwell GPU
 ```
-image: ghcr.io/product-science/mlnode:3.0.12-blackwell
+image: ghcr.io/product-science/mlnode:3.0.12-post3-blackwell
 ```
 应用更改并重启服务。在 `gonka/deploy/join`目录下执行：
 ```

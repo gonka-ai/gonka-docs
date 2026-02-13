@@ -1061,7 +1061,7 @@ echo "Inference Installed and Verified"
 echo "--- Final Verification ---" && \
 sudo rm -rf .inference/cosmovisor/current
 sudo ln -sf upgrades/v0.2.9-post3 .inference/cosmovisor/current
-echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check
 ```
 
 Verify the binary version.

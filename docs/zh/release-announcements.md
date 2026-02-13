@@ -2,6 +2,36 @@
 
 ## 2026年2月12日
 
+**网络更新：补丁已发布（PoC / cPoC 重叠）**
+
+现已提供补丁，用于处理在当前 epoch 中观察到的事件。
+
+**需要采取的操作**
+
+请各 Host 尽快应用该补丁，以确保 PoC 验证行为正确，并支持区块生产安全恢复。
+
+```
+# Download Binary
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post3/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post3/bin/
+wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post3/inferenced-amd64.zip' && \
+echo "59896da31f4e42564fc0a2f63a9e0bf4f25f240428f21c0d5191b491847553df  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post3/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post3/bin/inferenced && \
+echo "Inference Installed and Verified"
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.9-post3 .inference/cosmovisor/current
+echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+
+# Restart 
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
+
+## 2026年2月12日
+
 **网络事件：PoC / cPoC 重叠（区块生产已暂停）**
 
 在当前 epoch 中观察到 cPoC（confirmation PoC）与 PoC 出现重叠。在该 epoch 的最后一个区块之前，观察到 `is_confirmation_poc_active` 为 `true`。

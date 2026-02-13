@@ -429,10 +429,10 @@ export NODE_URL=<http://random-node-url>
     inferenced keys list [--keyring-backend test]
     ```
 
-## 3. 使用修改的 OpenAI SDK 进行推理
+## 3. 使用定制化的 OpenAI SDK 进行推理
 
 !!! 重要 "受限的 Transfer Agent 节点"
-    目前，可用于推理（inference）请求的节点列表是受限的。要查看完整的可用 Transfer Agent 列表，请使用:
+    目前，可用于推理（inference）请求的节点列表是受限的。要查看完整的可用 Transfer Agent 列表，请使用以下命令:
     ```bash
     curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
     ```
@@ -476,7 +476,7 @@ export NODE_URL=<http://random-node-url>
     print(response.choices[0].message.content)
     ```
 
-    使用 `python example.py` 执行代码。片刻后，你应该看到 API 请求的输出。
+    使用 `python example.py` 执行代码。片刻后，终端将显示 API 请求的响应结果。
 
 === "TypeScript"
     要在 Node.js、Deno 或 Bun 等服务器端 JavaScript 环境中使用 Gonka API，你可以使用[Gonka OpenAI SDK for TypeScript and JavaScript](https://github.com/gonka-ai/gonka-openai/tree/main/typescript)。通过使用 npm 或你首选的包管理器安装 SDK 开始：
@@ -554,4 +554,4 @@ export NODE_URL=<http://random-node-url>
 要从另一种语言执行推理，请参阅[Gonka OpenAI 客户端库仓库](https://github.com/gonka-ai/gonka-openai)，并相应调整示例。
 
 ---
-**需要帮助？** [请先查看我们的常见问题页面](https://gonka.ai/zh/FAQ/)，或加入我们的[Discord 服务器](https://discord.com/invite/RADwCT2U6R) 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。
+**需要帮助？** [请先查看我们的常见问题页面](https://gonka.ai/zh/FAQ/)，加入我们的 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。

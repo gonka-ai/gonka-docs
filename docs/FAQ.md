@@ -1007,7 +1007,7 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
-**PoC / cPoC Overlap incident and patch**
+### PoC / cPoC Overlap incident and patch
 
 A patch is now available to address the incident observed in the current epoch (169/170).
 

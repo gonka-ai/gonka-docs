@@ -1,5 +1,26 @@
 # 公告
 
+## 2026年2月12日
+
+**推理现已开放**
+链上推理访问目前已开放，且不再仅限于开发者。推理请求可以通过“允许的 Transfer Agents（传输代理）”发送，该机制已在上一次更新中引入。当前 allowlist（允许名单）可在链上查询：
+```
+curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
+```
+当前允许的 Transfer Agents（地址）：
+```
+ gonka1y2a9p56kv044327uycmqdexl7zs82fs5ryv5le
+ gonka1dkl4mah5erqggvhqkpc8j3qs5tyuetgdy552cp
+ gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5
+ gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x
+ gonka10fynmy2npvdvew0vj2288gz8ljfvmjs35lat8n
+ gonka1v8gk5z7gcv72447yfcd2y8g78qk05yc4f3nk4w
+ gonka1gndhek2h2y5849wf6tmw6gnw9qn4vysgljed0u
+```
+新的库版本在此获取：[https://gonka.ai/zh/developer/quickstart/#3-openai-sdk](https://gonka.ai/zh/developer/quickstart/#3-openai-sdk)
+
+**注意**：如果某个地址不在 allowlist 中，则在当前配置下，通过该地址路由的推理请求将不会被接受。
+
 ## 2026年2月10日 
 
 **v0.2.10 升级 PR 审查**

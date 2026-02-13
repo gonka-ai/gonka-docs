@@ -1038,7 +1038,7 @@ source config.env && docker compose up node --no-deps --force-recreate -d
 
 ### Recovery guide: Consensus failure after missing patch
 
-If your node did not apply the latest upgrade in time, it may halt with a consensus failure at block 2643762. This happens because the node is running an outdated binary that is no longer compatible with the network.
+If your node did not apply the latest upgrade in time, it may halt with a consensus failure at block 2628371. This happens because the node is running an outdated binary that is no longer compatible with the network.
 
 To recover, follow the steps below.
 

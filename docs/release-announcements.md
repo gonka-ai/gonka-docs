@@ -1,5 +1,19 @@
 # Announcements
 
+## February 12, 2026
+
+**Network incident: PoC / cPoC overlap (block production paused)**
+
+An overlap between cPoC (confirmation PoC) and PoC has been observed in the current epoch. Up to the final block of the epoch, `is_confirmation_poc_active` was observed as `true`.
+
+The impact of this overlap is currently being assessed. Initial observations indicate that no node recorded PoC commits, resulting in zero weight accumulated for the epoch.
+
+As a precautionary measure, block production was temporarily halted through coordinated action by miners.
+
+The issue is being localized.
+
+Please remain available in case a patch needs to be applied on short notice. Additional details and the patch instructions will be shared once ready.
+
 ## February 12, 2026 
 
 **Inference is now available**

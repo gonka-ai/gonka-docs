@@ -65,7 +65,7 @@ This shows how many coins are in your wallet.
 **Example:**
     
 ```bash
-inferenced query bank balances gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e --node http://node2.gonka.ai:8000/chain-rpc
+inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --node http://node2.gonka.ai:8000/chain-rpc
 ```
 
 ---

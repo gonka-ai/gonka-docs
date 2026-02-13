@@ -17,6 +17,10 @@ Please review the v0.2.10 upgrade PR on GitHub and leave your feedback. Bounties
 
 [https://github.com/gonka-ai/gonka/pull/695](https://github.com/gonka-ai/gonka/pull/695)
 
+## February 13, 2026
+
+If your node did not apply the latest upgrade in time, it may halt with a consensus failure at block 2628371. This happens because the node is running an outdated binary that is no longer compatible with the network. To recover, follow this guide [https://gonka.ai/FAQ/#recovery-guide-consensus-failure-after-missing-patch](https://gonka.ai/FAQ/#recovery-guide-consensus-failure-after-missing-patch)
+
 ## February 12, 2026
 
 **Network update: Patch available (PoC / cPoC overlap)**

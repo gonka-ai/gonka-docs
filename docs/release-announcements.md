@@ -12,7 +12,7 @@ If the proposal is approved through governance, the upgrade is scheduled to be e
 - Sunday evening (LA time) — Voting period begins
 - Monday (UTC morning) — Voting active
 - Tuesday — Upgrade execution (if approved)
-- 
+  
 Please review the v0.2.10 upgrade PR on GitHub and leave your feedback. Bounties for meaningful review contributions may be proposed in the next upgrade.  
 
 [https://github.com/gonka-ai/gonka/pull/695](https://github.com/gonka-ai/gonka/pull/695)

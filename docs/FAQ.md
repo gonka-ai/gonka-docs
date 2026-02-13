@@ -1007,6 +1007,35 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
+**PoC / cPoC Overlap incident and patch**
+
+A patch is now available to address the incident observed in the current epoch (169/170).
+
+**Action required**
+
+Hosts are requested to apply the patch as soon as possible to ensure correct PoC validation behavior and allow block production to resume safely.
+
+```
+# Download Binary
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post3/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post3/bin/
+wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post3/inferenced-amd64.zip' && \
+echo "59896da31f4e42564fc0a2f63a9e0bf4f25f240428f21c0d5191b491847553df  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post3/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post3/bin/inferenced && \
+echo "Inference Installed and Verified"
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.9-post3 .inference/cosmovisor/current
+echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+
+# Restart 
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
+[https://github.com/gonka-ai/gonka/pull/748 ](https://github.com/gonka-ai/gonka/pull/748 )
+
 ### Recovery guide: Consensus failure after missing the upgrade
 
 If your node did not apply the latest upgrade in time, it may halt with a consensus failure at block 2459189. This happens because the node is running an outdated binary that is no longer compatible with the network.

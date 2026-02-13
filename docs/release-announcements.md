@@ -1,5 +1,27 @@
 # Announcements
 
+## February 12, 2026 
+
+**Inference is now available**
+
+On-chain inference access is currently open and is not restricted to developers. Inference requests can be sent via Allowed Transfer Agents, which were introduced in the previous update. The current allowlist can be queried on-chain:
+```
+curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
+```
+Allowed Transfer Agents (current):
+```
+ gonka1y2a9p56kv044327uycmqdexl7zs82fs5ryv5le
+ gonka1dkl4mah5erqggvhqkpc8j3qs5tyuetgdy552cp
+ gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5
+ gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x
+ gonka10fynmy2npvdvew0vj2288gz8ljfvmjs35lat8n
+ gonka1v8gk5z7gcv72447yfcd2y8g78qk05yc4f3nk4w
+ gonka1gndhek2h2y5849wf6tmw6gnw9qn4vysgljed0u
+```
+A new library version is available here: [https://gonka.ai/developer/quickstart/#3-inference-using-modified-openai-sdk](https://gonka.ai/developer/quickstart/#3-inference-using-modified-openai-sdk) 
+
+**Note:** If an address is not included in the allowlist, inference requests routed through that address will not be accepted under the current configuration.
+
 ## February 10, 2026 
 
 **PR Review for Upgrade v0.2.10**

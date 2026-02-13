@@ -17,6 +17,7 @@
 ## 2026年2月12日
 
 **推理现已开放**
+
 链上推理访问目前已开放，且不再仅限于开发者。推理请求可以通过“允许的 Transfer Agents（传输代理）”发送，该机制已在上一次更新中引入。当前 allowlist（允许名单）可在链上查询：
 ```
 curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'

@@ -29,6 +29,8 @@ echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inferenc
 source config.env && docker compose up node --no-deps --force-recreate -d
 ```
 
+[https://github.com/gonka-ai/gonka/pull/748](https://github.com/gonka-ai/gonka/pull/748)
+
 ## February 12, 2026
 
 **Network incident: PoC / cPoC overlap (block production paused)**

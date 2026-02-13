@@ -1,10 +1,27 @@
 # Announcements
 
+## February 13, 2026
+
+**Upcoming upgrade v0.2.10 voting and execution schedule**
+
+The on-chain voting period for the upcoming software upgrade v0.2.10 is expected to begin Sunday evening (Los Angeles time) / Monday morning (UTC).
+If the proposal is approved through governance, the upgrade is scheduled to be executed on Tuesday.
+
+**Approximate timeline:**
+
+- Sunday evening (LA time) — Voting period begins
+- Monday (UTC morning) — Voting active
+- Tuesday — Upgrade execution (if approved)
+- 
+Please review the v0.2.10 upgrade PR on GitHub and leave your feedback. Bounties for meaningful review contributions may be proposed in the next upgrade.  
+
+[https://github.com/gonka-ai/gonka/pull/695](https://github.com/gonka-ai/gonka/pull/695)
+
 ## February 12, 2026
 
 **Network update: Patch available (PoC / cPoC overlap)**
 
-A patch is now available to address the incident observed in the current epoch
+A patch is now available to address the incident observed in the current epoch (169/170).
 
 **Action required**
 

@@ -30,6 +30,8 @@ echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inferenc
 source config.env && docker compose up node --no-deps --force-recreate -d
 ```
 
+[https://github.com/gonka-ai/gonka/pull/748](https://github.com/gonka-ai/gonka/pull/748)
+
 ## 2026年2月12日
 
 **网络事件：PoC / cPoC 重叠（区块生产已暂停）**

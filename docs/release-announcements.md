@@ -2,6 +2,35 @@
 
 ## February 12, 2026
 
+**Network update: Patch available (PoC / cPoC overlap)**
+
+A patch is now available to address the incident observed in the current epoch
+
+**Action required**
+
+Hosts are requested to apply the patch as soon as possible to ensure correct PoC validation behavior and allow block production to resume safely.
+```
+# Download Binary
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post3/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post3/bin/
+wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post3/inferenced-amd64.zip' && \
+echo "59896da31f4e42564fc0a2f63a9e0bf4f25f240428f21c0d5191b491847553df  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post3/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post3/bin/inferenced && \
+echo "Inference Installed and Verified"
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .inference/cosmovisor/current
+sudo ln -sf upgrades/v0.2.9-post3 .inference/cosmovisor/current
+echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+
+# Restart 
+source config.env && docker compose up node --no-deps --force-recreate -d
+```
+
+## February 12, 2026
+
 **Network incident: PoC / cPoC overlap (block production paused)**
 
 An overlap between cPoC (confirmation PoC) and PoC has been observed in the current epoch. Up to the final block of the epoch, `is_confirmation_poc_active` was observed as `true`.

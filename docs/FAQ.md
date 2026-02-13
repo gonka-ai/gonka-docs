@@ -1036,9 +1036,9 @@ source config.env && docker compose up node --no-deps --force-recreate -d
 ```
 [https://github.com/gonka-ai/gonka/pull/748 ](https://github.com/gonka-ai/gonka/pull/748 )
 
-### Recovery guide: Consensus failure after missing the upgrade
+### Recovery guide: Consensus failure after missing patch
 
-If your node did not apply the latest upgrade in time, it may halt with a consensus failure at block 2459189. This happens because the node is running an outdated binary that is no longer compatible with the network.
+If your node did not apply the latest upgrade in time, it may halt with a consensus failure at block 2643762. This happens because the node is running an outdated binary that is no longer compatible with the network.
 
 To recover, follow the steps below.
 
@@ -1049,27 +1049,26 @@ docker stop node
 
 **2. Replace the old binary with the latest released version.**
 ```
-# Download Binary
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post2/ .inference/data/upgrade-info.json
-sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post2/bin/
-wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post2/inferenced-amd64.zip' && \
-echo "8de51bdd1d2c0af5f1da242e10b39ae0ceefd215f94953b9d95e9276f7aa70c7  inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post2/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post2/bin/inferenced && \
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post3/ .inference/data/upgrade-info.json
+sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post3/bin/
+wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post3/inferenced-amd64.zip' && \
+echo "59896da31f4e42564fc0a2f63a9e0bf4f25f240428f21c0d5191b491847553df  inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post3/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post3/bin/inferenced && \
 echo "Inference Installed and Verified"
 
 # Link Binary
 echo "--- Final Verification ---" && \
 sudo rm -rf .inference/cosmovisor/current
-sudo ln -sf upgrades/v0.2.9-post2 .inference/cosmovisor/current
-echo "75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8afe .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+sudo ln -sf upgrades/v0.2.9-post3 .inference/cosmovisor/current
+echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
 ```
 
 Verify the binary version.
 ```
 sha256sum .inference/cosmovisor/current/bin/inferenced
 ```
-The `sha` must be `75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8afe`.
+The `sha` must be `aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d`.
 
 **3. Because the node stopped mid-consensus, the inference state must be rolled back to the previous block.**
 
@@ -1077,6 +1076,8 @@ Run the rollback command:
 ```
 source config.env && docker compose run --rm --no-deps -ti node /root/.inference/cosmovisor/current/bin/inferenced rollback
 ```
+
+That step might take time, it must not be interrupted.
 
 **4. Start the node again:**
 ```

@@ -497,6 +497,12 @@ source config.env
 
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
+
+You can view all models available for the current epoch at the following link:
+```
+http://node2.gonka.ai:8000/v1/governance/models
+```
+
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
 To make sure the model weights are ready for inference, you should download them before deployment.

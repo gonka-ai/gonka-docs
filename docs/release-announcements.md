@@ -1,5 +1,27 @@
 # Announcements
 
+## February 16, 2026
+
+**Collateral activation and proposed initial parameters**
+
+Less than 7 days remain until Epoch 180 - it’s time to prepare.
+
+As discussed during the AMA and based on the argument presented by the community members, the proposal is to start with a small collateral requirement and minimal slashing.
+
+Parameters to be submitted for community vote:
+
+- 0.032 GNK per 1 unit of power (~10 GNK per H100)
+- 0.01% slashing for miss rate or jail
+- 0.5% slashing for invalid inference
+
+This means that within a single epoch, even if penalized, a miner cannot lose more than 0.5% of their collateral. And the required collateral represents only ~24% of daily rewards.
+
+A separate announcement will be shared once the proposal is submitted for voting.
+
+Warning: Collateral will take effect regardless of the outcome of the proposal vote. If this proposal does not pass, the collateral parameters defined in Genesis will automatically activate at Epoch 180 instead of the ones listed above.
+
+Any future increase of collateral will be proposed through a separate vote. The goal is to observe network stability and ensure that unjustified punishments are rare and applied only for valid reasons. If stability is demonstrated, increasing the collateral gradually to the level described in the Tokenomics White Paper (e.g., ~100 GNK per H100) will support the network’s long-term success.
+
 ## February 13, 2026
 
 **Upcoming upgrade v0.2.10 voting and execution schedule**

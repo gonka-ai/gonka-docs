@@ -26,11 +26,11 @@
 
 **其他协议更新**
 
-•	修复 PoC 与 CPoC 的交集 bug（PR #752）
-•	IBC 协议栈升级至 v8.7.0
-•	惩罚阈值现由链上数据动态推导（PR #688）
-•	支持在归属期（vesting）进行中的 streamvesting 转账（PR #641）
-•	提供更稳定版本的 MLNode 容器：`ghcr.io/product-science/mlnode:3.0.12-post4` / `ghcr.io/product-science/mlnode:3.0.12-post4-blackwell`. 
+- 修复 PoC 与 CPoC 的交集 bug（PR #752）
+- IBC 协议栈升级至 v8.7.0
+- 惩罚阈值现由链上数据动态推导（PR #688）
+- 支持在归属期（vesting）进行中的 streamvesting 转账（PR #641）
+- 提供更稳定版本的 MLNode 容器：`ghcr.io/product-science/mlnode:3.0.12-post4` / `ghcr.io/product-science/mlnode:3.0.12-post4-blackwell`. 
 
 有关上述及其他变更的更多细节，请参阅治理材料：
 [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md ](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
@@ -46,6 +46,7 @@ docker restart join-mlnode-1
 **如何投票**
 
 提案详情与投票可通过 `inferenced` 进行，任何活跃节点均可使用。可用节点包括：
+
 - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
 - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
 - [https://node3.gonka.ai](https://node3.gonka.ai) 
@@ -70,16 +71,17 @@ export NODE_URL=https://node3.gonka.ai/
 ```
 **关键时间节点**
 
-•	投票截止时间：2026 年 2 月 18 日 09:26:26（UTC）
-•	升级高度：2712600
-•	预计升级时间：2026 年 2 月 18 日 15:30:00（UTC）
+- 投票截止时间：2026 年 2 月 18 日 09:26:26（UTC）
+- 升级高度：2712600
+- 预计升级时间：2026 年 2 月 18 日 15:30:00（UTC）
 
 **注意事项**
-•	请检查所有解析 `inferenced` 输出的脚本。由于 IBC 协议栈升级至 v8.7.0，Enums 以及 int64 / uint64 类型现已被编码为字符串。
-•	请提前安排在升级窗口期间保持在线，以便及时执行后续操作或缓解措施。
-•	升级过程中，Cosmovisor 会在 `.inference/data` 目录下创建完整的状态备份，请确保磁盘空间充足。有关安全删除`.inference` 目录中旧备份的指南可参考[以下文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
-•	若 `application.db`  占用大量磁盘空间，可采用文档中描述的[清理方案](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)。
-•	升级完成后，可选择使用 Postgres 作为本地 payload 存储方案。
+
+- 请检查所有解析 `inferenced` 输出的脚本。由于 IBC 协议栈升级至 v8.7.0，Enums 以及 int64 / uint64 类型现已被编码为字符串。
+- 请提前安排在升级窗口期间保持在线，以便及时执行后续操作或缓解措施。
+- 升级过程中，Cosmovisor 会在 `.inference/data` 目录下创建完整的状态备份，请确保磁盘空间充足。有关安全删除`.inference` 目录中旧备份的指南可参考[以下文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
+- 若 `application.db`  占用大量磁盘空间，可采用文档中描述的[清理方案](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)。
+- 升级完成后，可选择使用 Postgres 作为本地 payload 存储方案。
 
 ## 2026年2月16日
 
@@ -91,9 +93,9 @@ export NODE_URL=https://node3.gonka.ai/
 
 拟提交社区投票的参数如下：
 
- • 每 1 单位算力需抵押 0.032 GNK（约等于每张 H100 约 10 GNK）
- • 漏报率（miss rate）或进入关押状态（jail）的惩罚：0.01%
- • 无效推理（invalid inference）触发的惩罚（slashing）：0.5%
+- 每 1 单位算力需抵押 0.032 GNK（约等于每张 H100 约 10 GNK）
+- 漏报率（miss rate）或进入关押状态（jail）的惩罚：0.01%
+- 无效推理（invalid inference）触发的惩罚（slashing）：0.5%
 
 这意味着，在单个 epoch 内，即使触发惩罚，矿工被扣除的抵押金额也不会超过其总抵押的 0.5%。同时，所需抵押金额约等于单日奖励的 24%。
 

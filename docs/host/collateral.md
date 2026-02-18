@@ -1,13 +1,15 @@
 # Collateral
 
-Collateral mechanism allows participants to deposit tokens to back their Proof of Compute weight.
+Collateral mechanism allows participants to lock GNK coins in order to activate a portion of their already earned Proof of Compute (PoC) weight.
+
+Voting power is never derived solely from holding coins. GNK coins serve as economic collateral, not as a source of influence. Influence is earned through continuous computational contribution, while locking GNK collateral is required to secure participation in governance and enforce accountability.
 
 ### Key Concepts
 
 - For the first 180 epochs (Grace Period), no collateral is required. All participants receive 100% of their potential weight unconditionally.
 - After the grace period, a portion of a participant's weight (default 20%) is granted unconditionally as Base Weight.
 - The remaining weight (default 80%) is Collateral-Eligible Weight and must be backed by deposited collateral.
-- The final Active Weight is the sum of Base Weight and the weight activated by collateral.
+- The final Active Weight is the sum of Base Weight and the weight activated by collateral. Active Weight is used for all PoC-weighted governance decisions.
 
 Assume all `$NODE_URL` is URL of node with enabled chain rpc and chain api.
 

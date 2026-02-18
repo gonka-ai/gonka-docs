@@ -1,6 +1,6 @@
 # Announcements
 
-## February 16, 2026
+## February 17, 2026
 
 **v0.2.10 Upgrade Proposal Enters Governance**
 

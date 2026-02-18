@@ -8,7 +8,7 @@ Voting power is never derived solely from holding coins. GNK coins serve as econ
 
 - For the first 180 epochs (Grace Period), no collateral is required. All participants receive 100% of their potential weight unconditionally.
 - After the grace period, a portion of a participant's weight (default 20%) is granted unconditionally as Base Weight.
-- The remaining weight (default 80%) is Collateral-Eligible Weight and must be backed by deposited collateral.
+- The remaining weight (default 80%) is Collateral-Eligible Weight and must be backed by deposited collateral. This ensures that participants with significant governance power also bear proportional economic responsibility.
 - The final Active Weight is the sum of Base Weight and the weight activated by collateral. Active Weight is used for all PoC-weighted governance decisions.
 
 Assume all `$NODE_URL` is URL of node with enabled chain rpc and chain api.

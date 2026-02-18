@@ -1013,6 +1013,36 @@ curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
 curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epoch_performance_summary/106/<ACCOUNT_ADDRESS> | jq
 ```
 ## 升级
+### v0.2.10 升级：预先下载二进制文件
+
+```
+# 1. 创建所需目录
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.10/bin \
+              .inference/cosmovisor/upgrades/v0.2.10/bin && \
+
+# 2. DAPI：下载 → 校验 → 解压到 bin 目录 → 赋予可执行权限
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.10/decentralized-api-amd64.zip" && \
+echo "47d6b64424f34242ba12d04aa367f3a7d3933961b55f9d2434b36399d0faf18f decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.10/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.10/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference：下载 → 校验 → 解压到 bin 目录 → 赋予可执行权限
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.10/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.10/inferenced-amd64.zip" && \
+echo "b118610cfa1f45f9dfb4eb112a01a91ad886333b73aac49fee20abc0c3f1998a inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.10/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.10/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. 清理临时文件并进行最终校验
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.10/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.10/bin/inferenced && \
+echo "39096e781f70d486bfd4009d49d623446ea63f9f8eceb52ff54820326ca975f1 .dapi/cosmovisor/upgrades/v0.2.10/bin/decentralized-api" | sudo sha256sum --check && \
+echo "601e43dc68b2e8261dd6fe267fb1c0d1c1e0f70b64dcb1984aa28d202736b7f2 .inference/cosmovisor/upgrades/v0.2.10/bin/inferenced" | sudo sha256sum --check
+```
 
 ### PoC / cPoC 重叠事件与补丁
 

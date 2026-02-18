@@ -43,6 +43,56 @@ To enable tools, vLLM inside the MLNode container must be restarted.
 
 Additional details for these changes are available in the governance artifacts: [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
 
+## February 18, 2026
+
+**Collateral parameter update proposal is now open for voting**
+
+The proposal for updated collateral parameters has been published for community vote.
+
+Proposed parameters:
+
+- 0.032 GNK per 1 unit of power (~10 GNK per H100)
+- 0.01% slashing for miss rate or jail
+- 0.5% slashing for invalid inference
+
+This means that within a single epoch, even if penalized, a miner cannot lose more than 0.5% of their collateral. And the required collateral represents only ~24% of daily rewards.
+
+**Warning:** Collateral will take effect regardless of the outcome of the vote. If this proposal does not pass, the collateral parameters defined in Genesis will automatically activate at Epoch 180 instead of the ones listed above.
+
+After the vote concludes and before Epoch 180, every miner must follow [the instructions](https://gonka.ai/host/collateral/#slashing) to transfer the required funds into collateral. Otherwise, their rewards will be reduced by 5x starting from Epoch 180.
+
+To get the updated parameters:
+```
+export NODE_URL=https://node3.gonka.ai/
+diff -u \
+  <(./inferenced query inference params -o json --node $NODE_URL/chain-rpc/ | jq '.params') \
+  <(./inferenced query gov proposal 28 -o json --node $NODE_URL/chain-rpc/ | jq '.proposal.messages[] | select(."type"=="inference/x/inference/MsgUpdateParams") | .value.params') \
+  || true
+
+```
+
+To cast your vote (`yes`, `no` , `abstain` , `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 28 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 28 -o json --node $NODE_URL/chain-rpc/
+```
+**Deadline:**
+
+Voting ends on February 19th, 2026, at 07:27:06 UTC.
+
 ## February 17, 2026
 
 **v0.2.10 Upgrade Proposal Enters Governance**

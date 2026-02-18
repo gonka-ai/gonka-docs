@@ -1,5 +1,48 @@
 # Announcements
 
+## February 18, 2026
+
+**UPGRADE EXECUTED: v0.2.10 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.10 has concluded. The proposal has been APPROVED, and the upgrade was successfully executed on the mainnet. This upgrade introduces a significant optimization to PoC validation and implements real-time weight normalization to improve network fairness and scalability.
+
+**Attention**
+
+ML Node containers must be restarted to trigger re-deploy of the model. Run:
+```
+docker restart join-mlnode-1
+```
+The transition to `mlnode:3.0.12-post4-*` should be completed within the 3000-block grace period introduced in the upgrade. 
+
+**Compatibility Note:** This upgrade includes a migration to IBC stack v8.7.0. Check any scripts parsing `inferenced` CLI output. Enums and int64/uint64 values are now encoded as strings.
+
+**Key changes now active**
+
+**PoC Validation Sampling Optimization**
+
+This upgrade introduces a new PoC validation mechanism that reduces complexity from O(N^2) to O(N x N_SLOTS) by assigning each participant a fixed sampled set of validators.
+
+**PoC Weight Normalization by Real Time**
+
+This upgrade normalizes PoC participant weights by actual PoC elapsed time to reduce block-time drift effects and keep weight outcomes consistent with real execution duration.
+
+**Enable tools for Qwen235B**
+
+This upgrade adds tool calling args ( `--enable-auto-tool-choice` , `--tool-call-parser hermes` ) for `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and sets validation threshold 0.958.
+To enable tools, vLLM inside the MLNode container must be restarted.
+
+**Additional Protocol Updates**
+
+- Fix: PoC and CPoC intersection bug (PR #752).
+- IBC Upgrade: Upgrades IBC stack to v8.7.0.
+- Punishment: Thresholds are now derived from on-chain data (PR #688).
+- Vesting: Support for streamvesting transfers with active vesting (PR #641).
+- MLNode: More reliable version of MLNode containers ghcr.io/product-science/mlnode:3.0.12-post4 / ghcr.io/product-science/mlnode:3.0.12-post4-blackwell.
+
+**Grace Period:** The upgrade introduces a grace period with no Confirmation PoC for 3000 blocks after the upgrade, and less strict miss rate and invalidation rate threshold for the epoch of the upgrade.
+
+Additional details for these changes are available in the governance artifacts: [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
+
 ## February 17, 2026
 
 **v0.2.10 Upgrade Proposal Enters Governance**

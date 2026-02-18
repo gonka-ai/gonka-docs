@@ -14,7 +14,8 @@ docker restart join-mlnode-1
 ```
 The transition to `mlnode:3.0.12-post4-*` should be completed within the 3000-block grace period introduced in the upgrade. 
 
-**Compatibility Note:** This upgrade includes a migration to IBC stack v8.7.0. Check any scripts parsing `inferenced` CLI output. Enums and int64/uint64 values are now encoded as strings.
+!!! note "Compatibility Note"
+    This upgrade includes a migration to IBC stack v8.7.0. Check any scripts parsing `inferenced` CLI output. Enums and int64/uint64 values are now encoded as strings.
 
 **Key changes now active**
 

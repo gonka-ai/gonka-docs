@@ -2,6 +2,85 @@
 
 ## February 16, 2026
 
+**v0.2.10 Upgrade Proposal Enters Governance**
+
+The upgrade proposal for the next on-chain software version v0.2.10 has now been published on-chain and is open for voting. If approved, the proposal introduces a significant optimization to PoC validation (disabled by default) and implements real-time weight normalization to improve network fairness and scalability.
+
+**Key changes**
+
+**PoC Validation Sampling Optimization**
+
+This upgrade introduces a new PoC validation mechanism that reduces complexity from O(N^2) to O(N x N_SLOTS) by assigning each participant a fixed sampled set of validators.
+
+**PoC Weight Normalization by Real Time**
+
+This upgrade normalizes PoC participant weights by actual PoC elapsed time to reduce block-time drift effects and keep weight outcomes consistent with real execution duration.
+
+**Enable tools for Qwen235B**
+
+This upgrade adds tool calling args (`--enable-auto-tool-choice` , `--tool-call-parser hermes`) for `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and set validation threshold `0.958`.
+To enable tools, vLLM inside the MLNode container must be restarted. The upgrade introduces a grace period with no Confirmation PoC for 3000 blocks after the upgrade, and less strict miss rate and invalidation rate threshold for the epoch of the upgrade.
+
+**Additional Protocol Updates**
+
+- Fix PoC and CPoC intersection bug (PR #752)
+- Upgrades IBC stack to v8.7.0.
+- Punishment thresholds are now derived from on-chain data (PR #688)
+- Support for streamvesting transfers with active vesting (PR #641)
+- More reliable version of MLNode containers `ghcr.io/product-science/mlnode:3.0.12-post4` / `ghcr.io/product-science/mlnode:3.0.12-post4-blackwell`. 
+
+Additional details for these and other changes are available in the governance artifacts [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md ](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
+
+**Required host actions after upgrade execution**
+
+If the proposal is approved and the upgrade executed, ML Node containers must be restarted to trigger re-deploy of the model. Run:
+```
+docker restart join-mlnode-1
+```
+The transition to `mlnode:3.0.12-post4-*` should be completed within the 3000-block grace period introduced in the upgrade. 
+
+**How to vote**
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [https://node3.gonka.ai](https://node3.gonka.ai) 
+
+Cast your vote (`yes`, `no` , `abstain` , `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 27 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 27 -o json --node $NODE_URL/chain-rpc/
+```
+**Deadlines**
+
+- Voting ends: February 18th, 2026, at 09:26:26 UTC
+- Upgrade height: 2712600
+- Estimated upgrade time: February 18th, 2026, at 15:30:00 UTC
+
+**Attention**
+
+- Check any scripts parsing `inferenced` CLI output. Enums and int64/uint64 values are now encoded as strings due to the IBC stack to v8.7.0 upgrade.
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available. Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- After the upgrade, Postgres is available as an option for local payload storage.
+
+## February 16, 2026
+
 **Collateral activation and proposed initial parameters**
 
 Less than 7 days remain until Epoch 180 - it’s time to prepare.

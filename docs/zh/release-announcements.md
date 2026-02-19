@@ -1,5 +1,115 @@
 # 公告
 
+## 2026年2月18日
+
+**升级已执行：v0.2.10 已正式上线主网**
+
+v0.2.10 升级提案的链上治理投票已结束，提案已顺利通过，并成功在主网上完成升级执行。本次升级对 PoC 验证流程进行了重要优化，同时引入实时权重归一化机制，以进一步提升网络运行的公平性与整体可扩展能力。
+
+**注意事项**
+
+为了触发模型重新部署，升级完成后必须重启 ML Node 容器。请执行以下命令：
+```
+docker restart join-mlnode-1
+```
+
+本次升级引入了 3000 个区块的宽限期。请务必在该宽限期内完成向  `mlnode:3.0.12-post4-*` 版本的迁移。
+
+!!! "兼容性说明"
+    本次升级包含 IBC 协议栈升级至 v8.7.0。
+    请务必检查所有解析 `inferenced` CLI 输出的脚本：
+    Enums 以及 int64 / uint64 类型的数值现已统一以字符串形式编码输出。
+
+**当前已生效的关键变更**
+
+**PoC 验证采样优化n**
+
+本次升级引入了一种全新的 PoC 验证机制：
+通过为每位参与者分配一组固定采样的验证者，将验证复杂度从 O(N²) 显著降低至 O(N × N_SLOTS)，有效缓解大规模网络下的验证压力。
+
+**基于实时执行时间的 PoC 权重归一化**
+
+升级后，PoC 参与者的权重将基于 PoC 实际执行耗时进行归一化处理。
+该机制可有效降低区块时间漂移带来的影响，使权重结果更加真实地反映实际算力贡献。
+
+**为 Qwen235B 启用工具调用能力**
+
+本次升级为 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 新增工具调用参数（ `--enable-auto-tool-choice` , `--tool-call-parser hermes` ），并将验证阈值设置为 0.958。
+
+如需启用工具调用功能，需重启 MLNode 容器内的 vLLM 服务。
+
+**其他协议更新**
+
+- 问题修复：修复 PoC 与 CPoC 交集判断相关的 bug（PR #752）
+
+- IBC 升级：IBC 协议栈升级至 v8.7.0
+
+- 惩罚机制优化：惩罚阈值现由链上数据动态推导（PR #688）
+
+- 归属机制支持：支持在归属期（vesting）进行中的 streamvesting 转账（PR #641）
+
+- MLNode 更新：提供更稳定的 MLNode 容器版本：ghcr.io/product-science/mlnode:3.0.12-post4 / ghcr.io/product-science/mlnode:3.0.12-post4-blackwell.
+
+**宽限期说明** 
+
+本次升级引入以下宽限机制：升级完成后的 前 3000 个区块内，不执行 Confirmation PoC。在升级所在的 epoch 内，采用更宽松的 miss rate 与 invalidation rate 阈值。
+
+有关上述变更及更多技术细节，请查阅治理材料：[https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
+
+## 2026年2月18日
+
+**抵押参数更新提案已开放投票**
+
+新的抵押参数更新提案现已发布，并进入社区投票阶段。
+
+拟议参数如下：
+
+- 每 1 单位算力需抵押 0.032 GNK（约 每张 H100 为 10 GNK）
+- miss rate 或被 jail：0.01% 惩罚
+- 无效推理（invalid inference）：0.5% 惩罚
+
+这意味着，在单个 epoch 内，即使触发惩罚，矿工最多仅会损失 0.5% 的抵押资产。所需抵押金额约为单日奖励的 24%，整体负担相对可控。
+
+**重要提醒** 
+
+无论投票结果如何，抵押机制都会生效。若该提案未通过，Genesis 中定义的抵押参数将于 Epoch 180 自动启用。若提案通过，则以本提案参数为准。
+
+在投票结束且 Epoch 180 到来之前，所有矿工必须按照以下[指南](https://gonka.ai/host/collateral/#slashing)完成抵押资金转入操作。否则，自 Epoch 180 起，其奖励将被 降低 5 倍。
+
+查询最新参数差异：
+```
+export NODE_URL=https://node3.gonka.ai/
+diff -u \
+  <(./inferenced query inference params -o json --node $NODE_URL/chain-rpc/ | jq '.params') \
+  <(./inferenced query gov proposal 28 -o json --node $NODE_URL/chain-rpc/ | jq '.proposal.messages[] | select(."type"=="inference/x/inference/MsgUpdateParams") | .value.params') \
+  || true
+
+```
+
+提交投票 (`yes`, `no` , `abstain` , `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 28 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+查询投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 28 -o json --node $NODE_URL/chain-rpc/
+```
+**投票截止时间**
+
+2026 年 2 月 19 日 07:27:06（UTC）
+
+
+
 ## 2026年2月17日
 
 **v0.2.10 升级提案进入治理阶段**

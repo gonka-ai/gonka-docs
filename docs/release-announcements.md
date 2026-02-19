@@ -2,6 +2,30 @@
 
 ## February 19, 2026
 
+**Collateral parameter update proposal — Voting result**
+
+The collateral parameter update proposal has concluded without reaching quorum. As a result, the proposal has been rejected under the current governance rules. This means the updated parameters will not be activated.
+
+As previously stated, collateral activation at Epoch 180 is independent of this vote.
+
+Because the proposal did not pass, the collateral parameters defined in Genesis will automatically take effect at Epoch 180.
+
+Participants should:
+
+- Review the Genesis-defined collateral parameters.
+- Prepare and deposit the required GNK before Epoch 180.
+- Ensure collateral is properly set, otherwise PoC-derived rewards will be reduced 5× starting from Epoch 180.
+
+Collateral activation is part of the protocol’s transition from the Grace Period to a fully collateralized PoC-weight model. Governance remains the mechanism for adjusting parameters, but default rules apply if no alternative is approved.
+
+!!! note "Important: deposit with a buffer"
+
+    Participants are strongly encouraged **not** to deposit the exact minimum amount. PoC weight may fluctuate between epochs due to normalization effects and network-level adjustments. Smaller weights may experience proportionally larger relative fluctuations. To avoid temporary under-collateralization at the epoch boundary, it is recommended to deposit up to 2× the calculated minimum requirement while collateral levels remain relatively small. This provides operational safety and prevents unintended weight reduction due to minor parameter shifts. The protocol does not auto-top-up collateral.
+
+Further proposals may be introduced if the community wishes to revise the parameters again.
+
+## February 19, 2026
+
 **PoC weight normalization update**
 
 Following the recent upgrade, node weights have adjusted due to PoC duration normalization.

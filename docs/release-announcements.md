@@ -14,7 +14,7 @@ Participants should:
 
 - Review the Genesis-defined collateral parameters.
 - Prepare and deposit the required GNK before Epoch 180.
-- Ensure collateral is properly set, otherwise PoC-derived rewards will be reduced 5× starting from Epoch 180.
+- Ensure [collateral](https://gonka.ai/host/collateral/) is properly set, otherwise PoC-derived rewards will be reduced 5× starting from Epoch 180.
 
 Collateral activation is part of the protocol’s transition from the Grace Period to a fully collateralized PoC-weight model. Governance remains the mechanism for adjusting parameters, but default rules apply if no alternative is approved.
 

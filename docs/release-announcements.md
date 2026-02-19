@@ -1,5 +1,43 @@
 # Announcements
 
+## February 19, 2026
+
+**PoC weight normalization update**
+
+Following the recent upgrade, node weights have adjusted due to PoC duration normalization.
+To normalize PoC weight against actual block generation time, calibration parameters were selected based on observed block intervals. As implemented, the effective PoC reference window turned out to be approximately 5 blocks longer than the prior nominal assumption.
+
+As a result:
+
+- Mean node weights decreased (normalization effect)
+- The displayed total H100-equivalent capacity appears proportionally lower
+- Relative GPU ratios remain unchanged
+
+**Why this happened**
+
+Previously, PoC weight calculations relied on a nominal epoch duration assumption. After introducing real-time normalization:
+
+- PoC duration is aligned with the actual block production time
+- Weight reflects real compute time more accurately
+
+Because the effective normalization window is ~5 blocks longer than the earlier nominal model, the recalculated weight per epoch is proportionally lower.
+
+**Observed GPU weight changes (Epoch 175 → 176)**
+
+| GPU Type            | Epoch 175 | Epoch 176 | Change  |
+|---------------------|----------:|----------:|--------:|
+| A100-PCIE-40GB      | 11.8      | 10.0      | -15.4%  |
+| A100-SXM4-80GB      | 132.2     | 107.8     | -18.5%  |
+| H100 80GB HBM3      | 305.1     | 254.5     | -16.6%  |
+| H100 PCIe           | 178.9     | 155.7     | -12.9%  |
+| H200                | 319.6     | 281.3     | -12.0%  |
+
+**Action for tracker (dashboard) maintainers**
+
+With PoC duration normalization in effect and the effective reference window now ~5 blocks longer than the previous nominal assumption, weight values from Epoch 176 onward reflect the updated calculation model.
+Trackers and dashboards that derive H100-equivalent capacity or reward projections from PoC weight should verify their conversion coefficients starting from Epoch 176.
+If pre-normalization assumptions are still used, displayed hardware equivalents and projected rewards may appear overstated.
+
 ## February 18, 2026
 
 **UPGRADE EXECUTED: v0.2.10 is now live on mainnet**

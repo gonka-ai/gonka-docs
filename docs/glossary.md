@@ -37,12 +37,12 @@ When referring to “Next PoC” or “PoC phase”, this typically means the ne
 
 **Public Key** is a cryptographic key that is publicly available and used for verifying signatures, encrypting messages, and identifying accounts in Gonka network. This is the publicly shareable part of the cryptographic key pair.
 
-**Randomized Task Verification** is the foundation of the platform’s validation strategy. Instead of verifying every inference task redundantly, the system randomly selects a subset of tasks for verification based on Hosts (Executor) Reputation. The higher is Host’ Reputation, the less of its work requires validation. This approach drastically reduces overhead to just 1–10% of tasks, while maintaining trust through probabilistic guarantees and the threat of losing rewards if caught cheating.
+**Randomized Task Verification** is the foundation of the platform’s validation strategy. Instead of verifying every inference task redundantly, the system randomly selects a subset of tasks for verification based on Hosts (Executor) Reputation. The higher Host’s Reputation, the less of its work requires validation. This approach drastically reduces overhead to just 1–10% of tasks, while maintaining trust through probabilistic guarantees and the threat of losing rewards if caught cheating.
 
-**Sprint** is a phase of Proof of Compute. During a Sprint, all Hosts simultaneously perform AI-relevant inference tasks using randomly initialized transformer models to generate output vectors. The number of Appropriate Vectors produced by a Host during a Sprint determines its voting power (weight) for the next epoch.
+**Sprint** is a phase of Proof of Compute. During a Sprint, all Hosts simultaneously run AI-relevant inference on a transformer with randomized layers over a stream of nonces, producing output vectors. A Host’s voting power for the next epoch is proportional to the number of nonces it processed, as long as the reported outputs are verifiably produced by the required Sprint model.
 
-**Sprint Seed** is generated with a random number generator based on the latest blockchain state. This seed is used to initialize a transformer model and generate a Target Vector. Sprint Seed is specific to each Sprint and the same across all the devices participating in that Sprint.
+**Sprint Seed** is generated with a random number generator based on the latest blockchain state. This seed is used to apply random transformations to the hidden layers of the transformer model.
 
 **Validator `status: jailed`** means that a validator has been automatically and temporarily removed from block production by the protocol because it failed to meet the minimum consensus participation requirements (specifically, it signed fewer than the required number of blocks within the defined window).
 
-**Voting Power (Weight)** represents the weight a Host has in governance and protocol decisions within the network and is determined proportionally by the number of Appropriate Vectors found during a Sprint.
+**Voting Power (Weight)** represents the weight a Host has in governance and protocol decisions within the network and is determined proportionally by the number of processed nonces found during a Sprint.

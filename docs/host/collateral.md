@@ -16,7 +16,7 @@ Assume all `$NODE_URL` is URL of node with enabled chain rpc and chain api.
 
 ## Parameters
 
-1. Get Parameters
+1. Get Current Collateral Parameters (On-chain)
 ```
 curl "$NODE_URL/chain-api/productscience/inference/inference/params" | jq '.params.collateral_params'
 ```
@@ -39,6 +39,9 @@ COLLATERAL_PER_UNIT=$(curl -s "$NODE_URL/chain-api/productscience/inference/infe
            | (.value | tonumber) * pow(10; .exponent | tonumber)')
 printf "Required collateral: %.0f ngonka\n" "$(echo "$WEIGHT * $COLLATERAL_PER_UNIT" | bc -l)"
 ```
+
+!!! note "Recommended Buffer"
+    Because PoC weight may fluctuate between epochs (due to normalization and other factors), depositing the exact minimum required amount may lead to temporary under-collateralization. Smaller weights may experience proportionally larger relative fluctuations. It is recommended to deposit up to 2x while collateral levels remain relatively small. This provides operational safety and prevents unintended weight reduction at the epoch boundary. The protocol does not auto-top-up collateral.
 
 ## Deposit Collateral
 
@@ -128,3 +131,4 @@ Then query the block results to see the slash details (replace `BLOCK_HEIGHT` wi
 curl "$NODE_URL/chain-rpc/block_results?height=<BLOCK_HEIGHT>" | jq '.result.finalize_block_events[] | select(.type == "slash_collateral")'
 ```
 
+For common questions, see the [Collateral FAQ](https://gonka.ai/FAQ/#collateral).

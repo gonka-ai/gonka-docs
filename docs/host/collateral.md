@@ -61,7 +61,7 @@ curl "$NODE_URL/chain-api/productscience/inference/collateral/collateral/<GONKA_
 ```
 
 
-To deposit new collateral:
+Always use `ngonka` to deposit new collateral:
 
 ```bash
 ./inferenced tx collateral deposit-collateral <COLLATERAL_SIZE>ngonka \

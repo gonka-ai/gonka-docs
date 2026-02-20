@@ -1,5 +1,24 @@
 # Announcements
 
+## February 20, 2026
+
+**Recommendation (optional): vLLM / mlnode build to interrupt in-flight requests at PoC start**
+
+A new vLLM / mlnode build is available that interrupts in-flight inference requests at the start of PoC, to reduce the risk of potential weight decreases caused by requests that remain active when PoC begins.
+
+Source: [https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm](https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm)
+
+**Recommended images to try:**
+
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell-sm120
+
+**Notes:**
+
+- This build is intended to be backward compatible with the previous version.
+- It has already been switched on for a small number of nodes, but it’s still recommended to review the changes before deploying.  
+
 ## February 19, 2026
 
 **Collateral parameter update proposal — Voting result**

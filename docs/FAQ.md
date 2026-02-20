@@ -80,6 +80,120 @@ For the first 180 epochs (approximately 6 months), new participants can particip
 ### Why does Gonka require locking GNK coins for governance power?
 Voting power is never derived solely from holding coins. GNK coins serve as economic collateral, not as a source of influence. Influence is earned through continuous computational contribution, while locking GNK collateral is required to secure participation in governance and enforce accountability.
 
+## Collateral
+
+### What is collateral?
+Collateral is required to activate the collateral-eligible portion of PoC weight after the Grace Period (first 180 epochs).
+After the Grace Period:
+
+- Base Weight (default 20%) is always active.
+- The remaining weight requires GNK collateral to become active.
+
+Collateral ensures that participants with governance weight also bear economic responsibility. Parameters are defined on-chain and may change via governance. Always verify current values before making economic decisions.
+
+### Is collateral required per node or per account?
+Collateral is deposited per account. If multiple ML nodes are linked to the same account, the required collateral is calculated based on the total account weight across all nodes.
+
+### Do I need to deposit collateral?
+Yes, if you want to activate more than the Base Weight.
+If no collateral is deposited, only the Base Weight remains active.
+
+### How much collateral is required?
+Formula:
+```
+Required Collateral =
+Total Weight × (1 - base_weight_ratio) × collateral_per_weight_unit
+```
+Because PoC weight may fluctuate across epochs, depositing the exact minimum may result in temporary under-collateralization.
+Smaller weights may experience proportionally larger relative fluctuations. A buffer of up to 2× the calculated minimum is recommended while collateral levels remain relatively small.
+```
+Recommended (with conservative buffer):
+Total Weight × 2 × (1 - base_weight_ratio) × collateral_per_weight_unit
+```
+
+### Can I partially collateralize my weight?
+Yes. Your total Active Weight consists of:
+
+- Base Weight (always active)
+- Collateral-Eligible Weight (activated proportionally to deposited collateral)
+
+If you deposit less than the full required amount:
+
+- Base Weight remains fully active
+- Only the corresponding portion of collateral-eligible weight becomes active
+- The remaining portion stays inactive
+
+Active Weight is calculated as:
+```
+Active Weight =
+Base Weight +
+(Deposited Collateral / Required Collateral) × Collateral-Eligible Weight
+```
+
+### What happens if I do not deposit enough collateral?
+Your Active Weight is reduced proportionally. Because rewards are distributed proportionally to Active Weight, other hosts receive a larger share of emissions when you under-collateralize. Inactive weight is not directly redistributed, it simply does not participate in consensus.
+
+### When does collateral take effect?
+Collateral must be deposited before the start of the epoch to be effective. Collateral deposited during an epoch:
+
+- does NOT increase weight immediately
+- applies starting from the next epoch
+
+Collateral cannot be increased mid-epoch.
+
+### In what unit do I deposit collateral?
+Transactions must use ngonka, not GNK.
+```
+1 GNK = 1,000,000,000 ngonka
+```
+Example:
+```
+10 GNK = 10,000,000,000 ngonka
+```
+
+### Can collateral be slashed?
+Yes. Collateral may be slashed for:
+
+- Invalid inference
+- Downtime (Confirmation PoC failure or jail)
+  
+Invalid inference slashing is capped at once per epoch.
+Downtime slashing may be applied per jail event.
+
+### What happens to slashed coins?
+Currently, slashed GNK is permanently burned and removed from circulation. Future governance may change this mechanism.
+
+### Can I withdraw collateral?
+Yes. Withdrawal triggers an unbonding period (default: 1 epoch). During unbonding, collateral remains subject to slashing. After unbonding funds are automatically returned to your account balance.
+
+### What collateral is NOT
+
+- Collateral is NOT voting power. Voting power is derived from PoC weight, not token balance.
+- Collateral is NOT delegation. Each account must back its own weight.
+- Collateral is NOT a permanent lock. It can be withdrawn (subject to unbonding).
+- Collateral was NOT required during the Grace Period (first 180 epochs).
+
+### How are epoch-minted rewards distributed?
+A fixed amount of GNK is minted each epoch and distributed proportionally to Active PoC Weight.
+Active Weight determines:
+
+- Your share of epoch-minted Reward Coins
+- Your governance influence
+
+If your Active Weight is reduced due to insufficient collateral, your share of epoch rewards decreases proportionally. Inactive weight does not receive rewards.
+
+### Do I need to manually deposit collateral?
+Yes. Collateral must be deposited by submitting an on-chain transaction. It is not activated automatically. If no collateral is deposited:
+
+- Your node continues operating normally.
+- It is not jailed or disabled.
+- Only the Base Weight (e.g. 20%) remains active.
+
+Your rewards and governance influence will be reduced proportionally.
+
+### Can vested (locked) GNK be used as collateral?
+No. Collateral must be deposited from your available (unlocked) GNK balance. Vested coins that are not yet released cannot be used as collateral.
+
 ## Governance
 
 ### What types of changes require a Governance Proposal?

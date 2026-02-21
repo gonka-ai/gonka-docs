@@ -1,5 +1,23 @@
 # 公告
 
+## 2026年2月20日
+
+**建议（可选）：在 PoC 开始时中断进行中的请求的 vLLM / mlnode 构建版本**
+
+现已提供一个新的 vLLM / mlnode 构建版本，可在 PoC 启动时中断仍在执行中的推理请求，以降低因 PoC 开始时仍存在未完成请求而导致权重下降的风险。
+
+来源：[https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm](https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm)
+
+**建议尝试的镜像版本：**
+
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell-sm120
+
+**注意事项：**
+- 该构建版本旨在与上一版本保持向后兼容。
+- 目前已在少量节点上启用，但在正式部署前，仍建议先审阅相关改动内容。
+
 ## 2026年2月18日
 
 **升级已执行：v0.2.10 已正式上线主网**

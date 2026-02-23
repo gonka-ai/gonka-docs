@@ -1,5 +1,45 @@
 # 公告
 
+## 2026年2月21日
+
+**API 二进制版本 v0.2.10-post3 已发布**
+
+新版 API 二进制程序已发布。本次更新改进了连接超时处理逻辑，并在 PoC 验证流程中引入了额外的校验机制。
+
+1. 在 v0.2.10 升级中，引入了 Executor → MLNode 连接的严格 5 分钟超时限制，而部分请求的实际执行时间可能明显更长。新的 API 版本不再强制执行该严格限制，而是将超时控制权交还给上层。
+2. 之前的请求重试机制在推理因处理超时（而非 TLS 超时）失败时，仍会重新发起推理请求。对于执行时间较长的请求，服务端重试通常是无效的，因为很可能再次触发同样的超时问题，同时还可能导致客户端收到不一致的输出结果。新版 API 在此类情况下将不再重试推理请求。
+3. 之前，处于“保留（preserved）”状态、且未参与 PoC 生成的 MLNode，仍可能被用于 PoC 验证，这可能导致推理缺失。新版已将这类节点排除在 PoC 验证流程之外。
+4. PoC 验证流程中新增了多项额外的安全防护措施。
+
+PR: [https://github.com/gonka-ai/gonka/pull/785](https://github.com/gonka-ai/gonka/pull/785)
+Build: [https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip](https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip)
+
+应用更新：
+```
+#预检查：确认当前没有进行中的 confirmation PoC (若不为 false，脚本将直接失败)
+echo "--- Pre-flight Check: Confirmation PoC Status ---" && \
+CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+echo "OK: No confirmation PoC active" && \
+
+# 下载二进制文件
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.10-post3/ .dapi/data/upgrade-info.json && \
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/ && \
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip' && \
+echo "1b75f2785c7884dc24f3c1e39d5ed10f4afcbe5fc677f5569d90d75c752ec150 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/decentralized-api && \
+echo "API Installed and Verified"  && \
+
+# 链接二进制文件
+echo "--- Final Verification ---" && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.10-post3 .dapi/cosmovisor/current && \
+echo "de72c665ff71de904210c5472cebb248d163c1398141868e1a1fe198055b5886 .dapi/cosmovisor/current/bin/decentralized-api" | sudo sha256sum --check && \
+# 重启服务
+source config.env && docker compose up api --no-deps --force-recreate -d
+```
+
 ## 2026年2月18日
 
 **升级已执行：v0.2.10 已正式上线主网**

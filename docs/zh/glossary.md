@@ -48,16 +48,16 @@
 是一种公开可用的加密密钥，用于验证签名、加密消息以及在 Gonka 网络中标识账户，是加密密钥对中可公开共享的部分。
 
 **Randomized Task Verification（随机任务验证）**
-是平台验证策略的基础。系统不会对每个推理任务进行冗余验证，而是基于 Hosts（Executor）的声誉随机选择一部分任务进行验证。Host 的声誉越高，其工作需要验证的比例就越低。该方法将验证开销降低至仅 1–10% 的任务，同时通过概率性保证以及作弊将失去奖励的风险来维持系统可信度。
+是平台验证策略的核心基础。系统不会对每一次推理任务进行冗余验证，而是基于 Hosts（Executor）的声誉随机选择一部分任务进行验证。Host 的声誉越高，其工作需要验证的比例就越低。该机制将整体验证开销大幅降低至仅占全部任务的 1–10%，同时通过概率性保障机制以及一旦作弊将失去奖励的威慑手段，维持系统的可信性。
 
 **Sprint**
-是 Proof of Compute 的一个阶段。在 Sprint 期间，所有 Hosts 同时使用随机初始化的 Transformer 模型执行与 AI 相关的推理任务，以生成输出向量。Host 在 Sprint 中生成的 Appropriate Vectors 数量决定了其在下一 Epoch 中的投票权（权重）。
+是 Proof of Compute 的一个阶段。在 Sprint 期间，所有 Hosts 会同时在带有随机化层的 Transformer 模型上，对一系列 nonces 执行与 AI 相关的推理计算，并生成输出向量。只要所提交的输出能够被验证为确实由指定的 Sprint 模型生成，Host 在下一 epoch 中的投票权重就与其处理的 nonces 数量成正比。
 
 **Sprint Seed（Sprint 种子）**
-由基于最新区块链状态的随机数生成器产生，用于初始化 Transformer 模型并生成 Target Vector。Sprint Seed 对每个 Sprint 唯一，并且在该 Sprint 中对所有参与设备保持一致。
+由基于最新区块链状态的随机数生成器产生，该种子用于对 Transformer 模型的隐藏层施加随机变换。
 
 **Validator `status: jailed`（验证者状态：已隔离 `Jailed` ）**
 表示某个验证者由于未满足最低共识参与要求（具体而言，在规定窗口内签署的区块数量不足），已被协议自动且临时地移出区块生产流程。
 
 **Voting Power（Weight，投票权 / 权重）**
-表示 Host 在网络治理和协议决策中的权重，其大小与 Host 在 Sprint 期间找到的 Appropriate Vectors 数量成正比。
+表示 Host 在网络治理和协议决策中的权重，其大小由 Host 在某一 Sprint 中成功处理的 nonces 数量按比例决定。

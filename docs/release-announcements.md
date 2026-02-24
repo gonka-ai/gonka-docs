@@ -1,5 +1,66 @@
 # Announcements
 
+## February 21, 2026
+
+**API binary v0.2.10-post3 is available**
+
+A new version of the API binary has been released. It updates connection timeout handling and introduces additional checks in the PoC validation pipeline.
+
+1. Upgrade v0.2.10 introduced a strict 5-minute timeout for Executor → MLNode connections, while some requests may take considerably longer. The new API version returns this value back instead of enforcing the strict limit.
+2. The request retry system previously retried inference even if it failed due to a processing timeout (not a TLS timeout).
+Server-side retry for long requests is typically ineffective, as it leads to the same timeout scenario. At the same time, the client may receive inconsistent output.
+The new API version does not retry inference in such cases.
+3. MLNodes that are currently preserved and not participating in PoC generation were still used for PoC validation. This could lead to missed inferences. The new version excludes such nodes from PoC validation.
+4. Extra safeguards have been added to the PoC validation pipeline.
+
+PR: [https://github.com/gonka-ai/gonka/pull/785](https://github.com/gonka-ai/gonka/pull/785)
+Build: [https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip](https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip)
+
+Apply update:
+```
+# Pre-check: Ensure no confirmation PoC is active (fails entire script if not false)
+echo "--- Pre-flight Check: Confirmation PoC Status ---" && \
+CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+echo "OK: No confirmation PoC active" && \
+
+# Download Binary
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.10-post3/ .dapi/data/upgrade-info.json && \
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/ && \
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip' && \
+echo "1b75f2785c7884dc24f3c1e39d5ed10f4afcbe5fc677f5569d90d75c752ec150 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/decentralized-api && \
+echo "API Installed and Verified"  && \
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.10-post3 .dapi/cosmovisor/current && \
+echo "de72c665ff71de904210c5472cebb248d163c1398141868e1a1fe198055b5886 .dapi/cosmovisor/current/bin/decentralized-api" | sudo sha256sum --check && \
+# Restart 
+source config.env && docker compose up api --no-deps --force-recreate -d
+```
+
+## February 20, 2026
+
+**Recommendation (optional): vLLM / mlnode build to interrupt in-flight requests at PoC start**
+
+A new vLLM / mlnode build is available that interrupts in-flight inference requests at the start of PoC, to reduce the risk of potential weight decreases caused by requests that remain active when PoC begins.
+
+Source: [https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm](https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm)
+
+**Recommended images to try:**
+
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell-sm120
+
+**Notes:**
+
+- This build is intended to be backward compatible with the previous version.
+- It has already been switched on for a small number of nodes, but it’s still recommended to review the changes before deploying.  
+
 ## February 19, 2026
 
 **Collateral parameter update proposal — Voting result**

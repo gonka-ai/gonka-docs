@@ -1374,19 +1374,19 @@ If you periodically hit `err="no validator signing info found"` during startup f
 
 **Fix (Docker):**
 
-	1.	Stop the node:
-	```
-	docker stop node
-	```
-	2. In `.inference/config/app.toml`, set:
-	```
-	iavl-disable-fastnode = true
-	```
-	3. Start the node:
-	```
-	docker start node
-	```
-	After a restart, the issue should not recur.
+1.	Stop the node:
+```
+docker stop node
+```
+2. In `.inference/config/app.toml`, set:
+```
+iavl-disable-fastnode = true
+```
+3. Start the node:
+```
+docker start node
+```
+After a restart, the issue should not recur.
 
 !!! note 
 	`main` includes v0.2.10-post6. Nodes starting from this version apply this setting automatically, so you typically won’t need to change it manually.

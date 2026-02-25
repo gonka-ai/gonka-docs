@@ -1296,6 +1296,60 @@ echo "02d98dc7b1dc37fabc1b53c96abedd0194d7013140733fccb9c0fb5266cfd636 .inferenc
 source config.env && docker compose up node --no-deps --force-recreate -d
 ```
 
+## Bounty program
+
+### What is the bounty program? Who can participate? How are rewards paid?
+
+It’s not necessary to be a Host to participate: many bounties go to contributors who submit fixes, implement improvements, or contribute to broader Gonka infrastructure. 
+
+Awards are paid from the community pool after governance approval. Vulnerability reports are especially valued, and responsible disclosures that help prevent exploits and improve network safety are eligible for bounties as well. 
+
+Final bounty decisions, amounts, and categories are always up to community governance.
+
+### What is the vulnerability bounty pricing model  
+
+A common way to think about severity is: 
+```
+Risk = Impact × Likelihood
+```
+Impact is evaluated from a network perspective (a network-wide effect is required for High/Critical). Issues affecting only one participant typically cap at Low or Medium.
+
+**Impact levels**
+
+| Level    | Description                         | Examples                                                                 |
+|----------|--------------------------------------|--------------------------------------------------------------------------|
+| Critical | Catastrophic for the whole network   | Full network control hijack                                              |
+| High     | Significant disturbance at scale      | Network crash/halt; theft from module; wrong rewards for all participants |
+| Medium   | Moderate disruption, limited scope    | Consensus or reward integrity at risk; single-participant funds or availability |
+| Low      | Minor impact on isolated participants, no chain impact | single-component, minor effect on a single participant, non-chain |
+
+**Likelihood**
+
+- **Organic — Unintentional;** occurs under normal conditions. Estimate by probability (how often conditions trigger it, usage patterns).
+- **Intentional — Profitable** — Exploited for financial gain. Higher likelihood when gain is large and cost/complexity is low.
+- **Intentional — Griefing** — Exploited to cause disruption. Higher likelihood when network-wide effect and low cost; single-participant griefing → lower likelihood.
+
+**Risk Matrix**
+
+| Impact \ Likelihood | High     | Medium   | Low           |
+|---------------------|----------|----------|---------------|
+| Critical            | Critical | Critical | High          |
+| High                | Critical | High     | Medium        |
+| Medium              | High     | Medium   | Low           |
+| Low                 | Medium   | Low      | Informational |
+
+## How to get started in the bounty program?
+
+- A new GitHub issue/discussion can be created to propose an improvement and get community feedback on whether it’s worth implementing.
+- Or pick an[ existing issue labeled up-for-grabs](https://github.com/gonka-ai/gonka/issues?q=is%3Aissue%20state%3Aopen%20label%3Aup-for-grabs). Before starting, leave a quick comment that work has started and include an approximate ETA, so others have visibility and avoid duplicate effort.
+
+## What is the suggested vulnerability reporting process?
+
+- If an issue is not high or critical severity (limited impact, no network wide effect) and the fix is low effort, opening a PR right away is usually fine.
+- If an issue is high or critical severity, please report it privately to trusted community members (long-term Gonka repository contributors), either as a report or together with a fix in a private fork.
+- If an issue looks like part of a broader class and a systematic review would likely uncover more issues of the same category, leave a note that a review is planned. This helps avoid duplicate reviews running in parallel.
+
+To contribute, pick an issue, ship a solid fix, and share the link in the relevant dev channels to get feedback. 
 
 ## Errors
 

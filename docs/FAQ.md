@@ -233,14 +233,17 @@ Improvement Proposals → off-chain proposals under the control of active partic
 - Approved proposals are merged into the repository
 
 ### How are Improvement Proposals reviewed and approved?
-- Create a Markdown proposal in the [/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals) folder.
-- Open a Pull Request with your proposal.
+The goal of community proposal review is to gather community validation: reactions, comments, and concrete feedback that strengthens the case for eventual governance approval. This is especially relevant if the proposal implementation requires a lot of work, long-term commitment, coordination or significant changes into the protocol.
+
+- Read the recommended guide first: [https://github.com/gonka-ai/gonka/discussions/795](https://github.com/gonka-ai/gonka/discussions/795). It explains what belongs in Improvement Proposals and how to write a strong, structured proposal.
+- Publish and discuss improvement proposals in [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions) (preferred); previously they were stored as Markdown files in the `/proposals` directory.
+- To help the community evaluate your proposal (and improve its chances later in governance), it’s in the proposer’s interest and responsibility to actively gather early feedback and support signals (reactions, comments, concrete concerns).
+	- Share the Discussion link in Discord’s #improvements-proposals channel for reach and visibility, and amplify it through any other channels available to you (including direct outreach to Hosts/miners) to gather practical input and support.
+	- Share context about your experience and expertise in the proposal thread. If you represent a team or a company, mention it and link relevant work to help the community assess credibility and evaluate the proposal more efficiently.
 - Community review:
-      - Active contributors and maintainers discuss the proposal in the PR thread.
-      - Feedback, suggestions, and refinements are discussed openly.
-- Approval and merge:
-      - If the community agrees, the PR is merged.
-      - Approved proposals become part of the official community roadmap.
+	- Active contributors and maintainers discuss the proposal in [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions). Conversation can happen on any platform, but please consolidate the key context back in [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions): it keeps the full history in one place, stays searchable, and is much easier to maintain over time. GitHub is the main source of truth.
+	- Please ask questions, provide feedback, suggestions, refinements, and upvote relevant proposals. Everybody’s attention and participation in this process is essential for sustainable evolution of the chain.
+- Strong positive feedback and a high number of upvotes signal genuine community demand, allowing teams to treat well-received proposals as part of a community-driven roadmap and begin implementation with confidence in both community alignment and eventual governance approval. Note that feedback from the hosts is essential - it can help structure the project into milestones, unlock partial bounty payments, and even secure grants from the community pool. Ultimately, however, all on-chain updates and payments are subject to governance approval.
 
 ### Can an Improvement Proposal lead to a Governance Proposal?
 Yes. Often, an Improvement Proposal is used to explore ideas and gather consensus before drafting a Governance Proposal. For example:

@@ -1338,18 +1338,22 @@ Impact is evaluated from a network perspective (a network-wide effect is require
 | Medium              | High     | Medium   | Low           |
 | Low                 | Medium   | Low      | Informational |
 
-## How to get started in the bounty program?
+### How to get started in the bounty program?
 
 - A new GitHub issue/discussion can be created to propose an improvement and get community feedback on whether it’s worth implementing.
 - Or pick an[ existing issue labeled up-for-grabs](https://github.com/gonka-ai/gonka/issues?q=is%3Aissue%20state%3Aopen%20label%3Aup-for-grabs). Before starting, leave a quick comment that work has started and include an approximate ETA, so others have visibility and avoid duplicate effort.
 
-## What is the suggested vulnerability reporting process?
+### What is the suggested vulnerability reporting process?
 
-- If an issue is not high or critical severity (limited impact, no network wide effect) and the fix is low effort, opening a PR right away is usually fine.
+- If an issue is not high or critical severity (limited impact, no network-wide effect) and the fix is low effort, opening a PR right away is usually fine.
 - If an issue is high or critical severity, please report it privately to trusted community members (long-term Gonka repository contributors), either as a report or together with a fix in a private fork.
 - If an issue looks like part of a broader class and a systematic review would likely uncover more issues of the same category, leave a note that a review is planned. This helps avoid duplicate reviews running in parallel.
 
 To contribute, pick an issue, ship a solid fix, and share the link in the relevant dev channels to get feedback. 
+
+### Where can I see who was paid bounties, for what, and when?
+
+The most reliable sources are on-chain records and [GitHub](https://github.com/gonka-ai/gonka/). Use them as the main source of truth for who was paid, what the bounty was for, and when it was executed.
 
 ## Errors
 

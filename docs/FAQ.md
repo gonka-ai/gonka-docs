@@ -1368,3 +1368,25 @@ Here you can find examples of common errors and typical log entries that may app
 It’s not actually an error. It just indicates that your node hasn’t been assigned a model yet. Most likely, this is because your node hasn’t participated in a Sprint, hasn’t received Voting Power, and therefore hasn’t had a model assigned.
 If your node has already passed PoC, you shouldn’t see this log anymore. If not, PoC takes place every ~24 hours.
 
+### How do I fix `err="no validator signing info found"` when starting from a state sync snapshot?
+
+If you periodically hit `err="no validator signing info found"` during startup from a state sync snapshot, it is typically related to the Cosmos SDK `iavl-fastnode` behavior. A safe workaround is to disable `fastnode` for the initial startup, then (optionally) re-enable it after the node is fully synced.
+
+**Fix (Docker):**
+
+	1.	Stop the node:
+	```
+	docker stop node
+	```
+	2. In `.inference/config/app.toml`, set:
+	```
+	iavl-disable-fastnode = true
+	```
+	3. Start the node:
+	```
+	docker start node
+	```
+	After a restart, the issue should not recur.
+
+!!! note 
+	`main` includes v0.2.10-post6. Nodes starting from this version apply this setting automatically, so you typically won’t need to change it manually.

@@ -39,6 +39,7 @@
           </div>
           </a>
           -->
+          <div class="card card-placeholder" aria-hidden="true"></div>
         </div>
       </div>
     </section>

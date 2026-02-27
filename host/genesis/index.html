@@ -1,0 +1,2319 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/host/genesis/">
+      
+      
+        <link rel="prev" href="../benchmark-to-choose-optimal-deployment-config-for-llms/">
+      
+      
+        <link rel="next" href="../hardware-specifications/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../zh/host/genesis/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Genesis - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - Genesis">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/host/genesis/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gonka-genesis-ceremony" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Genesis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../zh/host/genesis/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Details
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Host
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark to Choose Optimal Deployment Config for LLMs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genesis
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ceremony-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ceremony Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ceremony Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-validators-prepare-keys-and-initial-server-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1. [Validators]: Prepare Keys and Initial Server Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1. [Validators]: Prepare Keys and Initial Server Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-local-confirm-account-cold-key-from-quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 [Local] Confirm Account Cold Key (from Quickstart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-server-initialize-node-and-get-node-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 [Server]: Initialize Node and Get Node ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-server-extract-consensus-public-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 [Server]: Extract Consensus Public Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-server-generate-ml-operational-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 [Server]: Generate ML Operational Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-local-prepare-pr-with-validator-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 [Local]: Prepare PR with validator information
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-create-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 Create Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-coordinator-genesis-draft-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2. [Coordinator]: Genesis Draft Preparation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-validators-gentx-and-genparticipant-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3. [Validators]: GENTX and GENPARTICIPANT Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3. [Validators]: GENTX and GENPARTICIPANT Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-create-gentx-and-genparticipant-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Local]: Create GENTX and GENPARTICIPANT Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-submit-generated-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Local]: Submit Generated Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-coordinator-final-genesis-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4. [Coordinator]: Final Genesis Preparation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4. [Coordinator]: Final Genesis Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-coordinator-collect-genesis-transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 [Coordinator]: Collect Genesis Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-coordinator-process-participant-registrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 [Coordinator]: Process Participant Registrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-coordinator-configure-network-seeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 [Coordinator]: Configure Network Seeds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-validators-chain-launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5. [Validators]: Chain Launch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5. [Validators]: Chain Launch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-server-update-and-launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 [Server]: Update and Launch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-server-verify-launch-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 [Server]: Verify Launch Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to edit Host public info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Node API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wallet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pricing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model licenses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Help
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ceremony-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ceremony Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ceremony Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-validators-prepare-keys-and-initial-server-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1. [Validators]: Prepare Keys and Initial Server Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 1. [Validators]: Prepare Keys and Initial Server Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-local-confirm-account-cold-key-from-quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 [Local] Confirm Account Cold Key (from Quickstart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-server-initialize-node-and-get-node-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 [Server]: Initialize Node and Get Node ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-server-extract-consensus-public-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 [Server]: Extract Consensus Public Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-server-generate-ml-operational-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 [Server]: Generate ML Operational Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-local-prepare-pr-with-validator-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 [Local]: Prepare PR with validator information
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-create-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 Create Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-coordinator-genesis-draft-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2. [Coordinator]: Genesis Draft Preparation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-validators-gentx-and-genparticipant-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3. [Validators]: GENTX and GENPARTICIPANT Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3. [Validators]: GENTX and GENPARTICIPANT Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-create-gentx-and-genparticipant-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Local]: Create GENTX and GENPARTICIPANT Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-submit-generated-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Local]: Submit Generated Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-coordinator-final-genesis-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4. [Coordinator]: Final Genesis Preparation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 4. [Coordinator]: Final Genesis Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-coordinator-collect-genesis-transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 [Coordinator]: Collect Genesis Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-coordinator-process-participant-registrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 [Coordinator]: Process Participant Registrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-coordinator-configure-network-seeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 [Coordinator]: Configure Network Seeds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-validators-chain-launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5. [Validators]: Chain Launch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5. [Validators]: Chain Launch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-server-update-and-launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 [Server]: Update and Launch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-server-verify-launch-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 [Server]: Verify Launch Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="gonka-genesis-ceremony">Gonka Genesis Ceremony</h1>
+<p>The genesis ceremony is a coordinated process to bootstrap the Gonka blockchain with a pre-defined set of initial validators and an agreed-upon <code>genesis.json</code> file. This ceremony is important because it establishes the network's foundational security, ensures fair participation among validators, and creates a verifiable starting point for the blockchain.</p>
+<h2 id="overview">Overview</h2>
+<p>The ceremony is a transparent and auditable process managed entirely through GitHub Pull Requests (PRs). The core workflow is straightforward:</p>
+<ul>
+<li>Hosts (Validators) submit information and offline transaction files (<code>GENTX</code> and <code>GENPARTICIPANT</code>) via PRs</li>
+<li>The Coordinator aggregates and verifies these inputs to publish the final, agreed <code>genesis.json</code> with a scheduled <code>genesis_time</code> and recorded hash.</li>
+<li>Validators verify that the file is produced correctly and launch their nodes</li>
+</ul>
+<p>The ceremony proceeds through clearly defined phases to produce an auditable, shared <code>genesis.json</code>. All collaboration happens via GitHub PRs for full transparency and accountability.</p>
+<details class="note">
+<summary>Key Principles of the Genesis Ceremony</summary>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transparency and Auditability</strong></td>
+<td>Using GitHub PRs for all submissions creates a public, verifiable record of the entire process from start to finish.</td>
+</tr>
+<tr>
+<td><strong>Decentralized Launch</strong></td>
+<td>The ceremony ensures the network begins with an agreed-upon set of independent validators, establishing decentralization from block zero.</td>
+</tr>
+<tr>
+<td><strong>Verifiable State</strong></td>
+<td>The final <code>genesis.json</code> hash is recorded, allowing every Host to confirm they are starting from the exact same initial state.</td>
+</tr>
+<tr>
+<td><strong>Consensus</strong></td>
+<td>The process guarantees that all initial validators have reviewed and accepted the genesis state before the network goes live.</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before participating in the ceremony, each Host (validator) must:</p>
+<ol>
+<li>
+<p>Fork <a href="https://github.com/gonka-ai/gonka/">the Gonka Repository</a> to your GitHub account.</p>
+</li>
+<li>
+<p>Choose a Host (validator) name and create your validator directory:
+   </p><div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>genesis/validators/template<span class="w"> </span>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;
+</code></pre></div>
+   This directory will be used for sharing information and transactions during the ceremony.
+</li>
+<li>
+<p>Follow the local setup portion of the Quickstart Guide.</p>
+<ul>
+<li>Before the ceremony, you must complete the local machine setup as described in the <a href="https://gonka.ai/host/quickstart">Gonka Quickstart</a> guide. This includes installing the <code>inferenced</code> CLI, creating your Account Cold Key, and pulling the Docker images. </li>
+<li>Stop after pulling the images and do not launch the services; the ceremony process replaces the server-side setup and on-chain transactions with an offline, PR-based workflow.</li>
+</ul>
+</li>
+<li>
+<p>Confirm readiness:</p>
+<ul>
+<li><code>inferenced</code> CLI is installed locally and your Account Cold Key is created.</li>
+<li>Containers are pulled, models downloaded, and environment variables (<code>config.env</code>) are configured.</li>
+</ul>
+</li>
+</ol>
+<h2 id="ceremony-process">Ceremony Process</h2>
+<p>The ceremony follows a 5-phase process, replacing the on-chain registration steps from <code>quickstart.md</code> with an offline, PR-based workflow. All transaction files are generated locally and submitted for aggregation by the Coordinator.</p>
+<ul>
+<li><strong>Phase 1 [Validators]</strong>: Prepare Keys and initial server setup; open PR with validator information (including node ID, ML operational address, and consensus pubkey)</li>
+<li><strong>Phase 2 [Coordinator]</strong>: Aggregate validator info and publish <code>genesis.json</code> draft for review</li>
+<li><strong>Phase 3 [Validators]</strong>: Generate offline <code>GENTX</code> and <code>GENPARTICIPANT</code> files from the draft; open PR with files</li>
+<li><strong>Phase 4 [Coordinator]</strong>: Verify and collect transactions, patch <code>genesis.json</code>, set <code>genesis_time</code></li>
+<li><strong>Phase 5 [Validators]</strong>: Retrieve final <code>genesis.json</code>, verify hash, and launch nodes before <code>genesis_time</code></li>
+</ul>
+<h3 id="deploy-scripts">Deploy Scripts</h3>
+<p>To simplify the process, the deploy scripts for the Ceremony will be in <a href="/deploy/join">/deploy/join</a> directory of <a href="https://github.com/gonka-ai/gonka/">the Gonka Repository</a>.<br>
+The deploy scripts are the same as the standard join flow from <code>quickstart.md</code>. During the ceremony, the Coordinator will adjust the following environment variables to enable genesis-specific behavior:</p>
+<ul>
+<li><code>INIT_ONLY</code> — initialize data directories and prepare configs without starting the full stack</li>
+<li><code>GENESIS_SEEDS</code> — seed node address list used for initial P2P connectivity at launch</li>
+<li><code>IS_GENESIS</code> — toggle genesis-only paths (e.g., hash verification, bootstrap behavior) in compose/scripts</li>
+</ul>
+<p>Location: these variables are set by the Coordinator in <code>deploy/join/docker-compose.yml</code>. Validators should not change them.</p>
+<p>Once <strong>Phase 5</strong> is finished and the chain has launched, the variables above are removed from the repo by the Coordinator as they're not required further.</p>
+<p>Working directory: run all <code>docker compose</code> commands from <code>deploy/join</code> (change directory first), or pass <code>-f deploy/join/docker-compose.yml</code> explicitly when running from the repository root.</p>
+<h3 id="phase-1-validators-prepare-keys-and-initial-server-setup">Phase 1. [Validators]: Prepare Keys and Initial Server Setup</h3>
+<p>This phase mirrors the key generation steps in <code>quickstart.md</code>, but all setup is performed offline to generate files for the ceremony. The Account Key (Cold) was already created during the quickstart; the following steps will guide you through generating the ML Operational Key (Warm) on your server.</p>
+<h4 id="11-local-confirm-account-cold-key-from-quickstart">1.1 [Local] Confirm Account Cold Key (from Quickstart)</h4>
+<p>The Account Cold Key was created during <code>quickstart.md</code>. You can view its information with:
+</p><div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>keys<span class="w"> </span>list<span class="w"> </span>--keyring-backend<span class="w"> </span>file
+</code></pre></div>
+<p><strong>Example output:</strong>
+</p><div class="highlight"><pre><span></span><code>Enter keyring passphrase (attempt 1/3):
+- address: gonka1eq4f5p32ewkekf9rv5f0qjsa0xaepckmgl85kr
+  name: "gonka-account-key"
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A4U3G2eY46mwhWx7ZXieT+LetPJhG0jHNuVCQB6wgBZK"}'
+  type: local
+</code></pre></div>
+<h4 id="12-server-initialize-node-and-get-node-id">1.2 [Server]: Initialize Node and Get Node ID</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>node
+</code></pre></div>
+<p><strong>Example output:</strong>
+</p><div class="highlight"><pre><span></span><code>51a9df752b60f565fe061a115b6494782447dc1f
+</code></pre></div>
+<h4 id="13-server-extract-consensus-public-key">1.3 [Server]: Extract Consensus Public Key</h4>
+<p>Start the <code>tmkms</code> service to generate the consensus key, then extract the public key.
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>tmkms<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--entrypoint<span class="w"> </span>/bin/sh<span class="w"> </span>tmkms<span class="w"> </span>-c<span class="w"> </span><span class="s2">"tmkms-pubkey"</span>
+</code></pre></div>
+<p><strong>Example output:</strong>
+</p><div class="highlight"><pre><span></span><code>/wTVavYr5OCiVssIT3Gc5nsfIH0lP1Rqn/zeQtq4CvQ=
+</code></pre></div>
+<h4 id="14-server-generate-ml-operational-key">1.4 [Server]: Generate ML Operational Key</h4>
+<p>Create the warm key inside the <code>api</code> container using the <code>file</code> keyring backend (required for programmatic access). The key will be stored in a persistent volume mapped to <code>/root/.inference</code> of the container:</p>
+<p>Note: <code>$KEY_NAME</code> and <code>$KEYRING_PASSWORD</code> are defined in Quickstart <code>config.env</code>.
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--no-deps<span class="w"> </span>-it<span class="w"> </span>api<span class="w"> </span>/bin/sh
+</code></pre></div>
+<p>Inside the container, create the ML operational key:
+</p><div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_PASSWORD</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_PASSWORD</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>inferenced<span class="w"> </span>keys<span class="w"> </span>add<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY_NAME</span><span class="s2">"</span><span class="w"> </span>--keyring-backend<span class="w"> </span>file
+</code></pre></div>
+<p><strong>Example output:</strong>
+</p><div class="highlight"><pre><span></span><code>~ # printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
+
+- address: gonka1gyz2agg5yx49gy2z4qpsz9826t6s9xev6tkehw
+  name: node-702105
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Ao8VPh5U5XQBcJ6qxAIwBbhF/3UPZEwzZ9H/qbIA6ipj"}'
+  type: local
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+again plastic athlete arrow first measure danger drastic wolf coyote work memory already inmate sorry path tackle custom write result west tray rabbit jeans
+</code></pre></div>
+<h4 id="15-local-prepare-pr-with-validator-information">1.5 [Local]: Prepare PR with validator information</h4>
+<p>Create or update <code>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/README.md</code> with the following fields. Use values collected above and from Quickstart.</p>
+<div class="highlight"><pre><span></span><code>Account Public Key: &lt;value of ACCOUNT_PUBKEY from your config.env file&gt;
+Node ID: &lt;node-id-from-step-1.2&gt;
+ML Operational Address: &lt;ml-operational-key-address-from-step-1.4&gt;
+Consensus Public Key: &lt;consensus-pubkey-from-step-1.3&gt;
+P2P_EXTERNAL_ADDRESS: &lt;value of P2P_EXTERNAL_ADDRESS from your config.env file&gt;
+</code></pre></div>
+<h4 id="16-create-pull-request">1.6 Create Pull Request</h4>
+<p>Submit a PR to <a href="https://github.com/gonka-ai/gonka/">the Gonka Repository</a> with your validator information. Include a clear title such as "Add validator: <your_validator_name>" and ensure all required fields are populated in your <code>README.md</code> file.</your_validator_name></p>
+<h3 id="phase-2-coordinator-genesis-draft-preparation">Phase 2. [Coordinator]: Genesis Draft Preparation</h3>
+<p>The coordinator will:</p>
+<ul>
+<li>Review and merge all validator PRs from Phase 1</li>
+<li>Prepare the initial <code>genesis.json</code> draft, which includes all Account Addresses, and place it in <code>genesis/genesis-draft.json</code></li>
+<li>Announce the availability of the draft to all Hosts</li>
+</ul>
+<h3 id="phase-3-validators-gentx-and-genparticipant-generation">Phase 3. [Validators]: <code>GENTX</code> and <code>GENPARTICIPANT</code> Generation</h3>
+<p>This phase involves generating the necessary transaction files for chain initialization. These transactions include:</p>
+<ul>
+<li><code>MsgCreateValidator</code> - Creates your validator on the chain</li>
+<li><code>MsgSubmitNewParticipant</code> - Registers your node as a network Host</li>
+</ul>
+<p>The <code>gentx</code> command requires the following variables from previous steps:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Variable</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;cold_key_name&gt;</code></td>
+<td>Name of Account Cold Key in local registry (e.g., "gonka-account-key" from Quickstart)</td>
+</tr>
+<tr>
+<td><code>&lt;YOUR_VALIDATOR_NAME&gt;</code></td>
+<td>The validator name chosen in the Prerequisites section</td>
+</tr>
+<tr>
+<td><code>&lt;ml-operational-key-address-from-step-1.4&gt;</code></td>
+<td>Address of ML Operational Key from step 1.4</td>
+</tr>
+<tr>
+<td><code>$PUBLIC_URL</code></td>
+<td>Environment variable with public URL from Quickstart's <code>config.env</code></td>
+</tr>
+<tr>
+<td><code>&lt;consensus-pubkey-from-step-1.3&gt;</code></td>
+<td>Consensus public key from step 1.3</td>
+</tr>
+<tr>
+<td><code>&lt;node-id-from-step-1.2&gt;</code></td>
+<td>Node ID from step 1.2</td>
+</tr>
+</tbody>
+</table>
+<p>This custom <code>gentx</code> command automatically creates the required <code>authz</code> grants from your Account Key to your ML Operational Key, simplifying the setup process.</p>
+<p>Before generating files, you must copy the draft <code>genesis/genesis-draft.json</code> into the <code>config</code> directory where your Account Cold Key is stored. This allows the <code>gentx</code> command to access your key and validate the transaction against the correct chain configuration.</p>
+<p>The default home directory for <code>inferenced</code> is <code>~/.inference</code>. If you created your key there, use the following command:</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>./genesis/genesis-draft.json<span class="w"> </span>~/.inference/config/genesis.json
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you specified a custom home directory with the <code>--home</code> flag when creating your key, be sure to use that same directory for the <code>gentx</code> command by providing the <code>--home</code> flag again.</p>
+</div>
+<h4 id="local-create-gentx-and-genparticipant-files">[Local]: Create GENTX and GENPARTICIPANT Files</h4>
+<p>The <code>1ngonka</code> value represents an artificial consensus weight for the genesis transaction. The real validator weight will be determined during the first Proof of Compute (PoC) phase.</p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>genesis<span class="w"> </span>gentx<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&lt;cold_key_name&gt;<span class="w"> </span>1ngonka<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--moniker<span class="w"> </span>&lt;YOUR_VALIDATOR_NAME&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pubkey<span class="w"> </span>&lt;consensus-pubkey-from-step-1.3&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ml-operational-address<span class="w"> </span>&lt;ml-operational-key-address-from-step-1.4&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--url<span class="w"> </span><span class="nv">$PUBLIC_URL</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--chain-id<span class="w"> </span>gonka-mainnet<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-id<span class="w"> </span>&lt;node-id-from-step-1.2&gt;
+</code></pre></div>
+<p><strong>Example output:</strong>
+</p><div class="highlight"><pre><span></span><code>./inferenced genesis gentx \
+    --home ./702121 \
+    --keyring-backend file \
+    702121 1ngonka \
+    --pubkey eNrjtkSXzfE18jq3lqvpu/i1iIog9SN+kqR2Wsa6fSM= \
+    --ml-operational-address gonka13xplq68fws3uvs8m7ej2ed5ack9hzpc68fwvex \
+    --url http://36.189.234.237:19238 \
+    --moniker "mynode-702121" --chain-id gonka-mainnet \
+    --node-id 149d25924b9a6676448aea716864c31775645459
+Enter keyring passphrase (attempt 1/3):
+Classic genesis transaction written to "702121/config/gentx/gentx-149d25924b9a6676448aea716864c31775645459.json"
+Genparticipant transaction written to "702121/config/genparticipant/genparticipant-149d25924b9a6676448aea716864c31775645459.json"
+</code></pre></div>
+<h4 id="local-submit-generated-files">[Local]: Submit Generated Files</h4>
+<p>Copy the generated files to your validator directory and create a PR:</p>
+<ul>
+<li>Copy files to your validator directory:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>~/.inference/config/gentx/gentx-&lt;node-id&gt;.json<span class="w"> </span>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/
+cp<span class="w"> </span>~/.inference/config/genparticipant/genparticipant-&lt;node-id&gt;.json<span class="w"> </span>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/
+</code></pre></div>
+<ul>
+<li>
+<p>Create a PR with the following files:</p>
+<ul>
+<li><code>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/gentx-&lt;node-id-from-step-1.2&gt;.json</code></li>
+<li><code>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/genparticipant-&lt;node-id-from-step-1.2&gt;.json</code></li>
+</ul>
+</li>
+</ul>
+<p>Use a clear PR title like "Add gentx files for validator: <your_validator_name>".</your_validator_name></p>
+<h3 id="phase-4-coordinator-final-genesis-preparation">Phase 4. [Coordinator]: Final Genesis Preparation</h3>
+<p>Once all validators have submitted their transaction files, the Coordinator begins constructing the official <code>genesis.json</code>. This critical step ensures all initial participants are correctly included in the blockchain's state from the very first block.</p>
+<p>The process involves two main commands:</p>
+<ol>
+<li>Collecting Genesis Transactions: The <code>collect-gentxs</code> command gathers all <code>gentx-&lt;node-id&gt;.json</code> files, validates them, and incorporates them into <code>genesis.json</code> to populate the initial validator set.</li>
+<li>Patching Participant Data: The <code>patch-genesis</code> command processes the <code>genparticipant-&lt;node-id&gt;.json</code> files, verifying their signatures and patching the initial state to include all registered participants.</li>
+</ol>
+<p>After merging all transactions, the Coordinator sets the <code>genesis_time</code> to a future timestamp, ensuring all validators have enough time to prepare for a synchronized launch.</p>
+<p>Finally, the Coordinator commits the official <code>genesis.json</code> to the <code>genesis/</code> directory. The hash of this commit is then embedded into the source code to ensure all nodes start from the same verified state.</p>
+<h4 id="41-coordinator-collect-genesis-transactions">4.1 [Coordinator]: Collect Genesis Transactions</h4>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>genesis<span class="w"> </span>collect-gentxs<span class="w"> </span>--gentx-dir<span class="w"> </span>gentxs
+</code></pre></div>
+<h4 id="42-coordinator-process-participant-registrations">4.2 [Coordinator]: Process Participant Registrations</h4>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>genesis<span class="w"> </span>patch-genesis<span class="w"> </span>--genparticipant-dir<span class="w"> </span>genparticipants
+</code></pre></div>
+<h4 id="43-coordinator-configure-network-seeds">4.3 [Coordinator]: Configure Network Seeds</h4>
+<p>The Coordinator configures the initial network peering by setting the <code>GENESIS_SEEDS</code> variable in <code>deploy/join/docker-compose.yml</code>. This variable is a comma-separated list of validator node addresses, constructed using the <code>Node ID</code> and <code>P2P_EXTERNAL_ADDRESS</code> provided by each validator in their respective <code>README.md</code> files.</p>
+<p>Example format: <code>&lt;node-id-1&gt;@&lt;P2P_EXTERNAL_ADDRESS_1&gt;,&lt;node-id-2&gt;@&lt;P2P_EXTERNAL_ADDRESS_2&gt;,...</code></p>
+<p>Additionally, the Coordinator sets <code>INIT_ONLY</code> to <code>false</code>, which allows the nodes to fully start up and connect to the network at launch time instead of just initializing their data directories.</p>
+<h3 id="phase-5-validators-chain-launch">Phase 5. [Validators]: Chain Launch</h3>
+<p>With the final <code>genesis.json</code> published, validators must verify that it is produced correctly and prepare their nodes to launch at the specified <code>genesis_time</code>. The blockchain will begin producing blocks at exactly this moment.</p>
+<h4 id="51-server-update-and-launch">5.1 [Server]: Update and Launch</h4>
+<p>These steps should be performed on your validator server.</p>
+<ul>
+<li>
+<p><strong>Pull Latest Configuration</strong></p>
+<p>Pull the latest changes from the repository to get the final <code>genesis.json</code> and seed node configuration.
+</p><div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull
+</code></pre></div>
+</li>
+<li>
+<p><strong>Update Container Images</strong></p>
+<p>From the <code>deploy/join</code> directory, pull the latest Docker container images. The node image is built with the final genesis hash for verification.
+</p><div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>pull
+</code></pre></div>
+</li>
+<li>
+<p><strong>Launch Your Validator</strong></p>
+<p>Finally, start all services.
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+</li>
+</ul>
+<h4 id="52-server-verify-launch-status">5.2 [Server]: Verify Launch Status</h4>
+<p>After launching, monitor your node's logs to confirm it is waiting for the genesis time:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>node<span class="w"> </span>-f
+</code></pre></div>
+<p>Look for a message similar to this:
+</p><div class="highlight"><pre><span></span><code>INF Genesis time is in the future. Sleeping until then... genTime=2025-08-14T09:13:39Z module=server
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Important Notes</p>
+<ul>
+<li>The <code>api</code> container may restart several times before the <code>node</code> container is fully operational</li>
+<li>Once the genesis time passes, you should see block production messages in the logs</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">[Coordinator]: Post-Launch Cleanup</p>
+<p>Remove genesis-specific variables from <code>docker-compose.yml</code> configuration files to transition to normal operation mode.</p>
+</div>
+<p>For additional support, see the <a href="https://gonka.ai/host/quickstart">Quickstart Guide</a> or join <a href="https://discord.com/invite/RADwCT2U6R">the community Discord</a>.</p></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/javascripts/links.js"></script>
+      
+        <script src="../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

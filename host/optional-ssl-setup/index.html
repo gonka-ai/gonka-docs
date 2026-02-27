@@ -1,0 +1,2027 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/host/optional-ssl-setup/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../zh/host/optional-ssl-setup/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>[Optional] SSL Setup - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - [Optional] SSL Setup">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/host/optional-ssl-setup/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#optional-ssl-setup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [Optional] SSL Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../zh/host/optional-ssl-setup/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Details
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Host
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark to Choose Optimal Deployment Config for LLMs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to edit Host public info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Node API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wallet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pricing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model licenses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Help
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choose-your-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose your mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-setup-using-proxy-ssl-automated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A) Setup using Proxy SSL (Automated)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A) Setup using Proxy SSL (Automated)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you get
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works (high level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-checklist-proxy-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements checklist (Proxy SSL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-step-by-step-proxy-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough — step by step (Proxy SSL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough — step by step (Proxy SSL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-prepare-directories-safe-to-rerun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0) Prepare directories (safe to re‑run)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-configure-deployjoinconfigenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) Configure deploy/join/config.env
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dns-credentials-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) DNS Credentials Cheat Sheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-start-or-enable-ssl-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) Start (or enable) SSL components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4) Verify
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-renewal-when-you-must-act" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5) Renewal &amp; when you must act
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b-setup-using-manual-ssl-byo-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B) Setup using Manual SSL (BYO certificates)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B) Setup using Manual SSL (BYO certificates)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works-high-level_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works (high level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-checklist-manual-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements checklist (Manual SSL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#walkthrough-step-by-step-manual-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough — step by step (Manual SSL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough — step by step (Manual SSL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-prepare-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0) Prepare directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-generate-certs-dockerized-certbot-dns01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) Generate certs (Dockerized Certbot; DNS‑01)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-edit-deployjoinconfigenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) Edit deploy/join/config.env
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-update-restart-only-the-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) Update &amp; restart only the proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-verify-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4) Verify HTTPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="optional-ssl-setup">[Optional] SSL Setup</h1>
+<h2 id="use-cases">Use cases</h2>
+<p>Hosts who want HTTPS for the public API, chain endpoints (RPC/REST/gRPC), and/or the Explorer.</p>
+<hr>
+<h2 id="choose-your-mode">Choose your mode</h2>
+<table>
+<thead>
+<tr>
+<th><code>NGINX_MODE</code></th>
+<th>Number of exposed ports</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>http</code></td>
+<td>single (8000 by default)</td>
+<td>HTTP only (no TLS)</td>
+</tr>
+<tr>
+<td><code>https</code></td>
+<td>single (8443 by default)</td>
+<td>HTTPS only; requires certificates</td>
+</tr>
+<tr>
+<td><code>both</code></td>
+<td>two (8000/8443 by default)</td>
+<td>Serve both HTTP and HTTPS (recommended during migration)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Tip:</strong> Start with <code>both</code> during cutover; later switch to <code>https</code> to force TLS.</p>
+</blockquote>
+<hr>
+<h2 id="a-setup-using-proxy-ssl-automated">A) Setup using <strong>Proxy SSL</strong> (Automated)</h2>
+<h3 id="what-you-get">What you get</h3>
+<ul>
+<li><strong>Automatic issuance &amp; renewal</strong> of TLS certs (Let’s Encrypt via DNS‑01).</li>
+<li>A <strong>single entry‑point</strong> nginx proxy that terminates TLS and routes to your services.</li>
+<li><strong>Flip‑the‑switch</strong> enablement with <code>docker compose</code> using the <code>ssl</code> profile.</li>
+</ul>
+<h3 id="how-it-works-high-level">How it works (high level)</h3>
+<ol>
+<li>You run two containers: <strong><code>proxy</code></strong> (nginx) and <strong><code>proxy-ssl</code></strong> (ACME issuer).  </li>
+<li>On first start (or when a cert is missing), <code>proxy</code> asks <code>proxy-ssl</code> for a cert for <code>CERT_ISSUER_DOMAIN</code> (and allowed subdomains, if configured).  </li>
+<li><code>proxy-ssl</code> performs a DNS‑01 challenge with your DNS provider <strong>using the API keys you supply</strong>, obtains a certificate from Let’s Encrypt, and stores it in the shared mount (<code>./secrets/nginx-ssl</code>).  </li>
+<li><code>proxy</code> picks up the issued certs and serves HTTPS. Renewals repeat automatically.</li>
+</ol>
+<h3 id="requirements-checklist-proxy-ssl">Requirements checklist (Proxy SSL)</h3>
+<ul>
+<li>DNS <strong>A/AAAA</strong> records for your domain point to the host where <code>proxy</code> runs.</li>
+<li><strong>DNS API credentials</strong> for one supported provider: Route53, Cloudflare, Google Cloud DNS, Azure, DigitalOcean, Hetzner.</li>
+<li>A working compose stack including <code>proxy</code> and <code>proxy-ssl</code> (via the <code>ssl</code> profile).</li>
+<li>Open inbound ports <strong>8000/8443</strong> on your firewall.</li>
+</ul>
+<h3 id="walkthrough-step-by-step-proxy-ssl">Walkthrough — step by step (Proxy SSL)</h3>
+<h4 id="0-prepare-directories-safe-to-rerun">0) Prepare directories (safe to re‑run)</h4>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>deploy/join/secrets/nginx-ssl<span class="w"> </span>deploy/join/secrets/certbot
+</code></pre></div>
+<h4 id="1-configure-deployjoinconfigenv">1) Configure <code>deploy/join/config.env</code></h4>
+<p>Minimal example for <strong>HTTPS on 8443</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Core proxy settings</span>
+<span class="nv">NGINX_MODE</span><span class="o">=</span>both
+<span class="nv">API_PORT</span><span class="o">=</span><span class="m">8000</span><span class="w">            </span><span class="c1"># HTTP backend (used if you also keep 80 open)</span>
+<span class="nv">API_SSL_PORT</span><span class="o">=</span><span class="m">8443</span><span class="w">        </span><span class="c1"># HTTPS backend</span>
+
+<span class="c1"># Automatic certificate issuance via proxy-ssl</span>
+<span class="nv">CERT_ISSUER_DOMAIN</span><span class="o">=</span>your.domain
+<span class="nv">CERT_ISSUER_ALLOWED_SUBDOMAINS</span><span class="o">=</span>api,explorer,rpc<span class="w">   </span><span class="c1"># optional; comma-separated</span>
+<span class="nv">CERT_ISSUER_JWT_SECRET</span><span class="o">=</span>change-me<span class="w">                  </span><span class="c1"># any strong shared secret</span>
+
+<span class="c1"># ACME / Let's Encrypt account</span>
+<span class="nv">ACME_ACCOUNT_EMAIL</span><span class="o">=</span>you@example.com
+<span class="nv">ACME_DNS_PROVIDER</span><span class="o">=</span>cloudflare<span class="w">  </span><span class="c1"># one of: route53|cloudflare|gcloud|azure|digitalocean|hetzner</span>
+
+<span class="c1"># DNS provider credential - see instructions how to abtain below</span>
+</code></pre></div>
+<h4 id="2-dns-credentials-cheat-sheet">2) DNS Credentials Cheat Sheet</h4>
+<p>Use the credential(s) that match your provider. Click a provider to jump to the <strong>how‑to</strong> below.</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Required env</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#cloudflare-dns-token-how-to"><strong>Cloudflare</strong></a></td>
+<td><code>CF_DNS_API_TOKEN</code></td>
+</tr>
+<tr>
+<td><a href="#aws-route53-credentials-how-to"><strong>AWS Route53</strong></a></td>
+<td><code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, <code>AWS_REGION</code></td>
+</tr>
+<tr>
+<td><a href="#google-cloud-dns-credentials-how-to"><strong>Google Cloud DNS</strong></a></td>
+<td><code>GCE_PROJECT</code>, <code>GCE_SERVICE_ACCOUNT_JSON_B64</code></td>
+</tr>
+<tr>
+<td><a href="#azure-dns-credentials-how-to"><strong>Azure DNS</strong></a></td>
+<td><code>AZURE_CLIENT_ID</code>, <code>AZURE_CLIENT_SECRET</code>, <code>AZURE_TENANT_ID</code>, <code>AZURE_SUBSCRIPTION_ID</code></td>
+</tr>
+<tr>
+<td><a href="#digitalocean-dns-credentials-how-to"><strong>DigitalOcean DNS</strong></a></td>
+<td><code>DO_AUTH_TOKEN</code></td>
+</tr>
+<tr>
+<td><a href="#hetzner-dns-credentials-how-to"><strong>Hetzner DNS</strong></a></td>
+<td><code>HETZNER_API_KEY</code></td>
+</tr>
+</tbody>
+</table>
+<details class="details">
+<summary>Cloudflare</summary>
+<p><strong id="cloudflare-dns-token-how-to">Cloudflare</strong></p>
+<p>1) Open the Cloudflare Dashboard.</p>
+<p>2) Go to Profile → API Tokens.</p>
+<p>3) Click Create Token.</p>
+<p>4) Use Edit zone DNS template or set permissions: Zone:Read and DNS:Edit.</p>
+<p>5) Limit the token to your DNS zone and create it.</p>
+<p>6) Copy the token and set CF_DNS_API_TOKEN.</p>
+</details>
+<details class="details">
+<summary>AWS Route53</summary>
+<p><strong id="aws-route53-credentials-how-to">AWS Route53</strong></p>
+<p><strong>Option A — AWS CLI</strong>
+</p><div class="highlight"><pre><span></span><code><span class="nv">HOSTED_ZONE_ID</span><span class="o">=</span><span class="s2">"Z123EXAMPLE"</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>route53-acme.json<span class="w"> </span><span class="s">&lt;&lt;'JSON'</span>
+<span class="s">{</span>
+<span class="s">"Version": "2012-10-17",</span>
+<span class="s">"Statement": [</span>
+<span class="s">    {</span>
+<span class="s">    "Effect": "Allow",</span>
+<span class="s">    "Action": ["route53:ChangeResourceRecordSets"],</span>
+<span class="s">    "Resource": "arn:aws:route53:::hostedzone/${HOSTED_ZONE_ID}"</span>
+<span class="s">    },</span>
+<span class="s">    {</span>
+<span class="s">    "Effect": "Allow",</span>
+<span class="s">    "Action": [</span>
+<span class="s">        "route53:ListHostedZones",</span>
+<span class="s">        "route53:ListHostedZonesByName",</span>
+<span class="s">        "route53:ListResourceRecordSets",</span>
+<span class="s">        "route53:GetChange"</span>
+<span class="s">    ],</span>
+<span class="s">    "Resource": "*"</span>
+<span class="s">    }</span>
+<span class="s">]</span>
+<span class="s">}</span>
+<span class="s">JSON</span>
+
+aws<span class="w"> </span>iam<span class="w"> </span>create-policy<span class="w"> </span><span class="se">\</span>
+--policy-name<span class="w"> </span>acme-dns-route53-<span class="si">${</span><span class="nv">HOSTED_ZONE_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--policy-document<span class="w"> </span>file://route53-acme.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.Policy.Arn
+
+<span class="nv">USER_NAME</span><span class="o">=</span><span class="s2">"acme-dns"</span>
+<span class="nv">POLICY_ARN</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>iam<span class="w"> </span>list-policies<span class="w"> </span>--query<span class="w"> </span><span class="s2">"Policies[?PolicyName=='acme-dns-route53-</span><span class="si">${</span><span class="nv">HOSTED_ZONE_ID</span><span class="si">}</span><span class="s2">'].Arn"</span><span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+aws<span class="w"> </span>iam<span class="w"> </span>create-user<span class="w"> </span>--user-name<span class="w"> </span><span class="s2">"</span><span class="nv">$USER_NAME</span><span class="s2">"</span><span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+aws<span class="w"> </span>iam<span class="w"> </span>attach-user-policy<span class="w"> </span>--user-name<span class="w"> </span><span class="s2">"</span><span class="nv">$USER_NAME</span><span class="s2">"</span><span class="w"> </span>--policy-arn<span class="w"> </span><span class="s2">"</span><span class="nv">$POLICY_ARN</span><span class="s2">"</span>
+<span class="nv">CREDS</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>iam<span class="w"> </span>create-access-key<span class="w"> </span>--user-name<span class="w"> </span><span class="s2">"</span><span class="nv">$USER_NAME</span><span class="s2">"</span><span class="k">)</span>
+<span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.AccessKey.AccessKeyId<span class="k">)</span>
+<span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.AccessKey.SecretAccessKey<span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AWS_ACCESS_KEY_ID=</span><span class="nv">$AWS_ACCESS_KEY_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AWS_SECRET_ACCESS_KEY=</span><span class="nv">$AWS_SECRET_ACCESS_KEY</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AWS_REGION=&lt;your-aws-region&gt;"</span>
+</code></pre></div>
+<p><strong>Option B — Console</strong></p>
+<p>1) Create an IAM policy limited to your hosted zone (ChangeResourceRecordSets and list permissions).</p>
+<p>2) Create an IAM user with programmatic access.</p>
+<p>3) Attach the policy to the user.</p>
+<p>4) Create an access key pair and set AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_REGION.</p>
+</details>
+<details class="details">
+<summary>Google Cloud DNS</summary>
+<p><strong id="google-cloud-dns-credentials-how-to">Google Cloud DNS</strong></p>
+<p><strong>Option A — gcloud CLI:</strong>
+</p><div class="highlight"><pre><span></span><code><span class="nv">PROJECT_ID</span><span class="o">=</span><span class="s2">"&lt;your-gcp-project&gt;"</span>
+<span class="nv">SA_NAME</span><span class="o">=</span><span class="s2">"acme-dns"</span>
+<span class="nv">SA_EMAIL</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SA_NAME</span><span class="s2">@</span><span class="nv">$PROJECT_ID</span><span class="s2">.iam.gserviceaccount.com"</span>
+
+gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project<span class="w"> </span><span class="s2">"</span><span class="nv">$PROJECT_ID</span><span class="s2">"</span>
+<span class="c1"># 1) Service account</span>
+gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>create<span class="w"> </span><span class="s2">"</span><span class="nv">$SA_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--display-name<span class="w"> </span><span class="s2">"ACME DNS for proxy-ssl"</span>
+<span class="c1"># 2) Role</span>
+gcloud<span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span><span class="s2">"</span><span class="nv">$PROJECT_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--member<span class="w"> </span><span class="s2">"serviceAccount:</span><span class="nv">$SA_EMAIL</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--role<span class="w"> </span><span class="s2">"roles/dns.admin"</span>
+<span class="c1"># 3) Key → base64 (single line)</span>
+gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>keys<span class="w"> </span>create<span class="w"> </span>key.json<span class="w"> </span>--iam-account<span class="w"> </span><span class="s2">"</span><span class="nv">$SA_EMAIL</span><span class="s2">"</span>
+<span class="nv">GCE_SERVICE_ACCOUNT_JSON_B64</span><span class="o">=</span><span class="k">$(</span>base64<span class="w"> </span>&lt;<span class="w"> </span>key.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\n'</span><span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"GCE_PROJECT=</span><span class="nv">$PROJECT_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"GCE_SERVICE_ACCOUNT_JSON_B64=</span><span class="nv">$GCE_SERVICE_ACCOUNT_JSON_B64</span><span class="s2">"</span>
+</code></pre></div>
+<strong>Option B — Console</strong>
+<p>1) IAM &amp; Admin → Service Accounts → Create service account (e.g., acme-dns).</p>
+<p>2) Grant the service account role: DNS Administrator (<code>roles/dns.admin</code>).</p>
+<p>3) Service account → Keys → Add key → Create new key (JSON) → Download.</p>
+<p>4) Base64-encode the JSON key to a single line and set <code>GCE_SERVICE_ACCOUNT_JSON_B64</code>. Set <code>GCE_PROJECT</code> to your project ID.</p>
+</details>
+<details class="details">
+<summary>Azure DNS</summary>
+<p><strong id="azure-dns-credentials-how-to">Azure DNS</strong></p>
+<p><strong>Option A — Azure CLI</strong> (quick)
+</p><div class="highlight"><pre><span></span><code><span class="c1"># 1) Login and choose subscription</span>
+az<span class="w"> </span>login
+az<span class="w"> </span>account<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--subscription<span class="w"> </span><span class="s2">"&lt;your-subscription-name-or-id&gt;"</span>
+
+<span class="c1"># 2) Set where your DNS zone lives</span>
+<span class="nv">RG</span><span class="o">=</span><span class="s2">"&lt;&lt;your-dns-resource-group&gt;&gt;"</span>
+<span class="nv">ZONE</span><span class="o">=</span><span class="s2">"&lt;&lt;your-zone&gt;&gt;"</span><span class="w">         </span><span class="c1"># e.g., gonka.ai</span>
+<span class="nv">SP_NAME</span><span class="o">=</span><span class="s2">"gonka-acme-</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="s2">"</span>
+
+<span class="nv">SUBSCRIPTION_ID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>id<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+<span class="nv">SCOPE</span><span class="o">=</span><span class="s2">"/subscriptions/</span><span class="nv">$SUBSCRIPTION_ID</span><span class="s2">/resourceGroups/</span><span class="nv">$RG</span><span class="s2">/providers/Microsoft.Network/dnszones/</span><span class="nv">$ZONE</span><span class="s2">"</span>
+
+<span class="nv">CREDS</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>create-for-rbac<span class="w"> </span><span class="se">\</span>
+--name<span class="w"> </span><span class="s2">"</span><span class="nv">$SP_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--role<span class="w"> </span><span class="s2">"DNS Zone Contributor"</span><span class="w"> </span><span class="se">\</span>
+--scopes<span class="w"> </span><span class="s2">"</span><span class="nv">$SCOPE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--only-show-errors<span class="k">)</span>
+
+<span class="c1"># 4) Extract values</span>
+<span class="nv">AZURE_CLIENT_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.appId<span class="k">)</span>
+<span class="nv">AZURE_CLIENT_SECRET</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.password<span class="k">)</span>
+<span class="nv">AZURE_TENANT_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.tenant<span class="k">)</span>
+
+<span class="c1"># 5) Print for your env file</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_CLIENT_ID=</span><span class="nv">$AZURE_CLIENT_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_CLIENT_SECRET=</span><span class="nv">$AZURE_CLIENT_SECRET</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_SUBSCRIPTION_ID=</span><span class="nv">$SUBSCRIPTION_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_TENANT_ID=</span><span class="nv">$AZURE_TENANT_ID</span><span class="s2">"</span>
+</code></pre></div>
+<strong>Option B — Portal</strong>
+<p>1) Go to Microsoft Entra ID → App registrations → New registration. Copy Application (client) ID and Directory (tenant) ID.</p>
+<p>2) Go to Certificates &amp; secrets → New client secret. Copy the secret value and set <code>AZURE_CLIENT_SECRET</code>.</p>
+<p>3) Copy your Subscription ID and set <code>AZURE_SUBSCRIPTION_ID</code>.</p>
+<p>4) In your DNS zone, open Access control (IAM) → Add role assignment → DNS Zone Contributor → assign to the registered app.</p>
+</details>
+<details class="details">
+<summary>DigitalOcean DNS</summary>
+<p><strong id="digitalocean-dns-credentials-how-to">DigitalOcean DNS</strong></p>
+<p>1) Open DigitalOcean Control Panel.</p>
+<p>2) Go to API → Tokens.</p>
+<p>3) Generate a write‑scoped token and set <code>DO_AUTH_TOKEN</code>.</p>
+</details>
+<details class="details">
+<summary>Hetzner DNS</summary>
+<p><strong id="hetzner-dns-credentials-how-to">Hetzner DNS</strong></p>
+<p>1) Open https://dns.hetzner.com.</p>
+<p>2) Go to API Tokens.</p>
+<p>3) Create a new token and set <code>HETZNER_API_KEY</code>.</p>
+</details>
+<h4 id="3-start-or-enable-ssl-components">3) Start (or enable) SSL components</h4>
+<p>From <code>deploy/join</code>:
+</p><div class="highlight"><pre><span></span><code><span class="c1"># Enable / upgrade only the proxy pieces</span>
+<span class="nb">source</span><span class="w"> </span>./config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span><span class="s2">"ssl"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>pull<span class="w"> </span>proxy<span class="w"> </span>proxy-ssl<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span><span class="s2">"ssl"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>up<span class="w"> </span>-d<span class="w"> </span>proxy<span class="w"> </span>proxy-ssl
+</code></pre></div>
+Only <code>proxy</code> and <code>proxy-ssl</code> need to be (re)started for SSL changes. Other services can remain running.
+<h4 id="4-verify">4) Verify</h4>
+<ul>
+<li>Confirm DNS records for your domain point to the proxy host.</li>
+<li>Tail logs for SSL activity (issuance/renewal):
+  <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span><span class="m">200</span><span class="w"> </span>proxy<span class="w"> </span>proxy-ssl
+</code></pre></div></li>
+<li>Probe health:
+  <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-I<span class="w"> </span>https://your.domain:8443/health<span class="w">   </span><span class="c1"># Expect: HTTP/2 200 OK</span>
+</code></pre></div></li>
+</ul>
+<h4 id="5-renewal-when-you-must-act">5) Renewal &amp; when you must act</h4>
+<p><strong>Automatic:</strong></p>
+<ul>
+<li>Certificate renewals (issuer reuses <code>./secrets/nginx-ssl</code>).</li>
+<li>Nginx picks up renewed certs on container restart.</li>
+</ul>
+<p><strong>You act when:</strong></p>
+<ul>
+<li>Rotating <strong>DNS credentials</strong> → update env &amp; restart <code>proxy-ssl</code>.</li>
+<li>Changing <code>CERT_ISSUER_DOMAIN</code> or subdomains → update env, ensure DNS records exist, then restart <code>proxy</code> and <code>proxy-ssl</code>.</li>
+<li>Moving hosts/IPs → update DNS to point to the new proxy <strong>before</strong> issuing/renewing.</li>
+</ul>
+<p>Commands to apply env changes:
+</p><div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span><span class="s2">"ssl"</span><span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>proxy<span class="w"> </span>proxy-ssl
+</code></pre></div>
+<hr>
+<h2 id="b-setup-using-manual-ssl-byo-certificates">B) Setup using <strong>Manual SSL</strong> (BYO certificates)</h2>
+<h3 id="how-it-works-high-level_1">How it works (high level)</h3>
+<ul>
+<li>You issue certificates yourself (e.g., Dockerized Certbot using DNS‑01) and place them under <code>./secrets/nginx-ssl/</code>.</li>
+<li>The <code>proxy</code> (nginx) container serves TLS using cert/key files read from <code>SSL_CERT_SOURCE</code>.</li>
+</ul>
+<h3 id="requirements-checklist-manual-ssl">Requirements checklist (Manual SSL)</h3>
+<ul>
+<li>Certificates will be issued <strong>manually</strong> (Let’s Encrypt via Certbot, or other CA).</li>
+<li>Place <strong><code>cert.pem</code></strong> (fullchain) and <strong><code>private.key</code></strong> (mode <code>0600</code>) under <code>deploy/join/secrets/nginx-ssl/</code>.</li>
+<li>Set <code>NGINX_MODE</code> to <code>both</code> (recommended for migration) or <code>https</code>.</li>
+<li>Set <code>SERVER_NAME</code> to your <strong>full domain name</strong> and <code>API_SSL_PORT</code> to your HTTPS port (default <strong>8443</strong> in our stack).</li>
+<li>Set <code>SSL_CERT_SOURCE=./secrets/nginx-ssl</code>.</li>
+<li><strong>Do not</strong> set <code>CERT_ISSUER_DOMAIN</code> (that is only for the automated Proxy SSL mode).</li>
+</ul>
+<h3 id="walkthrough-step-by-step-manual-ssl">Walkthrough — step by step (Manual SSL)</h3>
+<h4 id="0-prepare-directories">0) Prepare directories</h4>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>secrets/nginx-ssl<span class="w"> </span>secrets/certbot
+</code></pre></div>
+<h4 id="1-generate-certs-dockerized-certbot-dns01">1) Generate certs (Dockerized Certbot; DNS‑01)</h4>
+<div class="highlight"><pre><span></span><code><span class="nv">DOMAIN</span><span class="o">=</span>&lt;FULL_DOMAIN_NAME&gt;
+<span class="nv">ACCOUNT_EMAIL</span><span class="o">=</span>&lt;EMAIL_ADDRESS&gt;<span class="w">    </span><span class="c1"># renewal notices</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>secrets/nginx-ssl<span class="w"> </span>secrets/certbot
+
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/secrets/certbot:/etc/letsencrypt"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/secrets/nginx-ssl:/mnt/nginx-ssl"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>certbot/certbot<span class="w"> </span>certonly<span class="w"> </span>--manual<span class="w"> </span>--preferred-challenges<span class="w"> </span>dns<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$DOMAIN</span><span class="s2">"</span><span class="w"> </span>--email<span class="w"> </span><span class="s2">"</span><span class="nv">$ACCOUNT_EMAIL</span><span class="s2">"</span><span class="w"> </span>--agree-tos<span class="w"> </span>--no-eff-email<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--deploy-hook<span class="w"> </span><span class="s1">'install -m 0644 "$RENEWED_LINEAGE/fullchain.pem" /mnt/nginx-ssl/cert.pem; \</span>
+<span class="s1">                 install -m 0600 "$RENEWED_LINEAGE/privkey.pem"   /mnt/nginx-ssl/private.key'</span>
+</code></pre></div>
+<blockquote>
+<p>Certbot will pause and show the <strong>TXT DNS</strong> record to add at your provider. After validation, <code>cert.pem</code> and <code>private.key</code> will appear in <code>./secrets/nginx-ssl/</code>.</p>
+</blockquote>
+<h4 id="2-edit-deployjoinconfigenv">2) Edit <code>deploy/join/config.env</code></h4>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NGINX_MODE</span><span class="o">=</span><span class="s2">"both"</span><span class="w">                 </span><span class="c1"># or https</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">API_SSL_PORT</span><span class="o">=</span><span class="s2">"8443"</span><span class="w">               </span><span class="c1"># HTTPS port served by proxy</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SERVER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DOMAIN</span><span class="si">}</span><span class="s2">"</span><span class="w">           </span><span class="c1"># full domain name</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SSL_CERT_SOURCE</span><span class="o">=</span><span class="s2">"./secrets/nginx-ssl"</span>
+<span class="c1"># IMPORTANT: do NOT set CERT_ISSUER_DOMAIN in Manual mode</span>
+</code></pre></div>
+<h4 id="3-update-restart-only-the-proxy">3) Update &amp; restart only the proxy</h4>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>pull<span class="w"> </span>proxy<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>proxy
+</code></pre></div>
+<h4 id="4-verify-https">4) Verify HTTPS</h4>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-I<span class="w"> </span>https://&lt;FULL_DOMAIN_NAME&gt;:8443/health<span class="w">   </span><span class="c1"># Expect: HTTP/2 200 OK</span>
+</code></pre></div></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/javascripts/links.js"></script>
+      
+        <script src="../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

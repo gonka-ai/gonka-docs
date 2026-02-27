@@ -1,0 +1,1587 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/zh/transactions-and-governance/">
+      
+      
+        <link rel="prev" href="../software-upgrades/">
+      
+      
+        <link rel="next" href="../FAQ/">
+      
+      
+        
+          <link rel="alternate" href="../../transactions-and-governance/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Transactions & governance - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - Transactions & governance">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/zh/transactions-and-governance/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cosmos-sdk-053" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Transactions & governance
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../transactions-and-governance/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    细节
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 最佳部署配置基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to edit Host public info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host/network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    帮助
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    帮助
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="cosmos-sdk-053">治理与交易（Cosmos SDK 0.53）</h1>
+<p>你将从<strong>冷账户机器</strong>执行治理操作，使用存储在文件密钥环中的<strong>cold-key-name</strong>。这是你在加入网络时创建的治理密钥（<a href="https://gonka.ai/host/quickstart/#create-account-key-local-machine">参见快速开始</a>）。
+交易通过 RPC 端点发送（此处称为 <code>$SEED_URL/chain-rpc/</code>）。如果你不指定 <code>--node</code>，CLI 默认为 <code>tcp://localhost:26657</code>。除非你在本地运行自己的节点，否则始终提供 <code>--node $SEED_URL/chain-rpc/</code>。
+这里支持并推荐无序交易以避免序列争用。（<a href="https://docs.cosmos.network/main/learn/beginner/tx-lifecycle?utm_source=chatgpt.com" title="Transaction Lifecycle | Explore the SDK">docs.cosmos.network</a>）</p>
+<p><strong>始终在交易命令中包含这些标志：</strong></p>
+<ul>
+<li><code>--from &lt;cold-key-name&gt;</code> → 使用你的冷治理密钥。</li>
+<li><code>--keyring-backend file</code> → 确保使用本地密钥签名（系统会提示你）。</li>
+<li><code>--unordered --timeout-duration=60s</code> → 使交易在有限时间内有效，绕过序列排序（v0.53+ 新增）。</li>
+<li><code>--gas=2000000 --gas-adjustment=5.0</code> → 带缓冲的手动 gas 设置。</li>
+<li><code>--node $SEED_URL/chain-rpc/</code> → 除非你运行本地 RPC 节点，否则必需。</li>
+<li><code>--yes</code> → 自动批准广播。</li>
+</ul>
+<p>有关交易生命周期和 gas 的背景，请参阅 <a href="https://docs.cosmos.network/main/learn/beginner/tx-lifecycle">Cosmos SDK: 交易</a> 和 <a href="https://docs.cosmos.network/main/build/modules/auth">Gas 与费用</a>。</p>
+<h1 id="_1">对提案投票（快速路径）</h1>
+<p>大多数参与者只需要验证提案并投票。执行以下四个步骤：</p>
+<h2 id="1-proposal_id">1) 识别正确的 proposal_id（并验证它是你被告知的）</h2>
+<p>列出提案，然后检查你被给予的提案并交叉检查其字段（标题/摘要/元数据/消息）：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 列出所有提案（ID + 基本信息）</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>proposals<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/
+<span class="c1"># 详细检查特定提案</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>proposal<span class="w"> </span><span class="nv">$PROPOSAL_ID</span><span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/
+</code></pre></div>
+<p>确认<strong>id</strong>、<strong>title</strong>、<strong>summary</strong> 和（如果存在）<strong>metadata</strong> 与你分享的内容匹配。如果提案包含嵌入消息，你还会在这里看到它们的 <code>@type</code> 和字段。（Cosmos gov v1 将提案内容存储在链上并通过 <code>query gov proposal</code> 暴露。）（<a href="https://docs.cosmos.network/v0.46/modules/gov/07_client.html?utm_source=chatgpt.com" title="Client - Cosmos SDK">Cosmos SDK 文档</a>）</p>
+<h2 id="2">2) 仔细审查内容（特别是参数更新）</h2>
+<p>如果提案包含参数更新（例如，<code>MsgUpdateParams</code>），在投票前将提议的参数与<strong>当前链上参数</strong>进行比较：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 2a) 获取当前模块参数（示例：inference 模块）</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>params<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/<span class="w"> </span>&gt;<span class="w"> </span>current_params.json
+
+<span class="c1"># 2b) 从提案中提取提议的参数（如果链嵌套不同，调整 jq 路径）</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>proposal<span class="w"> </span><span class="nv">$PROPOSAL_ID</span><span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.proposal.messages[] | select(."type"=="inference/x/inference/MsgUpdateParams") | .value'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>&gt;<span class="w"> </span>proposed_params.json
+
+<span class="c1"># 2c) 比较</span>
+diff<span class="w"> </span>-u<span class="w"> </span>current_params.json<span class="w"> </span>proposed_params.json<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</code></pre></div>
+<p>对于 <code>MsgUpdateParams</code>，模块通常期望<strong>完整</strong>的参数对象，<code>authority</code> 是<strong>治理模块账户</strong>（这是正常的 — 只需确认）。(<a href="https://docs.cosmos.network/main/build/modules/bank?utm_source=chatgpt.com" title="x/bank | Explore the SDK">Cosmos SDK 文档</a>、<a href="https://hub.cosmos.network/main/governance/proposal-types/param-change?utm_source=chatgpt.com" title="Parameter Changes | Cosmos Hub">Cosmos Hub</a>)</p>
+<h2 id="3">3) 了解投票选项和（非常）简短的治理流程</h2>
+<ul>
+<li><strong>选项：</strong> <code>yes</code>、<code>no</code>、<code>no_with_veto</code>、<code>abstain</code>。<code>NoWithVeto</code> 是"否"加上否决信号；<code>Abstain</code> 有助于法定人数而不支持或反对。(<a href="https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com" title="x/gov | Explore the SDK">Cosmos SDK 文档</a>、<a href="https://tutorials.cosmos.network/tutorials/8-understand-sdk-modules/4-gov.html?utm_source=chatgpt.com" title="Understand the Gov Module">Cosmos 教程</a>)</li>
+<li><strong>流程：</strong> 提案开放（存款后）→ 投票期运行 → 结果由法定人数/阈值/否决参数决定 → 如果<strong>通过</strong>，消息通过治理模块执行。你可以在<strong>投票期结束前的任何时间更改投票</strong>；<strong>最后一次</strong>投票计入。(<a href="https://hub.cosmos.network/main/governance/process?utm_source=chatgpt.com" title="On-Chain Proposal Process">Cosmos Hub</a>)</li>
+</ul>
+<h2 id="4">4) 投票（或更改）你的投票</h2>
+<p>从持有你冷账户密钥的同一台机器运行此命令（系统会提示你输入密钥环密码，因为 <code>--keyring-backend=file</code>）：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 选项：yes | no | no_with_veto | abstain</span>
+<span class="c1"># 示例：投票"是"</span>
+<span class="c1"># 作为示例，这是是！</span>
+inferenced<span class="w"> </span>tx<span class="w"> </span>gov<span class="w"> </span>vote<span class="w"> </span>&lt;proposal_id&gt;<span class="w"> </span>yes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span>&lt;cold-key-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--unordered<span class="w"> </span>--timeout-duration<span class="o">=</span>60s<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="o">=</span><span class="m">2000000</span><span class="w"> </span>--gas-adjustment<span class="o">=</span><span class="m">5</span>.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--yes
+</code></pre></div>
+<p>你可以在投票窗口关闭前提交另一个 <code>tx gov vote</code> 来<strong>更改你的投票</strong>。要确认记录的内容：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 查看统计</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>tally<span class="w"> </span><span class="nv">$PROPOSAL_ID</span><span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/
+<span class="c1"># （可选）列出投票</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>votes<span class="w"> </span><span class="nv">$PROPOSAL_ID</span><span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/
+</code></pre></div>
+<p>(Cosmos CLI 暴露 <code>vote</code>、<code>votes</code> 和 tally 查询；投票者可以在期间结束前重新投票。) (<a href="https://docs.cosmos.network/v0.46/modules/gov/07_client.html?utm_source=chatgpt.com" title="Client - Cosmos SDK">Cosmos SDK 文档</a>)</p>
+<hr>
+<h2 id="_2">提交参数变更提案</h2>
+<p><strong>TL;DR：</strong> 起草一个包含 <code>MsgUpdateParams</code> 的提案，包含该模块的<strong>所有</strong>参数，确保存款满足 <code>min_deposit</code>，提交，然后跟踪/存款/投票。<code>MsgUpdateParams</code> 需要为目标模块提供完整的参数集。(<a href="https://hub.cosmos.network/main/governance/formatting?utm_source=chatgpt.com" title="Formatting a Proposal - Cosmos Hub">hub.cosmos.network</a>)</p>
+<h3 id="1">1) 获取治理模块地址（权限）</h3>
+<p>许多模块的 <code>MsgUpdateParams</code> 要求 <code>authority</code> 是<strong>治理模块账户</strong>。你可以通过在已加入节点的机器上运行此命令来获取（你的完整节点/服务器：）</p>
+<div class="highlight"><pre><span></span><code>inferenced<span class="w"> </span>query<span class="w"> </span>auth<span class="w"> </span>module-accounts<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-B2<span class="w"> </span><span class="s1">'name: gov'</span>
+</code></pre></div>
+<p>治理模块在提案通过时执行提案消息。复制该地址用于 <code>authority</code> 字段。(<a href="https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com" title="x/gov | Explore the SDK">docs.cosmos.network</a>)</p>
+<h3 id="2_1">2) 导出目标模块的当前参数</h3>
+<p>你将编辑这些，但在提案中包含<strong>整个</strong>对象。再次，在连接到节点的主服务器上运行此命令</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 自定义"inference"模块的示例</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>params<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/<span class="w"> </span>&gt;<span class="w"> </span>current_params.json
+</code></pre></div>
+<p><code>MsgUpdateParams</code> 期望完整结构，而不是部分字段。(<a href="https://hub.cosmos.network/main/governance/submitting?utm_source=chatgpt.com" title="Submitting a Proposal - Cosmos Hub">hub.cosmos.network</a>)</p>
+<h3 id="3_1">3) 检查最小存款</h3>
+<div class="highlight"><pre><span></span><code>inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>params<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.params.min_deposit'</span>
+</code></pre></div>
+<p>你的提案的 <code>deposit</code> 必须满足/超过 <code>min_deposit</code>。(<a href="https://hub.cosmos.network/main/governance/process?utm_source=chatgpt.com" title="On-Chain Proposal Process">hub.cosmos.network</a>)</p>
+<h3 id="4_1">4) 起草提案文件</h3>
+<p>使用内置向导搭建 <code>draft_proposal.json</code>，然后选择<strong>其他</strong> → 选择你的消息类型（例如，<code>/inference.inference.MsgUpdateParams</code>）。</p>
+<div class="highlight"><pre><span></span><code>inferenced<span class="w"> </span>tx<span class="w"> </span>gov<span class="w"> </span>draft-proposal
+<span class="c1"># 填充 draft_proposal.json 和 draft_metadata.json</span>
+</code></pre></div>
+<p><code>draft-proposal</code> 助手是现代 gov v1 CLI 的一部分。(<a href="https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com" title="x/gov | Explore the SDK">docs.cosmos.network</a>、<a href="https://hub.cosmos.network/main/governance/submitting?utm_source=chatgpt.com" title="Submitting a Proposal - Cosmos Hub">hub.cosmos.network</a>)</p>
+<p>你将想要选择你提议的消息。要更改主链的参数，使用 <code>/inference.inference.MsgUpdateParams</code></p>
+<p>这将产生 <code>draft_proposal.json</code> 和 <code>draft_metadata.json</code></p>
+<p>元数据文件应该托管在链下，最好在 IPFS 上。</p>
+<p>编辑 <code>draft_proposal.json</code> 使其看起来像：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"messages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"@type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/inference.inference.MsgUpdateParams"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"authority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cosmos1...gov..."</span><span class="p">,</span><span class="w">       </span><span class="c1">// 来自步骤 1</span>
+<span class="w">      </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* 从 current_params.json 粘贴并修改 */</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ipfs://CID"</span><span class="p">,</span><span class="w">  </span><span class="c1">// 托管在 IPFS 上的元数据文件路径</span>
+<span class="w">  </span><span class="nt">"deposit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000000ngonka"</span><span class="p">,</span><span class="w">               </span><span class="c1">// 满足 min_deposit</span>
+<span class="w">  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"调整 epoch 长度"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"将 epoch 长度增加到 1000"</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>提醒：包含<strong>整个</strong> <code>params</code> 对象，而不仅仅是你更改的字段。(<a href="https://hub.cosmos.network/main/governance/submitting?utm_source=chatgpt.com" title="Submitting a Proposal - Cosmos Hub">hub.cosmos.network</a>)</p>
+</blockquote>
+<h3 id="5">5) 提交提案</h3>
+<p>这必须在你的私人机器上使用你的冷账户信息完成。</p>
+<p></p><div class="highlight"><pre><span></span><code>inferenced<span class="w"> </span>tx<span class="w"> </span>gov<span class="w"> </span>submit-proposal<span class="w"> </span>./draft_proposal.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span>&lt;cold-key-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--unordered<span class="w"> </span>--timeout-duration<span class="o">=</span>60s<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="o">=</span><span class="m">2000000</span><span class="w"> </span>--gas-adjustment<span class="o">=</span><span class="m">5</span>.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--yes
+</code></pre></div>
+你需要输入密码短语来发送提案。
+<p>v1 中的治理提案是包含嵌入消息的 JSON 文件，如果投票通过，则由治理模块执行。(<a href="https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com" title="x/gov | Explore the SDK">docs.cosmos.network</a>)</p>
+<h3 id="6">6) 确保你的提案在链上</h3>
+<p></p><div class="highlight"><pre><span></span><code>inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>proposals<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/
+</code></pre></div>
+这将给出链上当前提案的列表，你应该看到你的并获取 proposal_id。
+<hr>
+<h2 id="_3">添加存款（如果需要）</h2>
+<p>如果初始存款不足，请补充：</p>
+<div class="highlight"><pre><span></span><code>inferenced<span class="w"> </span>tx<span class="w"> </span>gov<span class="w"> </span>deposit<span class="w"> </span>&lt;proposal_id&gt;<span class="w"> </span>&lt;amount&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span>&lt;cold-key-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--unordered<span class="w"> </span>--timeout-duration<span class="o">=</span>60s<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="o">=</span><span class="m">2000000</span><span class="w"> </span>--gas-adjustment<span class="o">=</span><span class="m">5</span>.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--yes
+</code></pre></div>
+<p>(<a href="https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com" title="x/gov | Explore the SDK">docs.cosmos.network</a>)</p>
+<hr>
+<h2 id="_4">投票</h2>
+<p>同样，这需要从你的私人机器使用你的治理账户：
+</p><div class="highlight"><pre><span></span><code><span class="c1"># 选项：yes | no | no_with_veto | abstain</span>
+inferenced<span class="w"> </span>tx<span class="w"> </span>gov<span class="w"> </span>vote<span class="w"> </span>&lt;proposal_id&gt;<span class="w"> </span>yes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span>&lt;cold-key-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--unordered<span class="w"> </span>--timeout-duration<span class="o">=</span>60s<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="o">=</span><span class="m">2000000</span><span class="w"> </span>--gas-adjustment<span class="o">=</span><span class="m">5</span>.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--yes
+</code></pre></div>
+<p>（提案者没有自动是；明确投票。）(<a href="https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com" title="x/gov | Explore the SDK">docs.cosmos.network</a>)</p>
+<hr>
+<h2 id="_5">跟踪提案状态</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 一个提案</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>proposal<span class="w"> </span>&lt;proposal_id&gt;<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/
+<span class="c1"># 仅统计</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>tally<span class="w"> </span>&lt;proposal_id&gt;<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/
+<span class="c1"># 列出所有</span>
+inferenced<span class="w"> </span>query<span class="w"> </span>gov<span class="w"> </span>proposals<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--node<span class="w"> </span><span class="nv">$SEED_URL</span>/chain-rpc/
+</code></pre></div>
+<p>(<a href="https://docs.cosmos.network/main/build/modules/gov?utm_source=chatgpt.com" title="x/gov | Explore the SDK">docs.cosmos.network</a>)</p>
+<hr>
+<h2 id="_6">注意事项</h2>
+<ul>
+<li><strong>无序交易语义。</strong> 使用 <code>--unordered</code> 时，交易通过 <code>--timeout-duration</code> 携带过期时间，其序列保持未设置。期望单调序列的外部工具不得依赖这些交易。(<a href="https://docs.cosmos.network/main/learn/beginner/tx-lifecycle?utm_source=chatgpt.com" title="Transaction Lifecycle | Explore the SDK">docs.cosmos.network</a>)</li>
+<li><strong>Gas 调优。</strong> 如果模拟紧张或验证者使用更高的最小 gas 价格，请提高 <code>--gas-adjustment</code> 或根据网络策略设置 <code>--gas-prices</code>。(<a href="https://docs.cosmos.network/main/build/modules/auth?utm_source=chatgpt.com" title="x/auth | Explore the SDK">docs.cosmos.network</a>)</li>
+</ul></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/javascripts/links.js"></script>
+      
+        <script src="../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1743 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/zh/host/network-node-api/">
+      
+      
+        <link rel="prev" href="../multiple-nodes/">
+      
+      
+        <link rel="next" href="../../wallet/dashboard/">
+      
+      
+        
+          <link rel="alternate" href="../../../host/network-node-api/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>网络节点 API - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - 网络节点 API">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/zh/host/network-node-api/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              网络节点 API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../host/network-node-api/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    细节
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 最佳部署配置基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to edit Host public info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例响应解析
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    帮助
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    帮助
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        用法
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例响应解析
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="api">网络节点 API</h1>
+<p>本节介绍 <code>Network Node API</code> 的 <code>/v1/epochs/{epoch_id}/participants</code> 接口。该接口用于获取：</p>
+<ul>
+<li>Merkle 证明</li>
+<li>Host（主机）数据</li>
+<li>验证者签名</li>
+</ul>
+<h2 id="_1">用法</h2>
+<p>当前 Epoch 数据
+</p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://&lt;your_api_node_url:public_port&gt;/v1/epochs/current/participants
+</code></pre></div>
+<p>指定 Epoch 数据
+</p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://&lt;your_api_node_url:public_port&gt;/v1/epochs/&lt;epoch_id&gt;/participants
+</code></pre></div>
+<hr>
+<h2 id="_2">示例响应解析</h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">{</span>
+<span class="w">  </span><span class="s2">"active_participants"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"participants"</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"index"</span>:<span class="w"> </span><span class="s2">"gonka17tvsmufmewvwfy3dfxz7l20jmlhhn6ekfcun7r"</span>,
+<span class="w">        </span><span class="s2">"validator_key"</span>:<span class="w"> </span><span class="s2">"ljvRT9VScsxQKKX4S91yJRNppbz691ceD4sBYBRrAys="</span>,
+<span class="w">        </span><span class="s2">"weight"</span>:<span class="w"> </span><span class="m">10</span>,
+<span class="w">        </span><span class="s2">"inference_url"</span>:<span class="w"> </span><span class="s2">"http://genesis-api:8080"</span>,
+<span class="w">        </span><span class="s2">"models"</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">"unsloth/llama-3-8b-Instruct"</span>
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">        </span><span class="s2">"seed"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"participant"</span>:<span class="w"> </span><span class="s2">"gonka17tvsmufmewvwfy3dfxz7l20jmlhhn6ekfcun7r"</span>,
+<span class="w">        </span><span class="s2">"block_height"</span>:<span class="w"> </span><span class="m">9</span>,
+<span class="w">        </span><span class="s2">"signature"</span>:<span class="w"> </span><span class="s2">"6a2523cd5898539ef8ea765c7ab78f0de5dbcbb32a34b9706baa7294589f94d657422f573e7a4325d4ba8661466171c9621a51544478eb69f90a49b5271c1400"</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">"epoch_group_id"</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="s2">"poc_start_block_height"</span>:<span class="w"> </span><span class="m">9</span>,
+<span class="w">    </span><span class="s2">"created_at_block_height"</span>:<span class="w"> </span><span class="m">15</span>
+<span class="w">  </span><span class="o">}</span>,
+<span class="w">  </span><span class="s2">"addresses"</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">    </span><span class="s2">"BBDEDC12E4830D2086263415BE3FB4BF43C505A5"</span>
+<span class="w">  </span><span class="o">]</span>,
+<span class="w">  </span><span class="s2">"active_participants_bytes"</span>:<span class="w"> </span><span class="s2">"0acc020a2d636f736d6f7331377476736d75666d657776776679336466787a376c32306a6d6c68686e36656b6663756e3772122c6c6a765254395653637378514b4b5834533931794a524e7070627a363931636544347342594252724179733d180a2217687474703a2f2f67656e657369732d6170693a383038302a1b756e736c6f74682f6c6c616d612d332d38622d496e73747275637432b4010a2d636f736d6f7331377476736d75666d657776776679336466787a376c32306a6d6c68686e36656b6663756e377210091a8001366132353233636435383938353339656638656137363563376162373866306465356462636262333261333462393730366261613732393435383966393464363537343232663537336537613433323564346261383636313436363137316339363231613531353434343738656236396639306134396235323731633134303010011809280f"</span>,
+<span class="w">  </span><span class="s2">"proof_ops"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"ops"</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"type"</span>:<span class="w"> </span><span class="s2">"ics23:iavl"</span>,
+<span class="w">        </span><span class="s2">"key"</span>:<span class="w"> </span><span class="s2">"QWN0aXZlUGFydGljaXBhbnRzLzEvdmFsdWUv"</span>,
+<span class="w">        </span><span class="s2">"data"</span>:<span class="w"> </span><span class="s2">"CuMEChtBY3RpdmVQYXJ0aWNpcGFudHMvMS92YWx1ZS8S1QIKzAIKLWNvc21vczE3dHZzbXVmbWV3dndmeTNkZnh6N2wyMGptbGhobjZla2ZjdW43chIsbGp2UlQ5VlNjc3hRS0tYNFM5MXlKUk5wcGJ6NjkxY2VENHNCWUJSckF5cz0YCiIXaHR0cDovL2dlbmVzaXMtYXBpOjgwODAqG3Vuc2xvdGgvbGxhbWEtMy04Yi1JbnN0cnVjdDK0AQotY29zbW9zMTd0dnNtdWZtZXd2d2Z5M2RmeHo3bDIwam1saGhuNmVrZmN1bjdyEAkagAE2YTI1MjNjZDU4OTg1MzllZjhlYTc2NWM3YWI3OGYwZGU1ZGJjYmIzMmEzNGI5NzA2YmFhNzI5NDU4OWY5NGQ2NTc0MjJmNTczZTdhNDMyNWQ0YmE4NjYxNDY2MTcxYzk2MjFhNTE1NDQ0NzhlYjY5ZjkwYTQ5YjUyNzFjMTQwMBABGAkoDxoLCAEYASABKgMAAh4iKwgBEgQCBB4gGiEgwUNlynn4mzi4AC3u2itEeV3Y7Qe2vynK7Qqup2tmVgAiKwgBEgQECB4gGiEgiNVJ1Gl2VO0MezltgAUQs72vlGp3j3OWKH1OAD9MPHoiKwgBEgQGDB4gGiEgLyrwJqJ3jIIDD+gd8EO/3G8lNiCgkcpBn9IkqETCGbYiKwgBEgQIEh4gGiEgktjdW4rq4PGPx+En8SQnX7eIl6J5Qf4I9NEMMCokPa4iKwgBEgQKKB4gGiEg4Lo2jUStQ7FHrFhkm+Tk5df+rBHeeA6Ey5npZw+DEIk="</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"type"</span>:<span class="w"> </span><span class="s2">"ics23:simple"</span>,
+<span class="w">        </span><span class="s2">"key"</span>:<span class="w"> </span><span class="s2">"aW5mZXJlbmNl"</span>,
+<span class="w">        </span><span class="s2">"data"</span>:<span class="w"> </span><span class="s2">"CtoBCglpbmZlcmVuY2USIAeInJI1DSn8uBZz5z28V3JeXiQ7kPFDaCWqZeKu/1+ZGgkIARgBIAEqAQAiJwgBEgEBGiCkF0H31nsqBz1NVD3bG1444WqkoI982R1FXozDhDZvTyInCAESAQEaIJXhyLpHqjGG8RNH1IDYExUpZFPyxZvc7HLLmYEKxBeAIicIARIBARogVb5ZN4+aA5PlSPOrcbIeH/EuZ+nmQpJSod9LdNOb3WkiJQgBEiEBecxJ03qGQtj8qBYv4F3GTI9KLCix0WU+5PQNmJxXm7o="</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>
+<span class="w">  </span><span class="o">}</span>,
+<span class="w">  </span><span class="s2">"validators"</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">    </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"address"</span>:<span class="w"> </span><span class="s2">"BBDEDC12E4830D2086263415BE3FB4BF43C505A5"</span>,
+<span class="w">    </span><span class="s2">"pub_key"</span>:<span class="w"> </span><span class="s2">"ljvRT9VScsxQKKX4S91yJRNppbz691ceD4sBYBRrAys="</span>,
+<span class="w">    </span><span class="s2">"voting_power"</span>:<span class="w"> </span><span class="m">1000000</span>,
+<span class="w">    </span><span class="s2">"proposer_priority"</span>:<span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="w">  </span><span class="o">]</span>,
+<span class="w">  </span><span class="s2">"block"</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">    </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"header"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"version"</span>:<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="s2">"block"</span>:<span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">"chain_id"</span>:<span class="w"> </span><span class="s2">"gonka-mainnet"</span>,
+<span class="w">        </span><span class="s2">"height"</span>:<span class="w"> </span><span class="m">15</span>,
+<span class="w">        </span><span class="s2">"time"</span>:<span class="w"> </span><span class="s2">"2025-04-02T21:13:34.100375646Z"</span>,
+<span class="w">        </span><span class="s2">"last_block_id"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"hash"</span>:<span class="w"> </span><span class="s2">"306D1EBC3628F0571D5F772C85B554A8CD30C298648B4E325EC82945E7D20841"</span>,
+<span class="w">        </span><span class="s2">"parts"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">"total"</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">"hash"</span>:<span class="w"> </span><span class="s2">"055C7DD9132B5133B7D422D423ED775BC4FF5E7E3C7447C4539B5573D67686DD"</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">"last_commit_hash"</span>:<span class="w"> </span><span class="s2">"04584765750C36899099C65023702382D718F5CF5E44581F675EAEDF4F15DE9E"</span>,
+<span class="w">        </span><span class="s2">"data_hash"</span>:<span class="w"> </span><span class="s2">"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"</span>,
+<span class="w">        </span><span class="s2">"validators_hash"</span>:<span class="w"> </span><span class="s2">"BC21E09900AE1CBD50444061E0B1853550A509A3B8CE3B2BF5DA0C9DCC0351B0"</span>,
+<span class="w">        </span><span class="s2">"next_validators_hash"</span>:<span class="w"> </span><span class="s2">"BC21E09900AE1CBD50444061E0B1853550A509A3B8CE3B2BF5DA0C9DCC0351B0"</span>,
+<span class="w">        </span><span class="s2">"consensus_hash"</span>:<span class="w"> </span><span class="s2">"048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F"</span>,
+<span class="w">        </span><span class="s2">"app_hash"</span>:<span class="w"> </span><span class="s2">"6DAF9E22F6A30D441F5C40BF37ABD8A3B11A7582F5023413639C3015C6E47713"</span>,
+<span class="w">        </span><span class="s2">"last_results_hash"</span>:<span class="w"> </span><span class="s2">"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"</span>,
+<span class="w">        </span><span class="s2">"evidence_hash"</span>:<span class="w"> </span><span class="s2">"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"</span>,
+<span class="w">        </span><span class="s2">"proposer_address"</span>:<span class="w"> </span><span class="s2">"BBDEDC12E4830D2086263415BE3FB4BF43C505A5"</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">"data"</span>:<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="s2">"txs"</span>:<span class="w"> </span>null<span class="w"> </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">"evidence"</span>:<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="s2">"evidence"</span>:<span class="w"> </span>null<span class="w"> </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">"last_commit"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"height"</span>:<span class="w"> </span><span class="m">14</span>,
+<span class="w">        </span><span class="s2">"round"</span>:<span class="w"> </span><span class="m">0</span>,
+<span class="w">        </span><span class="s2">"block_id"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"hash"</span>:<span class="w"> </span><span class="s2">"306D1EBC3628F0571D5F772C85B554A8CD30C298648B4E325EC82945E7D20841"</span>,
+<span class="w">        </span><span class="s2">"parts"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">"total"</span>:<span class="w"> </span><span class="m">1</span>,
+<span class="w">            </span><span class="s2">"hash"</span>:<span class="w"> </span><span class="s2">"055C7DD9132B5133B7D422D423ED775BC4FF5E7E3C7447C4539B5573D67686DD"</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="s2">"signatures"</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">"block_id_flag"</span>:<span class="w"> </span><span class="m">2</span>,
+<span class="w">            </span><span class="s2">"validator_address"</span>:<span class="w"> </span><span class="s2">"BBDEDC12E4830D2086263415BE3FB4BF43C505A5"</span>,
+<span class="w">            </span><span class="s2">"timestamp"</span>:<span class="w"> </span><span class="s2">"2025-04-02T21:13:34.100375646Z"</span>,
+<span class="w">            </span><span class="s2">"signature"</span>:<span class="w"> </span><span class="s2">"twGyWJvYr+jV1Hhfjio7p7lkDbg2+OrpUqI6Nmb3xHta0hKQyoky2S4U755x2YewLdG8t/1TlaqzurljQoXmDg=="</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">        </span><span class="o">]</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p><strong><code>active_participants</code></strong></p>
+<p><code>participants</code>：活跃参与者列表，包括：</p>
+<ul>
+<li><code>index</code>：gonka 地址</li>
+<li><code>validator_key</code>：公钥（Base64）</li>
+<li><code>weight</code>：投票权重</li>
+<li><code>inference_url</code>：服务端点</li>
+<li><code>models</code>：支持的模型列表</li>
+<li><code>seed</code>：带有元数据的签名种子</li>
+</ul>
+<p><strong><code>addresses</code></strong>：参与者地址列表（大写十六进制）</p>
+<p><strong><code>active_participants_bytes</code></strong>：编码 Host 数据的原始字节数组（十六进制编码）——可用于 Merkle 证明验证或状态同步。</p>
+<p><strong><code>proof_ops</code></strong>：用于验证的 ICS23 兼容的证明操作列表</p>
+<p><strong><code>validators</code></strong>：该 epoch 时刻的验证者集合：</p>
+<ul>
+<li><code>address</code>：验证者地址</li>
+<li><code>pub_key</code>：公钥（Base64）</li>
+<li><code>voting_power</code>：当前投票权重</li>
+<li><code>proposer_priority</code>：共识出块优先级</li>
+</ul>
+<p><strong><code>block</code></strong>：围绕该 epoch 事件的区块列表</p>
+<ul>
+<li>包含完整区块头元数据、提议者地址、提交签名等</li>
+<li>用于验证 Host 数据的包含与提交</li>
+</ul>
+<p><strong>需要帮助？</strong> <a href="https://gonka.ai/zh/FAQ/">请先查看我们的常见问题页面</a>，或加入我们的<a href="https://discord.com/invite/RADwCT2U6R">Discord 服务器</a> 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。</p></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

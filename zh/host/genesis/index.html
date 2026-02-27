@@ -1,0 +1,2319 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/zh/host/genesis/">
+      
+      
+        <link rel="prev" href="../benchmark-to-choose-optimal-deployment-config-for-llms/">
+      
+      
+        <link rel="next" href="../hardware-specifications/">
+      
+      
+        
+          <link rel="alternate" href="../../../host/genesis/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>创世 - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - 创世">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/zh/host/genesis/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gonka" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              创世
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../host/genesis/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    细节
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 最佳部署配置基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先决条件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仪式流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="仪式流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        部署脚本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 1. [验证者]：准备密钥和初始服务器设置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="阶段 1. [验证者]：准备密钥和初始服务器设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 [本地] 确认账户冷密钥（来自快速开始）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 [服务器]：初始化节点并获取节点 ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 [服务器]：提取共识公钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 [服务器]：生成 ML 运营密钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 [本地]：准备包含验证者信息的 PR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 创建 Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 2. [协调者]：创世草案准备
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-gentx-genparticipant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 3. [验证者]：GENTX 和 GENPARTICIPANT 生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="阶段 3. [验证者]：GENTX 和 GENPARTICIPANT 生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gentx-genparticipant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地]：创建 GENTX 和 GENPARTICIPANT 文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地]：提交生成的文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 4. [协调者]：最终创世准备
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="阶段 4. [协调者]：最终创世准备">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 [协调者]：收集创世交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 [协调者]：处理参与者注册
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 [协调者]：配置网络种子
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 5. [验证者]：链启动
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="阶段 5. [验证者]：链启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 [服务器]：更新和启动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 [服务器]：验证启动状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to edit Host public info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    帮助
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    帮助
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先决条件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仪式流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="仪式流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        部署脚本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 1. [验证者]：准备密钥和初始服务器设置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="阶段 1. [验证者]：准备密钥和初始服务器设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 [本地] 确认账户冷密钥（来自快速开始）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 [服务器]：初始化节点并获取节点 ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 [服务器]：提取共识公钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 [服务器]：生成 ML 运营密钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 [本地]：准备包含验证者信息的 PR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 创建 Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 2. [协调者]：创世草案准备
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-gentx-genparticipant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 3. [验证者]：GENTX 和 GENPARTICIPANT 生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="阶段 3. [验证者]：GENTX 和 GENPARTICIPANT 生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gentx-genparticipant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地]：创建 GENTX 和 GENPARTICIPANT 文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地]：提交生成的文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 4. [协调者]：最终创世准备
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="阶段 4. [协调者]：最终创世准备">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 [协调者]：收集创世交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 [协调者]：处理参与者注册
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 [协调者]：配置网络种子
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        阶段 5. [验证者]：链启动
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="阶段 5. [验证者]：链启动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 [服务器]：更新和启动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 [服务器]：验证启动状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="gonka">Gonka 创世仪式</h1>
+<p>创世仪式是一个协调过程，用于使用预定义的初始验证者集合和商定的 <code>genesis.json</code> 文件来引导 Gonka 区块链。这个仪式很重要，因为它建立了网络的基础安全，确保验证者之间的公平参与，并为区块链创建了一个可验证的起点。</p>
+<h2 id="_1">概述</h2>
+<p>仪式是一个透明且可审计的过程，完全通过 GitHub Pull Requests（PR）管理。核心工作流程很简单：</p>
+<ul>
+<li>主机（验证者）通过 PR 提交信息和离线交易文件（<code>GENTX</code> 和 <code>GENPARTICIPANT</code>）</li>
+<li>协调者聚合并验证这些输入，发布最终的、商定的 <code>genesis.json</code>，包含预定的 <code>genesis_time</code> 和记录的哈希值。</li>
+<li>验证者验证文件是否正确生成并启动其节点</li>
+</ul>
+<p>仪式通过明确定义的阶段进行，以产生可审计的、共享的 <code>genesis.json</code>。所有协作都通过 GitHub PR 进行，以确保完全透明和问责。</p>
+<details class="note">
+<summary>创世仪式的关键原则</summary>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>透明度和可审计性</strong></td>
+<td>使用 GitHub PR 进行所有提交，创建从开始到结束的整个过程的公开、可验证记录。</td>
+</tr>
+<tr>
+<td><strong>去中心化启动</strong></td>
+<td>仪式确保网络以商定的独立验证者集合开始，从区块零开始建立去中心化。</td>
+</tr>
+<tr>
+<td><strong>可验证状态</strong></td>
+<td>记录最终的 <code>genesis.json</code> 哈希，允许每个主机确认他们从完全相同的初始状态开始。</td>
+</tr>
+<tr>
+<td><strong>共识</strong></td>
+<td>该过程保证所有初始验证者在网络上线前已审查并接受创世状态。</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h2 id="_2">先决条件</h2>
+<p>在参与仪式之前，每个主机（验证者）必须：</p>
+<ol>
+<li>
+<p>Fork <a href="https://github.com/gonka-ai/gonka/">Gonka 仓库</a> 到你的 GitHub 账户。</p>
+</li>
+<li>
+<p>选择一个主机（验证者）名称并创建你的验证者目录：
+   </p><div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>genesis/validators/template<span class="w"> </span>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;
+</code></pre></div>
+   此目录将用于在仪式期间共享信息和交易。
+</li>
+<li>
+<p>遵循快速开始指南的本地设置部分。</p>
+<ul>
+<li>在仪式之前，你必须完成 <a href="https://gonka.ai/host/quickstart">Gonka 快速开始</a> 指南中描述的本地机器设置。这包括安装 <code>inferenced</code> CLI、创建你的账户冷密钥和拉取 Docker 镜像。</li>
+<li>在拉取镜像后停止，不要启动服务；仪式过程用离线、基于 PR 的工作流程替换服务器端设置和链上交易。</li>
+</ul>
+</li>
+<li>
+<p>确认准备就绪：</p>
+<ul>
+<li><code>inferenced</code> CLI 已本地安装，你的账户冷密钥已创建。</li>
+<li>容器已拉取，模型已下载，环境变量（<code>config.env</code>）已配置。</li>
+</ul>
+</li>
+</ol>
+<h2 id="_3">仪式流程</h2>
+<p>仪式遵循 5 阶段流程，用离线、基于 PR 的工作流程替换 <code>quickstart.md</code> 中的链上注册步骤。所有交易文件都在本地生成并提交给协调者进行聚合。</p>
+<ul>
+<li><strong>阶段 1 [验证者]</strong>：准备密钥和初始服务器设置；打开包含验证者信息的 PR（包括节点 ID、ML 运营地址和共识公钥）</li>
+<li><strong>阶段 2 [协调者]</strong>：聚合验证者信息并发布 <code>genesis.json</code> 草案供审查</li>
+<li><strong>阶段 3 [验证者]</strong>：从草案生成离线 <code>GENTX</code> 和 <code>GENPARTICIPANT</code> 文件；打开包含文件的 PR</li>
+<li><strong>阶段 4 [协调者]</strong>：验证并收集交易，修补 <code>genesis.json</code>，设置 <code>genesis_time</code></li>
+<li><strong>阶段 5 [验证者]</strong>：检索最终 <code>genesis.json</code>，验证哈希，并在 <code>genesis_time</code> 之前启动节点</li>
+</ul>
+<h3 id="_4">部署脚本</h3>
+<p>为了简化过程，仪式的部署脚本将在 <a href="https://github.com/gonka-ai/gonka/">Gonka 仓库</a> 的 <a href="/deploy/join">/deploy/join</a> 目录中。
+部署脚本与 <code>quickstart.md</code> 中的标准加入流程相同。在仪式期间，协调者将调整以下环境变量以启用创世特定行为：</p>
+<ul>
+<li><code>INIT_ONLY</code> — 初始化数据目录并准备配置，而不启动完整堆栈</li>
+<li><code>GENESIS_SEEDS</code> — 启动时用于初始 P2P 连接的种子节点地址列表</li>
+<li><code>IS_GENESIS</code> — 在 compose/scripts 中切换仅创世路径（例如，哈希验证、引导行为）</li>
+</ul>
+<p>位置：这些变量由协调者在 <code>deploy/join/docker-compose.yml</code> 中设置。验证者不应更改它们。</p>
+<p>一旦<strong>阶段 5</strong> 完成且链已启动，协调者将从仓库中删除上述变量，因为它们不再需要。</p>
+<p>工作目录：从 <code>deploy/join</code> 运行所有 <code>docker compose</code> 命令（首先更改目录），或在从仓库根目录运行时显式传递 <code>-f deploy/join/docker-compose.yml</code>。</p>
+<h3 id="1">阶段 1. [验证者]：准备密钥和初始服务器设置</h3>
+<p>此阶段镜像 <code>quickstart.md</code> 中的密钥生成步骤，但所有设置都在离线状态下执行以生成仪式文件。账户密钥（冷）已在快速开始期间创建；以下步骤将指导你在服务器上生成 ML 运营密钥（热）。</p>
+<h4 id="11">1.1 [本地] 确认账户冷密钥（来自快速开始）</h4>
+<p>账户冷密钥在 <code>quickstart.md</code> 期间创建。你可以使用以下命令查看其信息：
+</p><div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>keys<span class="w"> </span>list<span class="w"> </span>--keyring-backend<span class="w"> </span>file
+</code></pre></div>
+<p><strong>示例输出：</strong>
+</p><div class="highlight"><pre><span></span><code>Enter keyring passphrase (attempt 1/3):
+- address: gonka1eq4f5p32ewkekf9rv5f0qjsa0xaepckmgl85kr
+  name: "gonka-account-key"
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A4U3G2eY46mwhWx7ZXieT+LetPJhG0jHNuVCQB6wgBZK"}'
+  type: local
+</code></pre></div>
+<h4 id="12-id">1.2 [服务器]：初始化节点并获取节点 ID</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>node
+</code></pre></div>
+<p><strong>示例输出：</strong>
+</p><div class="highlight"><pre><span></span><code>51a9df752b60f565fe061a115b6494782447dc1f
+</code></pre></div>
+<h4 id="13">1.3 [服务器]：提取共识公钥</h4>
+<p>启动 <code>tmkms</code> 服务以生成共识密钥，然后提取公钥。
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>tmkms<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--entrypoint<span class="w"> </span>/bin/sh<span class="w"> </span>tmkms<span class="w"> </span>-c<span class="w"> </span><span class="s2">"tmkms-pubkey"</span>
+</code></pre></div>
+<p><strong>示例输出：</strong>
+</p><div class="highlight"><pre><span></span><code>/wTVavYr5OCiVssIT3Gc5nsfIH0lP1Rqn/zeQtq4CvQ=
+</code></pre></div>
+<h4 id="14-ml">1.4 [服务器]：生成 ML 运营密钥</h4>
+<p>在 <code>api</code> 容器内使用 <code>file</code> 密钥环后端创建热密钥（程序化访问需要）。密钥将存储在映射到容器 <code>/root/.inference</code> 的持久卷中：</p>
+<p>注意：<code>$KEY_NAME</code> 和 <code>$KEYRING_PASSWORD</code> 在快速开始 <code>config.env</code> 中定义。
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--no-deps<span class="w"> </span>-it<span class="w"> </span>api<span class="w"> </span>/bin/sh
+</code></pre></div>
+<p>在容器内，创建 ML 运营密钥：
+</p><div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_PASSWORD</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_PASSWORD</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>inferenced<span class="w"> </span>keys<span class="w"> </span>add<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY_NAME</span><span class="s2">"</span><span class="w"> </span>--keyring-backend<span class="w"> </span>file
+</code></pre></div>
+<p><strong>示例输出：</strong>
+</p><div class="highlight"><pre><span></span><code>~ # printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
+
+- address: gonka1gyz2agg5yx49gy2z4qpsz9826t6s9xev6tkehw
+  name: node-702105
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Ao8VPh5U5XQBcJ6qxAIwBbhF/3UPZEwzZ9H/qbIA6ipj"}'
+  type: local
+
+
+**重要** 将此助记词短语写在安全的地方。
+如果你忘记密码，这是恢复账户的唯一方法。
+
+again plastic athlete arrow first measure danger drastic wolf coyote work memory already inmate sorry path tackle custom write result west tray rabbit jeans
+</code></pre></div>
+<h4 id="15-pr">1.5 [本地]：准备包含验证者信息的 PR</h4>
+<p>创建或更新 <code>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/README.md</code>，包含以下字段。使用从上述步骤和快速开始收集的值。</p>
+<div class="highlight"><pre><span></span><code>Account Public Key: &lt;value of ACCOUNT_PUBKEY from your config.env file&gt;
+Node ID: &lt;node-id-from-step-1.2&gt;
+ML Operational Address: &lt;ml-operational-key-address-from-step-1.4&gt;
+Consensus Public Key: &lt;consensus-pubkey-from-step-1.3&gt;
+P2P_EXTERNAL_ADDRESS: &lt;value of P2P_EXTERNAL_ADDRESS from your config.env file&gt;
+</code></pre></div>
+<h4 id="16-pull-request">1.6 创建 Pull Request</h4>
+<p>向 <a href="https://github.com/gonka-ai/gonka/">Gonka 仓库</a> 提交包含你验证者信息的 PR。包含清晰的标题，如"添加验证者：<your_validator_name>"，并确保你的 <code>README.md</code> 文件中填充了所有必需字段。</your_validator_name></p>
+<h3 id="2">阶段 2. [协调者]：创世草案准备</h3>
+<p>协调者将：</p>
+<ul>
+<li>审查并合并阶段 1 的所有验证者 PR</li>
+<li>准备初始 <code>genesis.json</code> 草案，包括所有账户地址，并将其放置在 <code>genesis/genesis-draft.json</code> 中</li>
+<li>向所有主机宣布草案的可用性</li>
+</ul>
+<h3 id="3-gentx-genparticipant">阶段 3. [验证者]：<code>GENTX</code> 和 <code>GENPARTICIPANT</code> 生成</h3>
+<p>此阶段涉及生成链初始化所需的交易文件。这些交易包括：</p>
+<ul>
+<li><code>MsgCreateValidator</code> - 在链上创建你的验证者</li>
+<li><code>MsgSubmitNewParticipant</code> - 将你的节点注册为网络主机</li>
+</ul>
+<p><code>gentx</code> 命令需要来自前面步骤的以下变量：</p>
+<table>
+<thead>
+<tr>
+<th><strong>变量</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;cold_key_name&gt;</code></td>
+<td>本地注册表中的账户冷密钥名称（例如，快速开始中的"gonka-account-key"）</td>
+</tr>
+<tr>
+<td><code>&lt;YOUR_VALIDATOR_NAME&gt;</code></td>
+<td>在先决条件部分选择的验证者名称</td>
+</tr>
+<tr>
+<td><code>&lt;ml-operational-key-address-from-step-1.4&gt;</code></td>
+<td>步骤 1.4 中的 ML 运营密钥地址</td>
+</tr>
+<tr>
+<td><code>$PUBLIC_URL</code></td>
+<td>来自快速开始 <code>config.env</code> 的环境变量，包含公共 URL</td>
+</tr>
+<tr>
+<td><code>&lt;consensus-pubkey-from-step-1.3&gt;</code></td>
+<td>步骤 1.3 中的共识公钥</td>
+</tr>
+<tr>
+<td><code>&lt;node-id-from-step-1.2&gt;</code></td>
+<td>步骤 1.2 中的节点 ID</td>
+</tr>
+</tbody>
+</table>
+<p>此自定义 <code>gentx</code> 命令自动创建从你的账户密钥到你的 ML 运营密钥所需的 <code>authz</code> 授权，简化了设置过程。</p>
+<p>在生成文件之前，你必须将草案 <code>genesis/genesis-draft.json</code> 复制到存储你账户冷密钥的 <code>config</code> 目录中。这允许 <code>gentx</code> 命令访问你的密钥并针对正确的链配置验证交易。</p>
+<p><code>inferenced</code> 的默认主目录是 <code>~/.inference</code>。如果你在那里创建了密钥，请使用以下命令：</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>./genesis/genesis-draft.json<span class="w"> </span>~/.inference/config/genesis.json
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>如果你在创建密钥时使用 <code>--home</code> 标志指定了自定义主目录，请确保通过再次提供 <code>--home</code> 标志在 <code>gentx</code> 命令中使用相同的目录。</p>
+</div>
+<h4 id="gentx-genparticipant">[本地]：创建 GENTX 和 GENPARTICIPANT 文件</h4>
+<p><code>1ngonka</code> 值表示创世交易的人工共识权重。真正的验证者权重将在第一个计算证明（PoC）阶段确定。</p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>genesis<span class="w"> </span>gentx<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&lt;cold_key_name&gt;<span class="w"> </span>1ngonka<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--moniker<span class="w"> </span>&lt;YOUR_VALIDATOR_NAME&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pubkey<span class="w"> </span>&lt;consensus-pubkey-from-step-1.3&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--ml-operational-address<span class="w"> </span>&lt;ml-operational-key-address-from-step-1.4&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--url<span class="w"> </span><span class="nv">$PUBLIC_URL</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--chain-id<span class="w"> </span>gonka-mainnet<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-id<span class="w"> </span>&lt;node-id-from-step-1.2&gt;
+</code></pre></div>
+<p><strong>示例输出：</strong>
+</p><div class="highlight"><pre><span></span><code>./inferenced genesis gentx \
+    --home ./702121 \
+    --keyring-backend file \
+    702121 1ngonka \
+    --pubkey eNrjtkSXzfE18jq3lqvpu/i1iIog9SN+kqR2Wsa6fSM= \
+    --ml-operational-address gonka13xplq68fws3uvs8m7ej2ed5ack9hzpc68fwvex \
+    --url http://36.189.234.237:19238 \
+    --moniker "mynode-702121" --chain-id gonka-mainnet \
+    --node-id 149d25924b9a6676448aea716864c31775645459
+Enter keyring passphrase (attempt 1/3):
+Classic genesis transaction written to "702121/config/gentx/gentx-149d25924b9a6676448aea716864c31775645459.json"
+Genparticipant transaction written to "702121/config/genparticipant/genparticipant-149d25924b9a6676448aea716864c31775645459.json"
+</code></pre></div>
+<h4 id="_5">[本地]：提交生成的文件</h4>
+<p>将生成的文件复制到你的验证者目录并创建 PR：</p>
+<ul>
+<li>将文件复制到你的验证者目录：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>~/.inference/config/gentx/gentx-&lt;node-id&gt;.json<span class="w"> </span>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/
+cp<span class="w"> </span>~/.inference/config/genparticipant/genparticipant-&lt;node-id&gt;.json<span class="w"> </span>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/
+</code></pre></div>
+<ul>
+<li>
+<p>创建包含以下文件的 PR：</p>
+<ul>
+<li><code>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/gentx-&lt;node-id-from-step-1.2&gt;.json</code></li>
+<li><code>genesis/validators/&lt;YOUR_VALIDATOR_NAME&gt;/genparticipant-&lt;node-id-from-step-1.2&gt;.json</code></li>
+</ul>
+</li>
+</ul>
+<p>使用清晰的 PR 标题，如"为验证者添加 gentx 文件：<your_validator_name>"。</your_validator_name></p>
+<h3 id="4">阶段 4. [协调者]：最终创世准备</h3>
+<p>一旦所有验证者都提交了他们的交易文件，协调者开始构建官方的 <code>genesis.json</code>。这个关键步骤确保所有初始参与者都正确包含在区块链的状态中，从第一个区块开始。</p>
+<p>该过程涉及两个主要命令：</p>
+<ol>
+<li>收集创世交易：<code>collect-gentxs</code> 命令收集所有 <code>gentx-&lt;node-id&gt;.json</code> 文件，验证它们，并将它们合并到 <code>genesis.json</code> 中以填充初始验证者集合。</li>
+<li>修补参与者数据：<code>patch-genesis</code> 命令处理 <code>genparticipant-&lt;node-id&gt;.json</code> 文件，验证它们的签名并修补初始状态以包含所有注册的参与者。</li>
+</ol>
+<p>合并所有交易后，协调者将 <code>genesis_time</code> 设置为未来的时间戳，确保所有验证者有足够的时间准备同步启动。</p>
+<p>最后，协调者将官方的 <code>genesis.json</code> 提交到 <code>genesis/</code> 目录。然后将此提交的哈希嵌入源代码中，以确保所有节点从相同的验证状态开始。</p>
+<h4 id="41">4.1 [协调者]：收集创世交易</h4>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>genesis<span class="w"> </span>collect-gentxs<span class="w"> </span>--gentx-dir<span class="w"> </span>gentxs
+</code></pre></div>
+<h4 id="42">4.2 [协调者]：处理参与者注册</h4>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>genesis<span class="w"> </span>patch-genesis<span class="w"> </span>--genparticipant-dir<span class="w"> </span>genparticipants
+</code></pre></div>
+<h4 id="43">4.3 [协调者]：配置网络种子</h4>
+<p>协调者通过在 <code>deploy/join/docker-compose.yml</code> 中设置 <code>GENESIS_SEEDS</code> 变量来配置初始网络对等连接。此变量是验证者节点地址的逗号分隔列表，使用每个验证者在各自 <code>README.md</code> 文件中提供的 <code>Node ID</code> 和 <code>P2P_EXTERNAL_ADDRESS</code> 构建。</p>
+<p>示例格式：<code>&lt;node-id-1&gt;@&lt;P2P_EXTERNAL_ADDRESS_1&gt;,&lt;node-id-2&gt;@&lt;P2P_EXTERNAL_ADDRESS_2&gt;,...</code></p>
+<p>此外，协调者将 <code>INIT_ONLY</code> 设置为 <code>false</code>，这允许节点在启动时完全启动并连接到网络，而不是仅初始化其数据目录。</p>
+<h3 id="5">阶段 5. [验证者]：链启动</h3>
+<p>随着最终 <code>genesis.json</code> 的发布，验证者必须验证它是否正确生成，并准备他们的节点在指定的 <code>genesis_time</code> 启动。区块链将在此刻开始产生区块。</p>
+<h4 id="51">5.1 [服务器]：更新和启动</h4>
+<p>这些步骤应在你的验证者服务器上执行。</p>
+<ul>
+<li>
+<p><strong>拉取最新配置</strong></p>
+<p>从仓库拉取最新更改以获取最终的 <code>genesis.json</code> 和种子节点配置。
+</p><div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull
+</code></pre></div>
+</li>
+<li>
+<p><strong>更新容器镜像</strong></p>
+<p>从 <code>deploy/join</code> 目录拉取最新的 Docker 容器镜像。节点镜像使用最终创世哈希构建以进行验证。
+</p><div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>pull
+</code></pre></div>
+</li>
+<li>
+<p><strong>启动你的验证者</strong></p>
+<p>最后，启动所有服务。
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+</li>
+</ul>
+<h4 id="52">5.2 [服务器]：验证启动状态</h4>
+<p>启动后，监控你的节点日志以确认它正在等待创世时间：</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>node<span class="w"> </span>-f
+</code></pre></div>
+<p>寻找类似这样的消息：
+</p><div class="highlight"><pre><span></span><code>INF Genesis time is in the future. Sleeping until then... genTime=2025-08-14T09:13:39Z module=server
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">重要注意事项</p>
+<ul>
+<li><code>api</code> 容器可能在 <code>node</code> 容器完全运行之前重启几次</li>
+<li>一旦创世时间过去，你应该在日志中看到区块生产消息</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">[协调者]：启动后清理</p>
+<p>从 <code>docker-compose.yml</code> 配置文件中删除创世特定变量，以过渡到正常操作模式。</p>
+</div>
+<p>如需额外支持，请参阅<a href="https://gonka.ai/host/quickstart">快速开始指南</a>或加入<a href="https://discord.com/invite/RADwCT2U6R">社区 Discord</a>。</p></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

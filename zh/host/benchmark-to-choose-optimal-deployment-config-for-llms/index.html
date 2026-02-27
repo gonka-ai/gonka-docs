@@ -1,0 +1,2597 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/zh/host/benchmark-to-choose-optimal-deployment-config-for-llms/">
+      
+      
+        <link rel="prev" href="../../architecture/">
+      
+      
+        <link rel="next" href="../genesis/">
+      
+      
+        
+          <link rel="alternate" href="../../../host/benchmark-to-choose-optimal-deployment-config-for-llms/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>LLM 最佳部署配置基准测试 - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - LLM 最佳部署配置基准测试">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/zh/host/benchmark-to-choose-optimal-deployment-config-for-llms/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#llm" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LLM 最佳部署配置基准测试
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../host/benchmark-to-choose-optimal-deployment-config-for-llms/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    细节
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 最佳部署配置基准测试
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 最佳部署配置基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        简介
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vllm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        理解 vLLM 参数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性能测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 安装基准测试工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 获取配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 运行性能测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 查看结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        部署和性能优化计划
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="部署和性能优化计划">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用强制参数建立初始配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 定义用于测试的潜在部署配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 测试每个配置并测量性能
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 测试每个配置并测量性能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. 部署配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. 验证部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. 测量性能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 比较各配置的性能结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8x4070-sti-qwenqwq-32b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例：8x4070 STi 服务器上的 Qwen/QwQ-32B
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="示例：8x4070 STi 服务器上的 Qwen/QwQ-32B">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用强制参数建立初始配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 定义用于测试的潜在部署配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 部署和测量每个配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 部署和测量每个配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-1tp8pp1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 配置 1（TP=8，PP=1）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 配置 1（TP=8，PP=1）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1. 部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2. 验证部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3. ​​测量性能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-2tp4pp2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. 配置 2（TP=4，PP=2）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 配置 2（TP=4，PP=2）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1. 部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2. 验证部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3. ​​测量性能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 比较各配置的性能结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to edit Host public info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    帮助
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    帮助
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        简介
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vllm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        理解 vLLM 参数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="性能测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 安装基准测试工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 获取配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 运行性能测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 查看结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        部署和性能优化计划
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="部署和性能优化计划">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用强制参数建立初始配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 定义用于测试的潜在部署配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 测试每个配置并测量性能
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 测试每个配置并测量性能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. 部署配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. 验证部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. 测量性能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 比较各配置的性能结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8x4070-sti-qwenqwq-32b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        示例：8x4070 STi 服务器上的 Qwen/QwQ-32B
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="示例：8x4070 STi 服务器上的 Qwen/QwQ-32B">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用强制参数建立初始配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 定义用于测试的潜在部署配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 部署和测量每个配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 部署和测量每个配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-1tp8pp1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 配置 1（TP=8，PP=1）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 配置 1（TP=8，PP=1）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1. 部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2. 验证部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3. ​​测量性能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-2tp4pp2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. 配置 2（TP=4，PP=2）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 配置 2（TP=4，PP=2）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1. 部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2. 验证部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3. ​​测量性能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 比较各配置的性能结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="llm">LLM 最佳部署配置基准测试</h1>
+<h2 id="_1">简介</h2>
+<p>有效的 GPU 利用对于部署大语言模型至关重要。Gonka 节点利用定制的 vLLM 推理引擎，支持高性能推理及其验证。</p>
+<p>为了获得最佳结果，vLLM 需要仔细的、特定于服务器的配置。最佳性能取决于 GPU 特性和跨 GPU 数据传输速度。本指南提供如何使用 Qwen/QwQ-32 模型作为示例选择 vLLM 参数的说明。我们还将描述哪些参数可以调整以获得最佳性能而不影响验证，以及哪些参数必须保持不变。</p>
+<p><a href="https://github.com/product-science/vllm/tree/productscience/v0.8.1">链接到我们的 vLLM 分支</a>。</p>
+<h2 id="vllm">理解 vLLM 参数</h2>
+<p>要配置基于 vLLM 的模型部署，你需要为每个模型定义 <code>args</code>：
+</p><div class="highlight"><pre><span></span><code>"Qwen/Qwen2.5-7B-Instruct": {
+    "args": [
+        "--tensor-parallel-size",
+        "4",
+        "--pipeline-parallel-size",
+        "2"
+    ]
+}
+</code></pre></div>
+这些 args 定义了 MLNode 将管理的每个 vLLM 实例的配置。详细描述可以在 <a href="https://docs.vllm.ai/en/v0.8.1/serving/engine_args.html">vLLM 文档</a> 中找到。
+<p>单个 vLLM 实例使用的 GPU 数量取决于两个参数：</p>
+<ul>
+<li><code>--tensor-parallel-size (TP)</code></li>
+<li><code>--pipeline-parallel-size (PP)</code></li>
+</ul>
+<p>使用的 GPU 数量在大多数情况下等于 <code>TP*PP</code>。</p>
+<p>如果 MLNode 拥有的 GPU 数量超过单个实例请求的数量，它将启动多个实例，有效利用可用的 GPU。</p>
+<p>例如，如果节点有 10 个 GPU，每个实例配置为使用 4 个，MLNode 将启动两个实例（4 + 4 GPU）并在它们之间进行负载均衡。在许多情况下，部署更多数量的 vLLM 实例，每个实例使用较少的 GPU，可能是更有效的策略。</p>
+<p>vLLM 中有两种类型的参数。</p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>参数</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>影响推理</strong></td>
+<td>改变输出质量或行为。除非明确允许，否则你<strong>不得</strong>修改这些参数，因为这可能导致验证失败。</td>
+<td><nobr><code>--kv-cache-dtype</code></nobr><br><nobr><code>--max-model-len</code></nobr><br><nobr><code>--speculative-model</code></nobr><br><nobr><code>--dtype</code></nobr><br><nobr><code>--quantization</code></nobr> <em>等</em></td>
+</tr>
+<tr>
+<td><strong>不影响推理</strong></td>
+<td>改变模型如何利用可用的 GPU。</td>
+<td><nobr><code>--tensor-parallel-size</code></nobr><br><nobr><code>--pipeline-parallel-size</code></nobr><br><nobr><code>--enable-expert-parallel</code></nobr> <em>等</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">性能测试</h2>
+<p>要测量模型部署的性能，你将使用 <code>compressa-perf</code> 工具。你可以在 <a href="https://github.com/product-science/compressa-perf">GitHub</a> 上找到该工具。</p>
+<h3 id="1">1. 安装基准测试工具</h3>
+<p>首先，使用 pip 安装 <code>compressa-perf</code>：
+</p><div class="highlight"><pre><span></span><code>pip install git+https://github.com/product-science/compressa-perf.git
+</code></pre></div>
+<h3 id="2">2. 获取配置文件</h3>
+<p>基准测试工具使用 YAML 配置文件来定义测试参数。默认配置文件可在<a href="https://github.com/product-science/inference-ignite/blob/main/mlnode/packages/benchmarks/resources/config.yml">此处</a>获得。</p>
+<h3 id="3">3. 运行性能测试</h3>
+<p>一旦你的模型部署完成，你就可以测试其性能。使用以下命令，将 <code>&lt;IP&gt;</code> 和 <code>&lt;INFERENCE_PORT&gt;</code> 替换为你的具体部署详情，将 <code>MODEL_NAME</code> 替换为你正在测试的模型名称（例如，<code>Qwen/QwQ-32B</code>）：
+</p><div class="highlight"><pre><span></span><code>compressa-perf \
+        measure-from-yaml \
+        --no-sign \
+        --node_url http://&lt;IP&gt;:&lt;INFERENCE_PORT&gt; \
+        config.yml \
+        --model_name MODEL_NAME
+</code></pre></div>
+性能结果将保存到名为 <code>compressa-perf-db.sqlite</code> 的文件中
+<h3 id="4">4. 查看结果</h3>
+<p>要显示基准测试结果，包括关键指标和参数，请运行：
+</p><div class="highlight"><pre><span></span><code>compressa-perf list --show-metrics --show-parameters
+</code></pre></div>
+此命令将输出包含以下性能指标的报告：
+<table>
+<thead>
+<tr>
+<th><strong>指标</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>期望值</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TTFT（首令牌时间）</strong></td>
+<td>生成<strong>第一个令牌</strong>所经过的时间。</td>
+<td>越低越好</td>
+</tr>
+<tr>
+<td><strong>延迟</strong></td>
+<td>模型生成<strong>完整响应</strong>所花费的总时间。</td>
+<td>越低越好</td>
+</tr>
+<tr>
+<td><strong>TPOT（每输出令牌时间）</strong></td>
+<td>生成<strong>第一个之后每个令牌</strong>的平均时间。</td>
+<td>越低越好</td>
+</tr>
+<tr>
+<td><strong>输入令牌吞吐量</strong></td>
+<td>输入令牌处理速度：总<strong>提示令牌</strong> / 总响应时间（每秒令牌数）。</td>
+<td>越高越好</td>
+</tr>
+<tr>
+<td><strong>输出令牌吞吐量</strong></td>
+<td>输出令牌生成速度：总<strong>生成令牌</strong> / 总响应时间（每秒令牌数）。</td>
+<td>越高越好</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">部署和性能优化计划</h2>
+<p>测试在已根据<a href="https://gonka.ai/host/multiple-nodes/#running-the-inference-node-on-a-separate-server">说明</a>部署 MLNode 的服务器上执行。
+确保在继续之前已安装性能工具（<code>compressa-perf</code>）并下载了必要的配置文件。</p>
+<h3 id="1_1">1. 使用强制参数建立初始配置</h3>
+<ul>
+<li>识别网络指定的所有强制参数（例如，<code>--kv-cache-dtype fp8</code>、<code>--quantization fp8</code>）</li>
+<li>定义基础配置：</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">JSON</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nt">"MODEL_NAME"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"--kv-cache-dtype"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fp8"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="s2">"--quantization"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fp8"</span><span class="p">,</span>
+<span class="w"> </span><span class="err">...</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<h3 id="2_1">2. 定义用于测试的潜在部署配置</h3>
+<p>确定你将实验的可调参数范围。对于不影响推理输出的性能优化，这些主要包括 <code>--tensor-parallel-size (TP)</code> 和 <code>--pipeline-parallel-size (PP)</code> 等参数，以及其他不改变推理结果的参数。</p>
+<p>根据服务器的 GPU 和模型大小选择这些参数。单个 vLLM 实例使用的 GPU 数量通常是张量并行大小和管道并行大小的乘积。如果可能，会自动使用多个实例。</p>
+<h3 id="3_1">3. 测试每个配置并测量性能</h3>
+<p>对于每个定义的配置：</p>
+<h4 id="31">3.1. 部署配置</h4>
+<p>使用 MLNode REST API 端点部署当前配置：
+</p><div class="highlight"><pre><span></span><code>http://&lt;IP&gt;:&lt;MANAGEMENT_PORT&gt;/api/v1/inference/up
+</code></pre></div>
+下面的 Python 示例：
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">inference_up</span><span class="p">(</span>
+   <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+   <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+   <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+   <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/api/v1/inference/up"</span>
+   <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+       <span class="s2">"model"</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+       <span class="s2">"dtype"</span><span class="p">:</span> <span class="s2">"float16"</span><span class="p">,</span>
+       <span class="s2">"additional_args"</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">"args"</span><span class="p">]</span>
+   <span class="p">}</span>
+
+   <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+   <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+   <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="n">model_name</span> <span class="o">=</span> <span class="s2">"MODEL_NAME"</span>
+<span class="n">model_config</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s2">"args"</span><span class="p">:</span> <span class="p">[</span>
+       <span class="s2">"--quantization"</span><span class="p">,</span> <span class="s2">"fp8"</span><span class="p">,</span>
+       <span class="s2">"--tensor-parallel-size"</span><span class="p">,</span> <span class="s2">"8"</span><span class="p">,</span>
+       <span class="s2">"--pipeline-parallel-size"</span><span class="p">,</span> <span class="s2">"1"</span><span class="p">,</span>
+       <span class="s2">"--kv-cache-dtype"</span><span class="p">,</span> <span class="s2">"fp8"</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">inference_up</span><span class="p">(</span>
+   <span class="n">base_url</span><span class="o">=</span><span class="s2">"http://&lt;IP&gt;:&lt;MANAGEMENT_PORT&gt;"</span><span class="p">,</span>
+   <span class="n">model</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+   <span class="n">config</span><span class="o">=</span><span class="n">model_config</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="32">3.2. 验证部署</h4>
+<ul>
+<li>检查 MLNode 日志中是否有部署过程中可能发生的任何错误。</li>
+<li>通过检查 REST API 端点 <code>http://&lt;IP&gt;:&lt;MANAGEMENT_PORT&gt;/api/v1/state</code> 验证部署状态。</li>
+</ul>
+<p>预期状态：
+</p><div class="highlight"><pre><span></span><code>{'state': 'INFERENCE'}
+</code></pre></div>
+<h4 id="33">3.3. 测量性能</h4>
+<p>运行 <code>compressa-perf</code> 工具来测量已部署配置的性能并收集相关指标。</p>
+<h3 id="4_1">4. 比较各配置的性能结果</h3>
+<p>分析从每个测试配置收集的指标（如 <code>TTFT</code>、<code>延迟</code> 和 <code>吞吐量</code>）。比较这些结果以确定在服务器环境中提供最佳性能的设置。</p>
+<h2 id="8x4070-sti-qwenqwq-32b">示例：8x4070 STi 服务器上的 <code>Qwen/QwQ-32B</code></h2>
+<p>假设我们有一台配备 8x4070 S Ti 的服务器。每个 GPU 有 16GB VRAM。
+我们已将 <code>MLNode</code> 容器部署到此服务器，具有以下端口映射：</p>
+<ul>
+<li>API 管理端口（默认 8080）映射到 <code>http://24.124.32.70:46195</code></li>
+<li>推理端口（默认 5000）映射到 <code>http://24.124.32.70:46085</code></li>
+</ul>
+<p>对于此示例，我们将使用 <code>Qwen/QwQ-32B</code> 模型，这是在 Gonka 部署的模型之一。它具有以下强制参数：</p>
+<ul>
+<li><code>--kv-cache-dtype fp8</code></li>
+<li><code>--quantization fp8</code></li>
+</ul>
+<h3 id="1_2">1. 使用强制参数建立初始配置</h3>
+<p>基于这些强制参数，<code>Qwen/QwQ-32B</code> 的初始配置必须包括：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked id="__tabbed_3_1" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">JSON</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nt">"Qwen/QwQ-32B"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"--kv-cache-dtype"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fp8"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="s2">"--quantization"</span><span class="p">,</span><span class="w"> </span><span class="s2">"fp8"</span><span class="p">,</span>
+<span class="w"> </span><span class="err">...</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<h3 id="2_2">2. 定义用于测试的潜在部署配置</h3>
+<p>具有这些参数的 <code>Qwen/QwQ-32B</code> 模型需要至少 80GB 的 VRAM 才能有效部署。因此，我们需要为每个实例使用至少 6x4070S Ti。我们无法在此服务器中容纳两个实例并希望使用所有 GPU，让我们部署一个使用 8 个 GPU 的单个实例（TP * PP = 8）。
+潜在配置可以包括：</p>
+<ul>
+<li><strong>TP=8, PP=1</strong></li>
+<li><strong>TP=4, PP=2</strong></li>
+<li>TP=2, PP=4</li>
+<li>TP=1, PP=8</li>
+</ul>
+<p>高管道并行性通常在单服务器部署中不会产生良好的性能。因此，在此示例中，我们只测试两种配置：</p>
+<ul>
+<li>配置 1（TP=8，PP=1）。</li>
+<li>配置 2（TP=4，PP=2）</li>
+</ul>
+<h3 id="3_2">3. 部署和测量每个配置</h3>
+<h4 id="31-1tp8pp1">3.1 配置 1（TP=8，PP=1）</h4>
+<h5 id="311">3.1.1. 部署</h5>
+<p>使用 Python 脚本部署模型：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked id="__tabbed_4_1" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p></p><div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">model_name</span> <span class="o">=</span> <span class="s2">"Qwen/QwQ-32B"</span>
+<span class="n">model_config</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s2">"args"</span><span class="p">:</span> <span class="p">[</span>
+       <span class="s2">"--quantization"</span><span class="p">,</span> <span class="s2">"fp8"</span><span class="p">,</span>
+       <span class="s2">"--tensor-parallel-size"</span><span class="p">,</span> <span class="s2">"8"</span><span class="p">,</span>
+       <span class="s2">"--pipeline-parallel-size"</span><span class="p">,</span> <span class="s2">"1"</span><span class="p">,</span>
+       <span class="s2">"--kv-cache-dtype"</span><span class="p">,</span> <span class="s2">"fp8"</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">inference_up</span><span class="p">(</span>
+   <span class="n">base_url</span><span class="o">=</span><span class="s2">"http://24.124.32.70:46195"</span><span class="p">,</span>
+   <span class="n">model</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+   <span class="n">config</span><span class="o">=</span><span class="n">model_config</span>
+<span class="p">)</span>
+</code></pre></div>
+预期状态：
+<div class="highlight"><pre><span></span><code>{"status": "OK"}
+</code></pre></div>
+<h5 id="312">3.1.2. 验证部署</h5>
+<p>在 MLNode 日志中，我们看到 vLLM 已成功部署：
+</p><div class="highlight"><pre><span></span><code>...
+INFO 05-15 23:50:01 [api_server.py:1024] Starting vLLM API server on http://0.0.0.0:5000
+INFO 05-15 23:50:01 [launcher.py:26] Available routes are:
+INFO 05-15 23:50:01 [launcher.py:34] Route: /openapi.JSON, Methods: GET, HEAD
+INFO 05-15 23:50:01 [launcher.py:34] Route: /docs, Methods: GET, HEAD
+INFO 05-15 23:50:01 [launcher.py:34] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+INFO 05-15 23:50:01 [launcher.py:34] Route: /redoc, Methods: GET, HEAD
+INFO 05-15 23:50:01 [launcher.py:34] Route: /health, Methods: GET
+INFO 05-15 23:50:01 [launcher.py:34] Route: /load, Methods: GET
+INFO 05-15 23:50:01 [launcher.py:34] Route: /ping, Methods: GET, POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /tokenize, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /detokenize, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /v1/models, Methods: GET
+INFO 05-15 23:50:01 [launcher.py:34] Route: /version, Methods: GET
+INFO 05-15 23:50:01 [launcher.py:34] Route: /v1/chat/completions, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /v1/completions, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /v1/embeddings, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /pooling, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /score, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /v1/score, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /v1/audio/transcriptions, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /rerank, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /v1/rerank, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /v2/rerank, Methods: POST
+INFO 05-15 23:50:01 [launcher.py:34] Route: /invocations, Methods: POST
+INFO:     Started server process [4437]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:37542 - "GET /v1/models HTTP/1.1" 200 OK
+</code></pre></div>
+要进一步验证，让我们通过 API 检查状态：
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked id="__tabbed_5_1" name="__tabbed_5" type="radio"><div class="tabbed-labels"><label for="__tabbed_5_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p></p><div class="highlight"><pre><span></span><code><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+   <span class="s2">"http://24.124.32.70:46195/api/v1/state"</span>
+<span class="p">)</span><span class="o">.</span><span class="n">JSON</span><span class="p">()</span>
+</code></pre></div>
+预期状态：
+<div class="highlight"><pre><span></span><code>{'state': 'INFERENCE'}
+</code></pre></div>
+模型已成功部署。
+<h5 id="313">3.1.3. ​​测量性能</h5>
+<p>开始性能测试：
+</p><div class="highlight"><pre><span></span><code>compressa-perf \
+        measure-from-yaml \
+        --no-sign \
+        --node_url http://24.124.32.70:46085 \
+        --model_name Qwen/QwQ-32B \
+        config.yml
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">如果发生错误请检查日志</p>
+<p>配置可能仍然无法按预期工作；如果发生错误，请检查 MLNode 日志进行故障排除。</p>
+</div>
+<p>测试完成后，我们可以看到结果：
+</p><div class="highlight"><pre><span></span><code>compressa-perf list --show-metrics --show-parameters
+</code></pre></div>
+结果：
+<p><img alt="配置 1 的结果" src="../../../host/results-for-configuration-1-%28tp%3D8-pp%3D1%29.png"></p>
+<h4 id="32-2tp4pp2">3.2. 配置 2（TP=4，PP=2）</h4>
+<h5 id="321">3.2.1. 部署</h5>
+<p>使用 Python 脚本部署模型：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked id="__tabbed_6_1" name="__tabbed_6" type="radio"><div class="tabbed-labels"><label for="__tabbed_6_1">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p></p><div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">model_name</span> <span class="o">=</span> <span class="s2">"Qwen/QwQ-32B"</span>
+<span class="n">model_config</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s2">"args"</span><span class="p">:</span> <span class="p">[</span>
+       <span class="s2">"--quantization"</span><span class="p">,</span> <span class="s2">"fp8"</span><span class="p">,</span>
+       <span class="s2">"--tensor-parallel-size"</span><span class="p">,</span> <span class="s2">"4"</span><span class="p">,</span>
+       <span class="s2">"--pipeline-parallel-size"</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">,</span>
+       <span class="s2">"--kv-cache-dtype"</span><span class="p">,</span> <span class="s2">"fp8"</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">inference_up</span><span class="p">(</span>
+   <span class="n">base_url</span><span class="o">=</span><span class="s2">"http://24.124.32.70:46195"</span><span class="p">,</span>
+   <span class="n">model</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+   <span class="n">config</span><span class="o">=</span><span class="n">model_config</span>
+<span class="p">)</span>
+</code></pre></div>
+预期状态：
+<div class="highlight"><pre><span></span><code>{"status": "OK"}
+</code></pre></div>
+<h5 id="322">3.2.2. 验证部署</h5>
+<p>检查日志显示成功部署，<code>/api/v1/state</code> 仍然返回 <code>{'state': 'INFERENCE'}</code></p>
+<h5 id="323">3.2.3. ​​测量性能</h5>
+<p>使用相同命令第二次测量性能：
+</p><div class="highlight"><pre><span></span><code>compressa-perf \
+        measure-from-yaml \
+        --no-sign \
+        --node_url http://24.124.32.70:46085 \
+        --model_name Qwen/QwQ-32B \
+        config.yml
+</code></pre></div>
+测试完成后，我们可以检查结果：
+<div class="highlight"><pre><span></span><code>compressa-perf list --show-metrics --show-parameters
+</code></pre></div>
+<img alt="配置 2 的结果" src="../../../host/results-for-configuration-2-%28tp%3D4-pp%3D2%29.png">
+<h3 id="4_2">4. 比较各配置的性能结果</h3>
+<p>我们的实验显示以下指标：</p>
+<table>
+<thead>
+<tr>
+<th><strong>实验</strong></th>
+<th><strong>指标</strong></th>
+<th><strong>TP 8, PP 1</strong></th>
+<th><strong>TP 4, PP 2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~1000 令牌输入 / ~300 令牌输出</td>
+<td><strong>TTFT</strong></td>
+<td>6.2342</td>
+<td><strong>4.7595</strong></td>
+</tr>
+<tr>
+<td>~1000 令牌输入 / ~300 令牌输出</td>
+<td><strong>输入吞吐量</strong></td>
+<td>497.8204</td>
+<td>500.2883</td>
+</tr>
+<tr>
+<td>~1000 令牌输入 / ~300 令牌输出</td>
+<td><strong>输出吞吐量</strong></td>
+<td>143.3828</td>
+<td>144.0936</td>
+</tr>
+<tr>
+<td>~1000 令牌输入 / ~300 令牌输出</td>
+<td><strong>延迟</strong></td>
+<td>20.9172</td>
+<td>20.8093</td>
+</tr>
+<tr>
+<td>~23000 令牌输入 / ~1000 令牌输出</td>
+<td><strong>TTFT</strong></td>
+<td>57.7112</td>
+<td><strong>28.6839</strong></td>
+</tr>
+<tr>
+<td>~23000 令牌输入 / ~1000 令牌输出</td>
+<td><strong>输入吞吐量</strong></td>
+<td>840.3887</td>
+<td><strong>1017.6811</strong></td>
+</tr>
+<tr>
+<td>~23000 令牌输入 / ~1000 令牌输出</td>
+<td><strong>输出吞吐量</strong></td>
+<td>35.7324</td>
+<td><strong>43.3700</strong></td>
+</tr>
+<tr>
+<td>~23000 令牌输入 / ~1000 令牌输出</td>
+<td><strong>延迟</strong></td>
+<td>271.9932</td>
+<td><strong>223.6245</strong></td>
+</tr>
+</tbody>
+</table>
+<p>TP=4 和 PP=2 设置显示了一致的更好性能，我们应该使用它。</p></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

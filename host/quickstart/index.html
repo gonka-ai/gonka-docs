@@ -1,0 +1,2959 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/host/quickstart/">
+      
+      
+        <link rel="prev" href="../../developer/details/">
+      
+      
+        <link rel="next" href="../../architecture/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../zh/host/quickstart/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Quickstart - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - Quickstart">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/host/quickstart/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#setting-up-your-chain" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quickstart
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../zh/host/quickstart/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Details
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Host
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposed-hardware-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proposed Hardware Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-access-proxy-and-ports-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network access, proxy, and ports (IMPORTANT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-your-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Your Nodes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup Your Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-management-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Management Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-machine-install-the-cli-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Local machine] Install the CLI Tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-machine-create-account-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Local machine] Create Account Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-download-deployment-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Download Deployment Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-setup-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Setup Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-edit-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Edit Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-edit-inference-node-description-for-the-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Edit Inference Node Description for the Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-pre-download-model-weights-to-hugging-face-cache-hf_home" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch Nodes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launch Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-server-pull-docker-images-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. [Server] Pull Docker Images (Containers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-server-start-initial-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. [Server] Start Initial Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-complete-key-setup-and-host-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Complete Key Setup and Host Registration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Complete Key Setup and Host Registration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-server-create-ml-operational-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. [Server] Create ML Operational Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-server-register-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. [Server] Register Host
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-local-machine-grant-permissions-to-ml-operational-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. [Local machine] Grant Permissions to ML Operational Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-server-manual-ssl-certificate-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. [Server] Manual SSL Certificate Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4. [Server] Manual SSL Certificate Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prepare-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prepare directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-certificates-dockerized-certbot-dns01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate certificates (Dockerized Certbot; DNS‑01)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-certificate-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify certificate files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-server-launch-full-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. [Server] Launch Full Node
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-node-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify Node Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stopping-and-cleaning-up-your-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stopping and Cleaning Up Your Node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stopping and Cleaning Up Your Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-stop-your-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to stop your node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-clean-up-your-node-full-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to clean up your node (full reset)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark to Choose Optimal Deployment Config for LLMs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to edit Host public info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Node API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wallet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pricing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model licenses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Help
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposed-hardware-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proposed Hardware Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-access-proxy-and-ports-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network access, proxy, and ports (IMPORTANT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-your-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Your Nodes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup Your Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-management-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Management Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-machine-install-the-cli-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Local machine] Install the CLI Tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-machine-create-account-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Local machine] Create Account Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-download-deployment-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Download Deployment Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-setup-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Setup Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-edit-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Edit Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-edit-inference-node-description-for-the-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Edit Inference Node Description for the Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-pre-download-model-weights-to-hugging-face-cache-hf_home" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch Nodes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launch Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-server-pull-docker-images-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. [Server] Pull Docker Images (Containers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-server-start-initial-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. [Server] Start Initial Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-complete-key-setup-and-host-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Complete Key Setup and Host Registration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Complete Key Setup and Host Registration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-server-create-ml-operational-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. [Server] Create ML Operational Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-server-register-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. [Server] Register Host
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-local-machine-grant-permissions-to-ml-operational-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. [Local machine] Grant Permissions to ML Operational Key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-server-manual-ssl-certificate-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. [Server] Manual SSL Certificate Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4. [Server] Manual SSL Certificate Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prepare-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prepare directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-certificates-dockerized-certbot-dns01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate certificates (Dockerized Certbot; DNS‑01)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-certificate-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify certificate files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-server-launch-full-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. [Server] Launch Full Node
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-node-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify Node Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stopping-and-cleaning-up-your-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stopping and Cleaning Up Your Node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stopping and Cleaning Up Your Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-stop-your-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to stop your node
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-clean-up-your-node-full-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to clean up your node (full reset)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="setting-up-your-chain">Setting up your chain</h1>
+<p><strong>Host</strong> (<strong>hardware provider</strong> or <strong>node</strong>) contributes computational resources to the network and is rewarded based on the amount and quality of resources they provide.</p>
+<p>To join the network, you need to deploy two services:</p>
+<ul>
+<li><strong>Network Node</strong> – a service consisting of two nodes: a <strong>Chain Node</strong> and an <strong>API Node</strong>. This service handles all communication. The <strong>Chain Node</strong> connects to the blockchain, while the <strong>API Node</strong> manages user requests.</li>
+<li><strong>Inference (ML) node</strong> – a service that performs inference of large language models (LLMs) on GPU(s). You need at least one <strong>ML Node</strong> to join the network.</li>
+</ul>
+<p>The guide describes a scenario in which both services are deployed on the same machine, and each Host has one ML Node. Services are deployed as Docker containers.</p>
+<details class="note">
+<summary>Live Demo — How to Launch a Node (Quickstart for Hosts)</summary>
+<p>The video recording of the demo session for launching a node via the quickstart is available below. Some steps in the recording may differ from the instructions below, as the quickstart is updated continuously based on community feedback. Always follow the written quickstart - it reflects the current and correct procedure.</p>
+<p></p><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+  <iframe src="https://www.youtube.com/embed/DWOeHQoU_LY" title="Gonka: Live Demo — How to Launch a Node (Quickstart for Hosts)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+  </iframe>
+</div>
+</details>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>This  section provides guidance on configuring your hardware infrastructure to participate in Gonka Network launch. The goal is to maximize protocol rewards by aligning your deployment with network expectations.</p>
+<h3 id="supported-model">Supported Model</h3>
+<p>The protocol currently supports a single model for inference and Proof of Compute (PoC) <code>Qwen/Qwen3-235B-A22B-Instruct-2507-FP8</code>. This model is used for PoC v2 participation and weight assignment. </p>
+<div class="admonition note">
+<p class="admonition-title">Governance and model classification</p>
+<ul>
+<li>Models may be classified into a category if approved by governance.</li>
+<li>Decisions about adding or changing supported models are made by governance.</li>
+<li>For details on governance procedures and how to propose new models, see the <a href="https://gonka.ai/transactions-and-governance/">Transactions and Governance Guide</a>.</li>
+</ul>
+</div>
+<h3 id="proposed-hardware-configuration">Proposed Hardware Configuration</h3>
+<p>To run a valid node, you need machines with <a href="/host/hardware-specifications/">supported GPU(s)</a>. Below is a reference layout:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Model Name</strong></th>
+<th><strong>ML Nodes (min)</strong></th>
+<th><strong>Example Hardware</strong></th>
+<th><strong>Minimum VRAM per ML Node</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Qwen/Qwen3-235B-A22B-Instruct-2507-FP8</code></td>
+<td>≥ 2</td>
+<td>8× H200 per MLNode</td>
+<td>640 GB</td>
+</tr>
+</tbody>
+</table>
+<p>This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple ML Nodes across all model tiers.</p>
+<p>More details about the optimal deployment configuration can be found <a href="https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/">here</a>.</p>
+<p>The server hosting the Network Node should have:</p>
+<ul>
+<li>16-core CPU (amd64)</li>
+<li>64+ GB RAM</li>
+<li>1TB NVMe SSD</li>
+<li>100Mbps minimum network connection (1Gbps preferred)</li>
+</ul>
+<p>The final requirements will depend on the number of ML Nodes connected and their total throughput.</p>
+<p>Each server to deploy ML Node should have:</p>
+<ul>
+<li>at least 1.5x RAM of GPU VRAM</li>
+<li>a 16-core CPU (Network Node and ML Node can be deployed on the same server).</li>
+<li>NVIDIA Container Toolkit installed and configured, with a CUDA Toolkit version between 12.6 and 12.9. You can check the version with <code>nvidia-smi</code>.</li>
+</ul>
+<h3 id="network-access-proxy-and-ports-important">Network access, proxy, and ports (IMPORTANT)</h3>
+<p>Gonka Network uses a proxy-based architecture to protect nodes from abuse and DDoS attacks. All public HTTP/HTTPS traffic MUST go through the proxy container. Direct exposure of Network Node or ML Node services is not secure.</p>
+<div class="admonition note">
+<p class="admonition-title">Publicly exposed ports</p>
+<p>The following ports may be exposed to the public internet:</p>
+<ul>
+<li>5000 - Tendermint P2P communication</li>
+<li>8000 / 8443 - Application service via proxy only</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">WARNING: Internal ports</p>
+<p>The following ports are internal-only and MUST NOT be publicly accessible:</p>
+<ul>
+<li>26657 - Tendermint RPC</li>
+<li>9100, 9200 — Network Node internal API</li>
+<li>5050 — ML Node / vLLM inference API</li>
+<li>8080 — ML Node API</li>
+</ul>
+<p>If any of these ports are exposed to the public internet, your node is vulnerable. A third party can freely send requests, overload your ML Node, disrupt mining, or cause your node to drop out of an epoch.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Allow access to these ports only from localhost, a private network or whitelisting</li>
+<li>Never expose them publicly</li>
+<li>Docker defaults are NOT secure</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Starting from Upgrade 0.2.8</p>
+<p>To enhance security and performance by default, the following routing controls and chain service restrictions are automatically applied unless explicitly overridden.
+</p><div class="highlight"><span class="filename">API Manual Routes Control</span><pre><span></span><code><span class="w">      </span><span class="c1"># Defines which routes bypass rate limits (Exempt) vs those completely disabled (Blocked)</span>
+<span class="w">      </span>-<span class="w"> </span><span class="nv">GONKA_API_EXEMPT_ROUTES</span><span class="o">=</span>chat<span class="w"> </span>inference
+<span class="w">      </span>-<span class="w"> </span><span class="nv">GONKA_API_BLOCKED_ROUTES</span><span class="o">=</span>poc-batches<span class="w"> </span>training
+</code></pre></div>
+<div class="highlight"><span class="filename">Chain Routes Disabling</span><pre><span></span><code><span class="w">      </span><span class="c1"># Disables public access to Chain services by default</span>
+<span class="w">      </span>-<span class="w"> </span><span class="nv">DISABLE_CHAIN_API</span><span class="o">=</span><span class="si">${</span><span class="nv">DISABLE_CHAIN_API</span><span class="k">:-</span><span class="nv">true</span><span class="si">}</span>
+<span class="w">      </span>-<span class="w"> </span><span class="nv">DISABLE_CHAIN_RPC</span><span class="o">=</span><span class="si">${</span><span class="nv">DISABLE_CHAIN_RPC</span><span class="k">:-</span><span class="nv">true</span><span class="si">}</span>
+<span class="w">      </span>-<span class="w"> </span><span class="nv">DISABLE_CHAIN_GRPC</span><span class="o">=</span><span class="si">${</span><span class="nv">DISABLE_CHAIN_GRPC</span><span class="k">:-</span><span class="nv">true</span><span class="si">}</span>
+</code></pre></div>
+</div>
+<p>The following cases describe internal port isolation for Network Node and ML Node services. These rules apply after the proxy is configured as the only public entry point. They do NOT replace the proxy and must be used together with it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">CASE 1: ML Node and Network Node on the SAME machine</label><label for="__tabbed_1_2">CASE 2: ML Node and Network Node on DIFFERENT machines</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Bind ports to localhost only.        </p>
+<p><strong>Network Node (<code>docker-compose.yml</code>)</strong></p>
+<p>If your ML Node container and Network Node containers are on the same machine, you can simply edit <code>gonka/deploy/join/docker-compose.yml</code>:
+</p><div class="highlight"><pre><span></span><code>api:
+    ports:
+        - "127.0.0.1:9100:9100"
+        - "127.0.0.1:9200:9200"
+</code></pre></div>
+<p><strong>ML Node (<code>docker-compose.mlnode.yml</code>)</strong>
+</p><div class="highlight"><pre><span></span><code>ports:
+    - "127.0.0.1:${PORT:-8080}:8080"
+    - "127.0.0.1:${INFERENCE_PORT:-5050}:5000"
+</code></pre></div>
+<p>Do NOT use:</p>
+<ul>
+<li>"9100:9100"</li>
+<li>"9200:9200"</li>
+<li>"5050:5000"</li>
+<li>"8080:8080"</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>In this setup, ALL communication between Network Node and ML Node must happen over a private network. Public IPs or public DNS names MUST NOT be used for:</p>
+<ul>
+<li>ML Node APIs</li>
+<li><code>DAPI_API__POC_CALLBACK_URL</code></li>
+</ul>
+<p>If ML Node and Network Node containers are on different machines, the fix described in Case 1 won't work and the particular way of protecting these ports depends on your setup. You should setup connection between ML Node and Network containers either using the same docker network, or by setting up a private network between the machines, exposing the ports in this network and closing the port for public. In this case you should also properly set up <code>DAPI_API__POC_CALLBACK_URL</code> variable in config. This URL must point to a private/internal address, not a public address.</p>
+</div>
+</div>
+</div>
+<h2 id="setup-your-nodes">Setup Your Nodes</h2>
+<p>The quickstart instructions are designed to run both the Network Node and the inference node on a single machine (one server setup). </p>
+<details class="note">
+<summary>Multiple nodes deployment</summary>
+<p>If you are deploying multiple GPU nodes, please refer to the detailed <a href="https://gonka.ai/host/multiple-nodes/">Multiple nodes deployment guide</a> for proper setup and configuration. Whether you deploy inference nodes on a single machine or across multiple servers (including across geographical regions), all inference nodes must be connected to the same Network Node.</p>
+</details>
+<h3 id="key-management-overview">Key Management Overview</h3>
+<p>Before configuring your Network Node, you need to set up cryptographic keys for secure operations.<br>
+<strong>It is recommended to read the <a href="/host/key-management/">Key Management Guide</a> before launching a production node.</strong></p>
+<p>We use a three-key system:</p>
+<ul>
+<li><strong>Account Key</strong> (Cold Wallet) - Created on your local secure machine for high-stakes operations</li>
+<li><strong>Consensus Key</strong> (TMKMS - Warm Storage) - Managed by secure TMKMS service and used for block validation and network consensus participation</li>
+<li><strong>ML Operational Key</strong> (Warm Wallet) - Created on the server for automated AI workload transactions</li>
+</ul>
+<h3 id="local-machine-install-the-cli-tool">[Local machine] Install the CLI Tool</h3>
+<p>The <code>inferenced</code> CLI is required for local account management and network operations. It's a command-line interface utility that allows you to create and manage Gonka accounts, register hosts, and perform various network operations from your local machine.</p>
+<p>Download the latest <code>inferenced</code> binary from <a href="https://github.com/gonka-ai/gonka/releases">GitHub releases</a> and make it executable.</p>
+<div class="admonition note">
+<p class="admonition-title">Important</p>
+<p>Please make sure you are using the CLI tool <a href="https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9">version 0.2.9</a> or newer. Older versions are not supported for permission granting and may lead to unexpected behavior.</p>
+</div>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>inferenced
+./inferenced<span class="w"> </span>--help
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">MacOS Users</p>
+<p>On macOS, you may need to allow execution in <code>System Settings</code> → <code>Privacy &amp; Security</code> if prompted. Scroll down to the warning about <code>inferenced</code> and click <code>Allow Anyway</code>.</p>
+</div>
+<h3 id="local-machine-create-account-key">[Local machine] Create Account Key</h3>
+<p><strong>IMPORTANT: Perform this step on a secure, local machine (not your server)</strong></p>
+<details class="note">
+<summary>About Account Key (Cold Key)</summary>
+<p>The Account Key is your primary, high-privilege key. It is created locally and never stored on your servers.</p>
+<ul>
+<li>Master key that grants permissions to all other keys</li>
+<li>Must be stored offline on a secure, air-gapped machine</li>
+<li>Only for granting permissions and validator registration</li>
+<li>Protected by mnemonic phrase - if lost, all access is permanently lost</li>
+</ul>
+</details>
+<p>Create your Account Key using the <code>file</code> keyring backend (you can also use <code>os</code> for enhanced security on supported systems):</p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>keys<span class="w"> </span>add<span class="w"> </span>gonka-account-key<span class="w"> </span>--keyring-backend<span class="w"> </span>file
+</code></pre></div>
+<p>CLI will ask you for passphrase and show data about created key-pair.
+</p><div class="highlight"><pre><span></span><code>❯ ./inferenced keys add gonka-account-key --keyring-backend file
+Enter keyring passphrase (attempt 1/3):
+Re-enter keyring passphrase:
+
+- address: gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+  name: gonka-account-key
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY"}'
+  type: local
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+pyramid sweet dumb critic lamp various remove token talent drink announce tiny lab follow blind awful expire wasp flavor very pair tell next cable
+</code></pre></div>
+<p><strong>CRITICAL</strong>: Write this mnemonic phrase down and store it in a secure, offline location. This phrase is the <strong>only</strong> way to recover your Account Key.</p>
+<div class="admonition info">
+<p class="admonition-title">Hardware Wallet Support</p>
+<p><strong>Current Status</strong>: Hardware wallets are not yet supported at network launch.</p>
+<p><strong>For Now</strong>: Store your Account Key on a secure, dedicated machine with minimal internet exposure and strong encryption.</p>
+<p><strong>Important</strong>: Always keep your mnemonic phrase as a backup regardless of future hardware wallet adoption.</p>
+</div>
+<h3 id="server-download-deployment-files">[Server] Download Deployment Files</h3>
+<p>Clone the repository with the base deploy scripts:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/gonka-ai/gonka.git<span class="w"> </span>-b<span class="w"> </span>main<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="nb">cd</span><span class="w"> </span>gonka/deploy/join
+</code></pre></div>
+<p>And copy <code>config</code> file template:
+</p><div class="highlight"><pre><span></span><code>cp config.env.template config.env
+</code></pre></div>
+<p>After cloning the repository, you’ll find the following key configuration files:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config.env</code></td>
+<td>Contains environment variables for the Network Node</td>
+</tr>
+<tr>
+<td><code>docker-compose.yml</code></td>
+<td>Docker Compose file to launch the Network Node</td>
+</tr>
+<tr>
+<td><code>docker-compose.mlnode.yml</code></td>
+<td>Docker Compose file to launch the ML Node</td>
+</tr>
+<tr>
+<td><code>node-config.json</code></td>
+<td>The configuration file used by the Network Node, describes the inference nodes managed by this Network Node</td>
+</tr>
+</tbody>
+</table>
+<h3 id="server-setup-environment-variables">[Server] Setup Environment Variables</h3>
+<!-- CONDITION START: data-show-when='["non-finished"]' -->
+<div class="admonition note">
+<p class="admonition-title">Configuration Required</p>
+<p>Please complete the questionnaire to generate your <code>config.env</code> configuration. The environment variables depend on your choices (HTTP/HTTPS, SSL certificate method, etc.).</p>
+</div>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["domainNo"]' -->
+<div class="admonition warning">
+<p class="admonition-title">HTTPS Not Available Without Domain Name</p>
+<p>SSL/TLS certificates can only be issued for domain names (e.g., <code>example.com</code>), not for direct IP addresses. Since you indicated you don't have a domain name configured, your node will be set up with <strong>HTTP only</strong> (port 8000). </p>
+<p>If you need HTTPS security, you'll need to:</p>
+<ol>
+<li>Obtain a domain name and configure DNS to point to your server's IP address</li>
+<li>Press the <strong>"Reset"</strong> button above and select <strong>"Yes"</strong> when asked about having a domain name</li>
+</ol>
+<p>For production deployments, HTTPS is strongly recommended to encrypt API communications and protect sensitive data.</p>
+</div>
+<!-- CONDITION END -->
+
+<div id="quickstart-questionnaire" class="quickstart-questionnaire">
+  <div id="quickstart-questions"></div>
+
+  <div id="quickstart-config-result" style="display: none;">
+    <div class="admonition note">
+      <p class="admonition-title">config.env</p>
+      <div id="quickstart-config-display">
+        <pre><code></code></pre>
+      </div>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.7rem; color: var(--md-default-fg-color--light);">Copy the configuration above and proceed to edit the values as described below.</p>
+    <button class="quickstart-copy-btn">Copy to Clipboard</button>
+    <button class="quickstart-reset-btn">Reset</button>
+  </div>
+</div>
+
+<!-- CONDITION START: data-show-when='["finished"]' -->
+
+<p>If your node cannot connect to the default seed node, <a href="https://gonka.ai/FAQ/#my-node-cannot-connect-to-the-default-seed-node-specified-in-the-configenv">see the FAQ for details.</a></p>
+<h3 id="server-edit-environment-variables">[Server] Edit Environment Variables</h3>
+<p>Which variables to edit:</p>
+<div id="quickstart-edit-table"></div>
+
+<p>All other variables can be left as is.</p>
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto"]' -->
+<p><strong>How to get variables from domain providers:</strong></p>
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "cloudflare"]' -->
+<details class="details">
+<summary>Cloudflare</summary>
+<p>1) Open the Cloudflare Dashboard.</p>
+<p>2) Go to Profile → API Tokens.</p>
+<p>3) Click Create Token.</p>
+<p>4) Use Edit zone DNS template or set permissions: Zone:Read and DNS:Edit.</p>
+<p>5) Limit the token to your DNS zone and create it.</p>
+<p>6) Copy the token and set <code>CF_DNS_API_TOKEN</code>.</p>
+</details>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "route53"]' -->
+<details class="details">
+<summary>AWS Route53</summary>
+<p><strong>Option A — AWS CLI</strong>
+</p><div class="highlight"><pre><span></span><code><span class="nv">HOSTED_ZONE_ID</span><span class="o">=</span><span class="s2">"Z123EXAMPLE"</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>route53-acme.json<span class="w"> </span><span class="s">&lt;&lt;'JSON'</span>
+<span class="s">{</span>
+<span class="s">"Version": "2012-10-17",</span>
+<span class="s">"Statement": [</span>
+<span class="s">    {</span>
+<span class="s">    "Effect": "Allow",</span>
+<span class="s">    "Action": ["route53:ChangeResourceRecordSets"],</span>
+<span class="s">    "Resource": "arn:aws:route53:::hostedzone/${HOSTED_ZONE_ID}"</span>
+<span class="s">    },</span>
+<span class="s">    {</span>
+<span class="s">    "Effect": "Allow",</span>
+<span class="s">    "Action": [</span>
+<span class="s">        "route53:ListHostedZones",</span>
+<span class="s">        "route53:ListHostedZonesByName",</span>
+<span class="s">        "route53:ListResourceRecordSets",</span>
+<span class="s">        "route53:GetChange"</span>
+<span class="s">    ],</span>
+<span class="s">    "Resource": "*"</span>
+<span class="s">    }</span>
+<span class="s">]</span>
+<span class="s">}</span>
+<span class="s">JSON</span>
+
+aws<span class="w"> </span>iam<span class="w"> </span>create-policy<span class="w"> </span><span class="se">\</span>
+--policy-name<span class="w"> </span>acme-dns-route53-<span class="si">${</span><span class="nv">HOSTED_ZONE_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--policy-document<span class="w"> </span>file://route53-acme.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.Policy.Arn
+
+<span class="nv">USER_NAME</span><span class="o">=</span><span class="s2">"acme-dns"</span>
+<span class="nv">POLICY_ARN</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>iam<span class="w"> </span>list-policies<span class="w"> </span>--query<span class="w"> </span><span class="s2">"Policies[?PolicyName=='acme-dns-route53-</span><span class="si">${</span><span class="nv">HOSTED_ZONE_ID</span><span class="si">}</span><span class="s2">'].Arn"</span><span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+aws<span class="w"> </span>iam<span class="w"> </span>create-user<span class="w"> </span>--user-name<span class="w"> </span><span class="s2">"</span><span class="nv">$USER_NAME</span><span class="s2">"</span><span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+aws<span class="w"> </span>iam<span class="w"> </span>attach-user-policy<span class="w"> </span>--user-name<span class="w"> </span><span class="s2">"</span><span class="nv">$USER_NAME</span><span class="s2">"</span><span class="w"> </span>--policy-arn<span class="w"> </span><span class="s2">"</span><span class="nv">$POLICY_ARN</span><span class="s2">"</span>
+<span class="nv">CREDS</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>iam<span class="w"> </span>create-access-key<span class="w"> </span>--user-name<span class="w"> </span><span class="s2">"</span><span class="nv">$USER_NAME</span><span class="s2">"</span><span class="k">)</span>
+<span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.AccessKey.AccessKeyId<span class="k">)</span>
+<span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.AccessKey.SecretAccessKey<span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AWS_ACCESS_KEY_ID=</span><span class="nv">$AWS_ACCESS_KEY_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AWS_SECRET_ACCESS_KEY=</span><span class="nv">$AWS_SECRET_ACCESS_KEY</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AWS_REGION=&lt;your-aws-region&gt;"</span>
+</code></pre></div>
+<p><strong>Option B — Console</strong></p>
+<p>1) Create an IAM policy limited to your hosted zone (ChangeResourceRecordSets and list permissions).</p>
+<p>2) Create an IAM user with programmatic access.</p>
+<p>3) Attach the policy to the user.</p>
+<p>4) Create an access key pair and set <code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, and <code>AWS_REGION</code>.</p>
+</details>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "gcloud"]' -->
+<details class="details">
+<summary>Google Cloud DNS</summary>
+<p><strong>Option A — gcloud CLI:</strong>
+</p><div class="highlight"><pre><span></span><code><span class="nv">PROJECT_ID</span><span class="o">=</span><span class="s2">"&lt;your-gcp-project&gt;"</span>
+<span class="nv">SA_NAME</span><span class="o">=</span><span class="s2">"acme-dns"</span>
+<span class="nv">SA_EMAIL</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SA_NAME</span><span class="s2">@</span><span class="nv">$PROJECT_ID</span><span class="s2">.iam.gserviceaccount.com"</span>
+
+gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project<span class="w"> </span><span class="s2">"</span><span class="nv">$PROJECT_ID</span><span class="s2">"</span>
+<span class="c1"># 1) Service account</span>
+gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>create<span class="w"> </span><span class="s2">"</span><span class="nv">$SA_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--display-name<span class="w"> </span><span class="s2">"ACME DNS for proxy-ssl"</span>
+<span class="c1"># 2) Role</span>
+gcloud<span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span><span class="s2">"</span><span class="nv">$PROJECT_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--member<span class="w"> </span><span class="s2">"serviceAccount:</span><span class="nv">$SA_EMAIL</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--role<span class="w"> </span><span class="s2">"roles/dns.admin"</span>
+<span class="c1"># 3) Key → base64 (single line)</span>
+gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>keys<span class="w"> </span>create<span class="w"> </span>key.json<span class="w"> </span>--iam-account<span class="w"> </span><span class="s2">"</span><span class="nv">$SA_EMAIL</span><span class="s2">"</span>
+<span class="nv">GCE_SERVICE_ACCOUNT_JSON_B64</span><span class="o">=</span><span class="k">$(</span>base64<span class="w"> </span>&lt;<span class="w"> </span>key.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\n'</span><span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"GCE_PROJECT=</span><span class="nv">$PROJECT_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"GCE_SERVICE_ACCOUNT_JSON_B64=</span><span class="nv">$GCE_SERVICE_ACCOUNT_JSON_B64</span><span class="s2">"</span>
+</code></pre></div>
+<strong>Option B — Console</strong>
+<p>1) IAM &amp; Admin → Service Accounts → Create service account (e.g., acme-dns).</p>
+<p>2) Grant the service account role: DNS Administrator (<code>roles/dns.admin</code>).</p>
+<p>3) Service account → Keys → Add key → Create new key (JSON) → Download.</p>
+<p>4) Base64-encode the JSON key to a single line and set <code>GCE_SERVICE_ACCOUNT_JSON_B64</code>. Set <code>GCE_PROJECT</code> to your project ID.</p>
+</details>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "azure"]' -->
+<details class="details">
+<summary>Azure DNS</summary>
+<p><strong>Option A — Azure CLI</strong> (quick)
+</p><div class="highlight"><pre><span></span><code><span class="c1"># 1) Login and choose subscription</span>
+az<span class="w"> </span>login
+az<span class="w"> </span>account<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--subscription<span class="w"> </span><span class="s2">"&lt;your-subscription-name-or-id&gt;"</span>
+
+<span class="c1"># 2) Set where your DNS zone lives</span>
+<span class="nv">RG</span><span class="o">=</span><span class="s2">"&lt;&lt;your-dns-resource-group&gt;&gt;"</span>
+<span class="nv">ZONE</span><span class="o">=</span><span class="s2">"&lt;&lt;your-zone&gt;&gt;"</span><span class="w">         </span><span class="c1"># e.g., gonka.ai</span>
+<span class="nv">SP_NAME</span><span class="o">=</span><span class="s2">"gonka-acme-</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="s2">"</span>
+
+<span class="nv">SUBSCRIPTION_ID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>id<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+<span class="nv">SCOPE</span><span class="o">=</span><span class="s2">"/subscriptions/</span><span class="nv">$SUBSCRIPTION_ID</span><span class="s2">/resourceGroups/</span><span class="nv">$RG</span><span class="s2">/providers/Microsoft.Network/dnszones/</span><span class="nv">$ZONE</span><span class="s2">"</span>
+
+<span class="nv">CREDS</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>create-for-rbac<span class="w"> </span><span class="se">\</span>
+--name<span class="w"> </span><span class="s2">"</span><span class="nv">$SP_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--role<span class="w"> </span><span class="s2">"DNS Zone Contributor"</span><span class="w"> </span><span class="se">\</span>
+--scopes<span class="w"> </span><span class="s2">"</span><span class="nv">$SCOPE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--only-show-errors<span class="k">)</span>
+
+<span class="c1"># 4) Extract values</span>
+<span class="nv">AZURE_CLIENT_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.appId<span class="k">)</span>
+<span class="nv">AZURE_CLIENT_SECRET</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.password<span class="k">)</span>
+<span class="nv">AZURE_TENANT_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.tenant<span class="k">)</span>
+
+<span class="c1"># 5) Print for your env file</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_CLIENT_ID=</span><span class="nv">$AZURE_CLIENT_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_CLIENT_SECRET=</span><span class="nv">$AZURE_CLIENT_SECRET</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_SUBSCRIPTION_ID=</span><span class="nv">$SUBSCRIPTION_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_TENANT_ID=</span><span class="nv">$AZURE_TENANT_ID</span><span class="s2">"</span>
+</code></pre></div>
+<strong>Option B — Portal</strong>
+<p>1) Go to Microsoft Entra ID → App registrations → New registration. Copy Application (client) ID and Directory (tenant) ID.</p>
+<p>2) Go to Certificates &amp; secrets → New client secret. Copy the secret value and set <code>AZURE_CLIENT_SECRET</code>.</p>
+<p>3) Copy your Subscription ID and set <code>AZURE_SUBSCRIPTION_ID</code>.</p>
+<p>4) In your DNS zone, open Access control (IAM) → Add role assignment → DNS Zone Contributor → assign to the registered app.</p>
+</details>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "digitalocean"]' -->
+<details class="details">
+<summary>DigitalOcean DNS</summary>
+<p>1) Open DigitalOcean Control Panel.</p>
+<p>2) Go to API → Tokens.</p>
+<p>3) Generate a write‑scoped token and set <code>DO_AUTH_TOKEN</code>.</p>
+</details>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "hetzner"]' -->
+<details class="details">
+<summary>Hetzner DNS</summary>
+<p>1) Open https://dns.hetzner.com.</p>
+<p>2) Go to API Tokens.</p>
+<p>3) Create a new token and set <code>HETZNER_API_KEY</code>.</p>
+</details>
+<!-- CONDITION END -->
+<!-- CONDITION END -->
+
+<p><strong>Load the configuration:</strong>
+</p><div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Using Environment Variables</p>
+<p>The examples in the following sections will reference these environment variables (e.g., <code>$PUBLIC_URL</code>, <code>$ACCOUNT_PUBKEY</code>, <code>$SEED_API_URL</code>) in both local machine commands and server commands. Make sure to run <code>source config.env</code> in each terminal session where you'll be executing these commands.</p>
+</div>
+<!-- CONDITION END -->
+
+<h3 id="server-edit-inference-node-description-for-the-server">[Server] Edit Inference Node Description for the Server</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The network currently supports the Qwen/Qwen3-235B-A22B-Instruct-2507-FP8 only. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the <a href="https://gonka.ai/transactions-and-governance/">Transactions and Governance Guide</a>.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">4xH100 (same works for 8xH200 or 8xH100)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="admonition note">
+<p class="admonition-title">edit node-config.json</p>
+<div class="highlight"><pre><span></span><code>[
+    {
+        "id": "node1",
+        "host": "inference",
+        "inference_port": 5000,
+        "poc_port": 8080,
+        "max_concurrent": 500,
+        "models": {
+            "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+                "args": [
+                    "--tensor-parallel-size", "4"
+                ]
+            }
+        }
+    }
+]
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>For more details on the optimal deployment configuration, please refer to <a href="https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/">this link</a>.</p>
+<h3 id="server-pre-download-model-weights-to-hugging-face-cache-hf_home">[Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)</h3>
+<p>Inference nodes download model weights from Hugging Face.
+To make sure the model weights are ready for inference, you should download them before deployment.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked id="__tabbed_3_1" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">8xH100, 8xH200 or Other GPUs</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HF_HOME</span>
+huggingface-cli<span class="w"> </span>download<span class="w"> </span>Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="launch-nodes">Launch Nodes</h2>
+<h3 id="1-server-pull-docker-images-containers">1. [Server] Pull Docker Images (Containers)</h3>
+<p>Make sure you are in the <code>gonka/deploy/join</code> folder before running the next commands. 
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>pull
+</code></pre></div>
+<h3 id="2-server-start-initial-services">2. [Server] Start Initial Services</h3>
+<p>Start the essential services needed for key setup (excluding the API service):</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>tmkms<span class="w"> </span>node<span class="w"> </span>-d<span class="w"> </span>--no-deps
+</code></pre></div>
+<p>We start these specific containers first because:</p>
+<ul>
+<li><strong><code>tmkms</code></strong> - Generates and securely manages the Consensus Key needed for validator registration</li>
+<li><strong><code>node</code></strong> - Connects to the blockchain and provides the RPC endpoint to retrieve the Consensus Key  </li>
+<li><strong><code>api</code></strong> - is deliberately excluded at this stage because we need to create the ML Operational Key inside it in the next step</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Recommendation</p>
+<p>You can check logs to verify that the initial services started successfully:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>tmkms<span class="w"> </span>node<span class="w"> </span>-f
+</code></pre></div>
+<p>If you see the Chain Node continuously processing block events, then the setup is working correctly.</p>
+</div>
+<details class="note">
+<summary>About Consensus Key</summary>
+<ul>
+<li>Managed by secure TMKMS service</li>
+<li>Warm storage with double-signing prevention</li>
+<li>Block validation and network consensus participation</li>
+<li>Can be rotated by Account Key or authorized delegates</li>
+</ul>
+<p>During the registration command on <a href="https://gonka.ai/host/quickstart/#32-server-register-host">step 3.2.</a> (<code>inferenced register-new-participant</code>), the Consensus Key is linked to your Account Key (Cold Key) on-chain, establishing your node as a valid participant in the network.</p>
+<p>If you delete or overwrite the <code>.tmkms</code> folder, your Consensus Key will be lost. This key is what links your node to the blockchain’s validator set. Once <code>.tmkms</code> is gone, you must start the entire setup from scratch, including generating a new Consensus Key (via <code>tmkms</code>) (see “<a href="https://gonka.ai/FAQ/#i-cleared-or-overwrote-my-consensus-key">I Cleared or Overwrote My Consensus Key</a>” on the FAQ page). </p>
+</details>
+<h3 id="3-complete-key-setup-and-host-registration">3. Complete Key Setup and Host Registration</h3>
+<p>Now we need to complete the key management setup by creating the warm key, registering the Host, and granting permissions:</p>
+<h4 id="31-server-create-ml-operational-key">3.1. [Server] Create ML Operational Key</h4>
+<details class="note">
+<summary>About ML Operational Key (Warm Key)</summary>
+<ul>
+<li>Authorized by Account Key for ML-specific transactions</li>
+<li>Encrypted file on server, accessed programmatically</li>
+<li>Automated transactions (inference requests, proof submissions, rewards)</li>
+<li>Can be rotated/revoked by Account Key at any time</li>
+<li>Needs constant availability, so do not remove or rotate it unless necessary.</li>
+</ul>
+</details>
+<p>Create the warm key inside the <code>api</code> container using the <code>file</code> keyring backend (required for programmatic access). The key will be stored in a persistent volume mapped to <code>/root/.inference</code> of the container:
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--no-deps<span class="w"> </span>-it<span class="w"> </span>api<span class="w"> </span>/bin/sh
+</code></pre></div>
+<p>Inside the container, create the ML operational key:
+</p><div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_PASSWORD</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_PASSWORD</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>inferenced<span class="w"> </span>keys<span class="w"> </span>add<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY_NAME</span><span class="s2">"</span><span class="w"> </span>--keyring-backend<span class="w"> </span>file
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Important</p>
+<p>Do not run this command twice.
+The ML Operational Key (Warm Key) is generated once per server and must be preserved across restarts.</p>
+<ul>
+<li>If you accidentally deleted it or reinitialized, follow the recovery instructions in the FAQ: “<a href="https://gonka.ai/FAQ/#i-deleted-the-warm-key">I Deleted the Warm Key</a>”.</li>
+<li>When restarting your node, skip this step entirely — the key is already generated and stored persistently inside the API container.</li>
+</ul>
+</div>
+<p><strong>Example output:</strong>
+</p><div class="highlight"><pre><span></span><code>~ # printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
+
+- address: gonka1gyz2agg5yx49gy2z4qpsz9826t6s9xev6tkehw
+  name: node-702105
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Ao8VPh5U5XQBcJ6qxAIwBbhF/3UPZEwzZ9H/qbIA6ipj"}'
+  type: local
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+again plastic athlete arrow first measure danger drastic wolf coyote work memory already inmate sorry path tackle custom write result west tray rabbit jeans
+</code></pre></div>
+<h4 id="32-server-register-host">3.2. [Server] Register Host</h4>
+<p>From the same container, we can register the Host with URL, Account Key, and Consensus Key (fetched automatically) on chain:</p>
+<div class="highlight"><pre><span></span><code>inferenced register-new-participant \
+    $DAPI_API__PUBLIC_URL \
+    $ACCOUNT_PUBKEY \
+    --node-address $DAPI_CHAIN_NODE__SEED_API_URL
+</code></pre></div>
+<p><strong>Expected output:</strong>
+</p><div class="highlight"><pre><span></span><code>...
+Found participant with pubkey: Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY (balance: 0)
+Participant is now available at http://36.189.234.237:19250/v1/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Per-Node Account Key Configuration</p>
+<p>Always generate a unique <code>ACCOUNT_PUBKEY</code> for each Network Node to ensure proper separation of Hosts.</p>
+</div>
+<p>Then we can exit the container:
+</p><div class="highlight"><pre><span></span><code><span class="nb">exit</span>
+</code></pre></div>
+<h4 id="33-local-machine-grant-permissions-to-ml-operational-key">3.3. [Local machine] Grant Permissions to ML Operational Key</h4>
+<p><strong>IMPORTANT: Perform this step on your secure local machine where you created the Account Key</strong></p>
+<p>Grant permissions from your Account Key to the ML Operational Key:
+</p><div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>grant-ml-ops-permissions<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>gonka-account-key<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&lt;ml-operational-key-address-from-step-3.1&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--from<span class="w"> </span>gonka-account-key<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--gas<span class="w"> </span><span class="m">2000000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node<span class="w"> </span>&lt;seed_api_url<span class="w"> </span>from<span class="w"> </span>server<span class="err">'</span>s<span class="w"> </span>config.env&gt;/chain-rpc/<span class="w"> </span>
+</code></pre></div>
+<p><strong>Expected output:</strong>
+</p><div class="highlight"><pre><span></span><code>...
+Transaction sent with hash: FB9BBBB5F8C155D0732B290C443A0D06BC114CDF43E8EE8FB329D646C608062E
+Waiting for transaction to be included in a block...
+
+Transaction confirmed successfully!
+Block height: 174
+</code></pre></div>
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
+<h4 id="34-server-manual-ssl-certificate-setup">3.4. [Server] Manual SSL Certificate Setup</h4>
+<p>If you selected manual SSL certificate setup in the questionnaire above, follow these steps to configure your SSL certificates:</p>
+<h5 id="prepare-directories">Prepare directories</h5>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>secrets/nginx-ssl<span class="w"> </span>secrets/certbot
+</code></pre></div>
+<h5 id="generate-certificates-dockerized-certbot-dns01">Generate certificates (Dockerized Certbot; DNS‑01)</h5>
+<div class="highlight"><pre><span></span><code><span class="nv">DOMAIN</span><span class="o">=</span>&lt;FULL_DOMAIN_NAME&gt;
+<span class="nv">ACCOUNT_EMAIL</span><span class="o">=</span>&lt;EMAIL_ADDRESS&gt;<span class="w">    </span><span class="c1"># renewal notices</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>secrets/nginx-ssl<span class="w"> </span>secrets/certbot
+
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/secrets/certbot:/etc/letsencrypt"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/secrets/nginx-ssl:/mnt/nginx-ssl"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>certbot/certbot<span class="w"> </span>certonly<span class="w"> </span>--manual<span class="w"> </span>--preferred-challenges<span class="w"> </span>dns<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$DOMAIN</span><span class="s2">"</span><span class="w"> </span>--email<span class="w"> </span><span class="s2">"</span><span class="nv">$ACCOUNT_EMAIL</span><span class="s2">"</span><span class="w"> </span>--agree-tos<span class="w"> </span>--no-eff-email<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--deploy-hook<span class="w"> </span><span class="s1">'install -m 0644 "$RENEWED_LINEAGE/fullchain.pem" /mnt/nginx-ssl/cert.pem; \</span>
+<span class="s1">                 install -m 0600 "$RENEWED_LINEAGE/privkey.pem"   /mnt/nginx-ssl/private.key'</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">DNS Challenge</p>
+<p>Certbot will pause and show the <strong>TXT DNS</strong> record to add at your provider. After validation, <code>cert.pem</code> and <code>private.key</code> will appear in <code>./secrets/nginx-ssl/</code>.</p>
+</div>
+<h5 id="verify-certificate-files">Verify certificate files</h5>
+<p>Ensure the certificate files are in place:</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-la<span class="w"> </span>secrets/nginx-ssl/
+</code></pre></div>
+<p>You should see:
+- <code>cert.pem</code> (fullchain certificate)
+- <code>private.key</code> (private key with mode 0600)</p>
+<p>The <code>config.env</code> file generated by the questionnaire already includes the necessary SSL configuration variables:
+- <code>SERVER_NAME=&lt;FULL_DOMAIN_NAME&gt;</code>
+- <code>SSL_CERT_SOURCE=./secrets/nginx-ssl</code></p>
+<p>Make sure to edit <code>SERVER_NAME</code> with your actual domain name before proceeding.</p>
+<!-- CONDITION END -->
+
+<h2 id="4-server-launch-full-node">4. [Server] Launch Full Node</h2>
+<p>Finally, launch all containers, including the API:</p>
+<!-- CONDITION START: data-show-when='["non-finished"]' -->
+<div class="admonition note">
+<p class="admonition-title">Configuration Required</p>
+<p>Please complete the <a href="#quickstart-questionnaire">questionnaire above</a> to generate the launch commands.</p>
+</div>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttp"]' -->
+<p>Launch all containers:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto"]' -->
+<p>Launch all containers with automatic SSL certificate management:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span><span class="s2">"ssl"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>up<span class="w"> </span>-d
+</code></pre></div>
+<p>The <code>--profile "ssl"</code> flag enables the <code>proxy-ssl</code> container which automatically manages SSL certificates.</p>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
+<p>Launch all containers with manual SSL certificates:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<!-- CONDITION END -->
+
+<h2 id="verify-node-status">Verify Node Status</h2>
+<!-- CONDITION START: data-show-when='["protocolHttps"]' -->
+<p>Verify HTTPS is working:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-I<span class="w"> </span>https://&lt;FULL_DOMAIN_NAME&gt;:8443/health<span class="w">   </span><span class="c1"># Expect: HTTP/2 200 OK</span>
+</code></pre></div>
+<!-- CONDITION END -->
+
+<p>Open this URL, replacing <code>&lt;your-gonka-cold-address&gt;</code> with your address:
+</p><div class="highlight"><pre><span></span><code>http://node2.gonka.ai:8000/v1/participants/&lt;your-gonka-cold-address&gt;
+</code></pre></div>
+<p>You will see your public key in JSON format:
+</p><div class="highlight"><pre><span></span><code>{"pubkey":"&lt;your-public-key&gt;"}
+</code></pre></div>
+<p>This means that your address is included in the participants' list.</p>
+<p>Once your node completes the Proof of Compute stage (which runs every 24 hours), you can visit the following URL to see your node:
+</p><div class="highlight"><pre><span></span><code>http://node2.gonka.ai:8000/v1/epochs/current/participants
+</code></pre></div>
+<p>You can <a href="https://gonka.ai/FAQ/#how-to-simulate-proof-of-compute-poc">simulate the Proof of Compute on a MLNode yourself</a> to make sure that everything will work when the PoC phase begins on the chain.</p>
+<p>You may turn off your server before this stage and start it again right before the next Proof of Compute.
+To track when the next Proof of Compute session will begin, check <a href="https://gonka.ai/wallet/dashboard/">the dashboard</a> here:
+</p><div class="highlight"><pre><span></span><code>http://node2.gonka.ai:8000/dashboard/gonka/validator
+</code></pre></div>
+<p>Once your node is running, check your node status through the proxy.
+</p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://&lt;PUBLIC_IP&gt;:8000/chain-rpc/status
+</code></pre></div>
+On the server, you can use private ones (from within the container or if 26657 is bound to localhost).
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://0.0.0.0:26657/status
+</code></pre></div>
+Using the public endpoint of the genesis node.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://node2.gonka.ai:8000/chain-rpc/status
+</code></pre></div>
+<p>Once your node is visible in the Dashboard, you may also want to update your public profile (host name, website, avatar). This helps other participants identify your node in the network. You can find <a href="https://gonka.ai/host/validator_info/">the instructions here</a>.</p>
+<h2 id="stopping-and-cleaning-up-your-node">Stopping and Cleaning Up Your Node</h2>
+<h3 id="how-to-stop-your-node">How to stop your node</h3>
+<p>Check the epoch you are currently in. Open the URL: <a href="http://node1.gonka.ai:8000/api/v1/epochs/latest">http://node1.gonka.ai:8000/api/v1/epochs/latest</a> (You can use the URL any other active participant). </p>
+<p>In the response, look for:
+</p><div class="highlight"><pre><span></span><code>"latest_epoch": {
+    "index": 88,
+    ...
+}
+</code></pre></div>
+<p>Remember the latest epoch index your node worked for. </p>
+<p>In the same JSON response, find:
+</p><div class="highlight"><pre><span></span><code>"next_epoch_stages": {
+  ...
+  "claim_money": &lt;block_number&gt;
+}
+</code></pre></div>
+This block number indicates the block after which you can claim the reward. However, it is important to understand you should proceed with disabling each ML Node now (do not wait for this block before disabling your ML Nodes).
+<p>Disable each ML Node.</p>
+<p></p><div class="highlight"><pre><span></span><code>curl -X POST http://&lt;api_node_static_ip&gt;:&lt;admin_port&gt;/admin/v1/nodes/&lt;id&gt;/disable
+</code></pre></div>
+Wait for the next epoch. Do not stop the Network Node or the ML Nodes yet. The disable flag takes effect only after the next epoch starts.
+<p>Keep your Network Node online and synced, it should handle the reward claim automatically.
+To check that your latest reward was claimed, after the <code>claim_money</code> block run the following command (replace <code>&lt;YOUR_ADDRESS&gt;</code> and <code>&lt;EPOCH&gt;</code> with your actual values):
+</p><div class="highlight"><pre><span></span><code>inferenced query inference show-epoch-performance-summary &lt;EPOCH&gt; &lt;YOUR_ADDRESS&gt; --node http://node1.gonka.ai:8000/chain-rpc/ --output json
+</code></pre></div>
+Example: 
+<div class="highlight"><pre><span></span><code>Output:
+{
+  "epochPerformanceSummary": {
+    "epoch_index": "87",
+    "participant_id": "&lt;YOUR_ADDRESS&gt;",
+    "missed_requests": "1",
+    "rewarded_coins": "123456",
+    "claimed": true
+  }
+}
+</code></pre></div>
+If the result shows <code>claimed = true</code>, your reward has already been claimed.
+If it shows <code>false</code>, proceed to the manual claim step.
+<div class="admonition note">
+<p class="admonition-title">Manually claim the reward (if needed)</p>
+<p>Run:
+</p><div class="highlight"><pre><span></span><code>curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
+ -H "Content-Type: application/json" \
+ -d '{"force_claim": true}'
+</code></pre></div>
+</div>
+<p>Verify removal and weight. If you disabled all your nodes then your participant should be absent from the active participants list. In case you can still see your participant in the list then it means the network still expects you to participate in the epoch and if you proceed with disabling your node you may miss inferences which will affect your reputation. </p>
+<p>Make sure you are in <code>gonka/deploy/join</code> folder. To stop all running containers:
+</p><div class="highlight"><pre><span></span><code>docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
+</code></pre></div>
+This stops and removes all services defined in the <code>docker-compose.yml</code> and <code>docker-compose.mlnode.yml</code> files without deleting volumes or data unless explicitly configured.
+<h3 id="how-to-clean-up-your-node-full-reset">How to clean up your node (full reset)</h3>
+<p>If you want to completely reset your node and remove all data (for redeployment or migration), use the following cleanup steps.  </p>
+<ol>
+<li>
+<p>To clean up cache and start fresh, remove the local <code>.inference</code> and <code>.dapi</code> folders (inference runtime cache and identity):
+</p><div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>.inference<span class="w"> </span>.dapi<span class="w"> </span>.tmkms
+</code></pre></div>
+</li>
+<li>
+<p>(Optional) Clear model weights cache:
+</p><div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$HF_HOME</span>
+</code></pre></div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Deleting <code>$HF_HOME</code> will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.</p>
+</div>
+<p><strong>Need help?</strong>  Find answers on <a href="https://gonka.ai/FAQ/">FAQ page</a>, or join <a href="https://discord.com/invite/RADwCT2U6R">Discord server</a> for assistance with general inquiries, technical issues, or security concerns.  </p></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/javascripts/links.js"></script>
+      
+        <script src="../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

@@ -32,11 +32,13 @@
         <h1>Gonka</h1>
         <p class="tagline">AI Compute is the New Currency</p>
         <div class="gonka-cards">
+          <!--
           <a href="https://chat.gonka.ai/">
           <div class="card">
               <span>Chat with AI</span><small>Powered by Gonka Decentralized Network</small>
           </div>
           </a>
+          -->
         </div>
       </div>
     </section>

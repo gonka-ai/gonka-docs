@@ -237,14 +237,19 @@ Base Weight +
 - 批准的提案合并到仓库中
 
 ### 如何审查和批准改进提案？
-- 在 [/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals) 文件夹中创建 Markdown 提案。
-- 为您的提案打开 Pull Request。
+
+社区提案审查的目标，是获取来自社区的验证：包括反馈反应、评论以及具体、可执行的建议，从而为后续获得治理层面的批准打下更坚实的基础。
+这一点在以下情况下尤为重要：提案的实施需要大量工作投入、长期承诺、多方协作，或涉及对协议本身的重大改动。
+
+- 请先阅读推荐指南：[https://github.com/gonka-ai/gonka/discussions/795](https://github.com/gonka-ai/gonka/discussions/795). 该指南详细说明了什么内容适合纳入改进提案（Improvement Proposals），以及如何撰写一份结构清晰、有说服力的提案。
+- 请在 [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions)  中发布并讨论改进提案（推荐方式）；此前这些内容以 Markdown 文件的形式存放在`/proposals`目录下。
+- 为了帮助社区更好地评估你的提案（并提升其后续在治理流程中通过的可能性），主动收集早期反馈和支持信号（如表态、评论、具体问题）是提案发起者自身的利益所在，也是其责任。
+	- 将 Discussion 链接分享到 Discord 的 #improvements-proposals 频道，以提升覆盖面和可见度；同时也可以通过你所掌握的其他渠道进行扩散（包括直接联系 Hosts / 矿工），以收集更贴近实操层面的意见和支持。
+	- 在提案讨论串中说明你自身的背景、经验和专业能力。如果你代表某个团队或公司，请明确指出，并附上相关工作链接，帮助社区更高效地评估你的可信度和提案质量。
 - 社区审查：
-      - 活跃贡献者和维护者在 PR 线程中讨论提案。
-      - 公开讨论反馈、建议和改进。
-- 批准和合并：
-      - 如果社区同意，PR 将被合并。
-      - 批准的提案成为官方社区路线图的一部分。
+    - 活跃贡献者和维护者会在 [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions) 中对提案展开讨论。讨论可以发生在任何平台，但请务必将关键信息和结论回收并整理到 [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions) 中：这样可以将完整历史集中保存在一处，便于搜索，也更利于长期维护。GitHub 是主要的信息来源（source of truth）。
+	- 欢迎提出问题、反馈、建议和改进意见，并为你认为有价值的提案点赞。所有人的关注与参与，都是 Gonka 可持续演进不可或缺的一部分。
+- 强烈的正向反馈和大量点赞，通常代表真实的社区需求。这将使团队能够把广受欢迎的提案视为社区驱动路线图的一部分，并在确信社区共识和未来治理通过可能性的前提下，放心启动实施。需要注意的是，来自 Hosts 的反馈尤为关键——它可以帮助将项目拆解为阶段性里程碑、解锁部分赏金支付，甚至争取来自社区资金池的资助。但最终，所有链上更新和资金支付仍需经过治理批准。
 
 ### 改进提案会导致治理提案吗？
 是的。通常，改进提案用于在起草治理提案之前探索想法并收集共识。例如：
@@ -1375,3 +1380,26 @@ source config.env && docker compose up node --no-deps --force-recreate -d
 ```
 这实际上不是错误。它只是表示您的节点尚未被分配模型。最有可能的是，这是因为您的节点尚未参与 Sprint，尚未获得投票权重，因此尚未分配模型。
 如果您的节点已经通过了 PoC，您应该不会再看到此日志。如果没有，PoC 大约每 24 小时进行一次。
+
+### 如何在 state sync 快照启动时修复 `"no validator signing info found"` 的问题？
+
+如果你在使用 state sync 快照启动节点时，周期性遇到 `err="no validator signing info found"` 报错，通常与 Cosmos SDK 的 `iavl-fastnode` 行为有关。一个安全的变通方案是在首次启动时禁用 `fastnode`，待节点完全同步后再重新启用（可选）。
+
+**修复方法（Docker）：**
+
+1.	停止节点：
+```
+docker stop node
+```
+2. 在 `.inference/config/app.toml` 中，将以下参数设置为：
+```
+iavl-disable-fastnode = true
+```
+3. 启动节点：
+```
+docker start node
+```
+在完成一次重启后，该问题通常不会再次出现。
+
+!!! 重要提示 
+	`main` 分支已包含 v0.2.10-post6。从该版本开始启动的节点会自动应用此设置，因此一般不需要再手动修改配置。

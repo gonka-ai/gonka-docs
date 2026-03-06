@@ -103,6 +103,18 @@ a.md-logo img,
 .md-nav__link:active{color:var(--md-typeset-color);} /* keep theme vars */
 .md-nav__link:hover{font-weight:700;}
 
+/* Left sidebar scrolls with the page (no separate scroll on hover) */
+.md-sidebar--primary,
+.md-sidebar--primary .md-sidebar__inner {
+  position: relative !important;
+  top: auto !important;
+}
+.md-sidebar--primary .md-sidebar__scrollwrap {
+  overflow-y: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
 /* Hide built‑with banner */
 .md-footer-meta{display:none;}
 

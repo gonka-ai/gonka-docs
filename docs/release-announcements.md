@@ -1,5 +1,210 @@
 # Announcements
 
+## March 6, 2026
+
+**Heads up: v0.2.11 upgrade is expected to enter review and governance voting early next week.**
+
+Please keep an eye out and plan to participate. Voting is one of the simplest ways to support network development and keep upgrades aligned with what participants actually need.
+If you do not have access to the cold key that holds your voting power, it makes sense to arrange vote delegation in advance. Please contact the owner of that key and ask them to grant permission for you to vote on their behalf. Without that authorization, a vote cannot be submitted from another account.
+
+In this setup:
+
+- Granter = account that owns voting power (cold key)
+- Grantee = account that will submit votes on the granter’s behalf (warm key)
+
+The grantee can still vote for their own account as well. The granter can revoke this permission at any time.
+
+Below are copy-paste commands for granting, checking, using, and revoking vote delegation.
+
+1) Grant voting permission (run from the granter key)
+
+=== "Command"
+
+    ```
+    ./inferenced tx authz grant <GRANTEE_GONKA_ADDRESS> generic \
+      --msg-type=/cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --expiration=<UNIX_TIMESTAMP> \
+      --home .inference \
+      --keyring-backend file
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "height": "0",
+        "txhash": "8D96FB6FC06FFB928FBC89FE950689CD040C7F338C197BA856175EC7462A3FFA",
+        "codespace": "",
+        "code": 0,
+        "data": "",
+        "raw_log": "",
+        "logs": [],
+        "info": "",
+        "gas_wanted": "0",
+        "gas_used": "0",
+        "tx": null,
+        "timestamp": "",
+        "events": []
+    }
+    ```
+    
+2) Verify the grant exists (run from any node)
+
+=== "Command"
+    ```
+    ./inferenced query authz grants <GRANTER_GONKA_ADDRESS> <GRANTEE_GONKA_ADDRESS> \
+      --node="http://<MAINNET_NODE_URL>:26657" \
+      --output=json | jq .
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "grants": [
+            {
+                "authorization": {
+                    "type": "cosmos-sdk/GenericAuthorization",
+                    "value": {
+                        "msg": "/cosmos.gov.v1beta1.MsgVote"
+                    }
+                },
+                "expiration": "2026-12-03T18:38:18Z"
+            }
+        ],
+        "pagination": {
+            "total": "1"
+        }
+    }
+    ```
+    
+3) Vote using the grantee
+
+=== "Command"
+    ```
+    # Find the proposal ID which you are voting for - use it as <VOTE_PROPOSAL_ID> in the voting body 
+    ./inferenced query gov proposals --output json
+    
+    # Prepare the file with the voting body
+    cat > /tmp/authz-vote.json << 'EOF'
+    {
+      "body": {
+        "messages": [
+          {
+            "@type": "/cosmos.authz.v1beta1.MsgExec",
+            "grantee": "<GRANTEE_GONKA_ADDRESS>",
+            "msgs": [
+              {
+                "@type": "/cosmos.gov.v1beta1.MsgVote",
+                "proposal_id": "<VOTE_PROPOSAL_ID>",
+                "voter": "<GRANTER_GONKA_ADDRESS>",
+                "option": "VOTE_OPTION_YES"
+              }
+            ]
+          }
+        ]
+      }
+    }
+    EOF
+    
+    
+    # Vote using the file 
+    ./inferenced tx authz exec /tmp/authz-vote.json \  --from=<GRANTEE_KEY_NAME> \ 
+    --chain-id=gonka-mainnet \
+    --home .inference \
+    --keyring-backend file \
+    --node="http://<MAINNET_NODE_URL>:26657" -y
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "pagination": {
+            "total": "1"
+        },
+        "proposals": [
+            {
+                "deposit_end_time": "2026-03-06T10:40:07.016920026Z",
+                "final_tally_result": {
+                    "abstain_count": "0",
+                    "no_count": "0",
+                    "no_with_veto_count": "0",
+                    "yes_count": "0"
+                },
+                "id": "1",
+                "messages": [
+                    {
+                        "type": "cosmos-sdk/MsgSoftwareUpgrade",
+                        "value": {
+                            "authority": "gonka10d07y265gmmuvt4z0w9aw880jnsr700j2h5m33",
+                            "plan": {
+                                "height": "406062",
+                                "info": "{\n \"binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/inferenced-amd64.zip?checksum=sha256:fb71310427436aebac32813735231882fca420cf0d94b036f8cacd055d0e1c78\"\n },\n \"api_binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/decentralized-api-amd64.zip?checksum=sha256:6fe214f4bb2d831c02ce407682820d95d01e6ae94a33fe9c4617b80e0ca716ce\"\n }\n }",
+                                "name": "v0.2.10",
+                                "time": "0001-01-01T00:00:00Z"
+                            }
+                        }
+                    }
+                ],
+                "proposer": "gonka1xfvr8mywcrxrcrryvj8c5d2grvyjdj5c90fd88",
+                "status": 2,
+                "submit_time": "2026-03-04T10:40:07.016920026Z",
+                "summary": "Upgrade Proposal v0.2.10",
+                "title": "Upgrade Proposal v0.2.10",
+                "total_deposit": [
+                    {
+                        "amount": "50000000",
+                        "denom": "ngonka"
+                    }
+                ],
+                "voting_end_time": "2026-03-04T10:50:07.016920026Z",
+                "voting_start_time": "2026-03-04T10:40:07.016920026Z"
+            }
+        ]
+    }
+    ```
+    
+Voting options:
+
+- `VOTE_OPTION_YES`
+- `VOTE_OPTION_ABSTAIN`
+- `VOTE_OPTION_NO`
+- `VOTE_OPTION_NO_WITH_VETO`
+
+4) Revoke delegation (run from the granter key)
+
+=== "Command"
+
+    ```
+    ./inferenced tx authz revoke <GRANTEE_GONKA_ADDRESS> /cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --home .inference \
+      --keyring-backend file
+    ```
+=== "Example response"
+
+    ```
+    {
+        code: 0
+        codespace: ""
+        data: ""
+        events: []
+        gas_used: "0"
+        gas_wanted: "0"
+        height: "0"
+        info: ""
+        logs: []
+        raw_log: ""
+        timestamp: ""
+        tx: null
+        txhash: A2C3CDA9E95DCF143C0D8981A4F573F1E68879ECF4903B25BA97383C3F2FDFBA
+    }
+    ```
+
 ## February 21, 2026
 
 **API binary v0.2.10-post3 is available**

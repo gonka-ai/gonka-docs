@@ -17,7 +17,6 @@ The grantee can still vote for their own account as well. The granter can revoke
 Below are copy-paste commands for granting, checking, using, and revoking vote delegation.
 
 1) Grant voting permission (run from the granter key)
-
 === "Command"
 
     ```
@@ -51,7 +50,6 @@ Below are copy-paste commands for granting, checking, using, and revoking vote d
     ```
     
 2) Verify the grant exists (run from any node)
-
 === "Command"
     ```
     ./inferenced query authz grants <GRANTER_GONKA_ADDRESS> <GRANTEE_GONKA_ADDRESS> \
@@ -81,7 +79,6 @@ Below are copy-paste commands for granting, checking, using, and revoking vote d
     ```
     
 3) Vote using the grantee
-
 === "Command"
     ```
     # Find the proposal ID which you are voting for - use it as <VOTE_PROPOSAL_ID> in the voting body 
@@ -175,7 +172,6 @@ Voting options:
 - `VOTE_OPTION_NO_WITH_VETO`
 
 4) Revoke delegation (run from the granter key)
-
 === "Command"
 
     ```
@@ -219,6 +215,7 @@ The new API version does not retry inference in such cases.
 4. Extra safeguards have been added to the PoC validation pipeline.
 
 PR: [https://github.com/gonka-ai/gonka/pull/785](https://github.com/gonka-ai/gonka/pull/785)
+
 Build: [https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip](https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip)
 
 Apply update:

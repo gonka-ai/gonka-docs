@@ -110,6 +110,7 @@ curl "$NODE_URL/chain-api/productscience/inference/collateral/unbonding/<GONKA_A
 ## Slashing
 
 Collateral can be slashed for two reasons:
+
 - **Invalid inference** - when a participant submits an invalid inference result.
 - **Downtime** - when a participant fails Confirmation PoC or is jailed.
 

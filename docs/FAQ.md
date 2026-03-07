@@ -4,25 +4,41 @@
 
 ### What is Gonka?
 Gonka is a decentralized network for high‑efficiency AI compute — run by those who run it. It functions as a cost-effective and efficient alternative to centralized cloud services for AI model training and inference. As a protocol, it's not a company or a start-up.
-    
+
+- In terms of Blockchain, Gonka is the foundational ledger and coordination layer (L1) of the decentralized AI network. It records balances, transactions and cryptographic artifacts that prove Hosts have correctly performed AI work, while all actual computations (such as inference and training) happen off-chain.
+- In terms of Network, Gonka is a comprehensive ecosystem of participants, including Hosts and Developers that interact through a decentralized infrastructure. Powered by the Gonka Blockchain, the network distributes tasks, verifies results, and rewards honest participation only verifiable useful work, creating a competitive, scalable environment for AI workloads.
+
+### What problem is Gonka solving?
+
+Gonka is a decentralized AI infrastructure built to reduce dependence on centralized cloud providers and to use computational power more efficiently than traditional decentralized networks. Its goal is to direct as much compute as possible toward useful AI tasks, such as inference and training, while minimizing waste due to consensus overhead.
+
+### Who are the key participants in the Gonka ecosystem?
+
+The Gonka ecosystem has four key participant groups:
+
+- Developer builds and deploys AI applications by leveraging the network’s distributed computing power.
+- Gonka Contributor participates in development of the core blockchain codebase, protocol upgrades, performance optimizations, security patches, and new feature integrations.
+- Holder holds the network’s native coin, which simply means having a Gonka wallet with coins in it. Holders may hold coins, transfer or sell them, spend them on inference and use them according to the protocol rules. Being a holder does not imply any obligation, responsibility, or governance role beyond standard coin ownership.
+- Host contributes compute capacity to the network. Hosts perform inference and other computational tasks and are rewarded proportionally to their contributed compute capacity, as long as they maintain honest participation and reliability. Hosts form the backbone of the network. Only Hosts have voting power in the network. This voting power represents their weight in governance and is used to propose and vote on protocol decisions, parameter changes, and upgrades. Any Host acts as Validator, Transfer Agent and an Executor (these are not predefined or on-chain roles, but dynamic operational functions assumed when processing a inference request).
+	
 ### What is the GNK coin?
 GNK is the native coin of the Gonka network. It is used to incentivize participants, price resources, and ensure the sustainable growth of the network.
 
 ### Can I buy GNK coin?
 
-No, you cannot buy GNK on exchanges right now because the coin has not been listed yet.
+No, you can not buy GNK on exchanges right now because the coin has not been listed yet.
 Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
 
 However, there are currently two legitimate ways to obtain GNK before the listing:
 
-- [Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be minted by contributing computational resources to the network.
+- [Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be mined by contributing computational resources to the network.
 - Participate in [the bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.
 
 !!! note "Important"
 	Be aware that fake GNK listings and pages currently exist, including on CoinGecko. These pages do not represent the official GNK coin and are not affiliated with the project in any way. GNK is not tradable on any exchange at this time. Any coin claiming to be GNK, whether on Solana or other networks, is not an official GNK asset. Always verify information through official channels.
 
 ### What makes the protocol efficient?
-Our difference from the "big players" is the pricing and the fact that, despite the size of the user, the inference is being distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).
+What differentiates Gonka from the "big players" is its pricing and the fact that, despite the Host's size, the inference is distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).
     
 ### How does the network operate?
 The network's operation is collaborative and depends on the role you wish to take:
@@ -954,6 +970,14 @@ Back up the **cold key** on your local device, outside the server.
     ```
     
 ## Proof-of-Compute (PoC)
+
+### What is Proof-of-Compute?
+
+Proof of Compute (PoC) is a consensus mechanism that replaces capital-based or hash-based weighting with provable Transformer-based computational capability. It defines how real AI compute is measured and converted into governance and consensus weight. PoC is executed through short, synchronized Sprints that occur at the end of each epoch. Outside the Sprint, the epoch is used for real-world AI computation. In practice, the terms Proof of Compute (PoC) and Sprint are often used interchangeably. When referring to “Next PoC” or “PoC phase”, this typically means the next Sprint, which is the execution phase of Proof of Compute.
+
+### What is Sprint?
+
+Sprint is a phase of Proof of Compute. During a Sprint, all Hosts simultaneously run AI-relevant inference on a transformer with randomized layers over a stream of nonces, producing output vectors. A Host’s voting power for the next epoch is proportional to the number of nonces it processed, as long as the reported outputs are verifiably produced by the required Sprint model.
 
 ### How to simulate Proof-of-Compute (PoC)?
 

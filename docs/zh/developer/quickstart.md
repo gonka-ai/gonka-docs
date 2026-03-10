@@ -488,7 +488,7 @@ export NODE_URL=<http://random-node-url>
     安装 SDK 后，创建一个名为 `example.mjs` 的文件并将示例代码复制到其中：
 
     ```ts linenums="1"
-    import { GonkaOpenAI } from gonka-openai;
+    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
 
     const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
     const client = new GonkaOpenAI({
@@ -552,6 +552,157 @@ export NODE_URL=<http://random-node-url>
     使用 `go run example.go` 执行代码。片刻后，你应该看到 API 请求的输出。
 
 要从另一种语言执行推理，请参阅[Gonka OpenAI 客户端库仓库](https://github.com/gonka-ai/gonka-openai)，并相应调整示例。
+
+## 4. 工具调用
+
+仅支持 `type: "function"` — vLLM 实现的是 OpenAI 聊天补全规范，而非 Assistants API（`code_interpreter`、`file_search` 不可用）。
+
+定义函数后，当用户的请求匹配时，模型将返回结构化的调用参数 — 你来决定如何处理它们。
+
+=== "Python"
+
+    ```py linenums="1"
+    import os, json
+    from gonka_openai import GonkaOpenAI
+
+    client = GonkaOpenAI(
+        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+        source_url=os.environ.get('NODE_URL')
+    )
+
+    tools = [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_weather",
+                "description": "Get the current weather for a city",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "city": {"type": "string", "description": "City name"}
+                    },
+                    "required": ["city"],
+                },
+            },
+        }
+    ]
+
+    response = client.chat.completions.create(
+        model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        messages=[{"role": "user", "content": "What's the weather in Paris?"}],
+        tools=tools,
+        tool_choice="auto",
+    )
+
+    message = response.choices[0].message
+    if message.tool_calls:
+        call = message.tool_calls[0]
+        args = json.loads(call.function.arguments)
+        # model chose get_weather with {"city": "Paris"} — call your function now
+        print(call.function.name, args)
+    ```
+
+=== "TypeScript"
+
+    ```ts linenums="1"
+    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
+
+    const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
+    const client = new GonkaOpenAI({
+        gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
+        endpoints
+    });
+
+    const tools = [
+        {
+            type: 'function',
+            function: {
+                name: 'get_weather',
+                description: 'Get the current weather for a city',
+                parameters: {
+                    type: 'object',
+                    properties: { city: { type: 'string', description: 'City name' } },
+                    required: ['city'],
+                },
+            },
+        },
+    ];
+
+    const response = await client.chat.completions.create({
+        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        messages: [{ role: "user", content: "What's the weather in Paris?" }],
+        tools,
+        tool_choice: "auto",
+    });
+
+    const message = response.choices[0].message;
+    if (message.tool_calls) {
+        const call = message.tool_calls[0];
+        const args = JSON.parse(call.function.arguments);
+        // model chose get_weather with { city: "Paris" } — call your function now
+        console.log(call.function.name, args);
+    }
+    ```
+
+=== "Go"
+
+    ```go linenums="1"
+    package main
+
+    import (
+        "context"
+        "encoding/json"
+        "log"
+        "os"
+
+        gonka "github.com/gonka-ai/gonka-openai/go"
+        "github.com/openai/openai-go"
+    )
+
+    func main() {
+        client, err := gonka.NewGonkaOpenAI(gonka.Options{
+            GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
+            SourceUrl:       os.Getenv("NODE_URL"),
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+            Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+            Messages: []openai.ChatCompletionMessageParamUnion{
+                openai.UserMessage("What's the weather in Paris?"),
+            },
+            Tools: []openai.ChatCompletionToolParam{
+                {
+                    Type: "function",
+                    Function: openai.FunctionDefinitionParam{
+                        Name:        "get_weather",
+                        Description: openai.String("Get the current weather for a city"),
+                        Parameters: openai.FunctionParameters{
+                            "type": "object",
+                            "properties": map[string]any{
+                                "city": map[string]string{"type": "string", "description": "City name"},
+                            },
+                            "required": []string{"city"},
+                        },
+                    },
+                },
+            },
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        if len(resp.Choices[0].Message.ToolCalls) > 0 {
+            call := resp.Choices[0].Message.ToolCalls[0]
+            var args struct{ City string }
+            json.Unmarshal([]byte(call.Function.Arguments), &args)
+            // model chose get_weather with {City: "Paris"} — call your function now
+            log.Printf("Tool: %s, City: %s\n", call.Function.Name, args.City)
+        }
+    }
+    ```
 
 ---
 **需要帮助？** [请先查看我们的常见问题页面](https://gonka.ai/zh/FAQ/)，加入我们的 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。

@@ -488,7 +488,7 @@ Do not forget to write it down, you will need it in the next step.
     With the SDK installed, create a file called `example.mjs` and copy the example code into it:
 
     ```ts linenums="1"
-    import { GonkaOpenAI } from 'gonka-openai';
+    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
 
     const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
     const client = new GonkaOpenAI({
@@ -555,6 +555,157 @@ Do not forget to write it down, you will need it in the next step.
     Execute the code with `go run example.go`. In a few moments, you should see the output of your API request.
 
 To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai), and adjust the examples accordingly.
+
+## 4. Tool Calling
+
+Only `type: "function"` is supported — vLLM implements the OpenAI chat completions spec, not the Assistants API (`code_interpreter`, `file_search` are unavailable).
+
+Define functions and the model will return structured call arguments when the user's request matches — you decide what to do with them.
+
+=== "Python"
+
+    ```py linenums="1"
+    import os, json
+    from gonka_openai import GonkaOpenAI
+
+    client = GonkaOpenAI(
+        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+        source_url=os.environ.get('NODE_URL')
+    )
+
+    tools = [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_weather",
+                "description": "Get the current weather for a city",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "city": {"type": "string", "description": "City name"}
+                    },
+                    "required": ["city"],
+                },
+            },
+        }
+    ]
+
+    response = client.chat.completions.create(
+        model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        messages=[{"role": "user", "content": "What's the weather in Paris?"}],
+        tools=tools,
+        tool_choice="auto",
+    )
+
+    message = response.choices[0].message
+    if message.tool_calls:
+        call = message.tool_calls[0]
+        args = json.loads(call.function.arguments)
+        # model chose get_weather with {"city": "Paris"} — call your function now
+        print(call.function.name, args)
+    ```
+
+=== "TypeScript"
+
+    ```ts linenums="1"
+    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
+
+    const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
+    const client = new GonkaOpenAI({
+        gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
+        endpoints
+    });
+
+    const tools = [
+        {
+            type: 'function',
+            function: {
+                name: 'get_weather',
+                description: 'Get the current weather for a city',
+                parameters: {
+                    type: 'object',
+                    properties: { city: { type: 'string', description: 'City name' } },
+                    required: ['city'],
+                },
+            },
+        },
+    ];
+
+    const response = await client.chat.completions.create({
+        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        messages: [{ role: "user", content: "What's the weather in Paris?" }],
+        tools,
+        tool_choice: "auto",
+    });
+
+    const message = response.choices[0].message;
+    if (message.tool_calls) {
+        const call = message.tool_calls[0];
+        const args = JSON.parse(call.function.arguments);
+        // model chose get_weather with { city: "Paris" } — call your function now
+        console.log(call.function.name, args);
+    }
+    ```
+
+=== "Go"
+
+    ```go linenums="1"
+    package main
+
+    import (
+        "context"
+        "encoding/json"
+        "log"
+        "os"
+
+        gonka "github.com/gonka-ai/gonka-openai/go"
+        "github.com/openai/openai-go"
+    )
+
+    func main() {
+        client, err := gonka.NewGonkaOpenAI(gonka.Options{
+            GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
+            SourceUrl:       os.Getenv("NODE_URL"),
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+            Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+            Messages: []openai.ChatCompletionMessageParamUnion{
+                openai.UserMessage("What's the weather in Paris?"),
+            },
+            Tools: []openai.ChatCompletionToolParam{
+                {
+                    Type: "function",
+                    Function: openai.FunctionDefinitionParam{
+                        Name:        "get_weather",
+                        Description: openai.String("Get the current weather for a city"),
+                        Parameters: openai.FunctionParameters{
+                            "type": "object",
+                            "properties": map[string]any{
+                                "city": map[string]string{"type": "string", "description": "City name"},
+                            },
+                            "required": []string{"city"},
+                        },
+                    },
+                },
+            },
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        if len(resp.Choices[0].Message.ToolCalls) > 0 {
+            call := resp.Choices[0].Message.ToolCalls[0]
+            var args struct{ City string }
+            json.Unmarshal([]byte(call.Function.Arguments), &args)
+            // model chose get_weather with {City: "Paris"} — call your function now
+            log.Printf("Tool: %s, City: %s\n", call.Function.Name, args.City)
+        }
+    }
+    ```
 
 ---
 **Need help?**  Find answers on [FAQ page](https://gonka.ai/FAQ/), or join [Discord server](https://discord.com/invite/RADwCT2U6R) for assistance with general inquiries, technical issues, or security concerns.  

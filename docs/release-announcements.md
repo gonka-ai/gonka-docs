@@ -1,5 +1,19 @@
 # Announcements
 
+## March 11, 2026
+
+**Tool calling**
+
+[Tool calling](https://gonka.ai/developer/quickstart/#4-tool-calling) is now available through the standard function-calling pattern (`type: “function”`).
+
+The integration flow is simple: 
+
+- functions are defined by the developer
+- the model returns structured call arguments when a request matches
+- execution is handled on the application side.
+
+For teams already using proxy layers, this may be a good opportunity to simplify the stack and rely on native behavior instead. In practice, that should lead to a cleaner integration pattern and easier maintenance.
+
 ## March 6, 2026
 
 **Heads up: v0.2.11 upgrade is expected to enter review and governance voting early next week.**

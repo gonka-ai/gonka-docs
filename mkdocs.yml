@@ -97,6 +97,7 @@ extra_css:
 extra_javascript:
   - assets/javascripts/links.js
   - assets/javascripts/quickstart-configurator.js
+  - assets/javascripts/scroll-spy-url.js
 
 plugins:
   - minify:

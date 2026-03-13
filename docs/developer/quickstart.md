@@ -196,10 +196,10 @@ Do not forget to write it down, you will need it in the next step.
     
         <a href="/images/keplr_verify_your_recovery_phrase.png" target="_blank"><img src="/images/keplr_verify_your_recovery_phrase.png" style="width:500px; height:auto;"></a>
     
-        Select Cosmos Hub and Ethereum.
-        
-        <a href="/images/dashboard_keplr_step_2_7.png" target="_blank"><img src="/images/dashboard_keplr_step_2_7.png" style="width:500px; height:auto;"></a>
-            
+        Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
+
+        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
+                    
         Your Keplr wallet has been created.
         
         <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
@@ -238,9 +238,9 @@ Do not forget to write it down, you will need it in the next step.
     
     <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
     
-    You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
-    
-    <a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:500px; height:auto;"></a>
+    Approve requested connection to Gonka network.
+
+    <a href="/images/keplr_approve_connection.png" target="_blank"><img src="/images/keplr_approve_connection.png" style="width:250px; height:auto;"></a>
         
     Done! Your Gonka Developer account has been successfully created.
     

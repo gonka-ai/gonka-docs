@@ -48,12 +48,9 @@ Do not forget to write it down, you will need it in the next step.
 === "Genesis nodes"
     Set the `NODE_URL` to one of the genesis nodes:
     ```bash title="Genesis Node List"
-    http://185.216.21.98:8000
-    http://36.189.234.197:18026
     http://36.189.234.237:17241
     http://node1.gonka.ai:8000
     http://node2.gonka.ai:8000
-    http://node3.gonka.ai:8000
     http://47.236.26.199:8000
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
@@ -120,7 +117,7 @@ Do not forget to write it down, you will need it in the next step.
     export GONKA_ADDRESS=<your-account-address>
     ```
 
-    You will use this account to purchase gonka (GNK) coins and pay for inference requests.
+    You will use this account to purchase Gonka (GNK) coins and pay for inference requests.
 
     Add Private Key to environment variables.
     
@@ -131,15 +128,6 @@ Do not forget to write it down, you will need it in the next step.
     ```
     
     This command outputs a plain-text private key.
-    
-    Add it to the environment variable `GONKA_PRIVATE_KEY`, or the `.env` file.
-    ```bash
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-    To retrieve a list of all locally stored accounts, execute the following command:
-    ```
-    inferenced keys list [--keyring-backend test]
-    ```
 
 === "Option 2: Via Keplr (external wallet)"
 
@@ -299,15 +287,6 @@ Do not forget to write it down, you will need it in the next step.
         Done — your Gonka account has been successfully imported into Keplr!
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
-
-    Add it to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
-    ```
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-    To retrieve a list of all locally stored accounts, execute the following command:
-    ```
-    inferenced keys list [--keyring-backend test]
-    ```
 
 === "Option 3: Via Leap (external wallet)"
 
@@ -489,16 +468,14 @@ Do not forget to write it down, you will need it in the next step.
 
     <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:500px; height:auto;"></a>    
 
-    Add it to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
-    ```
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-    To retrieve a list of all locally stored accounts, execute the following command:
-    ```
-    inferenced keys list [--keyring-backend test]
-    ```
-
-TEST
+Add it to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
+```
+export GONKA_PRIVATE_KEY=<your-private-key>
+```
+To retrieve a list of all locally stored accounts, execute the following command:
+```
+inferenced keys list [--keyring-backend test]
+```
 
 ## 3. Inference using modified OpenAI SDK
 

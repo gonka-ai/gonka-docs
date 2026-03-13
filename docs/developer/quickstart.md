@@ -498,6 +498,8 @@ Do not forget to write it down, you will need it in the next step.
     inferenced keys list [--keyring-backend test]
     ```
 
+TEST
+
 ## 3. Inference using modified OpenAI SDK
 
 !!! important "Limited Transfer Agent Nodes"

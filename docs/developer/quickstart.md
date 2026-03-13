@@ -399,7 +399,7 @@ Do not forget to write it down, you will need it in the next step.
             
         <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
 
-=== "Option 4: Via cosmostation (external wallet)"
+=== "Option 4: Via Cosmostation (external wallet)"
 
     Go to [the official Cosmostation website](https://cosmostation.io/products/application){target=_blank} and click "Get Extension".
     
@@ -468,7 +468,7 @@ Do not forget to write it down, you will need it in the next step.
 
     <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:500px; height:auto;"></a>    
 
-Add it to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
+Add private key to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
 ```
 export GONKA_PRIVATE_KEY=<your-private-key>
 ```

@@ -25,9 +25,9 @@ Before creating an account, set up the required environment variables:
 - Replace `<your-desired-account-name>` with your chosen account name.
     - This name is not recorded on-chain — it exists only in your local key store.
     - Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. It is highly recommended to back up your public and private keys before performing this operation.
-- Replace `<http://random-node-url>` with a random Node URL. You can choose any node randomly — you **do not** need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API. You can either:
-    - Use one of the **genesis nodes** from the list below.
-    - Fetch the **current list of active participants** and select a random node. To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages.
+- Replace `<http://random-node-url>` with a random Node URL. You can choose any node randomly — you do not need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API. You can either:
+    - Use one of the genesis nodes from the list below.
+    - Fetch the current list of active participants and select a random node. To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages.
 
 === "Genesis nodes"
     Set the `NODE_URL` to one of the genesis nodes:

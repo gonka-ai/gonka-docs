@@ -427,7 +427,7 @@ Do not forget to write it down, you will need it in the next step.
 
     <a href="/images/8_cosmostation_account_name.png" target="_blank"><img src="/images/8_cosmostation_account_name.png" style="width:auto; height:337.5px;"></a>
     
-    Click "All Network" on the top-right side. Select Gonka chain to add it to your wallet.
+    In the top-right corner, click “All Networks” and select the Gonka chain to add it to your wallet.
 
     <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
     

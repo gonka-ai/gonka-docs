@@ -22,6 +22,11 @@ This guide explains how to create a developer account in Gonka and submit an inf
 
 Before creating an account, set up the required environment variables:
 
+```bash
+export ACCOUNT_NAME=<your-desired-account-name>
+export NODE_URL=<http://random-node-url>
+```
+
 - Replace `<your-desired-account-name>` with your chosen account name.
     - This name is not recorded on-chain — it exists only in your local key store.
     - Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. It is highly recommended to back up your public and private keys before performing this operation.
@@ -49,11 +54,7 @@ Before creating an account, set up the required environment variables:
         ```bash
         curl http://node2.gonka.ai:8000/v1/epochs/current/participants
         ```
-Run:
-```bash
-export ACCOUNT_NAME=<your-desired-account-name>
-export NODE_URL=<http://random-node-url>
-```
+        
 Do not forget to write it down, you will need it in the next step.
     
 ## 2. Create an account

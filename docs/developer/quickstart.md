@@ -427,7 +427,7 @@ Do not forget to write it down, you will need it in the next step.
         
     <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
     
-    Click on the Wallet name at the top. Click "Manage" on the left, then click the Wallet name. 
+    Click on the Wallet name at the top. Click "Manage" on the top-right corner, then click the Wallet name. 
             
     <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
     

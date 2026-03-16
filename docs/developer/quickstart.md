@@ -392,26 +392,18 @@ Do not forget to write it down, you will need it in the next step.
 
 === "Option 4: Via Cosmostation (external wallet)"
 
-    Go to [the official Cosmostation website](https://cosmostation.io/products/application){target=_blank} and click "Get Extension".
+    !!! note "Important Notice: Limited Functionality"
+        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via `inferenced` CLI tool or Option 2: Via Keplr (external wallet, "Connect with Google") instead.
+        
+    Get [Cosmostation Wallet browser extension](https://cosmostation.io/products/application). 
     
     <a href="/images/1_cosmostation.png" target="_blank"><img src="/images/1_cosmostation.png" style="width:500px; height:auto;"></a>
             
     Add an extension to your browser.
 
     <a href="/images/2_cosmostation_add_extention.png" target="_blank"><img src="/images/2_cosmostation_add_extention.png" style="width:500px; height:auto;"></a>
-    
-    Read and agree to the "Terms of Use".
-
-    <a href="/images/3_terms.png" target="_blank"><img src="/images/3_terms.png" style="width:auto; height:337.5px;"></a>
-
-    Set Wallet Password. Protects important information within the wallet and is required each time you access the wallet.
-
-    <a href="/images/4_cosmostation_set_wallet_password.png" target="_blank"><img src="/images/4_cosmostation_set_wallet_password.png" style="width:auto; height:337.5px;"></a>
 
     Choose "Create new wallet".
-
-    !!! note "Important Notice: Limited Functionality"
-        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via `inferenced` CLI tool or Option 2: Via Keplr (external wallet, "Connect with Google") instead.
 
     <a href="/images/5_cosmostation_create_a_new_wallet.png" target="_blank"><img src="/images/5_cosmostation_create_a_new_wallet.png" style="width:auto; height:337.5px;"></a>
     
@@ -431,11 +423,11 @@ Do not forget to write it down, you will need it in the next step.
 
     <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
     
-    Done! Your Gonka Developer account has been successfully created. Click on the Wallet name on the top-right.
+    Done! Your Gonka Developer account has been successfully created. 
         
     <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
     
-    Click "Manage" on the left and click on the Wallet name.
+    Click on the Wallet name at the top. Click "Manage" on the left, then click the Wallet name. 
             
     <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
     
@@ -461,7 +453,7 @@ export GONKA_PRIVATE_KEY=<your-private-key>
 ```
 To retrieve a list of all locally stored accounts, execute the following command:
 ```
-inferenced keys list [--keyring-backend test]
+./inferenced keys list [--keyring-backend test]
 ```
 
 ## 3. Inference using modified OpenAI SDK

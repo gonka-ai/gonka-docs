@@ -2,6 +2,10 @@
 
 **AI Token** is a model-specific unit of compute that quantifies the computational cost required for training or inference operations. For instance, in the context of a QwQ-32B model (FP16, 32K context), one AI Token may represent the resources needed to process a fixed number of input and/or output tokens. AI Tokens are tightly coupled to the characteristics of the base model and reflect actual memory, FLOP, etc. 
 
+**Confirmation (Random) Proof of Compute (cPoC)** is an auxiliary verification mechanism used to validate the stability of a Host’s declared computational weight outside the primary Proof of Compute Sprint. These checks are designed to confirm that Hosts continue to provide the computational capacity reflected in their most recent PoC results. Confirmation PoC does not replace the standard Proof of Compute process (Sprint).
+
+**Confirmation Ratio** is a ratio between the epoch weight derived from the Proof of Compute stage and weight resulted by Confirmation Proof of Compute. The higher the confirmation ratio, the more stable the provided compute by the host. In case of Confirmation Ratio <= 50%, host is disqualified from receiving the epoch reward
+
 **Consensus** is the protocol by which the network agrees on a single, verifiable state of the blockchain, ensuring that all participants maintain a consistent and tamper-proof ledger. In Gonka, consensus is achieved through Proof of Compute.
 
 **Epoch** is the core operational cycle of the chain. During an Epoch, Hosts perform meaningful AI work, participate in validation, and accumulate rewards. An Epoch lasts 17280 blocks (~24 hours) and ends with the completion of a Sprint by determining Host weights for the next epoch. 

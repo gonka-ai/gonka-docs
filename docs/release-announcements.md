@@ -1,5 +1,49 @@
 # Announcements
 
+## March 17, 2026
+
+**PR Review for Upgrade v0.2.11**
+
+[The Pull Request](https://github.com/gonka-ai/gonka/pull/813) for the next on-chain software upgrade, v0.2.11, is open for review. Feedback and suggested improvements are welcome. 
+
+Bounties for meaningful contributions to this PR review may be proposed in the next upgrade. 
+
+This is a call for review of the Pull Request only, and not the start of formal voting. The governance voting process will begin after the review period concludes.
+
+**Key changes**
+
+[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)
+
+This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+
+Today, handling inference through per-inference on-chain transactions limits throughput. This design moves inference execution and validation into an assigned off-chain subgroup, while the chain only handles session creation and final settlement.
+
+This is intentionally an early and constrained version of the design. It is being proposed for mainnet review and limited production testing, not because it is considered finished, but because this type of system needs exposure to real network conditions early. Some classes of issues are difficult to surface through local testing alone. Current implementation has been designed to avoid negatively affecting miners’ rewards.
+
+[`StartInference` and `FinishInference` performance improvements](https://github.com/gonka-ai/gonka/pull/812)
+
+- Reduces unnecessary state writes and query overhead for `MsgStartInference` and `MsgFinishInference`.
+- Simplifies stats handling and cuts work done during the inference lifecycle for better block execution stability.
+
+On mainnet-like conditions, this also makes it possible to fit up to 100x more inferences per block, depending on workload and network conditions.  ￼
+
+**Recommended action before the upgrade**
+
+**`application.db` pruning**
+
+Hosts are strongly encouraged to prune `application.db` before the upgrade, following the provided instructions.
+Doing this in advance is important. If many nodes defer pruning until after the upgrade, pruning activity may begin across the network at roughly the same time, creating avoidable operational pressure.
+Pruning instructions are documented [here](https://gonka.ai/FAQ/#__tabbed_7_4).
+
+**Explorer update**
+
+Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory:
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+Reviewers can find the full upgrade proposal, migration details, testing summary, and proposed process [here](https://github.com/gonka-ai/gonka/pull/813).
+
 ## March 16, 2026
 
 **API binary `v0.2.10-post7` is available**

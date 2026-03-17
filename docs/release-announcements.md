@@ -1,5 +1,39 @@
 # Announcements
 
+## March 16, 2026
+
+**API binary `v0.2.10-post7` is available**
+
+A potential vulnerability has been identified in `v0.2.10`. To reduce risk during the current pre-upgrade period, it is recommended to upgrade the api binary to `v0.2.10-post7` before the next PoC starts.
+
+Full changes: [https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7](https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7)
+
+Apply update:
+```
+# Pre-check: Ensure no confirmation PoC is active (fails entire script if not false)
+echo "--- Pre-flight Check: Confirmation PoC Status ---" && \
+CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+echo "OK: No confirmation PoC active" && \
+
+# Download Binary
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.10-post7/ .dapi/data/upgrade-info.json && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+wget -q -O decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post7/decentralized-api-amd64.zip' && \
+echo "71481e6f2c5f9a355ed283a0896833bcc8397e8bcda134a796a46467bd2ff3b0  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/decentralized-api && \
+echo "API Installed and Verified" && \
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.10-post7 .dapi/cosmovisor/current && \
+echo "313df0747e090518ac052918ad23f9d6e70bb60dede2013375e322c23605f3e0  .dapi/cosmovisor/current/bin/decentralized-api" | sudo sha256sum --check && \
+# Restart 
+source config.env && docker compose up api --no-deps --force-recreate -d
+```
+
 ## March 11, 2026
 
 **Tool calling**

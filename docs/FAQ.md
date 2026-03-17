@@ -1350,8 +1350,9 @@ There are several ways how to reset `application.db`:
 	- `pruning-interval = "512"`
 	
 	References:
-	[https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369](https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369)
-	[https://github.com/gonka-ai/gonka/pull/867](https://github.com/gonka-ai/gonka/pull/867)
+	
+	- [https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369](https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369)
+	- [https://github.com/gonka-ai/gonka/pull/867](https://github.com/gonka-ai/gonka/pull/867)
 	
 	After upgrading to this binary, pruning will begin after the next snapshot block. This process is relatively heavy and may temporarily slow down the `node` container while the old state history is being removed.
 	

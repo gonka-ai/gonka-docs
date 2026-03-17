@@ -1339,6 +1339,54 @@ There are several ways how to reset `application.db`:
     
     This is the general idea of the approach. If you decide to try it and have any questions, feel free to reach out on [Discord](https://discord.com/invite/RADwCT2U6R).
 
+=== "OPTION 4: Upgrade to the pruning fix" 
+
+	A fix is now available for the long-standing issue where `application.db` continues to grow under many pruning configurations.
+	This improvement was contributed by [Lelouch33](https://github.com/Lelouch33) and is included in release [`0.2.10-post6`](https://github.com/gonka-ai/gonka/compare/main...release/v0.2.10-post6). With the updated logic and the following settings, `application.db` can remain around 100 GB:
+	
+	- `SNAPSHOT_INTERVAL=1000`
+	- `SNAPSHOT_KEEP_RECENT=2`
+	- `pruning-keep-recent = "20000"`
+	- `pruning-interval = "512"`
+	
+	References:
+	[https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369](https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369)
+	[https://github.com/gonka-ai/gonka/pull/867](https://github.com/gonka-ai/gonka/pull/867)
+	
+	After upgrading to this binary, pruning will begin after the next snapshot block. This process is relatively heavy and may temporarily slow down the `node` container while the old state history is being removed.
+	
+	To reduce operational impact, it is recommended to apply the update to nodes one by one and use a higher `pruning-interval`, such as `512`, to avoid pruning too frequently.
+	
+	If a node slows down significantly during pruning, restarting the node container may help it catch up.
+	
+	Applying this update before the upcoming v0.2.11 upgrade is recommended to prevent pruning from starting simultaneously across many nodes.
+	
+	Apply update (example from `v0.2.7`, which has identical `inferenced`):
+	```
+	# Pre-check: Ensure no confirmation PoC is active (fails entire script if not false)
+	echo "--- Pre-flight Check: Confirmation PoC Status ---" && \
+	CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+	[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+	echo "OK: No confirmation PoC active" && \
+	
+	sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.10-post7/ .inference/data/upgrade-info.json  && \
+	sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.10-post7/bin/  && \
+	wget -q -O  inferenced.zip 'https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.10-post7/inferenced-amd64.zip' && \
+	echo "5ed8941d50779fa2359a9745263b324b887465104f81073827321945ab1f392a  inferenced.zip" | sha256sum --check && \
+	sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+	sudo chmod +x .inference/cosmovisor/upgrades/v0.2.10-post7/bin/inferenced && \
+	echo "Inference Installed and Verified"  && \
+	
+	# Link Binary
+	echo "--- Final Verification ---" && \
+	sudo rm -rf .inference/cosmovisor/current  && \
+	sudo ln -sf upgrades/v0.2.10-post7 .inference/cosmovisor/current  && \
+	echo "d9093b225cbd531afc56c99d0b0996b1fa2896c0745cd73293f0de08132f7754 .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+	
+	# Restart 
+	source config.env && docker compose up node --no-deps --force-recreate -d
+	```
+
 ### Automatic `ClaimReward` didn’t go through, what should I do?
 
 If you have unclaimed reward, execute:

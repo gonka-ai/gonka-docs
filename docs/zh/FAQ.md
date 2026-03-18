@@ -236,6 +236,211 @@ Base Weight +
 ### 治理参数本身可以更改吗？
 可以。所有关键的治理规则——法定人数、多数阈值和否决阈值——都是链上可配置的，可以通过治理提案进行更新。这允许网络随着参与模式和计算经济的变化而演进决策规则。
 
+### 如果我无法投票，因为我没有访问冷钥的权限，或者我希望由其他密钥代我投票，我该怎么办？
+
+如果持有投票权的密钥不是你日常使用的密钥，可以提前授予治理投票权限。
+
+在这种设置下：
+
+- 授权方（Granter）= 拥有投票权的账户（冷钥）
+- 被授权方（Grantee）= 代表授权方提交投票的账户（热钥）
+
+有两种常见情况：
+
+**1. 你想投票，但你没有访问持有投票权的密钥的权限。**
+
+请联系该密钥的持有者，并请求他们授予你的密钥代表其投票的权限。如果没有此授权，你的密钥无法代表该投票权提交治理投票。
+
+**2. 你希望由另一个密钥代你投票。**
+
+使用下面的授权命令，从持有投票权的密钥发起。这将授权被授权方密钥代表你提交治理投票。
+该委托仅允许对治理提案进行投票。被授权方仍然可以为其自身密钥投票。授权方可以随时撤销该权限。
+
+1) 授予投票权限（从授权方密钥执行）
+=== "命令"
+
+    ```
+    ./inferenced tx authz grant <GRANTEE_GONKA_ADDRESS> generic \
+      --msg-type=/cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --expiration=<UNIX_TIMESTAMP> \
+      --home .inference \
+      --keyring-backend file
+    ```
+    
+=== "示例返回"
+
+    ```
+    {
+        "height": "0",
+        "txhash": "8D96FB6FC06FFB928FBC89FE950689CD040C7F338C197BA856175EC7462A3FFA",
+        "codespace": "",
+        "code": 0,
+        "data": "",
+        "raw_log": "",
+        "logs": [],
+        "info": "",
+        "gas_wanted": "0",
+        "gas_used": "0",
+        "tx": null,
+        "timestamp": "",
+        "events": []
+    }
+    ```
+    
+2) 验证授权是否存在（可从任意节点执行）
+=== "命令"
+    ```
+    ./inferenced query authz grants <GRANTER_GONKA_ADDRESS> <GRANTEE_GONKA_ADDRESS> \
+      --node="http://<MAINNET_NODE_URL>:26657" \
+      --output=json | jq .
+    ```
+    
+=== "示例返回"
+
+    ```
+    {
+        "grants": [
+            {
+                "authorization": {
+                    "type": "cosmos-sdk/GenericAuthorization",
+                    "value": {
+                        "msg": "/cosmos.gov.v1beta1.MsgVote"
+                    }
+                },
+                "expiration": "2026-12-03T18:38:18Z"
+            }
+        ],
+        "pagination": {
+            "total": "1"
+        }
+    }
+    ```
+    
+3) 使用被授权方进行投票
+=== "命令"
+    ```
+    # Find the proposal ID which you are voting for - use it as <VOTE_PROPOSAL_ID> in the voting body 
+    ./inferenced query gov proposals --output json
+    
+    # Prepare the file with the voting body
+    cat > /tmp/authz-vote.json << 'EOF'
+    {
+      "body": {
+        "messages": [
+          {
+            "@type": "/cosmos.authz.v1beta1.MsgExec",
+            "grantee": "<GRANTEE_GONKA_ADDRESS>",
+            "msgs": [
+              {
+                "@type": "/cosmos.gov.v1beta1.MsgVote",
+                "proposal_id": "<VOTE_PROPOSAL_ID>",
+                "voter": "<GRANTER_GONKA_ADDRESS>",
+                "option": "VOTE_OPTION_YES"
+              }
+            ]
+          }
+        ]
+      }
+    }
+    EOF
+    
+    
+    # Vote using the file 
+    ./inferenced tx authz exec /tmp/authz-vote.json \  --from=<GRANTEE_KEY_NAME> \ 
+    --chain-id=gonka-mainnet \
+    --home .inference \
+    --keyring-backend file \
+    --node="http://<MAINNET_NODE_URL>:26657" -y
+    ```
+    
+=== "示例返回"
+
+    ```
+    {
+        "pagination": {
+            "total": "1"
+        },
+        "proposals": [
+            {
+                "deposit_end_time": "2026-03-06T10:40:07.016920026Z",
+                "final_tally_result": {
+                    "abstain_count": "0",
+                    "no_count": "0",
+                    "no_with_veto_count": "0",
+                    "yes_count": "0"
+                },
+                "id": "1",
+                "messages": [
+                    {
+                        "type": "cosmos-sdk/MsgSoftwareUpgrade",
+                        "value": {
+                            "authority": "gonka10d07y265gmmuvt4z0w9aw880jnsr700j2h5m33",
+                            "plan": {
+                                "height": "406062",
+                                "info": "{\n \"binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/inferenced-amd64.zip?checksum=sha256:fb71310427436aebac32813735231882fca420cf0d94b036f8cacd055d0e1c78\"\n },\n \"api_binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/decentralized-api-amd64.zip?checksum=sha256:6fe214f4bb2d831c02ce407682820d95d01e6ae94a33fe9c4617b80e0ca716ce\"\n }\n }",
+                                "name": "v0.2.10",
+                                "time": "0001-01-01T00:00:00Z"
+                            }
+                        }
+                    }
+                ],
+                "proposer": "gonka1xfvr8mywcrxrcrryvj8c5d2grvyjdj5c90fd88",
+                "status": 2,
+                "submit_time": "2026-03-04T10:40:07.016920026Z",
+                "summary": "Upgrade Proposal v0.2.10",
+                "title": "Upgrade Proposal v0.2.10",
+                "total_deposit": [
+                    {
+                        "amount": "50000000",
+                        "denom": "ngonka"
+                    }
+                ],
+                "voting_end_time": "2026-03-04T10:50:07.016920026Z",
+                "voting_start_time": "2026-03-04T10:40:07.016920026Z"
+            }
+        ]
+    }
+    ```
+    
+投票选项：
+
+- `VOTE_OPTION_YES`
+- `VOTE_OPTION_ABSTAIN`
+- `VOTE_OPTION_NO`
+- `VOTE_OPTION_NO_WITH_VETO`
+
+4) 撤销委托（从授权方密钥执行）
+=== "命令"
+
+    ```
+    ./inferenced tx authz revoke <GRANTEE_GONKA_ADDRESS> /cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --home .inference \
+      --keyring-backend file
+    ```
+=== "示例返回"
+
+    ```
+    {
+        code: 0
+        codespace: ""
+        data: ""
+        events: []
+        gas_used: "0"
+        gas_wanted: "0"
+        height: "0"
+        info: ""
+        logs: []
+        raw_log: ""
+        timestamp: ""
+        tx: null
+        txhash: A2C3CDA9E95DCF143C0D8981A4F573F1E68879ECF4903B25BA97383C3F2FDFBA
+    }
+    ```
+	
 ## 改进提案
 
 ### 治理提案和改进提案之间有什么区别？

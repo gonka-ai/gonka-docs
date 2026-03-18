@@ -7,6 +7,8 @@
 
 The Core incentive for Hosts (680 million gonka (GNK) coins, 68% of the total supply) is designed to reward Hosts for contributing computational power to the decentralized network. Under the Bitcoin-style reward System, a fixed amount of GNK is minted per epoch and distributed proportionally to each Host’s Proof of Compute (PoC) weight. As the network grows and more GPUs compete for the same fixed reward, the GNK earned per GPU decreases, introducing scarcity-driven value dynamics similar to Bitcoin mining. Long-term value for Hosts comes from increasing demand for inference services, fixed emission scarcity, and rising GNK market value as mining becomes more competitive. The reward schedule follows a predictable exponential decay, reducing epoch rewards gradually, halving rewards approximately every 4 years. 
 
+[Full version of Tokenomics](https://gonka.ai/tokenomics.pdf). 
+
 ## Reward system of Gonka network
 
 Gonka Network operates a dual reward system designed to balance long-term scarcity incentives with immediate economic utility. Hosts are compensated through two complementary reward streams:
@@ -28,26 +30,6 @@ In parallel, Gonka distributes Work Coins derived from real economic activity.
 
 - Developers pay fees for actual inference and compute workloads
 - These fees are distributed to Hosts proportionally to the real computation performed
-
-<div style="text-align:center;">
-  <a href="/images/Chart_1_Cumulative_Minted_Coins_vs_Year.png" target="_blank">
-    <img
-      src="/images/Chart_1_Cumulative_Minted_Coins_vs_Year.png"
-      style="display:block; width:50%; height:auto; max-width:50%; margin:0 auto;"
-    >
-  </a>
-  <div><em>Chart 1. Cumulative Minted Coins vs. Year</em></div>
-</div>
-
-<div style="text-align:center;">
-  <a href="/images/Chart_2_Total_Epoch_Reward_vs_Epoch.png" target="_blank">
-    <img
-      src="/images/Chart_2_Total_Epoch_Reward_vs_Epoch.png"
-      style="display:block; width:50%; height:auto; max-width:50%; margin:0 auto;"
-    >
-  </a>
-  <div><em>Chart 2. Total Epoch Reward (GNK) vs. Epoch</em></div>
-</div>
 
 ## Reward vesting
 

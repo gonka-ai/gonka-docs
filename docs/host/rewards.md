@@ -1,7 +1,7 @@
 # Rewards
 
 !!! note 
-  This documentation is provided for reference only. Final parameters and technical details may change, so always verify the latest on-chain state and the relevant GitHub repository before relying on this document.
+    This documentation is provided for reference only. Final parameters and technical details may change, so always verify the latest on-chain state and the relevant GitHub repository before relying on this document.
 
 ## Overview of tokenomics
 
@@ -30,12 +30,12 @@ In parallel, Gonka distributes Work Coins derived from real economic activity.
 - These fees are distributed to Hosts proportionally to the real computation performed
 
 <a href="/images/Chart_1_Cumulative_Minted_Coins_vs_Year.png" target="_blank">
-  <img src="/images/Chart_1_Cumulative_Minted_Coins_vs_Year.png" style="width:100%; height:auto; max-width:100%;">
+  <img src="/images/Chart_1_Cumulative_Minted_Coins_vs_Year.png" style="width:50%; height:auto; max-width:50%;">
 </a>
 _Chart 1. Cumulative Minted Coins vs. Year_
 
 <a href="/images/Chart_2_Total_Epoch_Reward_vs_Epoch.png" target="_blank">
-  <img src="/images/Chart_2_Total_Epoch_Reward_vs_Epoch.png" style="width:100%; height:auto; max-width:100%;">
+  <img src="/images/Chart_2_Total_Epoch_Reward_vs_Epoch.png" style="width:50%; height:auto; max-width:50%;">
 </a>
 _Chart 2. Total Epoch Reward (GNK) vs. Epoch_
 
@@ -210,6 +210,7 @@ Premature shutdown before PoC completion or claim finalization results in reward
 These conditions are enforced at the protocol level and cannot be reversed.
 
 **4. The Confirmation (Random) PoC**
+
 Failing a Confirmation PoC has a direct and significant impact on a Host’s earnings. Since Confirmation PoC exists to ensure that Hosts continuously maintain the computational capacity they claimed, a failure is interpreted as evidence that the Host no longer provides the compute power underlying their declared PoC weight. As a result, the protocol enforces strict economic consequences.
 
 - loss of all rewards for the current epoch

@@ -197,12 +197,6 @@ body:has(.gonka-landing) .gonka-header{padding-left:calc(max((100vw - 1440px)/2,
 
 /* Hero */
 .gonka-hero{text-align:center;overflow:visible;}
-.gonka-banner,
-.gonka-hero h1,
-.gonka-hero .tagline{
-  position: relative;
-  top: -70pt;
-}
 .gonka-hero::before{
   content:"";
   position:absolute;
@@ -217,14 +211,6 @@ body:has(.gonka-landing) .gonka-header{padding-left:calc(max((100vw - 1440px)/2,
 
 /* Mobile hero background adjustment */
 @media (max-width:500px){
-  .gonka-banner,
-  .gonka-hero h1,
-  .gonka-hero .tagline{
-    top: 0;
-  }
-  .gonka-cards{
-    min-height: 230px;
-  }
   .gonka-hero::before{
     top: -160px; /* Reduce top offset for mobile */
   }

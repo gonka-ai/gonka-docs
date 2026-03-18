@@ -29,15 +29,25 @@ In parallel, Gonka distributes Work Coins derived from real economic activity.
 - Developers pay fees for actual inference and compute workloads
 - These fees are distributed to Hosts proportionally to the real computation performed
 
-<a href="/images/Chart_1_Cumulative_Minted_Coins_vs_Year.png" target="_blank">
-  <img src="/images/Chart_1_Cumulative_Minted_Coins_vs_Year.png" style="width:50%; height:auto; max-width:50%;">
-</a>
-_Chart 1. Cumulative Minted Coins vs. Year_
+<div style="text-align:center;">
+  <a href="/images/Chart_1_Cumulative_Minted_Coins_vs_Year.png" target="_blank">
+    <img
+      src="/images/Chart_1_Cumulative_Minted_Coins_vs_Year.png"
+      style="display:block; width:50%; height:auto; max-width:50%; margin:0 auto;"
+    >
+  </a>
+  <div><em>Chart 1. Cumulative Minted Coins vs. Year</em></div>
+</div>
 
-<a href="/images/Chart_2_Total_Epoch_Reward_vs_Epoch.png" target="_blank">
-  <img src="/images/Chart_2_Total_Epoch_Reward_vs_Epoch.png" style="width:50%; height:auto; max-width:50%;">
-</a>
-_Chart 2. Total Epoch Reward (GNK) vs. Epoch_
+<div style="text-align:center;">
+  <a href="/images/Chart_2_Total_Epoch_Reward_vs_Epoch.png" target="_blank">
+    <img
+      src="/images/Chart_2_Total_Epoch_Reward_vs_Epoch.png"
+      style="display:block; width:50%; height:auto; max-width:50%; margin:0 auto;"
+    >
+  </a>
+  <div><em>Chart 2. Total Epoch Reward (GNK) vs. Epoch</em></div>
+</div>
 
 ## Reward vesting
 

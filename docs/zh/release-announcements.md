@@ -1,5 +1,97 @@
 # 公告
 
+## 2026 年 3 月 17 日
+
+**升级 v0.2.11 的 PR 审查**
+
+下一次链上软件升级 v0.2.11 的 [The Pull Request](https://github.com/gonka-ai/gonka/pull/813) 已开放供审查。欢迎提供反馈和改进建议。
+
+对于在本次 PR 审查中做出有意义贡献的参与者，相关奖励（bounties）可能会在下一次升级中提出。
+
+本次为仅针对 Pull Request 的审查通知，并不代表正式投票的开始。治理投票流程将在审查期结束后启动。
+
+**关键变更**
+
+[初始扩展架构：基于子网的推理会话](https://github.com/gonka-ai/gonka/pull/877)
+
+本次升级引入了基于子网的推理会话的初始版本，旨在提升推理的可扩展性。
+
+目前，通过逐次推理在链上发起交易的方式会限制吞吐量。该设计将推理的执行与验证转移至指定的链下子组中，而链上仅负责会话创建与最终结算。
+
+这是一个有意设计为早期且受限的版本。之所以将其提交至主网进行审查和有限的生产测试，并不是因为其已经完善，而是因为这类系统需要尽早在真实网络环境中进行验证。有些问题类型很难仅通过本地测试暴露出来。当前实现已被设计为避免对矿工收益产生负面影响。
+
+[`StartInference` 和 `FinishInference` 性能优化](https://github.com/gonka-ai/gonka/pull/812)
+
+- 减少了 `MsgStartInference` 和 `MsgFinishInference` 的不必要状态写入与查询开销。
+- 简化了统计处理，并减少推理生命周期中的工作量，从而提升区块执行的稳定性。
+
+在接近主网的运行条件下，这也使得每个区块可容纳的推理数量最高提升至约 100 倍（具体取决于负载与网络条件）。 ￼
+
+**升级前建议操作**
+
+**`application.db`清理（pruning）**
+
+强烈建议 Hosts 在升级前对 `application.db` 进行 pruning，并按照提供的说明执行。
+提前执行这一操作非常重要。如果大量节点在升级后才开始 pruning，可能会导致全网在同一时间集中进行清理操作，从而带来可避免的运行压力。
+pruning 操作说明见 [这里](https://gonka.ai/FAQ/#__tabbed_7_4)。
+
+**浏览器（Explorer）更新**
+
+请 Hosts 更新 dashboard / explorer。请在 `gonka/deploy/join` 目录下运行以下命令：
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+审查人员可以在 [这里](https://github.com/gonka-ai/gonka/pull/813) 查看完整的升级提案、迁移细节、测试总结以及建议流程。
+
+## 2026 年 3 月 16 日
+
+**API 二进制版本 `v0.2.10-post7` 已发布**
+
+在 `v0.2.10`中已发现一个潜在漏洞。为在当前升级前阶段降低风险，建议在下一次 PoC 开始之前，将 API 二进制升级至 `v0.2.10-post7` 。
+
+完整变更： [https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7](https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7)
+
+应用更新：
+```
+# 预检查：确保没有 confirmation PoC 正在运行（如果不为 false，整个脚本将失败）
+echo "--- 预检查：Confirmation PoC 状态 ---" && \
+CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+echo "当前没有 confirmation PoC 正在运行" && \
+
+# 下载二进制文件
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.10-post7/ .dapi/data/upgrade-info.json && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+wget -q -O decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post7/decentralized-api-amd64.zip' && \
+echo "71481e6f2c5f9a355ed283a0896833bcc8397e8bcda134a796a46467bd2ff3b0  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/decentralized-api && \
+echo "API Installed and Verified" && \
+
+# 链接二进制文件
+echo "--- 最终验证 ---" && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.10-post7 .dapi/cosmovisor/current && \
+echo "313df0747e090518ac052918ad23f9d6e70bb60dede2013375e322c23605f3e0  .dapi/cosmovisor/current/bin/decentralized-api" | sudo sha256sum --check && \
+# 重启 
+source config.env && docker compose up api --no-deps --force-recreate -d
+```
+
+## 2026 年 3 月 11 日
+
+**工具调用**
+
+[Tool calling](https://gonka.ai/developer/quickstart/#4-tool-calling) 已通过标准的函数调用模式（type: "function"）提供支持
+
+集成流程很简单：
+
+- 函数由开发者定义
+- 当请求匹配时，模型会返回结构化的调用参数
+- 执行由应用侧负责处理
+
+对于已经在使用代理层的团队来说，这可能是一个简化技术栈、转而依赖原生能力的好机会。在实际应用中，这应当能够带来更清晰的集成模式以及更容易的维护。
+
 ## 2026 年 3 月 6 日
 
 **提醒：v0.2.11 升级预计将在下周初进入审核和治理投票阶段。**

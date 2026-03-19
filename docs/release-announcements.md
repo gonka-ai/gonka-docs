@@ -1,5 +1,89 @@
 # Announcements
 
+## March 18, 2026
+
+**v0.2.11 Upgrade Proposal Enters Governance**
+
+The upgrade proposal for the next on-chain software version v0.2.11 has now been published on-chain and is open for voting. If approved, the proposal introduces an initial version of subnet-based inference sessions intended to improve inference scalability, and significantly `Start`/`FinishInference` performance improvements.
+
+**Key changes**
+
+**[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
+
+This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+
+Today, handling inference through per-inference on-chain transactions limits throughput. This design moves inference execution and validation into an assigned off-chain subgroup, while the chain only handles session creation and final settlement.
+
+This is intentionally an early and constrained version of the design. It is being proposed for mainnet review and limited production testing, not because it is considered finished, but because this type of system needs exposure to real network conditions early. Some classes of issues are difficult to surface through local testing alone. Current implementation has been designed to avoid negatively affecting miners’ rewards.
+
+**[`StartInference` and `FinishInference` performance improvements](https://github.com/gonka-ai/gonka/pull/812)**
+
+- Reduces unnecessary state writes and query overhead for `MsgStartInference` and `MsgFinishInference`.
+- Simplifies stats handling and cuts work done during the inference lifecycle for better block execution stability.
+
+On mainnet-like conditions, this also makes it possible to fit up to 100x more inferences per block, depending on workload and network conditions.  ￼
+Additional details for these and other changes are available here: [https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813) 
+
+**Recommended action before the upgrade**
+
+**`application.db` pruning**
+
+Hosts are strongly encouraged to prune `application.db` before the upgrade, following the provided instructions.
+
+Doing this in advance is important. If many nodes defer pruning until after the upgrade, pruning activity may begin across the network at roughly the same time, creating avoidable operational pressure.
+Pruning instructions are documented here: [https://gonka.ai/FAQ/#__tabbed_7_4](https://gonka.ai/FAQ/#__tabbed_7_4)
+
+**Explorer update**
+
+Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory:
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key. 
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [https://node3.gonka.ai](https://node3.gonka.ai) 
+
+Cast your vote ( `yes`, `no` , `abstain` , `no_with_veto` ):
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 31 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 31 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+- Voting ends: March 20th, 2026, at 05:59:52 UTC
+- Upgrade height: 3186100
+- Estimated upgrade time: March 20th, 2026, at 14:30 UTC
+
+**Attention**
+
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available. Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- After the upgrade, Postgres is available as an option for local payload storage.
+
 ## March 17, 2026
 
 **PR Review for Upgrade v0.2.11**

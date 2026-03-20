@@ -1,5 +1,131 @@
 # 公告
 
+## 2026年3月19日
+
+**升级 v0.2.11：预下载二进制文件**
+
+v0.2.11 升级提案的链上治理流程即将结束。
+
+- 投票结束时间：2026年3月20日 05:59:52（UTC）
+- 升级区块高度：3186100
+- 预计升级时间：2026年3月20日 14:30（UTC）
+
+建议各主机（Hosts）在 [GitHub](https://github.com/gonka-ai/gonka/pull/813) 上查看该提案并参与投票。
+提前预下载二进制文件有助于在升级窗口期间避免依赖 GitHub 的可用性。
+
+```
+# 1. 创建目录
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.11/bin \
+              .inference/cosmovisor/upgrades/v0.2.11/bin && \
+
+# 2. DAPI：下载 -> 校验 -> 直接解压到 bin 目录 -> 赋予执行权限
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/decentralized-api-amd64.zip" && \
+echo "e574c3d86189daf325cc7008603ee8e952efb028afda5bcd4a154dcd334192d4 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.11/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference：下载 -> 校验 -> 直接解压到 bin 目录 -> 赋予执行权限
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/inferenced-amd64.zip" && \
+echo "c77528bd2e31e86355a6eefddb50e0db7f9600ebf2940ca440a61ea36e7ef7ca inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. 清理并最终检查
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+echo "8b99e550ddd117a0cb4293b4ae74e0e5dff961a1986f23b58ec7ae6c3f0478f1 .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api" | sudo sha256sum --check && \
+echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced" | sudo sha256sum --check
+```
+
+## 2026年3月18日
+
+**v0.2.11 升级提案进入治理流程**
+
+下一版本链上软件 v0.2.11 的升级提案现已在链上发布并开放投票。如果提案获得通过，将引入基于子网的推理会话的初始版本，以提升推理的可扩展性，并对`Start`/`FinishInference` 进行显著的性能优化。
+
+**关键变更**
+
+**[初始扩展架构：基于子网的推理会话](https://github.com/gonka-ai/gonka/pull/877)**
+
+本次升级引入了基于子网的推理会话的初始版本，旨在提升推理的可扩展性。
+
+当前，通过每次推理都在链上进行交易处理的方式会限制吞吐量。该设计将推理执行和验证移至指定的链下子组中，而链上仅负责会话创建和最终结算。
+
+这是一个有意为之的早期且受限版本设计。之所以提交到主网进行评审和有限生产测试，并不是因为该设计已经完善，而是因为这类系统需要尽早暴露在真实网络环境中。一些问题类型很难仅通过本地测试暴露出来。当前实现已被设计为避免对矿工收益产生负面影响。
+
+**[`StartInference` 和 `FinishInference` 性能优化](https://github.com/gonka-ai/gonka/pull/812)**
+
+- 减少 `MsgStartInference` and `MsgFinishInference` 的不必要状态写入和查询开销。
+- 简化统计处理，并减少推理生命周期中的工作量，从而提高区块执行的稳定性。
+
+在类似主网的条件下，这也使得每个区块最多可容纳约 100 倍的推理请求，具体取决于工作负载和网络条件。  ￼
+这些以及其他变更的更多细节可查看： [https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813) 
+
+**升级前建议操作**
+
+**`application.db` 清理**
+
+强烈建议各主机在升级前按照提供的说明对 `application.db` 进行清理。
+
+提前执行此操作非常重要。如果大量节点将清理延后到升级之后，可能会在网络中同时触发清理操作，从而造成可避免的运行压力。
+清理说明见： [https://gonka.ai/FAQ/#__tabbed_7_4](https://gonka.ai/FAQ/#__tabbed_7_4)
+
+**浏览器（Explorer）更新**
+
+要求各主机更新 dashboard/explorer。请在 `gonka/deploy/join` 目录下运行以下命令：
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+**如何投票**
+
+如果你无法直接访问拥有投票权的密钥，或希望使用其他密钥代为投票，请参考以下 [指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) 。
+
+P该指南介绍了如何将治理投票权限从冷密钥授予热密钥。提案详情和投票可通过 `inferenced` 进行。任何活跃节点都可以使用，可用节点包括：
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [https://node3.gonka.ai](https://node3.gonka.ai) 
+
+执行投票 ( `yes`, `no` , `abstain` , `no_with_veto` ):
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 31 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+查询投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 31 -o json --node $NODE_URL/chain-rpc/
+```
+
+**时间节点**
+
+- 投票结束时间：2026年3月20日 05:59:52（UTC）
+- 升级区块高度：3186100
+- 预计升级时间：2026年3月20日 14:30（UTC）
+
+**注意事项**
+
+- 请在升级窗口期间保持在线，以便能够及时执行后续步骤或应对措施。
+- 在升级过程中，Cosmovisor 会在 `.inference/data` 目录中创建完整的状态备份，请确保有足够的磁盘空间。关于如何安全删除 `.inference` 目录中的旧备份，请参考 [文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
+- 如果 `application.db` 占用了大量磁盘空间，可以参考 [此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 的清理方法。
+- 升级后，Postgres 可作为本地 payload 存储的选项。
+
 ## 2026 年 3 月 17 日
 
 **升级 v0.2.11 的 PR 审查**

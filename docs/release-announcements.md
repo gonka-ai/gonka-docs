@@ -1,5 +1,29 @@
 # Announcements
 
+## March 20, 2026
+
+**UPGRADE EXECUTED: v0.2.11 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.11 has concluded. The proposal has been APPROVED, and the upgrade was successfully executed on the mainnet.
+
+**Key changes now active**
+
+**[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
+
+This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+
+**[`StartInference` and `FinishInference` performance improvements](https://github.com/gonka-ai/gonka/pull/812)**
+
+These performance improvements enable up to 100x more inferences per block, depending on workload and network conditions.
+Additional details for these and other changes are available here: [https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813)
+
+**Guidance for Hosts**
+
+- **Binary Versions:** Updated via the on-chain upgrade process.
+- **Migration:** Testing and migration details are documented in the [v0.2.11 documentation](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.11/docs/upgrades.md).
+
+Additional details for these changes are available in the governance artifacts: [https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/) 
+
 ## March 19, 2026
 
 **Upgrade v0.2.11: Pre-download binaries**

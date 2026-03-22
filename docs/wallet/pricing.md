@@ -65,6 +65,29 @@ The system defines a stability zone for network utilization between 40% and 60%,
     - Maintains network incentive structure even during extremely low demand
     - Uses the smallest denomination unit, making it effectively negligible while preventing edge cases
 
+## Query current pricing
+The current network pricing configuration can be queried from any active node.
+```
+curl http://node2.gonka.ai:8000/v1/governance/pricing | jq
+```
+Example response:
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   175  100   175    0     0    315      0 --:--:-- --:--:-- --:--:--   314
+{
+  "unit_of_compute_price": 100,
+  "models": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "units_of_compute_per_token": 10000,
+      "price_per_token": 1
+    }
+  ],
+  "dynamic_pricing_enabled": true
+}
+```
+
 ## Supported denominations
 
 On-chain, the only valid denomination is `ngonka`. All balances, fees, and transactions must use `ngonka` exclusively.

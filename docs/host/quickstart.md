@@ -599,7 +599,7 @@ again plastic athlete arrow first measure danger drastic wolf coyote work memory
 
 #### 3.2. [Server] Register Host
 
-From the same container, we can register the Host with URL, Account Key, and Consensus Key (fetched automatically) on chain:
+From the same container, register the Host — this links your URL, Account Key, and Consensus Key (fetched automatically) on-chain:
 
 ```
 inferenced register-new-participant \
@@ -614,6 +614,35 @@ inferenced register-new-participant \
 Found participant with pubkey: Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY (balance: 0)
 Participant is now available at http://36.189.234.237:19250/v1/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
 ```
+
+!!! warning "Existing account (already has on-chain transactions)"
+    An account is created on-chain permanently the first time it receives tokens. If your account key address already has transactions, follow these steps:
+
+    **Step 1.** While still in the container from step 3.1, get your Consensus Key and note it down:
+    ```bash
+    curl -s $DAPI_CHAIN_NODE__URL/status | jq -r '.result.validator_info.pub_key.value'
+    ```
+
+    **Step 2.** Exit the container, then run this command on your **local machine** (where your Account Key is stored):
+    ```bash
+    ./inferenced tx inference submit-new-participant \
+        <PUBLIC_URL> \
+        --validator-key <CONSENSUS_KEY> \
+        --keyring-backend file \
+        --from <COLD_KEY_NAME> \
+        --timeout-duration 1m \
+        --unordered \
+        --node <node-url>/chain-rpc/ \
+        --chain-id gonka-mainnet
+    ```
+
+    `<node-url>` — any already-running node on the network (e.g. `http://node2.gonka.ai:8000`). Do not use your own node's URL — it is not fully started yet at this step.
+
+    If you created your Account Key with a custom `--keyring-dir`, add `--keyring-dir <path>` to the command.
+
+    The command will prompt `confirm transaction before signing and broadcasting [y/N]:` — type `y` to proceed.
+
+    Gas is paid from the Account Key's balance. Make sure the account has tokens before running this command.
 
 !!! note "Per-Node Account Key Configuration"
     Always generate a unique `ACCOUNT_PUBKEY` for each Network Node to ensure proper separation of Hosts.

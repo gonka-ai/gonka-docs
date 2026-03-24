@@ -65,6 +65,29 @@
     - 即使在极低需求期，也保持网络激励结构
     - 使用最小计价单位，既几乎可忽略，又能有效避免边界问题
 
+## 查询当前定价
+当前网络的定价配置可以从任意活跃节点进行查询。
+```
+curl http://node2.gonka.ai:8000/v1/governance/pricing | jq
+```
+示例返回：
+```
+  % 总计    % 接收 % 传输  平均速度   时间    时间     时间  当前
+                                 下载  上传   总计   已用    剩余  速度
+100   175  100   175    0     0    315      0 --:--:-- --:--:-- --:--:--   314
+{
+  "unit_of_compute_price": 100,
+  "models": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "units_of_compute_per_token": 10000,
+      "price_per_token": 1
+    }
+  ],
+  "dynamic_pricing_enabled": true
+}
+```
+
 ## 支持的计价单位
 
 在链上，唯一有效的计量单位是 `ngonka`。所有余额、手续费和交易必须全部使用 `ngonka`。  

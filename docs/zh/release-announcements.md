@@ -1,5 +1,29 @@
 # 公告
 
+## 2026年3月20日
+
+**升级已执行：v0.2.11 现已在主网上线**
+
+升级提案 v0.2.11 的链上治理投票已结束。该提案已获得通过，升级已在主网上成功执行。
+
+**当前已生效的关键变更**
+
+**[初始扩展架构：基于子网的推理会话](https://github.com/gonka-ai/gonka/pull/877)**
+
+本次升级引入了基于子网的推理会话的初始版本，旨在提升推理的可扩展性。
+
+**[`StartInference` 和 `FinishInference` 性能优化](https://github.com/gonka-ai/gonka/pull/812)**
+
+这些性能优化使每个区块能够承载最多约 100 倍的推理请求，具体取决于工作负载和网络条件。
+这些以及其他变更的更多细节可查看： [https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813)
+
+**对主机（Hosts）的指引**
+
+- **二进制版本： 已通过链上升级流程完成更新。
+- **迁移：** 测试与迁移相关的详细说明已记录在 [v0.2.11 文档](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.11/docs/upgrades.md).
+
+这些变更的更多详细信息可在治理相关资料中查看： [https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/) 
+
 ## 2026年3月19日
 
 **升级 v0.2.11：预下载二进制文件**

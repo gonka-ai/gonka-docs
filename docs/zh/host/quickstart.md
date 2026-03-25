@@ -580,7 +580,7 @@ again plastic athlete arrow first measure danger drastic wolf coyote work memory
 在同一容器内注册主机 — 此操作将您的 URL、账户密钥与自动获取的共识密钥在链上绑定：
 
 ```
-inferenced register-new-participant \
+./inferenced register-new-participant \
     $DAPI_API__PUBLIC_URL \
     $ACCOUNT_PUBKEY \
     --node-address $DAPI_CHAIN_NODE__SEED_API_URL

@@ -616,7 +616,7 @@ Participant is now available at http://36.189.234.237:19250/v1/participants/gonk
 ```
 
 !!! warning "Existing account (already has on-chain transactions)"
-    An account is created on-chain permanently the first time it receives tokens. If your account key address already has transactions, follow these steps:
+    An account is created on-chain permanently the first time it receives coins. If your account key address already has transactions, follow these steps:
 
     **Step 1.** While still in the container from step 3.1, get your Consensus Key and note it down:
     ```bash
@@ -642,7 +642,7 @@ Participant is now available at http://36.189.234.237:19250/v1/participants/gonk
 
     The command will prompt `confirm transaction before signing and broadcasting [y/N]:` — type `y` to proceed.
 
-    Gas is paid from the Account Key's balance. Make sure the account has tokens before running this command.
+    Gas is paid from the Account Key's balance. Make sure the account has coins before running this command.
 
 !!! note "Per-Node Account Key Configuration"
     Always generate a unique `ACCOUNT_PUBKEY` for each Network Node to ensure proper separation of Hosts.

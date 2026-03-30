@@ -161,10 +161,26 @@ We use a three-key system:
 ### [Local machine] Install the CLI Tool
 The `inferenced` CLI is required for local account management and network operations. It's a command-line interface utility that allows you to create and manage Gonka accounts, register hosts, and perform various network operations from your local machine.
 
-Download the latest `inferenced` binary from [GitHub releases](https://github.com/gonka-ai/gonka/releases) and make it executable.
+**Choose the correct binary**
 
-!!! note "Important"
-    Please make sure you are using the CLI tool [version 0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) or newer. Older versions are not supported for permission granting and may lead to unexpected behavior.
+GitHub releases may contain multiple `inferenced` artifacts.
+
+For local CLI usage, always download an **OS-specific packaged CLI build**, for example:
+
+- `inferenced-darwin-amd64.zip`
+- `inferenced-darwin-arm64.zip`
+- `inferenced-linux-amd64.zip`
+- `inferenced-linux-arm64.zip`
+
+Do not use generic `inferenced` binaries intended for upgrade paths or container/runtime environments. Those artifacts may not work correctly as a standalone CLI on your local machine.
+
+**Version requirement**
+
+Please make sure you are using an `inferenced` CLI build [version 0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) or newer. Older CLI versions are not supported for permission granting and may lead to unexpected behavior.
+
+If you plan to submit governance proposals, especially proposals that use newer message types, use the latest published OS-specific CLI build.
+
+**Verify installation**
 
 ```bash
 chmod +x inferenced
@@ -173,6 +189,8 @@ chmod +x inferenced
 
 !!! note "MacOS Users"
     On macOS, you may need to allow execution in `System Settings` → `Privacy & Security` if prompted. Scroll down to the warning about `inferenced` and click `Allow Anyway`.
+
+If the binary fails to start on Linux with an error similar to `Error relocating ./inferenced: qsort_r: symbol not found`, you most likely downloaded a non-CLI or upgrade-specific artifact instead of the OS-specific packaged CLI build. Re-download the correct archive for your operating system and architecture.
 
 ### [Local machine] Create Account Key
 **IMPORTANT: Perform this step on a secure, local machine (not your server)**

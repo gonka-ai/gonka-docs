@@ -28,32 +28,18 @@ export NODE_URL=<http://random-node-url>
 ```
 
 - 将 `<your-desired-account-name>` 替换为你选择的账户名称。
-
-??? note "关于账户名称的须知"
-    此名称不会记录在链上 — 它仅存在于你的本地密钥存储中。
-    唯一性是本地的：创建两个同名密钥将覆盖现有密钥（CLI 会警告）。如果继续，原始密钥将永久丢失。强烈建议在执行此操作之前备份你的公钥和私钥。
-
-- 将 `<http://random-node-url>` 替换为随机节点 URL。你可以：
-    - 使用下面列表中的**创世节点**之一。
-    - 获取**当前活跃参与者列表**并选择随机节点。
-
-不要忘记记录下来，下一步会需要。
-
-??? note "为什么选择随机节点？"
-    为避免过度依赖创世节点并鼓励去中心化，Gonka 建议从当前 epoch 中选择随机活跃节点。这改善了网络负载分配和对节点故障的弹性。
-
-??? note "如何选择节点 URL？"
-    你可以随机选择任何节点 — 你**不需要**考虑它运行哪个模型。此时，节点纯粹用作获取网络状态和广播交易的网关。所有节点都暴露相同的公共 API。
+    - 该名称不会记录在链上 —— 它仅存在于你的本地密钥存储中。
+    - 唯一性仅在本地生效：如果创建两个相同名称的密钥，将会覆盖已有密钥（CLI 会给出警告）。如果你继续操作，原有密钥将被永久丢失。强烈建议在执行此操作前备份你的公钥和私钥。
+- 将 `<http://random-node-url>` 替换为任意一个节点 URL。你可以随机选择任意节点 —— 无需考虑其运行的模型。在此阶段，该节点仅作为网关，用于获取网络状态并广播交易。所有节点都提供相同的公共 API。你可以选择：
+    - 使用以下列表中的任意一个创世节点（genesis nodes）。
+    - 获取当前活跃参与者列表并随机选择一个节点。为避免过度依赖创世节点并促进去中心化，Gonka 建议从当前 epoch 的活跃节点中随机选择一个节点。这有助于提升网络负载分布，并增强对节点故障的抗性。
 
 === "创世节点"
     将 `NODE_URL` 设置为以下创世节点之一：
     ```bash title="创世节点列表"
-    http://185.216.21.98:8000
-    http://36.189.234.197:18026
     http://36.189.234.237:17241
     http://node1.gonka.ai:8000
     http://node2.gonka.ai:8000
-    http://node3.gonka.ai:8000
     http://47.236.26.199:8000
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
@@ -62,13 +48,15 @@ export NODE_URL=<http://random-node-url>
 === "当前活跃参与者列表"
     或者，你可以从当前 epoch 中选择随机活跃参与者。打开链接或运行以下命令获取活跃参与者列表以及用于验证的加密证明：
     === "链接"
-        [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
+        [http://node1.gonka.ai:8000/v1/epochs/current/participants](http://node1.gonka.ai:8000/v1/epochs/current/participants)
 
     === "命令"
         ```bash
-        curl http://node2.gonka.ai:8000/v1/epochs/current/participants
+        curl http://node1.gonka.ai:8000/v1/epochs/current/participants
         ```
-    
+        
+请不要忘记将其记录下来，你将在下一步中需要使用。
+
 ## 2. 创建账户
 
 === "选项 1：通过 `inferenced` CLI 工具"
@@ -119,7 +107,7 @@ export NODE_URL=<http://random-node-url>
     export GONKA_ADDRESS=<your-account-address>
     ```
 
-    你将使用此账户购买 gonka（GNK）代币并支付推理请求。
+    你将使用此账户购买 Gonka（GNK）代币并支付推理请求。
 
     将私钥添加到环境变量。
     
@@ -130,15 +118,6 @@ export NODE_URL=<http://random-node-url>
     ```
     
     此命令输出纯文本私钥。
-    
-    将其添加到环境变量 `GONKA_PRIVATE_KEY` 或 `.env` 文件中。
-    ```bash
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-    要检索所有本地存储账户的列表，请执行以下命令：
-    ```
-    inferenced keys list [--keyring-backend test]
-    ```
 
 === "选项 2：通过 Keplr（外部钱包）"
 
@@ -195,9 +174,9 @@ export NODE_URL=<http://random-node-url>
     
         <a href="/images/keplr_verify_your_recovery_phrase.png" target="_blank"><img src="/images/keplr_verify_your_recovery_phrase.png" style="width:500px; height:auto;"></a>
     
-        选择 Cosmos Hub 和 Ethereum。
+        在搜索栏中输入 “Gonka”，并选择 Gonka 链，将其添加到你的钱包中。
         
-        <a href="/images/dashboard_keplr_step_2_7.png" target="_blank"><img src="/images/dashboard_keplr_step_2_7.png" style="width:500px; height:auto;"></a>
+        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
             
         你的 Keplr 钱包已创建。
         
@@ -237,9 +216,9 @@ export NODE_URL=<http://random-node-url>
     
     <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
     
-    你将看到提示将自定义 Gonka 链添加到钱包。批准并添加 Gonka 链。
+    批准与 Gonka 网络的连接请求。
     
-    <a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:500px; height:auto;"></a>
+    <a href="/images/keplr_approve_connection.png" target="_blank"><img src="/images/keplr_approve_connection.png" style="width:250px; height:auto;"></a>
         
     完成！你的 Gonka 开发者账户已成功创建。
     
@@ -298,15 +277,6 @@ export NODE_URL=<http://random-node-url>
         完成 — 你的 Gonka 账户已成功导入 Keplr！
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
-
-    将其添加到环境变量 `GONKA_PRIVATE_KEY` 或 `.env` 文件中。
-    ```
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-    要检索所有本地存储账户的列表，请执行以下命令：
-    ```
-    inferenced keys list [--keyring-backend test]
-    ```
 
 === "选项 3：通过 Leap（外部钱包）"
 
@@ -419,13 +389,71 @@ export NODE_URL=<http://random-node-url>
             
         <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
 
-    将其添加到环境变量 `GONKA_PRIVATE_KEY` 或 `.env` 文件中。
+        === "选项 4：通过 Cosmostation（外部钱包）"
+        
+    !!! note "重要提示：功能受限"
+        此选项通过助记词创建账户，但不支持通过桥进行交易。如果你希望通过桥进行交易，请使用选项 1：通过 `inferenced` CLI 工具，或选项 2：通过 Keplr（外部钱包，“Connect with Google”）。
+        
+    获取 [Cosmostation 钱包浏览器扩展](https://cosmostation.io/products/application). 
+        
+    Get [Cosmostation Wallet browser extension](https://cosmostation.io/products/application). 
+    <a href="/images/1_cosmostation.png" target="_blank"><img src="/images/1_cosmostation.png" style="width:500px; height:auto;"></a>
+            
+    将扩展程序添加到你的浏览器中。
+
+    <a href="/images/2_cosmostation_add_extention.png" target="_blank"><img src="/images/2_cosmostation_add_extention.png" style="width:500px; height:auto;"></a>
+
+    选择 “Create new wallet”（创建新钱包）。
+
+    <a href="/images/5_cosmostation_create_a_new_wallet.png" target="_blank"><img src="/images/5_cosmostation_create_a_new_wallet.png" style="width:auto; height:337.5px;"></a>
+
+    记录你的助记词。请勿将你的恢复短语分享给任何人。任何拥有你恢复短语的人都可以完全控制你的资产。请始终警惕钓鱼攻击。请安全备份该短语。
+    
+    <a href="/images/6_cosmostation_mnemonic.png" target="_blank"><img src="/images/6_cosmostation_mnemonic.png" style="width:auto; height:337.5px;"></a>
+
+    按顺序完成验证问答。检查你备份的助记词，并为每个编号选择正确顺序的单词。
+
+    <a href="/images/7_cosmostation_quiz.png" target="_blank"><img src="/images/7_cosmostation_quiz.png" style="width:auto; height:337.5px;"></a>
+
+    设置账户名称。请输入你的账户名称，该名称可以随时更改。
+
+     <a href="/images/8_cosmostation_account_name.png" target="_blank"><img src="/images/8_cosmostation_account_name.png" style="width:auto; height:337.5px;"></a>
+     
+    在右上角点击 “All Networks”，并选择 Gonka 链，将其添加到你的钱包中。
+
+    <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
+
+    完成！你的 Gonka Developer 账户已成功创建。
+        
+    <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
+        
+     点击顶部的钱包名称。在右上角点击 “Manage”，然后点击钱包名称。
+            
+    <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
+
+    点击 “View private key”（查看私钥）。
+
+     <a href="/images/13_cosmostation_view_private_key.png" target="_blank"><img src="/images/13_cosmostation_view_private_key.png" style="width:auto; height:337.5px;"></a>
+
+    验证你的密码。
+
+     <a href="/images/14_cosmostation_verify_password.png" target="_blank"><img src="/images/14_cosmostation_verify_password.png" style="width:auto; height:337.5px;"></a>   
+
+    从列表中选择 “Gonka”。
+
+    <a href="/images/15_cosmostation.png" target="_blank"><img src="/images/15_cosmostation.png" style="width:auto; height:337.5px;"></a>
+    
+    点击 “Gonka” 查看私钥。复制你的私钥或恢复短语，并妥善保存（建议保留纸质备份）。
+
+     <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
+     
+    将私钥添加到环境变量 `GONKA_PRIVATE_KEY`，或添加到 `.env` 文件中。
     ```
     export GONKA_PRIVATE_KEY=<your-private-key>
     ```
     要检索所有本地存储账户的列表，请执行以下命令：
     ```
-    inferenced keys list [--keyring-backend test]
+    ./inferenced keys list [--keyring-backend test]
     ```
 
 ## 3. 启用账户以进行推理
@@ -514,7 +542,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     安装 SDK 后，创建一个名为 `example.mjs` 的文件并将示例代码复制到其中：
 
     ```ts linenums="1"
-    import { GonkaOpenAI } from gonka-openai;
+    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
 
     const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
     const client = new GonkaOpenAI({
@@ -578,6 +606,157 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     使用 `go run example.go` 执行代码。片刻后，你应该看到 API 请求的输出。
 
 要从另一种语言执行推理，请参阅[Gonka OpenAI 客户端库仓库](https://github.com/gonka-ai/gonka-openai)，并相应调整示例。
+
+## 4. 工具调用
+
+仅支持 `type: "function"` — vLLM 实现的是 OpenAI 聊天补全规范，而非 Assistants API（`code_interpreter`、`file_search` 不可用）。
+
+定义函数后，当用户的请求匹配时，模型将返回结构化的调用参数 — 你来决定如何处理它们。
+
+=== "Python"
+
+    ```py linenums="1"
+    import os, json
+    from gonka_openai import GonkaOpenAI
+
+    client = GonkaOpenAI(
+        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+        source_url=os.environ.get('NODE_URL')
+    )
+
+    tools = [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_weather",
+                "description": "Get the current weather for a city",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "city": {"type": "string", "description": "City name"}
+                    },
+                    "required": ["city"],
+                },
+            },
+        }
+    ]
+
+    response = client.chat.completions.create(
+        model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        messages=[{"role": "user", "content": "What's the weather in Paris?"}],
+        tools=tools,
+        tool_choice="auto",
+    )
+
+    message = response.choices[0].message
+    if message.tool_calls:
+        call = message.tool_calls[0]
+        args = json.loads(call.function.arguments)
+        # model chose get_weather with {"city": "Paris"} — call your function now
+        print(call.function.name, args)
+    ```
+
+=== "TypeScript"
+
+    ```ts linenums="1"
+    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
+
+    const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
+    const client = new GonkaOpenAI({
+        gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
+        endpoints
+    });
+
+    const tools = [
+        {
+            type: 'function',
+            function: {
+                name: 'get_weather',
+                description: 'Get the current weather for a city',
+                parameters: {
+                    type: 'object',
+                    properties: { city: { type: 'string', description: 'City name' } },
+                    required: ['city'],
+                },
+            },
+        },
+    ];
+
+    const response = await client.chat.completions.create({
+        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        messages: [{ role: "user", content: "What's the weather in Paris?" }],
+        tools,
+        tool_choice: "auto",
+    });
+
+    const message = response.choices[0].message;
+    if (message.tool_calls) {
+        const call = message.tool_calls[0];
+        const args = JSON.parse(call.function.arguments);
+        // model chose get_weather with { city: "Paris" } — call your function now
+        console.log(call.function.name, args);
+    }
+    ```
+
+=== "Go"
+
+    ```go linenums="1"
+    package main
+
+    import (
+        "context"
+        "encoding/json"
+        "log"
+        "os"
+
+        gonka "github.com/gonka-ai/gonka-openai/go"
+        "github.com/openai/openai-go"
+    )
+
+    func main() {
+        client, err := gonka.NewGonkaOpenAI(gonka.Options{
+            GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
+            SourceUrl:       os.Getenv("NODE_URL"),
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+            Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+            Messages: []openai.ChatCompletionMessageParamUnion{
+                openai.UserMessage("What's the weather in Paris?"),
+            },
+            Tools: []openai.ChatCompletionToolParam{
+                {
+                    Type: "function",
+                    Function: openai.FunctionDefinitionParam{
+                        Name:        "get_weather",
+                        Description: openai.String("Get the current weather for a city"),
+                        Parameters: openai.FunctionParameters{
+                            "type": "object",
+                            "properties": map[string]any{
+                                "city": map[string]string{"type": "string", "description": "City name"},
+                            },
+                            "required": []string{"city"},
+                        },
+                    },
+                },
+            },
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        if len(resp.Choices[0].Message.ToolCalls) > 0 {
+            call := resp.Choices[0].Message.ToolCalls[0]
+            var args struct{ City string }
+            json.Unmarshal([]byte(call.Function.Arguments), &args)
+            // model chose get_weather with {City: "Paris"} — call your function now
+            log.Printf("Tool: %s, City: %s\n", call.Function.Name, args.City)
+        }
+    }
+    ```
 
 ---
 **需要帮助？** [请先查看我们的常见问题页面](https://gonka.ai/zh/FAQ/)，加入我们的 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。

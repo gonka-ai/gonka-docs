@@ -577,10 +577,10 @@ again plastic athlete arrow first measure danger drastic wolf coyote work memory
 
 #### 3.2. [服务器] 注册主机
 
-在同一容器内，可使用 URL、账户密钥与自动获取的共识密钥在链上注册主机：
+在同一容器内注册主机 — 此操作将您的 URL、账户密钥与自动获取的共识密钥在链上绑定：
 
 ```
-inferenced register-new-participant \
+./inferenced register-new-participant \
     $DAPI_API__PUBLIC_URL \
     $ACCOUNT_PUBKEY \
     --node-address $DAPI_CHAIN_NODE__SEED_API_URL
@@ -593,6 +593,35 @@ Found participant: gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm (url: http://36.
 Participant is now available at http://36.189.234.237:19250/v2/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
 Account balance: 0
 ```
+
+!!! warning "账户已存在链上交易记录"
+    账户在首次收到代币时即永久创建于链上。如果您的账户密钥地址已有链上交易记录，请按以下步骤操作：
+
+    **步骤 1.** 在步骤 3.1 的容器中，获取共识密钥并记录：
+    ```bash
+    curl -s $DAPI_CHAIN_NODE__URL/status | jq -r '.result.validator_info.pub_key.value'
+    ```
+
+    **步骤 2.** 退出容器，在**本地机器**（存有账户密钥的机器）上执行：
+    ```bash
+    ./inferenced tx inference submit-new-participant \
+        <PUBLIC_URL> \
+        --validator-key <CONSENSUS_KEY> \
+        --keyring-backend file \
+        --from <COLD_KEY_NAME> \
+        --timeout-duration 1m \
+        --unordered \
+        --node <node-url>/chain-rpc/ \
+        --chain-id gonka-mainnet
+    ```
+
+    `<node-url>` — 网络中任意已在运行的节点地址（例如 `http://node2.gonka.ai:8000`）。请勿使用您自己节点的 URL——此步骤中该节点尚未完全启动。
+
+    若创建账户密钥时指定了自定义 `--keyring-dir`，请在命令中添加 `--keyring-dir <路径>`。
+
+    命令会提示 `confirm transaction before signing and broadcasting [y/N]:`，输入 `y` 确认。
+
+    Gas 费用由账户密钥的余额支付，请确保账户有足够代币。
 
 !!! note "每节点账户密钥配置"
     请为每个网络节点生成独立的 `ACCOUNT_PUBKEY`，以保证主机隔离。

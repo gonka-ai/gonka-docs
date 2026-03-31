@@ -161,10 +161,26 @@ We use a three-key system:
 ### [Local machine] Install the CLI Tool
 The `inferenced` CLI is required for local account management and network operations. It's a command-line interface utility that allows you to create and manage Gonka accounts, register hosts, and perform various network operations from your local machine.
 
-Download the latest `inferenced` binary from [GitHub releases](https://github.com/gonka-ai/gonka/releases) and make it executable.
+**Choose the correct binary**
 
-!!! note "Important"
-    Please make sure you are using the CLI tool [version 0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) or newer. Older versions are not supported for permission granting and may lead to unexpected behavior.
+GitHub releases may contain multiple `inferenced` artifacts.
+
+For local CLI usage, always download an **OS-specific packaged CLI build**, for example:
+
+- `inferenced-darwin-amd64.zip`
+- `inferenced-darwin-arm64.zip`
+- `inferenced-linux-amd64.zip`
+- `inferenced-linux-arm64.zip`
+
+Do not use generic `inferenced` binaries intended for upgrade paths or container/runtime environments. Those artifacts may not work correctly as a standalone CLI on your local machine.
+
+**Version requirement**
+
+Please make sure you are using an `inferenced` CLI build [version 0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) or newer. Older CLI versions are not supported for permission granting and may lead to unexpected behavior.
+
+If you plan to submit governance proposals, especially proposals that use newer message types, use the latest published OS-specific CLI build.
+
+**Verify installation**
 
 ```bash
 chmod +x inferenced
@@ -173,6 +189,8 @@ chmod +x inferenced
 
 !!! note "MacOS Users"
     On macOS, you may need to allow execution in `System Settings` → `Privacy & Security` if prompted. Scroll down to the warning about `inferenced` and click `Allow Anyway`.
+
+If the binary fails to start on Linux with an error similar to `Error relocating ./inferenced: qsort_r: symbol not found`, you most likely downloaded a non-CLI or upgrade-specific artifact instead of the OS-specific packaged CLI build. Re-download the correct archive for your operating system and architecture.
 
 ### [Local machine] Create Account Key
 **IMPORTANT: Perform this step on a secure, local machine (not your server)**
@@ -599,7 +617,7 @@ again plastic athlete arrow first measure danger drastic wolf coyote work memory
 
 #### 3.2. [Server] Register Host
 
-From the same container, we can register the Host with URL, Account Key, and Consensus Key (fetched automatically) on chain:
+From the same container, register the Host — this links your URL, Account Key, and Consensus Key (fetched automatically) on-chain:
 
 ```
 inferenced register-new-participant \
@@ -615,6 +633,35 @@ Found participant: gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm (url: http://36.
 Participant is now available at http://36.189.234.237:19250/v2/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
 Account balance: 0
 ```
+
+!!! warning "Existing account (already has on-chain transactions)"
+    An account is created on-chain permanently the first time it receives coins. If your account key address already has transactions, follow these steps:
+
+    **Step 1.** While still in the container from step 3.1, get your Consensus Key and note it down:
+    ```bash
+    curl -s $DAPI_CHAIN_NODE__URL/status | jq -r '.result.validator_info.pub_key.value'
+    ```
+
+    **Step 2.** Exit the container, then run this command on your **local machine** (where your Account Key is stored):
+    ```bash
+    ./inferenced tx inference submit-new-participant \
+        <PUBLIC_URL> \
+        --validator-key <CONSENSUS_KEY> \
+        --keyring-backend file \
+        --from <COLD_KEY_NAME> \
+        --timeout-duration 1m \
+        --unordered \
+        --node <node-url>/chain-rpc/ \
+        --chain-id gonka-mainnet
+    ```
+
+    `<node-url>` — any already-running node on the network (e.g. `http://node2.gonka.ai:8000`). Do not use your own node's URL — it is not fully started yet at this step.
+
+    If you created your Account Key with a custom `--keyring-dir`, add `--keyring-dir <path>` to the command.
+
+    The command will prompt `confirm transaction before signing and broadcasting [y/N]:` — type `y` to proceed.
+
+    Gas is paid from the Account Key's balance. Make sure the account has coins before running this command.
 
 !!! note "Per-Node Account Key Configuration"
     Always generate a unique `ACCOUNT_PUBKEY` for each Network Node to ensure proper separation of Hosts.

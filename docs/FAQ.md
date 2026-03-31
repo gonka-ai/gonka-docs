@@ -4,25 +4,41 @@
 
 ### What is Gonka?
 Gonka is a decentralized network for high‑efficiency AI compute — run by those who run it. It functions as a cost-effective and efficient alternative to centralized cloud services for AI model training and inference. As a protocol, it's not a company or a start-up.
-    
+
+- In terms of Blockchain, Gonka is the foundational ledger and coordination layer (L1) of the decentralized AI network. It records balances, transactions and cryptographic artifacts that prove Hosts have correctly performed AI work, while all actual computations (such as inference and training) happen off-chain.
+- In terms of Network, Gonka is a comprehensive ecosystem of participants, including Hosts and Developers that interact through a decentralized infrastructure. Powered by the Gonka Blockchain, the network distributes tasks, verifies results, and rewards honest participation only verifiable useful work, creating a competitive, scalable environment for AI workloads.
+
+### What problem is Gonka solving?
+
+Gonka is a decentralized AI infrastructure built to reduce dependence on centralized cloud providers and to use computational power more efficiently than traditional decentralized networks. Its goal is to direct as much compute as possible toward useful AI tasks, such as inference and training, while minimizing waste due to consensus overhead.
+
+### Who are the key participants in the Gonka ecosystem?
+
+The Gonka ecosystem has four key participant groups:
+
+- Developer builds and deploys AI applications by leveraging the network’s distributed computing power.
+- Gonka Contributor participates in development of the core blockchain codebase, protocol upgrades, performance optimizations, security patches, and new feature integrations.
+- Holder holds the network’s native coin, which simply means having a Gonka wallet with coins in it. Holders may hold coins, transfer or sell them, spend them on inference and use them according to the protocol rules. Being a holder does not imply any obligation, responsibility, or governance role beyond standard coin ownership.
+- Host contributes compute capacity to the network. Hosts perform inference and other computational tasks and are rewarded proportionally to their contributed compute capacity, as long as they maintain honest participation and reliability. Hosts form the backbone of the network. Only Hosts have voting power in the network. This voting power represents their weight in governance and is used to propose and vote on protocol decisions, parameter changes, and upgrades. Any Host acts as Validator, Transfer Agent and an Executor (these are not predefined or on-chain roles, but dynamic operational functions assumed when processing a inference request).
+	
 ### What is the GNK coin?
 GNK is the native coin of the Gonka network. It is used to incentivize participants, price resources, and ensure the sustainable growth of the network.
 
 ### Can I buy GNK coin?
 
-No, you cannot buy GNK on exchanges right now because the coin has not been listed yet.
+No, you can not buy GNK on exchanges right now because the coin has not been listed yet.
 Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
 
 However, there are currently two legitimate ways to obtain GNK before the listing:
 
-- [Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be minted by contributing computational resources to the network.
+- [Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be mined by contributing computational resources to the network.
 - Participate in [the bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.
 
 !!! note "Important"
-	Be aware that fake GNK listings and pages currently exist, including on CoinGecko and CoinMarketCap. These pages do not represent the official GNK coin and are not affiliated with the project in any way. GNK is not tradable on any exchange at this time. Any coin claiming to be GNK, whether on Solana or other networks, is not an official GNK asset. Always verify information through official channels.
+	Be aware that fake GNK listings and pages currently exist, including on CoinGecko. These pages do not represent the official GNK coin and are not affiliated with the project in any way. GNK is not tradable on any exchange at this time. Any coin claiming to be GNK, whether on Solana or other networks, is not an official GNK asset. Always verify information through official channels.
 
 ### What makes the protocol efficient?
-Our difference from the "big players" is the pricing and the fact that, despite the size of the user, the inference is being distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).
+What differentiates Gonka from the "big players" is its pricing and the fact that, despite the Host's size, the inference is distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).
     
 ### How does the network operate?
 The network's operation is collaborative and depends on the role you wish to take:
@@ -50,7 +66,8 @@ You can find the minimum and recommended [hardware specifications](https://gonka
 You can store GNK coin in several supported wallets within the Cosmos ecosystem:
 
 - [Keplr](https://www.keplr.app/)
-- [Leap Wallet](https://www.leapwallet.io/)
+- [Leap](https://www.leapwallet.io/)
+- [Cosmostation](https://cosmostation.io/products/application)
 - `inferenced` CLI - a command-line utility for local account management and network operations in Gonka.
 
 ### Where can I find useful information about Gonka?
@@ -80,6 +97,120 @@ For the first 180 epochs (approximately 6 months), new participants can particip
 ### Why does Gonka require locking GNK coins for governance power?
 Voting power is never derived solely from holding coins. GNK coins serve as economic collateral, not as a source of influence. Influence is earned through continuous computational contribution, while locking GNK collateral is required to secure participation in governance and enforce accountability.
 
+## Collateral
+
+### What is collateral?
+Collateral is required to activate the collateral-eligible portion of PoC weight after the Grace Period (first 180 epochs).
+After the Grace Period:
+
+- Base Weight (default 20%) is always active.
+- The remaining weight requires GNK collateral to become active.
+
+Collateral ensures that participants with governance weight also bear economic responsibility. Parameters are defined on-chain and may change via governance. Always verify current values before making economic decisions.
+
+### Is collateral required per node or per account?
+Collateral is deposited per account. If multiple ML nodes are linked to the same account, the required collateral is calculated based on the total account weight across all nodes.
+
+### Do I need to deposit collateral?
+Yes, if you want to activate more than the Base Weight.
+If no collateral is deposited, only the Base Weight remains active.
+
+### How much collateral is required?
+Formula:
+```
+Required Collateral =
+Total Weight × (1 - base_weight_ratio) × collateral_per_weight_unit
+```
+Because PoC weight may fluctuate across epochs, depositing the exact minimum may result in temporary under-collateralization.
+Smaller weights may experience proportionally larger relative fluctuations. A buffer of up to 2× the calculated minimum is recommended while collateral levels remain relatively small.
+```
+Recommended (with conservative buffer):
+Total Weight × 2 × (1 - base_weight_ratio) × collateral_per_weight_unit
+```
+
+### Can I partially collateralize my weight?
+Yes. Your total Active Weight consists of:
+
+- Base Weight (always active)
+- Collateral-Eligible Weight (activated proportionally to deposited collateral)
+
+If you deposit less than the full required amount:
+
+- Base Weight remains fully active
+- Only the corresponding portion of collateral-eligible weight becomes active
+- The remaining portion stays inactive
+
+Active Weight is calculated as:
+```
+Active Weight =
+Base Weight +
+(Deposited Collateral / Required Collateral) × Collateral-Eligible Weight
+```
+
+### What happens if I do not deposit enough collateral?
+Your Active Weight is reduced proportionally. Because rewards are distributed proportionally to Active Weight, other hosts receive a larger share of emissions when you under-collateralize. Inactive weight is not directly redistributed, it simply does not participate in consensus.
+
+### When does collateral take effect?
+Collateral must be deposited before the start of the epoch to be effective. Collateral deposited during an epoch:
+
+- does NOT increase weight immediately
+- applies starting from the next epoch
+
+Collateral cannot be increased mid-epoch.
+
+### In what unit do I deposit collateral?
+Transactions must use ngonka, not GNK.
+```
+1 GNK = 1,000,000,000 ngonka
+```
+Example:
+```
+10 GNK = 10,000,000,000 ngonka
+```
+
+### Can collateral be slashed?
+Yes. Collateral may be slashed for:
+
+- Invalid inference
+- Downtime (Confirmation PoC failure or jail)
+  
+Invalid inference slashing is capped at once per epoch.
+Downtime slashing may be applied per jail event.
+
+### What happens to slashed coins?
+Currently, slashed GNK is permanently burned and removed from circulation. Future governance may change this mechanism.
+
+### Can I withdraw collateral?
+Yes. Withdrawal triggers an unbonding period (default: 1 epoch). During unbonding, collateral remains subject to slashing. After unbonding funds are automatically returned to your account balance.
+
+### What collateral is NOT
+
+- Collateral is NOT voting power. Voting power is derived from PoC weight, not token balance.
+- Collateral is NOT delegation. Each account must back its own weight.
+- Collateral is NOT a permanent lock. It can be withdrawn (subject to unbonding).
+- Collateral was NOT required during the Grace Period (first 180 epochs).
+
+### How are epoch-minted rewards distributed?
+A fixed amount of GNK is minted each epoch and distributed proportionally to Active PoC Weight.
+Active Weight determines:
+
+- Your share of epoch-minted Reward Coins
+- Your governance influence
+
+If your Active Weight is reduced due to insufficient collateral, your share of epoch rewards decreases proportionally. Inactive weight does not receive rewards.
+
+### Do I need to manually deposit collateral?
+Yes. Collateral must be deposited by submitting an on-chain transaction. It is not activated automatically. If no collateral is deposited:
+
+- Your node continues operating normally.
+- It is not jailed or disabled.
+- Only the Base Weight (e.g. 20%) remains active.
+
+Your rewards and governance influence will be reduced proportionally.
+
+### Can vested (locked) GNK be used as collateral?
+No. Collateral must be deposited from your available (unlocked) GNK balance. Vested coins that are not yet released cannot be used as collateral.
+
 ## Governance
 
 ### What types of changes require a Governance Proposal?
@@ -102,6 +233,211 @@ Anyone with a valid governance key (cold account) can pay the required fee and c
 ### Can governance parameters themselves be changed?
 Yes. All key governance rules — quorum, majority threshold, and veto threshold — are on-chain configurable and can be updated via Governance Proposals. This allows the network to evolve decision-making rules as participation patterns and compute economic changes.
 
+### What should I do if I cannot vote because I do not have access to the cold key, or if I want another key to vote on my behalf?
+
+If the key that holds voting power is not the key you use for day-to-day operations, governance voting permission can be granted in advance.
+
+In this setup:
+
+- Granter = account that owns voting power (cold key)
+- Grantee = account that will submit votes on the granter’s behalf (warm key)
+
+There are two common scenarios:
+
+**1. You want to vote, but you do not have access to the key that holds the voting power.**
+
+Please contact the owner of that key and ask them to grant your key permission to vote on their behalf. Without this authorization, your key cannot submit a governance vote for that voting power.
+
+**2. You want another key to vote on your behalf.**
+
+Use the grant command below from the key that holds the voting power. This will authorize the grantee key to submit governance votes for you.
+This delegation only allows voting on governance proposals. The grantee can still vote for their own key as well. The granter can revoke this permission at any time.
+
+1) Grant voting permission (run from the granter key)
+=== "Command"
+
+    ```
+    ./inferenced tx authz grant <GRANTEE_GONKA_ADDRESS> generic \
+      --msg-type=/cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --expiration=<UNIX_TIMESTAMP> \
+      --home .inference \
+      --keyring-backend file
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "height": "0",
+        "txhash": "8D96FB6FC06FFB928FBC89FE950689CD040C7F338C197BA856175EC7462A3FFA",
+        "codespace": "",
+        "code": 0,
+        "data": "",
+        "raw_log": "",
+        "logs": [],
+        "info": "",
+        "gas_wanted": "0",
+        "gas_used": "0",
+        "tx": null,
+        "timestamp": "",
+        "events": []
+    }
+    ```
+    
+2) Verify the grant exists (run from any node)
+=== "Command"
+    ```
+    ./inferenced query authz grants <GRANTER_GONKA_ADDRESS> <GRANTEE_GONKA_ADDRESS> \
+      --node="http://<MAINNET_NODE_URL>:26657" \
+      --output=json | jq .
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "grants": [
+            {
+                "authorization": {
+                    "type": "cosmos-sdk/GenericAuthorization",
+                    "value": {
+                        "msg": "/cosmos.gov.v1beta1.MsgVote"
+                    }
+                },
+                "expiration": "2026-12-03T18:38:18Z"
+            }
+        ],
+        "pagination": {
+            "total": "1"
+        }
+    }
+    ```
+    
+3) Vote using the grantee
+=== "Command"
+    ```
+    # Find the proposal ID which you are voting for - use it as <VOTE_PROPOSAL_ID> in the voting body 
+    ./inferenced query gov proposals --output json
+    
+    # Prepare the file with the voting body
+    cat > /tmp/authz-vote.json << 'EOF'
+    {
+      "body": {
+        "messages": [
+          {
+            "@type": "/cosmos.authz.v1beta1.MsgExec",
+            "grantee": "<GRANTEE_GONKA_ADDRESS>",
+            "msgs": [
+              {
+                "@type": "/cosmos.gov.v1beta1.MsgVote",
+                "proposal_id": "<VOTE_PROPOSAL_ID>",
+                "voter": "<GRANTER_GONKA_ADDRESS>",
+                "option": "VOTE_OPTION_YES"
+              }
+            ]
+          }
+        ]
+      }
+    }
+    EOF
+    
+    
+    # Vote using the file 
+    ./inferenced tx authz exec /tmp/authz-vote.json \  --from=<GRANTEE_KEY_NAME> \ 
+    --chain-id=gonka-mainnet \
+    --home .inference \
+    --keyring-backend file \
+    --node="http://<MAINNET_NODE_URL>:26657" -y
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "pagination": {
+            "total": "1"
+        },
+        "proposals": [
+            {
+                "deposit_end_time": "2026-03-06T10:40:07.016920026Z",
+                "final_tally_result": {
+                    "abstain_count": "0",
+                    "no_count": "0",
+                    "no_with_veto_count": "0",
+                    "yes_count": "0"
+                },
+                "id": "1",
+                "messages": [
+                    {
+                        "type": "cosmos-sdk/MsgSoftwareUpgrade",
+                        "value": {
+                            "authority": "gonka10d07y265gmmuvt4z0w9aw880jnsr700j2h5m33",
+                            "plan": {
+                                "height": "406062",
+                                "info": "{\n \"binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/inferenced-amd64.zip?checksum=sha256:fb71310427436aebac32813735231882fca420cf0d94b036f8cacd055d0e1c78\"\n },\n \"api_binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/decentralized-api-amd64.zip?checksum=sha256:6fe214f4bb2d831c02ce407682820d95d01e6ae94a33fe9c4617b80e0ca716ce\"\n }\n }",
+                                "name": "v0.2.10",
+                                "time": "0001-01-01T00:00:00Z"
+                            }
+                        }
+                    }
+                ],
+                "proposer": "gonka1xfvr8mywcrxrcrryvj8c5d2grvyjdj5c90fd88",
+                "status": 2,
+                "submit_time": "2026-03-04T10:40:07.016920026Z",
+                "summary": "Upgrade Proposal v0.2.10",
+                "title": "Upgrade Proposal v0.2.10",
+                "total_deposit": [
+                    {
+                        "amount": "50000000",
+                        "denom": "ngonka"
+                    }
+                ],
+                "voting_end_time": "2026-03-04T10:50:07.016920026Z",
+                "voting_start_time": "2026-03-04T10:40:07.016920026Z"
+            }
+        ]
+    }
+    ```
+    
+Voting options:
+
+- `VOTE_OPTION_YES`
+- `VOTE_OPTION_ABSTAIN`
+- `VOTE_OPTION_NO`
+- `VOTE_OPTION_NO_WITH_VETO`
+
+4) Revoke delegation (run from the granter key)
+=== "Command"
+
+    ```
+    ./inferenced tx authz revoke <GRANTEE_GONKA_ADDRESS> /cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --home .inference \
+      --keyring-backend file
+    ```
+=== "Example response"
+
+    ```
+    {
+        code: 0
+        codespace: ""
+        data: ""
+        events: []
+        gas_used: "0"
+        gas_wanted: "0"
+        height: "0"
+        info: ""
+        logs: []
+        raw_log: ""
+        timestamp: ""
+        tx: null
+        txhash: A2C3CDA9E95DCF143C0D8981A4F573F1E68879ECF4903B25BA97383C3F2FDFBA
+    }
+    ```
+
 ## Improvement proposals
 
 ### What’s the difference between Governance Proposals and Improvement Proposals?
@@ -119,14 +455,17 @@ Improvement Proposals → off-chain proposals under the control of active partic
 - Approved proposals are merged into the repository
 
 ### How are Improvement Proposals reviewed and approved?
-- Create a Markdown proposal in the [/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals) folder.
-- Open a Pull Request with your proposal.
+The goal of community proposal review is to gather community validation: reactions, comments, and concrete feedback that strengthens the case for eventual governance approval. This is especially relevant if the proposal implementation requires a lot of work, long-term commitment, coordination or significant changes into the protocol.
+
+- Read the recommended guide first: [https://github.com/gonka-ai/gonka/discussions/795](https://github.com/gonka-ai/gonka/discussions/795). It explains what belongs in Improvement Proposals and how to write a strong, structured proposal.
+- Publish and discuss improvement proposals in [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions) (preferred); previously they were stored as Markdown files in the `/proposals` directory.
+- To help the community evaluate your proposal (and improve its chances later in governance), it’s in the proposer’s interest and responsibility to actively gather early feedback and support signals (reactions, comments, concrete concerns).
+	- Share the Discussion link in Discord’s #improvements-proposals channel for reach and visibility, and amplify it through any other channels available to you (including direct outreach to Hosts/miners) to gather practical input and support.
+	- Share context about your experience and expertise in the proposal thread. If you represent a team or a company, mention it and link relevant work to help the community assess credibility and evaluate the proposal more efficiently.
 - Community review:
-      - Active contributors and maintainers discuss the proposal in the PR thread.
-      - Feedback, suggestions, and refinements are discussed openly.
-- Approval and merge:
-      - If the community agrees, the PR is merged.
-      - Approved proposals become part of the official community roadmap.
+	- Active contributors and maintainers discuss the proposal in [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions). Conversation can happen on any platform, but please consolidate the key context back in [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions): it keeps the full history in one place, stays searchable, and is much easier to maintain over time. GitHub is the main source of truth.
+	- Please ask questions, provide feedback, suggestions, refinements, and upvote relevant proposals. Everybody’s attention and participation in this process is essential for sustainable evolution of the chain.
+- Strong positive feedback and a high number of upvotes signal genuine community demand, allowing teams to treat well-received proposals as part of a community-driven roadmap and begin implementation with confidence in both community alignment and eventual governance approval. Note that feedback from the hosts is essential - it can help structure the project into milestones, unlock partial bounty payments, and even secure grants from the community pool. Ultimately, however, all on-chain updates and payments are subject to governance approval.
 
 ### Can an Improvement Proposal lead to a Governance Proposal?
 Yes. Often, an Improvement Proposal is used to explore ideas and gather consensus before drafting a Governance Proposal. For example:
@@ -633,6 +972,14 @@ Back up the **cold key** on your local device, outside the server.
     
 ## Proof-of-Compute (PoC)
 
+### What is Proof-of-Compute?
+
+Proof of Compute (PoC) is a consensus mechanism that replaces capital-based or hash-based weighting with provable Transformer-based computational capability. It defines how real AI compute is measured and converted into governance and consensus weight. PoC is executed through short, synchronized Sprints that occur at the end of each epoch. Outside the Sprint, the epoch is used for real-world AI computation. In practice, the terms Proof of Compute (PoC) and Sprint are often used interchangeably. When referring to “Next PoC” or “PoC phase”, this typically means the next Sprint, which is the execution phase of Proof of Compute.
+
+### What is Sprint?
+
+Sprint is a phase of Proof of Compute. During a Sprint, all Hosts simultaneously run AI-relevant inference on a transformer with randomized layers over a stream of nonces, producing output vectors. A Host’s voting power for the next epoch is proportional to the number of nonces it processed, as long as the reported outputs are verifiably produced by the required Sprint model.
+
 ### How to simulate Proof-of-Compute (PoC)?
 
 You may want to simulate PoC on a ML Node yourself to make sure that everything will work when the PoC phase begins on the chain.
@@ -992,6 +1339,55 @@ There are several ways how to reset `application.db`:
     
     This is the general idea of the approach. If you decide to try it and have any questions, feel free to reach out on [Discord](https://discord.com/invite/RADwCT2U6R).
 
+=== "OPTION 4: Upgrade to the pruning fix" 
+
+	A fix is now available for the long-standing issue where `application.db` continues to grow under many pruning configurations.
+	This improvement was contributed by [Lelouch33](https://github.com/Lelouch33) and is included in release [`0.2.10-post6`](https://github.com/gonka-ai/gonka/compare/main...release/v0.2.10-post6). With the updated logic and the following settings, `application.db` can remain around 100 GB:
+	
+	- `SNAPSHOT_INTERVAL=1000`
+	- `SNAPSHOT_KEEP_RECENT=2`
+	- `pruning-keep-recent = "20000"`
+	- `pruning-interval = "512"`
+	
+	References:
+	
+	- [https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369](https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369)
+	- [https://github.com/gonka-ai/gonka/pull/867](https://github.com/gonka-ai/gonka/pull/867)
+	
+	After upgrading to this binary, pruning will begin after the next snapshot block. This process is relatively heavy and may temporarily slow down the `node` container while the old state history is being removed.
+	
+	To reduce operational impact, it is recommended to apply the update to nodes one by one and use a higher `pruning-interval`, such as `512`, to avoid pruning too frequently.
+	
+	If a node slows down significantly during pruning, restarting the node container may help it catch up.
+	
+	Applying this update before the upcoming v0.2.11 upgrade is recommended to prevent pruning from starting simultaneously across many nodes.
+	
+	Apply update (example from `v0.2.7`, which has identical `inferenced`):
+	```
+	# Pre-check: Ensure no confirmation PoC is active (fails entire script if not false)
+	echo "--- Pre-flight Check: Confirmation PoC Status ---" && \
+	CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+	[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+	echo "OK: No confirmation PoC active" && \
+	
+	sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.10-post7/ .inference/data/upgrade-info.json  && \
+	sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.10-post7/bin/  && \
+	wget -q -O  inferenced.zip 'https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.10-post7/inferenced-amd64.zip' && \
+	echo "5ed8941d50779fa2359a9745263b324b887465104f81073827321945ab1f392a  inferenced.zip" | sha256sum --check && \
+	sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+	sudo chmod +x .inference/cosmovisor/upgrades/v0.2.10-post7/bin/inferenced && \
+	echo "Inference Installed and Verified"  && \
+	
+	# Link Binary
+	echo "--- Final Verification ---" && \
+	sudo rm -rf .inference/cosmovisor/current  && \
+	sudo ln -sf upgrades/v0.2.10-post7 .inference/cosmovisor/current  && \
+	echo "d9093b225cbd531afc56c99d0b0996b1fa2896c0745cd73293f0de08132f7754 .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
+	
+	# Restart 
+	source config.env && docker compose up node --no-deps --force-recreate -d
+	```
+
 ### Automatic `ClaimReward` didn’t go through, what should I do?
 
 If you have unclaimed reward, execute:
@@ -1007,149 +1403,97 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
-### PoC / cPoC Overlap incident and patch
-
-A patch is now available to address the incident observed in the current epoch (169/170).
-
-**Action required**
-
-Hosts are requested to apply the patch as soon as possible to ensure correct PoC validation behavior and allow block production to resume safely.
-
-```
-# Download Binary
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post3/ .inference/data/upgrade-info.json
-sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post3/bin/
-wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post3/inferenced-amd64.zip' && \
-echo "59896da31f4e42564fc0a2f63a9e0bf4f25f240428f21c0d5191b491847553df  inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post3/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post3/bin/inferenced && \
-echo "Inference Installed and Verified"
-
-# Link Binary
-echo "--- Final Verification ---" && \
-sudo rm -rf .inference/cosmovisor/current
-sudo ln -sf upgrades/v0.2.9-post3 .inference/cosmovisor/current
-echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
-
-# Restart 
-source config.env && docker compose up node --no-deps --force-recreate -d
-```
-[https://github.com/gonka-ai/gonka/pull/748 ](https://github.com/gonka-ai/gonka/pull/748 )
-
-### Recovery guide: Consensus failure after missing patch
-
-If your node did not apply the latest upgrade in time, it may halt with a consensus failure at block 2628371. This happens because the node is running an outdated binary that is no longer compatible with the network.
-
-To recover, follow the steps below.
-
-**1. Make sure the node is fully stopped before proceeding.**
-```
-docker stop node
-```
-
-**2. Replace the old binary with the latest released version.**
-```
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post3/ .inference/data/upgrade-info.json
-sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.9-post3/bin/
-wget -q -O  inferenced.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.9-post3/inferenced-amd64.zip' && \
-echo "59896da31f4e42564fc0a2f63a9e0bf4f25f240428f21c0d5191b491847553df  inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9-post3/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9-post3/bin/inferenced && \
-echo "Inference Installed and Verified"
-
-# Link Binary
-echo "--- Final Verification ---" && \
-sudo rm -rf .inference/cosmovisor/current
-sudo ln -sf upgrades/v0.2.9-post3 .inference/cosmovisor/current
-echo "aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check
-```
-
-Verify the binary version.
-```
-sha256sum .inference/cosmovisor/current/bin/inferenced
-```
-The `sha` must be `aaffbbdc446fbe6832edee8cb7205097b2e5618a8322be4c6de85191c51aca1d`.
-
-**3. Because the node stopped mid-consensus, the inference state must be rolled back to the previous block.**
-
-Run the rollback command:
-```
-source config.env && docker compose run --rm --no-deps -ti node /root/.inference/cosmovisor/current/bin/inferenced rollback
-```
-
-That step might take time, it must not be interrupted.
-
-**4. Start the node again:**
-```
-source config.env && docker compose up node --no-deps --force-recreate -d
-```
-
-**5. Check logs to confirm the node is producing blocks and no longer failing consensus:**
-```
-docker logs --tail=100 -f node
-```
-
-You should see the node:
-
-- catching up to the network
-- no repeated consensus failure errors
-
-### Upgrade v0.2.9: Pre-download binaries
+### Upgrade v0.2.11: Pre-download binaries
 
 ```
 # 1. Create Directories
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.9/bin \
-              .inference/cosmovisor/upgrades/v0.2.9/bin && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.11/bin \
+              .inference/cosmovisor/upgrades/v0.2.11/bin && \
 
 # 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.9/decentralized-api-amd64.zip" && \
-echo "ac1ad369052a8c3d01af4d463c49cdd16fcbecc365d201232e7a2d08af8501c0 decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.9/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.9/bin/decentralized-api && \
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/decentralized-api-amd64.zip" && \
+echo "e574c3d86189daf325cc7008603ee8e952efb028afda5bcd4a154dcd334192d4 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.11/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
 echo "DAPI Installed and Verified" && \
 
 # 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9/bin/ && \
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.9/inferenced-amd64.zip" && \
-echo "fc628d77aa516896924fbd8f60b8aa6a14161de4582aaef634de62382ea482eb inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.9/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.9/bin/inferenced && \
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/inferenced-amd64.zip" && \
+echo "c77528bd2e31e86355a6eefddb50e0db7f9600ebf2940ca440a61ea36e7ef7ca inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
 echo "Inference Installed and Verified" && \
 
 # 4. Cleanup and Final Check
 rm decentralized-api.zip inferenced.zip && \
 echo "--- Final Verification ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.9/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.9/bin/inferenced && \
-echo "52c79f06a8fc175ca6b3819523bb36afbf601d8a8320b1bb5a3cc089ceef62c4 .dapi/cosmovisor/upgrades/v0.2.9/bin/decentralized-api" | sudo sha256sum --check && \
-echo "ae20517e4bb38293202f7f5d52439d5315cb32c8f3c34a02fa65feaefadd6193 .inference/cosmovisor/upgrades/v0.2.9/bin/inferenced" | sudo sha256sum --check
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+echo "8b99e550ddd117a0cb4293b4ae74e0e5dff961a1986f23b58ec7ae6c3f0478f1 .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api" | sudo sha256sum --check && \
+echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced" | sudo sha256sum --check
 ```
 
 
-### Upgrade v0.2.7
 
-In case of panic on block `2058539`:
+## Bounty program
 
+### What is the bounty program? Who can participate? How are rewards paid?
+
+It’s not necessary to be a Host to participate: many bounties go to contributors who submit fixes, implement improvements, or contribute to broader Gonka infrastructure. 
+
+Awards are paid from the community pool after governance approval. Vulnerability reports are especially valued, and responsible disclosures that help prevent exploits and improve network safety are eligible for bounties as well. 
+
+Final bounty decisions, amounts, and categories are always up to community governance.
+
+### What is the vulnerability bounty pricing model  
+
+A common way to think about severity is: 
 ```
-# Download Binary
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.7/ .inference/data/upgrade-info.json
-sudo mkdir -p  .inference/cosmovisor/upgrades/v0.2.7-post1/bin/
-wget -q -O  inferenced.zip 'https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.7-post1/inferenced-amd64.zip' && \
-echo "130e1fc5d4ea256e2fdd2ad7e42f03649f5048822b76bf32c06ed691632371d5  inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j  inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.7-post1/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.7-post1/bin/inferenced && \
-echo "Inference Installed and Verified"
-
-# Link Binary
-echo "--- Final Verification ---" && \
-sudo rm -rf .inference/cosmovisor/current
-sudo ln -sf upgrades/v0.2.7-post1 .inference/cosmovisor/current
-echo "02d98dc7b1dc37fabc1b53c96abedd0194d7013140733fccb9c0fb5266cfd636 .inference/cosmovisor/current/bin/inferenced" | sudo sha256sum --check && \
-
-# Restart 
-source config.env && docker compose up node --no-deps --force-recreate -d
+Risk = Impact × Likelihood
 ```
+Impact is evaluated from a network perspective (a network-wide effect is required for High/Critical). Issues affecting only one participant typically cap at Low or Medium.
 
+**Impact levels**
+
+| Level    | Description                         | Examples                                                                 |
+|----------|--------------------------------------|--------------------------------------------------------------------------|
+| Critical | Catastrophic for the whole network   | Full network control hijack                                              |
+| High     | Significant disturbance at scale      | Network crash/halt; theft from module; wrong rewards for all participants |
+| Medium   | Moderate disruption, limited scope    | Consensus or reward integrity at risk; single-participant funds or availability |
+| Low      | Minor impact on isolated participants, no chain impact | single-component, minor effect on a single participant, non-chain |
+
+**Likelihood**
+
+- **Organic — Unintentional;** occurs under normal conditions. Estimate by probability (how often conditions trigger it, usage patterns).
+- **Intentional — Profitable** — Exploited for financial gain. Higher likelihood when gain is large and cost/complexity is low.
+- **Intentional — Griefing** — Exploited to cause disruption. Higher likelihood when network-wide effect and low cost; single-participant griefing → lower likelihood.
+
+**Risk Matrix**
+
+| Impact \ Likelihood | High     | Medium   | Low           |
+|---------------------|----------|----------|---------------|
+| Critical            | Critical | Critical | High          |
+| High                | Critical | High     | Medium        |
+| Medium              | High     | Medium   | Low           |
+| Low                 | Medium   | Low      | Informational |
+
+### How to get started in the bounty program?
+
+- A new GitHub issue/discussion can be created to propose an improvement and get community feedback on whether it’s worth implementing.
+- Or pick an[ existing issue labeled up-for-grabs](https://github.com/gonka-ai/gonka/issues?q=is%3Aissue%20state%3Aopen%20label%3Aup-for-grabs). Before starting, leave a quick comment that work has started and include an approximate ETA, so others have visibility and avoid duplicate effort.
+
+### What is the suggested vulnerability reporting process?
+
+- If an issue is not high or critical severity (limited impact, no network-wide effect) and the fix is low effort, opening a PR right away is usually fine.
+- If an issue is high or critical severity, please report it privately to trusted community members (long-term Gonka repository contributors), either as a report or together with a fix in a private fork.
+- If an issue looks like part of a broader class and a systematic review would likely uncover more issues of the same category, leave a note that a review is planned. This helps avoid duplicate reviews running in parallel.
+
+To contribute, pick an issue, ship a solid fix, and share the link in the relevant dev channels to get feedback. 
+
+### Where can I see who was paid bounties, for what, and when?
+
+The most reliable sources are on-chain records and [GitHub](https://github.com/gonka-ai/gonka/). Use them as the main source of truth for who was paid, what the bounty was for, and when it was executed.
 
 ## Errors
 
@@ -1164,3 +1508,25 @@ Here you can find examples of common errors and typical log entries that may app
 It’s not actually an error. It just indicates that your node hasn’t been assigned a model yet. Most likely, this is because your node hasn’t participated in a Sprint, hasn’t received Voting Power, and therefore hasn’t had a model assigned.
 If your node has already passed PoC, you shouldn’t see this log anymore. If not, PoC takes place every ~24 hours.
 
+### How do I fix `err="no validator signing info found"` when starting from a state sync snapshot?
+
+If you periodically hit `err="no validator signing info found"` during startup from a state sync snapshot, it is typically related to the Cosmos SDK `iavl-fastnode` behavior. A safe workaround is to disable `fastnode` for the initial startup, then (optionally) re-enable it after the node is fully synced.
+
+**Fix (Docker):**
+
+1.	Stop the node:
+```
+docker stop node
+```
+2. In `.inference/config/app.toml`, set:
+```
+iavl-disable-fastnode = true
+```
+3. Start the node:
+```
+docker start node
+```
+After a restart, the issue should not recur.
+
+!!! note 
+	`main` includes v0.2.10-post6. Nodes starting from this version apply this setting automatically, so you typically won’t need to change it manually.

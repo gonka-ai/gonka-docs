@@ -28,32 +28,18 @@ export NODE_URL=<http://random-node-url>
 ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
-
-??? note "Things to know about account names"
-    This name is not recorded on-chain — it exists only in your local key store.
-    Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. It is highly recommended to back up your public and private keys before performing this operation.
-
-- Replace `<http://random-node-url>` with a random Node URL. You can either:
-    - Use one of the **genesis nodes** from the list below.
-    - Fetch the **current list of active participants** and select a random node.
-
-Do not forget to write it down, you will need it in the next step.
-
-??? note "Why a random node?"
-    To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages.
-
-??? note "How to choose a Node URL?"
-    You can choose any node randomly — you **do not** need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API.
+    - This name is not recorded on-chain — it exists only in your local key store.
+    - Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. It is highly recommended to back up your public and private keys before performing this operation.
+- Replace `<http://random-node-url>` with a random Node URL. You can choose any node randomly — you do not need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API. You can either:
+    - Use one of the genesis nodes from the list below.
+    - Fetch the current list of active participants and select a random node. To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages.
 
 === "Genesis nodes"
     Set the `NODE_URL` to one of the genesis nodes:
     ```bash title="Genesis Node List"
-    http://185.216.21.98:8000
-    http://36.189.234.197:18026
     http://36.189.234.237:17241
     http://node1.gonka.ai:8000
     http://node2.gonka.ai:8000
-    http://node3.gonka.ai:8000
     http://47.236.26.199:8000
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
@@ -62,12 +48,14 @@ Do not forget to write it down, you will need it in the next step.
 === "Current list of active participants"
     Alternatively, you can select a random active participant from the current epoch. Open the link or run the following command to fetch the list of active participants along with a cryptographic proof for verification:
     === "Link"
-        [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
+        [http://node1.gonka.ai:8000/v1/epochs/current/participants](http://node1.gonka.ai:8000/v1/epochs/current/participants)
 
     === "Command"
         ```bash
-        curl http://node2.gonka.ai:8000/v1/epochs/current/participants
+        curl http://node1.gonka.ai:8000/v1/epochs/current/participants
         ```
+        
+Do not forget to write it down, you will need it in the next step.
     
 ## 2. Create an account
 
@@ -119,7 +107,7 @@ Do not forget to write it down, you will need it in the next step.
     export GONKA_ADDRESS=<your-account-address>
     ```
 
-    You will use this account to purchase gonka (GNK) coins and pay for inference requests.
+    You will use this account to purchase Gonka (GNK) coins and pay for inference requests.
 
     Add Private Key to environment variables.
     
@@ -130,15 +118,6 @@ Do not forget to write it down, you will need it in the next step.
     ```
     
     This command outputs a plain-text private key.
-    
-    Add it to the environment variable `GONKA_PRIVATE_KEY`, or the `.env` file.
-    ```bash
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-    To retrieve a list of all locally stored accounts, execute the following command:
-    ```
-    inferenced keys list [--keyring-backend test]
-    ```
 
 === "Option 2: Via Keplr (external wallet)"
 
@@ -195,10 +174,10 @@ Do not forget to write it down, you will need it in the next step.
     
         <a href="/images/keplr_verify_your_recovery_phrase.png" target="_blank"><img src="/images/keplr_verify_your_recovery_phrase.png" style="width:500px; height:auto;"></a>
     
-        Select Cosmos Hub and Ethereum.
-        
-        <a href="/images/dashboard_keplr_step_2_7.png" target="_blank"><img src="/images/dashboard_keplr_step_2_7.png" style="width:500px; height:auto;"></a>
-            
+        Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
+
+        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
+                    
         Your Keplr wallet has been created.
         
         <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
@@ -237,9 +216,9 @@ Do not forget to write it down, you will need it in the next step.
     
     <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
     
-    You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
-    
-    <a href="/images/dashboard_ping_pub_3_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_3.png" style="width:500px; height:auto;"></a>
+    Approve requested connection to Gonka network.
+
+    <a href="/images/keplr_approve_connection.png" target="_blank"><img src="/images/keplr_approve_connection.png" style="width:250px; height:auto;"></a>
         
     Done! Your Gonka Developer account has been successfully created.
     
@@ -298,15 +277,6 @@ Do not forget to write it down, you will need it in the next step.
         Done — your Gonka account has been successfully imported into Keplr!
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
-
-    Add it to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
-    ```
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-    To retrieve a list of all locally stored accounts, execute the following command:
-    ```
-    inferenced keys list [--keyring-backend test]
-    ```
 
 === "Option 3: Via Leap (external wallet)"
 
@@ -419,14 +389,71 @@ Do not forget to write it down, you will need it in the next step.
             
         <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
 
-    Add it to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
-    ```
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-    To retrieve a list of all locally stored accounts, execute the following command:
-    ```
-    inferenced keys list [--keyring-backend test]
-    ```
+=== "Option 4: Via Cosmostation (external wallet)"
+
+    !!! note "Important Notice: Limited Functionality"
+        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via `inferenced` CLI tool or Option 2: Via Keplr (external wallet, "Connect with Google") instead.
+        
+    Get [Cosmostation Wallet browser extension](https://cosmostation.io/products/application). 
+    
+    <a href="/images/1_cosmostation.png" target="_blank"><img src="/images/1_cosmostation.png" style="width:500px; height:auto;"></a>
+            
+    Add an extension to your browser.
+
+    <a href="/images/2_cosmostation_add_extention.png" target="_blank"><img src="/images/2_cosmostation_add_extention.png" style="width:500px; height:auto;"></a>
+
+    Choose "Create new wallet".
+
+    <a href="/images/5_cosmostation_create_a_new_wallet.png" target="_blank"><img src="/images/5_cosmostation_create_a_new_wallet.png" style="width:auto; height:337.5px;"></a>
+    
+    Write down your mnemonic phrase. DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times. Back up the phrase safely. 
+
+    <a href="/images/6_cosmostation_mnemonic.png" target="_blank"><img src="/images/6_cosmostation_mnemonic.png" style="width:auto; height:337.5px;"></a>
+    
+    Complete the quiz in order. Check the backed-up mnemonic and select the correct phrase in order for each number.
+
+    <a href="/images/7_cosmostation_quiz.png" target="_blank"><img src="/images/7_cosmostation_quiz.png" style="width:auto; height:337.5px;"></a>
+    
+    Set account name. Please enter a name for your account. You can change the account name at any time.
+
+    <a href="/images/8_cosmostation_account_name.png" target="_blank"><img src="/images/8_cosmostation_account_name.png" style="width:auto; height:337.5px;"></a>
+    
+    In the top-right corner, click “All Networks” and select the Gonka chain to add it to your wallet.
+
+    <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
+    
+    Done! Your Gonka Developer account has been successfully created. 
+        
+    <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
+    
+    Click on the Wallet name at the top. Click "Manage" on the top-right corner, then click the Wallet name. 
+            
+    <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
+    
+    Click "View private key".
+
+    <a href="/images/13_cosmostation_view_private_key.png" target="_blank"><img src="/images/13_cosmostation_view_private_key.png" style="width:auto; height:337.5px;"></a>
+    
+    Verify your password.
+
+    <a href="/images/14_cosmostation_verify_password.png" target="_blank"><img src="/images/14_cosmostation_verify_password.png" style="width:auto; height:337.5px;"></a>
+    
+    Choose "Gonka" from the list.
+
+    <a href="/images/15_cosmostation.png" target="_blank"><img src="/images/15_cosmostation.png" style="width:auto; height:337.5px;"></a>
+       
+    Click on "Gonka" to see the private key. Copy your private key or recovery phrase and store it securely (a hard copy is preferred).
+
+    <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
+    
+Add private key to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
+```
+export GONKA_PRIVATE_KEY=<your-private-key>
+```
+To retrieve a list of all locally stored accounts, execute the following command:
+```
+./inferenced keys list [--keyring-backend test]
+```
 
 ## 3. Activate account for inference
 
@@ -514,7 +541,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     With the SDK installed, create a file called `example.mjs` and copy the example code into it:
 
     ```ts linenums="1"
-    import { GonkaOpenAI } from 'gonka-openai';
+    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
 
     const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
     const client = new GonkaOpenAI({
@@ -581,6 +608,157 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     Execute the code with `go run example.go`. In a few moments, you should see the output of your API request.
 
 To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai), and adjust the examples accordingly.
+
+## 4. Tool Calling
+
+Only `type: "function"` is supported — vLLM implements the OpenAI chat completions spec, not the Assistants API (`code_interpreter`, `file_search` are unavailable).
+
+Define functions and the model will return structured call arguments when the user's request matches — you decide what to do with them.
+
+=== "Python"
+
+    ```py linenums="1"
+    import os, json
+    from gonka_openai import GonkaOpenAI
+
+    client = GonkaOpenAI(
+        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+        source_url=os.environ.get('NODE_URL')
+    )
+
+    tools = [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_weather",
+                "description": "Get the current weather for a city",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "city": {"type": "string", "description": "City name"}
+                    },
+                    "required": ["city"],
+                },
+            },
+        }
+    ]
+
+    response = client.chat.completions.create(
+        model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        messages=[{"role": "user", "content": "What's the weather in Paris?"}],
+        tools=tools,
+        tool_choice="auto",
+    )
+
+    message = response.choices[0].message
+    if message.tool_calls:
+        call = message.tool_calls[0]
+        args = json.loads(call.function.arguments)
+        # model chose get_weather with {"city": "Paris"} — call your function now
+        print(call.function.name, args)
+    ```
+
+=== "TypeScript"
+
+    ```ts linenums="1"
+    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
+
+    const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
+    const client = new GonkaOpenAI({
+        gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
+        endpoints
+    });
+
+    const tools = [
+        {
+            type: 'function',
+            function: {
+                name: 'get_weather',
+                description: 'Get the current weather for a city',
+                parameters: {
+                    type: 'object',
+                    properties: { city: { type: 'string', description: 'City name' } },
+                    required: ['city'],
+                },
+            },
+        },
+    ];
+
+    const response = await client.chat.completions.create({
+        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        messages: [{ role: "user", content: "What's the weather in Paris?" }],
+        tools,
+        tool_choice: "auto",
+    });
+
+    const message = response.choices[0].message;
+    if (message.tool_calls) {
+        const call = message.tool_calls[0];
+        const args = JSON.parse(call.function.arguments);
+        // model chose get_weather with { city: "Paris" } — call your function now
+        console.log(call.function.name, args);
+    }
+    ```
+
+=== "Go"
+
+    ```go linenums="1"
+    package main
+
+    import (
+        "context"
+        "encoding/json"
+        "log"
+        "os"
+
+        gonka "github.com/gonka-ai/gonka-openai/go"
+        "github.com/openai/openai-go"
+    )
+
+    func main() {
+        client, err := gonka.NewGonkaOpenAI(gonka.Options{
+            GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
+            SourceUrl:       os.Getenv("NODE_URL"),
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+            Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+            Messages: []openai.ChatCompletionMessageParamUnion{
+                openai.UserMessage("What's the weather in Paris?"),
+            },
+            Tools: []openai.ChatCompletionToolParam{
+                {
+                    Type: "function",
+                    Function: openai.FunctionDefinitionParam{
+                        Name:        "get_weather",
+                        Description: openai.String("Get the current weather for a city"),
+                        Parameters: openai.FunctionParameters{
+                            "type": "object",
+                            "properties": map[string]any{
+                                "city": map[string]string{"type": "string", "description": "City name"},
+                            },
+                            "required": []string{"city"},
+                        },
+                    },
+                },
+            },
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        if len(resp.Choices[0].Message.ToolCalls) > 0 {
+            call := resp.Choices[0].Message.ToolCalls[0]
+            var args struct{ City string }
+            json.Unmarshal([]byte(call.Function.Arguments), &args)
+            // model chose get_weather with {City: "Paris"} — call your function now
+            log.Printf("Tool: %s, City: %s\n", call.Function.Name, args.City)
+        }
+    }
+    ```
 
 ---
 **Need help?**  Find answers on [FAQ page](https://gonka.ai/FAQ/), or join [Discord server](https://discord.com/invite/RADwCT2U6R) for assistance with general inquiries, technical issues, or security concerns.  

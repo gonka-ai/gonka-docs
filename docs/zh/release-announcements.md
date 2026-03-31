@@ -1,5 +1,810 @@
 # 公告
 
+## 2026年3月20日
+
+**升级已执行：v0.2.11 现已在主网上线**
+
+升级提案 v0.2.11 的链上治理投票已结束。该提案已获得通过，升级已在主网上成功执行。
+
+**当前已生效的关键变更**
+
+**[初始扩展架构：基于子网的推理会话](https://github.com/gonka-ai/gonka/pull/877)**
+
+本次升级引入了基于子网的推理会话的初始版本，旨在提升推理的可扩展性。
+
+**[`StartInference` 和 `FinishInference` 性能优化](https://github.com/gonka-ai/gonka/pull/812)**
+
+这些性能优化使每个区块能够承载最多约 100 倍的推理请求，具体取决于工作负载和网络条件。
+这些以及其他变更的更多细节可查看： [https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813)
+
+**对主机（Hosts）的指引**
+
+- **二进制版本： 已通过链上升级流程完成更新。
+- **迁移：** 测试与迁移相关的详细说明已记录在 [v0.2.11 文档](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.11/docs/upgrades.md).
+
+这些变更的更多详细信息可在治理相关资料中查看： [https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/) 
+
+## 2026年3月19日
+
+**升级 v0.2.11：预下载二进制文件**
+
+v0.2.11 升级提案的链上治理流程即将结束。
+
+- 投票结束时间：2026年3月20日 05:59:52（UTC）
+- 升级区块高度：3186100
+- 预计升级时间：2026年3月20日 14:30（UTC）
+
+建议各主机（Hosts）在 [GitHub](https://github.com/gonka-ai/gonka/pull/813) 上查看该提案并参与投票。
+提前预下载二进制文件有助于在升级窗口期间避免依赖 GitHub 的可用性。
+
+```
+# 1. 创建目录
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.11/bin \
+              .inference/cosmovisor/upgrades/v0.2.11/bin && \
+
+# 2. DAPI：下载 -> 校验 -> 直接解压到 bin 目录 -> 赋予执行权限
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/decentralized-api-amd64.zip" && \
+echo "e574c3d86189daf325cc7008603ee8e952efb028afda5bcd4a154dcd334192d4 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.11/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference：下载 -> 校验 -> 直接解压到 bin 目录 -> 赋予执行权限
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/inferenced-amd64.zip" && \
+echo "c77528bd2e31e86355a6eefddb50e0db7f9600ebf2940ca440a61ea36e7ef7ca inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. 清理并最终检查
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+echo "8b99e550ddd117a0cb4293b4ae74e0e5dff961a1986f23b58ec7ae6c3f0478f1 .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api" | sudo sha256sum --check && \
+echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced" | sudo sha256sum --check
+```
+
+## 2026年3月18日
+
+**v0.2.11 升级提案进入治理流程**
+
+下一版本链上软件 v0.2.11 的升级提案现已在链上发布并开放投票。如果提案获得通过，将引入基于子网的推理会话的初始版本，以提升推理的可扩展性，并对`Start`/`FinishInference` 进行显著的性能优化。
+
+**关键变更**
+
+**[初始扩展架构：基于子网的推理会话](https://github.com/gonka-ai/gonka/pull/877)**
+
+本次升级引入了基于子网的推理会话的初始版本，旨在提升推理的可扩展性。
+
+当前，通过每次推理都在链上进行交易处理的方式会限制吞吐量。该设计将推理执行和验证移至指定的链下子组中，而链上仅负责会话创建和最终结算。
+
+这是一个有意为之的早期且受限版本设计。之所以提交到主网进行评审和有限生产测试，并不是因为该设计已经完善，而是因为这类系统需要尽早暴露在真实网络环境中。一些问题类型很难仅通过本地测试暴露出来。当前实现已被设计为避免对矿工收益产生负面影响。
+
+**[`StartInference` 和 `FinishInference` 性能优化](https://github.com/gonka-ai/gonka/pull/812)**
+
+- 减少 `MsgStartInference` and `MsgFinishInference` 的不必要状态写入和查询开销。
+- 简化统计处理，并减少推理生命周期中的工作量，从而提高区块执行的稳定性。
+
+在类似主网的条件下，这也使得每个区块最多可容纳约 100 倍的推理请求，具体取决于工作负载和网络条件。  ￼
+这些以及其他变更的更多细节可查看： [https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813) 
+
+**升级前建议操作**
+
+**`application.db` 清理**
+
+强烈建议各主机在升级前按照提供的说明对 `application.db` 进行清理。
+
+提前执行此操作非常重要。如果大量节点将清理延后到升级之后，可能会在网络中同时触发清理操作，从而造成可避免的运行压力。
+清理说明见： [https://gonka.ai/FAQ/#__tabbed_7_4](https://gonka.ai/FAQ/#__tabbed_7_4)
+
+**浏览器（Explorer）更新**
+
+要求各主机更新 dashboard/explorer。请在 `gonka/deploy/join` 目录下运行以下命令：
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+**如何投票**
+
+如果你无法直接访问拥有投票权的密钥，或希望使用其他密钥代为投票，请参考以下 [指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) 。
+
+P该指南介绍了如何将治理投票权限从冷密钥授予热密钥。提案详情和投票可通过 `inferenced` 进行。任何活跃节点都可以使用，可用节点包括：
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [https://node3.gonka.ai](https://node3.gonka.ai) 
+
+执行投票 ( `yes`, `no` , `abstain` , `no_with_veto` ):
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 31 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+查询投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 31 -o json --node $NODE_URL/chain-rpc/
+```
+
+**时间节点**
+
+- 投票结束时间：2026年3月20日 05:59:52（UTC）
+- 升级区块高度：3186100
+- 预计升级时间：2026年3月20日 14:30（UTC）
+
+**注意事项**
+
+- 请在升级窗口期间保持在线，以便能够及时执行后续步骤或应对措施。
+- 在升级过程中，Cosmovisor 会在 `.inference/data` 目录中创建完整的状态备份，请确保有足够的磁盘空间。关于如何安全删除 `.inference` 目录中的旧备份，请参考 [文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
+- 如果 `application.db` 占用了大量磁盘空间，可以参考 [此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 的清理方法。
+- 升级后，Postgres 可作为本地 payload 存储的选项。
+
+## 2026 年 3 月 17 日
+
+**升级 v0.2.11 的 PR 审查**
+
+下一次链上软件升级 v0.2.11 的 [The Pull Request](https://github.com/gonka-ai/gonka/pull/813) 已开放供审查。欢迎提供反馈和改进建议。
+
+对于在本次 PR 审查中做出有意义贡献的参与者，相关奖励（bounties）可能会在下一次升级中提出。
+
+本次为仅针对 Pull Request 的审查通知，并不代表正式投票的开始。治理投票流程将在审查期结束后启动。
+
+**关键变更**
+
+[初始扩展架构：基于子网的推理会话](https://github.com/gonka-ai/gonka/pull/877)
+
+本次升级引入了基于子网的推理会话的初始版本，旨在提升推理的可扩展性。
+
+目前，通过逐次推理在链上发起交易的方式会限制吞吐量。该设计将推理的执行与验证转移至指定的链下子组中，而链上仅负责会话创建与最终结算。
+
+这是一个有意设计为早期且受限的版本。之所以将其提交至主网进行审查和有限的生产测试，并不是因为其已经完善，而是因为这类系统需要尽早在真实网络环境中进行验证。有些问题类型很难仅通过本地测试暴露出来。当前实现已被设计为避免对矿工收益产生负面影响。
+
+[`StartInference` 和 `FinishInference` 性能优化](https://github.com/gonka-ai/gonka/pull/812)
+
+- 减少了 `MsgStartInference` 和 `MsgFinishInference` 的不必要状态写入与查询开销。
+- 简化了统计处理，并减少推理生命周期中的工作量，从而提升区块执行的稳定性。
+
+在接近主网的运行条件下，这也使得每个区块可容纳的推理数量最高提升至约 100 倍（具体取决于负载与网络条件）。 ￼
+
+**升级前建议操作**
+
+**`application.db`清理（pruning）**
+
+强烈建议 Hosts 在升级前对 `application.db` 进行 pruning，并按照提供的说明执行。
+提前执行这一操作非常重要。如果大量节点在升级后才开始 pruning，可能会导致全网在同一时间集中进行清理操作，从而带来可避免的运行压力。
+pruning 操作说明见 [这里](https://gonka.ai/FAQ/#__tabbed_7_4)。
+
+**浏览器（Explorer）更新**
+
+请 Hosts 更新 dashboard / explorer。请在 `gonka/deploy/join` 目录下运行以下命令：
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+审查人员可以在 [这里](https://github.com/gonka-ai/gonka/pull/813) 查看完整的升级提案、迁移细节、测试总结以及建议流程。
+
+## 2026 年 3 月 16 日
+
+**API 二进制版本 `v0.2.10-post7` 已发布**
+
+在 `v0.2.10`中已发现一个潜在漏洞。为在当前升级前阶段降低风险，建议在下一次 PoC 开始之前，将 API 二进制升级至 `v0.2.10-post7` 。
+
+完整变更： [https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7](https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7)
+
+应用更新：
+```
+# 预检查：确保没有 confirmation PoC 正在运行（如果不为 false，整个脚本将失败）
+echo "--- 预检查：Confirmation PoC 状态 ---" && \
+CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+echo "当前没有 confirmation PoC 正在运行" && \
+
+# 下载二进制文件
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.10-post7/ .dapi/data/upgrade-info.json && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+wget -q -O decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post7/decentralized-api-amd64.zip' && \
+echo "71481e6f2c5f9a355ed283a0896833bcc8397e8bcda134a796a46467bd2ff3b0  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/decentralized-api && \
+echo "API Installed and Verified" && \
+
+# 链接二进制文件
+echo "--- 最终验证 ---" && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.10-post7 .dapi/cosmovisor/current && \
+echo "313df0747e090518ac052918ad23f9d6e70bb60dede2013375e322c23605f3e0  .dapi/cosmovisor/current/bin/decentralized-api" | sudo sha256sum --check && \
+# 重启 
+source config.env && docker compose up api --no-deps --force-recreate -d
+```
+
+## 2026 年 3 月 11 日
+
+**工具调用**
+
+[Tool calling](https://gonka.ai/developer/quickstart/#4-tool-calling) 已通过标准的函数调用模式（type: "function"）提供支持
+
+集成流程很简单：
+
+- 函数由开发者定义
+- 当请求匹配时，模型会返回结构化的调用参数
+- 执行由应用侧负责处理
+
+对于已经在使用代理层的团队来说，这可能是一个简化技术栈、转而依赖原生能力的好机会。在实际应用中，这应当能够带来更清晰的集成模式以及更容易的维护。
+
+## 2026 年 3 月 6 日
+
+**提醒：v0.2.11 升级预计将在下周初进入审核和治理投票阶段。**
+
+请留意相关进展并提前做好参与准备。参与投票是支持网络发展、确保升级方向符合网络参与者实际需求的最简单方式之一。
+如果你没有持有投票权的 冷钱包（cold key） 的访问权限，建议提前安排 投票授权（vote delegation）。请联系该密钥的持有人，请他们授权你代表其进行投票。没有该授权，其他账户无法提交投票。
+
+在该机制中：
+
+- Granter = 拥有投票权的账户（冷钱包）
+- Grantee = 被授权代表 Granter 提交投票的账户（热钱包）
+
+Grantee 仍然可以为自己的账户进行投票。同时，Granter 可以随时撤销该授权。
+
+下面提供用于 授权、查询、投票以及撤销授权 的命令示例。
+
+1) 授权投票权限（由 Granter 账户执行）
+
+=== "Command"
+
+    ```
+    ./inferenced tx authz grant <GRANTEE_GONKA_ADDRESS> generic \
+      --msg-type=/cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --expiration=<UNIX_TIMESTAMP> \
+      --home .inference \
+      --keyring-backend file
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "height": "0",
+        "txhash": "8D96FB6FC06FFB928FBC89FE950689CD040C7F338C197BA856175EC7462A3FFA",
+        "codespace": "",
+        "code": 0,
+        "data": "",
+        "raw_log": "",
+        "logs": [],
+        "info": "",
+        "gas_wanted": "0",
+        "gas_used": "0",
+        "tx": null,
+        "timestamp": "",
+        "events": []
+    }
+    ```
+    
+2) 确认授权是否成功（任意节点可执行）
+
+=== "Command"
+    ```
+    ./inferenced query authz grants <GRANTER_GONKA_ADDRESS> <GRANTEE_GONKA_ADDRESS> \
+      --node="http://<MAINNET_NODE_URL>:26657" \
+      --output=json | jq .
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "grants": [
+            {
+                "authorization": {
+                    "type": "cosmos-sdk/GenericAuthorization",
+                    "value": {
+                        "msg": "/cosmos.gov.v1beta1.MsgVote"
+                    }
+                },
+                "expiration": "2026-12-03T18:38:18Z"
+            }
+        ],
+        "pagination": {
+            "total": "1"
+        }
+    }
+    ```
+    
+3) 使用 Grantee 账户进行投票
+
+=== "Command"
+    ```
+    # 查询要投票的 proposal ID，在投票内容中使用 <VOTE_PROPOSAL_ID> 
+    ./inferenced query gov proposals --output json
+    
+    # 创建投票文件
+    cat > /tmp/authz-vote.json << 'EOF'
+    {
+      "body": {
+        "messages": [
+          {
+            "@type": "/cosmos.authz.v1beta1.MsgExec",
+            "grantee": "<GRANTEE_GONKA_ADDRESS>",
+            "msgs": [
+              {
+                "@type": "/cosmos.gov.v1beta1.MsgVote",
+                "proposal_id": "<VOTE_PROPOSAL_ID>",
+                "voter": "<GRANTER_GONKA_ADDRESS>",
+                "option": "VOTE_OPTION_YES"
+              }
+            ]
+          }
+        ]
+      }
+    }
+    EOF
+    
+    
+    # 使用该文件提交投票 
+    ./inferenced tx authz exec /tmp/authz-vote.json \  --from=<GRANTEE_KEY_NAME> \ 
+    --chain-id=gonka-mainnet \
+    --home .inference \
+    --keyring-backend file \
+    --node="http://<MAINNET_NODE_URL>:26657" -y
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "pagination": {
+            "total": "1"
+        },
+        "proposals": [
+            {
+                "deposit_end_time": "2026-03-06T10:40:07.016920026Z",
+                "final_tally_result": {
+                    "abstain_count": "0",
+                    "no_count": "0",
+                    "no_with_veto_count": "0",
+                    "yes_count": "0"
+                },
+                "id": "1",
+                "messages": [
+                    {
+                        "type": "cosmos-sdk/MsgSoftwareUpgrade",
+                        "value": {
+                            "authority": "gonka10d07y265gmmuvt4z0w9aw880jnsr700j2h5m33",
+                            "plan": {
+                                "height": "406062",
+                                "info": "{\n \"binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/inferenced-amd64.zip?checksum=sha256:fb71310427436aebac32813735231882fca420cf0d94b036f8cacd055d0e1c78\"\n },\n \"api_binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/decentralized-api-amd64.zip?checksum=sha256:6fe214f4bb2d831c02ce407682820d95d01e6ae94a33fe9c4617b80e0ca716ce\"\n }\n }",
+                                "name": "v0.2.10",
+                                "time": "0001-01-01T00:00:00Z"
+                            }
+                        }
+                    }
+                ],
+                "proposer": "gonka1xfvr8mywcrxrcrryvj8c5d2grvyjdj5c90fd88",
+                "status": 2,
+                "submit_time": "2026-03-04T10:40:07.016920026Z",
+                "summary": "Upgrade Proposal v0.2.10",
+                "title": "Upgrade Proposal v0.2.10",
+                "total_deposit": [
+                    {
+                        "amount": "50000000",
+                        "denom": "ngonka"
+                    }
+                ],
+                "voting_end_time": "2026-03-04T10:50:07.016920026Z",
+                "voting_start_time": "2026-03-04T10:40:07.016920026Z"
+            }
+        ]
+    }
+    ```
+    
+投票选项:
+
+- `VOTE_OPTION_YES`（同意）
+- `VOTE_OPTION_ABSTAIN`（弃权）
+- `VOTE_OPTION_NO`（反对）
+- `VOTE_OPTION_NO_WITH_VETO`（否决）
+
+4) 撤销投票授权（由 Granter 执行）
+
+=== "Command"
+
+    ```
+    ./inferenced tx authz revoke <GRANTEE_GONKA_ADDRESS> /cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --home .inference \
+      --keyring-backend file
+    ```
+=== "Example response"
+
+    ```
+    {
+        code: 0
+        codespace: ""
+        data: ""
+        events: []
+        gas_used: "0"
+        gas_wanted: "0"
+        height: "0"
+        info: ""
+        logs: []
+        raw_log: ""
+        timestamp: ""
+        tx: null
+        txhash: A2C3CDA9E95DCF143C0D8981A4F573F1E68879ECF4903B25BA97383C3F2FDFBA
+    }
+    ```
+
+## 2026年2月21日
+
+**API 二进制版本 v0.2.10-post3 已发布**
+
+新版 API 二进制程序已发布。本次更新改进了连接超时处理逻辑，并在 PoC 验证流程中引入了额外的校验机制。
+
+1. 在 v0.2.10 升级中，引入了 Executor → MLNode 连接的严格 5 分钟超时限制，而部分请求的实际执行时间可能明显更长。新的 API 版本不再强制执行该严格限制，而是将超时控制权交还给上层。
+2. 之前的请求重试机制在推理因处理超时（而非 TLS 超时）失败时，仍会重新发起推理请求。对于执行时间较长的请求，服务端重试通常是无效的，因为很可能再次触发同样的超时问题，同时还可能导致客户端收到不一致的输出结果。新版 API 在此类情况下将不再重试推理请求。
+3. 之前，处于“保留（preserved）”状态、且未参与 PoC 生成的 MLNode，仍可能被用于 PoC 验证，这可能导致推理缺失。新版已将这类节点排除在 PoC 验证流程之外。
+4. PoC 验证流程中新增了多项额外的安全防护措施。
+
+PR: [https://github.com/gonka-ai/gonka/pull/785](https://github.com/gonka-ai/gonka/pull/785)
+Build: [https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip](https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip)
+
+应用更新：
+```
+#预检查：确认当前没有进行中的 confirmation PoC (若不为 false，脚本将直接失败)
+echo "--- Pre-flight Check: Confirmation PoC Status ---" && \
+CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+echo "OK: No confirmation PoC active" && \
+
+# 下载二进制文件
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.10-post3/ .dapi/data/upgrade-info.json && \
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/ && \
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip' && \
+echo "1b75f2785c7884dc24f3c1e39d5ed10f4afcbe5fc677f5569d90d75c752ec150 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/decentralized-api && \
+echo "API Installed and Verified"  && \
+
+# 链接二进制文件
+echo "--- Final Verification ---" && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.10-post3 .dapi/cosmovisor/current && \
+echo "de72c665ff71de904210c5472cebb248d163c1398141868e1a1fe198055b5886 .dapi/cosmovisor/current/bin/decentralized-api" | sudo sha256sum --check && \
+# 重启服务
+source config.env && docker compose up api --no-deps --force-recreate -d
+```
+
+## 2026年2月19日
+
+**抵押参数更新提案 — 投票结果**
+
+抵押参数更新提案已结束投票，但未达到法定投票人数（quorum）。因此，根据当前治理规则，该提案被判定为未通过，相应的更新参数不会生效。
+
+如先前所述，Epoch 180 启用抵押机制与本次投票结果无关。
+
+由于该提案未获通过，Genesis 中定义的抵押参数将在 Epoch 180 自动生效。
+
+参与者应注意并完成以下准备：
+
+- 查阅 Genesis 中定义的抵押参数；
+- 在 Epoch 180 之前准备并存入所需数量的 GNK；
+- 确保已正确设置[抵押](https://gonka.ai/host/collateral/)，否则自 Epoch 180 起，基于 PoC 产生的奖励将被降低 5 倍。
+
+抵押机制的启用，是协议从宽限期（Grace Period）过渡至完全抵押化 PoC 权重模型的重要组成部分。
+治理仍然是调整参数的正式途径，但在未通过替代方案的情况下，系统将默认采用 Genesis 规则。
+
+!!!"重要提示：请预留抵押缓冲"
+
+    强烈建议参与者**不要只存入最低要求的抵押数量**。由于 PoC 权重在不同 epoch 之间可能因归一化机制及网络层调整而发生波动，权重较小的节点，其相对波动幅度可能更大。为避免在 epoch 切换时出现**短暂抵押不足**的情况，建议在当前抵押规模仍较小的阶段，存入**最高可达最低要求 2 倍**的 GNK 作为抵押。这将显著提升运行安全性，并避免因参数微调而导致的非预期权重下降。**协议不会自动补充抵押（auto top-up）**。
+
+如社区希望再次调整抵押参数，后续仍可提出新的治理提案。
+
+## 2026年2月20日
+
+**建议（可选）：在 PoC 开始时中断进行中的请求的 vLLM / mlnode 构建版本**
+
+现已提供一个新的 vLLM / mlnode 构建版本，可在 PoC 启动时中断仍在执行中的推理请求，以降低因 PoC 开始时仍存在未完成请求而导致权重下降的风险。
+
+来源：[https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm](https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm)
+
+**建议尝试的镜像版本：**
+
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell-sm120
+
+**注意事项：**
+- 该构建版本旨在与上一版本保持向后兼容。
+- 目前已在少量节点上启用，但在正式部署前，仍建议先审阅相关改动内容。
+
+## 2026年2月19日
+
+**PoC 权重归一化更新说明**
+
+在最近一次升级完成后，由于引入了 PoC 执行时长归一化机制，节点权重已发生相应调整。
+
+为使 PoC 权重与实际区块生成时间保持一致，系统基于观测到的区块间隔选择了新的校准参数。在当前实现下，有效的 PoC 参考窗口较此前的名义假设延长了约 5 个区块。
+
+由此带来的直接结果包括：
+
+- 节点平均权重整体下降（归一化效应）
+- 显示的 H100 等效总算力在数值上相应降低
+- 各类 GPU 之间的相对比例保持不变
+
+**原因说明**
+
+在此之前，PoC 权重计算基于一个固定的名义 epoch 时长假设。引入实时归一化机制后：
+
+- PoC 执行时长与实际区块生产时间对齐
+- 权重结果更加真实地反映实际计算耗时
+
+由于当前有效归一化窗口比原先的名义模型长约 5 个区块，因此每个 epoch 重新计算后的权重值在比例上有所下降。
+
+**GPU 权重变化示例（Epoch 175 → 176）**
+
+| GPU 类型            | Epoch 175 | Epoch 176 | 变化幅度  |
+|---------------------|----------:|----------:|--------:|
+| A100-PCIE-40GB      | 11.8      | 10.0      | -15.4%  |
+| A100-SXM4-80GB      | 132.2     | 107.8     | -18.5%  |
+| H100 80GB HBM3      | 305.1     | 254.5     | -16.6%  |
+| H100 PCIe           | 178.9     | 155.7     | -12.9%  |
+| H200                | 319.6     | 281.3     | -12.0%  |
+
+**对 Tracker / Dashboard 维护者的提示**
+
+在 PoC 执行时长归一化生效后，自 Epoch 176 起，PoC 权重已基于新的计算模型，有效参考窗口比此前假设长约 5 个区块。因此，所有基于 PoC 权重推导 H100 等效算力或奖励预期的 Tracker 与 Dashboard，应从 Epoch 176 起重新校验并调整转换系数。若仍沿用归一化前的假设，展示的硬件等效值与奖励预测将被高估。
+
+## 2026年2月18日
+
+**升级已执行：v0.2.10 已正式上线主网**
+
+v0.2.10 升级提案的链上治理投票已结束，提案已顺利通过，并成功在主网上完成升级执行。本次升级对 PoC 验证流程进行了重要优化，同时引入实时权重归一化机制，以进一步提升网络运行的公平性与整体可扩展能力。
+
+**注意事项**
+
+为了触发模型重新部署，升级完成后必须重启 ML Node 容器。请执行以下命令：
+```
+docker restart join-mlnode-1
+```
+
+本次升级引入了 3000 个区块的宽限期。请务必在该宽限期内完成向  `mlnode:3.0.12-post4-*` 版本的迁移。
+
+!!! "兼容性说明"
+    本次升级包含 IBC 协议栈升级至 v8.7.0。
+    请务必检查所有解析 `inferenced` CLI 输出的脚本：
+    Enums 以及 int64 / uint64 类型的数值现已统一以字符串形式编码输出。
+
+**当前已生效的关键变更**
+
+**PoC 验证采样优化n**
+
+本次升级引入了一种全新的 PoC 验证机制：
+通过为每位参与者分配一组固定采样的验证者，将验证复杂度从 O(N²) 显著降低至 O(N × N_SLOTS)，有效缓解大规模网络下的验证压力。
+
+**基于实时执行时间的 PoC 权重归一化**
+
+升级后，PoC 参与者的权重将基于 PoC 实际执行耗时进行归一化处理。
+该机制可有效降低区块时间漂移带来的影响，使权重结果更加真实地反映实际算力贡献。
+
+**为 Qwen235B 启用工具调用能力**
+
+本次升级为 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 新增工具调用参数（ `--enable-auto-tool-choice` , `--tool-call-parser hermes` ），并将验证阈值设置为 0.958。
+
+如需启用工具调用功能，需重启 MLNode 容器内的 vLLM 服务。
+
+**其他协议更新**
+
+- 问题修复：修复 PoC 与 CPoC 交集判断相关的 bug（PR #752）
+
+- IBC 升级：IBC 协议栈升级至 v8.7.0
+
+- 惩罚机制优化：惩罚阈值现由链上数据动态推导（PR #688）
+
+- 归属机制支持：支持在归属期（vesting）进行中的 streamvesting 转账（PR #641）
+
+- MLNode 更新：提供更稳定的 MLNode 容器版本：ghcr.io/product-science/mlnode:3.0.12-post4 / ghcr.io/product-science/mlnode:3.0.12-post4-blackwell.
+
+**宽限期说明** 
+
+本次升级引入以下宽限机制：升级完成后的 前 3000 个区块内，不执行 Confirmation PoC。在升级所在的 epoch 内，采用更宽松的 miss rate 与 invalidation rate 阈值。
+
+有关上述变更及更多技术细节，请查阅治理材料：[https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
+
+## 2026年2月18日
+
+**抵押参数更新提案已开放投票**
+
+新的抵押参数更新提案现已发布，并进入社区投票阶段。
+
+拟议参数如下：
+
+- 每 1 单位算力需抵押 0.032 GNK（约 每张 H100 为 10 GNK）
+- miss rate 或被 jail：0.01% 惩罚
+- 无效推理（invalid inference）：0.5% 惩罚
+
+这意味着，在单个 epoch 内，即使触发惩罚，矿工最多仅会损失 0.5% 的抵押资产。所需抵押金额约为单日奖励的 24%，整体负担相对可控。
+
+**重要提醒** 
+
+无论投票结果如何，抵押机制都会生效。若该提案未通过，Genesis 中定义的抵押参数将于 Epoch 180 自动启用。若提案通过，则以本提案参数为准。
+
+在投票结束且 Epoch 180 到来之前，所有矿工必须按照以下[指南](https://gonka.ai/host/collateral/#slashing)完成抵押资金转入操作。否则，自 Epoch 180 起，其奖励将被 降低 5 倍。
+
+查询最新参数差异：
+```
+export NODE_URL=https://node3.gonka.ai/
+diff -u \
+  <(./inferenced query inference params -o json --node $NODE_URL/chain-rpc/ | jq '.params') \
+  <(./inferenced query gov proposal 28 -o json --node $NODE_URL/chain-rpc/ | jq '.proposal.messages[] | select(."type"=="inference/x/inference/MsgUpdateParams") | .value.params') \
+  || true
+
+```
+
+提交投票 (`yes`, `no` , `abstain` , `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 28 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+查询投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 28 -o json --node $NODE_URL/chain-rpc/
+```
+**投票截止时间**
+
+2026 年 2 月 19 日 07:27:06（UTC）
+
+
+
+## 2026年2月17日
+
+**v0.2.10 升级提案进入治理阶段**
+
+下一版本链上软件 v0.2.10 的升级提案现已在链上发布并开放投票。若提案获批，本次升级将引入一项对 PoC 验证的重要优化（默认不启用），并实现实时权重归一化，以提升网络的公平性与可扩展性。
+
+**关键变更**
+
+**PoC 验证采样优化**
+
+本次升级引入了一种新的 PoC 验证机制，通过为每个参与者分配一组固定采样的验证者，将复杂度从 O(N²) 降低至 O(N × N_SLOTS)。
+
+**PoC 实时权重归一化**
+
+本次升级根据实际 PoC 运行耗时对参与者权重进行归一化，以减少区块时间漂移带来的影响，并确保权重结果与真实执行时长保持一致。
+
+**为 Qwen235B 启用工具调用**
+
+本次升级为 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 增加了工具调用参数（`--enable-auto-tool-choice` , `--tool-call-parser hermes`），并将验证阈值设为 `0.958`。
+
+如需启用工具功能，必须重启 MLNode 容器中的 vLLM。
+
+升级后将引入一个宽限期：在升级完成后的前 3000 个区块内，不执行 Confirmation PoC，同时在升级所在 epoch 内采用更宽松的 miss rate 与 invalidation rate 阈值。
+
+**其他协议更新**
+
+- 修复 PoC 与 CPoC 的交集 bug（PR #752）
+- IBC 协议栈升级至 v8.7.0
+- 惩罚阈值现由链上数据动态推导（PR #688）
+- 支持在归属期（vesting）进行中的 streamvesting 转账（PR #641）
+- 提供更稳定版本的 MLNode 容器：`ghcr.io/product-science/mlnode:3.0.12-post4` / `ghcr.io/product-science/mlnode:3.0.12-post4-blackwell`. 
+
+有关上述及其他变更的更多细节，请参阅治理材料：
+[https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md ](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
+
+**升级执行后主机需要进行的操作**
+
+若提案获批并完成升级，必须重启 ML Node 容器以触发模型重新部署。请执行：
+```
+docker restart join-mlnode-1
+```
+升级至  `mlnode:3.0.12-post4-*` 必须在本次升级引入的 3000 区块宽限期内完成。
+
+**如何投票**
+
+提案详情与投票可通过 `inferenced` 进行，任何活跃节点均可使用。可用节点包括：
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [https://node3.gonka.ai](https://node3.gonka.ai) 
+
+提交投票 (`yes`, `no` , `abstain` , `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 27 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+查询投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 27 -o json --node $NODE_URL/chain-rpc/
+```
+**关键时间节点**
+
+- 投票截止时间：2026 年 2 月 18 日 09:26:26（UTC）
+- 升级高度：2712600
+- 预计升级时间：2026 年 2 月 18 日 15:30:00（UTC）
+
+**注意事项**
+
+- 请检查所有解析 `inferenced` 输出的脚本。由于 IBC 协议栈升级至 v8.7.0，Enums 以及 int64 / uint64 类型现已被编码为字符串。
+- 请提前安排在升级窗口期间保持在线，以便及时执行后续操作或缓解措施。
+- 升级过程中，Cosmovisor 会在 `.inference/data` 目录下创建完整的状态备份，请确保磁盘空间充足。有关安全删除`.inference` 目录中旧备份的指南可参考[以下文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
+- 若 `application.db`  占用大量磁盘空间，可采用文档中描述的[清理方案](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)。
+- 升级完成后，可选择使用 Postgres 作为本地 payload 存储方案。
+
+## 2026年2月16日
+
+**抵押机制启用及初始参数提案说明**
+
+距离 Epoch 180 生效仅剩不到 7 天，相关准备工作需同步推进。
+
+基于 AMA 中的讨论以及社区成员提出的意见，本提案建议以较低的初始抵押要求和最小化惩罚机制启动。
+
+拟提交社区投票的参数如下：
+
+- 每 1 单位算力需抵押 0.032 GNK（约等于每张 H100 约 10 GNK）
+- 漏报率（miss rate）或进入关押状态（jail）的惩罚：0.01%
+- 无效推理（invalid inference）触发的惩罚（slashing）：0.5%
+
+这意味着，在单个 epoch 内，即使触发惩罚，矿工被扣除的抵押金额也不会超过其总抵押的 0.5%。同时，所需抵押金额约等于单日奖励的 24%。
+
+提案正式提交链上投票后，将另行发布公告说明。
+
+重要提醒：
+无论投票结果如何，抵押机制都将于 Epoch 180 按既定规则正式生效。
+如果本次提案未通过，系统将于 Epoch 180 自动启用 Genesis 中定义的抵押参数，而非上述提议参数。
+
+未来如需提高抵押要求，将通过单独提案发起投票。当前阶段的目标是观察网络运行的稳定性，并确保非正当惩罚的情况极少发生，且仅在合理情况下执行。在网络稳定性得到验证后，可逐步将抵押水平提高至《Tokenomics 白皮书》中所定义的标准水平（例如每张 H100 约 100 GNK），以支持网络的长期发展。
+
+## 2026年2月13日
+
+**即将到来的 v0.2.10 升级投票与执行时间安排**
+
+即将进行的软件升级 v0.2.10 的链上投票期预计将于周日晚上（洛杉矶时间）/ 周一早晨（UTC）开始。
+如果该提案通过治理投票获得批准，升级计划在周二执行。
+
+**大致时间线：**
+
+- 	周日晚上（洛杉矶时间）：投票期开始
+- 	周一（UTC 早晨）：投票进行中
+-  周二：执行升级（若投票通过）
+
+请在 GitHub 上审阅 v0.2.10 升级 PR 并留下反馈。对有价值的审阅贡献，可能会在下一次升级中提出赏金提案。
+
+[https://github.com/gonka-ai/gonka/pull/695](https://github.com/gonka-ai/gonka/pull/695)
+
+## 2026年2月13日
+
+如果你的节点未能及时应用最新升级，可能会在区块 2628371 处因共识失败而停止运行。这是因为节点仍在运行过期的二进制文件，已不再与网络兼容。要恢复运行，请按照以下指南操作：[恢复指南：因错过升级导致的共识失败](https://gonka.ai/zh/FAQ/#_31)
+
 ## 2026年2月12日
 
 **网络更新：补丁已发布（PoC / cPoC 重叠）**

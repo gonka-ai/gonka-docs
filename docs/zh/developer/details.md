@@ -23,7 +23,7 @@ mkdir inference-requests
 
 ```json linenums="1"
 {
-  "model": "Qwen/QwQ-32B",
+  "model": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
   "messages": [
     {
       "role": "user",
@@ -98,7 +98,7 @@ def hybrid_timestamp_ns() -> int:
     return _WALL_BASE + (time.perf_counter_ns() - _PERF_BASE)
 
 payload = {
-  "model": "Qwen/QwQ-32B",
+  "model": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
   "messages": [
       {"role": "system", "content": "你是一个有帮助的助手。"},
       {"role": "user", "content": "你好，你好吗？"}

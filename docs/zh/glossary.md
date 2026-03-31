@@ -1,11 +1,12 @@
 **AI Token（AI 令牌）**
 是一种与具体模型绑定的计算单位，用于量化训练或推理操作所需的计算成本。例如，在 QwQ-32B 模型（FP16，32K 上下文）的场景下，一个 AI Token 可能表示处理固定数量输入和/或输出 token 所需的计算资源。AI Token 与基础模型的特性高度相关，真实反映内存占用、FLOPs 等实际计算开销。
 
-**Appropriate Vector（合格向量）**
-指在 Sprint 期间由节点的 Transformer 模型生成的有效输出向量，其与全局 Target Vector 之间的欧几里得距离满足预先定义的接近度要求。该输出必须落在特定的距离阈值内，该阈值经过统计校准以控制难度，成功概率并非固定值（例如，在某一阶段的统计期望中，大约每 900 次尝试成功 1 次）。
+**确认/随机算力证明（cPoC）** 是一种辅助验证机制，用于在主要的 [算力证明](https://gonka.ai/glossary/#glossary:~:text=Proof%20of%20Compute%20(PoC)%20is,is%20the%20execution%20phase%20of%20PoC.) (PoC) Sprint 之外，验证 Host 所声明的计算权重的稳定性。这些检查旨在确认 Host 持续提供与其最近一次 PoC 结果所反映的计算能力相一致的算力。CPoC 并不替代标准的 PoC 流程（Sprint）。
+
+**确认比率** 是指 Host 在 PoC 阶段获得的 epoch 权重与在 cPoC 期间获得的权重之间的比值。确认比率越高，表示 Host 所提供的算力越稳定。如果确认比率为 50% 或更低，则该 Host 将被取消获得该 epoch 奖励的资格。
 
 **Consensus（共识）**
-是一种协议机制，用于使网络就区块链的单一、可验证状态达成一致，确保所有参与者维护一致且不可篡改的账本。在 Gonka 中，共识通过 Proof of Compute 实现。
+是一种协议机制，用于使网络就区块链的单一、可验证状态达成一致，确保所有参与者维护一致且不可篡改的账本。在 Gonka 中，共识通过 PoC 实现。
 
 **Epoch（周期）**
 是区块链的核心运行周期。在一个 Epoch 中，Hosts 执行有意义的 AI 工作、参与验证并累积奖励。一个 Epoch 持续 17,280 个区块（约 24 小时），并在 Epoch 末尾的 Sprint 完成后结束，同时确定下一 Epoch 的 Host 权重。
@@ -48,16 +49,16 @@
 是一种公开可用的加密密钥，用于验证签名、加密消息以及在 Gonka 网络中标识账户，是加密密钥对中可公开共享的部分。
 
 **Randomized Task Verification（随机任务验证）**
-是平台验证策略的基础。系统不会对每个推理任务进行冗余验证，而是基于 Hosts（Executor）的声誉随机选择一部分任务进行验证。Host 的声誉越高，其工作需要验证的比例就越低。该方法将验证开销降低至仅 1–10% 的任务，同时通过概率性保证以及作弊将失去奖励的风险来维持系统可信度。
+是平台验证策略的核心基础。系统不会对每一次推理任务进行冗余验证，而是基于 Hosts（Executor）的声誉随机选择一部分任务进行验证。Host 的声誉越高，其工作需要验证的比例就越低。该机制将整体验证开销大幅降低至仅占全部任务的 1–10%，同时通过概率性保障机制以及一旦作弊将失去奖励的威慑手段，维持系统的可信性。
 
 **Sprint**
-是 Proof of Compute 的一个阶段。在 Sprint 期间，所有 Hosts 同时使用随机初始化的 Transformer 模型执行与 AI 相关的推理任务，以生成输出向量。Host 在 Sprint 中生成的 Appropriate Vectors 数量决定了其在下一 Epoch 中的投票权（权重）。
+是 Proof of Compute 的一个阶段。在 Sprint 期间，所有 Hosts 会同时在带有随机化层的 Transformer 模型上，对一系列 nonces 执行与 AI 相关的推理计算，并生成输出向量。只要所提交的输出能够被验证为确实由指定的 Sprint 模型生成，Host 在下一 epoch 中的投票权重就与其处理的 nonces 数量成正比。
 
 **Sprint Seed（Sprint 种子）**
-由基于最新区块链状态的随机数生成器产生，用于初始化 Transformer 模型并生成 Target Vector。Sprint Seed 对每个 Sprint 唯一，并且在该 Sprint 中对所有参与设备保持一致。
+由基于最新区块链状态的随机数生成器产生，该种子用于对 Transformer 模型的隐藏层施加随机变换。
 
 **Validator `status: jailed`（验证者状态：已隔离 `Jailed` ）**
 表示某个验证者由于未满足最低共识参与要求（具体而言，在规定窗口内签署的区块数量不足），已被协议自动且临时地移出区块生产流程。
 
 **Voting Power（Weight，投票权 / 权重）**
-表示 Host 在网络治理和协议决策中的权重，其大小与 Host 在 Sprint 期间找到的 Appropriate Vectors 数量成正比。
+表示 Host 在网络治理和协议决策中的权重，其大小由 Host 在某一 Sprint 中成功处理的 nonces 数量按比例决定。

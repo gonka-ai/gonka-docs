@@ -1,10 +1,793 @@
 # Announcements
 
+## March 20, 2026
+
+**UPGRADE EXECUTED: v0.2.11 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.11 has concluded. The proposal has been APPROVED, and the upgrade was successfully executed on the mainnet.
+
+**Key changes now active**
+
+**[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
+
+This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+
+**[`StartInference` and `FinishInference` performance improvements](https://github.com/gonka-ai/gonka/pull/812)**
+
+These performance improvements enable up to 100x more inferences per block, depending on workload and network conditions.
+Additional details for these and other changes are available here: [https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813)
+
+**Guidance for Hosts**
+
+- **Binary Versions:** Updated via the on-chain upgrade process.
+- **Migration:** Testing and migration details are documented in the [v0.2.11 documentation](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.11/docs/upgrades.md).
+
+Additional details for these changes are available in the governance artifacts: [https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/) 
+
+## March 19, 2026
+
+**Upgrade v0.2.11: Pre-download binaries**
+
+The on-chain governance process for the v0.2.11 upgrade proposal is nearing its conclusion.
+
+- Voting ends: March 20th, 2026, at 05:59:52 UTC
+- Upgrade height: 3186100
+- Estimated upgrade time: March 20th, 2026, at 14:30 UTC
+
+Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka-ai/gonka/pull/813) and vote.
+Pre-downloading binaries in advance may help avoid relying on GitHub availability during the upgrade window.
+
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.11/bin \
+              .inference/cosmovisor/upgrades/v0.2.11/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/decentralized-api-amd64.zip" && \
+echo "e574c3d86189daf325cc7008603ee8e952efb028afda5bcd4a154dcd334192d4 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.11/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/inferenced-amd64.zip" && \
+echo "c77528bd2e31e86355a6eefddb50e0db7f9600ebf2940ca440a61ea36e7ef7ca inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+echo "8b99e550ddd117a0cb4293b4ae74e0e5dff961a1986f23b58ec7ae6c3f0478f1 .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api" | sudo sha256sum --check && \
+echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced" | sudo sha256sum --check
+```
+
+## March 18, 2026
+
+**v0.2.11 Upgrade Proposal Enters Governance**
+
+The upgrade proposal for the next on-chain software version v0.2.11 has now been published on-chain and is open for voting. If approved, the proposal introduces an initial version of subnet-based inference sessions intended to improve inference scalability, and significantly `Start`/`FinishInference` performance improvements.
+
+**Key changes**
+
+**[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
+
+This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+
+Today, handling inference through per-inference on-chain transactions limits throughput. This design moves inference execution and validation into an assigned off-chain subgroup, while the chain only handles session creation and final settlement.
+
+This is intentionally an early and constrained version of the design. It is being proposed for mainnet review and limited production testing, not because it is considered finished, but because this type of system needs exposure to real network conditions early. Some classes of issues are difficult to surface through local testing alone. Current implementation has been designed to avoid negatively affecting miners’ rewards.
+
+**[`StartInference` and `FinishInference` performance improvements](https://github.com/gonka-ai/gonka/pull/812)**
+
+- Reduces unnecessary state writes and query overhead for `MsgStartInference` and `MsgFinishInference`.
+- Simplifies stats handling and cuts work done during the inference lifecycle for better block execution stability.
+
+On mainnet-like conditions, this also makes it possible to fit up to 100x more inferences per block, depending on workload and network conditions.  ￼
+Additional details for these and other changes are available here: [https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813) 
+
+**Recommended action before the upgrade**
+
+**`application.db` pruning**
+
+Hosts are strongly encouraged to prune `application.db` before the upgrade, following the provided instructions.
+
+Doing this in advance is important. If many nodes defer pruning until after the upgrade, pruning activity may begin across the network at roughly the same time, creating avoidable operational pressure.
+Pruning instructions are documented here: [https://gonka.ai/FAQ/#__tabbed_7_4](https://gonka.ai/FAQ/#__tabbed_7_4)
+
+**Explorer update**
+
+Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory:
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key. 
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [https://node3.gonka.ai](https://node3.gonka.ai) 
+
+Cast your vote ( `yes`, `no` , `abstain` , `no_with_veto` ):
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 31 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 31 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+- Voting ends: March 20th, 2026, at 05:59:52 UTC
+- Upgrade height: 3186100
+- Estimated upgrade time: March 20th, 2026, at 14:30 UTC
+
+**Attention**
+
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available. Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- After the upgrade, Postgres is available as an option for local payload storage.
+
+## March 17, 2026
+
+**PR Review for Upgrade v0.2.11**
+
+[The Pull Request](https://github.com/gonka-ai/gonka/pull/813) for the next on-chain software upgrade, v0.2.11, is open for review. Feedback and suggested improvements are welcome. 
+
+Bounties for meaningful contributions to this PR review may be proposed in the next upgrade. 
+
+This is a call for review of the Pull Request only, and not the start of formal voting. The governance voting process will begin after the review period concludes.
+
+**Key changes**
+
+[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)
+
+This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+
+Today, handling inference through per-inference on-chain transactions limits throughput. This design moves inference execution and validation into an assigned off-chain subgroup, while the chain only handles session creation and final settlement.
+
+This is intentionally an early and constrained version of the design. It is being proposed for mainnet review and limited production testing, not because it is considered finished, but because this type of system needs exposure to real network conditions early. Some classes of issues are difficult to surface through local testing alone. Current implementation has been designed to avoid negatively affecting miners’ rewards.
+
+[`StartInference` and `FinishInference` performance improvements](https://github.com/gonka-ai/gonka/pull/812)
+
+- Reduces unnecessary state writes and query overhead for `MsgStartInference` and `MsgFinishInference`.
+- Simplifies stats handling and cuts work done during the inference lifecycle for better block execution stability.
+
+On mainnet-like conditions, this also makes it possible to fit up to 100x more inferences per block, depending on workload and network conditions.  ￼
+
+**Recommended action before the upgrade**
+
+**`application.db` pruning**
+
+Hosts are strongly encouraged to prune `application.db` before the upgrade, following the provided instructions.
+Doing this in advance is important. If many nodes defer pruning until after the upgrade, pruning activity may begin across the network at roughly the same time, creating avoidable operational pressure.
+Pruning instructions are documented [here](https://gonka.ai/FAQ/#__tabbed_7_4).
+
+**Explorer update**
+
+Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory:
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+Reviewers can find the full upgrade proposal, migration details, testing summary, and proposed process [here](https://github.com/gonka-ai/gonka/pull/813).
+
+## March 16, 2026
+
+**API binary `v0.2.10-post7` is available**
+
+A potential vulnerability has been identified in `v0.2.10`. To reduce risk during the current pre-upgrade period, it is recommended to upgrade the api binary to `v0.2.10-post7` before the next PoC starts.
+
+Full changes: [https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7](https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7)
+
+Apply update:
+```
+# Pre-check: Ensure no confirmation PoC is active (fails entire script if not false)
+echo "--- Pre-flight Check: Confirmation PoC Status ---" && \
+CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+echo "OK: No confirmation PoC active" && \
+
+# Download Binary
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.10-post7/ .dapi/data/upgrade-info.json && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+wget -q -O decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post7/decentralized-api-amd64.zip' && \
+echo "71481e6f2c5f9a355ed283a0896833bcc8397e8bcda134a796a46467bd2ff3b0  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.10-post7/bin/decentralized-api && \
+echo "API Installed and Verified" && \
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.10-post7 .dapi/cosmovisor/current && \
+echo "313df0747e090518ac052918ad23f9d6e70bb60dede2013375e322c23605f3e0  .dapi/cosmovisor/current/bin/decentralized-api" | sudo sha256sum --check && \
+# Restart 
+source config.env && docker compose up api --no-deps --force-recreate -d
+```
+
+## March 11, 2026
+
+**Tool calling**
+
+[Tool calling](https://gonka.ai/developer/quickstart/#4-tool-calling) is now available through the standard function-calling pattern (`type: “function”`).
+
+The integration flow is simple: 
+
+- functions are defined by the developer
+- the model returns structured call arguments when a request matches
+- execution is handled on the application side.
+
+For teams already using proxy layers, this may be a good opportunity to simplify the stack and rely on native behavior instead. In practice, that should lead to a cleaner integration pattern and easier maintenance.
+
+## March 6, 2026
+
+**Heads up: v0.2.11 upgrade is expected to enter review and governance voting early next week.**
+
+Please keep an eye out and plan to participate. Voting is one of the simplest ways to support network development and keep upgrades aligned with what participants actually need.
+If you do not have access to the cold key that holds your voting power, it makes sense to arrange vote delegation in advance. Please contact the owner of that key and ask them to grant permission for you to vote on their behalf. Without that authorization, a vote cannot be submitted from another account.
+
+In this setup:
+
+- Granter = account that owns voting power (cold key)
+- Grantee = account that will submit votes on the granter’s behalf (warm key)
+
+The grantee can still vote for their own account as well. The granter can revoke this permission at any time.
+
+Below are copy-paste commands for granting, checking, using, and revoking vote delegation.
+
+1) Grant voting permission (run from the granter key)
+=== "Command"
+
+    ```
+    ./inferenced tx authz grant <GRANTEE_GONKA_ADDRESS> generic \
+      --msg-type=/cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --expiration=<UNIX_TIMESTAMP> \
+      --home .inference \
+      --keyring-backend file
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "height": "0",
+        "txhash": "8D96FB6FC06FFB928FBC89FE950689CD040C7F338C197BA856175EC7462A3FFA",
+        "codespace": "",
+        "code": 0,
+        "data": "",
+        "raw_log": "",
+        "logs": [],
+        "info": "",
+        "gas_wanted": "0",
+        "gas_used": "0",
+        "tx": null,
+        "timestamp": "",
+        "events": []
+    }
+    ```
+    
+2) Verify the grant exists (run from any node)
+=== "Command"
+    ```
+    ./inferenced query authz grants <GRANTER_GONKA_ADDRESS> <GRANTEE_GONKA_ADDRESS> \
+      --node="http://<MAINNET_NODE_URL>:26657" \
+      --output=json | jq .
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "grants": [
+            {
+                "authorization": {
+                    "type": "cosmos-sdk/GenericAuthorization",
+                    "value": {
+                        "msg": "/cosmos.gov.v1beta1.MsgVote"
+                    }
+                },
+                "expiration": "2026-12-03T18:38:18Z"
+            }
+        ],
+        "pagination": {
+            "total": "1"
+        }
+    }
+    ```
+    
+3) Vote using the grantee
+=== "Command"
+    ```
+    # Find the proposal ID which you are voting for - use it as <VOTE_PROPOSAL_ID> in the voting body 
+    ./inferenced query gov proposals --output json
+    
+    # Prepare the file with the voting body
+    cat > /tmp/authz-vote.json << 'EOF'
+    {
+      "body": {
+        "messages": [
+          {
+            "@type": "/cosmos.authz.v1beta1.MsgExec",
+            "grantee": "<GRANTEE_GONKA_ADDRESS>",
+            "msgs": [
+              {
+                "@type": "/cosmos.gov.v1beta1.MsgVote",
+                "proposal_id": "<VOTE_PROPOSAL_ID>",
+                "voter": "<GRANTER_GONKA_ADDRESS>",
+                "option": "VOTE_OPTION_YES"
+              }
+            ]
+          }
+        ]
+      }
+    }
+    EOF
+    
+    
+    # Vote using the file 
+    ./inferenced tx authz exec /tmp/authz-vote.json \  --from=<GRANTEE_KEY_NAME> \ 
+    --chain-id=gonka-mainnet \
+    --home .inference \
+    --keyring-backend file \
+    --node="http://<MAINNET_NODE_URL>:26657" -y
+    ```
+    
+=== "Example response"
+
+    ```
+    {
+        "pagination": {
+            "total": "1"
+        },
+        "proposals": [
+            {
+                "deposit_end_time": "2026-03-06T10:40:07.016920026Z",
+                "final_tally_result": {
+                    "abstain_count": "0",
+                    "no_count": "0",
+                    "no_with_veto_count": "0",
+                    "yes_count": "0"
+                },
+                "id": "1",
+                "messages": [
+                    {
+                        "type": "cosmos-sdk/MsgSoftwareUpgrade",
+                        "value": {
+                            "authority": "gonka10d07y265gmmuvt4z0w9aw880jnsr700j2h5m33",
+                            "plan": {
+                                "height": "406062",
+                                "info": "{\n \"binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/inferenced-amd64.zip?checksum=sha256:fb71310427436aebac32813735231882fca420cf0d94b036f8cacd055d0e1c78\"\n },\n \"api_binaries\":{\n \"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-testnet1/decentralized-api-amd64.zip?checksum=sha256:6fe214f4bb2d831c02ce407682820d95d01e6ae94a33fe9c4617b80e0ca716ce\"\n }\n }",
+                                "name": "v0.2.10",
+                                "time": "0001-01-01T00:00:00Z"
+                            }
+                        }
+                    }
+                ],
+                "proposer": "gonka1xfvr8mywcrxrcrryvj8c5d2grvyjdj5c90fd88",
+                "status": 2,
+                "submit_time": "2026-03-04T10:40:07.016920026Z",
+                "summary": "Upgrade Proposal v0.2.10",
+                "title": "Upgrade Proposal v0.2.10",
+                "total_deposit": [
+                    {
+                        "amount": "50000000",
+                        "denom": "ngonka"
+                    }
+                ],
+                "voting_end_time": "2026-03-04T10:50:07.016920026Z",
+                "voting_start_time": "2026-03-04T10:40:07.016920026Z"
+            }
+        ]
+    }
+    ```
+    
+Voting options:
+
+- `VOTE_OPTION_YES`
+- `VOTE_OPTION_ABSTAIN`
+- `VOTE_OPTION_NO`
+- `VOTE_OPTION_NO_WITH_VETO`
+
+4) Revoke delegation (run from the granter key)
+=== "Command"
+
+    ```
+    ./inferenced tx authz revoke <GRANTEE_GONKA_ADDRESS> /cosmos.gov.v1beta1.MsgVote \
+      --from=<GRANTER_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --home .inference \
+      --keyring-backend file
+    ```
+=== "Example response"
+
+    ```
+    {
+        code: 0
+        codespace: ""
+        data: ""
+        events: []
+        gas_used: "0"
+        gas_wanted: "0"
+        height: "0"
+        info: ""
+        logs: []
+        raw_log: ""
+        timestamp: ""
+        tx: null
+        txhash: A2C3CDA9E95DCF143C0D8981A4F573F1E68879ECF4903B25BA97383C3F2FDFBA
+    }
+    ```
+
+## February 21, 2026
+
+**API binary v0.2.10-post3 is available**
+
+A new version of the API binary has been released. It updates connection timeout handling and introduces additional checks in the PoC validation pipeline.
+
+1. Upgrade v0.2.10 introduced a strict 5-minute timeout for Executor → MLNode connections, while some requests may take considerably longer. The new API version returns this value back instead of enforcing the strict limit.
+2. The request retry system previously retried inference even if it failed due to a processing timeout (not a TLS timeout).
+Server-side retry for long requests is typically ineffective, as it leads to the same timeout scenario. At the same time, the client may receive inconsistent output.
+The new API version does not retry inference in such cases.
+3. MLNodes that are currently preserved and not participating in PoC generation were still used for PoC validation. This could lead to missed inferences. The new version excludes such nodes from PoC validation.
+4. Extra safeguards have been added to the PoC validation pipeline.
+
+PR: [https://github.com/gonka-ai/gonka/pull/785](https://github.com/gonka-ai/gonka/pull/785)
+
+Build: [https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip](https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip)
+
+Apply update:
+```
+# Pre-check: Ensure no confirmation PoC is active (fails entire script if not false)
+echo "--- Pre-flight Check: Confirmation PoC Status ---" && \
+CONFIRMATION_POC_ACTIVE=$(curl -sf "https://node3.gonka.ai/v1/epochs/latest" | jq -r '.is_confirmation_poc_active') && \
+[ "$CONFIRMATION_POC_ACTIVE" = "false" ] && \
+echo "OK: No confirmation PoC active" && \
+
+# Download Binary
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.10-post3/ .dapi/data/upgrade-info.json && \
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/ && \
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.10-post3/decentralized-api-amd64.zip' && \
+echo "1b75f2785c7884dc24f3c1e39d5ed10f4afcbe5fc677f5569d90d75c752ec150 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.10-post3/bin/decentralized-api && \
+echo "API Installed and Verified"  && \
+
+# Link Binary
+echo "--- Final Verification ---" && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.10-post3 .dapi/cosmovisor/current && \
+echo "de72c665ff71de904210c5472cebb248d163c1398141868e1a1fe198055b5886 .dapi/cosmovisor/current/bin/decentralized-api" | sudo sha256sum --check && \
+# Restart 
+source config.env && docker compose up api --no-deps --force-recreate -d
+```
+
+## February 20, 2026
+
+**Recommendation (optional): vLLM / mlnode build to interrupt in-flight requests at PoC start**
+
+A new vLLM / mlnode build is available that interrupts in-flight inference requests at the start of PoC, to reduce the risk of potential weight decreases caused by requests that remain active when PoC begins.
+
+Source: [https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm](https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm)
+
+**Recommended images to try:**
+
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell-sm120
+
+**Notes:**
+
+- This build is intended to be backward compatible with the previous version.
+- It has already been switched on for a small number of nodes, but it’s still recommended to review the changes before deploying.  
+
+## February 19, 2026
+
+**Collateral parameter update proposal — Voting result**
+
+The collateral parameter update proposal has concluded without reaching quorum. As a result, the proposal has been rejected under the current governance rules. This means the updated parameters will not be activated.
+
+As previously stated, collateral activation at Epoch 180 is independent of this vote.
+
+Because the proposal did not pass, the collateral parameters defined in Genesis will automatically take effect at Epoch 180.
+
+Participants should:
+
+- Review the Genesis-defined collateral parameters.
+- Prepare and deposit the required GNK before Epoch 180.
+- Ensure [collateral](https://gonka.ai/host/collateral/) is properly set, otherwise PoC-derived rewards will be reduced 5× starting from Epoch 180.
+
+Collateral activation is part of the protocol’s transition from the Grace Period to a fully collateralized PoC-weight model. Governance remains the mechanism for adjusting parameters, but default rules apply if no alternative is approved.
+
+!!! note "Important: deposit with a buffer"
+
+    Participants are strongly encouraged **not** to deposit the exact minimum amount. PoC weight may fluctuate between epochs due to normalization effects and network-level adjustments. Smaller weights may experience proportionally larger relative fluctuations. To avoid temporary under-collateralization at the epoch boundary, it is recommended to deposit up to 2× the calculated minimum requirement while collateral levels remain relatively small. This provides operational safety and prevents unintended weight reduction due to minor parameter shifts. The protocol does not auto-top-up collateral.
+
+Further proposals may be introduced if the community wishes to revise the parameters again.
+
+## February 19, 2026
+
+**PoC weight normalization update**
+
+Following the recent upgrade, node weights have adjusted due to PoC duration normalization.
+To normalize PoC weight against actual block generation time, calibration parameters were selected based on observed block intervals. As implemented, the effective PoC reference window turned out to be approximately 5 blocks longer than the prior nominal assumption.
+
+As a result:
+
+- Mean node weights decreased (normalization effect)
+- The displayed total H100-equivalent capacity appears proportionally lower
+- Relative GPU ratios remain unchanged
+
+**Why this happened**
+
+Previously, PoC weight calculations relied on a nominal epoch duration assumption. After introducing real-time normalization:
+
+- PoC duration is aligned with the actual block production time
+- Weight reflects real compute time more accurately
+
+Because the effective normalization window is ~5 blocks longer than the earlier nominal model, the recalculated weight per epoch is proportionally lower.
+
+**Observed GPU weight changes (Epoch 175 → 176)**
+
+| GPU Type            | Epoch 175 | Epoch 176 | Change  |
+|---------------------|----------:|----------:|--------:|
+| A100-PCIE-40GB      | 11.8      | 10.0      | -15.4%  |
+| A100-SXM4-80GB      | 132.2     | 107.8     | -18.5%  |
+| H100 80GB HBM3      | 305.1     | 254.5     | -16.6%  |
+| H100 PCIe           | 178.9     | 155.7     | -12.9%  |
+| H200                | 319.6     | 281.3     | -12.0%  |
+
+**Action for tracker (dashboard) maintainers**
+
+With PoC duration normalization in effect and the effective reference window now ~5 blocks longer than the previous nominal assumption, weight values from Epoch 176 onward reflect the updated calculation model.
+Trackers and dashboards that derive H100-equivalent capacity or reward projections from PoC weight should verify their conversion coefficients starting from Epoch 176.
+If pre-normalization assumptions are still used, displayed hardware equivalents and projected rewards may appear overstated.
+
+## February 18, 2026
+
+**UPGRADE EXECUTED: v0.2.10 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.10 has concluded. The proposal has been APPROVED, and the upgrade was successfully executed on the mainnet. This upgrade introduces a significant optimization to PoC validation and implements real-time weight normalization to improve network fairness and scalability.
+
+**Attention**
+
+ML Node containers must be restarted to trigger re-deploy of the model. Run:
+```
+docker restart join-mlnode-1
+```
+The transition to `mlnode:3.0.12-post4-*` should be completed within the 3000-block grace period introduced in the upgrade. 
+
+!!! note "Compatibility Note"
+    This upgrade includes a migration to IBC stack v8.7.0. Check any scripts parsing `inferenced` CLI output. Enums and int64/uint64 values are now encoded as strings.
+
+**Key changes now active**
+
+**PoC Validation Sampling Optimization**
+
+This upgrade introduces a new PoC validation mechanism that reduces complexity from O(N^2) to O(N x N_SLOTS) by assigning each participant a fixed sampled set of validators.
+
+**PoC Weight Normalization by Real Time**
+
+This upgrade normalizes PoC participant weights by actual PoC elapsed time to reduce block-time drift effects and keep weight outcomes consistent with real execution duration.
+
+**Enable tools for Qwen235B**
+
+This upgrade adds tool calling args ( `--enable-auto-tool-choice` , `--tool-call-parser hermes` ) for `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and sets validation threshold 0.958.
+To enable tools, vLLM inside the MLNode container must be restarted.
+
+**Additional Protocol Updates**
+
+- Fix: PoC and CPoC intersection bug (PR #752).
+- IBC Upgrade: Upgrades IBC stack to v8.7.0.
+- Punishment: Thresholds are now derived from on-chain data (PR #688).
+- Vesting: Support for streamvesting transfers with active vesting (PR #641).
+- MLNode: More reliable version of MLNode containers ghcr.io/product-science/mlnode:3.0.12-post4 / ghcr.io/product-science/mlnode:3.0.12-post4-blackwell.
+
+**Grace Period:** The upgrade introduces a grace period with no Confirmation PoC for 3000 blocks after the upgrade, and less strict miss rate and invalidation rate threshold for the epoch of the upgrade.
+
+Additional details for these changes are available in the governance artifacts: [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
+
+## February 18, 2026
+
+**Collateral parameter update proposal is now open for voting**
+
+The proposal for updated collateral parameters has been published for community vote.
+
+Proposed parameters:
+
+- 0.032 GNK per 1 unit of power (~10 GNK per H100)
+- 0.01% slashing for miss rate or jail
+- 0.5% slashing for invalid inference
+
+This means that within a single epoch, even if penalized, a miner cannot lose more than 0.5% of their collateral. And the required collateral represents only ~24% of daily rewards.
+
+**Warning:** Collateral will take effect regardless of the outcome of the vote. If this proposal does not pass, the collateral parameters defined in Genesis will automatically activate at Epoch 180 instead of the ones listed above.
+
+After the vote concludes and before Epoch 180, every miner must follow [the instructions](https://gonka.ai/host/collateral/#slashing) to transfer the required funds into collateral. Otherwise, their rewards will be reduced by 5x starting from Epoch 180.
+
+To get the updated parameters:
+```
+export NODE_URL=https://node3.gonka.ai/
+diff -u \
+  <(./inferenced query inference params -o json --node $NODE_URL/chain-rpc/ | jq '.params') \
+  <(./inferenced query gov proposal 28 -o json --node $NODE_URL/chain-rpc/ | jq '.proposal.messages[] | select(."type"=="inference/x/inference/MsgUpdateParams") | .value.params') \
+  || true
+
+```
+
+To cast your vote (`yes`, `no` , `abstain` , `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 28 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 28 -o json --node $NODE_URL/chain-rpc/
+```
+**Deadline:**
+
+Voting ends on February 19th, 2026, at 07:27:06 UTC.
+
+## February 17, 2026
+
+**v0.2.10 Upgrade Proposal Enters Governance**
+
+The upgrade proposal for the next on-chain software version v0.2.10 has now been published on-chain and is open for voting. If approved, the proposal introduces a significant optimization to PoC validation (disabled by default) and implements real-time weight normalization to improve network fairness and scalability.
+
+**Key changes**
+
+**PoC Validation Sampling Optimization**
+
+This upgrade introduces a new PoC validation mechanism that reduces complexity from O(N^2) to O(N x N_SLOTS) by assigning each participant a fixed sampled set of validators.
+
+**PoC Weight Normalization by Real Time**
+
+This upgrade normalizes PoC participant weights by actual PoC elapsed time to reduce block-time drift effects and keep weight outcomes consistent with real execution duration.
+
+**Enable tools for Qwen235B**
+
+This upgrade adds tool calling args (`--enable-auto-tool-choice` , `--tool-call-parser hermes`) for `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and set validation threshold `0.958`.
+To enable tools, vLLM inside the MLNode container must be restarted. The upgrade introduces a grace period with no Confirmation PoC for 3000 blocks after the upgrade, and less strict miss rate and invalidation rate threshold for the epoch of the upgrade.
+
+**Additional Protocol Updates**
+
+- Fix PoC and CPoC intersection bug (PR #752)
+- Upgrades IBC stack to v8.7.0.
+- Punishment thresholds are now derived from on-chain data (PR #688)
+- Support for streamvesting transfers with active vesting (PR #641)
+- More reliable version of MLNode containers `ghcr.io/product-science/mlnode:3.0.12-post4` / `ghcr.io/product-science/mlnode:3.0.12-post4-blackwell`. 
+
+Additional details for these and other changes are available in the governance artifacts [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md ](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
+
+**Required host actions after upgrade execution**
+
+If the proposal is approved and the upgrade executed, ML Node containers must be restarted to trigger re-deploy of the model. Run:
+```
+docker restart join-mlnode-1
+```
+The transition to `mlnode:3.0.12-post4-*` should be completed within the 3000-block grace period introduced in the upgrade. 
+
+**How to vote**
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [https://node3.gonka.ai](https://node3.gonka.ai) 
+
+Cast your vote (`yes`, `no` , `abstain` , `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 27 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 27 -o json --node $NODE_URL/chain-rpc/
+```
+**Deadlines**
+
+- Voting ends: February 18th, 2026, at 09:26:26 UTC
+- Upgrade height: 2712600
+- Estimated upgrade time: February 18th, 2026, at 15:30:00 UTC
+
+**Attention**
+
+- Check any scripts parsing `inferenced` CLI output. Enums and int64/uint64 values are now encoded as strings due to the IBC stack to v8.7.0 upgrade.
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available. Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described [here](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- After the upgrade, Postgres is available as an option for local payload storage.
+
+## February 16, 2026
+
+**Collateral activation and proposed initial parameters**
+
+Less than 7 days remain until Epoch 180 - it’s time to prepare.
+
+As discussed during the AMA and based on the argument presented by the community members, the proposal is to start with a small collateral requirement and minimal slashing.
+
+Parameters to be submitted for community vote:
+
+- 0.032 GNK per 1 unit of power (~10 GNK per H100)
+- 0.01% slashing for miss rate or jail
+- 0.5% slashing for invalid inference
+
+This means that within a single epoch, even if penalized, a miner cannot lose more than 0.5% of their collateral. And the required collateral represents only ~24% of daily rewards.
+
+A separate announcement will be shared once the proposal is submitted for voting.
+
+Warning: Collateral will take effect regardless of the outcome of the proposal vote. If this proposal does not pass, the collateral parameters defined in Genesis will automatically activate at Epoch 180 instead of the ones listed above.
+
+Any future increase of collateral will be proposed through a separate vote. The goal is to observe network stability and ensure that unjustified punishments are rare and applied only for valid reasons. If stability is demonstrated, increasing the collateral gradually to the level described in the Tokenomics White Paper (e.g., ~100 GNK per H100) will support the network’s long-term success.
+
+## February 13, 2026
+
+**Upcoming upgrade v0.2.10 voting and execution schedule**
+
+The on-chain voting period for the upcoming software upgrade v0.2.10 is expected to begin Sunday evening (Los Angeles time) / Monday morning (UTC).
+If the proposal is approved through governance, the upgrade is scheduled to be executed on Tuesday.
+
+**Approximate timeline:**
+
+- Sunday evening (LA time) — Voting period begins
+- Monday (UTC morning) — Voting active
+- Tuesday — Upgrade execution (if approved)
+  
+Please review the v0.2.10 upgrade PR on GitHub and leave your feedback. Bounties for meaningful review contributions may be proposed in the next upgrade.  
+
+[https://github.com/gonka-ai/gonka/pull/695](https://github.com/gonka-ai/gonka/pull/695)
+
+## February 13, 2026
+
+If your node did not apply the latest upgrade in time, it may halt with a consensus failure at block 2628371. This happens because the node is running an outdated binary that is no longer compatible with the network. To recover, follow this guide [https://gonka.ai/FAQ/#recovery-guide-consensus-failure-after-missing-patch](https://gonka.ai/FAQ/#recovery-guide-consensus-failure-after-missing-patch)
+
 ## February 12, 2026
 
 **Network update: Patch available (PoC / cPoC overlap)**
 
-A patch is now available to address the incident observed in the current epoch
+A patch is now available to address the incident observed in the current epoch (169/170).
 
 **Action required**
 

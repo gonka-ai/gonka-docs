@@ -95,8 +95,7 @@ export NODE_URL=<http://random-node-url>
     
     你可以使用以下命令创建账户：
     ```bash
-    ./inferenced create-client $ACCOUNT_NAME \
-      --node-address $NODE_URL
+    ./inferenced keys add "$ACCOUNT_NAME"
     ```
     
     确保安全保存你的密码短语 — 将来访问时需要。
@@ -429,7 +428,34 @@ export NODE_URL=<http://random-node-url>
     inferenced keys list [--keyring-backend test]
     ```
 
-## 3. 使用定制化的 OpenAI SDK 进行推理
+## 3. 启用账户以进行推理
+
+在发送推理请求前，你的账户必须有余额，且公钥已上链。
+
+- 开发者推理不需要注册 Participant。
+- Participant 注册仅用于作为 Host 提供推理服务。
+
+检查余额：
+```bash
+inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc"
+```
+
+如果账户是通过 `inferenced` 创建的，请发布公钥：
+```bash
+inferenced publish-pubkey \
+  --from "$ACCOUNT_NAME" \
+  --node "$NODE_URL/chain-rpc" \
+  --yes
+```
+
+如果账户是在外部钱包中创建的，请发送任意一笔链上交易（自转一笔即可）来发布公钥。
+
+验证账户数据：
+```bash
+curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
+```
+
+## 4. 使用定制化的 OpenAI SDK 进行推理
 
 !!! 重要 "受限的 Transfer Agent 节点"
     目前，可用于推理（inference）请求的节点列表是受限的。要查看完整的可用 Transfer Agent 列表，请使用以下命令:

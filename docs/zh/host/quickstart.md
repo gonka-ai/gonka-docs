@@ -589,8 +589,9 @@ inferenced register-new-participant \
 **预期输出：**
 ```
 ...
-Found participant with pubkey: Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY (balance: 0)
-Participant is now available at http://36.189.234.237:19250/v1/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+Found participant: gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm (url: http://36.189.234.237:19250, status: ACTIVE)
+Participant is now available at http://36.189.234.237:19250/v2/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+Account balance: 0
 ```
 
 !!! note "每节点账户密钥配置"
@@ -728,15 +729,15 @@ curl -I https://<完整域名>:8443/health   # 预期：HTTP/2 200 OK
 
 在浏览器中打开以下 URL，将 `<your-gonka-cold-address>` 替换为您的地址：
 ```
-http://node2.gonka.ai:8000/v1/participants/<your-gonka-cold-address>
+http://node2.gonka.ai:8000/v2/participants/<your-gonka-cold-address>
 ```
 
-您将看到 JSON 格式的公钥：
-```
-{"pubkey":"<your-public-key>"}
-```
+你应看到参与者 JSON 数据（`participant.address`、`participant.inferenceUrl`、`participant.status`）。
 
-表示您的地址已列入参与者列表。
+如需查看账户数据（`pubkey`、`balance`、`denom`），请访问：
+```
+http://node2.gonka.ai:8000/v2/accounts/<your-gonka-cold-address>
+```
 
 当节点完成一次计算证明（Proof of Compute）阶段（每 24 小时一次）后，可访问：
 ```bash

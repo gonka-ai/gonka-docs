@@ -465,14 +465,15 @@ export NODE_URL=<http://random-node-url>
 
 检查余额：
 ```bash
-inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc"
+inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc/"
 ```
 
 如果账户是通过 `inferenced` 创建的，请发布公钥：
 ```bash
 inferenced publish-pubkey \
   --from "$ACCOUNT_NAME" \
-  --node "$NODE_URL/chain-rpc" \
+  --node "$NODE_URL/chain-rpc/" \
+  --chain-id "gonka-mainnet" \
   --yes
 ```
 
@@ -488,7 +489,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 !!! 重要 "受限的 Transfer Agent 节点"
     目前，可用于推理（inference）请求的节点列表是受限的。要查看完整的可用 Transfer Agent 列表，请使用以下命令:
     ```bash
-    curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
+    curl "http://node1.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
     ```
 
     **当前可用的 Transfer Agent URL：**
@@ -496,6 +497,11 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     - http://node1.gonka.ai:8000
     - http://node2.gonka.ai:8000
     - https://node3.gonka.ai
+
+    对于 SDK 的端点发现，请将 `SOURCE_URL` 设置为已启用 `/chain-api` 的节点（例如 `node1` 或 `node3`）：
+    ```bash
+    export SOURCE_URL=http://node1.gonka.ai:8000
+    ```
 
 === "Python"
     要在 Python 中使用 Gonka API，你可以使用[Gonka OpenAI SDK for Python](https://github.com/gonka-ai/gonka-openai/tree/main/python)。通过使用 pip 安装 SDK 开始：
@@ -516,8 +522,8 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     from gonka_openai import GonkaOpenAI
 
     client = GonkaOpenAI(
-        gonka_private_key=os.environ.get(GONKA_PRIVATE_KEY),
-        source_url=os.environ.get('NODE_URL')
+        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
+        source_url=os.environ.get('SOURCE_URL')
     )
 
     response = client.chat.completions.create(
@@ -544,7 +550,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     ```ts linenums="1"
     import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
 
-    const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
+    const endpoints = await resolveEndpoints({ sourceUrl: process.env.SOURCE_URL });
     const client = new GonkaOpenAI({
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
         endpoints
@@ -585,7 +591,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     func main() {
         client, err := gonka.NewGonkaOpenAI(gonka.Options{
             GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            SourceUrl:       os.Getenv("NODE_URL"),
+            SourceUrl:       os.Getenv("SOURCE_URL"),
         })
         if err != nil {
             log.Fatal(err)
@@ -621,7 +627,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 
     client = GonkaOpenAI(
         gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-        source_url=os.environ.get('NODE_URL')
+        source_url=os.environ.get('SOURCE_URL')
     )
 
     tools = [
@@ -661,7 +667,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     ```ts linenums="1"
     import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
 
-    const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
+    const endpoints = await resolveEndpoints({ sourceUrl: process.env.SOURCE_URL });
     const client = new GonkaOpenAI({
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
         endpoints
@@ -716,7 +722,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     func main() {
         client, err := gonka.NewGonkaOpenAI(gonka.Options{
             GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            SourceUrl:       os.Getenv("NODE_URL"),
+            SourceUrl:       os.Getenv("SOURCE_URL"),
         })
         if err != nil {
             log.Fatal(err)

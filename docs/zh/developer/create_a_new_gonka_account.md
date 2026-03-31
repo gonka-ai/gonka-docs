@@ -337,7 +337,8 @@
 
     inferenced publish-pubkey \
       --from "$ACCOUNT_NAME" \
-      --node "$NODE_URL/chain-rpc" \
+      --node "$NODE_URL/chain-rpc/" \
+      --chain-id "gonka-mainnet" \
       --yes
 
     curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .

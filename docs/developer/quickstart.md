@@ -464,14 +464,15 @@ Before inference, your account must have balance and a published on-chain public
 
 Check balance:
 ```bash
-inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc"
+inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc/"
 ```
 
 If your account was created with `inferenced`, publish the key:
 ```bash
 inferenced publish-pubkey \
   --from "$ACCOUNT_NAME" \
-  --node "$NODE_URL/chain-rpc" \
+  --node "$NODE_URL/chain-rpc/" \
+  --chain-id "gonka-mainnet" \
   --yes
 ```
 
@@ -487,7 +488,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 !!! important "Limited Transfer Agent Nodes"
     Currently, the list of nodes that can be used for inference requests is limited. To check the full list of available transfer agents, use:
     ```bash
-    curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
+    curl "http://node1.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
     ```
 
     **Active Transfer Agents URLs:**
@@ -495,6 +496,11 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     - http://node1.gonka.ai:8000
     - http://node2.gonka.ai:8000
     - https://node3.gonka.ai
+
+    For SDK endpoint discovery, set `SOURCE_URL` to a node that has `/chain-api` enabled (for example `node1` or `node3`):
+    ```bash
+    export SOURCE_URL=http://node1.gonka.ai:8000
+    ```
 
 === "Python"
     To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/gonka-ai/gonka-openai/tree/main/python). Get started by installing the SDK using pip:
@@ -516,7 +522,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 
     client = GonkaOpenAI(
         gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-        source_url=os.environ.get('NODE_URL')
+        source_url=os.environ.get('SOURCE_URL')
     )
 
     response = client.chat.completions.create(
@@ -543,7 +549,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     ```ts linenums="1"
     import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
 
-    const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
+    const endpoints = await resolveEndpoints({ sourceUrl: process.env.SOURCE_URL });
     const client = new GonkaOpenAI({
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
         endpoints
@@ -585,7 +591,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     func main() {
         client, err := gonka.NewGonkaOpenAI(gonka.Options{
             GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            SourceUrl:       os.Getenv("NODE_URL"),
+            SourceUrl:       os.Getenv("SOURCE_URL"),
         })
         if err != nil {
             log.Fatal(err)
@@ -623,7 +629,7 @@ Define functions and the model will return structured call arguments when the us
 
     client = GonkaOpenAI(
         gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-        source_url=os.environ.get('NODE_URL')
+        source_url=os.environ.get('SOURCE_URL')
     )
 
     tools = [
@@ -663,7 +669,7 @@ Define functions and the model will return structured call arguments when the us
     ```ts linenums="1"
     import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
 
-    const endpoints = await resolveEndpoints({ sourceUrl: process.env.NODE_URL });
+    const endpoints = await resolveEndpoints({ sourceUrl: process.env.SOURCE_URL });
     const client = new GonkaOpenAI({
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
         endpoints
@@ -718,7 +724,7 @@ Define functions and the model will return structured call arguments when the us
     func main() {
         client, err := gonka.NewGonkaOpenAI(gonka.Options{
             GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            SourceUrl:       os.Getenv("NODE_URL"),
+            SourceUrl:       os.Getenv("SOURCE_URL"),
         })
         if err != nil {
             log.Fatal(err)

@@ -1,47 +1,11 @@
 # Announcements
 
-## April 1, 2026
-
-**GOVERNANCE VOTE LIVE: IBC USDT Approval — Enable Community Sale & Bounty Payments**
-
-Proposal #36 is live. Voting ends **Apr 2, 2026 at 18:03 UTC.**
-
-**What's happening**
-
-Back in November, governance voted to sell 20M GNK to Bitfury Group for $12M USDT, with all funds going directly into the community pool. That vote passed, but there was no way to bring USDT onto the Gonka chain to execute the contract.
-
-IBC support has since been built and merged into the chain. The channels are live. This proposal is the final step: it registers and approves the IBC USDT denomination so the chain and contracts recognize it as a valid settlement asset.
-
-**What happens if passed**
-
-1. **The Bitfury deal becomes executable.** $12M USDT can flow into the community pool — available for development grants, ecosystem initiatives, liquidity, and community incentives. No founders. No private investors. Straight to the community.
+!!! note "About this page"
+   This page is maintained and updated by community members.
    
-2. **USDT-denominated bounties become possible.** Right now, contributors can only be paid in GNK. With IBC USDT recognized on chain, bounties and grants can be denominated in stable value.
-
-**What happens if it doesn't pass**
-
-The deal remains blocked. The $12M remains out of reach. Bounty payments remain GNK-only.
-
-**How to vote**
-
-Get proposal info:
-```
-export NODE_URL=http://node1.gonka.ai:8000/chain-rpc/
-./inferenced query gov tally 36 -o json --node $NODE_URL
-```
-
-Vote (`yes`, `no`, `abstain`, `no_with_veto`):
-```
-export NODE_URL=http://node1.gonka.ai:8000/chain-rpc/
-./inferenced tx gov vote 36 yes \
-  --from <your_key_name> \
-  --keyring-backend file \
-  --unordered \
-  --timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
-  --node $NODE_URL \
-  --chain-id gonka-mainnet \
-  --yes
-```
+   To publish an announcement, for example, about a governance vote you started, please open a pull request in the gonka-docs repository: [https://github.com/gonka-ai/gonka-docs](https://github.com/gonka-ai/gonka-docs)
+   
+   This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
 ## April 1, 2026
 

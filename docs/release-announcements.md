@@ -1,5 +1,31 @@
 # Announcements
 
+## April 1, 2026
+
+ML Node `3.0.12-post6` available 
+
+A new mlnode version is now available: `ghcr.io/gonka-ai/mlnode:3.0.12-post6`
+
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6-blackwell
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6-blackwell-sm120
+
+This version is now set as the default in the main branch: [https://github.com/gonka-ai/gonka/commit/ec8f45573149ce5686e8e5fc29f1a8f49a295689](https://github.com/gonka-ai/gonka/commit/ec8f45573149ce5686e8e5fc29f1a8f49a295689)
+
+**What changed**
+
+This version has already been used by some miners over recent epochs.
+Initial observations indicate improved stability for nodes operating close to PoC start.
+
+The update includes a fix for an edge case near PoC start that could previously lead to degraded performance under certain conditions.
+
+Full changes in vLLM: [https://github.com/gonka-ai/vllm/compare/release/v0.9.1-pocv2-post5...release/v0.9.1-pocv2-post6](https://github.com/gonka-ai/vllm/compare/release/v0.9.1-pocv2-post5...release/v0.9.1-pocv2-post6)
+
+**Guidance**
+
+- Upgrading to this version is recommended
+- The release is fully compatible with previous versions
+
 ## March 20, 2026
 
 **UPGRADE EXECUTED: v0.2.11 is now live on mainnet**

@@ -137,10 +137,26 @@
 
 本地账户管理与网络操作需要 `inferenced` CLI。它是命令行工具，用于在本地机器上创建和管理 Gonka 账户、注册主机及执行各类网络操作。
 
-从 [GitHub 发布页](https://github.com/gonka-ai/gonka/releases) 下载最新 `inferenced` 并赋予可执行权限.
+**选择正确的二进制文件**
 
-!!! note "重要说明"
-    请确保您正在使用 [0.2.9 或更新版本 的 CLI 工具](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9)。较旧版本 不支持权限授予，并且可能导致不可预期的行为。
+GitHub 发布版本中可能包含多个 `inferenced` 构件（artifacts）。
+
+对于本地 CLI 使用，请务必下载与操作系统对应的打包 CLI 构建版本，例如：
+
+- `inferenced-darwin-amd64.zip`
+- `inferenced-darwin-arm64.zip`
+- `inferenced-linux-amd64.zip`
+- `inferenced-linux-arm64.zip`
+
+请不要使用用于升级路径或容器/运行时环境的通用 `inferenced` 二进制文件。这些构件在本地机器上作为独立 CLI 使用时，可能无法正常工作。
+
+**版本要求**
+
+请确保你使用的是 `inferenced` CLI 构建版本 [version 0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) 或更新版本。较旧版本的 CLI 不支持权限授予功能，并可能导致不可预期的行为。
+
+如果你计划提交治理提案，尤其是使用较新消息类型的提案，请使用最新发布的、与操作系统对应的 CLI 构建版本。
+
+**验证安装**
 
 ```bash
 chmod +x inferenced
@@ -149,6 +165,8 @@ chmod +x inferenced
 
 !!! note "macOS 用户"
     在 macOS 上，若系统提示，可能需要在「系统设置」→「隐私与安全」中允许运行。找到关于 `inferenced` 的提示并点击「仍要允许」。
+
+如果在 Linux 上启动该二进制文件失败，并出现类似 `Error relocating ./inferenced: qsort_r: symbol not found`的错误，这通常意味着你下载的是非 CLI 或用于升级的特定构件，而不是与你的操作系统匹配的打包 CLI 构建版本。请重新下载与你的操作系统和架构对应的正确压缩包。
 
 ### [本地机器] 创建账户密钥
 

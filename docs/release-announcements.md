@@ -42,9 +42,9 @@ The on-chain governance vote for Upgrade Proposal v0.2.11 has concluded. The pro
 
 **Key changes now active**
 
-**[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
+**[Initial scaling architecture: `devshards`-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
 
-This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+This upgrade introduces an initial version of `devshards`-based inference sessions intended to improve inference scalability.
 
 **[`StartInference` and `FinishInference` performance improvements](https://github.com/gonka-ai/gonka/pull/812)**
 
@@ -104,13 +104,13 @@ echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inferenc
 
 **v0.2.11 Upgrade Proposal Enters Governance**
 
-The upgrade proposal for the next on-chain software version v0.2.11 has now been published on-chain and is open for voting. If approved, the proposal introduces an initial version of subnet-based inference sessions intended to improve inference scalability, and significantly `Start`/`FinishInference` performance improvements.
+The upgrade proposal for the next on-chain software version v0.2.11 has now been published on-chain and is open for voting. If approved, the proposal introduces an initial version of `devshards`-based inference sessions intended to improve inference scalability, and significantly `Start`/`FinishInference` performance improvements.
 
 **Key changes**
 
-**[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
+**[Initial scaling architecture: `devshards`-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
 
-This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+This upgrade introduces an initial version of `devshards`-based inference sessions intended to improve inference scalability.
 
 Today, handling inference through per-inference on-chain transactions limits throughput. This design moves inference execution and validation into an assigned off-chain subgroup, while the chain only handles session creation and final settlement.
 
@@ -196,9 +196,9 @@ This is a call for review of the Pull Request only, and not the start of formal 
 
 **Key changes**
 
-[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)
+[Initial scaling architecture: `devshards`-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)
 
-This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+This upgrade introduces an initial version of `devshards`-based inference sessions intended to improve inference scalability.
 
 Today, handling inference through per-inference on-chain transactions limits throughput. This design moves inference execution and validation into an assigned off-chain subgroup, while the chain only handles session creation and final settlement.
 

@@ -295,8 +295,7 @@
     
     你可以使用以下命令创建账户：
     ```bash
-    ./inferenced create-client $ACCOUNT_NAME \
-      --node-address $NODE_URL
+    ./inferenced keys add "$ACCOUNT_NAME"
     ```
     
     确保安全保存你的密码短语 — 将来访问时需要。
@@ -331,6 +330,21 @@
     ```bash
     export GONKA_PRIVATE_KEY=<your-private-key>
     ```
+
+    若要将此账户用于开发者推理，请先给账户充值，再发布公钥：
+    ```bash
+    export GONKA_ADDRESS=<your-account-address>
+
+    inferenced publish-pubkey \
+      --from "$ACCOUNT_NAME" \
+      --node "$NODE_URL/chain-rpc/" \
+      --chain-id "gonka-mainnet" \
+      --yes
+
+    curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
+    ```
+
+    开发者推理不需要注册 Participant。
 
 一旦你的账户准备就绪，你可以[开始使用网络](https://gonka.ai/developer/quickstart/)。
 

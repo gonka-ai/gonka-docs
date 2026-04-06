@@ -1,5 +1,16 @@
 # Details
 
+## Before you start
+
+Make sure your account is ready for inference:
+
+- Account has balance.
+- Public key is published on-chain (`inferenced publish-pubkey` for CLI-created accounts, or any on-chain transaction for external wallets).
+- `GET /v2/accounts/:address` returns your account.
+- You do **not** need Participant registration for developer inference.
+
+For setup steps, see [Developer Quickstart](https://gonka.ai/developer/quickstart/).
+
 ## Inference Request with `inferenced`
 
 Create a Directory for Request Payloads
@@ -7,7 +18,7 @@ Create a Directory for Request Payloads
 mkdir inference-requests
 ```
 
-Save the payload for an OpenAI-compatible `/chat/completion` request in a file inside the `inference-requests` directory.
+Save the payload for an OpenAI-compatible `/chat/completions` request in a file inside the `inference-requests` directory.
 For example, create a file named `inference-requests/request_payload.json` with the following content:
 
 ```json linenums="1"

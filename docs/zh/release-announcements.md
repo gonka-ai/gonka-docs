@@ -1,5 +1,39 @@
 # 公告
 
+!!! 注意 "关于本页面"
+
+    本页面由社区成员维护和更新。
+
+    如需发布公告（例如你发起的治理投票），请在 gonka-docs 仓库中提交一个 Pull Request：[https://github.com/gonka-ai/gonka-docs](https://github.com/gonka-ai/gonka-docs)
+    
+    本页面内容不保证完整或全面。最新信息（包括治理投票的发起及其当前状态），请以链上数据为准，或通过相关区块浏览器和数据看板进行查询。
+
+## 2026年4月1日
+
+ML Node `3.0.12-post6` 版本已发布 
+
+新的 mlnode 版本现已可用： `ghcr.io/gonka-ai/mlnode:3.0.12-post6`
+
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6-blackwell
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6-blackwell-sm120
+
+该版本现已在主分支中设为默认版本：[https://github.com/gonka-ai/gonka/commit/ec8f45573149ce5686e8e5fc29f1a8f49a295689](https://github.com/gonka-ai/gonka/commit/ec8f45573149ce5686e8e5fc29f1a8f49a295689)
+
+**变更内容**
+
+该版本在最近的多个 epoch 中已被部分矿工使用。
+初步观察表明，在接近 PoC 启动阶段运行的节点，其稳定性有所提升。
+
+此次更新修复了一个在 PoC 启动临界阶段的边缘情况问题，该问题在特定条件下此前可能导致性能下降。
+
+vLLM 的完整变更内容： [https://github.com/gonka-ai/vllm/compare/release/v0.9.1-pocv2-post5...release/v0.9.1-pocv2-post6](https://github.com/gonka-ai/vllm/compare/release/v0.9.1-pocv2-post5...release/v0.9.1-pocv2-post6)
+
+**指导建议**
+
+- 建议升级至该版本
+- 该版本与之前版本完全兼容
+ 
 ## 2026年3月20日
 
 **升级已执行：v0.2.11 现已在主网上线**
@@ -8,9 +42,9 @@
 
 **当前已生效的关键变更**
 
-**[初始扩展架构：基于子网的推理会话](https://github.com/gonka-ai/gonka/pull/877)**
+**[初始扩展架构：基于`devshards`的推理会话](https://github.com/gonka-ai/gonka/pull/877)**
 
-本次升级引入了基于子网的推理会话的初始版本，旨在提升推理的可扩展性。
+本次升级引入了基于`devshards`的推理会话的初始版本，旨在提升推理的可扩展性。
 
 **[`StartInference` 和 `FinishInference` 性能优化](https://github.com/gonka-ai/gonka/pull/812)**
 
@@ -70,13 +104,13 @@ echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inferenc
 
 **v0.2.11 升级提案进入治理流程**
 
-下一版本链上软件 v0.2.11 的升级提案现已在链上发布并开放投票。如果提案获得通过，将引入基于子网的推理会话的初始版本，以提升推理的可扩展性，并对`Start`/`FinishInference` 进行显著的性能优化。
+下一版本链上软件 v0.2.11 的升级提案现已在链上发布并开放投票。如果提案获得通过，将引入基于`devshards`的推理会话的初始版本，以提升推理的可扩展性，并对`Start`/`FinishInference` 进行显著的性能优化。
 
 **关键变更**
 
-**[初始扩展架构：基于子网的推理会话](https://github.com/gonka-ai/gonka/pull/877)**
+**[初始扩展架构：基于`devshards`的推理会话](https://github.com/gonka-ai/gonka/pull/877)**
 
-本次升级引入了基于子网的推理会话的初始版本，旨在提升推理的可扩展性。
+本次升级引入了基于`devshards`的推理会话的初始版本，旨在提升推理的可扩展性。
 
 当前，通过每次推理都在链上进行交易处理的方式会限制吞吐量。该设计将推理执行和验证移至指定的链下子组中，而链上仅负责会话创建和最终结算。
 
@@ -162,9 +196,9 @@ export NODE_URL=https://node3.gonka.ai/
 
 **关键变更**
 
-[初始扩展架构：基于子网的推理会话](https://github.com/gonka-ai/gonka/pull/877)
+[初始扩展架构：基于`devshards`的推理会话](https://github.com/gonka-ai/gonka/pull/877)
 
-本次升级引入了基于子网的推理会话的初始版本，旨在提升推理的可扩展性。
+本次升级引入了基于`devshards`的推理会话的初始版本，旨在提升推理的可扩展性。
 
 目前，通过逐次推理在链上发起交易的方式会限制吞吐量。该设计将推理的执行与验证转移至指定的链下子组中，而链上仅负责会话创建与最终结算。
 

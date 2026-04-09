@@ -69,6 +69,12 @@ You can store GNK coin in several supported wallets within the Cosmos ecosystem:
 - [Cosmostation](https://cosmostation.io/products/application)
 - `inferenced` CLI - a command-line utility for local account management and network operations in Gonka.
 
+!!! note "Important for existing Leap Wallet users"
+
+	If you previously created your Gonka account with Leap Wallet, please be aware that [Leap is shutting down all of its products on May 28, 2026](https://www.leapwallet.io/), including the browser extension, mobile app, and dashboard.
+	
+	Because Leap is a non-custodial wallet, your assets and account remain on-chain. However, to keep access to your wallet, you should import your existing recovery phrase into another supported wallet, such as Keplr, before Leap services go offline.
+
 ### Where can I find useful information about Gonka?
 
 Below are the most important resources for learning about the Gonka ecosystem:

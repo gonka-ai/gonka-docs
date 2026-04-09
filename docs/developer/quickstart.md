@@ -6,6 +6,12 @@ name: index.md
 
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
 
+!!! note "Important for existing Leap Wallet users"
+
+    If you previously created your Gonka account with Leap Wallet, please be aware that [Leap is shutting down all of its products on May 28, 2026](https://www.leapwallet.io/), including the browser extension, mobile app, and dashboard.
+    
+    Because Leap is a non-custodial wallet, your assets and account remain on-chain. However, to keep access to your wallet, you should import your existing recovery phrase into another supported wallet, such as Keplr, before Leap services go offline.
+
 ??? note "How Gonka differs from traditional AI APIs"
     Gonka isn’t just another AI API — it’s a cryptographic protocol for provable inference. By eliminating centralized identity, Gonka removes the traditional single point of failure that plagues SaaS-based AI services. Here is a quick comparison table to help you understand the differences between a Traditional AI API and the Gonka API.
     

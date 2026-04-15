@@ -8,6 +8,39 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## April 15, 2025
+
+**PR Review for Upgrade v0.2.12**
+
+[The pull request](https://github.com/gonka-ai/gonka/pull/948) for the next on-chain software upgrade, v0.2.12, is open for review. 
+
+Please review the PR code directly and leave comments regarding any findings, questions, suggested improvements, edge cases, or vulnerabilities you identify.
+
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties during the next upgrade cycle.
+
+This is a call for review of the Pull Request only, and it does not initiate formal voting. The governance voting process will begin after the review period concludes.
+
+**Key changes**
+
+- **Multi-model PoC (the largest change)** ([#1039](https://github.com/gonka-ai/gonka/pull/1039)). Transition Proof of Compute from a single fixed model to per-model PoC groups. Each governance-approved model generates its own local PoC weight, which is then aggregated into total consensus weight via model-specific coefficients
+- **Consensus-level transaction fees with automatic migration** ([#937](https://github.com/gonka-ai/gonka/pull/937), [#981](https://github.com/gonka-ai/gonka/pull/981)). Introduces a governance-controlled gas price. Protocol-duty messages (PoC, validations, inference, BLS DKG) are exempt via `NetworkDutyFeeBypassDecorator`. `MsgPoCV2StoreCommit` charges a two-component fee (base validation + count-linear) as the primary Sybil defense. See [docs/host_onboarding.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/host_onboarding.md) for details.
+- **Devshard standalone runtime** ([#1045](https://github.com/gonka-ai/gonka/pull/1045)). Decouples devshard releases from the DAPI / mainnet release cycle.
+- **Certik audit fixes** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789)). All known audit findings have been addressed.
+- **Protocol hardening.** Implements a stronger PoC v2 RNG (full 256-bit entropy vs. previous 32-bit), which will activate via a separate governance vote. Other updates include propagating the `mlnode` version to the on-chain `HardwareNode`, fixing DKG dealer consensus, aligning legacy validator slashing with required-collateral semantics, ensuring atomicity of the devshard escrow fund, and adding zero-timestamp tolerance to `inference_finished` event parsing.
+
+**Upgrade plan**
+
+The binary versions will be updated via an on-chain upgrade proposal. For more information on the upgrade process, refer to [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
+
+**Required actions post-upgrade**
+
+Existing Hosts:
+
+- Ensure cold account holds sufficient (e.g., 100 GNK) to cover the auto-granted fee allowance spend limit.
+- Deploy, delegate, or explicitly refuse each governance-approved model for the new model once it’s approved by governance (the included model will be activated 3 epochs after the upgrade)
+- Deploy `versiond` service from `docker-compose.yml` (using the last commit in the main branch)
+- Recreate `proxy` container using new version and parameters. The documentation will provide the exact command.
+
 ## April 1, 2026
 
 ML Node `3.0.12-post6` available 

@@ -6,4 +6,13 @@ document.addEventListener("DOMContentLoaded", function() {
       link.setAttribute("rel", "noopener noreferrer");
     }
   });
+
+  // Only show the header drop-shadow once the user has scrolled off the top.
+  // Material renders .md-header--shadow statically, so we drive it ourselves.
+  const header = document.querySelector(".md-header");
+  if (header) {
+    const sync = () => header.classList.toggle("md-header--shadow", window.scrollY > 0);
+    sync();
+    window.addEventListener("scroll", sync, { passive: true });
+  }
 });

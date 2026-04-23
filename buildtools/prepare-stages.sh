@@ -27,6 +27,14 @@ for dir in assets images stylesheets; do
   fi
 done
 
+# Root-level PDFs (whitepaper, tokenomics, licenses, etc.) are linked from the
+# landing as /foo.pdf, so they must live at the site root, not under /docs/.
+shopt -s nullglob
+for pdf in "$SRC"/*.pdf; do
+  cp "$pdf" "$STAGE/home/$(basename "$pdf")"
+done
+shopt -u nullglob
+
 # Keep the GitHub Pages custom domain at the site root.
 if [ -f "$SRC/CNAME" ]; then
   cp "$SRC/CNAME" "$STAGE/home/CNAME"

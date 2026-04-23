@@ -74,6 +74,19 @@ img{height:auto;width:auto;border:0;border-radius:6px;padding:4px;background:#ff
 .center{display:block;margin-inline:auto;}
 .appstore{border:0;width:200px;}
 
+/* Keep the docs header pinned on scroll (disable Material autohide behavior) */
+.md-header,
+.md-header[hidden]{
+  position: sticky !important;
+  top: 0 !important;
+  transform: none !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Remove the default 1.5rem gap above doc content (landing already zeroes it). */
+body:not(:has(.gonka-landing)) .md-main__inner{margin-top:0;}
+
 /* Mobile header shadow when scrolled */
 @media (max-width:500px){
   .gonka-header.scrolled {
@@ -131,7 +144,8 @@ body:has(.gonka-landing) .md-main__inner{margin-top:0 !important;} /* fallback f
 body:has(.gonka-landing) .md-content__inner{margin:0 !important; padding:0 !important;} /* fallback for browsers that support :has() */
 body:has(.gonka-landing) .md-main{margin:0 !important; padding:0 !important;} /* fallback for browsers that support :has() */
 
-html,body{height:100%;}
+html:has(.gonka-landing),
+html:has(.gonka-landing) body{height:100%;}
 /* Ensure landing page layout doesn't let carousel affect footer */
 .gonka-landing {
   min-height: 100dvh;

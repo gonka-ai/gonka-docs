@@ -97,7 +97,7 @@ extra_css:
 extra_javascript:
   - assets/javascripts/links.js
   - assets/javascripts/quickstart-configurator.js
-  - assets/javascripts/scroll-spy-url.js
+  # - assets/javascripts/scroll-spy-url.js  # temporarily disabled
 
 plugins:
   - minify:
@@ -132,24 +132,24 @@ plugins:
             Quickstart: 快速上手
             Details: 细节
             Host: 主机
-            "Host Quickstart": 主机快速入门
+            Architecture: 架构
             Benchmark to Choose Optimal Deployment Config for LLMs: LLM 最佳部署配置基准测试
+            Genesis: 创世
+            Hardware specifications: 硬件规格
+            How to edit Host public info: 如何编辑主机公开信息
+            Collateral: 抵押
+            Key management: 密钥管理
+            ML Node Management: ML 节点管理
             "Multiple nodes": 多节点
             "Network Node API": 网络节点 API
-            "MLNode Management": ML节点管理
-            Key Management: 密钥管理
-            "Hardware Specifications": 硬件规格
-            Genesis: 创世
-            How to edit validator public info: 如何编辑验证者的公开信息
-            SSL setup: SSL 设置
             Wallet: 钱包
             Dashboard: 仪表盘
-            Wallet & Transfer Guide: 钱包与转账指南
             Pricing: 价格
+            Wallet & transfer guide: 钱包与转账指南
+            Announcements: 公告
             "Model licenses": 模型许可
-            Release announcements: 发布公告
-            Transactions & Governance: 交易与治理
-            Software Upgrades: 软件升级
+            Software upgrades: 软件升级
+            Transactions & governance: 交易与治理
             Help: 帮助
             FAQ: 常见问题
             Errors: 错误

@@ -2,7 +2,7 @@ name: Deploy
 on:
   push:
     branches:
-      - master 
+      - master
       - main
 permissions:
   contents: write
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
       - uses: actions/cache@v4
         with:
           key: mkdocs-material-${{ env.cache_id }}
@@ -26,4 +26,24 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: ./buildtools/mkdocs-setup.sh
-      - run: mkdocs gh-deploy --force
+      - name: Stage split build inputs
+        run: ./buildtools/prepare-stages.sh
+      # IMPORTANT: build the landing first. mkdocs --clean (default) wipes its
+      # entire site_dir; the home build's site_dir is _publish, so running it
+      # after the docs build would delete _publish/docs. Running it first is
+      # safe because the docs build lands in a subdirectory (_publish/docs)
+      # and only cleans that subdirectory.
+      - name: Build landing (served at /)
+        run: mkdocs build -f mkdocs.home.yml
+      - name: Build docs (served at /docs/)
+        run: mkdocs build -f mkdocs.docs.yml
+      - name: Generate legacy-URL redirect stubs
+        run: python3 ./buildtools/generate-redirects.py
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_publish
+          publish_branch: gh-pages
+          cname: gonka.ai
+          force_orphan: true

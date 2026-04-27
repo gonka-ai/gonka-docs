@@ -13,7 +13,7 @@ This guide is for **hosts** using Upgrade **v0.2.12** and the multi-model Proof-
 ./inferenced tx inference --help
 ```
 
-**Further reading (design and fees):** [multi-model PoC proposal README](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md), [gonka_poc.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/gonka_poc.md) (single-model PoC mechanics), [host_onboarding.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/host_onboarding.md) (v0.2.12 fee changes).
+**Further reading (design and fees):** [multi-model PoC proposal README](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md), [host_onboarding.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/host_onboarding.md) (v0.2.12 fee changes).
 
 ---
 
@@ -51,7 +51,7 @@ Adjust values, then run the block. **All examples below** use `NODE`, `CHAIN_ID`
 NODE="<PUBLIC_URL>"
 CHAIN_ID="gonka-mainnet"
 KEY="gonka-account-key"   # cold key; see note at top on warm-key grants
-KEYRING_BACKEND="os"
+KEYRING_BACKEND="file"
 
 MY_ADDR="$(./inferenced keys show "$KEY" -a --keyring-backend "$KEYRING_BACKEND" 2>/dev/null || true)"
 # If keys show fails, set your address explicitly:
@@ -150,23 +150,6 @@ One model (second argument optional):
 ```
 
 The response lists **delegations**, **refusals**, and **intents** separately; for a given model you will have **at most one** of the three.
-
-### Check your PoC v2 store commit for a stage
-
-`POC_STAGE_START` is the **PoC stage start block height** for that epoch (same anchor your software uses for commits).
-
-```bash
-POC_STAGE_START=12345
-
-./inferenced query inference poc-v2-store-commit "$POC_STAGE_START" "$MY_ADDR" --node "$NODE" -o json
-```
-
-Other useful queries (same height):
-
-```bash
-./inferenced query inference all-poc-v2-store-commits "$POC_STAGE_START" --node "$NODE" -o json
-./inferenced query inference mlnode-weight-distribution "$POC_STAGE_START" "$MY_ADDR" --node "$NODE" -o json
-```
 
 ---
 

@@ -146,7 +146,7 @@ Chain binary: `./inferenced`.
 Example environment:
 
 ```bash
-export NODE="tcp://127.0.0.1:26657"   # or your RPC endpoint
+export NODE="<PUBLIC_URL>"   # or your RPC endpoint
 export CHAIN_ID="gonka-mainnet"
 export KEY="gonka-account-key"  # key name in your keyring
 ```

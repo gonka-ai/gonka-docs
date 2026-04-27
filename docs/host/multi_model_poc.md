@@ -2,7 +2,7 @@
 
 This document describes **host-facing** behavior and **CLI commands** for the multi-model Proof-of-Compute (PoC) system introduced in Upgrade v0.2.12.
 
-**Scope:** `inferenced` queries and transactions relevant for hosts, including delegation state, model parameters, and current epoch information.
+**Scope:** `./inferenced` queries and transactions relevant for hosts, including delegation state, model parameters, and current epoch information.
 
 For design background see [proposals/multi-model-poc/README.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md) and the two design docs in that directory. For single-model PoC mechanics see [gonka_poc.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/gonka_poc.md). For the v0.2.12 fee changes see [host_onboarding.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/host_onboarding.md).
 
@@ -50,7 +50,7 @@ Bootstrap penalty modes for not-yet-eligible models are a separate enum (`Bootst
   - The target has **positive N−1 consensus weight**.
 - **If the target is not a member or has zero weight**, the delegator falls through to **NONE** for that model.
 - **Effect.** The delegator's consensus weight (full amount, not `delegation_share`) is added to the target's **voting power** for that model group, used for PoC-validation acceptance. The weight-adjustment layer separately transfers `delegation_share × originalWeight` from the delegator to the target in consensus space (see [Penalties](#penalties--weight-adjustment)).
-- **Tx.** `inferenced tx inference set-poc-delegation <model-id> <delegate-to>`. Pass an empty `delegate_to` to clear.
+- **Tx.** `./inferenced tx inference set-poc-delegation <model-id> <delegate-to>`. Pass an empty `delegate_to` to clear.
 
 ### `REFUSE`
 
@@ -101,7 +101,7 @@ Penalties and the `delegation_share` transfer apply to **consensus weight** duri
 Query everything in one call:
 
 ```bash
-inferenced query inference params --node "$NODE" -o json
+./inferenced query inference params --node "$NODE" -o json
 ```
 
 ### Regular-model penalty resolution
@@ -141,14 +141,14 @@ From `inference-chain/x/inference/module/module.go` (`onEndOfPoCValidationStage`
 
 ## Prerequisites
 
-Chain binary: `inferenced`.
+Chain binary: `./inferenced`.
 
 Example environment:
 
 ```bash
 export NODE="tcp://127.0.0.1:26657"   # or your RPC endpoint
 export CHAIN_ID="gonka-mainnet"
-export KEY="mykey"                    # key name in your keyring
+export KEY="gonka-account-key"  # key name in your keyring
 ```
 
 ---
@@ -162,13 +162,13 @@ All queries are registered in `inference-chain/x/inference/module/autocli.go`. N
 Includes `poc_params` (with `models[]`), `delegation_params`, and fee params.
 
 ```bash
-inferenced query inference params --node "$NODE" -o json
+./inferenced query inference params --node "$NODE" -o json
 ```
 
 ### Current epoch
 
 ```bash
-inferenced query inference get-current-epoch --node "$NODE"
+./inferenced query inference get-current-epoch --node "$NODE"
 ```
 
 ### PoC delegation state for a participant
@@ -178,13 +178,13 @@ The second positional arg (`model-id`) is **optional**. Omit it (or pass an empt
 All models:
 
 ```bash
-inferenced query inference poc-delegation <participant-address> --node "$NODE"
+./inferenced query inference poc-delegation <participant-address> --node "$NODE"
 ```
 
 Single model:
 
 ```bash
-inferenced query inference poc-delegation <participant-address> <model-id> --node "$NODE"
+./inferenced query inference poc-delegation <participant-address> <model-id> --node "$NODE"
 ```
 
 The response carries three repeated fields: `delegations`, `refusals`, `intents`. Because the three transaction types are mutually exclusive per `(model_id, participant)`, at most one of these will contain a record for a given model.
@@ -212,13 +212,13 @@ TX_FLAGS=(--from "$KEY" --node "$NODE" --chain-id "$CHAIN_ID" --gas auto --gas-a
 Delegate your consensus weight for `<model-id>` to `<delegate-to>`:
 
 ```bash
-inferenced tx inference set-poc-delegation "<model-id>" "<delegate-to>" "${TX_FLAGS[@]}"
+./inferenced tx inference set-poc-delegation "<model-id>" "<delegate-to>" "${TX_FLAGS[@]}"
 ```
 
 Clear delegation (empty `delegate_to`):
 
 ```bash
-inferenced tx inference set-poc-delegation "<model-id>" "" "${TX_FLAGS[@]}"
+./inferenced tx inference set-poc-delegation "<model-id>" "" "${TX_FLAGS[@]}"
 ```
 
 ### Refuse PoC delegation
@@ -226,7 +226,7 @@ inferenced tx inference set-poc-delegation "<model-id>" "" "${TX_FLAGS[@]}"
 Explicitly refuse to participate for `<model-id>`. After that model's `penalty_start_epoch`, `refusal_penalty` may apply to the consensus weight.
 
 ```bash
-inferenced tx inference refuse-poc-delegation "<model-id>" "${TX_FLAGS[@]}"
+./inferenced tx inference refuse-poc-delegation "<model-id>" "${TX_FLAGS[@]}"
 ```
 
 ### Declare PoC intent (bootstrap)
@@ -234,7 +234,7 @@ inferenced tx inference refuse-poc-delegation "<model-id>" "${TX_FLAGS[@]}"
 For a governance-approved model that is **not yet in the eligible set**, signal that you intend to deploy hardware before its PoC starts. Only meaningful until the model becomes eligible; ignored afterward.
 
 ```bash
-inferenced tx inference declare-poc-intent "<model-id>" "${TX_FLAGS[@]}"
+./inferenced tx inference declare-poc-intent "<model-id>" "${TX_FLAGS[@]}"
 ```
 
 ### Reminder on mutual exclusion
@@ -248,5 +248,5 @@ Sending any of the three above clears the other two for the same `(model_id, sen
 1. **One logical model per ML node** in a configuration where practical. Multi-model node assignment is deterministic but easy to misconfigure; review node configs after upgrading.
 2. Before `penalty_start_epoch` for each model you care about, pick `DELEGATE`, `REFUSE`, or accept implicit `NONE`. Query `inference params` to confirm `DelegationParams` fractions are non-zero (zero = penalties disabled) and each model's `penalty_start_epoch`.
 3. Subscribe to `bootstrap_model_preeligibility` events for any model you are considering. Use `MsgDeclarePoCIntent` before `start_poc − deploy_window` if you plan to deploy; actually submit a store commit via DAPI during PoC to become DIRECT.
-4. After submitting `MsgSetPoCDelegation`, verify with `inferenced query inference poc-delegation <your-address> <model-id>`. Nothing prevents delegating to a target that is not yet a member — validity is checked at snapshot time.
-5. After upgrades, confirm with `inferenced query inference params` that `poc_params.models[]` contains every model you expect and that `delegation_params` is configured. All-zero `DelegationParams` fractions disable penalties and transfers.
+4. After submitting `MsgSetPoCDelegation`, verify with `./inferenced query inference poc-delegation <your-address> <model-id>`. Nothing prevents delegating to a target that is not yet a member — validity is checked at snapshot time.
+5. After upgrades, confirm with `./inferenced query inference params` that `poc_params.models[]` contains every model you expect and that `delegation_params` is configured. All-zero `DelegationParams` fractions disable penalties and transfers.

@@ -1,252 +1,243 @@
 # Multi-Model PoC — Host Operations Guide
 
-This document describes **host-facing** behavior and **CLI commands** for the multi-model Proof-of-Compute (PoC) system introduced in Upgrade v0.2.12.
+This guide is for **hosts** using Upgrade **v0.2.12** and the multi-model Proof-of-Compute (PoC) system. It explains **what to configure on-chain**, **why it matters**, and **which `./inferenced` commands to run**.  
 
-**Scope:** `./inferenced` queries and transactions relevant for hosts, including delegation state, model parameters, and current epoch information.
+**In scope:** delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.
 
-For design background see [proposals/multi-model-poc/README.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md) and the two design docs in that directory. For single-model PoC mechanics see [gonka_poc.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/gonka_poc.md). For the v0.2.12 fee changes see [host_onboarding.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/host_onboarding.md).
+**Signing:** everything in this guide is shown as if you broadcast from your **cold** Host key (`--from` points at that account). *(But permission can be granted to perform delegation using warm keys.)*
 
----
+**Before you start:** confirm your binary and network expose these commands:
 
-## Concepts
+```bash
+./inferenced query inference --help
+./inferenced tx inference --help
+```
 
-- **Per-model PoC groups.** Each governance-approved model has its own PoC group. PoC for different models runs **in parallel** within the same epoch, keyed by `model_id` end-to-end in state (`PocParams.models[]`, commits, validations, weight distribution).
-- **Two weight notions.**
-  - **Model-local PoC weight** — raw work proven inside a model group (used for routing and inference incentives within that group).
-  - **Consensus weight** — aggregated across eligible model groups as `Σ weight_scale_factor_i × pocWeight_i`, with caps applied. Drives block signing, governance vote, PoC-validation voting, and Bitcoin-style rewards.
-- **Delegation.** If you do **not** serve model `X`, you can delegate your consensus weight to a direct member of group `X` so they vote on PoC validation on your behalf. Without a valid delegation, non-members of `X` effectively **abstain** for that model's validation.
-
-The [Participant modes](#participant-modes) and [Penalties & weight adjustment](#penalties--weight-adjustment) sections detail the behavior.
+**Further reading (design and fees):** [multi-model PoC proposal README](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md), [gonka_poc.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/gonka_poc.md) (single-model PoC mechanics), [host_onboarding.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/host_onboarding.md) (v0.2.12 fee changes).
 
 ---
 
-## Participant modes
+## What PoC delegation is
 
-Modes are evaluated **per governance-approved eligible model** and **per participant** when the chain forms the next epoch's participation state.
+Each **approved model** has its own PoC. Your **consensus weight** from the **previous** epoch still matters for **who can influence PoC validation** on models you do **not** run yourself.
 
-- **Regular delegation snapshot** is captured at `poc_validation_start` (see `AppModule.BeginBlocker` in `inference-chain/x/inference/module/module.go` — `IsStartOfPoCValidationStage` branch). This snapshot contains **delegations and refusals only**; direct intents are **intentionally excluded** and handled by the bootstrap snapshot (see the `DelegationSnapshot` message in `inference-chain/proto/inference/inference/poc_delegation.proto`).
-- **Bootstrap delegation snapshot** is captured earlier at `start_poc − deploy_window` blocks (see `IsDelegationSnapshotHeight`). This snapshot contains delegations and **intents**, used only for pre-eligibility of not-yet-active models.
-- **Direct membership** is inferred at resolution time from **actual PoC v2 store commits** in that epoch — there is no separate "direct" transaction.
+**Delegation** means: for a given `model_id`, you tell the chain how that weight should behave for **validation voting** on that model — either you support someone else’s votes, you opt out in writing, you only signal plans for a new model, or you leave the default (no extra transaction).
 
-The `ParticipationMode` enum for the regular (eligible-model) calculation has **four** values (see `inference-chain/x/inference/module/delegation_weight_calculator.go`):
-
-- `DIRECT`
-- `REFUSE` 
-- `DELEGATE`
-- `NONE` 
-
-Bootstrap penalty modes for not-yet-eligible models are a separate enum (`BootstrapPenaltyMode` in `bootstrap_penalty.go`) with values `BootstrapPenaltyDirect`, `BootstrapPenaltyDelegate`, `BootstrapPenaltyIntentOK`, `BootstrapPenaltyIntentMissed`, `BootstrapPenaltyNone`.
-
-### `DIRECT`
-
-- **Meaning.** The participant submitted a valid `MsgPoCV2StoreCommit` with an entry for `model_id` for the relevant PoC stage. Direct membership is **inferred** from the presence of that commit — it is not a separate transaction.
-- **Precedence.** If the participant also has a `DELEGATE` / `REFUSE`/ `INTENT` record for the same `(model_id, participant)`, **DIRECT wins** for the epoch and the other record is ignored by the voting-power calculator.
-- **Penalties.** `DIRECT` is **not** charged the refusal or no-participation fractions for that model (see `delegation_weight_adjustment.go`, the `ModeDirect` branch returns immediately).
-
-### `DELEGATE`
-
-- **Meaning.** The participant broadcast `MsgSetPoCDelegation` with a non-empty `delegate_to` for `model_id`, and at resolution time:
-  - The target is a **direct member** of that model's group (i.e. the target itself submitted a store commit for `model_id` in this epoch), **and**
-  - The target has **positive N−1 consensus weight**.
-- **If the target is not a member or has zero weight**, the delegator falls through to **NONE** for that model.
-- **Effect.** The delegator's consensus weight (full amount, not `delegation_share`) is added to the target's **voting power** for that model group, used for PoC-validation acceptance. The weight-adjustment layer separately transfers `delegation_share × originalWeight` from the delegator to the target in consensus space (see [Penalties](#penalties--weight-adjustment)).
-- **Tx.** `./inferenced tx inference set-poc-delegation <model-id> <delegate-to>`. Pass an empty `delegate_to` to clear.
-
-### `REFUSE`
-
-- **Meaning.** The participant broadcast `MsgRefusePoCDelegation` for `model_id`, opting out of delegating for that model.
-- **Effect.** No voting power is passed to anyone for that model. The participant is not a direct member unless they also have a commit (in which case DIRECT wins).
-- **Penalties.** After `penalty_start_epoch` for that model, the participant may be charged `refusal_penalty` on **original** consensus weight.
-
-### `INTENT` (bootstrap-only)
-
-- **Meaning.** The participant broadcast `MsgDeclarePoCIntent` for a governance-approved model that is **not yet in the consensus-eligible set** — a signal of intent to deploy hardware in time for PoC.
-- **When it matters.** Only inside the bootstrap snapshot, captured at `start_poc − deploy_window`. Used to compute the `BootstrapModelPreEligibility` report per model.
-- **`INTENT` does not make you `DIRECT`.** At resolution time, only an actual PoC store commit makes you `DIRECT`.
-- **Ignored for already-eligible models.** Once a model is in the eligible set, its `ParticipationMode` resolution uses the regular four-mode enum; `INTENT` records for eligible models have no effect on voting power or penalties.
-- **Penalties (bootstrap-specific).** After `penalty_start_epoch`, `BootstrapPenaltyIntentMissed` (intent declared but no commit by the model's PoC) and `BootstrapPenaltyNone` (no delegation, intent, or commit) incur `no_participation_penalty`. `BootstrapPenaltyDelegate` and `BootstrapPenaltyIntentOK` (intent on a not-yet-eligible model that isn't expected to commit yet) are **not** penalized. See `AccumulateBootstrapPenalties` in `bootstrap_penalty.go`.
-
-### `NONE`
-
-- **Meaning.** For that eligible model, the participant is not `DIRECT`, has no valid delegation (including delegation to a non-member or zero-weight target), and has not recorded a refusal.
-- **Effect.** No voting power for that model; effectively abstains on PoC validation for that group.
-- **Penalties.** After `penalty_start_epoch`, incurs `no_participation_penalty` for that model.
-
-### Exclusivity
-
-The three delegation transactions (`MsgSetPoCDelegation`, `MsgRefusePoCDelegation`, `MsgDeclarePoCIntent`) are mutually exclusive per `(model_id, participant)` at the state layer. Each handler in `inference-chain/x/inference/keeper/msg_server_poc_delegation.go` explicitly clears the other two records (via `ClearOtherDelegationState`) before writing its own — **last write wins**. `DIRECT` is not a state record and overrides whichever of the three happens to be present, for that epoch only.
+If you **do** submit a valid **PoC v2 store commit** for that model during the epoch (via your normal PoC stack), you are treated as **running that model’s PoC yourself** for that epoch. That **overrides** whatever you had set with delegate / refuse / intent for how your participation is counted.
 
 ---
 
-## Penalties & weight adjustment
+## Your options (per model)
 
-Penalties and the `delegation_share` transfer apply to **consensus weight** during epoch formation, after PoC results are known. The accumulator lives in `inference-chain/x/inference/module/delegation_weight_adjustment.go`.
+| What you want | Command | Why Hosts choose it |
+|---------------|---------|-------------------------|
+| Run this model’s PoC yourself | *(no separate on-chain “join”; your stack submits the PoC v2 store commit)* | You stay in that model’s group for the epoch. |
+| Trust another host’s validation votes for that model | `set-poc-delegation` | Your weight can count toward their influence on that model’s PoC checks, **if** the rules at validation time are satisfied (see [When your on-chain choices are frozen](#when-your-on-chain-choices-are-frozen)). |
+| Explicitly opt out of delegating for that model | `refuse-poc-delegation` | Clear “no” to delegation; after penalties turn on for that model, a **refusal**-style deduction may apply if governance configured it. |
+| Do nothing extra | *(no tx)* | Default; after penalties turn on, a **no-participation**-style deduction may apply if governance configured it. |
+| Signal plans before a new model is fully live | `declare-poc-intent` | For **bootstrap** reporting only; it does **not** replace running PoC. You still need a store commit in PoC to count as serving the model yourself. |
 
-### Parameter sources
+**One stored choice per model:** for each `model_id` and your address, the chain keeps **at most one** of delegate / refuse / intent. A new transaction of any of those three **replaces** the previous one. **Serving the model yourself** (having a valid store commit for that model in the epoch) wins over those three when the chain applies rules for that epoch.
 
-| Source | Field | Role |
-|---|---|---|
-| `PocParams.models[<i>]` | `penalty_start_epoch` | Before this **epoch index**, no refusal / no-participation / delegation-share fractions are applied for that model. Per-model, so different models can phase in penalties at different times. |
-| `PocParams.models[<i>]` | `weight_scale_factor` | Coefficient converting model-local PoC weight to consensus weight. Governance-set per model. |
-| `DelegationParams` | `refusal_penalty` | Decimal fraction of **original** consensus weight deducted when mode is REFUSE (after `penalty_start_epoch`). |
-| `DelegationParams` | `no_participation_penalty` | Fraction deducted when mode is NONE (regular resolution) or one of the penalized bootstrap modes. |
-| `DelegationParams` | `delegation_share` | Fraction of the **delegator's original** weight transferred to the delegate target when mode is DELEGATE. This is a **reallocation**, not additive with the two penalties above. |
-| `DelegationParams` | `deploy_window` | Blocks before `start_poc` used as the bootstrap snapshot cutoff. |
-| `DelegationParams` | `w_threshold` | Minimum fraction of total network consensus weight from members for a group to be pre-eligible. |
-| `DelegationParams` | `v_min` | Minimum number of hosts with non-zero consensus weight required in a group. |
-| `DelegationParams` | `cap_factor` | Cap on a group's consensus-weight contribution relative to members' weight in other groups. |
-| `DelegationParams` | `initial_model_id` | Model ID exempt from the group cap (set during migration to the founding model). |
-| `DelegationParams` | `max_model_voting_power_percentage` | Max fraction of per-model voting power any single host can hold **after** delegation is resolved. Zero disables the cap. Applied per-model, excess is burned (not redistributed). |
+---
 
-Query everything in one call:
+## Copy-paste setup and commands
+
+### Session variables (set once in this shell)
+
+Adjust values, then run the block. **All examples below** use `NODE`, `CHAIN_ID`, `KEY` (your **cold** key name in the keyring), and optional `KEYRING_BACKEND`.
+
+```bash
+NODE="<PUBLIC_URL>"
+CHAIN_ID="gonka-mainnet"
+KEY="gonka-account-key"   # cold key; see note at top on warm-key grants
+KEYRING_BACKEND="os"
+
+MY_ADDR="$(./inferenced keys show "$KEY" -a --keyring-backend "$KEYRING_BACKEND" 2>/dev/null || true)"
+# If keys show fails, set your address explicitly:
+# MY_ADDR="gonka1..."
+```
+
+Each **`tx inference …`** example below repeats the same `--from` / `--node` / `--chain-id` / `--keyring-backend` / gas flags so you can copy **one** block without merging lines from elsewhere. If your keyring is already the default, you may omit `--keyring-backend`.
+
+**Optional — fewer repeated flags:** set default **RPC node** and **chain id** in the CLI client config for this machine (Cosmos-style `client.toml`; exact commands depend on your `inferenced` version — use `./inferenced config --help`). After that you can omit `--node` and `--chain-id` from the transaction lines below.
+
+### Parameters and epoch
 
 ```bash
 ./inferenced query inference params --node "$NODE" -o json
 ```
 
-### Regular-model penalty resolution
-
-For each **eligible** model and each participant with positive N−1 consensus weight, `ResolveGroupParticipation` assigns a mode. Then, if `upcoming_epoch_index ≥ penalty_start_epoch` for that model:
-
-- `DIRECT` → no fractions charged (the `ModeDirect` branch in `PenaltyAccumulator` skips the participant).
-- `REFUSE` → add `refusal_penalty` to this participant's accumulated fraction.
-- `NONE` → add `no_participation_penalty`.
-- `DELEGATE` → schedule a weight transfer of `delegation_share × originalWeight` from delegator to target; clamped so the delegator's remaining weight does not go negative.
-
-### Bootstrap penalty resolution
-
-Handled by `AccumulateBootstrapPenalties`. Eligible groups skip this path entirely. For **not-yet-eligible** models past `penalty_start_epoch`, `BootstrapPenaltyIntentMissed` and `BootstrapPenaltyNone` each add `no_participation_penalty`. `BootstrapPenaltyDirect`, `BootstrapPenaltyDelegate`, and `BootstrapPenaltyIntentOK` add nothing.
-
-### Caps
-
-Penalty fractions from all models are accumulated per participant and **capped at 1.0** before being applied (`PenaltyAccumulator.Apply` at the `totalFrac.GT(one)` check): a participant cannot lose more than 100% of their original pre-adjustment weight from the fraction mechanism.
-
-### Pipeline order
-
-From `inference-chain/x/inference/module/module.go` (`onEndOfPoCValidationStage`):
-
-1. **Consensus weight computation** with per-group caps from `cap_factor` and `initial_model_id`.
-2. **Penalty accumulator apply**: deduct capped penalty fractions first, then apply `delegation_share` transfers. Both run together.
-3. **Collateral adjustment** (`AdjustWeightsByCollateral`): may further reduce weights per collateral status.
-4. **Universal power capping** (`applyEpochPowerCapping`): network-wide voting-power cap.
-5. **Per-model voting-power cap** inside `computeAndSetVotingPowers`: clips any host above `max_model_voting_power_percentage` for that model; excess is burned, not redistributed.
-
-### Practical notes
-
-- If **all** of `refusal_penalty`, `no_participation_penalty`, and `delegation_share` are zero, the accumulator is a no-op (`DelegationAdjustmentParams.IsNoOp`). You can keep multi-model wiring hot with penalties disabled by leaving these at zero and only setting them via governance once hosts have had time to configure their delegation preferences.
-- `penalty_start_epoch` is per-model — track it per `model_id`, not globally.
-- Bootstrap pre-eligibility is surfaced via the `bootstrap_model_preeligibility` event (emitted per model from `emitBootstrapPreEligibilityEvents` in `delegation_pipeline.go`). Attributes include `model_id`, `pre_eligible`, `meets_weight_threshold`, `meets_v_min`, `meets_reachability`, `intent_host_count`, `intent_weight`, `reachable_voting_power`, `total_network_weight`, and `snapshot_height`. Subscribe to these before committing hardware to a new model.
-
----
-
-## Prerequisites
-
-Chain binary: `./inferenced`.
-
-Example environment:
-
 ```bash
-export NODE="<PUBLIC_URL>"   # or your RPC endpoint
-export CHAIN_ID="gonka-mainnet"
-export KEY="gonka-account-key"  # key name in your keyring
+./inferenced query inference get-current-epoch --node "$NODE" -o json
 ```
 
----
+### Delegate, clear, refuse, intent
 
-## Queries
-
-All queries are registered in `inference-chain/x/inference/module/autocli.go`. Names and argument order below are copied from there; run each with `--help` to see flags.
-
-### Module parameters
-
-Includes `poc_params` (with `models[]`), `delegation_params`, and fee params.
+Delegate (the delegate need not already be running that model’s PoC **when you send** the tx; see [When your on-chain choices are frozen](#when-your-on-chain-choices-are-frozen)):
 
 ```bash
-./inferenced query inference params --node "$NODE" -o json
+MODEL="your-model-id"
+DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
 ```
 
-### Current epoch
+Clear delegation:
 
 ```bash
-./inferenced query inference get-current-epoch --node "$NODE"
+MODEL="your-model-id"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
 ```
 
-### PoC delegation state for a participant
+Refuse:
 
-The second positional arg (`model-id`) is **optional**. Omit it (or pass an empty string) to get all models for the participant.
+```bash
+MODEL="your-model-id"
+
+./inferenced tx inference refuse-poc-delegation "$MODEL" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+Bootstrap intent:
+
+```bash
+MODEL="your-model-id"
+
+./inferenced tx inference declare-poc-intent "$MODEL" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+### Query delegation state
 
 All models:
 
 ```bash
-./inferenced query inference poc-delegation <participant-address> --node "$NODE"
+./inferenced query inference poc-delegation "$MY_ADDR" --node "$NODE" -o json
 ```
 
-Single model:
+One model (second argument optional):
 
 ```bash
-./inferenced query inference poc-delegation <participant-address> <model-id> --node "$NODE"
+./inferenced query inference poc-delegation "$MY_ADDR" "$MODEL" --node "$NODE" -o json
 ```
 
-The response carries three repeated fields: `delegations`, `refusals`, `intents`. Because the three transaction types are mutually exclusive per `(model_id, participant)`, at most one of these will contain a record for a given model.
+The response lists **delegations**, **refusals**, and **intents** separately; for a given model you will have **at most one** of the three.
 
-### PoC v2 store commits for a PoC stage
+### Check your PoC v2 store commit for a stage
 
-`<poc-stage-start-block-height>` is the **start block of that PoC stage** — the epoch's PoC window start. These queries exist for host diagnostics; DAPI submits the commits.
+`POC_STAGE_START` is the **PoC stage start block height** for that epoch (same anchor your software uses for commits).
+
+```bash
+POC_STAGE_START=12345
+
+./inferenced query inference poc-v2-store-commit "$POC_STAGE_START" "$MY_ADDR" --node "$NODE" -o json
+```
+
+Other useful queries (same height):
+
+```bash
+./inferenced query inference all-poc-v2-store-commits "$POC_STAGE_START" --node "$NODE" -o json
+./inferenced query inference mlnode-weight-distribution "$POC_STAGE_START" "$MY_ADDR" --node "$NODE" -o json
+```
 
 ---
 
-## Transactions — delegation and intent
+## When your on-chain choices are frozen
 
-The three delegation messages use `sender` as the signer field (not `creator`) — see `inference-chain/proto/inference/inference/poc_delegation.proto`. Message handlers are in `inference-chain/x/inference/keeper/msg_server_poc_delegation.go`; each validates the `model_id` against the governance-approved model set (`GetGovernanceModel`) and, for `SetPoCDelegation`, validates that `delegate_to` resolves to a known participant.
+The chain reads your settings at **two different times**; they answer different questions.
 
-The target does **not** have to be a direct member of the group at the time you set the delegation. Membership is evaluated later, at the regular snapshot (`poc_validation_start`), against actual PoC v2 store commits. If the target ends up not being a direct member or has zero prior-epoch consensus weight when the snapshot is resolved, your delegation falls through to NONE for that epoch and a `no_participation_penalty` may apply after `penalty_start_epoch`.
+1. **Start of PoC validation for the epoch** — the chain records **who you delegated to** and **whether you refused**, for use while that epoch’s PoC is validated. **Intent is not read here.** This is what matters for models that are already in normal operation.
 
-Standard flags used in the examples below:
+2. **`deploy_window` blocks before the *next* PoC starts** — height **`next_poc_start − deploy_window`** (not “current PoC start minus window”). Here the chain records **delegations and intents** for **bootstrap / pre-eligibility** signals on models that are not yet fully in the normal set. If `deploy_window` is zero or negative, this second capture does not run.
+
+Whether **you actually ran PoC** for a model is **not** taken from those stored rows: the chain uses your **PoC v2 store commits** for that model during the epoch.
+
+### Does your delegation actually count?
+
+`set-poc-delegation` can be sent anytime, but it only **helps** the delegate if **at validation start** all of the following hold:
+
+- the delegate **ran PoC** for that `model_id` in that epoch (has the corresponding work committed the usual way), and  
+- the delegate had **non-zero consensus weight in the previous epoch**.
+
+Otherwise your delegation is ignored for that model for that epoch (same practical outcome as if you had not delegated), and penalty rules may still apply once they are enabled.
+
+When a delegation **does** count, your **full** weight is counted toward that host’s **influence on validating that model’s PoC**. Separately, **`delegation_share`** in `params` can move part of your **original** consensus weight to them when weights are finalized — that is a different knob from the refusal / no-participation percentages; read **`params`** for the exact values.
+
+---
+
+## Penalties and parameters (what hosts read from `params`)
+
+Penalties and the delegation share apply to **consensus weight** when the next epoch’s active set is built, **after** PoC outcomes are known. Everything below comes from **`./inferenced query inference params`** (JSON fields vary slightly by version; search inside the output for these names).
+
+| Where in `params` | Field | Meaning for hosts |
+|-------------------|--------|-------------------|
+| Per model in `poc_params` → `models` | `penalty_start_epoch` | Before this **epoch index**, the refusal / no-participation / delegation-share rules for **that model** do not apply. Track **per `model_id`**. |
+| Per model in `poc_params` → `models` | `weight_scale_factor` | Scales that model’s PoC weight into **consensus** weight. |
+| `delegation_params` | `refusal_penalty` | Fraction of your **original** consensus weight removed when you used **`refuse-poc-delegation`** for that model after `penalty_start_epoch`. |
+| `delegation_params` | `no_participation_penalty` | Fraction removed when you did **not** refuse, **did not** have a valid delegation, and **did not** serve the model yourself — after penalties apply (and analogous bootstrap cases if governance enabled them). |
+| `delegation_params` | `delegation_share` | Fraction of the delegator’s **original** weight **reallocated** to the delegate when delegation is valid — separate from the penalty percentages. |
+| `delegation_params` | `deploy_window` | Blocks **before the next PoC start** at which the **bootstrap** snapshot height is chosen (`next_poc_start − deploy_window`). |
+| `delegation_params` | `w_threshold`, `v_min`, `cap_factor`, `initial_model_id`, `max_model_voting_power_percentage` | Eligibility, caps, and per-model voting concentration limits. Zero on the last usually means “no cap”. |
+
+If **`refusal_penalty`**, **`no_participation_penalty`**, and **`delegation_share`** are all **zero**, the chain does not apply those deductions or transfers (common right after upgrade until governance enables them).
+
+---
+
+## Bootstrap pre-eligibility events
+
+If you plan hardware for a **new** model, watch chain events of type **`bootstrap_model_preeligibility`**. Typical attributes include: `model_id`, `pre_eligible`, `meets_weight_threshold`, `meets_v_min`, `meets_reachability`, `intent_host_count`, `intent_weight`, `reachable_voting_power`, `total_network_weight`, `snapshot_height`. Use them to decide **when** to declare intent and **when** you must have commits live.
+
+---
+
+## Transactions (Host notes)
+
+- Transactions use your **cold** Host key on `--from` in the examples above (unless you have set up a grant for a warm key). There is no separate “creator” field for Hosts to set.
+- **`model_id`** must be a **governance-approved** model the chain knows about.
+- **`delegate_to`** must be a **known participant address**; it does **not** have to already be running that model’s PoC when you send the transaction. If at **validation start** they are not running that model’s PoC for the epoch or had **no** weight last epoch, your delegation does **not** count for that model (and penalties may apply once turned on). See [Does your delegation actually count?](#does-your-delegation-actually-count).
+
+Use `--help` on each command for the full flag list:
 
 ```bash
-TX_FLAGS=(--from "$KEY" --node "$NODE" --chain-id "$CHAIN_ID" --gas auto --gas-adjustment 1.3 -y)
+./inferenced tx inference set-poc-delegation --help
+./inferenced tx inference refuse-poc-delegation --help
+./inferenced tx inference declare-poc-intent --help
+./inferenced query inference poc-delegation --help
 ```
-
-### Set PoC delegation
-
-Delegate your consensus weight for `<model-id>` to `<delegate-to>`:
-
-```bash
-./inferenced tx inference set-poc-delegation "<model-id>" "<delegate-to>" "${TX_FLAGS[@]}"
-```
-
-Clear delegation (empty `delegate_to`):
-
-```bash
-./inferenced tx inference set-poc-delegation "<model-id>" "" "${TX_FLAGS[@]}"
-```
-
-### Refuse PoC delegation
-
-Explicitly refuse to participate for `<model-id>`. After that model's `penalty_start_epoch`, `refusal_penalty` may apply to the consensus weight.
-
-```bash
-./inferenced tx inference refuse-poc-delegation "<model-id>" "${TX_FLAGS[@]}"
-```
-
-### Declare PoC intent (bootstrap)
-
-For a governance-approved model that is **not yet in the eligible set**, signal that you intend to deploy hardware before its PoC starts. Only meaningful until the model becomes eligible; ignored afterward.
-
-```bash
-./inferenced tx inference declare-poc-intent "<model-id>" "${TX_FLAGS[@]}"
-```
-
-### Reminder on mutual exclusion
-
-Sending any of the three above clears the other two for the same `(model_id, sender)` — last write wins. DIRECT (derived from a store commit in the current epoch) overrides all three for resolution purposes.
 
 ---
 
 ## Host checklist
 
-1. **One logical model per ML node** in a configuration where practical. Multi-model node assignment is deterministic but easy to misconfigure; review node configs after upgrading.
-2. Before `penalty_start_epoch` for each model you care about, pick `DELEGATE`, `REFUSE`, or accept implicit `NONE`. Query `inference params` to confirm `DelegationParams` fractions are non-zero (zero = penalties disabled) and each model's `penalty_start_epoch`.
-3. Subscribe to `bootstrap_model_preeligibility` events for any model you are considering. Use `MsgDeclarePoCIntent` before `start_poc − deploy_window` if you plan to deploy; actually submit a store commit via DAPI during PoC to become DIRECT.
-4. After submitting `MsgSetPoCDelegation`, verify with `./inferenced query inference poc-delegation <your-address> <model-id>`. Nothing prevents delegating to a target that is not yet a member — validity is checked at snapshot time.
-5. After upgrades, confirm with `./inferenced query inference params` that `poc_params.models[]` contains every model you expect and that `delegation_params` is configured. All-zero `DelegationParams` fractions disable penalties and transfers.
+1. Prefer **one logical model per ML node** where possible; misconfiguration is easy when several models exist.
+2. Before each model’s **`penalty_start_epoch`**, decide whether to **delegate**, **refuse**, or leave the default; read **`params`** for that model’s epoch and for non-zero penalty fractions (all zero means penalties/transfers off).
+3. For new models, watch **`bootstrap_model_preeligibility`** and send **`declare-poc-intent`** in time for the capture at **`next_poc_start − deploy_window`**. Intent does not replace running PoC — you still need a store commit to count as serving the model yourself.
+4. After **`set-poc-delegation`**, verify with **`poc-delegation`** for your address and model.
+5. After upgrade, confirm **`params`** lists every model you care about under **`poc_params`** and that **`delegation_params`** matches what governance announced.

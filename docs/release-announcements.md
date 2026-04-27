@@ -41,6 +41,14 @@ docker compose -f docker-compose.yml up versiond proxy -d --no-deps
 ```
 That will activate `devshard` working independently from `api` service.
 
+**Explorer update**
+
+Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory:
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
 **How to vote**
 
 If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer [to the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key. 

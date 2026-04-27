@@ -13,7 +13,7 @@ This guide is for hosts after Upgrade v0.2.12 has been successfully approved by 
 ./inferenced tx inference --help
 ```
 
-**Further reading (design and fees):** [multi-model PoC proposal README](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md), [host_onboarding.md](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/docs/host_onboarding.md) (v0.2.12 fee changes).
+**Further reading (design and fees):** [multi-model PoC proposal README](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md).
 
 ---
 

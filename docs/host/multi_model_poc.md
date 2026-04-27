@@ -1,6 +1,6 @@
 # Multi-Model PoC — Host Operations Guide
 
-This guide is for **hosts** using Upgrade **v0.2.12** and the multi-model Proof-of-Compute (PoC) system. It explains **what to configure on-chain**, **why it matters**, and **which `./inferenced` commands to run**.  
+This guide is for hosts after Upgrade v0.2.12 has been successfully approved by governance and applied on-chain. It explains **what to configure on-chain**, **why it matters**, and **which `./inferenced` commands to run**.  
 
 **In scope:** delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.
 

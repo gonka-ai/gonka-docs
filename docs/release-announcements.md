@@ -24,11 +24,11 @@
 
 **Upgrade plan**
 
-The binary versions will be updated via an on-chain upgrade proposal. For more information on the upgrade process, refer to **/docs/upgrades.md.**
+The binary versions will be updated via an on-chain upgrade proposal. For more information on the upgrade process, refer to [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
 
 **Required actions**
 
-1. Before the upgrade
+**Before the upgrade**
    
 Deploy latest versions of `versiond` and `proxy` services from `docker-compose.yml` (using the repo at tag release/v0.2.12):
 ```
@@ -41,11 +41,11 @@ docker compose -f docker-compose.yml up versiond proxy -d --no-deps
 ```
 That will activate `devshard` working independently from `api` service.
 
-2. Post-upgrade
+**Post-upgrade**
 
 Deploy, delegate, or explicitly refuse the new governance-approved model(the included model will be activated 2 epochs after the upgrade). Refer to [the guide](https://gonka.ai/docs/host/multi_model_poc/).
 
-3. Before or after the upgrade
+**Before or after the upgrade**
    
 Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory:
 ```

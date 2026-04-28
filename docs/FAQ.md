@@ -1405,38 +1405,102 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
-### Upgrade v0.2.11: Pre-download binaries
+### Upgrade v0.2.12: Pre-Upgrade Model Cleanup
+
+!!! note "Important"
+	This cleanup process **must be completed before the upgrade happens**. If you upgrade before cleaning up the models, your node will be rejected and go offline.
+
+Version 0.2.12 removes every governance model that is not on the post-upgrade approved list. On mainnet, only the previously enforced model and Kimi will remain.
+
+Each DAPI persists its MLNode configurations locally. On startup, it validates every configured model against the on-chain governance list. If a configuration includes at least one unsupported model, the entire node is rejected and the host goes offline. 
+
+Version 0.2.11 masked this problem by trimming the runtime view down to the enforced model, so `/admin/v1/nodes` appeared clean even when the persisted config still contained extra models. Version 0.2.12 stops this trimming, meaning the persisted config is loaded directly.
+
+To fix this, the script below finds each node with extra models in `/admin/v1/config` and sends a `PUT` request with a cleaned config to `/admin/v1/nodes/<id>`. These changes are persisted within 60 seconds. The remaining model's arguments, hardware, and ports are preserved exactly. Nodes that do not list the enforced model are skipped and will require manual fixing.
+
+Paste the following script into the host's shell. By default, it will apply the changes. To preview the changes without applying them, set `APPLY=dry` (or any value other than `--apply`).
+
+Script in the repository: 
+- [Bash](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.sh)
+- [Python](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.py).
+
+```bash
+ADMIN=${ADMIN:-http://127.0.0.1:9200}
+KEEP=${KEEP:-Qwen/Qwen3-235B-A22B-Instruct-2507-FP8}
+APPLY=${APPLY:-"--apply"}
+
+curl -sS "$ADMIN/admin/v1/config" | jq -r --arg k "$KEEP" '
+  .nodes[] | "\(.id): " + (
+    if (.models | has($k) | not) then "skip (\(.models | keys))"
+    elif (.models | length) == 1 then "ok"
+    else "\(.models | keys) -> [\($k)]" end)'
+
+if [[ "$APPLY" == "--apply" ]]; then
+  curl -sS "$ADMIN/admin/v1/config" \
+    | jq -c --arg k "$KEEP" \
+        '.nodes[] | select((.models | has($k)) and (.models | length > 1)) | .models = {($k): .models[$k]}' \
+    | while IFS= read -r p; do
+        id=$(jq -r .id <<<"$p")
+        curl -sS -f -X PUT -H 'Content-Type: application/json' -d "$p" \
+          "$ADMIN/admin/v1/nodes/$id" >/dev/null && echo "$id: updated"
+      done
+  echo "done; persisted within 60s"
+else
+  echo "preview only; rerun without APPLY=dry to commit"
+fi
+```
+
+
+Wait 60 seconds after running the script to ensure the changes are persisted before triggering the upgrade. Then, verify the configuration:
+
+```bash
+curl -sS http://127.0.0.1:9200/admin/v1/config \
+  | jq '.nodes[] | {id, models: (.models | keys)}'
+```
+
+Expected output:
+```json
+{
+  "id": "<nodeId>",
+  "models": [
+    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+  ]
+}
+```
+*(Additional nodes will follow the same format)*
+
+
+
+### Upgrade v0.2.12: Pre-download binaries
 
 ```
 # 1. Create Directories
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.11/bin \
-              .inference/cosmovisor/upgrades/v0.2.11/bin && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.12/bin \
+              .inference/cosmovisor/upgrades/v0.2.12/bin && \
 
 # 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/decentralized-api-amd64.zip" && \
-echo "e574c3d86189daf325cc7008603ee8e952efb028afda5bcd4a154dcd334192d4 decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.11/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/decentralized-api-amd64.zip" && \
+echo "d0143a95e12e1ada06cfea5e4d3deab13534c3523c967e9a6b87ac9f9bf3247d decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
 echo "DAPI Installed and Verified" && \
 
 # 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/inferenced-amd64.zip" && \
-echo "c77528bd2e31e86355a6eefddb50e0db7f9600ebf2940ca440a61ea36e7ef7ca inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/inferenced-amd64.zip" && \
+echo "df7656503d39f6703767d32d5578d1291e32cb114844d8c1cd0f134d1bf4babd inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
 echo "Inference Installed and Verified" && \
 
 # 4. Cleanup and Final Check
 rm decentralized-api.zip inferenced.zip && \
 echo "--- Final Verification ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
-echo "8b99e550ddd117a0cb4293b4ae74e0e5dff961a1986f23b58ec7ae6c3f0478f1 .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api" | sudo sha256sum --check && \
-echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced" | sudo sha256sum --check
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
+echo "94ce943338d12844028e84fe770106c9d28d866cf0af99f27da30f56d69efa34 .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api" | sudo sha256sum --check && \
+echo "642eb9858cd77d182f3e1c4d44553f5379d615983430e1fd8e85f09632af4271 .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced" | sudo sha256sum --check
 ```
-
-
 
 ## Bounty program
 

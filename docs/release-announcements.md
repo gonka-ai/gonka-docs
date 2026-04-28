@@ -84,7 +84,9 @@ export NODE_URL=https://node3.gonka.ai/
 **Deadlines**
 
 **Voting ends:** April 30th, 2026, at 00:12 UTC
+
 **Upgrade height:** 3834200
+
 **Estimated upgrade time:** April 30th, 2026, at 6:00 UTC
 
 **Attention**

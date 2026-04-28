@@ -8,41 +8,45 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
-## April 26, 2026
+## April 27, 2026
 
 **v0.2.12 Upgrade Proposal Enters Governance**
 
-The [upgrade proposal](https://github.com/gonka-ai/gonka/pull/948) for the next on-chain software version v0.2.12 has now been published on-chain and is open for voting.  
+[The upgrade proposal](https://github.com/gonka-ai/gonka/pull/948) for the next on-chain software version v0.2.12 has now been published on-chain and is open for voting.  
 
 **Key changes**
 
 - **Multi-model PoC (the largest change)** ([#1039](https://github.com/gonka-ai/gonka/pull/1039)). Transition Proof of Compute from a single fixed model to per-model PoC groups. Each governance-approved model generates its own local PoC weight, which is then aggregated into a total consensus weight via model-specific coefficients. Each host must participate in each model group (either directly or by delegating PoC voting weight).
-- **`moonshotai/Kimi-K2.6` is introduced as the second model**: The model group will be activated two epochs after the upgrade. The coefficient for this model is 3.51x the coefficient of Qwen235B, based on compute complexity on the same hardware (8xH200, 8xB200).
-- Devshard standalone runtime ([#1045](https://github.com/gonka-ai/gonka/pull/1045)). Decouples devshard releases from the DAPI / mainnet release cycle. 
-- Certik audit fixes ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789)). Audit findings have been addressed.
-- **Protocol hardening**. Preserved nodes (`POC_SLOT=true` are randomly sampled for single PoC / CPoC time. Other updates include propagating the `mlnode` version to the on-chain `HardwareNode`, fixing DKG dealer consensus, aligning legacy validator slashing with required-collateral semantics, ensuring atomicity of the devshard escrow fund, and adding zero-timestamp tolerance to `inference_finished` event parsing.
+- **`moonshotai/Kimi-K2.6` is introduced as the second model:** The model group will be activated two epochs after the upgrade. The coefficient for this model is 3.51x the coefficient of Qwen235B, based on compute complexity of models on the same hardware (8xH200, 8xB200).
+- **Devshard standalone runtime** ([#1045](https://github.com/gonka-ai/gonka/pull/1045)). Decouples devshard releases from the DAPI / mainnet release cycle. 
+- **Certik audit fixes** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789)). Audit findings have been addressed.
+- **Protocol hardening.** Preserved nodes (`POC_SLOT=true` are randomly sampled for single PoC / CPoC time. Other updates include propagating the `mlnode` version to the on-chain `HardwareNode`, fixing DKG dealer consensus, aligning legacy validator slashing with required-collateral semantics, ensuring atomicity of the devshard escrow fund, and adding zero-timestamp tolerance to `inference_finished` event parsing.
 
 **Upgrade plan**
 
-The binary versions will be updated via an on-chain upgrade proposal. For more information on the upgrade process, refer to [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
+The binary versions will be updated via an on-chain upgrade proposal. For more information on the upgrade process, refer to **/docs/upgrades.md.**
 
-**Required actions post-upgrade**
+**Required actions**
 
-Existing Hosts:
-- Deploy, delegate, or explicitly refuse new governance-approved model(the included model will be activated 2 epochs after the upgrade). Refer to [the guide.](https://gonka.ai/docs/host/multi_model_poc/)
-- Deploy latest versions of `versiond` and `proxy` services from `docker-compose.yml` (using the repo at tag release/v0.2.12):
+1. Before the upgrade
+   
+Deploy latest versions of `versiond` and `proxy` services from `docker-compose.yml` (using the repo at tag release/v0.2.12):
 ```
 git checkout release/v0.2.12
 ```
-Deploy:
+Deploy (important to use `--no-deps`):
 ```
 source config.env && \
 docker compose -f docker-compose.yml up versiond proxy -d --no-deps
 ```
 That will activate `devshard` working independently from `api` service.
 
-**Explorer update**
+2. Post-upgrade
 
+Deploy, delegate, or explicitly refuse the new governance-approved model(the included model will be activated 2 epochs after the upgrade). Refer to [the guide](https://gonka.ai/docs/host/multi_model_poc/).
+
+3. Before or after the upgrade
+   
 Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory:
 ```
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
@@ -51,13 +55,14 @@ docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
 
 **How to vote**
 
-If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer [to the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key. 
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key. 
+
 Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
 
 - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
 - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
 - [https://node3.gonka.ai](https://node3.gonka.ai)
-   
+  
 Cast your vote ( `yes`, `no` , `abstain` , `no_with_veto` ):
 ```
 export NODE_URL=https://node3.gonka.ai/
@@ -70,7 +75,6 @@ export NODE_URL=https://node3.gonka.ai/
 --chain-id gonka-mainnet \
 --yes
 ```
-
 To check the voting status:
 ```
 export NODE_URL=https://node3.gonka.ai/
@@ -79,9 +83,9 @@ export NODE_URL=https://node3.gonka.ai/
 
 **Deadlines**
 
-- Voting ends:  
-- Upgrade height:  
-- Estimated upgrade time:  
+**Voting ends:** April 30th, 2026, at 00:12 UTC
+**Upgrade height:** 3834200
+**Estimated upgrade time:** April 30th, 2026, at 6:00 UTC
 
 **Attention**
 

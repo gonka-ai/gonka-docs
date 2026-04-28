@@ -22,6 +22,7 @@ nav:
     - Collateral: host/collateral.md
     - Key management: host/key-management.md
     - ML Node Management: host/mlnode-management.md
+    - Multi-Model PoC: host/multi_model_poc.md
     - Multiple nodes: host/multiple-nodes.md
     - Network Node API: host/network-node-api.md
   - Wallet:

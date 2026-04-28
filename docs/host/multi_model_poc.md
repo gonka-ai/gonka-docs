@@ -212,23 +212,6 @@ If **`refusal_penalty`**, **`no_participation_penalty`**, and **`delegation_shar
 
 ---
 
-## Transactions (Host notes)
-
-- Transactions use your **cold** Host key on `--from` in the examples above (unless you have set up a grant for a warm key). There is no separate "creator" field for Hosts to set.
-- **`model_id`** must be a **governance-approved** model the chain knows about.
-- **`delegate_to`** must be a **known participant address**; it does not have to already be running that model's PoC when you send the transaction. If at **validation start** they are not running that model's PoC for the epoch or had **no** weight last epoch, your delegation does **not** count for that model (and penalties may apply once turned on).
-
-Use `--help` on each command for the full flag list:
-
-```bash
-./inferenced tx inference set-poc-delegation --help
-./inferenced tx inference refuse-poc-delegation --help
-./inferenced tx inference declare-poc-intent --help
-./inferenced query inference poc-delegation --help
-```
-
----
-
 ## Host checklist
 
 1. Prefer **one logical model per ML node** where possible; misconfiguration is easy when several models exist on the same node.

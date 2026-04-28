@@ -1,0 +1,1747 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/docs/host/multi_model_poc/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../zh/host/multi_model_poc/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Multi-Model PoC — Host Operations Guide - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - Multi-Model PoC — Host Operations Guide">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/docs/host/multi_model_poc/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#multi-model-poc-host-operations-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://gonka.ai/" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multi-Model PoC — Host Operations Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../zh/host/multi_model_poc/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://gonka.ai/" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Details
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Host
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark to Choose Optimal Deployment Config for LLMs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to edit Host public info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Node API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wallet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pricing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model licenses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Help
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-poc-delegation-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What PoC delegation is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-your-on-chain-choices-are-frozen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When your on-chain choices are frozen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-options-per-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your options (per model)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Your options (per model)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#does-your-delegation-actually-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does your delegation actually count?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-pre-eligibility-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootstrap pre-eligibility events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copy-paste-setup-and-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copy-paste setup and commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Copy-paste setup and commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-variables-set-once-in-this-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session variables (set once in this shell)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-and-epoch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters and epoch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delegate-clear-refuse-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delegate, clear, refuse, intent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-delegation-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query delegation state
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penalties-and-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Penalties and parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="multi-model-poc-host-operations-guide">Multi-Model PoC — Host Operations Guide</h1>
+<p>Upgrade v0.2.12 introduces multi-model PoC. This guide applies once the upgrade has been approved by governance and activated on-chain. After activation, participation is tracked per model: for each approved model, you either run it, delegate, refuse, or do nothing. Once <code>penalty_start_epoch</code> is reached for a model, not participating (directly or via delegation) may reduce your consensus weight. This guide explains what to do and when.</p>
+<p><strong>In scope:</strong> delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.</p>
+<p><strong>Signing:</strong> everything in this guide is shown as if you broadcast from your <strong>cold</strong> Host key (<code>--from</code> points at that account). <em>(But permission can be granted to perform delegation using warm keys.)</em></p>
+<p><strong>Before you start:</strong> confirm your binary and network expose these commands:</p>
+<div class="highlight"><pre><span></span><code>./inferenced query inference --help
+./inferenced tx inference --help
+</code></pre></div>
+<p><strong>Further reading (design and fees):</strong> <a href="https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md">multi-model PoC proposal README</a>.</p>
+<hr>
+<h2 id="what-poc-delegation-is">What PoC delegation is</h2>
+<p>Each <strong>approved model</strong> has its own PoC. Your <strong>consensus weight</strong> from the <strong>previous</strong> epoch still matters for <strong>who can influence PoC validation</strong> on models you do <strong>not</strong> run yourself.</p>
+<p><strong>Delegation</strong> means: for a given <code>model_id</code>, you tell the chain how that weight should behave for <strong>validation voting</strong> on that model — either you support someone else's votes, you opt out in writing, you only signal plans for a new model, or you leave the default (no extra transaction).</p>
+<p>If you <strong>do</strong> submit a valid <strong>PoC v2 store commit</strong> for that model during the epoch (via your normal PoC stack), you are treated as <strong>running that model's PoC yourself</strong> for that epoch. That <strong>overrides</strong> whatever you had set with delegate / refuse / intent for how your participation is counted.</p>
+<hr>
+<h2 id="when-your-on-chain-choices-are-frozen">When your on-chain choices are frozen</h2>
+<p>The chain reads your settings at <strong>two different times</strong> — they answer different questions and apply to different things.</p>
+<p><strong>1. Start of PoC validation for the epoch</strong>
+The chain records <strong>who you delegated to</strong> and <strong>whether you refused</strong>. This applies to models <strong>already in normal operation</strong>. Intent is not read here.</p>
+<p><strong>2. <code>deploy_window</code> blocks before the next PoC starts</strong> — height <code>next_poc_start − deploy_window</code>
+The chain records <strong>delegations and intents</strong> for <strong>bootstrap / pre-eligibility</strong> signals on models <strong>not yet in the normal set</strong>. If <code>deploy_window</code> is zero or negative, this second capture does not run.</p>
+<p>Whether you <strong>actually ran PoC</strong> for a model is not taken from those stored rows: the chain uses your <strong>PoC v2 store commits</strong> for that model during the epoch.</p>
+<hr>
+<h2 id="your-options-per-model">Your options (per model)</h2>
+<blockquote>
+<p>To get a list of all governance-approved <code>model_id</code> values, run:
+</p><div class="highlight"><pre><span></span><code>./inferenced query inference params --node "$NODE" -o json
+</code></pre></div>
+Look inside <code>poc_params</code> → <code>models</code>.
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>What you want</th>
+<th>Command</th>
+<th>Why hosts choose it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run this model's PoC yourself</td>
+<td><em>(no separate on-chain "join"; your stack submits the PoC v2 store commit)</em></td>
+<td>You stay in that model's group for the epoch.</td>
+</tr>
+<tr>
+<td>Trust another host's validation votes for that model</td>
+<td><code>set-poc-delegation</code></td>
+<td>Your weight can count toward their influence on that model's PoC checks, if the rules at validation time are satisfied (see <a href="#does-your-delegation-actually-count">Does your delegation actually count?</a>).</td>
+</tr>
+<tr>
+<td>Explicitly opt out of delegating for that model</td>
+<td><code>refuse-poc-delegation</code></td>
+<td>Clear "no" to delegation; after penalties turn on for that model, a refusal-style deduction may apply if governance configured it. (see <a href="#when-your-on-chain-choices-are-frozen">When your on-chain choices are frozen</a></td>
+</tr>
+<tr>
+<td>Do nothing extra</td>
+<td><em>(no tx)</em></td>
+<td>Default; after penalties turn on, a no-participation-style deduction may apply if governance configured it.</td>
+</tr>
+<tr>
+<td>Signal plans before a new model is fully live</td>
+<td><code>declare-poc-intent</code></td>
+<td>For <strong>bootstrap reporting only</strong>; it does <strong>not</strong> replace running PoC. You still need a store commit in PoC to count as serving the model yourself. See <a href="#bootstrap-pre-eligibility-events">Bootstrap pre-eligibility events</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>One stored choice per model:</strong> for each <code>model_id</code> and your address, the chain keeps <strong>at most one</strong> of delegate / refuse / intent. A new transaction of any of those three <strong>replaces</strong> the previous one. Serving the model yourself (having a valid store commit for that model in the epoch) wins over those three when the chain applies rules for that epoch.</p>
+<h3 id="does-your-delegation-actually-count">Does your delegation actually count?</h3>
+<p><code>set-poc-delegation</code> can be sent anytime, but it only <strong>helps</strong> the delegate if <strong>at validation start</strong> all of the following hold:</p>
+<ul>
+<li>the delegate <strong>ran PoC</strong> for that <code>model_id</code> in that epoch (has the corresponding work committed the usual way), and</li>
+<li>the delegate had <strong>non-zero consensus weight in the previous epoch</strong>.</li>
+</ul>
+<p>Otherwise your delegation is ignored for that model for that epoch (same practical outcome as if you had not delegated), and penalty rules may still apply once they are enabled.</p>
+<p>When a delegation <strong>does</strong> count, your <strong>full</strong> weight is counted toward that host's influence on validating that model's PoC. Separately, <strong><code>delegation_share</code></strong> in <code>params</code> can move part of your <strong>original</strong> consensus weight to them when weights are finalized — that is a different knob from the refusal / no-participation percentages; read <code>params</code> for the exact values.</p>
+<h3 id="bootstrap-pre-eligibility-events">Bootstrap pre-eligibility events</h3>
+<p>If you plan hardware for a <strong>new</strong> model, watch chain events of type <strong><code>bootstrap_model_preeligibility</code></strong>. Typical attributes include: <code>model_id</code>, <code>pre_eligible</code>, <code>meets_weight_threshold</code>, <code>meets_v_min</code>, <code>meets_reachability</code>, <code>intent_host_count</code>, <code>intent_weight</code>, <code>reachable_voting_power</code>, <code>total_network_weight</code>, <code>snapshot_height</code>.</p>
+<p>Use them to decide <strong>when</strong> to declare intent and <strong>when</strong> you must have commits live:</p>
+<ul>
+<li>If <code>pre_eligible = false</code> and you plan to serve this model: check <code>meets_weight_threshold</code> and <code>meets_v_min</code>. If both are false, you may not have enough stake.</li>
+<li>If only <code>meets_reachability</code> is false, verify your node is reachable before the next capture height.</li>
+</ul>
+<hr>
+<h2 id="copy-paste-setup-and-commands">Copy-paste setup and commands</h2>
+<h3 id="session-variables-set-once-in-this-shell">Session variables (set once in this shell)</h3>
+<p>Adjust values, then run the block. <strong>All examples below</strong> use <code>NODE</code>, <code>CHAIN_ID</code>, <code>KEY</code> (your <strong>cold</strong> key name in the keyring), and optional <code>KEYRING_BACKEND</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NODE</span><span class="o">=</span><span class="s2">"&lt;PUBLIC_URL&gt;"</span>
+<span class="nv">CHAIN_ID</span><span class="o">=</span><span class="s2">"gonka-mainnet"</span>
+<span class="nv">KEY</span><span class="o">=</span><span class="s2">"gonka-account-key"</span><span class="w">   </span><span class="c1"># cold key; see note at top on warm-key grants</span>
+<span class="nv">KEYRING_BACKEND</span><span class="o">=</span><span class="s2">"file"</span>
+
+<span class="nv">MY_ADDR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>./inferenced<span class="w"> </span>keys<span class="w"> </span>show<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span>-a<span class="w"> </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span><span class="k">)</span><span class="s2">"</span>
+<span class="c1"># If keys show fails, set your address explicitly:</span>
+<span class="c1"># MY_ADDR="gonka1..."</span>
+</code></pre></div>
+<p>Each <code>tx inference …</code> example below repeats the same <code>--from</code> / <code>--node</code> / <code>--chain-id</code> / <code>--keyring-backend</code> / gas flags so you can copy <strong>one</strong> block without merging lines from elsewhere. If your keyring is already the default, you may omit <code>--keyring-backend</code>.</p>
+<p><strong>Optional — fewer repeated flags:</strong> set default RPC node and chain id in the CLI client config for this machine (Cosmos-style <code>client.toml</code>; use <code>./inferenced config --help</code>). After that you can omit <code>--node</code> and <code>--chain-id</code> from the transaction lines below.</p>
+<h3 id="parameters-and-epoch">Parameters and epoch</h3>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>params<span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>get-current-epoch<span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<h3 id="delegate-clear-refuse-intent">Delegate, clear, refuse, intent</h3>
+<p><strong>Delegate</strong> (the delegate need not already be running that model's PoC when you send the tx):</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"your-model-id"</span>
+<span class="nv">DELEGATEE</span><span class="o">=</span><span class="s2">"gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>set-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$DELEGATEE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p><strong>Clear delegation:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"your-model-id"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>set-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p><strong>Refuse:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"your-model-id"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>refuse-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p><strong>Bootstrap intent:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"your-model-id"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>declare-poc-intent<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<h3 id="query-delegation-state">Query delegation state</h3>
+<p><strong>All models:</strong></p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MY_ADDR</span><span class="s2">"</span><span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<p><strong>One model</strong> (second argument optional):</p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MY_ADDR</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<p>The response lists <strong>delegations</strong>, <strong>refusals</strong>, and <strong>intents</strong> separately; for a given model you will have <strong>at most one</strong> of the three.</p>
+<hr>
+<h2 id="penalties-and-parameters">Penalties and parameters</h2>
+<p>Penalties and the delegation share apply to <strong>consensus weight</strong> when the next epoch's active set is built, <strong>after</strong> PoC outcomes are known. Everything below comes from <code>./inferenced query inference params</code> (JSON fields vary slightly by version; search inside the output for these names).</p>
+<table>
+<thead>
+<tr>
+<th>Where in <code>params</code></th>
+<th>Field</th>
+<th>Meaning for hosts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Per model in <code>poc_params</code> → <code>models</code></td>
+<td><code>penalty_start_epoch</code></td>
+<td>Before this epoch index, penalty rules for <strong>that model</strong> do not apply. Track per <code>model_id</code>.</td>
+</tr>
+<tr>
+<td>Per model in <code>poc_params</code> → <code>models</code></td>
+<td><code>weight_scale_factor</code></td>
+<td>Scales that model's PoC weight into consensus weight.</td>
+</tr>
+<tr>
+<td><code>delegation_params</code></td>
+<td><code>refusal_penalty</code></td>
+<td>Fraction of your original consensus weight removed when you used <code>refuse-poc-delegation</code> after <code>penalty_start_epoch</code>.</td>
+</tr>
+<tr>
+<td><code>delegation_params</code></td>
+<td><code>no_participation_penalty</code></td>
+<td>Fraction removed when you did not refuse, did not have a valid delegation, and did not serve the model yourself — after penalties apply.</td>
+</tr>
+<tr>
+<td><code>delegation_params</code></td>
+<td><code>delegation_share</code></td>
+<td>Fraction of the delegator's original weight reallocated to the delegate when delegation is valid.</td>
+</tr>
+<tr>
+<td><code>delegation_params</code></td>
+<td><code>deploy_window</code></td>
+<td>Blocks before the next PoC start at which the bootstrap snapshot height is chosen (<code>next_poc_start − deploy_window</code>).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advanced eligibility parameters</strong> (most hosts can skip): <code>w_threshold</code>, <code>v_min</code>, <code>cap_factor</code>, <code>initial_model_id</code>, <code>max_model_voting_power_percentage</code> — eligibility thresholds, caps, and per-model voting concentration limits. Zero on the last usually means "no cap".</p>
+<p>If <strong><code>refusal_penalty</code></strong>, <strong><code>no_participation_penalty</code></strong>, and <strong><code>delegation_share</code></strong> are all <strong>zero</strong>, the chain does not apply those deductions or transfers (common right after upgrade until governance enables them).</p>
+<hr>
+<h2 id="host-checklist">Host checklist</h2>
+<ol>
+<li>Prefer <strong>one logical model per ML node</strong> where possible; misconfiguration is easy when several models exist on the same node.</li>
+<li>Before each model's <strong><code>penalty_start_epoch</code></strong>, decide whether to <strong>delegate</strong>, <strong>refuse</strong>, or leave the default; read <strong><code>params</code></strong> for that model's epoch and for non-zero penalty fractions (all zero means penalties/transfers off).</li>
+<li>For new models, watch <strong><code>bootstrap_model_preeligibility</code></strong> and send <strong><code>declare-poc-intent</code></strong> in time for the capture at <strong><code>next_poc_start − deploy_window</code></strong>. Intent does not replace running PoC — you still need a store commit to count as serving the model yourself.</li>
+<li>After <strong><code>set-poc-delegation</code></strong>, verify with <strong><code>poc-delegation</code></strong> for your address and model.</li>
+<li>After upgrade, confirm <strong><code>params</code></strong> lists every model you care about under <strong><code>poc_params</code></strong> and that <strong><code>delegation_params</code></strong> matches what governance announced.</li>
+</ol></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/javascripts/links.js"></script>
+      
+        <script src="../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

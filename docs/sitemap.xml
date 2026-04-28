@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://gonka.ai/docs/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/Errors/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/Errors/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/Errors/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/FAQ/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/FAQ/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/FAQ/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/architecture/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/architecture/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/architecture/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/glossary/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/glossary/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/glossary/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/help/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/help/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/help/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/login/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/login/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/login/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/model-licenses/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/model-licenses/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/model-licenses/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/release-announcements/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/release-announcements/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/release-announcements/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/signup/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/signup/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/signup/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/software-upgrades/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/software-upgrades/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/software-upgrades/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/transactions-and-governance/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/transactions-and-governance/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/transactions-and-governance/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/developer/create_a_new_gonka_account/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/developer/create_a_new_gonka_account/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/developer/create_a_new_gonka_account/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/developer/details/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/developer/details/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/developer/details/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/developer/quickstart/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/developer/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/developer/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/benchmark-to-choose-optimal-deployment-config-for-llms/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/benchmark-to-choose-optimal-deployment-config-for-llms/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/benchmark-to-choose-optimal-deployment-config-for-llms/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/collateral/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/collateral/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/collateral/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/genesis/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/genesis/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/genesis/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/hardware-specifications/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/hardware-specifications/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/hardware-specifications/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/host_info/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/host_info/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/host_info/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/key-management/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/key-management/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/key-management/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/mlnode-management/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/mlnode-management/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/mlnode-management/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/multi_model_poc/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/multi_model_poc/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/multi_model_poc/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/multiple-nodes/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/multiple-nodes/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/multiple-nodes/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/network-node-api/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/network-node-api/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/network-node-api/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/optional-ssl-setup/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/optional-ssl-setup/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/optional-ssl-setup/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/proposals/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/proposals/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/proposals/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/quickstart/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/host/rewards/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/rewards/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/rewards/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/benchmark-to-choose-optimal-deployment-config-for-llms/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/benchmark-to-choose-optimal-deployment-config-for-llms/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/benchmark-to-choose-optimal-deployment-config-for-llms/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/genesis-new/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/genesis-new/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/genesis-new/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/genesis/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/genesis/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/genesis/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/hardware-specifications/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/hardware-specifications/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/hardware-specifications/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/key-management/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/key-management/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/key-management/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/multi-node-setup-for-review/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/multi-node-setup-for-review/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/multi-node-setup-for-review/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/multiple-nodes/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/multiple-nodes/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/multiple-nodes/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/network-node-api/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/network-node-api/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/network-node-api/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/participant/quickstart/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/wallet/dashboard/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/wallet/dashboard/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/wallet/dashboard/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/wallet/pricing/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/wallet/pricing/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/wallet/pricing/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/wallet/wallet-and-transfer-guide/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/wallet/wallet-and-transfer-guide/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/wallet/wallet-and-transfer-guide/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/Errors/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/Errors/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/Errors/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/FAQ/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/FAQ/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/FAQ/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/architecture/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/architecture/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/architecture/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/glossary/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/glossary/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/glossary/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/help/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/help/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/help/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/login/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/login/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/login/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/model-licenses/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/model-licenses/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/model-licenses/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/release-announcements/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/release-announcements/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/release-announcements/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/signup/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/signup/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/signup/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/software-upgrades/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/software-upgrades/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/software-upgrades/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/transactions-and-governance/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/transactions-and-governance/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/transactions-and-governance/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/developer/create_a_new_gonka_account/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/developer/create_a_new_gonka_account/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/developer/create_a_new_gonka_account/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/developer/details/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/developer/details/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/developer/details/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/developer/quickstart/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/developer/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/developer/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/benchmark-to-choose-optimal-deployment-config-for-llms/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/benchmark-to-choose-optimal-deployment-config-for-llms/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/benchmark-to-choose-optimal-deployment-config-for-llms/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/collateral/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/collateral/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/collateral/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/genesis/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/genesis/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/genesis/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/hardware-specifications/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/hardware-specifications/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/hardware-specifications/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/host_info/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/host_info/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/host_info/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/key-management/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/key-management/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/key-management/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/mlnode-management/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/mlnode-management/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/mlnode-management/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/multi_model_poc/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/multi_model_poc/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/multi_model_poc/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/multiple-nodes/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/multiple-nodes/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/multiple-nodes/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/network-node-api/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/network-node-api/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/network-node-api/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/optional-ssl-setup/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/optional-ssl-setup/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/optional-ssl-setup/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/proposals/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/proposals/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/proposals/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/quickstart/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/rewards/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/rewards/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/host/rewards/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/benchmark-to-choose-optimal-deployment-config-for-llms/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/benchmark-to-choose-optimal-deployment-config-for-llms/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/benchmark-to-choose-optimal-deployment-config-for-llms/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/genesis-new/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/genesis-new/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/genesis-new/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/genesis/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/genesis/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/genesis/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/hardware-specifications/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/hardware-specifications/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/hardware-specifications/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/key-management/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/key-management/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/key-management/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/multi-node-setup-for-review/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/multi-node-setup-for-review/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/multi-node-setup-for-review/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/multiple-nodes/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/multiple-nodes/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/multiple-nodes/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/network-node-api/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/network-node-api/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/network-node-api/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/participant/quickstart/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/participant/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/participant/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/wallet/dashboard/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/wallet/dashboard/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/wallet/dashboard/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/wallet/pricing/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/wallet/pricing/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/wallet/pricing/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/wallet/wallet-and-transfer-guide/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/wallet/wallet-and-transfer-guide/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/docs/wallet/wallet-and-transfer-guide/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/genesis-new/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/genesis-new/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/host/validator_info/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/host/validator_info/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/docs/zh/wallet/external_wallets/</loc>
+        <lastmod>2026-04-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/docs/zh/wallet/external_wallets/"/>
+    </url>
+</urlset>

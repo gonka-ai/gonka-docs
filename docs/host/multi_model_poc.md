@@ -1,6 +1,6 @@
 # Multi-Model PoC — Host Operations Guide
 
-This guide is for **hosts** after Upgrade **v0.2.12** has been successfully approved by governance and applied on-chain. It explains **what to configure on-chain**, **why it matters**, and **which `./inferenced` commands to run**.
+Upgrade v0.2.12 introduces multi-model PoC. This guide applies once the upgrade has been approved by governance and activated on-chain. After activation, participation is tracked per model: for each approved model, you either run it, delegate, refuse, or do nothing. Once `penalty_start_epoch` is reached for a model, not participating (directly or via delegation) may reduce your consensus weight. This guide explains what to do and when.
 
 **In scope:** delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.
 

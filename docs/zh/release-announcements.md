@@ -8,6 +8,84 @@
 
     本页面内容不保证完全覆盖所有信息。有关最新信息（包括治理投票的发起及当前状态），请参考链上数据或查看相关浏览器与仪表盘。
 
+## 2026年4月28日
+
+**v0.2.12 升级：升级前模型清理**
+
+v0.2.12 升级提案目前已进入链上投票周期的一半阶段。
+
+- 投票结束时间：2026年4月30日 00:12 UTC
+- 升级高度：3834200
+- 预计升级时间：2026年4月30日 06:00 UTC
+
+建议各主机在 [GitHub](https://github.com/gonka-ai/gonka/pull/948) 上查看该提案并进行投票。
+
+**升级前所需操作**
+
+随着网络逐步接近升级窗口，主机应提前准备其节点，以防该提案通过。
+
+此清理过程 **必须在升级发生之前完成**。 如果在升级时，你的节点配置中包含不受支持的模型， **节点将被拒绝并下线。**
+
+版本 0.2.12 会移除所有不在升级后批准列表中的治理模型。在主网上，仅会保留此前已强制执行的模型以及 Kimi。
+每个 DAPI 会在本地持久化其 MLNode 配置。在启动时，它会根据链上治理列表验证每一个已配置的模型。如果配置中包含至少一个不受支持的模型，则整个节点会被拒绝，主机将下线
+
+版本 0.2.11 通过将运行时视图裁剪为仅保留强制模型来掩盖了这个问题，因此即使持久化配置中仍包含额外模型， `/admin/v1/nodes` 看起来也依然是干净的。版本 0.2.12 取消了这种裁剪，这意味着持久化配置将被直接加载。
+
+为了解决这个问题，下面的脚本会在 `/admin/v1/config` 中查找每个包含额外模型的节点，并向 `/admin/v1/nodes/<id>` 发送带有清理后配置的 `PUT` 请求。这些更改将在 60 秒内持久化。剩余模型的参数、硬件和端口将被完全保留。未列出强制模型的节点将被跳过，并需要手动修复。
+
+将以下脚本粘贴到主机的 shell 中。默认情况下，它会应用更改。如果仅想预览更改而不执行，请设置 `APPLY=dry`（或任何不等于 `--apply`的值）。
+
+仓库中的脚本：
+
+- [Bash](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.sh)
+- [Python](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.py).
+
+```bash
+ADMIN=${ADMIN:-http://127.0.0.1:9200}
+KEEP=${KEEP:-Qwen/Qwen3-235B-A22B-Instruct-2507-FP8}
+APPLY=${APPLY:-"--apply"}
+
+curl -sS "$ADMIN/admin/v1/config" | jq -r --arg k "$KEEP" '
+  .nodes[] | "\(.id): " + (
+    if (.models | has($k) | not) then "skip (\(.models | keys))"
+    elif (.models | length) == 1 then "ok"
+    else "\(.models | keys) -> [\($k)]" end)'
+
+if [[ "$APPLY" == "--apply" ]]; then
+  curl -sS "$ADMIN/admin/v1/config" \
+    | jq -c --arg k "$KEEP" \
+        '.nodes[] | select((.models | has($k)) and (.models | length > 1)) | .models = {($k): .models[$k]}' \
+    | while IFS= read -r p; do
+        id=$(jq -r .id <<<"$p")
+        curl -sS -f -X PUT -H 'Content-Type: application/json' -d "$p" \
+          "$ADMIN/admin/v1/nodes/$id" >/dev/null && echo "$id: updated"
+      done
+  echo "done; persisted within 60s"
+else
+  echo "preview only; rerun without APPLY=dry to commit"
+fi
+```
+
+
+在运行脚本后等待 60 秒，以确保更改已被持久化，然后再触发升级。之后，验证配置：
+
+```bash
+curl -sS http://127.0.0.1:9200/admin/v1/config \
+  | jq '.nodes[] | {id, models: (.models | keys)}'
+```
+
+预期输出：
+```json
+{
+  "id": "<nodeId>",
+  "models": [
+    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+  ]
+}
+```
+*（其他节点将遵循相同格式）*
+
+
 ## April 27, 2026
 
 **v0.2.12 升级提案进入治理阶段**

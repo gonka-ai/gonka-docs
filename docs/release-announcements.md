@@ -24,7 +24,7 @@ Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka
 
 As the network approaches the upgrade window, hosts should prepare their nodes in advance in case the proposal passes.
 
-This cleanup process **must be completed before the upgrade happens**. If you upgrade before cleaning up the models, your node will be rejected and go offline.
+This cleanup process **must be completed before the upgrade happens**. If, at the time of the upgrade, your node’s configuration includes unsupported models, **it will be rejected and go offline.**
 
 Version 0.2.12 removes every governance model that is not on the post-upgrade approved list. On mainnet, only the previously enforced model and Kimi will remain.
 Each DAPI persists its MLNode configurations locally. On startup, it validates every configured model against the on-chain governance list. If a configuration includes at least one unsupported model, the entire node is rejected, and the host goes offline. 

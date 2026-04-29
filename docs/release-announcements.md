@@ -8,6 +8,83 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## April 28, 2026
+
+**Upgrade v0.2.12: Pre-Upgrade Model Cleanup**
+
+The v0.2.12 upgrade proposal is now halfway through its on-chain voting period.
+
+- Voting ends: April 30th, 2026, at 00:12 UTC
+- Upgrade height: 3834200
+- Estimated upgrade time: April 30th, 2026, at 6:00 am UTC
+
+Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka-ai/gonka/pull/948) and vote.
+
+**Action required before the upgrade**
+
+As the network approaches the upgrade window, hosts should prepare their nodes in advance in case the proposal passes.
+
+This cleanup process **must be completed before the upgrade happens**. If you upgrade before cleaning up the models, your node will be rejected and go offline.
+
+Version 0.2.12 removes every governance model that is not on the post-upgrade approved list. On mainnet, only the previously enforced model and Kimi will remain.
+Each DAPI persists its MLNode configurations locally. On startup, it validates every configured model against the on-chain governance list. If a configuration includes at least one unsupported model, the entire node is rejected, and the host goes offline. 
+
+Version 0.2.11 masked this problem by trimming the runtime view down to the enforced model, so `/admin/v1/nodes` appeared clean even when the persisted config still contained extra models. Version 0.2.12 stops this trimming, meaning the persisted config is loaded directly.
+
+To fix this, the script below finds each node with extra models in `/admin/v1/config` and sends a `PUT` request with a cleaned config to `/admin/v1/nodes/<id>`. These changes are persisted within 60 seconds. The remaining model's arguments, hardware, and ports are preserved exactly. Nodes that do not list the enforced model are skipped and will require manual fixing.
+
+Paste the following script into the host's shell. By default, it will apply the changes. To preview the changes without applying them, set `APPLY=dry` (or any value other than `--apply`).
+
+Script in the repository: 
+
+- [Bash](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.sh)
+- [Python](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.py).
+
+```bash
+ADMIN=${ADMIN:-http://127.0.0.1:9200}
+KEEP=${KEEP:-Qwen/Qwen3-235B-A22B-Instruct-2507-FP8}
+APPLY=${APPLY:-"--apply"}
+
+curl -sS "$ADMIN/admin/v1/config" | jq -r --arg k "$KEEP" '
+  .nodes[] | "\(.id): " + (
+    if (.models | has($k) | not) then "skip (\(.models | keys))"
+    elif (.models | length) == 1 then "ok"
+    else "\(.models | keys) -> [\($k)]" end)'
+
+if [[ "$APPLY" == "--apply" ]]; then
+  curl -sS "$ADMIN/admin/v1/config" \
+    | jq -c --arg k "$KEEP" \
+        '.nodes[] | select((.models | has($k)) and (.models | length > 1)) | .models = {($k): .models[$k]}' \
+    | while IFS= read -r p; do
+        id=$(jq -r .id <<<"$p")
+        curl -sS -f -X PUT -H 'Content-Type: application/json' -d "$p" \
+          "$ADMIN/admin/v1/nodes/$id" >/dev/null && echo "$id: updated"
+      done
+  echo "done; persisted within 60s"
+else
+  echo "preview only; rerun without APPLY=dry to commit"
+fi
+```
+
+
+Wait 60 seconds after running the script to ensure the changes are persisted before triggering the upgrade. Then, verify the configuration:
+
+```bash
+curl -sS http://127.0.0.1:9200/admin/v1/config \
+  | jq '.nodes[] | {id, models: (.models | keys)}'
+```
+
+Expected output:
+```json
+{
+  "id": "<nodeId>",
+  "models": [
+    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+  ]
+}
+```
+*(Additional nodes will follow the same format)*
+
 ## April 27, 2026
 
 **v0.2.12 Upgrade Proposal Enters Governance**

@@ -1,0 +1,52 @@
+# Docs-only MkDocs build.
+#
+# Produces the full documentation tree under https://gonka.ai/docs/ (and
+# /docs/zh/). The site root / is handled separately by mkdocs.home.yml.
+#
+# docs_dir points at _stage/docs, populated by buildtools/prepare-stages.sh:
+# a full copy of docs/ where introduction.md has been promoted to index.md
+# so that /docs/ serves the Introduction page directly (no redirect).
+INHERIT: mkdocs.yml
+
+site_url: https://gonka.ai/docs/
+site_dir: _publish/docs
+docs_dir: _stage/docs
+
+# Override the header logo link so it points at the landing page at the apex
+# domain (gonka.ai/) rather than the docs index (gonka.ai/docs/).
+extra:
+  homepage: https://gonka.ai/
+
+# Same as mkdocs.yml nav, but:
+#  - no "Home" entry (the landing lives at /, outside this build)
+#  - "Introduction" points at index.md (the promoted introduction content)
+nav:
+  - Introduction: index.md
+  - Glossary: glossary.md
+  - Developer:
+    - Quickstart: developer/quickstart.md
+    - Details: developer/details.md
+  - Host:
+    - Quickstart: host/quickstart.md
+    - Architecture: architecture.md
+    - Benchmark to Choose Optimal Deployment Config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
+    - Genesis: host/genesis.md
+    - Hardware specifications: host/hardware-specifications.md
+    - How to edit Host public info: host/host_info.md
+    - Collateral: host/collateral.md
+    - Key management: host/key-management.md
+    - ML Node Management: host/mlnode-management.md
+    - Multiple nodes: host/multiple-nodes.md
+    - Network Node API: host/network-node-api.md
+  - Wallet:
+    - Dashboard: wallet/dashboard.md
+    - Pricing: wallet/pricing.md
+    - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md
+  - Announcements: release-announcements.md
+  - Model licenses: model-licenses.md
+  - Software upgrades: software-upgrades.md
+  - Transactions & governance: transactions-and-governance.md
+  - Help:
+    - FAQ: FAQ.md
+    - Errors: Errors.md
+    - Get help: help.md

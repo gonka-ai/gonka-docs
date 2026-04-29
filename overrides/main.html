@@ -18,16 +18,22 @@
     <meta property="og:image:height" content="568">
   {% endblock %}
 
+{# Hide Material's header/tabs only on pages that are actual hero landings.
+   The split build has two index pages per locale:
+     - /       and /zh/        -> real hero landing (meta.landing: true)
+     - /docs/  and /docs/zh/   -> Introduction content (no meta.landing)
+   Relying on page.is_homepage would wrongly hide the header on /docs/
+   (which is the "homepage" of the docs build) and fail to hide it on
+   /zh/ (which i18n does not flag as the primary homepage). #}
+{% set is_landing = page and page.meta and page.meta.landing %}
 {% block header %}
-{# show Material’s header on every page EXCEPT the homepage #}
-{% if not page.is_homepage %}
+{% if not is_landing %}
 {{ super() }}
 {% endif %}
 {% endblock %}
 
-{# --- hide the horizontal nav-tabs row on index ----------------------- #}
 {% block tabs %}
-{% if not page.is_homepage %}
+{% if not is_landing %}
 {{ super() }}
 {% endif %}
 {% endblock %}

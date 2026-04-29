@@ -1,3 +1,8 @@
+---
+landing: true
+---
+
+<div>
 <div class="gonka-landing">
   <!-- Header -->
   <header class="gonka-header">
@@ -10,7 +15,7 @@
           <path d="M23.3938 0.0447591C34.8946 0.763813 44 10.3179 44 22C44 28.5649 41.123 34.4565 36.5628 38.4875C30.4919 31.7747 23.4655 25.0585 23.4368 18.3459C23.4108 12.2455 23.4027 6.14511 23.3938 0.0447591Z" fill="#2A2A2A"/>
         </svg>
     </a>
-    <a href="./introduction/" class="gonka-docs-link">
+    <a href="/docs/" class="gonka-docs-link">
       <span>Documentation</span> 
       <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.5 13.5L10.5 6.5" stroke="black" stroke-width="1.5"/>
@@ -40,9 +45,7 @@
         </div>
       </div>
     </section>
-  </main>  
-    </section>
-  </main>  
+  </main>
 
 <!-- Footer – 4 plain columns -->
 <footer class="gonka-footer">
@@ -347,3 +350,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </script>
+</div>

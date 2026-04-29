@@ -6,6 +6,12 @@ name: index.md
 
 This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
 
+!!! note "Important for existing Leap Wallet users"
+
+    If you previously created your Gonka account with Leap Wallet, please be aware that [Leap is shutting down all of its products on May 28, 2026](https://www.leapwallet.io/), including the browser extension, mobile app, and dashboard.
+    
+    Because Leap is a non-custodial wallet, your assets and account remain on-chain. However, to keep access to your wallet, you should import your existing recovery phrase into another supported wallet, such as Keplr, before Leap services go offline.
+
 ??? note "How Gonka differs from traditional AI APIs"
     Gonka isn’t just another AI API — it’s a cryptographic protocol for provable inference. By eliminating centralized identity, Gonka removes the traditional single point of failure that plagues SaaS-based AI services. Here is a quick comparison table to help you understand the differences between a Traditional AI API and the Gonka API.
     
@@ -278,118 +284,7 @@ Do not forget to write it down, you will need it in the next step.
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
 
-=== "Option 3: Via Leap (external wallet)"
-
-    !!! note "Important Notice: Limited Functionality"
-
-        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via `inferenced` CLI tool or Option 2: Via Keplr (external wallet, "Connect with Google") instead.
-    
-    Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
-    
-    <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:500px; height:auto;"></a>
-    
-    Add the selected extension to your browser.
-    
-    <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
-    
-    Click "Create a new wallet".
-    
-    <a href="/images/dashboard_leap_step_2_3.png" target="_blank"><img src="/images/dashboard_leap_step_2_3.png" style="width:500px; height:auto;"></a>
-
-    Save your secret recovery phrase. Write down these words, your secret recovery phrase is the only way to recover your wallet and funds!
-
-    <a href="/images/leap_your_secret_recovery_phrase.png" target="_blank"><img src="/images/leap_your_secret_recovery_phrase.png" style="width:500px; height:auto;"></a>
-
-    Choose a password to secure & lock your wallet. Agree to the Terms & Conditions.
-
-    <a href="/images/leap_create_your_password.png" target="_blank"><img src="/images/leap_create_your_password.png" style="width:500px; height:auto;"></a>
-
-    Your Leap wallet has been created.
-
-    <a href="/images/leap_you_are_all_set.png" target="_blank"><img src="/images/leap_you_are_all_set.png" style="width:500px; height:auto;"></a>
-
-    **Open Gonka’s decentralized Dashboard**
-    
-    Choose a random node from the `inference_url` list of genesis-nodes
-    
-    - [http://185.216.21.98:8000](http://185.216.21.98:8000)
-    - [http://69.19.136.233:8000](http://69.19.136.233:8000)
-    - [http://36.189.234.197:18026](http://36.189.234.197:18026)
-    - [http://36.189.234.237:17241](http://36.189.234.237:17241)
-    - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
-    - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
-    - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
-    - [http://47.236.26.199:8000](http://47.236.26.199:8000)
-    - [http://47.236.19.22:18000](http://47.236.19.22:18000)
-    - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
-    
-    ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-        Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
-
-        Choose any active Host from the list.
-        
-        Copy their `inference_url` value.
-        
-    Paste the `inference_url` into your browser to load the Gonka dashboard, which shows live on-chain activity.
-    
-    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
-    
-    In the top-right corner, click "Connect Wallet" to get started.
-    
-    <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
-    
-    Select Leap and hit Connect.
-    
-    <a href="/images/choose_wallet_leap.png" target="_blank"><img src="/images/choose_wallet_leap.png" style="width:500px; height:auto;"></a>
-    
-    You will see a prompt to add a custom Gonka chain to your wallet. Approve and add Gonka chain.
-    
-    <a href="/images/leap_add_network.png" target="_blank"><img src="/images/leap_add_network.png" style="width:500px; height:auto;"></a>
-
-    Done! Your Gonka Developer account has been successfully created.
-
-    <a href="/images/leap_created_gonka_account.png" target="_blank"><img src="/images/leap_created_gonka_account.png" style="width:500px; height:auto;"></a>
-
-    Open the extension and navigate to the menu in the top-left corner.
-            
-    <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
-
-    Click "Security & Privacy".
-
-    <a href="/images/leap_security_privacy.png" target="_blank"><img src="/images/leap_security_privacy.png" style="width:auto; height:337.5px;"></a>
-
-    Click "Show private key". 
-   
-    <a href="/images/leap_show_private_key.png" target="_blank"><img src="/images/leap_show_private_key.png" style="width:auto; height:337.5px;"></a>
-
-    Enter your password.
-    
-    <a href="/images/leap_enter_password.png" target="_blank"><img src="/images/leap_enter_password.png" style="width:auto; height:337.5px;"></a>
-
-    Copy your private key and store it securely (a hard copy is preferred).   
-
-    ??? note "Optional: How to add an additional Gonka account to Leap wallet — click to view steps"            
-        Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
-            
-        <a href="/images/dashboard_leap_step_3_5_1.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_1.png" style="width:250px; height:auto;"></a>
-            
-        Click the "Create/Import wallet" button.
-            
-        <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
-            
-        Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase. However, bridge functionality will be limited, as the bridge requires direct access to the raw private key to sign transactions and ensure full interoperability with Ethereum. 
-            
-        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
-    
-        Paste your private key or a recovery (mnemonic/seed) phrase.
-    
-        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:250px; height:auto;"></a>
-            
-        Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
-            
-        <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
-
-=== "Option 4: Via Cosmostation (external wallet)"
+=== "Option 3: Via Cosmostation (external wallet)"
 
     !!! note "Important Notice: Limited Functionality"
         This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via `inferenced` CLI tool or Option 2: Via Keplr (external wallet, "Connect with Google") instead.

@@ -3,7 +3,7 @@
 To start using Gonka Network, you first need to create a Gonka Account.
 There are several ways to do this:
 
-- Via external wallet (Keplr or Leap)
+- Via external wallet (Keplr)
 - Via `inferenced` CLI tool
 
 !!! note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
@@ -13,7 +13,6 @@ There are several ways to do this:
     
     - Accounts created via `inferenced` CLI tool
     - Accounts created via the “Connect with Google” flow in Keplr
-    - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
 
     Not eligible (no private key export):
     
@@ -46,7 +45,6 @@ There are several ways to do this:
                 
                 - Accounts created via `inferenced` CLI tool
                 - Accounts created via the “Connect with Google” flow in Keplr
-                - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
             
                 Not eligible (no private key export):
                 
@@ -115,7 +113,6 @@ There are several ways to do this:
                 
                 - Accounts created via `inferenced` CLI tool
                 - Accounts created via the “Connect with Google” flow in Keplr
-                - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
             
                 Not eligible (no private key export):
                 
@@ -177,7 +174,6 @@ There are several ways to do this:
                     
                     - Accounts created via `inferenced` CLI tool
                     - Accounts created via the “Connect with Google” flow in Keplr
-                    - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
                 
                     Not eligible (no private key export):
                     
@@ -197,123 +193,6 @@ There are several ways to do this:
                     
                 <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
 
-        === "Leap browser extension"
-    
-            Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
-            
-            <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:500px; height:auto;"></a>
-            
-            Add the selected extension to your browser.
-            
-            <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
-            
-            After installing the extension, you should see it in the top-right panel of your browser. 
-            
-            <a href="/images/leap_extension.png" target="_blank"><img src="/images/leap_extension.png" style="width:500px; height:auto;"></a>
-            
-            At this point, the extension is installed, but your wallet and your Gonka account are not created yet. Please continue to the next step to set them up.
-
-            Click "Create a new wallet".
-            
-            <a href="/images/dashboard_leap_step_2_3.png" target="_blank"><img src="/images/dashboard_leap_step_2_3.png" style="width:500px; height:auto;"></a>
-        
-            Backup your recovery phrase securely. Anyone with your recovery phrase can have access to your assets. Store your recovery phrase in a safe and secure place. Never share your recovery phrase with anyone.
-        
-            <a href="/images/leap_your_secret_recovery_phrase.png" target="_blank"><img src="/images/leap_your_secret_recovery_phrase.png" style="width:500px; height:auto;"></a>
-        
-            Choose a password to secure & lock your wallet.  Store your password in a safe and secure place. Agree to the Terms & Conditions.
-        
-            <a href="/images/leap_create_your_password.png" target="_blank"><img src="/images/leap_create_your_password.png" style="width:500px; height:auto;"></a>
-        
-            You have created your wallet in Leap. Now, follow the instructions below to add the Gonka network to your wallet and complete the creation of your Gonka network account.
-        
-            <a href="/images/leap_you_are_all_set.png" target="_blank"><img src="/images/leap_you_are_all_set.png" style="width:500px; height:auto;"></a>
-        
-            Here is the guide on how to add the Gonka network to your wallet and how your Gonka account will be created. Here is the list of genesis nodes. Choose a random node from the list below and open it in a new browser window.
-            
-            - [http://69.19.136.233:8000](http://69.19.136.233:8000)
-            - [http://36.189.234.197:18026](http://36.189.234.197:18026)
-            - [http://36.189.234.237:17241](http://36.189.234.237:17241)
-            - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
-            - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
-            - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
-            - [http://47.236.26.199:8000](http://47.236.26.199:8000)
-            - [http://47.236.19.22:18000](http://47.236.19.22:18000)
-            - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
-            - [http://185.216.21.98:8000](http://185.216.21.98:8000)
-            
-            ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-                Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
-                
-                Choose any active Host from the list.
-                
-                Copy their `inference_url` value.
-                
-                Paste the `inference_url` into your browser to load the dashboard.
-            
-            Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
-            
-            In the top-right corner, click "Connect Wallet" to add the Gonka chain to your wallet.
-            
-            <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
-            
-            Select Leap and hit Connect.
-            
-            <a href="/images/dashboard_connect_leap.png" target="_blank"><img src="/images/dashboard_connect_leap.png" style="width:500px; height:auto;"></a>
-            
-            Since Gonka network is still in an early stage, it is not included in wallets by default. Because of this, we need to add it manually. When the prompt appears, approve it to add the Gonka chain to your wallet. Once the Gonka network is added, your Gonka account will be created automatically.
-            
-            <a href="/images/leap_add_network.png" target="_blank"><img src="/images/leap_add_network.png" style="width:500px; height:auto;"></a>
-        
-            Your Gonka account has been created. The last 4 characters of your wallet appear in the top-right corner. To copy your full wallet address, follow the steps below.
-        
-            <a href="/images/leap_created_gonka_account.png" target="_blank"><img src="/images/leap_created_gonka_account.png" style="width:500px; height:auto;"></a>
-        
-            Open the wallet extension. Below your zero (“-”) balance, you will see Gonka account address (for example, gonka...5e6r) — click that to copy your account address. You can safely share this with anyone who wants to send you payments. 
-                    
-            <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
-        
-            Now, save your private key. In the browser extension navigate to the menu in the top-left corner.
-        
-            <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
-            
-            Click "Security & Privacy".
-            
-            <a href="/images/leap_security_privacy.png" target="_blank"><img src="/images/leap_security_privacy.png" style="width:auto; height:337.5px;"></a>
-            
-            Click "Show private key". 
-            
-            <a href="/images/leap_show_private_key.png" target="_blank"><img src="/images/leap_show_private_key.png" style="width:auto; height:337.5px;"></a>
-            
-            Enter your password.
-            
-            <a href="/images/leap_enter_password.png" target="_blank"><img src="/images/leap_enter_password.png" style="width:auto; height:337.5px;"></a>
-            
-            Copy your private key and store it securely (a hard copy is preferred).  Anyone with your private key can have access to your assets. Never share your private key with anyone.
-            
-            To access your wallet on a mobile device, download the Leap app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.            
-                 
-            ??? note "Optional: How to add an additional Gonka account to Leap wallet — click to view steps"            
-                Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
-                    
-                <a href="/images/dashboard_leap_step_3_5_1.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_1.png" style="width:250px; height:auto;"></a>
-                    
-                Click the "Create/Import wallet" button.
-                    
-                <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
-                    
-                Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase.  
-                    
-                <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
-            
-                Paste your private key or a recovery (mnemonic/seed) phrase.
-            
-                <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:250px; height:auto;"></a>
-                    
-                Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
-                    
-                <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
-
     === "I have an external wallet"
 
         === "Keplr mobile app"
@@ -325,7 +204,6 @@ There are several ways to do this:
                 
                 - Accounts created via `inferenced` CLI tool
                 - Accounts created via the “Connect with Google” flow in Keplr
-                - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
             
                 Not eligible (no private key export):
                 
@@ -362,7 +240,6 @@ There are several ways to do this:
     
                 - Accounts created via `inferenced` CLI tool
                 - Accounts created via the “Connect with Google” flow in Keplr
-                - Accounts created from a recovery phrase in Leap (Leap allows exporting the private key)
 
                 Not eligible (no private key export):
     
@@ -421,110 +298,6 @@ There are several ways to do this:
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
             To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.
 
-        === "Leap browser extension"
-
-            Go to [the official Leap website](https://www.leapwallet.io/){target=_blank} and click "Download Leap".
-            
-            <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:500px; height:auto;"></a>
-            
-            Add the selected extension to your browser.
-            
-            <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
-            
-            After installing the extension, you should see it in the top-right panel of your browser. 
-            
-            <a href="/images/leap_extension.png" target="_blank"><img src="/images/leap_extension.png" style="width:500px; height:auto;"></a>
-            
-            At this point, the extension is installed, but not yet connected to your wallet.
-            Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to add Gonka network to your wallet and continue with the setup process.
-           
-            ### Add Gonka network to your wallet
-            Here is the guide on how to add the Gonka network to your wallet and how your Gonka account will be created.
-            Here is the list of genesis nodes. Choose a random node from the list below and open it in a new browser window.
-            
-            - [http://69.19.136.233:8000](http://69.19.136.233:8000)
-            - [http://36.189.234.197:18026](http://36.189.234.197:18026)
-            - [http://36.189.234.237:17241](http://36.189.234.237:17241)
-            - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
-            - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
-            - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
-            - [http://47.236.26.199:8000](http://47.236.26.199:8000)
-            - [http://47.236.19.22:18000](http://47.236.19.22:18000)
-            - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
-            - [http://185.216.21.98:8000](http://185.216.21.98:8000)
-            
-            ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-                Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
-                
-                Choose any active Host from the list.
-                
-                Copy their `inference_url` value.
-                
-                Paste the `inference_url` into your browser to load the dashboard.
-            
-            Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
-            
-            In the top-right corner, click "Connect Wallet" to add the Gonka chain to your wallet.
-            
-            <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
-            
-            Select Leap and hit Connect.
-            
-            <a href="/images/dashboard_connect_leap.png" target="_blank"><img src="/images/dashboard_connect_leap.png" style="width:500px; height:auto;"></a>
-            
-            Since Gonka network is still in an early stage, it is not included in wallets by default. Because of this, we need to add it manually. When the prompt appears, approve it to add the Gonka chain to your wallet. Once the Gonka network is added, your Gonka account will be created automatically.
-
-            <a href="/images/leap_add_network.png" target="_blank"><img src="/images/leap_add_network.png" style="width:500px; height:auto;"></a>
-        
-            Your Gonka account has been successfully created. 
-
-            <a href="/images/leap_created_gonka_account.png" target="_blank"><img src="/images/leap_created_gonka_account.png" style="width:500px; height:auto;"></a>
-        
-            Open the wallet extension. Below your zero (“-”) balance, you will see Gonka account address (for example, gonka...5e6r) — click that to copy your account address. You can safely share this with anyone who wants to send you payments. 
-                    
-            <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
-        
-            Now, save your private key. In the browser extension navigate to the menu in the top-left corner.
-        
-            <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
-            
-            Click "Security & Privacy".
-            
-            <a href="/images/leap_security_privacy.png" target="_blank"><img src="/images/leap_security_privacy.png" style="width:auto; height:337.5px;"></a>
-            
-            Click "Show private key". 
-            
-            <a href="/images/leap_show_private_key.png" target="_blank"><img src="/images/leap_show_private_key.png" style="width:auto; height:337.5px;"></a>
-            
-            Enter your password.
-            
-            <a href="/images/leap_enter_password.png" target="_blank"><img src="/images/leap_enter_password.png" style="width:auto; height:337.5px;"></a>
-            
-            Copy your private key and store it securely (a hard copy is preferred).  Anyone with your private key can have access to your assets. Never share your private key with anyone.
-            
-            To access your wallet on a mobile device, download the Leap app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.            
-                 
-            ??? note "Optional: How to add an additional Gonka account to Leap wallet — click to view steps"            
-                Open the extension and click on the frog icon and wallet name in the top center button of the extension window.
-                    
-                <a href="/images/dashboard_leap_step_3_5_1.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_1.png" style="width:250px; height:auto;"></a>
-                    
-                Click the "Create/Import wallet" button.
-                    
-                <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
-                    
-                Choose "Import using private key". You can import an account created using a recovery (mnemonic/seed) phrase.  
-                    
-                <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
-            
-                Paste your private key or a recovery (mnemonic/seed) phrase.
-            
-                <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:250px; height:auto;"></a>
-                    
-                Done — your Gonka account has been successfully imported into Leap wallet (click on the frog icon and wallet name in the top center button to switch between wallets).
-                    
-                <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
-
 === "Via `inferenced` CLI tool"
     
     This guide explains how to create a Gonka Network account using the inferenced CLI tool. Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
@@ -560,12 +333,9 @@ There are several ways to do this:
     === "Genesis nodes"
         Set the `NODE_URL` to one of the genesis nodes:
         ```bash title="Genesis Node List"
-        http://185.216.21.98:8000
-        http://36.189.234.197:18026
         http://36.189.234.237:17241
         http://node1.gonka.ai:8000
         http://node2.gonka.ai:8000
-        http://node3.gonka.ai:8000
         http://47.236.26.199:8000
         http://47.236.19.22:18000
         http://gonka.spv.re:8000
@@ -584,7 +354,7 @@ There are several ways to do this:
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
         
     ??? note "Enabling Execution on Mac OS"
-        On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
+        On Mac OS, after downloading the `inferenced` binary, you may need to enable execution permissions manually. Follow these steps:
          
         1.	Open a terminal and navigate to the directory where the binary is located.
         
@@ -637,7 +407,7 @@ There are several ways to do this:
      inferenced keys list [--keyring-backend test]
     ```
 
-    Now you can add your Gonka account to wallets like Keplr or Leap by importing it using your public and private keys.
+    Now you can add your Gonka account to Keplr by importing it using your public and private keys.
 
     To use this account for developer inference, fund it first, then publish your public key:
     ```bash

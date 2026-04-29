@@ -1,5 +1,235 @@
 # Announcements
 
+!!! note "About this page"
+
+    This page is maintained and updated by community members.
+   
+    To publish an announcement, for example, about a governance vote you started, please open a pull request in the gonka-docs repository: [https://github.com/gonka-ai/gonka-docs](https://github.com/gonka-ai/gonka-docs)
+   
+    This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
+
+## April 28, 2026
+
+**Upgrade v0.2.12: Pre-Upgrade Model Cleanup**
+
+The v0.2.12 upgrade proposal is now halfway through its on-chain voting period.
+
+- Voting ends: April 30th, 2026, at 00:12 UTC
+- Upgrade height: 3834200
+- Estimated upgrade time: April 30th, 2026, at 6:00 am UTC
+
+Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka-ai/gonka/pull/948) and vote.
+
+**Action required before the upgrade**
+
+As the network approaches the upgrade window, hosts should prepare their nodes in advance in case the proposal passes.
+
+This cleanup process **must be completed before the upgrade happens**. If, at the time of the upgrade, your node’s configuration includes unsupported models, **it will be rejected and go offline.**
+
+Version 0.2.12 removes every governance model that is not on the post-upgrade approved list. On mainnet, only the previously enforced model and Kimi will remain.
+Each DAPI persists its MLNode configurations locally. On startup, it validates every configured model against the on-chain governance list. If a configuration includes at least one unsupported model, the entire node is rejected, and the host goes offline. 
+
+Version 0.2.11 masked this problem by trimming the runtime view down to the enforced model, so `/admin/v1/nodes` appeared clean even when the persisted config still contained extra models. Version 0.2.12 stops this trimming, meaning the persisted config is loaded directly.
+
+To fix this, the script below finds each node with extra models in `/admin/v1/config` and sends a `PUT` request with a cleaned config to `/admin/v1/nodes/<id>`. These changes are persisted within 60 seconds. The remaining model's arguments, hardware, and ports are preserved exactly. Nodes that do not list the enforced model are skipped and will require manual fixing.
+
+Paste the following script into the host's shell. By default, it will apply the changes. To preview the changes without applying them, set `APPLY=dry` (or any value other than `--apply`).
+
+Script in the repository: 
+
+- [Bash](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.sh)
+- [Python](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.py).
+
+```bash
+ADMIN=${ADMIN:-http://127.0.0.1:9200}
+KEEP=${KEEP:-Qwen/Qwen3-235B-A22B-Instruct-2507-FP8}
+APPLY=${APPLY:-"--apply"}
+
+curl -sS "$ADMIN/admin/v1/config" | jq -r --arg k "$KEEP" '
+  .nodes[] | "\(.id): " + (
+    if (.models | has($k) | not) then "skip (\(.models | keys))"
+    elif (.models | length) == 1 then "ok"
+    else "\(.models | keys) -> [\($k)]" end)'
+
+if [[ "$APPLY" == "--apply" ]]; then
+  curl -sS "$ADMIN/admin/v1/config" \
+    | jq -c --arg k "$KEEP" \
+        '.nodes[] | select((.models | has($k)) and (.models | length > 1)) | .models = {($k): .models[$k]}' \
+    | while IFS= read -r p; do
+        id=$(jq -r .id <<<"$p")
+        curl -sS -f -X PUT -H 'Content-Type: application/json' -d "$p" \
+          "$ADMIN/admin/v1/nodes/$id" >/dev/null && echo "$id: updated"
+      done
+  echo "done; persisted within 60s"
+else
+  echo "preview only; rerun without APPLY=dry to commit"
+fi
+```
+
+
+Wait 60 seconds after running the script to ensure the changes are persisted before triggering the upgrade. Then, verify the configuration:
+
+```bash
+curl -sS http://127.0.0.1:9200/admin/v1/config \
+  | jq '.nodes[] | {id, models: (.models | keys)}'
+```
+
+Expected output:
+```json
+{
+  "id": "<nodeId>",
+  "models": [
+    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+  ]
+}
+```
+*(Additional nodes will follow the same format)*
+
+## April 27, 2026
+
+**v0.2.12 Upgrade Proposal Enters Governance**
+
+[The upgrade proposal](https://github.com/gonka-ai/gonka/pull/948) for the next on-chain software version v0.2.12 has now been published on-chain and is open for voting.  
+
+**Key changes**
+
+- **Multi-model PoC (the largest change)** ([#1039](https://github.com/gonka-ai/gonka/pull/1039)). Transition Proof of Compute from a single fixed model to per-model PoC groups. Each governance-approved model generates its own local PoC weight, which is then aggregated into a total consensus weight via model-specific coefficients. Each host must participate in each model group (either directly or by delegating PoC voting weight).
+- **`moonshotai/Kimi-K2.6` is introduced as the second model:** The model group will be activated two epochs after the upgrade. The coefficient for this model is 3.51x the coefficient of Qwen235B, based on compute complexity of models on the same hardware (8xH200, 8xB200).
+- **Devshard standalone runtime** ([#1045](https://github.com/gonka-ai/gonka/pull/1045)). Decouples devshard releases from the DAPI / mainnet release cycle. 
+- **Certik audit fixes** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789)). Audit findings have been addressed.
+- **Protocol hardening.** Preserved nodes (`POC_SLOT=true` are randomly sampled for single PoC / CPoC time. Other updates include propagating the `mlnode` version to the on-chain `HardwareNode`, fixing DKG dealer consensus, aligning legacy validator slashing with required-collateral semantics, ensuring atomicity of the devshard escrow fund, and adding zero-timestamp tolerance to `inference_finished` event parsing.
+
+**Upgrade plan**
+
+The binary versions will be updated via an on-chain upgrade proposal. For more information on the upgrade process, refer to [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
+
+**Required actions**
+
+**Before the upgrade**
+   
+Deploy latest versions of `versiond` and `proxy` services from `docker-compose.yml` (using the repo at tag release/v0.2.12):
+```
+git checkout release/v0.2.12
+```
+Deploy (important to use `--no-deps`):
+```
+source config.env && \
+docker compose -f docker-compose.yml up versiond proxy -d --no-deps
+```
+That will activate `devshard` working independently from `api` service.
+
+**Post-upgrade**
+
+Deploy, delegate, or explicitly refuse the new governance-approved model(the included model will be activated 2 epochs after the upgrade). Refer to [the guide](https://gonka.ai/docs/host/multi_model_poc/).
+
+**Before or after the upgrade**
+   
+Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory:
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key. 
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [https://node3.gonka.ai](https://node3.gonka.ai)
+  
+Cast your vote ( `yes`, `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 44 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 44 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+- Voting ends: April 30th, 2026, at 00:12 UTC
+- Upgrade height: 3834200
+- Estimated upgrade time: April 30th, 2026, at 6:00 UTC
+
+**Attention**
+
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly. 
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available. Guidance on safely removing old backups from the `.inference` directory is available in [the documentation.](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described in the cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- After the upgrade, Postgres is available as an option for local payload storage.
+
+## April 15, 2025
+
+**PR Review for Upgrade v0.2.12**
+
+[The pull request](https://github.com/gonka-ai/gonka/pull/948) for the next on-chain software upgrade, v0.2.12, is open for review. 
+
+Please review the PR code directly and leave comments regarding any findings, questions, suggested improvements, edge cases, or vulnerabilities you identify.
+
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties during the next upgrade cycle.
+
+This is a call for review of the Pull Request only, and it does not initiate formal voting. The governance voting process will begin after the review period concludes.
+
+**Key changes**
+
+- **Multi-model PoC (the largest change)** ([#1039](https://github.com/gonka-ai/gonka/pull/1039)). Transition Proof of Compute from a single fixed model to per-model PoC groups. Each governance-approved model generates its own local PoC weight, which is then aggregated into total consensus weight via model-specific coefficients
+- **Consensus-level transaction fees with automatic migration** ([#937](https://github.com/gonka-ai/gonka/pull/937), [#981](https://github.com/gonka-ai/gonka/pull/981)). Introduces a governance-controlled gas price. Protocol-duty messages (PoC, validations, inference, BLS DKG) are exempt via `NetworkDutyFeeBypassDecorator`. `MsgPoCV2StoreCommit` charges a two-component fee (base validation + count-linear) as the primary Sybil defense. See [docs/host_onboarding.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/host_onboarding.md) for details.
+- **Devshard standalone runtime** ([#1045](https://github.com/gonka-ai/gonka/pull/1045)). Decouples devshard releases from the DAPI / mainnet release cycle.
+- **Certik audit fixes** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789)). All known audit findings have been addressed.
+- **Protocol hardening.** Implements a stronger PoC v2 RNG (full 256-bit entropy vs. previous 32-bit), which will activate via a separate governance vote. Other updates include propagating the `mlnode` version to the on-chain `HardwareNode`, fixing DKG dealer consensus, aligning legacy validator slashing with required-collateral semantics, ensuring atomicity of the devshard escrow fund, and adding zero-timestamp tolerance to `inference_finished` event parsing.
+
+**Upgrade plan**
+
+The binary versions will be updated via an on-chain upgrade proposal. For more information on the upgrade process, refer to [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
+
+**Required actions post-upgrade**
+
+Existing Hosts:
+
+- Ensure cold account holds sufficient (e.g., 100 GNK) to cover the auto-granted fee allowance spend limit.
+- Deploy, delegate, or explicitly refuse each governance-approved model for the new model once it’s approved by governance (the included model will be activated 3 epochs after the upgrade)
+- Deploy `versiond` service from `docker-compose.yml` (using the last commit in the main branch)
+- Recreate `proxy` container using new version and parameters. The documentation will provide the exact command.
+
+## April 1, 2026
+
+ML Node `3.0.12-post6` available 
+
+A new mlnode version is now available: `ghcr.io/gonka-ai/mlnode:3.0.12-post6`
+
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6-blackwell
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6-blackwell-sm120
+
+This version is now set as the default in the main branch: [https://github.com/gonka-ai/gonka/commit/ec8f45573149ce5686e8e5fc29f1a8f49a295689](https://github.com/gonka-ai/gonka/commit/ec8f45573149ce5686e8e5fc29f1a8f49a295689)
+
+**What changed**
+
+This version has already been used by some miners over recent epochs.
+Initial observations indicate improved stability for nodes operating close to PoC start.
+
+The update includes a fix for an edge case near PoC start that could previously lead to degraded performance under certain conditions.
+
+Full changes in vLLM: [https://github.com/gonka-ai/vllm/compare/release/v0.9.1-pocv2-post5...release/v0.9.1-pocv2-post6](https://github.com/gonka-ai/vllm/compare/release/v0.9.1-pocv2-post5...release/v0.9.1-pocv2-post6)
+
+**Guidance**
+
+- Upgrading to this version is recommended
+- The release is fully compatible with previous versions
+
 ## March 20, 2026
 
 **UPGRADE EXECUTED: v0.2.11 is now live on mainnet**
@@ -8,9 +238,9 @@ The on-chain governance vote for Upgrade Proposal v0.2.11 has concluded. The pro
 
 **Key changes now active**
 
-**[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
+**[Initial scaling architecture: `devshards`-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
 
-This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+This upgrade introduces an initial version of `devshards`-based inference sessions intended to improve inference scalability.
 
 **[`StartInference` and `FinishInference` performance improvements](https://github.com/gonka-ai/gonka/pull/812)**
 
@@ -70,13 +300,13 @@ echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inferenc
 
 **v0.2.11 Upgrade Proposal Enters Governance**
 
-The upgrade proposal for the next on-chain software version v0.2.11 has now been published on-chain and is open for voting. If approved, the proposal introduces an initial version of subnet-based inference sessions intended to improve inference scalability, and significantly `Start`/`FinishInference` performance improvements.
+The upgrade proposal for the next on-chain software version v0.2.11 has now been published on-chain and is open for voting. If approved, the proposal introduces an initial version of `devshards`-based inference sessions intended to improve inference scalability, and significantly `Start`/`FinishInference` performance improvements.
 
 **Key changes**
 
-**[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
+**[Initial scaling architecture: `devshards`-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)**
 
-This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+This upgrade introduces an initial version of `devshards`-based inference sessions intended to improve inference scalability.
 
 Today, handling inference through per-inference on-chain transactions limits throughput. This design moves inference execution and validation into an assigned off-chain subgroup, while the chain only handles session creation and final settlement.
 
@@ -162,9 +392,9 @@ This is a call for review of the Pull Request only, and not the start of formal 
 
 **Key changes**
 
-[Initial scaling architecture: subnet-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)
+[Initial scaling architecture: `devshards`-based inference sessions](https://github.com/gonka-ai/gonka/pull/877)
 
-This upgrade introduces an initial version of subnet-based inference sessions intended to improve inference scalability.
+This upgrade introduces an initial version of `devshards`-based inference sessions intended to improve inference scalability.
 
 Today, handling inference through per-inference on-chain transactions limits throughput. This design moves inference execution and validation into an assigned off-chain subgroup, while the chain only handles session creation and final settlement.
 

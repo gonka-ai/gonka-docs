@@ -29,10 +29,7 @@ GNK is the native coin of the Gonka network. It is used to incentivize participa
 No, you can not buy GNK on exchanges right now because the coin has not been listed yet.
 Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
 
-However, there are currently two legitimate ways to obtain GNK before the listing:
-
-- [Mine as a Host](https://gonka.ai/host/quickstart/) — GNK can already be mined by contributing computational resources to the network.
-- Participate in [the bounty program](https://discord.com/invite/RADwCT2U6R) — certain tasks, contributions, or community activities may grant GNK rewards.
+At the moment, the main legitimate way to obtain GNK before any listing is to [mine as a Host](https://gonka.ai/host/quickstart/) (GNK can already be earned by contributing computational resources to the network).
 
 !!! note "Important"
 	Be aware that fake GNK listings and pages currently exist, including on CoinGecko. These pages do not represent the official GNK coin and are not affiliated with the project in any way. GNK is not tradable on any exchange at this time. Any coin claiming to be GNK, whether on Solana or other networks, is not an official GNK asset. Always verify information through official channels.
@@ -66,9 +63,14 @@ You can find the minimum and recommended [hardware specifications](https://gonka
 You can store GNK coin in several supported wallets within the Cosmos ecosystem:
 
 - [Keplr](https://www.keplr.app/)
-- [Leap](https://www.leapwallet.io/)
 - [Cosmostation](https://cosmostation.io/products/application)
 - `inferenced` CLI - a command-line utility for local account management and network operations in Gonka.
+
+!!! note "Important for existing Leap Wallet users"
+
+	If you previously created your Gonka account with Leap Wallet, please be aware that [Leap is shutting down all of its products on May 28, 2026](https://www.leapwallet.io/), including the browser extension, mobile app, and dashboard.
+	
+	Because Leap is a non-custodial wallet, your assets and account remain on-chain. However, to keep access to your wallet, you should import your existing recovery phrase into another supported wallet, such as Keplr, before Leap services go offline.
 
 ### Where can I find useful information about Gonka?
 
@@ -1403,38 +1405,103 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
-### Upgrade v0.2.11: Pre-download binaries
+### Upgrade v0.2.12: Pre-Upgrade Model Cleanup
+
+!!! note "Important"
+	This cleanup process **must be completed before the upgrade happens**. If you upgrade before cleaning up the models, your node will be rejected and go offline.
+
+Version 0.2.12 removes every governance model that is not on the post-upgrade approved list. On mainnet, only the previously enforced model and Kimi will remain.
+
+Each DAPI persists its MLNode configurations locally. On startup, it validates every configured model against the on-chain governance list. If a configuration includes at least one unsupported model, the entire node is rejected and the host goes offline. 
+
+Version 0.2.11 masked this problem by trimming the runtime view down to the enforced model, so `/admin/v1/nodes` appeared clean even when the persisted config still contained extra models. Version 0.2.12 stops this trimming, meaning the persisted config is loaded directly.
+
+To fix this, the script below finds each node with extra models in `/admin/v1/config` and sends a `PUT` request with a cleaned config to `/admin/v1/nodes/<id>`. These changes are persisted within 60 seconds. The remaining model's arguments, hardware, and ports are preserved exactly. Nodes that do not list the enforced model are skipped and will require manual fixing.
+
+Paste the following script into the host's shell. By default, it will apply the changes. To preview the changes without applying them, set `APPLY=dry` (or any value other than `--apply`).
+
+Script in the repository: 
+
+- [Bash](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.sh)
+- [Python](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.py).
+
+```bash
+ADMIN=${ADMIN:-http://127.0.0.1:9200}
+KEEP=${KEEP:-Qwen/Qwen3-235B-A22B-Instruct-2507-FP8}
+APPLY=${APPLY:-"--apply"}
+
+curl -sS "$ADMIN/admin/v1/config" | jq -r --arg k "$KEEP" '
+  .nodes[] | "\(.id): " + (
+    if (.models | has($k) | not) then "skip (\(.models | keys))"
+    elif (.models | length) == 1 then "ok"
+    else "\(.models | keys) -> [\($k)]" end)'
+
+if [[ "$APPLY" == "--apply" ]]; then
+  curl -sS "$ADMIN/admin/v1/config" \
+    | jq -c --arg k "$KEEP" \
+        '.nodes[] | select((.models | has($k)) and (.models | length > 1)) | .models = {($k): .models[$k]}' \
+    | while IFS= read -r p; do
+        id=$(jq -r .id <<<"$p")
+        curl -sS -f -X PUT -H 'Content-Type: application/json' -d "$p" \
+          "$ADMIN/admin/v1/nodes/$id" >/dev/null && echo "$id: updated"
+      done
+  echo "done; persisted within 60s"
+else
+  echo "preview only; rerun without APPLY=dry to commit"
+fi
+```
+
+
+Wait 60 seconds after running the script to ensure the changes are persisted before triggering the upgrade. Then, verify the configuration:
+
+```bash
+curl -sS http://127.0.0.1:9200/admin/v1/config \
+  | jq '.nodes[] | {id, models: (.models | keys)}'
+```
+
+Expected output:
+```json
+{
+  "id": "<nodeId>",
+  "models": [
+    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+  ]
+}
+```
+*(Additional nodes will follow the same format)*
+
+
+
+### Upgrade v0.2.12: Pre-download binaries
 
 ```
 # 1. Create Directories
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.11/bin \
-              .inference/cosmovisor/upgrades/v0.2.11/bin && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.12/bin \
+              .inference/cosmovisor/upgrades/v0.2.12/bin && \
 
 # 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/decentralized-api-amd64.zip" && \
-echo "e574c3d86189daf325cc7008603ee8e952efb028afda5bcd4a154dcd334192d4 decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.11/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/decentralized-api-amd64.zip" && \
+echo "d0143a95e12e1ada06cfea5e4d3deab13534c3523c967e9a6b87ac9f9bf3247d decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
 echo "DAPI Installed and Verified" && \
 
 # 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/inferenced-amd64.zip" && \
-echo "c77528bd2e31e86355a6eefddb50e0db7f9600ebf2940ca440a61ea36e7ef7ca inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/inferenced-amd64.zip" && \
+echo "df7656503d39f6703767d32d5578d1291e32cb114844d8c1cd0f134d1bf4babd inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
 echo "Inference Installed and Verified" && \
 
 # 4. Cleanup and Final Check
 rm decentralized-api.zip inferenced.zip && \
 echo "--- Final Verification ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
-echo "8b99e550ddd117a0cb4293b4ae74e0e5dff961a1986f23b58ec7ae6c3f0478f1 .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api" | sudo sha256sum --check && \
-echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced" | sudo sha256sum --check
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
+echo "94ce943338d12844028e84fe770106c9d28d866cf0af99f27da30f56d69efa34 .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api" | sudo sha256sum --check && \
+echo "642eb9858cd77d182f3e1c4d44553f5379d615983430e1fd8e85f09632af4271 .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced" | sudo sha256sum --check
 ```
-
-
 
 ## Bounty program
 

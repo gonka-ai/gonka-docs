@@ -1,0 +1,38 @@
+# Landing-only MkDocs build.
+#
+# Produces the hero page at https://gonka.ai/ (and /zh/). All documentation
+# content is built by mkdocs.docs.yml and served under /docs/. The GitHub
+# Pages custom domain (CNAME) is included in the home stage so it ends up
+# at the site root.
+#
+# docs_dir points at _stage/home, which is populated by
+# buildtools/prepare-stages.sh and contains only:
+#   index.md, zh/index.md, CNAME, assets/, images/, stylesheets/.
+INHERIT: mkdocs.yml
+
+site_url: https://gonka.ai/
+site_dir: _publish
+docs_dir: _stage/home
+
+nav:
+  - Home: index.md
+
+# Lists in INHERIT are replaced, not merged, so the plugin list has to be
+# redeclared. Keep it minimal: the landing doesn't need minify/video.
+plugins:
+  - search:
+      separator: '[\s-]+'
+      lang:
+        - en
+        - zh
+  - i18n:
+      reconfigure_material: true
+      docs_structure: folder
+      languages:
+        - locale: en
+          name: English
+          build: true
+          default: true
+        - locale: zh
+          name: 中文
+          build: true

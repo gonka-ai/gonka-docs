@@ -6,6 +6,12 @@ name: index.md
 
 本指南介绍如何在 Gonka 中创建开发者账户并使用 Gonka API 提交推理请求。
 
+!!! note "重要提示：针对现有 Leap Wallet 用户"
+
+    如果你此前通过 Leap Wallet 创建了 Gonka 账户，请注意，Leap 将于 2026 年 5 月 28 日关闭其所有产品，包括浏览器扩展、移动应用以及 Dashboard。
+    
+    由于 Leap 是非托管钱包（non-custodial wallet），你的资产和账户仍然保存在链上。但为了继续访问你的钱包，建议你在 Leap 服务下线前，将现有助记词导入到其他受支持的钱包（如 Keplr）中。
+
 ??? note "Gonka 与传统 AI API 的区别"
     Gonka 不仅仅是另一个 AI API — 它是一个用于可证明推理的加密协议。通过消除中心化身份，Gonka 移除了困扰基于 SaaS 的 AI 服务的传统单点故障。以下对比表帮助你理解传统 AI API 与 Gonka API 之间的差异。
     
@@ -278,128 +284,16 @@ export NODE_URL=<http://random-node-url>
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
 
-=== "选项 3：通过 Leap（外部钱包）"
+=== "选项 3：通过 Cosmostation（外部钱包）"
 
-    !!! note "重要通知：功能有限"
-
-        此选项使用助记词创建账户，不支持通过桥进行交易。如果你想通过桥执行交易，请使用选项 1：通过 `inferenced` CLI 工具或选项 2：通过 Keplr（外部钱包，"通过 Google 连接"）。
-    
-    访问[Leap 官方网站](https://www.leapwallet.io/){target=_blank}并点击"下载 Leap"。
-    
-    <a href="/images/dashboard_leap_step_2_1.png" target="_blank"><img src="/images/dashboard_leap_step_2_1.png" style="width:500px; height:auto;"></a>
-    
-    将选定的扩展程序添加到你的浏览器。
-    
-    <a href="/images/dashboard_leap_step_2_2.png" target="_blank"><img src="/images/dashboard_leap_step_2_2.png" style="width:500px; height:auto;"></a>
-    
-    点击"创建新钱包"。
-    
-    <a href="/images/dashboard_leap_step_2_3.png" target="_blank"><img src="/images/dashboard_leap_step_2_3.png" style="width:500px; height:auto;"></a>
-
-    保存你的秘密恢复短语。写下这些单词，你的秘密恢复短语是恢复钱包和资金的唯一方法！
-
-    <a href="/images/leap_your_secret_recovery_phrase.png" target="_blank"><img src="/images/leap_your_secret_recovery_phrase.png" style="width:500px; height:auto;"></a>
-
-    选择密码来保护并锁定你的钱包。同意条款和条件。
-
-    <a href="/images/leap_create_your_password.png" target="_blank"><img src="/images/leap_create_your_password.png" style="width:500px; height:auto;"></a>
-
-    你的 Leap 钱包已创建。
-
-    <a href="/images/leap_you_are_all_set.png" target="_blank"><img src="/images/leap_you_are_all_set.png" style="width:500px; height:auto;"></a>
-
-    **打开 Gonka 的去中心化仪表盘**
-    
-    从创世节点的 `inference_url` 列表中选择随机节点
-    
-    - [http://185.216.21.98:8000](http://185.216.21.98:8000)
-    - [http://69.19.136.233:8000](http://69.19.136.233:8000)
-    - [http://36.189.234.197:18026](http://36.189.234.197:18026)
-    - [http://36.189.234.237:17241](http://36.189.234.237:17241)
-    - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
-    - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
-    - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
-    - [http://47.236.26.199:8000](http://47.236.26.199:8000)
-    - [http://47.236.19.22:18000](http://47.236.19.22:18000)
-    - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
-    
-    ??? note "选择随机节点的另一种完全去中心化方法"
-        打开主机列表：[http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
-
-        从列表中选择任何活跃主机。
-        
-        复制他们的 `inference_url` 值。
-        
-    将 `inference_url` 粘贴到浏览器中以加载 Gonka 仪表盘，显示实时链上活动。
-    
-    打开后，你将看到从主机节点直接流式传输的实时数据 — 包括网络统计、活跃工作负载和推理指标。
-    
-    在右上角，点击"连接钱包"开始。
-    
-    <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
-    
-    选择 Leap 并点击连接。
-    
-    <a href="/images/choose_wallet_leap.png" target="_blank"><img src="/images/choose_wallet_leap.png" style="width:500px; height:auto;"></a>
-    
-    你将看到提示将自定义 Gonka 链添加到钱包。批准并添加 Gonka 链。
-    
-    <a href="/images/leap_add_network.png" target="_blank"><img src="/images/leap_add_network.png" style="width:500px; height:auto;"></a>
-
-    完成！你的 Gonka 开发者账户已成功创建。
-
-    <a href="/images/leap_created_gonka_account.png" target="_blank"><img src="/images/leap_created_gonka_account.png" style="width:500px; height:auto;"></a>
-
-    打开扩展程序并导航到左上角的菜单。
-            
-    <a href="/images/leap_left_menu.png" target="_blank"><img src="/images/leap_left_menu.png" style="width:auto; height:337.5px;"></a>
-
-    点击"安全与隐私"。
-
-    <a href="/images/leap_security_privacy.png" target="_blank"><img src="/images/leap_security_privacy.png" style="width:auto; height:337.5px;"></a>
-
-    点击"显示私钥"。
-   
-    <a href="/images/leap_show_private_key.png" target="_blank"><img src="/images/leap_show_private_key.png" style="width:auto; height:337.5px;"></a>
-
-    输入你的密码。
-    
-    <a href="/images/leap_enter_password.png" target="_blank"><img src="/images/leap_enter_password.png" style="width:auto; height:337.5px;"></a>
-
-    复制你的私钥并安全存储（建议硬拷贝）。   
-
-    ??? note "可选：如何向 Leap 钱包添加额外的 Gonka 账户 — 点击查看步骤"            
-        打开扩展程序并点击扩展程序窗口顶部中央的青蛙图标和钱包名称按钮。
-            
-        <a href="/images/dashboard_leap_step_3_5_1.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_1.png" style="width:250px; height:auto;"></a>
-            
-        点击"创建/导入钱包"按钮。
-            
-        <a href="/images/dashboard_leap_step_3_5_2.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_2.png" style="width:250px; height:auto;"></a>
-            
-        选择"使用私钥导入"。你可以导入使用恢复（助记词/种子）短语创建的账户。但是，桥功能将受到限制，因为桥需要直接访问原始私钥来签名交易并确保与以太坊的完全互操作性。
-            
-        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_3.png" style="width:250px; height:auto;"></a>
-    
-        粘贴你的私钥或恢复（助记词/种子）短语。
-    
-        <a href="/images/dashboard_leap_step_3_5_3.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4_private_key.png" style="width:250px; height:auto;"></a>
-            
-        完成 — 你的 Gonka 账户已成功导入 Leap 钱包（点击顶部中央的青蛙图标和钱包名称按钮可在钱包间切换）。
-            
-        <a href="/images/dashboard_leap_step_3_5_4.png" target="_blank"><img src="/images/dashboard_leap_step_3_5_4.png" style="width:250px; height:auto;"></a>
-
-        === "选项 4：通过 Cosmostation（外部钱包）"
-        
     !!! note "重要提示：功能受限"
-        此选项通过助记词创建账户，但不支持通过桥进行交易。如果你希望通过桥进行交易，请使用选项 1：通过 `inferenced` CLI 工具，或选项 2：通过 Keplr（外部钱包，“Connect with Google”）。
+        该方式通过助记词创建账户，不支持通过桥进行交易。如果你希望通过桥进行交易，请改用选项 1：通过 `inferenced` CLI 工具，或选项 2：通过 Keplr（外部钱包，“Connect with Google”）创建账户。
         
     获取 [Cosmostation 钱包浏览器扩展](https://cosmostation.io/products/application). 
-        
-    Get [Cosmostation Wallet browser extension](https://cosmostation.io/products/application). 
+
     <a href="/images/1_cosmostation.png" target="_blank"><img src="/images/1_cosmostation.png" style="width:500px; height:auto;"></a>
             
-    将扩展程序添加到你的浏览器中。
+    将扩展添加到你的浏览器。
 
     <a href="/images/2_cosmostation_add_extention.png" target="_blank"><img src="/images/2_cosmostation_add_extention.png" style="width:500px; height:auto;"></a>
 
@@ -407,54 +301,54 @@ export NODE_URL=<http://random-node-url>
 
     <a href="/images/5_cosmostation_create_a_new_wallet.png" target="_blank"><img src="/images/5_cosmostation_create_a_new_wallet.png" style="width:auto; height:337.5px;"></a>
 
-    记录你的助记词。请勿将你的恢复短语分享给任何人。任何拥有你恢复短语的人都可以完全控制你的资产。请始终警惕钓鱼攻击。请安全备份该短语。
-    
+    记录你的助记词。切勿与任何人分享助记词。任何获取你助记词的人都可以完全控制你的资产。请始终警惕钓鱼攻击，并妥善备份助记词。
+
     <a href="/images/6_cosmostation_mnemonic.png" target="_blank"><img src="/images/6_cosmostation_mnemonic.png" style="width:auto; height:337.5px;"></a>
 
-    按顺序完成验证问答。检查你备份的助记词，并为每个编号选择正确顺序的单词。
+    按照顺序完成验证测试。检查备份的助记词，并按顺序选择正确的单词。
 
     <a href="/images/7_cosmostation_quiz.png" target="_blank"><img src="/images/7_cosmostation_quiz.png" style="width:auto; height:337.5px;"></a>
 
-    设置账户名称。请输入你的账户名称，该名称可以随时更改。
+    设置账户名称。你可以为账户命名，且可随时修改。
 
-     <a href="/images/8_cosmostation_account_name.png" target="_blank"><img src="/images/8_cosmostation_account_name.png" style="width:auto; height:337.5px;"></a>
-     
-    在右上角点击 “All Networks”，并选择 Gonka 链，将其添加到你的钱包中。
+    <a href="/images/8_cosmostation_account_name.png" target="_blank"><img src="/images/8_cosmostation_account_name.png" style="width:auto; height:337.5px;"></a>
+
+    在右上角点击 “All Networks”（所有网络），选择 Gonka 链并将其添加到钱包中。
 
     <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
 
     完成！你的 Gonka Developer 账户已成功创建。
         
     <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
-        
-     点击顶部的钱包名称。在右上角点击 “Manage”，然后点击钱包名称。
-            
+
+    点击顶部的钱包名称，在右上角点击 “Manage”（管理），然后再次点击钱包名称。
+    
     <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
 
     点击 “View private key”（查看私钥）。
 
-     <a href="/images/13_cosmostation_view_private_key.png" target="_blank"><img src="/images/13_cosmostation_view_private_key.png" style="width:auto; height:337.5px;"></a>
+    <a href="/images/13_cosmostation_view_private_key.png" target="_blank"><img src="/images/13_cosmostation_view_private_key.png" style="width:auto; height:337.5px;"></a>
 
     验证你的密码。
 
-     <a href="/images/14_cosmostation_verify_password.png" target="_blank"><img src="/images/14_cosmostation_verify_password.png" style="width:auto; height:337.5px;"></a>   
+    <a href="/images/14_cosmostation_verify_password.png" target="_blank"><img src="/images/14_cosmostation_verify_password.png" style="width:auto; height:337.5px;"></a>
 
     从列表中选择 “Gonka”。
 
     <a href="/images/15_cosmostation.png" target="_blank"><img src="/images/15_cosmostation.png" style="width:auto; height:337.5px;"></a>
-    
-    点击 “Gonka” 查看私钥。复制你的私钥或恢复短语，并妥善保存（建议保留纸质备份）。
+       
+    点击 “Gonka” 查看私钥。复制你的私钥或助记词，并妥善保存（建议保留纸质备份）。
 
-     <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
-     
-    将私钥添加到环境变量 `GONKA_PRIVATE_KEY`，或添加到 `.env` 文件中。
-    ```
-    export GONKA_PRIVATE_KEY=<your-private-key>
-    ```
-    要检索所有本地存储账户的列表，请执行以下命令：
-    ```
-    ./inferenced keys list [--keyring-backend test]
-    ```
+    <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
+
+将私钥添加到环境变量 `GONKA_PRIVATE_KEY,` 或 `.env` 文件中：
+```
+export GONKA_PRIVATE_KEY=<your-private-key>
+```
+如需查看本地存储的所有账户列表，请执行以下命令：
+```
+./inferenced keys list [--keyring-backend test]
+```
 
 ## 3. 启用账户以进行推理
 

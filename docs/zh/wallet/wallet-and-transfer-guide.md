@@ -64,7 +64,7 @@ inferenced query bank balances <address> [--node <node_rpc_url>]
 **示例：**
 
 ```bash
-inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --node http://node2.gonka.ai:8000/chain-rpc
+inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --node http://node2.gonka.ai:8000/chain-rpc/
 ```
 
 ---

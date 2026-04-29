@@ -1,5 +1,158 @@
 # 公告
 
+!!! 注意 “关于本页面”
+
+    本页面由社区成员维护和更新。
+
+    如需发布公告（例如您发起的治理投票相关公告），请在 gonka-docs 仓库中提交 Pull Request：[https://github.com/gonka-ai/gonka-docs](https://github.com/gonka-ai/gonka-docs)
+
+    本页面内容不保证完全覆盖所有信息。有关最新信息（包括治理投票的发起及当前状态），请参考链上数据或查看相关浏览器与仪表盘。
+
+## April 27, 2026
+
+**v0.2.12 升级提案进入治理阶段**
+
+用于下一版本链上软件 v0.2.12 的[升级提案](https://github.com/gonka-ai/gonka/pull/948) 现已发布到链上并开放投票。
+
+**主要变更**
+
+- **多模型 PoC（最大变更）** ([#1039](https://github.com/gonka-ai/gonka/pull/1039)). 将计算证明（Proof of Compute）从单一固定模型转变为按模型分组的 PoC 机制。每个经治理批准的模型都会生成其本地 PoC 权重，并通过特定模型系数聚合为总共识权重。每个主机必须参与每个模型组（可直接参与或委托 PoC 投票权重）。
+- 引入**`moonshotai/Kimi-K2.6` 作为第二个模型： 该模型组将在升级后的两个 epoch 后激活。基于相同硬件（8xH200、8xB200）上的计算复杂度，该模型的系数为 Qwen235B 的 3.51 倍。
+- **Devshard 独立运行时** ([#1045](https://github.com/gonka-ai/gonka/pull/1045)). 将 devshard 发布与 DAPI / 主网发布周期解耦。 
+- **Certik 审计修复** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789)). 已修复审计发现的问题。
+- **协议加固** 保留节点 (`POC_SLOT=true` 会被随机抽样用于单次 PoC / CPoC 时间。其他更新包括：将 `mlnode` 版本同步到链上 `HardwareNode`，修复 DKG dealer 共识，对齐旧版验证者惩罚机制与所需抵押语义，确保 devshard 托管资金的原子性，以及在 `inference_finished` 事件解析中加入零时间戳容忍机制。
+
+**升级计划**
+
+二进制版本将通过链上升级提案进行更新。有关升级流程的更多信息，请参阅 [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
+
+**所需操作**
+
+**升级前**
+   
+从`docker-compose.yml`部署 `versiond` 和 `proxy` 服务的最新版本（使用 release/v0.2.12 标签的仓库）：
+```
+git checkout release/v0.2.12
+```
+部署（务必使用 `--no-deps`）：
+```
+source config.env && \
+docker compose -f docker-compose.yml up versiond proxy -d --no-deps
+```
+这将使 `devshard` 从 `api` 服务中独立运行。
+
+**升级后**
+
+部署、委托或明确拒绝新的经治理批准的模型（该模型将在升级后 2 个 epoch 激活）。参考 [指南](https://gonka.ai/docs/host/multi_model_poc/).
+
+**升级前或升级后**
+   
+请更新 dashboard/explorer。请在 `gonka/deploy/join` 目录中运行以下命令：
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+**如何投票**
+
+如果您没有直接访问持有投票权的密钥，或希望由其他密钥代为投票，请参考[指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf)，将治理投票权限从冷钱包授权给热钱包。
+
+提案详情及投票可通过 `inferenced`访问。任何活跃节点均可使用，可用节点包括：
+
+- [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
+- [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
+- [https://node3.gonka.ai](https://node3.gonka.ai)
+  
+投票 ( `yes`, `no` , `abstain` , `no_with_veto` ):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 44 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+查询投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 44 -o json --node $NODE_URL/chain-rpc/
+```
+
+**截止时间**
+
+**投票结束时间：** 2026年4月30日 00:12 UTC
+**升级高度：** 3834200
+**预计升级时间：** 2026年4月30日 06:00 UTC
+
+**注意事项**
+
+- 请在升级窗口期间保持在线，以便及时执行后续步骤或应对措施。
+- 在升级过程中，Cosmovisor 会在 `.inference/data` 目录中创建完整的状态备份；请确保有足够的磁盘空间。关于如何安全删除 `.inference` 目录中的旧备份，可参考 [文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- 如果 `application.db` 占用了大量磁盘空间，可以采用 cosmovisor 备份[指南](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 中描述的清理方法。 
+- 升级后，Postgres 可作为本地 payload 存储的一个选项。
+
+## 2025年4月15日
+
+**升级 v0.2.12 的 PR 审查**
+
+用于下一次链上软件升级（v0.2.12）的 [The pull request](https://github.com/gonka-ai/gonka/pull/948) 已开放审查：
+
+请直接审阅 PR 代码，并针对您发现的问题、疑问、改进建议、边界情况或潜在漏洞提出评论。
+
+有价值的审查贡献（包括重要评论、漏洞发现及安全问题）在下一个升级周期中可能有资格获得社区赏金。
+
+本次仅为 Pull Request 的审查征集，并不启动正式投票流程。治理投票将在审查期结束后开始。
+
+**主要变更**
+
+- **多模型 PoC (最大变更)** ([#1039](https://github.com/gonka-ai/gonka/pull/1039))。将计算证明（PoC）从单一固定模型转变为按模型划分的 PoC 组。每个经治理批准的模型将生成其本地 PoC 权重，并通过模型特定系数聚合为总共识权重。
+- **共识层交易费用与自动迁移** ([#937](https://github.com/gonka-ai/gonka/pull/937), [#981](https://github.com/gonka-ai/gonka/pull/981))。引入由治理控制的 gas 价格。协议职责类消息（PoC、验证、推理、BLS DKG）通过 `NetworkDutyFeeBypassDecorator`免除费用。 `MsgPoCV2StoreCommit` 采用双组件费用结构（基础验证 + 按数量线性增长），作为主要的 Sybil 防护机制。详情参见 [docs/host_onboarding.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/host_onboarding.md) 。
+- **Devshard 独立运行时** ([#1045](https://github.com/gonka-ai/gonka/pull/1045)). 将 devshard 的发布与 DAPI / 主网发布周期解耦。
+- **Certik 审计修复** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789)). 所有已知审计问题均已修复。
+- **协议强化** 实现更强的 PoC v2 随机数生成器（完整 256 位熵，对比此前 32 位），该功能将通过单独的治理投票激活。其他更新包括：将 `mlnode` 版本同步至链上 `HardwareNode`, 修复 DKG dealer 共识，对齐旧版验证者惩罚与抵押要求语义，确保 devshard 托管资金的原子性，以及为 `inference_finished` 事件解析增加零时间戳容错。
+
+**升级计划**
+
+二进制版本将通过链上升级提案进行更新。有关升级流程的更多信息，请参阅： [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
+
+**升级后需要执行的操作**
+
+现有 Hosts：
+
+- 确保冷账户持有足够余额（例如 100 GNK），以覆盖自动授予的费用额度上限
+- 针对每个经治理批准的新模型，执行部署、委托或明确拒绝（模型将在升级后第 3 个 epoch 激活）
+- 从  `docker-compose.yml`部署`versiond` 服务（使用主分支的最新提交）
+- 使用新版本与参数重新创建 `proxy` 容器（具体命令将由文档提供）
+
+## 2026年4月1日
+
+ML Node `3.0.12-post6` 已发布
+
+新版本 mlnode 已可用： `ghcr.io/gonka-ai/mlnode:3.0.12-post6`
+
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6-blackwell
+- docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post6-blackwell-sm120
+
+该版本现已设为主分支默认版本： [https://github.com/gonka-ai/gonka/commit/ec8f45573149ce5686e8e5fc29f1a8f49a295689](https://github.com/gonka-ai/gonka/commit/ec8f45573149ce5686e8e5fc29f1a8f49a295689)
+
+**变更内容**
+
+该版本已在近期若干 epoch 中被部分矿工使用。
+初步观察表明，对于接近 PoC 启动时间运行的节点，其稳定性有所提升。
+
+本次更新修复了一个 PoC 启动附近的边界问题，该问题在特定情况下可能导致性能下降。
+
+vLLM 的完整变更： [https://github.com/gonka-ai/vllm/compare/release/v0.9.1-pocv2-post5...release/v0.9.1-pocv2-post6](https://github.com/gonka-ai/vllm/compare/release/v0.9.1-pocv2-post5...release/v0.9.1-pocv2-post6)
+
+**使用建议e**
+
+- 建议升级至该版本
+- 该版本与之前版本完全兼容
+
 ## 2026年3月20日
 
 **升级已执行：v0.2.11 现已在主网上线**

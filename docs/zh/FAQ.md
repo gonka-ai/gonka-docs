@@ -1412,35 +1412,102 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## 升级
 
+### v0.2.12 升级：升级前模型清理
+
+!!! note "重要"
+	此清理过程必须在升级发生之前完成。如果在清理模型之前进行升级，你的节点将被拒绝并下线。
+
+版本 0.2.12 会移除所有不在升级后批准列表中的治理模型。在主网上，仅会保留此前已强制执行的模型以及 Kimi。
+
+每个 DAPI 会在本地持久化其 MLNode 配置。在启动时，它会根据链上治理列表验证每一个已配置的模型。如果配置中包含至少一个不受支持的模型，则整个节点会被拒绝，主机将下线。
+
+版本 0.2.11 通过将运行时视图裁剪为仅保留强制模型来掩盖了这个问题，因此即使持久化配置中仍包含额外模型， `/admin/v1/nodes` 看起来也依然是干净的。版本 0.2.12 取消了这种裁剪，这意味着持久化配置将被直接加载。
+
+为了解决这个问题，下面的脚本会在 `/admin/v1/config` 中查找每个包含额外模型的节点，并向 `/admin/v1/nodes/<id>` 发送带有清理后配置的 `PUT` 请求。这些更改将在 60 秒内持久化。剩余模型的参数、硬件和端口将被完全保留。未列出强制模型的节点将被跳过，并需要手动修复。
+
+将以下脚本粘贴到主机的 shell 中。默认情况下，它会应用更改。如果仅想预览更改而不执行，请设置 `APPLY=dry` （或任何不等于 `--apply`的值）。
+
+仓库中的脚本：
+
+- [Bash](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.sh)
+- [Python](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.py).
+
+```bash
+ADMIN=${ADMIN:-http://127.0.0.1:9200}
+KEEP=${KEEP:-Qwen/Qwen3-235B-A22B-Instruct-2507-FP8}
+APPLY=${APPLY:-"--apply"}
+
+curl -sS "$ADMIN/admin/v1/config" | jq -r --arg k "$KEEP" '
+  .nodes[] | "\(.id): " + (
+    if (.models | has($k) | not) then "skip (\(.models | keys))"
+    elif (.models | length) == 1 then "ok"
+    else "\(.models | keys) -> [\($k)]" end)'
+
+if [[ "$APPLY" == "--apply" ]]; then
+  curl -sS "$ADMIN/admin/v1/config" \
+    | jq -c --arg k "$KEEP" \
+        '.nodes[] | select((.models | has($k)) and (.models | length > 1)) | .models = {($k): .models[$k]}' \
+    | while IFS= read -r p; do
+        id=$(jq -r .id <<<"$p")
+        curl -sS -f -X PUT -H 'Content-Type: application/json' -d "$p" \
+          "$ADMIN/admin/v1/nodes/$id" >/dev/null && echo "$id: updated"
+      done
+  echo "done; persisted within 60s"
+else
+  echo "preview only; rerun without APPLY=dry to commit"
+fi
+```
+
+
+运行脚本后，请等待 60 秒，以确保更改已被持久化，然后再触发升级。随后，验证配置：
+
+```bash
+curl -sS http://127.0.0.1:9200/admin/v1/config \
+  | jq '.nodes[] | {id, models: (.models | keys)}'
+```
+
+预期输出：
+```json
+{
+  "id": "<nodeId>",
+  "models": [
+    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+  ]
+}
+```
+*（其他节点将遵循相同格式）*
+
+## 升级
+
 ### 升级 v0.2.11：预下载二进制文件
 
 ```
 # 1. 创建目录
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.11/bin \
-              .inference/cosmovisor/upgrades/v0.2.11/bin && \
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.12/bin \
+              .inference/cosmovisor/upgrades/v0.2.12/bin && \
 
 # 2. DAPI：下载 -> 校验 -> 直接解压到 bin 目录 -> 赋予执行权限
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/decentralized-api-amd64.zip" && \
-echo "e574c3d86189daf325cc7008603ee8e952efb028afda5bcd4a154dcd334192d4 decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.11/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/decentralized-api-amd64.zip" && \
+echo "d0143a95e12e1ada06cfea5e4d3deab13534c3523c967e9a6b87ac9f9bf3247d decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
 echo "DAPI 已安装并校验完成" && \
 
 # 3. Inference：下载 -> 校验 -> 直接解压到 bin 目录 -> 赋予执行权限
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.11/inferenced-amd64.zip" && \
-echo "c77528bd2e31e86355a6eefddb50e0db7f9600ebf2940ca440a61ea36e7ef7ca inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.11/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/inferenced-amd64.zip" && \
+echo "df7656503d39f6703767d32d5578d1291e32cb114844d8c1cd0f134d1bf4babd inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
 echo "Inference 已安装并校验完成" && \
 
 # 4. 清理并最终检查
 rm decentralized-api.zip inferenced.zip && \
 echo "--- 最终校验 ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced && \
-echo "8b99e550ddd117a0cb4293b4ae74e0e5dff961a1986f23b58ec7ae6c3f0478f1 .dapi/cosmovisor/upgrades/v0.2.11/bin/decentralized-api" | sudo sha256sum --check && \
-echo "6cf186a75782da07156d4d03b4266cefcb36656de89e4a378ae96d8df89ad003 .inference/cosmovisor/upgrades/v0.2.11/bin/inferenced" | sudo sha256sum --check
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
+echo "94ce943338d12844028e84fe770106c9d28d866cf0af99f27da30f56d69efa34 .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api" | sudo sha256sum --check && \
+echo "642eb9858cd77d182f3e1c4d44553f5379d615983430e1fd8e85f09632af4271 .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced" | sudo sha256sum --check
 ```
 
 ## 赏金计划

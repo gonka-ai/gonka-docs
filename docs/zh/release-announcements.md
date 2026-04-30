@@ -7,6 +7,50 @@
     如需发布公告（例如您发起的治理投票相关公告），请在 gonka-docs 仓库中提交 Pull Request：[https://github.com/gonka-ai/gonka-docs](https://github.com/gonka-ai/gonka-docs)
 
     本页面内容不保证完全覆盖所有信息。有关最新信息（包括治理投票的发起及当前状态），请参考链上数据或查看相关浏览器与仪表盘。
+    
+## 2026年4月29日
+
+**升级 v0.2.12：预下载二进制文件**
+
+v0.2.12 升级提案的链上治理流程即将接近结束。
+
+- 投票结束时间：2026年4月30日 00:12（UTC）
+- 升级高度：3834200
+- 预计升级时间：2026年4月30日 上午6:00（UTC）
+
+建议各 Host 在 [GitHub](https://github.com/gonka-ai/gonka/pull/948) 上查看该提案并参与投票。
+
+提前预下载二进制文件，有助于在升级窗口期间避免依赖 GitHub 的可用性。
+
+```
+# 1. 创建目录
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.12/bin \
+              .inference/cosmovisor/upgrades/v0.2.12/bin && \
+
+# 2. DAPI: 下载 -> 校验 -> 直接解压到 bin -> 添加执行权限
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/decentralized-api-amd64.zip" && \
+echo "d0143a95e12e1ada06cfea5e4d3deab13534c3523c967e9a6b87ac9f9bf3247d decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
+echo "DAPI 已安装并校验完成" && \
+
+# 3. Inference: 下载 -> 校验 -> 直接解压到 bin -> 添加执行权限
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/inferenced-amd64.zip" && \
+echo "df7656503d39f6703767d32d5578d1291e32cb114844d8c1cd0f134d1bf4babd inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
+echo "Inference 已安装并校验完成" && \
+
+# 4. 清理及最终检查
+rm decentralized-api.zip inferenced.zip && \
+echo "--- 最终校验 ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
+echo "94ce943338d12844028e84fe770106c9d28d866cf0af99f27da30f56d69efa34 .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api" | sudo sha256sum --check && \
+echo "642eb9858cd77d182f3e1c4d44553f5379d615983430e1fd8e85f09632af4271 .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced" | sudo sha256sum --check
+```
+
 
 ## 2026年4月28日
 

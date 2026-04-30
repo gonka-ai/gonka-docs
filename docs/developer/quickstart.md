@@ -57,7 +57,6 @@ Before creating an account, set up the required environment variables:
 === "Windows (PowerShell)"
 
     ```powershell
-    Windows (PowerShell):
     $env:ACCOUNT_NAME = "your-desired-account-name"
     $env:SOURCE_URL = "http://random-node-url"
     ```

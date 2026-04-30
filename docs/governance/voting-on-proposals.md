@@ -27,7 +27,7 @@ Standard Cosmos SDK delegators, meaning anyone who staked via `MsgDelegate`, can
 
 ---
 
-## Quick path
+## Quick path (???????)
 
 Most participants only need to verify a proposal and cast a vote. Do these four things:
 
@@ -43,11 +43,10 @@ inferenced query gov proposal <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain
 Confirm the **id**, **title**, **summary**, and (if present) **metadata** match what was shared with you.
 
 
-### Know the voting options and short flow
-
-- **Options:** `yes`, `no`, `no_with_veto`, `abstain`.
-- **Flow:** proposals open (after deposit) → voting period runs → outcome decided by quorum/threshold/veto parameters → if passed, messages execute via the gov module.
-- You may change your vote any time before voting period ends; the last vote counts.
+???+ note "Know the voting options and short flow"
+    - **Options:** `yes`, `no`, `no_with_veto`, `abstain`.
+    - **Flow:** proposals open (after deposit) -> voting period runs -> outcome decided by quorum/threshold/veto parameters -> if passed, messages execute via the gov module.
+    - You may change your vote any time before voting period ends; the last vote counts.
 
 ### Cast (or change) your vote
 
@@ -69,76 +68,6 @@ inferenced query gov tally <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain-rp
 inferenced query gov votes <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain-rpc/
 ```
 
----
-
-## Submit a Parameter Change Proposal
-
-**TL;DR:** draft a proposal with `MsgUpdateParams`, include **all** params for that module, ensure deposit meets `min_deposit`, submit, then track/deposit/vote.
-
-### 1) Get the governance module address (authority)
-
-```bash
-inferenced query auth module-accounts --node <NODE_URL>/chain-rpc/ | grep -B2 'name: gov'
-```
-
-### 2) Export current params for the target module
-
-```bash
-inferenced query inference params -o json --node <NODE_URL>/chain-rpc/ > current_params.json
-```
-
-### 3) Check the minimum deposit
-
-```bash
-inferenced query gov params -o json --node <NODE_URL>/chain-rpc/ | jq '.params.min_deposit'
-```
-
-### 4) Draft the proposal file
-
-```bash
-inferenced tx gov draft-proposal
-# fills draft_proposal.json and draft_metadata.json
-```
-
-Edit `draft_proposal.json` and include the full `params` object.
-
-### 5) Submit the proposal
-
-```bash
-inferenced tx gov submit-proposal ./draft_proposal.json \
-  --from <COLD_KEY_NAME> \
-  --keyring-backend file \
-  --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
-  --node <NODE_URL>/chain-rpc/ \
-  --yes
-```
-
-### 6) Ensure your proposal is on-chain
-
-```bash
-inferenced query gov proposals --node <NODE_URL>/chain-rpc/
-```
-
-### Review the contents carefully (especially param updates)
-
-```bash
-# 2a) Get current module params (example: inference module)
-inferenced query inference params -o json --node <NODE_URL>/chain-rpc/ > current_params.json
-
-# 2b) Extract proposed params from the proposal
-inferenced query gov proposal <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain-rpc/ \
-  | jq '.proposal.messages[] | select(."type"=="inference/x/inference/MsgUpdateParams") | .value' \
-  > proposed_params.json
-
-# 2c) Diff
-diff -u current_params.json proposed_params.json || true
-```
-
-For `MsgUpdateParams`, modules typically expect the **full** params object and `authority` set to the **gov module account**.
-
----
-
 ## Vote
 
 Again, this will need to be from you private machine with your Governance account:
@@ -156,8 +85,7 @@ inferenced tx gov vote <VOTE_PROPOSAL_ID> yes \
 
 ---
 
-## Notes
-
-- **Who can create a proposal:** anyone with a valid governance (cold) key who pays required fees/deposit.
-- **Track status:** use `query gov proposal`, `query gov tally`, and `query gov proposals`. See also [Track Proposal Status](/governance/transactions-and-governance/#track-proposal-status).
-- **Transaction flags:** in governance transactions, keep `--keyring-backend file --unordered --timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 --node <NODE_URL>/chain-rpc/`.
+???+ note "Notes"
+    - **Who can create a proposal:** anyone with a valid governance (cold) key who pays required fees/deposit.
+    - **Track status:** use `query gov proposal`, `query gov tally`, and `query gov proposals`. See also [Track Proposal Status](/governance/transactions-and-governance/#track-proposal-status).
+    - **Transaction flags:** in governance transactions, keep `--keyring-backend file --unordered --timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 --node <NODE_URL>/chain-rpc/`.

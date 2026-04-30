@@ -25,6 +25,8 @@ Voting power ultimately derives from `participant.weight`, which is recomputed e
 
 Standard Cosmos SDK delegators, meaning anyone who staked via `MsgDelegate`, can vote independently and their vote overrides their validator's vote on the share they delegated. In practice almost all Gonka voting power lives in self-delegations by validators tied to their PoC weight, so this path is rarely used.
 
+---
+
 ## Quick path
 
 Most participants only need to verify a proposal and cast a vote. Do these four things:
@@ -44,7 +46,7 @@ Confirm the **id**, **title**, **summary**, and (if present) **metadata** match 
 ### Know the voting options and short flow
 
 - **Options:** `yes`, `no`, `no_with_veto`, `abstain`.
-- **Flow:** proposals open (after deposit) -> voting period runs -> outcome decided by quorum/threshold/veto parameters -> if passed, messages execute via the gov module.
+- **Flow:** proposals open (after deposit) → voting period runs → outcome decided by quorum/threshold/veto parameters → if passed, messages execute via the gov module.
 - You may change your vote any time before voting period ends; the last vote counts.
 
 ### Cast (or change) your vote
@@ -66,6 +68,8 @@ inferenced query gov tally <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain-rp
 # Optional: list votes
 inferenced query gov votes <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain-rpc/
 ```
+
+---
 
 ## Submit a Parameter Change Proposal
 
@@ -133,7 +137,11 @@ diff -u current_params.json proposed_params.json || true
 
 For `MsgUpdateParams`, modules typically expect the **full** params object and `authority` set to the **gov module account**.
 
+---
+
 ## Vote
+
+Again, this will need to be from you private machine with your Governance account:
 
 ```bash
 # options: yes | no | no_with_veto | abstain
@@ -146,8 +154,10 @@ inferenced tx gov vote <VOTE_PROPOSAL_ID> yes \
   --yes
 ```
 
+---
+
 ## Notes
 
 - **Who can create a proposal:** anyone with a valid governance (cold) key who pays required fees/deposit.
-- **Track status:** use `query gov proposal`, `query gov tally`, and `query gov proposals`.
+- **Track status:** use `query gov proposal`, `query gov tally`, and `query gov proposals`. See also [Track Proposal Status](/governance/transactions-and-governance/#track-proposal-status).
 - **Transaction flags:** in governance transactions, keep `--keyring-backend file --unordered --timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 --node <NODE_URL>/chain-rpc/`.

@@ -15,6 +15,8 @@ Replace every placeholder with your own values before running commands.
 
 If a command fails with `connection` or `parse`, check that every RPC command uses `<NODE_URL>/chain-rpc/` with exactly one `/chain-rpc/`.
 
+---
+
 ## 2. Two URLs (do not mix them)
 
 | Task | Variable |
@@ -23,6 +25,8 @@ If a command fails with `connection` or `parse`, check that every RPC command us
 | `create-client` (HTTP `.../v1/participants` on the seed) | `<NODE_URL>` (no `/chain-rpc/`) |
 
 Using `<NODE_URL>/chain-rpc/` for `--node-address` in `create-client` is incorrect and will fail or hit the wrong service.
+
+---
 
 ## 3. Prerequisites
 ### 3.1 Install CLI
@@ -102,6 +106,8 @@ If you already have a funded key for governance, skip this and avoid double regi
 
 Use the same `--keyring-backend` everywhere (e.g. `file`) for `keys show`, `tx gov submit-proposal`, and `tx gov vote`.
 
+---
+
 ## 4. Publish the proposal on-chain
 
 ### 4.1 Check balance
@@ -132,6 +138,8 @@ Recommended pattern from the official Gonka doc:
 
 After submission, note the proposal number from the output or find it via query commands.
 Share the proposal number so the community announcement can go out.
+
+---
 
 ## 5. Voting and tally
 

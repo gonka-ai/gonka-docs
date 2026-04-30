@@ -17,7 +17,11 @@ validator.tokens = participant.weight   (their PoC weight in the current epoch)
 
 For the Genesis Guardians, an additional power-enhancement step is applied first (see below).
 
-## Who are the Genesis Guardians?
+---
+
+## Genesis Guardians
+
+### Who are the Genesis Guardians?
 
 A small set of bootstrap validators operated by the project team, hardcoded into chain params. They receive a temporary power boost so that their combined stake exceeds the 33% governance veto threshold.
 
@@ -40,7 +44,9 @@ Purpose:
 - Provide rapid-response capability against protocol exploits.
 - Make cheap majority acquisition during bootstrap economically uninteresting.
 
-## How is the Guardian power boost calculated?
+---
+
+### How is the Guardian power boost calculated?
 
 Before `SetComputeValidators` runs, the inference module applies `applyEarlyNetworkProtection`, which computes enhanced power as follows:
 
@@ -53,14 +59,16 @@ guardian.tokens     = per_guardian_power                # original PoC weight is
 non_guardian.tokens = participant.weight                # unchanged
 ```
 
-Effect:
+**Effect:**
 
 - The combined Guardian share lands at `multiplier / (1 + multiplier) = 0.52 / 1.52 ≈ 34%` of total bonded.
 - Enough for veto (`>33%`), not enough to pass proposals (`>50%` required).
 - Cannot extract value or unilaterally change consensus, coordination among the Guardians is required for any action.
 - With 3 Guardians, each ends up with approximately `17.3%` of total bonded (`0.52 / 3`).
 
-## When does the Guardian boost end?
+---
+
+### When does the Guardian boost end?
 
 The enhancement deactivates automatically (no governance vote required) when both of the following on-chain conditions are met:
 
@@ -77,6 +85,7 @@ Current status on the live network:
 
 Both thresholds are governance-tunable (`network_maturity_threshold` and `network_maturity_min_height`), so the activation cut-off can be adjusted by a successful governance proposal if needed.
 
+---
 
 ## Governance delegation (cold key to warm key)
 
@@ -139,6 +148,8 @@ AUTHZ_VOTE
 ```bash
 ./inferenced tx authz exec /tmp/authz-vote.json --from=<GRANTEE_KEY_NAME>
 ```
+
+---
 
 ## Eligibility summary
 

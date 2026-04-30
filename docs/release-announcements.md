@@ -8,6 +8,37 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## April 30, 2026
+
+**UPGRADE EXECUTED: v0.2.12 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.12 has concluded. The proposal has been APPROVED, and the upgrade was successfully executed on the mainnet.
+
+**Key changes now active**
+
+- **Multi-model PoC (the largest change)** ([#1039](https://github.com/gonka-ai/gonka/pull/1039)). Transition Proof of Compute from a single fixed model to per-model PoC groups. Each governance-approved model generates its own local PoC weight, which is then aggregated into a total consensus weight via model-specific coefficients. Each host must participate in each model group (either directly or by delegating PoC voting weight).
+- **`moonshotai/Kimi-K2.6` is introduced as the second model:** The model group will be activated two epochs after the upgrade. The coefficient for this model is 3.51x the coefficient of Qwen235B, based on compute complexity of models on the same hardware (8xH200, 8xB200).
+- **Devshard standalone runtime** ([#1045](https://github.com/gonka-ai/gonka/pull/1045)). Decouples devshard releases from the DAPI / mainnet release cycle. 
+- **Certik audit fixes** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789)). Audit findings have been addressed.
+- **Protocol hardening.** Preserved nodes (`POC_SLOT=true` are randomly sampled for single PoC / CPoC time. Other updates include propagating the `mlnode` version to the on-chain `HardwareNode`, fixing DKG dealer consensus, aligning legacy validator slashing with required-collateral semantics, ensuring atomicity of the devshard escrow fund, and adding zero-timestamp tolerance to `inference_finished` event parsing.
+
+**Guidance for Hosts**
+
+- Deploy, delegate, or explicitly refuse the new governance-approved model (the included model will be activated 2 epochs after the upgrade). Refer to [the guide.](https://gonka.ai/docs/host/multi_model_poc/)
+
+- Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory:
+
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+- Binary Versions: Updated via the on-chain upgrade process.
+
+- Migration: Testing and migration details are documented in [the v0.2.12 documentation.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
+
+Additional details for these changes are available in the governance artifacts: [https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.12/proposals/](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.12/proposals/) 
+
 ## April 29, 2026
 
 **Upgrade v0.2.12: Pre-download binaries**

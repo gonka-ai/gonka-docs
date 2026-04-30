@@ -176,7 +176,7 @@ Do not use generic `inferenced` binaries intended for upgrade paths or container
 
 **Version requirement**
 
-Please make sure you are using an `inferenced` CLI build [version 0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) or newer. Older CLI versions are not supported for permission granting and may lead to unexpected behavior.
+Please make sure you are using an `inferenced` CLI build [version 0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) or [newer](https://github.com/gonka-ai/gonka/releases). Older CLI versions are not supported for permission granting and may lead to unexpected behavior.
 
 If you plan to submit governance proposals, especially proposals that use newer message types, use the latest published OS-specific CLI build.
 

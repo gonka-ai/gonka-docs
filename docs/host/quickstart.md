@@ -629,8 +629,9 @@ inferenced register-new-participant \
 **Expected output:**
 ```
 ...
-Found participant with pubkey: Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY (balance: 0)
-Participant is now available at http://36.189.234.237:19250/v1/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+Found participant: gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm (url: http://36.189.234.237:19250, status: ACTIVE)
+Participant is now available at http://36.189.234.237:19250/v2/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+Account balance: 0
 ```
 
 !!! warning "Existing account (already has on-chain transactions)"
@@ -797,15 +798,15 @@ curl -I https://<FULL_DOMAIN_NAME>:8443/health   # Expect: HTTP/2 200 OK
 
 Open this URL, replacing `<your-gonka-cold-address>` with your address:
 ```
-http://node2.gonka.ai:8000/v1/participants/<your-gonka-cold-address>
+http://node2.gonka.ai:8000/v2/participants/<your-gonka-cold-address>
 ```
 
-You will see your public key in JSON format:
-```
-{"pubkey":"<your-public-key>"}
-```
+You should see participant data in JSON (`participant.address`, `participant.inferenceUrl`, `participant.status`).
 
-This means that your address is included in the participants' list.
+To check account data (`pubkey`, `balance`, `denom`), use:
+```
+http://node2.gonka.ai:8000/v2/accounts/<your-gonka-cold-address>
+```
 
 Once your node completes the Proof of Compute stage (which runs every 24 hours), you can visit the following URL to see your node:
 ```bash

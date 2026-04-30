@@ -370,8 +370,7 @@ There are several ways to do this:
         
     You can create an account with the following command:
     ```bash
-    ./inferenced create-client $ACCOUNT_NAME \
-         --node-address $NODE_URL
+    ./inferenced keys add "$ACCOUNT_NAME"
     ```
         
     Make sure to securely save your passphrase — you'll need it for future access.
@@ -408,4 +407,19 @@ There are several ways to do this:
      inferenced keys list [--keyring-backend test]
     ```
 
-    Now you can add your Gonka account to wallets like Keplr by importing it using your public and private keys.
+    Now you can add your Gonka account to Keplr by importing it using your public and private keys.
+
+    To use this account for developer inference, fund it first, then publish your public key:
+    ```bash
+    export GONKA_ADDRESS=<your-account-address>
+
+    inferenced publish-pubkey \
+      --from "$ACCOUNT_NAME" \
+      --node "$NODE_URL/chain-rpc/" \
+      --chain-id "gonka-mainnet" \
+      --yes
+
+    curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
+    ```
+
+    You do **not** need to register as a Participant for developer inference.

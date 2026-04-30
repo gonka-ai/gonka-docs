@@ -333,8 +333,7 @@
         
     你可以使用以下命令创建账户：
     ```bash
-    ./inferenced create-client $ACCOUNT_NAME \
-         --node-address $NODE_URL
+    ./inferenced keys add "$ACCOUNT_NAME"
     ```
         
     请务必妥善保存你的口令（passphrase）——后续访问时将会用到。
@@ -370,4 +369,21 @@
     ```
      inferenced keys list [--keyring-backend test]
     ```
-    现在，你可以通过导入公钥和私钥，将你的 Gonka 账户添加到 Keplr 等钱包中。
+    若要将此账户用于开发者推理，请先给账户充值，再发布公钥：
+    ```bash
+    export GONKA_ADDRESS=<your-account-address>
+
+    inferenced publish-pubkey \
+      --from "$ACCOUNT_NAME" \
+      --node "$NODE_URL/chain-rpc/" \
+      --chain-id "gonka-mainnet" \
+      --yes
+
+    curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
+    ```
+
+    开发者推理不需要注册 Participant。
+
+一旦你的账户准备就绪，你可以[开始使用网络](https://gonka.ai/developer/quickstart/)。
+
+**需要帮助？** 加入我们的[Discord 服务器](https://discord.com/invite/RADwCT2U6R)获取一般咨询、技术问题或安全担忧的帮助。

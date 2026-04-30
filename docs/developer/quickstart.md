@@ -39,6 +39,7 @@ You can obtain GNK through:
     - Any purchase, swap, or transfer is performed at your own risk
 
 !!! note “Buying GNK”
+
     Direct purchase flows are still a work in progress. Follow updates in [Discord](https://discord.com/invite/RADwCT2U6R) for announcements.
     Any GNK listing you find on third-party websites or exchanges is not part of the Gonka protocol.
 

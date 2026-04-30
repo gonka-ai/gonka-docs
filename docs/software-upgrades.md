@@ -6,7 +6,7 @@ There are 3 different versions that can be upgraded independently:
 3. ML Node versions
 
 Any of these can be upgraded independently, or all three can be upgraded simultaneously.
-These are all done using [governance](https://gonka.ai/transactions-and-governance/) voting and proposals.
+These are all done using [governance](https://gonka.ai/governance/transactions-and-governance/) voting and proposals.
 
 ## Upgrades of only API or ML Node (or both)
 

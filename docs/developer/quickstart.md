@@ -33,14 +33,14 @@ At the moment, GNK is not officially listed on any exchanges.
 You can obtain GNK through:
 
 - Running a host and earning rewards for contributing compute
-- Participating in the bounty program (for contributions, fixes, or research)
+- Participating in [the bounty program](https://gonka.ai/docs/FAQ/#bounty-program)  
 - Community-driven channels (peer-to-peer transfers within the ecosystem)
     - These interactions are not part of the protocol and rely on direct coordination between participants
     - Any purchase, swap, or transfer is performed at your own risk
 
 !!! note “Buying GNK”
-Direct purchase flows are still a work in progress. Follow updates in [Discord](https://discord.com/invite/RADwCT2U6R) for announcements.
-Any GNK listing you find on third-party websites or exchanges is not part of the Gonka protocol.
+    Direct purchase flows are still a work in progress. Follow updates in [Discord](https://discord.com/invite/RADwCT2U6R) for announcements.
+    Any GNK listing you find on third-party websites or exchanges is not part of the Gonka protocol.
 
 ## 1. Define variables
 

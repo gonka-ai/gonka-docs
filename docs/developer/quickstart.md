@@ -24,14 +24,42 @@ This guide explains how to create a developer account in Gonka and submit an inf
 
 ---
 
+## 0. Get GNK (Gonka native coin)
+
+GNK is the native coin of the Gonka network. You’ll need it to pay for inference — every request you send to the network consumes a small amount of GNK.
+
+At the moment, GNK is not officially listed on any exchanges.
+
+You can obtain GNK through:
+
+- Running a host and earning rewards for contributing compute
+- Participating in the bounty program (for contributions, fixes, or research)
+- Community-driven channels (peer-to-peer transfers within the ecosystem)
+    - These interactions are not part of the protocol and rely on direct coordination between participants
+    - Any purchase, swap, or transfer is performed at your own risk
+
+!!! note “Buying GNK”
+Direct purchase flows are still a work in progress. Follow updates in [Discord](https://discord.com/invite/RADwCT2U6R) for announcements.
+Any GNK listing you find on third-party websites or exchanges is not part of the Gonka protocol.
+
 ## 1. Define variables
 
 Before creating an account, set up the required environment variables:
 
-```bash
-export ACCOUNT_NAME=<your-desired-account-name>
-export NODE_URL=<http://random-node-url>
-```
+=== "macOS / Linux"
+
+    ```bash
+    export ACCOUNT_NAME=<your-desired-account-name>
+    export NODE_URL=<http://random-node-url>
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    Windows (PowerShell):
+    $env:ACCOUNT_NAME = "your-desired-account-name"
+    $env:SOURCE_URL = "http://random-node-url"
+    ```
 
 - Replace `<your-desired-account-name>` with your chosen account name.
     - This name is not recorded on-chain — it exists only in your local key store.
@@ -64,6 +92,11 @@ export NODE_URL=<http://random-node-url>
 Do not forget to write it down, you will need it in the next step.
     
 ## 2. Create an account
+
+!!! warning "Windows users"
+
+    The `inferenced` CLI is currently available for macOS and Linux only.  
+    If you’re on Windows, skip to **Option 2: Via Keplr** — it works in any browser and takes under a minute.
 
 === "Option 1: Via `inferenced` CLI tool"
     

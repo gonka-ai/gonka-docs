@@ -1,8 +1,14 @@
 # Multi-Model PoC — Host Operations Guide
 
-Upgrade v0.2.12 introduces multi-model PoC. This guide applies once the upgrade has been approved by governance and activated on-chain. After activation, participation is tracked per model: for each approved model, you either run it, delegate, refuse, or do nothing. Once `penalty_start_epoch` is reached for a model, not participating (directly or via delegation) may reduce your consensus weight. This guide explains what to do and when.
+Upgrade v0.2.12 introduces multi-model Proof-of-Compute (PoC). Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. After v0.2.12, the network can support multiple governance-approved models. Each model has its own PoC group, parameters, and weight contribution. Participation is tracked per model. The second model introduced with this upgrade is `moonshotai/Kimi-K2.6`. 
 
-**In scope:** delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.
+The Kimi model group is scheduled to activate two epochs after the upgrade. Its coefficient is approximately **3.51×** the coefficient of `Qwen235B`, based on the relative compute complexity of the models on the same hardware classes, including 8×H200 and 8×B200.
+
+New models are added through governance: each new model should have its own governance process, parameters, and activation schedule. For every approved model, a host can decide whether to run it, delegate, refuse, or do nothing.
+
+Once `penalty_start_epoch` is reached for a model, not participating in that model directly or via valid delegation may reduce your consensus weight, depending on governance-configured parameters.
+
+**In scope:** model cleanup before upgrade, per-model participation choices, delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.
 
 **Signing:** everything in this guide is shown as if you broadcast from your **cold** Host key (`--from` points at that account). *(But permission can be granted to perform delegation using warm keys.)*
 
@@ -14,6 +20,93 @@ Upgrade v0.2.12 introduces multi-model PoC. This guide applies once the upgrade 
 ```
 
 **Further reading (design and fees):** [multi-model PoC proposal README](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md).
+
+---
+
+!!! warning "Required: clean up unsupported models (do this before upgrade, or immediately after if missed)."
+
+    As the network approaches the upgrade window, hosts should prepare their nodes in advance in case the proposal passes.
+    This cleanup process must be completed before the upgrade happens. If you upgrade before cleaning up the models, your node will be rejected and go offline.
+    Version 0.2.12 removes every governance model that is not on the post-upgrade approved list. On mainnet, only the previously enforced model and Kimi will remain.
+    Each DAPI persists its MLNode configurations locally. On startup, it validates every configured model against the on-chain governance list. If a configuration includes at least one unsupported model, the entire node is rejected, and the host goes offline. 
+    
+    Version 0.2.11 masked this problem by trimming the runtime view down to the enforced model, so `/admin/v1/nodes` appeared clean even when the persisted config still contained extra models. Version 0.2.12 stops this trimming, meaning the persisted config is loaded directly.
+    
+    To fix this, the script below finds each node with extra models in `/admin/v1/config` and sends a `PUT` request with a cleaned config to `/admin/v1/nodes/<id>`. These changes are persisted within 60 seconds. The remaining model's arguments, hardware, and ports are preserved exactly. Nodes that do not list the enforced model are skipped and will require manual fixing.
+    
+    Paste the following script into the host's shell. By default, it will apply the changes. To preview the changes without applying them, set `APPLY=dry` (or any value other than `--apply`).
+    
+    Script in the repository: 
+    
+    - [Bash](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.sh)
+    - [Python](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.py).
+    
+    ```bash
+    ADMIN=${ADMIN:-http://127.0.0.1:9200}
+    KEEP=${KEEP:-Qwen/Qwen3-235B-A22B-Instruct-2507-FP8}
+    APPLY=${APPLY:-"--apply"}
+    
+    curl -sS "$ADMIN/admin/v1/config" | jq -r --arg k "$KEEP" '
+      .nodes[] | "\(.id): " + (
+        if (.models | has($k) | not) then "skip (\(.models | keys))"
+        elif (.models | length) == 1 then "ok"
+        else "\(.models | keys) -> [\($k)]" end)'
+    
+    if [[ "$APPLY" == "--apply" ]]; then
+      curl -sS "$ADMIN/admin/v1/config" \
+        | jq -c --arg k "$KEEP" \
+            '.nodes[] | select((.models | has($k)) and (.models | length > 1)) | .models = {($k): .models[$k]}' \
+        | while IFS= read -r p; do
+            id=$(jq -r .id <<<"$p")
+            curl -sS -f -X PUT -H 'Content-Type: application/json' -d "$p" \
+              "$ADMIN/admin/v1/nodes/$id" >/dev/null && echo "$id: updated"
+          done
+      echo "done; persisted within 60s"
+    else
+      echo "preview only; rerun without APPLY=dry to commit"
+    fi
+    ```
+    
+    
+    Wait 60 seconds after running the script to ensure the changes are persisted before triggering the upgrade. Then, verify the configuration:
+    
+    ```bash
+    curl -sS http://127.0.0.1:9200/admin/v1/config \
+      | jq '.nodes[] | {id, models: (.models | keys)}'
+    ```
+    
+    Expected output:
+    ```json
+    {
+      "id": "<nodeId>",
+      "models": [
+        "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+      ]
+    }
+    ```
+    *(Additional nodes will follow the same format)*
+
+---
+
+## Your options (per model)
+
+> To get a list of all governance-approved `model_id` values, run:
+> ```
+> ./inferenced query inference params --node "$NODE" -o json
+> ```
+> Look inside `poc_params` → `models`.
+
+| What you want | Command | Why hosts choose it |
+|---|---|---|
+| Run this model's PoC yourself | *(no separate on-chain "join"; your stack submits the PoC v2 store commit)* | You stay in that model's group for the epoch. |
+| Trust another host's validation votes for that model | `set-poc-delegation` | Your weight can count toward their influence on that model's PoC checks, if the rules at validation time are satisfied (see [Does your delegation actually count?](#does-your-delegation-actually-count)). |
+| Explicitly opt out of delegating for that model | `refuse-poc-delegation` | Clear "no" to delegation; after penalties turn on for that model, a refusal-style deduction may apply if governance configured it. (see [When your on-chain choices are frozen](#when-your-on-chain-choices-are-frozen) |
+| Do nothing extra | *(no tx)* | Default; after penalties turn on, a no-participation-style deduction may apply if governance configured it. |
+| Signal plans before a new model is fully live | `declare-poc-intent` | For **bootstrap reporting only**; it does **not** replace running PoC. You still need a store commit in PoC to count as serving the model yourself. See [Bootstrap pre-eligibility events](#bootstrap-pre-eligibility-events). |
+
+**One stored choice per model:** for each `model_id` and your address, the chain keeps **at most one** of delegate / refuse / intent. A new transaction of any of those three **replaces** the previous one. Serving the model yourself (having a valid store commit for that model in the epoch) wins over those three when the chain applies rules for that epoch.
+
+There is no universal default recommendation. Running, delegating, refusing, or doing nothing is a strategy decision per host and per model.
 
 ---
 
@@ -39,26 +132,6 @@ The chain records **delegations and intents** for **bootstrap / pre-eligibility*
 
 Whether you **actually ran PoC** for a model is not taken from those stored rows: the chain uses your **PoC v2 store commits** for that model during the epoch.
 
----
-
-## Your options (per model)
-
-> To get a list of all governance-approved `model_id` values, run:
-> ```
-> ./inferenced query inference params --node "$NODE" -o json
-> ```
-> Look inside `poc_params` → `models`.
-
-| What you want | Command | Why hosts choose it |
-|---|---|---|
-| Run this model's PoC yourself | *(no separate on-chain "join"; your stack submits the PoC v2 store commit)* | You stay in that model's group for the epoch. |
-| Trust another host's validation votes for that model | `set-poc-delegation` | Your weight can count toward their influence on that model's PoC checks, if the rules at validation time are satisfied (see [Does your delegation actually count?](#does-your-delegation-actually-count)). |
-| Explicitly opt out of delegating for that model | `refuse-poc-delegation` | Clear "no" to delegation; after penalties turn on for that model, a refusal-style deduction may apply if governance configured it. (see [When your on-chain choices are frozen](#when-your-on-chain-choices-are-frozen) |
-| Do nothing extra | *(no tx)* | Default; after penalties turn on, a no-participation-style deduction may apply if governance configured it. |
-| Signal plans before a new model is fully live | `declare-poc-intent` | For **bootstrap reporting only**; it does **not** replace running PoC. You still need a store commit in PoC to count as serving the model yourself. See [Bootstrap pre-eligibility events](#bootstrap-pre-eligibility-events). |
-
-**One stored choice per model:** for each `model_id` and your address, the chain keeps **at most one** of delegate / refuse / intent. A new transaction of any of those three **replaces** the previous one. Serving the model yourself (having a valid store commit for that model in the epoch) wins over those three when the chain applies rules for that epoch.
-
 ### Does your delegation actually count?
 
 `set-poc-delegation` can be sent anytime, but it only **helps** the delegate if **at validation start** all of the following hold:
@@ -81,7 +154,7 @@ Use them to decide **when** to declare intent and **when** you must have commits
 
 ---
 
-## Copy-paste setup and commands
+## Copy-paste setup commands
 
 ### Session variables (set once in this shell)
 
@@ -111,6 +184,24 @@ Each `tx inference …` example below repeats the same `--from` / `--node` / `--
 ```bash
 ./inferenced query inference get-current-epoch --node "$NODE" -o json
 ```
+
+### Query delegation state
+
+**All models:**
+
+```bash
+./inferenced query inference poc-delegation "$MY_ADDR" --node "$NODE" -o json
+```
+
+**One model** (second argument optional):
+
+```bash
+./inferenced query inference poc-delegation "$MY_ADDR" "$MODEL" --node "$NODE" -o json
+```
+
+The response lists **delegations**, **refusals**, and **intents** separately; for a given model you will have **at most one** of the three.
+
+---
 
 ### Delegate, clear, refuse, intent
 
@@ -175,24 +266,6 @@ MODEL="your-model-id"
   -y
 ```
 
-### Query delegation state
-
-**All models:**
-
-```bash
-./inferenced query inference poc-delegation "$MY_ADDR" --node "$NODE" -o json
-```
-
-**One model** (second argument optional):
-
-```bash
-./inferenced query inference poc-delegation "$MY_ADDR" "$MODEL" --node "$NODE" -o json
-```
-
-The response lists **delegations**, **refusals**, and **intents** separately; for a given model you will have **at most one** of the three.
-
----
-
 ## Penalties and parameters
 
 Penalties and the delegation share apply to **consensus weight** when the next epoch's active set is built, **after** PoC outcomes are known. Everything below comes from `./inferenced query inference params` (JSON fields vary slightly by version; search inside the output for these names).
@@ -214,8 +287,13 @@ If **`refusal_penalty`**, **`no_participation_penalty`**, and **`delegation_shar
 
 ## Host checklist
 
-1. Prefer **one logical model per ML node** where possible; misconfiguration is easy when several models exist on the same node.
-2. Before each model's **`penalty_start_epoch`**, decide whether to **delegate**, **refuse**, or leave the default; read **`params`** for that model's epoch and for non-zero penalty fractions (all zero means penalties/transfers off).
-3. For new models, watch **`bootstrap_model_preeligibility`** and send **`declare-poc-intent`** in time for the capture at **`next_poc_start − deploy_window`**. Intent does not replace running PoC — you still need a store commit to count as serving the model yourself.
-4. After **`set-poc-delegation`**, verify with **`poc-delegation`** for your address and model.
-5. After upgrade, confirm **`params`** lists every model you care about under **`poc_params`** and that **`delegation_params`** matches what governance announced.
+1. Before the upgrade, clean your persisted MLNode config so it contains only supported models.
+2. Prefer one logical model per ML node where possible. Misconfiguration is easier when several models exist on the same node.
+3. After upgrade, confirm `params` lists every model you care about under `poc_params`.
+4. Check each model’s `penalty_start_epoch`.
+5. Check whether `refusal_penalty`, `no_participation_penalty`, and `delegation_share` are non-zero.
+6. For each model, decide whether you want to run it, delegate, refuse, or do nothing.
+7. If you run the model yourself, make sure your PoC stack submits valid PoC v2 store commits for that model.
+8. If you delegate, verify the result with `poc-delegation`.
+9. For new models, watch `bootstrap_model_preeligibility` events and send `declare-poc-intent` before the capture height if you plan to participate.
+10. After any config change, restart, or new host onboarding, make sure no unsupported models are present in the persisted DAPI configuration.

@@ -26,6 +26,10 @@ This guide explains how to create a developer account in Gonka and submit an inf
 
 ## 0. Get GNK (Gonka native coin)
 
+There are two ways to start using Gonka
+
+### Option A — Use GNK (crypto-native path)
+
 GNK is the native coin of the Gonka network. You’ll need it to pay for inference — every request you send to the network consumes a small amount of GNK.
 
 At the moment, GNK is not officially listed on any exchanges.
@@ -42,6 +46,26 @@ You can obtain GNK through:
 
     Direct purchase flows are still a work in progress. Follow updates in [Discord](https://discord.com/invite/RADwCT2U6R) for announcements.
     Any GNK listing you find on third-party websites or exchanges is not part of the Gonka protocol.
+
+### Option B — Use broker services (no GNK required)
+
+Alternatively, you can use broker services. These services allow you to:
+
+- Pay for inference directly in USD  
+- Avoid managing wallets, keys, or tokens  
+- Start immediately with minimal setup  
+
+They handle GNK conversion and on-chain interaction internally.
+
+!!! note "When to use this option"
+
+    This is the easiest way to get started, especially for first-time users.  
+    You can switch to direct GNK usage later if needed.
+
+!!! caution "Trade-offs"
+
+    Broker services are not part of the core protocol.  
+    They introduce an additional layer of trust and abstraction compared to direct interaction with the network.
 
 ## 1. Define variables
 

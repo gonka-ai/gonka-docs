@@ -24,7 +24,7 @@ The guide describes a scenario in which both services are deployed on the same m
     </div>
 
 ## Prerequisites
-This  section provides guidance on configuring your hardware infrastructure to participate in Gonka Network launch. The goal is to maximize protocol rewards by aligning your deployment with network expectations.
+This section provides guidance on configuring your hardware infrastructure to participate in Gonka Network launch. The goal is to maximize protocol rewards by aligning your deployment with network expectations.
 
 ### Supported Model
 The protocol currently supports a single model for inference and Proof of Compute (PoC) `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. This model is used for PoC v2 participation and weight assignment. 
@@ -54,7 +54,7 @@ The server hosting the Network Node should have:
 
 The final requirements will depend on the number of ML Nodes connected and their total throughput.
 
-Each server to deploy ML Node should have:
+Each server used to deploy an ML Node should have:
 
 - at least 1.5x RAM of GPU VRAM
 - a 16-core CPU (Network Node and ML Node can be deployed on the same server).
@@ -187,7 +187,7 @@ chmod +x inferenced
 ./inferenced --help
 ```
 
-!!! note "MacOS Users"
+!!! note "macOS Users"
     On macOS, you may need to allow execution in `System Settings` → `Privacy & Security` if prompted. Scroll down to the warning about `inferenced` and click `Allow Anyway`.
 
 If the binary fails to start on Linux with an error similar to `Error relocating ./inferenced: qsort_r: symbol not found`, you most likely downloaded a non-CLI or upgrade-specific artifact instead of the OS-specific packaged CLI build. Re-download the correct archive for your operating system and architecture.
@@ -634,8 +634,27 @@ Participant is now available at http://36.189.234.237:19250/v2/participants/gonk
 Account balance: 0
 ```
 
-!!! warning "Existing account (already has on-chain transactions)"
-    An account is created on-chain permanently the first time it receives coins. If your account key address already has transactions, follow these steps:
+!!! warning "Account already has GNK but has not sent any transactions"
+    
+    In most cases, `inferenced register-new-participant` can register your Host directly from inside the `api` container.
+
+    However, there is a known edge case: if your Account Key address has already received GNK but has never sent a transaction itself, registration from inside the container may fail with an error similar to:
+
+    ```text
+    rpc error: code = Unknown desc = runtime error: invalid memory address or nil pointer dereference: panic
+    ```
+
+    This can happen when the account has a balance, but its on-chain transaction sequence is still `0`.
+
+    If the command above fails with this error, you can check the account balance and sequence from your **local machine**:
+
+    ```bash
+    ./inferenced query auth account <YOUR_COLD_ADDRESS> \
+      --node <node-url>/chain-rpc/ \
+      --output json | jq -r '.account.value.sequence // .sequence // "0"'
+    ```
+
+    If the account has a non-zero `ngonka` balance and the sequence command returns `0`, use the manual registration flow below.
 
     **Step 1.** While still in the container from step 3.1, get your Consensus Key and note it down:
     ```bash
@@ -649,7 +668,7 @@ Account balance: 0
         --validator-key <CONSENSUS_KEY> \
         --keyring-backend file \
         --from <COLD_KEY_NAME> \
-        --timeout-duration 1m \
+        --timeout-duration 1m I am running a few minutes late; my previous meeting is running over.
         --unordered \
         --node <node-url>/chain-rpc/ \
         --chain-id gonka-mainnet

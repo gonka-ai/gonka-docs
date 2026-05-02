@@ -13,6 +13,9 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="$ROOT/docs"
 STAGE="$ROOT/_stage"
 
+# Derive mkdocs.docs.yml nav from the single source of truth in mkdocs.yml.
+python3 "$ROOT/buildtools/sync-docs-nav.py"
+
 rm -rf "$STAGE"
 mkdir -p "$STAGE/home/zh"
 

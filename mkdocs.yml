@@ -21,6 +21,7 @@ nav:
     - Hardware specifications: host/hardware-specifications.md
     - How to edit Host public info: host/host_info.md
     - Key management: host/key-management.md
+    - Kimi K2.6 Bootstrap: host/kimi-bootstrap.md
     - ML Node Management: host/mlnode-management.md
     - Multi-Model PoC: host/multi_model_poc.md
     - Multiple nodes: host/multiple-nodes.md

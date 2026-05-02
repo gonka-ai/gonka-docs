@@ -113,6 +113,7 @@ If the upgrade happens while your persisted config still contains unsupported mo
 
 Do you run the model?
 
+```
 ├─ YES
 │  └─ Do nothing → you are fully participating (no penalties)
 
@@ -133,6 +134,7 @@ Do you run the model?
    │
    └─ If you do nothing
       └─ Risk highest penalty (~15%)
+```
 
 In most cases:
 

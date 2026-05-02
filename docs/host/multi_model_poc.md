@@ -250,15 +250,15 @@ Use them to decide **when** to declare intent and **when** you must have commits
 
 ### Session variables (set once in this shell)
 
-Adjust values, then run the block. **All examples below** use `NODE`, `CHAIN_ID`, `KEY` (your **cold** key name in the keyring), and optional `KEYRING_BACKEND`.
+Run this once in the same shell before using the commands below. Adjust values, then run the block. **All examples below** use `NODE`, `CHAIN_ID`, `KEY` (your **cold** key name in the keyring), and optional `KEYRING_BACKEND`.
 
 ```bash
-NODE="<PUBLIC_URL>"
-CHAIN_ID="gonka-mainnet"
-KEY="gonka-account-key"   # cold key; see note at top on warm-key grants
-KEYRING_BACKEND="file"
+export NODE="<PUBLIC_URL>"
+export CHAIN_ID="gonka-mainnet"
+export KEY="gonka-account-key"   # cold key; see note at top on warm-key grants
+export KEYRING_BACKEND="file"
 
-MY_ADDR="$(./inferenced keys show "$KEY" -a --keyring-backend "$KEYRING_BACKEND" 2>/dev/null || true)"
+export MY_ADDR="$(./inferenced keys show "$KEY" -a --keyring-backend "$KEYRING_BACKEND" 2>/dev/null || true)"
 # If keys show fails, set your address explicitly:
 # MY_ADDR="gonka1..."
 ```

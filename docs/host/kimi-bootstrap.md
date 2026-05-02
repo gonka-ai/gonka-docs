@@ -10,16 +10,18 @@ This document explains how to minimize the chance of weight reductions, whether 
 
 ## Timeline
 
-1. Before block `3873996`, all participants must submit:
+#### 1. Before block `3873996`, all participants must submit:
     - `PoCIntent` - if they are going to deploy `Kimi-K2.6`. Hosts should keep nodes deployed with `Qwen235B` and switch only after evaluation at block `3873996`
     - `PoCDelegation` / `PoCRefusal` - if they are NOT going to deploy `Kimi-K2.6`
 
-2. At block `3873996`, the chain runs pre-evaluation to check whether it should try to activate the model based on `PoCIntent` / `PoCDelegation`
+#### 2. At block `3873996`, the chain runs pre-evaluation to check whether it should try to activate the model based on `PoCIntent` / `PoCDelegation`
     - If the model becomes pre-eligible => hosts who submitted `PoCIntent` should switch their model nodes to `Kimi-K2.6` (there are no CPoC in this 500-block window)
     - If the model does not become pre-eligible => hosts who submitted `PoCIntent` should keep their nodes on `Qwen235B`
 
-3. At block `3874496`, PoC starts
+#### 3. At block `3874496`, PoC starts
 
+
+### Possible Scenarios
 
 The bootstrap of a new model can follow these main scenarios:
 
@@ -44,7 +46,7 @@ If the model passes both checks, punishment follows the usual scenarios describe
 
 ## Instructions for hosts who are going to deploy Kimi-K2.6
 
-1. Send `PoCIntent` to the chain:
+#### 1. Send `PoCIntent` to the chain:
 
 ```
 export NODE=https://node3.gonka.ai/
@@ -58,7 +60,7 @@ export NODE=https://node3.gonka.ai/
   -y \
 ```
 
-2. Check your setup and make sure the `Kimi-K2.6` weights are downloaded and you can deploy the model successfully
+#### 2. Check your setup and make sure the `Kimi-K2.6` weights are downloaded and you can deploy the model successfully
 
 3. Wait for block `3873996`+ and check whether the model becomes pre-eligible:
 
@@ -83,7 +85,7 @@ curl -s "$NODE/chain-rpc/block_results?height=$HEIGHT" \
 
 The results will be sent in all channels.
 
-4. Switch the model to Kimi-K2.6 if needed
+#### 4. Switch the model to Kimi-K2.6 if needed
 
 Example command to deploy Kimi-K2.6 on 4xB200 / 8xB200:
 ```
@@ -117,7 +119,7 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 ## Instructions for hosts who are NOT going to deploy Kimi-K2.6
 
-1. Check if you trust any host who is going to deploy Kimi K2.6 / send `PoCIntent`
+#### 1. Check if you trust any host who is going to deploy Kimi K2.6 / send `PoCIntent`
 
 Current intents:
 ```python
@@ -146,7 +148,7 @@ print()
 print(f"Intent weight: {intent_weight} / {total}")
 ```
 
-2. Send delegation or refusal
+#### 2. Send delegation or refusal
 
 Delegation:
 ```

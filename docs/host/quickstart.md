@@ -836,8 +836,8 @@ curl http://node2.gonka.ai:8000/chain-rpc/status
 
 Once your node is visible in the Dashboard, you may also want to update your public profile (host name, website, avatar). This helps other participants identify your node in the network. You can find [the instructions here](https://gonka.ai/host/validator_info/).
 
-!!! important "Required next step"
-    After completing this guide, continue with the [Multi-Model PoC Host Operations Guide](./multi_model_poc.md).
+!!! important "Required next steps"
+    After completing this guide, continue with the [Multi-Model PoC Host Operations Guide](./multi_model_poc.md) and [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
     This is required reading for hosts because Upgrade v0.2.12 changes how model participation is tracked on-chain.
 
 ## Stopping and Cleaning Up Your Node

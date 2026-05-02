@@ -152,7 +152,7 @@ print(f"Intent weight: {intent_weight} / {total}")
 
 Delegation:
 ```
-export NODE=https://node3.gonka.ai/
+export NODE=https://node3.gonka.ai/chain-rpc/
 ./inferenced tx inference set-poc-delegation moonshotai/Kimi-K2.6 <DELEGATEE> \
   --from gonka-account-key \
   --node "$NODE" \
@@ -165,7 +165,7 @@ export NODE=https://node3.gonka.ai/
 
 Refusal:
 ```
-export NODE=https://node3.gonka.ai/
+export NODE=https://node3.gonka.ai/chain-rpc/
 ./inferenced tx inference refuse-poc-delegation moonshotai/Kimi-K2.6 \
   --from gonka-account-key \
   --node "$NODE" \

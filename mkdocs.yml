@@ -26,14 +26,14 @@ nav:
     - Multi-Model PoC: host/multi_model_poc.md
     - Multiple nodes: host/multiple-nodes.md
     - Network Node API: host/network-node-api.md
-  - Wallet:
+  - Other:
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
     - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md
-  - Announcements: release-announcements.md
-  - Model licenses: model-licenses.md
-  - Software upgrades: software-upgrades.md
-  - Transactions & governance: transactions-and-governance.md
+    - Announcements: release-announcements.md
+    - Model licenses: model-licenses.md
+    - Software upgrades: software-upgrades.md
+    - Transactions & governance: transactions-and-governance.md
   - Help:
     - FAQ: FAQ.md
     - Errors: Errors.md
@@ -144,10 +144,10 @@ plugins:
             ML Node Management: ML 节点管理
             "Multiple nodes": 多节点
             "Network Node API": 网络节点 API
-            Wallet: 钱包
             Dashboard: 仪表盘
             Pricing: 价格
             Wallet & transfer guide: 钱包与转账指南
+            Other: 其他
             Announcements: 公告
             "Model licenses": 模型许可
             Software upgrades: 软件升级

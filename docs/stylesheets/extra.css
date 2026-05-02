@@ -109,6 +109,16 @@ a.md-logo img,
 .gonka-logo img{border:0;padding:0;background:transparent;max-height:48px!important;height:auto!important;width:auto!important;}
 
 /* == 4. Navigation tweaks ====================================== */
+/* Collapsible section titles in the main sidebar (e.g. Developer, Host, Other, Help).
+   Material sets label.md-nav__link[for] to --md-default-fg-color--light (washed‑out gray);
+   that makes section headers look "inactive" and hides our emphasis unless we override. */
+.md-nav--primary .md-nav__item.md-nav__item--section.md-nav__item--nested > .md-nav__link,
+.md-nav--primary .md-nav__item.md-nav__item--section.md-nav__item--nested > .md-nav__link[for] {
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.045em !important;
+  color: var(--md-default-fg-color) !important;
+}
 .md-nav__link:focus,
 .md-tabs__link--active,
 .md-nav__item .md-nav__link--active,

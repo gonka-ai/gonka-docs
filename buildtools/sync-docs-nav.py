@@ -4,9 +4,9 @@
 This ensures mkdocs.yml is the single source of truth for navigation.
 The script:
   1. Reads the nav from mkdocs.yml
-  2. Strips the "Home" entry (landing lives at /, outside the docs build)
-  3. Remaps "Introduction: introduction.md" → "Introduction: index.md"
-     (prepare-stages.sh promotes introduction.md to index.md in _stage/docs/)
+  2. Strips every ``Home`` entry (landing lives at /, outside the docs build)
+  3. Remaps ``Introduction: introduction.md`` → ``Introduction: index.md`` anywhere
+     in the tree (prepare-stages.sh promotes introduction.md to index.md in _stage/docs/)
   4. Writes the transformed nav into mkdocs.docs.yml
 """
 from __future__ import annotations
@@ -20,19 +20,35 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def transform_nav(nav: list) -> list:
-    """Strip Home and remap Introduction for the docs build."""
+def transform_nav_entry(entry: dict) -> dict | None:
+    """Transform one nav mapping. Return None to omit (e.g. Home in docs build)."""
+    key = next(iter(entry))
+    val = entry[key]
+    if key == "Home":
+        return None
+    if key == "Introduction" and val == "introduction.md":
+        return {"Introduction": "index.md"}
+    if isinstance(val, list):
+        children = transform_nav_list(val)
+        return {key: children}
+    return entry
+
+
+def transform_nav_list(items: list) -> list:
     out: list = []
-    for item in nav:
+    for item in items:
         if isinstance(item, dict):
-            key = next(iter(item))
-            if key == "Home":
-                continue
-            if key == "Introduction" and item[key] == "introduction.md":
-                out.append({"Introduction": "index.md"})
-                continue
-        out.append(item)
+            mapped = transform_nav_entry(item)
+            if mapped is not None:
+                out.append(mapped)
+        else:
+            out.append(item)
     return out
+
+
+def transform_nav(nav: list) -> list:
+    """Strip Home and remap Introduction for the docs build (nested nav aware)."""
+    return transform_nav_list(nav)
 
 
 def strip_nav_block(lines: list[str]) -> list[str]:

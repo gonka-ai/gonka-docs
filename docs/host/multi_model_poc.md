@@ -1,6 +1,10 @@
 # Multi-Model PoC — Host Operations Guide
 
-Upgrade v0.2.12 introduces multi-model Proof-of-Compute (PoC). Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. After v0.2.12, the network can support multiple governance-approved models. Each model has its own PoC group, parameters, and weight contribution. Participation is tracked per model. The second model introduced with this upgrade is `moonshotai/Kimi-K2.6`. 
+Upgrade v0.2.12 introduces multi-model Proof-of-Compute (PoC). 
+
+## What changes in v0.2.12
+
+Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. After v0.2.12, the network can support multiple governance-approved models. Each model has its own PoC group, parameters, and weight contribution. Participation is tracked per model. The second model introduced with this upgrade is `moonshotai/Kimi-K2.6`. The Kimi model group is scheduled to activate two epochs after the upgrade. Its coefficient is approximately 3.51× the coefficient of Qwen235B, based on relative compute complexity on the same hardware classes, including 8×H200 and 8×B200.
 
 ??? note "Why multi-model PoC works this way"
 
@@ -17,39 +21,11 @@ Upgrade v0.2.12 introduces multi-model Proof-of-Compute (PoC). Before v0.2.12, t
     - New models can bootstrap safely without forcing full network adoption
     - The network preserves its security guarantees while remaining flexible
 
-The Kimi model group is scheduled to activate two epochs after the upgrade. Its coefficient is approximately **3.51×** the coefficient of `Qwen235B`, based on the relative compute complexity of the models on the same hardware classes, including 8×H200 and 8×B200.
+## Governance model
 
 New models are added through governance: each new model should have its own governance process, parameters, and activation schedule. For every approved model, a host can decide whether to run it, delegate, refuse, or do nothing.
 
-??? note "Recommended actions after upgrade"
-
-    If you are not running Kimi:
-    
-    - If you operate multiple nodes and at least one runs Kimi: delegate to your own Kimi node
-    - If you do not run Kimi at all: delegate to a host you trust
-    - If you do not trust any delegate: use `refuse-poc-delegation`
-
-Once `penalty_start_epoch` is reached for a model, not participating in that model directly or via valid delegation may reduce your consensus weight, depending on governance-configured parameters.
-
-!!! note "Current mainnet parameters (at time of writing)"
-
-    - `refusal_penalty`: ~10% of your weight
-    - `no_participation_penalty`: ~15% (if quorum forms without you)
-    - `delegation_share`: ~5% of your weight is transferred to the delegate
-    
-    These values are governance-controlled and may change. Always verify using `params`.
-
-!!! note "Grace period"
-
-    After the upgrade, penalties for newly introduced models do not apply immediately.
-    
-    Hosts typically have a short window (~3 days) to:
-    
-    - deploy the model
-    - configure delegation
-    - or explicitly refuse
-    
-    Check `penalty_start_epoch` in `params` for exact timing.
+## Scope and prerequisites
 
 **In scope:** model cleanup before upgrade, per-model participation choices, delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.
 
@@ -64,7 +40,9 @@ Once `penalty_start_epoch` is reached for a model, not participating in that mod
 
 **Further reading (design and fees):** [multi-model PoC proposal README](https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md).
 
----
+##  Critical: model cleanup before upgrade
+
+If the upgrade happens while your persisted config still contains unsupported models, your node may be rejected and go offline.
 
 !!! warning "Required: clean up unsupported models (do this before upgrade, or immediately after if missed)."
 
@@ -161,6 +139,16 @@ In most cases:
 - Delegation is the safest default if you are not running the model
 - Doing nothing is the worst option once penalties are enabled
 
+## Recommended actions
+
+If you are not running Kimi:
+    
+- If you operate multiple nodes and at least one runs Kimi: delegate to your own Kimi node
+- If you do not run Kimi at all: delegate to a host you trust
+- If you do not trust any delegate: use `refuse-poc-delegation`
+
+Once `penalty_start_epoch` is reached for a model, not participating in that model directly or via valid delegation may reduce your consensus weight, depending on governance-configured parameters.
+
 ## Your options (per model)
 
 > To get a list of all governance-approved `model_id` values, run:
@@ -189,6 +177,26 @@ In most cases:
 **One stored choice per model:** for each `model_id` and your address, the chain keeps **at most one** of delegate / refuse / intent. A new transaction of any of those three **replaces** the previous one. Serving the model yourself (having a valid store commit for that model in the epoch) wins over those three when the chain applies rules for that epoch.
 
 There is no universal default recommendation. Running, delegating, refusing, or doing nothing is a strategy decision per host and per model.
+
+!!! note "Current mainnet parameters (at time of writing)"
+
+    - `refusal_penalty`: ~10% of your weight
+    - `no_participation_penalty`: ~15% (if quorum forms without you)
+    - `delegation_share`: ~5% of your weight is transferred to the delegate
+    
+    These values are governance-controlled and may change. Always verify using `params`.
+
+!!! note "Grace period"
+
+    After the upgrade, penalties for newly introduced models do not apply immediately.
+    
+    Hosts typically have a short window (~3 days) to:
+    
+    - deploy the model
+    - configure delegation
+    - or explicitly refuse
+    
+    Check `penalty_start_epoch` in `params` for exact timing.
 
 ---
 
@@ -257,6 +265,7 @@ Each `tx inference …` example below repeats the same `--from` / `--node` / `--
 
 **Optional — fewer repeated flags:** set default RPC node and chain id in the CLI client config for this machine (Cosmos-style `client.toml`; use `./inferenced config --help`). After that you can omit `--node` and `--chain-id` from the transaction lines below.
 
+
 ### Parameters and epoch
 
 ```bash
@@ -285,7 +294,7 @@ The response lists **delegations**, **refusals**, and **intents** separately; fo
 
 ---
 
-### Delegate, clear, refuse, intent
+### Transactions
 
 **Delegate** (the delegate need not already be running that model's PoC when you send the tx):
 
@@ -347,6 +356,8 @@ MODEL="your-model-id"
   --gas-adjustment 1.3 \
   -y
 ```
+
+---
 
 ## Penalties and parameters
 

@@ -17,36 +17,6 @@ docs_dir: _stage/docs
 extra:
   homepage: https://gonka.ai/
 
-# Same as mkdocs.yml nav, but:
-#  - no "Home" entry (the landing lives at /, outside this build)
-#  - "Introduction" points at index.md (the promoted introduction content)
-nav:
-  - Introduction: index.md
-  - Glossary: glossary.md
-  - Developer:
-    - Quickstart: developer/quickstart.md
-    - Details: developer/details.md
-  - Host:
-    - Quickstart: host/quickstart.md
-    - Architecture: architecture.md
-    - Benchmark to Choose Optimal Deployment Config for LLMs: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
-    - Genesis: host/genesis.md
-    - Hardware specifications: host/hardware-specifications.md
-    - How to edit Host public info: host/host_info.md
-    - Collateral: host/collateral.md
-    - Key management: host/key-management.md
-    - ML Node Management: host/mlnode-management.md
-    - Multiple nodes: host/multiple-nodes.md
-    - Network Node API: host/network-node-api.md
-  - Wallet:
-    - Dashboard: wallet/dashboard.md
-    - Pricing: wallet/pricing.md
-    - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md
-  - Announcements: release-announcements.md
-  - Model licenses: model-licenses.md
-  - Software upgrades: software-upgrades.md
-  - Transactions & governance: transactions-and-governance.md
-  - Help:
-    - FAQ: FAQ.md
-    - Errors: Errors.md
-    - Get help: help.md
+# nav is auto-generated at build time by buildtools/sync-docs-nav.py
+# from the single source of truth in mkdocs.yml (strips "Home",
+# remaps "Introduction" → index.md). Do not add nav here manually.

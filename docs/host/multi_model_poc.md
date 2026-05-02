@@ -111,9 +111,9 @@ If the upgrade happens while your persisted config still contains unsupported mo
 
 ## What should I do? (quick decision guide)
 
+```
 Do you run the model?
 
-```
 ├─ YES
 │  └─ Do nothing → you are fully participating (no penalties)
 
@@ -127,7 +127,7 @@ Do you run the model?
    │     ├─ Do you trust another host?
    │     │
    │     │  ├─ YES
-   │     │  │  └─ Delegate to that host
+   │     │  │  └─ Delegate to that host (share 5% of weight)
    │     │
    │     │  └─ NO
    │     │     └─ Refuse delegation (~10% penalty)

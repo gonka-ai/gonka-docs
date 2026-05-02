@@ -2,11 +2,54 @@
 
 Upgrade v0.2.12 introduces multi-model Proof-of-Compute (PoC). Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. After v0.2.12, the network can support multiple governance-approved models. Each model has its own PoC group, parameters, and weight contribution. Participation is tracked per model. The second model introduced with this upgrade is `moonshotai/Kimi-K2.6`. 
 
+??? note "Why multi-model PoC works this way"
+
+    The goal of this design is to preserve the same security model (BFT assumptions), while allowing the network to support multiple models without requiring every host to run all of them.
+    
+    Without delegation:
+    
+    - Lowering validation thresholds for new models would allow a small subset of the network to accumulate disproportionate influence.
+    - Keeping the standard 2/3 threshold would make it very hard to activate new models, since a supermajority of hosts would need to deploy them first.
+    
+    Delegation solves this:
+    
+    - Hosts who do not run a model can still contribute their weight to validation
+    - New models can bootstrap safely without forcing full network adoption
+    - The network preserves its security guarantees while remaining flexible
+
 The Kimi model group is scheduled to activate two epochs after the upgrade. Its coefficient is approximately **3.51×** the coefficient of `Qwen235B`, based on the relative compute complexity of the models on the same hardware classes, including 8×H200 and 8×B200.
 
 New models are added through governance: each new model should have its own governance process, parameters, and activation schedule. For every approved model, a host can decide whether to run it, delegate, refuse, or do nothing.
 
+??? note "Recommended actions after upgrade"
+
+    If you are not running Kimi:
+    
+    - If you operate multiple nodes and at least one runs Kimi: delegate to your own Kimi node
+    - If you do not run Kimi at all: delegate to a host you trust
+    - If you do not trust any delegate: use `refuse-poc-delegation`
+
 Once `penalty_start_epoch` is reached for a model, not participating in that model directly or via valid delegation may reduce your consensus weight, depending on governance-configured parameters.
+
+!!! note "Current mainnet parameters (at time of writing)"
+
+    - `refusal_penalty`: ~10% of your weight
+    - `no_participation_penalty`: ~15% (if quorum forms without you)
+    - `delegation_share`: ~5% of your weight is transferred to the delegate
+    
+    These values are governance-controlled and may change. Always verify using `params`.
+
+!!! note "Grace period"
+
+    After the upgrade, penalties for newly introduced models do not apply immediately.
+    
+    Hosts typically have a short window (~3 days) to:
+    
+    - deploy the model
+    - configure delegation
+    - or explicitly refuse
+    
+    Check `penalty_start_epoch` in `params` for exact timing.
 
 **In scope:** model cleanup before upgrade, per-model participation choices, delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.
 
@@ -88,6 +131,36 @@ Once `penalty_start_epoch` is reached for a model, not participating in that mod
 
 ---
 
+## What should I do? (quick decision guide)
+
+Do you run the model?
+
+├─ YES
+│  └─ Do nothing → you are fully participating (no penalties)
+
+└─ NO
+   ├─ Do you have another node that runs this model?
+   │
+   │  ├─ YES
+   │  │  └─ Delegate to your own node
+   │
+   │  └─ NO
+   │     ├─ Do you trust another host?
+   │     │
+   │     │  ├─ YES
+   │     │  │  └─ Delegate to that host
+   │     │
+   │     │  └─ NO
+   │     │     └─ Refuse delegation (~10% penalty)
+   │
+   └─ If you do nothing
+      └─ Risk highest penalty (~15%)
+
+In most cases:
+
+- Delegation is the safest default if you are not running the model
+- Doing nothing is the worst option once penalties are enabled
+
 ## Your options (per model)
 
 > To get a list of all governance-approved `model_id` values, run:
@@ -101,8 +174,17 @@ Once `penalty_start_epoch` is reached for a model, not participating in that mod
 | Run this model's PoC yourself | *(no separate on-chain "join"; your stack submits the PoC v2 store commit)* | You stay in that model's group for the epoch. |
 | Trust another host's validation votes for that model | `set-poc-delegation` | Your weight can count toward their influence on that model's PoC checks, if the rules at validation time are satisfied (see [Does your delegation actually count?](#does-your-delegation-actually-count)). |
 | Explicitly opt out of delegating for that model | `refuse-poc-delegation` | Clear "no" to delegation; after penalties turn on for that model, a refusal-style deduction may apply if governance configured it. (see [When your on-chain choices are frozen](#when-your-on-chain-choices-are-frozen) |
-| Do nothing extra | *(no tx)* | Default; after penalties turn on, a no-participation-style deduction may apply if governance configured it. |
+| Do nothing extra | *(no tx)* | Default behavior; may result in the highest penalty once enabled|
 | Signal plans before a new model is fully live | `declare-poc-intent` | For **bootstrap reporting only**; it does **not** replace running PoC. You still need a store commit in PoC to count as serving the model yourself. See [Bootstrap pre-eligibility events](#bootstrap-pre-eligibility-events). |
+
+### Strategy comparison
+
+| Strategy | Outcome |
+|--------|--------|
+| Run model | Full participation, no penalty |
+| Delegate | Slight weight loss (~5%), avoids penalties |
+| Refuse | ~10% weight loss |
+| Do nothing | Up to ~15% weight loss if quorum forms without you |
 
 **One stored choice per model:** for each `model_id` and your address, the chain keeps **at most one** of delegate / refuse / intent. A new transaction of any of those three **replaces** the previous one. Serving the model yourself (having a valid store commit for that model in the epoch) wins over those three when the chain applies rules for that epoch.
 

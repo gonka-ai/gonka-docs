@@ -8,6 +8,10 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 2, 2026
+
+Today's pre-eligibility validations don't pass, with a minimal weight for hosts whose `PoCIntent` is <30%. Please leave your MLNodes with `Qwen235B` and send your intent for the next epoch tomorrow.
+
 ## April 30, 2026
 
 **UPGRADE EXECUTED: v0.2.12 is now live on mainnet**

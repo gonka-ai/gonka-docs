@@ -8,6 +8,14 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 4, 2026
+
+Transfer agents `node1`, `node2`, and `node3` have been disabled. All mainnet inference is now routed through `node4`, which operates on the new `devshard`-based billing approach.
+
+This marks a milestone for the network that `devshard` is live and production-ready. `node4` is the recommended public gateway going forward.
+
+**Action required:** update your endpoint to `node4`.
+
 ## May 2, 2026
 
 Today's pre-eligibility validations don't pass, with a minimal weight for hosts whose `PoCIntent` is <30%. Please leave your MLNodes with `Qwen235B` and send your intent for the next epoch tomorrow.

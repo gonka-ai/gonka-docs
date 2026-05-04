@@ -10,6 +10,18 @@
 
 ## May 4, 2026
 
+**Action required for hosts who submitted PoCIntent: deploy `Kimi K2.6`**
+
+Today’s pre-evaluation check passed for `moonshotai/Kimi-K2.6`.
+
+Hosts who submitted PoCIntent should now switch at least one MLNode from `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` to `moonshotai/Kimi-K2.6` before PoC starts at block `3874496`.
+
+There is a 500-block window between pre-evaluation and PoC start. During this window, there are no CPoC tasks, so hosts who declared intent can safely switch their model node to `Kimi K2.6`.
+
+Please follow the guide and complete the required deployment steps: [https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
+
+## May 4, 2026
+
 Transfer agents `node1`, `node2`, and `node3` have been disabled. All mainnet inference is now routed through `node4`, which operates on the new `devshard`-based billing approach.
 
 This marks a milestone for the network that `devshard` is live and production-ready. `node4` is the recommended public gateway going forward.

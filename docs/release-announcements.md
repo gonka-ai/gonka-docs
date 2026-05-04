@@ -10,6 +10,18 @@
 
 ## May 4, 2026
 
+**Kimi K2.6 is now active on the Gonka network**
+
+`moonshotai/Kimi-K2.6` has passed bootstrap and joined PoC participation on the Gonka network.
+
+The process was coordinated by hosts across the network: infrastructure was prepared, intents were submitted, delegations and refusals were set, and deployments were tested.
+
+For multi-model PoC, this means Kimi now has its own participation and reward tracking as an active model group.
+
+Hosts running Kimi should continue monitoring their MLNodes and PoC participation as usual.    
+
+## May 4, 2026
+
 **Action required for hosts who submitted PoCIntent: deploy `Kimi K2.6`**
 
 Today’s pre-evaluation check passed for `moonshotai/Kimi-K2.6`.

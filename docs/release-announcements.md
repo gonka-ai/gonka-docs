@@ -10,7 +10,7 @@
 
 ## May 4, 2026
 
-**Kimi K2.6 is now active on the Gonka network**
+**Kimi K2.6 is now active on Gonka network**
 
 `moonshotai/Kimi-K2.6` has passed bootstrap and joined PoC participation on Gonka network.
 

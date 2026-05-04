@@ -29,7 +29,17 @@
 
 ### 支持的模型
 
-当前协议仅支持一种用于推理与计算证明（PoC）的模型：`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。该模型用于 PoC v2 参与与权重分配。
+协议支持经**治理批准**、用于推理与计算证明（PoC v2）的模型。自升级 v0.2.12 起为**多模型 PoC**：在 Gonka 主网上，每个获批模型有各自的 PoC 组与奖励统计。
+
+| 模型 ID | 说明 |
+|----------|------|
+| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | 原先强制使用的模型；继续支持 |
+| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — 已在网络上参与 PoC（已过 bootstrap，与 Qwen 并行） |
+
+通常在 `node-config.json` 中**每个 ML 节点只服务一个模型**（`models` 下的一项）。若需同时覆盖 Qwen 与 Kimi，请使用多个 ML 节点（或多台机器）。
+
+!!! note "若无法在本机运行全部获批模型"
+    多模型 PoC **按模型**统计参与。若硬件无法覆盖每一位治理批准的模型，需要通过链上**委托**或**拒绝**，使共识权重在各模型上被正确计入。这与「先把节点跑起来」**无关**——仍使用**账户（冷）密钥**（与 **步骤 3.3「向 ML 运营密钥授予权限」** 相同 keyring），在注册并**验证节点**之后再执行。完整命令见文末 [可选：PoC 委托与拒绝](#optional-poc-delegation-and-refusal)。策略与惩罚说明见 [多模型 PoC — 主机操作指南](/host/multi_model_poc/)。
 
 !!! note "治理与模型分类"
     - 经治理批准后，模型可被归入某类。
@@ -42,11 +52,12 @@
 
 | **模型名称**                          | **ML 节点（最少）** | **示例硬件**                            | **每 ML 节点最小显存** |
 |------------------------------------------|-------------------|-------------------------------------------------|----------------|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`                | ≥ 2               | 每 ML 节点 8× H200                              | 640 GB         |
+| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | ≥ 2               | 每 ML 节点 8× H200                              | 640 GB         |
+| `moonshotai/Kimi-K2.6`                  | ≥ 2               | 每 ML 节点 8× H200 或 8× B200（参考档位）       | 640 GB         |
 
 此为参考架构。您可调整节点数量或硬件分配，但建议遵循核心原则：每个节点应在各模型层级支持多个 ML 节点。
 
-更多关于最优部署配置的说明见[此处](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
+Kimi K2.6 在相同参考硬件（8×H200、8×B200）上相对 Qwen235B 的 PoC 权重系数约为 **3.51×**。详见 [多模型 PoC — 主机操作指南](/host/multi_model_poc/)。B200 档位的示例 vLLM 参数见下文 `node-config.json` 与 [Kimi K2.6 Bootstrap](/host/kimi-bootstrap/)。
 
 承载网络节点的服务器应具备：
 
@@ -466,10 +477,9 @@ source config.env
 
 ### [服务器] 编辑服务器推理节点描述
 
-!!! note
-    当前网络仅支持 Qwen/Qwen3-235B-A22B-Instruct-2507-FP8。是否新增或修改支持的模型由治理决定。治理机制及如何提议新模型见 [交易与治理指南](https://gonka.ai/transactions-and-governance/)。
+编辑 `node-config.json`，使每个 ML 节点在 `"models"` 中声明其运行的**单个模型**。主网支持的模型包括 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 与 `moonshotai/Kimi-K2.6`。批准列表由治理决定；详见 [交易与治理指南](https://gonka.ai/transactions-and-governance/)。
 
-=== "4xH100（同样适用于 8xH200 或 8xH100）"
+=== "Qwen — 4xH100（同样适用于 8xH200 或 8xH100）"
 
     !!! note "编辑 node-config.json"
         ```
@@ -491,18 +501,63 @@ source config.env
         ]
         ```
 
+=== "Kimi — 4×B200 / 8×B200（及 8×H200 参考档位）"
+
+    以下 vLLM 参数适用于 Blackwell **4×B200 或 8×B200** 上的 **Kimi K2.6**，并作为 **8×H200** 同布局的参考（`tensor_parallel_size` 为 4，且在八卡上使用 expert parallelism）。请仅在压测或运维要求下再调整。
+
+    !!! note "编辑 node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "moonshotai/Kimi-K2.6": {
+                        "args": [
+                            "--tensor-parallel-size", "4",
+                            "--enable-expert-parallel",
+                            "--trust-remote-code",
+                            "--mm-encoder-tp-mode", "data",
+                            "--tool-call-parser", "kimi_k2",
+                            "--reasoning-parser", "kimi_k2",
+                            "--attention-backend", "FLASHINFER_MLA",
+                            "--disable-custom-all-reduce",
+                            "--gpu-memory-utilization", "0.95",
+                            "--max-num-seqs", "128",
+                            "--max-model-len", "240000"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+    通过 API 注册或更新节点时使用相同的 `"models"` 块；等效的 `curl` 示例见 [Kimi K2.6 Bootstrap](/host/kimi-bootstrap/)。
+
 更多关于最优部署配置的说明请参阅 [此链接](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
 ### [服务器] 将模型权重预下载到 Hugging Face 缓存（HF_HOME）
 
 推理节点从 Hugging Face 下载模型权重。为确保推理前权重已就绪，应在部署前下载。
 
-=== "8xH100、8xH200 或其他 GPU"
+=== "Qwen — 8xH100、8xH200 或其他 GPU"
 
     ```bash
     mkdir -p $HF_HOME
     huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
     ```
+
+=== "Kimi K2.6"
+
+    ```bash
+    mkdir -p $HF_HOME
+    huggingface-cli download moonshotai/Kimi-K2.6
+    ```
+
+    许可证见 [Model licenses](/model-licenses/)。链上操作（intent、委托等）见 [Kimi K2.6 Bootstrap](/host/kimi-bootstrap/)。
 
 ## 启动节点
     
@@ -764,7 +819,7 @@ docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ```
 <!-- CONDITION END -->
 
-## 验证节点状态
+## 验证节点状态 {#verify-node-status}
 
 <!-- CONDITION START: data-show-when='["protocolHttps"]' -->
 验证 HTTPS 是否正常：
@@ -813,6 +868,98 @@ curl http://node2.gonka.ai:8000/chain-rpc/status
 ```
 
 当节点在仪表盘中可见后，您也可以更新公开资料（主机名、网站、头像），便于其他参与者识别。说明见[此处](https://gonka.ai/host/validator_info/)。
+
+## 可选：PoC 委托与拒绝 {#optional-poc-delegation-and-refusal}
+
+在主机已注册、已完成 ML 运营密钥授权，并能[验证节点状态](#verify-node-status)之后，再在**本机**用**账户（冷）密钥**（`gonka-account-key`）执行本节。启动容器**不需要**这些交易；仅当您**未**在本机 GPU 上运行某一获批模型，需要**委托** PoC 投票、**拒绝**委托或对照 `params` 确认惩罚时间时使用。
+
+对每个 `model_id`，要么自行运行该模型（由您的栈提交 PoC），要么链上声明。**委托**常见于信任另一位运行该模型的主机；**拒绝**为明确退出。背景见 [多模型 PoC — 主机操作指南](/host/multi_model_poc/)。
+
+将 `NODE` 设为任意已同步的 chain RPC（与 `grant-ml-ops-permissions` 相同：`config.env` 中种子 API + `/chain-rpc/`）。
+
+```bash
+export NODE="<PUBLIC_CHAIN_RPC>"   # 例如 https://node2.gonka.ai:8000/chain-rpc/
+export CHAIN_ID="gonka-mainnet"
+export KEY="gonka-account-key"
+export KEYRING_BACKEND="file"
+```
+
+查询治理参数（惩罚、`penalty_start_epoch` 等）：
+
+```bash
+./inferenced query inference params --node "$NODE" -o json
+```
+
+**查询当前 PoC 委托 / 拒绝 / 意向**（所有模型）：
+
+```bash
+MY_ADDR="$(./inferenced keys show "$KEY" -a --keyring-backend "$KEYRING_BACKEND")"
+./inferenced query inference poc-delegation "$MY_ADDR" --node "$NODE" -o json
+```
+
+**委托** — 将该模型的 PoC 验证权重关联到 `DELEGATEE`（对方的 `gonka1…` 地址）。Kimi 示例：
+
+```bash
+MODEL="moonshotai/Kimi-K2.6"
+DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+例如 GPU 上只跑 Kimi、不跑 Qwen，可对 Qwen 委托：
+
+```bash
+MODEL="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+**取消**某一模型的委托：
+
+```bash
+MODEL="moonshotai/Kimi-K2.6"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+**拒绝**委托：
+
+```bash
+MODEL="moonshotai/Kimi-K2.6"
+
+./inferenced tx inference refuse-poc-delegation "$MODEL" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+`declare-poc-intent` 多用于**新模型 bootstrap**；见 [Kimi K2.6 Bootstrap](/host/kimi-bootstrap/)。更多命令见 [多模型 PoC — 主机操作指南](/host/multi_model_poc/#copy-paste-setup-commands)。
 
 ## 停止与清理节点
 

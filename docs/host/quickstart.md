@@ -26,8 +26,18 @@ The guide describes a scenario in which both services are deployed on the same m
 ## Prerequisites
 This  section provides guidance on configuring your hardware infrastructure to participate in Gonka Network launch. The goal is to maximize protocol rewards by aligning your deployment with network expectations.
 
-### Supported Model
-The protocol currently supports a single model for inference and Proof of Compute (PoC) `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. This model is used for PoC v2 participation and weight assignment. 
+### Supported models
+The protocol supports **governance-approved** models for inference and Proof of Compute (PoC v2). On Gonka mainnet, each approved model has its own PoC group and reward tracking (multi-model PoC since upgrade v0.2.12).
+
+| Model ID | Role |
+|----------|------|
+| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | Original enforced model; still supported |
+| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — active in PoC on the network (passed bootstrap; participates alongside Qwen) |
+
+You typically run **one model per ML Node** in `node-config.json`. Hosts may operate separate ML Nodes (or fleets) for Qwen and Kimi.
+
+!!! note "If you will not run every approved model"
+    Multi-model PoC tracks participation **per model**. If your hardware does **not** cover every governance-approved model, you will need on-chain **delegation** or **refusal** so your consensus weight is handled correctly for the models you skip. That is **not** required to bring a node online—you use the same **Account (cold) key** as in [Grant Permissions to ML Operational Key](#33-local-machine-grant-permissions-to-ml-operational-key), **after** registration and verification. Copy-paste commands are at the end: [Optional: PoC delegation and refusal](#optional-poc-delegation-and-refusal). For strategy and penalties, read [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md).
 
 !!! note "Governance and model classification"
     - Models may be classified into a category if approved by governance.
@@ -39,9 +49,12 @@ To run a valid node, you need machines with [supported GPU(s)](/host/hardware-sp
 
 | **Model Name**                          | **ML Nodes (min)** | **Example Hardware**                            | **Minimum VRAM per ML Node** |
 |------------------------------------------|-------------------|-------------------------------------------------|----------------|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`                | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
+| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
+| `moonshotai/Kimi-K2.6`                  | ≥ 2               | 8× H200 or 8× B200 per MLNode (reference class) | 640 GB         |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple ML Nodes across all model tiers.
+
+For Kimi K2.6, the network uses a **weight coefficient** of approximately **3.51×** Qwen235B on the same reference hardware (8×H200, 8×B200). See [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md). Example vLLM arguments for B200-class hosts are in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) and in the `node-config.json` examples below.
 
 More details about the optimal deployment configuration can be found [here](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
@@ -488,10 +501,9 @@ source config.env
 
 ### [Server] Edit Inference Node Description for the Server
 
-!!! note
-    The network currently supports the Qwen/Qwen3-235B-A22B-Instruct-2507-FP8 only. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+Edit `node-config.json` so each ML Node entry lists the **one model** that node serves under `"models"`. Supported mainnet models include `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `moonshotai/Kimi-K2.6`. Governance decides the approved set; see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
-=== "4xH100 (same works for 8xH200 or 8xH100)"
+=== "Qwen — 4xH100 (same works for 8xH200 or 8xH100)"
 
     !!! note "edit node-config.json"
         ```
@@ -513,18 +525,63 @@ source config.env
         ]
         ```
 
+=== "Kimi — 4×B200 / 8×B200 (and 8×H200 reference class)"
+
+    Use this vLLM argument set for **Kimi K2.6** on Blackwell **4×B200 or 8×B200**, and as the reference for **8×H200** on the same layout (`tensor_parallel_size` 4 with expert parallelism across eight GPUs). Adjust only if your stack or benchmarking requires it.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "moonshotai/Kimi-K2.6": {
+                        "args": [
+                            "--tensor-parallel-size", "4",
+                            "--enable-expert-parallel",
+                            "--trust-remote-code",
+                            "--mm-encoder-tp-mode", "data",
+                            "--tool-call-parser", "kimi_k2",
+                            "--reasoning-parser", "kimi_k2",
+                            "--attention-backend", "FLASHINFER_MLA",
+                            "--disable-custom-all-reduce",
+                            "--gpu-memory-utilization", "0.95",
+                            "--max-num-seqs", "128",
+                            "--max-model-len", "240000"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+    The same `"models"` block is used when registering or updating a node via the API; see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) for an equivalent `curl` example.
+
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
 To make sure the model weights are ready for inference, you should download them before deployment.
 
-=== "8xH100, 8xH200 or Other GPUs"
+=== "Qwen — 8xH100, 8xH200 or other GPUs"
 
     ```bash
     mkdir -p $HF_HOME
     huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
     ```
+
+=== "Kimi K2.6"
+
+    ```bash
+    mkdir -p $HF_HOME
+    huggingface-cli download moonshotai/Kimi-K2.6
+    ```
+
+    Model license: see [Model licenses](../model-licenses.md). For operational notes and on-chain options (intent, delegation), see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
 
 ## Launch Nodes
     
@@ -786,7 +843,7 @@ docker compose -f docker-compose.yml -f docker-compose.mlnode.yml up -d
 ```
 <!-- CONDITION END -->
 
-## Verify Node Status
+## Verify Node Status {#verify-node-status}
 
 <!-- CONDITION START: data-show-when='["protocolHttps"]' -->
 Verify HTTPS is working:
@@ -836,9 +893,97 @@ curl http://node2.gonka.ai:8000/chain-rpc/status
 
 Once your node is visible in the Dashboard, you may also want to update your public profile (host name, website, avatar). This helps other participants identify your node in the network. You can find [the instructions here](https://gonka.ai/host/validator_info/).
 
-!!! important "Required next steps"
-    After completing this guide, continue with the [Multi-Model PoC Host Operations Guide](./multi_model_poc.md) and [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
-    This is required reading for hosts because Upgrade v0.2.12 changes how model participation is tracked on-chain.
+## Optional: PoC delegation and refusal {#optional-poc-delegation-and-refusal}
+
+Use this section **after** your Host is registered, the ML Operational Key is authorized, and you can [verify](#verify-node-status) participation—typically from your **local machine** with the **Account (cold) key** (`gonka-account-key`). Nothing here is required to start containers; it applies when you **do not** run every governance-approved model on your own GPUs and must **delegate** PoC voting to another participant, **refuse** delegation, or compare timing against `params`.
+
+For each `model_id` you either run the model (PoC commits from your stack) or signal on-chain. **Delegation** is the common choice when you trust a host who runs that model; **refuse** is an explicit opt-out. Background: [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md).
+
+Set `NODE` to any synced chain RPC (same pattern as `grant-ml-ops-permissions`: seed API URL from `config.env` with `/chain-rpc/` appended).
+
+```bash
+export NODE="<PUBLIC_CHAIN_RPC>"   # e.g. https://node2.gonka.ai:8000/chain-rpc/
+export CHAIN_ID="gonka-mainnet"
+export KEY="gonka-account-key"
+export KEYRING_BACKEND="file"
+```
+
+Check governance parameters (penalties, `penalty_start_epoch`, etc.):
+
+```bash
+./inferenced query inference params --node "$NODE" -o json
+```
+
+**Inspect your PoC delegation / refusal / intent state** (all models):
+
+```bash
+MY_ADDR="$(./inferenced keys show "$KEY" -a --keyring-backend "$KEYRING_BACKEND")"
+./inferenced query inference poc-delegation "$MY_ADDR" --node "$NODE" -o json
+```
+
+**Delegate** — attach your weight for that model's PoC validation to `DELEGATEE` (their `gonka1…` address). Example for Kimi:
+
+```bash
+MODEL="moonshotai/Kimi-K2.6"
+DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+Example for Qwen (e.g. you run Kimi only on your GPUs):
+
+```bash
+MODEL="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+**Clear** a delegation for one model:
+
+```bash
+MODEL="moonshotai/Kimi-K2.6"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+**Refuse** delegation for one model (explicit on-chain “no”):
+
+```bash
+MODEL="moonshotai/Kimi-K2.6"
+
+./inferenced tx inference refuse-poc-delegation "$MODEL" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+`declare-poc-intent` applies mainly to **new model bootstrap** windows; see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md). More commands and edge cases: [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md#copy-paste-setup-commands).
 
 ## Stopping and Cleaning Up Your Node
 

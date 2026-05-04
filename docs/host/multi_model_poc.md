@@ -4,7 +4,7 @@ Upgrade v0.2.12 introduces multi-model Proof-of-Compute (PoC).
 
 ## What changes in v0.2.12
 
-Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. After v0.2.12, the network can support multiple governance-approved models. Each model has its own PoC group, parameters, and weight contribution. Participation is tracked per model. The second model introduced with this upgrade is `moonshotai/Kimi-K2.6`. The Kimi model group is scheduled to activate two epochs after the upgrade. Its coefficient is approximately 3.51× the coefficient of Qwen235B, based on relative compute complexity on the same hardware classes, including 8×H200 and 8×B200.
+Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. After v0.2.12, the network can support multiple governance-approved models. Each model has its own PoC group, parameters, and weight contribution. Participation is tracked per model. The second model introduced with this upgrade is `moonshotai/Kimi-K2.6`; it has **passed bootstrap** and **participates in PoC** on mainnet alongside Qwen235B. Its coefficient is approximately 3.51× the coefficient of Qwen235B, based on relative compute complexity on the same hardware classes, including 8×H200 and 8×B200.
 
 ??? note "Why multi-model PoC works this way"
 

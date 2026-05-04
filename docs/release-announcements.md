@@ -12,7 +12,7 @@
 
 **Kimi K2.6 is now active on the Gonka network**
 
-`moonshotai/Kimi-K2.6` has passed bootstrap and joined PoC participation on the Gonka network.
+`moonshotai/Kimi-K2.6` has passed bootstrap and joined PoC participation on Gonka network.
 
 The process was coordinated by hosts across the network: infrastructure was prepared, intents were submitted, delegations and refusals were set, and deployments were tested.
 

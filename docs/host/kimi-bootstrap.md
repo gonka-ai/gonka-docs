@@ -1,6 +1,8 @@
 # Kimi K2.6 Bootstrap
 
-Epoch 251 is when the model group `moonshotai/Kimi-K2.6` may become eligible.
+`moonshotai/Kimi-K2.6` has **passed bootstrap** and is **active** in Proof of Compute on Gonka mainnet. The timeline and transaction examples below remain useful for understanding how activation worked and for operations such as delegation; for current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md).
+
+Epoch 251 was when the model group `moonshotai/Kimi-K2.6` became eligible.
 
 This document explains how to minimize the chance of weight reductions, whether or not the model gets enough participants.
 

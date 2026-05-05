@@ -34,6 +34,13 @@ The protocol supports **governance-approved** models for inference and Proof of 
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | Original enforced model; still supported |
 | `moonshotai/Kimi-K2.6` | **Kimi K2.6** — active in PoC on the network (passed bootstrap; participates alongside Qwen) |
 
+!!! tip "Authoritative model list (governance API)"
+    Approved models can change between releases or epochs. **Before you edit `node-config.json`,** call the governance API and use each returned object’s `"id"` as the key under `"models"`:
+    ```bash
+    curl -sS http://node2.gonka.ai:8000/v1/governance/models
+    ```
+    To list only model ids, pipe the response: `jq -r '.models[].id'`. If `node2.gonka.ai` is unreachable, use another participant’s public API base URL (scheme, host, and port). The response also includes network parameters such as `model_args`; the `node-config.json` examples later show typical `args` for common hardware—adjust for your GPUs and benchmarks.
+
 You typically run **one model per ML Node** in `node-config.json`. Hosts may operate separate ML Nodes (or fleets) for Qwen and Kimi.
 
 !!! note "If you will not run every approved model"
@@ -501,7 +508,7 @@ source config.env
 
 ### [Server] Edit Inference Node Description for the Server
 
-Edit `node-config.json` so each ML Node entry lists the **one model** that node serves under `"models"`. Supported mainnet models include `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `moonshotai/Kimi-K2.6`. Governance decides the approved set; see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+Edit `node-config.json` so each ML Node entry lists the **one model** that node serves under `"models"`. **Confirm** each model id against `/v1/governance/models` ([Supported models](#supported-models)) before you rely on it—the examples below mirror common layouts but may list ids that were valid when this page was published. Governance decides the approved set; see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
 
 === "Qwen — 4xH100 (same works for 8xH200 or 8xH100)"
 

@@ -78,13 +78,6 @@ Before creating an account, set up the required environment variables:
     export NODE_URL=<http://random-node-url>
     ```
 
-=== "Windows (PowerShell)"
-
-    ```powershell
-    $env:ACCOUNT_NAME = "your-desired-account-name"
-    $env:SOURCE_URL = "http://random-node-url"
-    ```
-
 - Replace `<your-desired-account-name>` with your chosen account name.
     - This name is not recorded on-chain — it exists only in your local key store.
     - Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. It is highly recommended to back up your public and private keys before performing this operation.
@@ -116,11 +109,6 @@ Before creating an account, set up the required environment variables:
 Do not forget to write it down, you will need it in the next step.
     
 ## 2. Create an account
-
-!!! warning "Windows users"
-
-    The `inferenced` CLI is currently available for macOS and Linux only.  
-    If you’re on Windows, skip to **Option 2: Via Keplr** — it works in any browser and takes under a minute.
 
 === "Option 1: Via `inferenced` CLI tool"
     

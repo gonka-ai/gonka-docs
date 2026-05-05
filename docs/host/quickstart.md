@@ -668,7 +668,7 @@ Account balance: 0
         --validator-key <CONSENSUS_KEY> \
         --keyring-backend file \
         --from <COLD_KEY_NAME> \
-        --timeout-duration 1m I am running a few minutes late; my previous meeting is running over.
+        --timeout-duration 1m \
         --unordered \
         --node <node-url>/chain-rpc/ \
         --chain-id gonka-mainnet

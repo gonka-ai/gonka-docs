@@ -235,7 +235,7 @@ Do not forget to write it down, you will need it in the next step.
         
     **Open Gonka’s decentralized Dashboard**
     
-    Choose a random node from the `inference_url` list of genesis-nodes.
+    Choose a random node from the list of genesis-nodes.
     
     - [http://185.216.21.98:8000](http://185.216.21.98:8000)
     - [http://69.19.136.233:8000](http://69.19.136.233:8000)

@@ -36,6 +36,13 @@
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | 原先强制使用的模型；继续支持 |
 | `moonshotai/Kimi-K2.6` | **Kimi K2.6** — 已在网络上参与 PoC（已过 bootstrap，与 Qwen 并行） |
 
+!!! tip "权威模型列表（治理 API）"
+    经批准的模型可能随版本或 epoch 变化。**在编辑 `node-config.json` 前，**请先调用治理接口，将返回中每个对象的 `"id"` 用作 `"models"` 下的键名：
+    ```bash
+    curl -sS http://node2.gonka.ai:8000/v1/governance/models
+    ```
+    若仅需列出模型 id，可对响应使用：`jq -r '.models[].id'`。若无法访问 `node2.gonka.ai`，可换用其他已参与节点的公网 API 基址（协议、主机、端口）。响应中还包含 `model_args` 等网络参数；下文 `node-config.json` 示例为常见硬件的典型 `args`，请根据 GPU 与压测结果再调整。
+
 通常在 `node-config.json` 中**每个 ML 节点只服务一个模型**（`models` 下的一项）。若需同时覆盖 Qwen 与 Kimi，请使用多个 ML 节点（或多台机器）。
 
 !!! note "若无法在本机运行全部获批模型"
@@ -477,7 +484,7 @@ source config.env
 
 ### [服务器] 编辑服务器推理节点描述
 
-编辑 `node-config.json`，使每个 ML 节点在 `"models"` 中声明其运行的**单个模型**。主网支持的模型包括 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 与 `moonshotai/Kimi-K2.6`。批准列表由治理决定；详见 [交易与治理指南](https://gonka.ai/transactions-and-governance/)。
+编辑 `node-config.json`，使每个 ML 节点在 `"models"` 中声明其运行的**单个模型**。**务必**用 `/v1/governance/models` 核对模型 id（见上文 [支持的模型](#支持的模型)）—下文示例反映常见硬件布局，其中的模型 id 仅为撰写时的示例。批准列表由治理决定；详见 [交易与治理指南](https://gonka.ai/transactions-and-governance/)。
 
 === "Qwen — 4xH100（同样适用于 8xH200 或 8xH100）"
 

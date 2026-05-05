@@ -8,6 +8,73 @@
 
     本页面内容不保证完全覆盖所有信息。有关最新信息（包括治理投票的发起及当前状态），请参考链上数据或查看相关浏览器与仪表盘。
     
+## May 4, 2026
+
+**Kimi K2.6 is now active on Gonka network**
+
+`moonshotai/Kimi-K2.6` 已完成 bootstrap，并已加入 Gonka 网络的 PoC 参与。
+
+该过程由全网主机协同完成：基础设施已准备就绪、intent 已提交、委托与拒绝已设置，并完成了部署测试。
+
+对于多模型 PoC，这意味着 Kimi 现在作为一个活跃的模型组，拥有独立的参与和奖励跟踪。
+
+运行 Kimi 的主机应继续按常规方式监控其 MLNodes 和 PoC 参与情况。
+
+## 2026年5月4日
+
+**针对已提交 PoCIntent 的主机：需要执行操作：部署 `Kimi K2.6`**
+
+今日已通过 `moonshotai/Kimi-K2.6` 的预评估检查。
+
+已提交 PoCIntent 的主机，应在 PoC 于区块 `3874496` 开始前，将至少一个 MLNode 从 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 切换至 `moonshotai/Kimi-K2.6` 。
+
+在预评估与 PoC 启动之间存在一个 500 区块的窗口期。在此期间不会有 CPoC 任务，因此已声明 intent 的主机可以安全地将其模型节点切换为 `Kimi K2.6`。
+
+请按照指南完成所需部署步骤： [https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
+
+## 2026年5月4日
+
+传输代理 `node1`, `node2`, 和 `node3` 已被禁用。所有主网推理现已通过 `node4` 路由，该节点采用基于 `devshard` 的新计费方式运行。
+
+这标志着网络的一个里程碑： `devshard` 已上线并达到生产就绪状态。 `node4` 是未来推荐使用的公共网关。
+
+**需要执行的操作：** 将你的 endpoint 更新为 `node4`。
+
+## 2026年5月2日
+
+今日预资格验证未通过，对于 `PoCIntent` 低于 30% 的主机，其权重最低。请继续保持你的 MLNodes 运行 `Qwen235B`，并在明天为下一轮 epoch 提交 intent。
+
+## 2026年4月30日
+
+**升级已执行：v0.2.12 已在主网上线**
+
+关于升级提案 v0.2.12 的链上治理投票已结束。该提案已获得通过，并已成功在主网上执行升级。
+
+**当前已生效的关键变更**
+
+- **多模型 PoC（最大变更）** ([#1039](https://github.com/gonka-ai/gonka/pull/1039))。将 Proof of Compute 从单一固定模型转变为按模型划分的 PoC 组。每个经治理批准的模型都会生成其自身的本地 PoC 权重，并通过模型特定系数汇总为总共识权重。每个主机必须参与每个模型组（可通过直接参与或委托 PoC 投票权重的方式）。
+- **引入`moonshotai/Kimi-K2.6` 作为第二个模型：** 该模型组将在升级后两个 epoch 启用。该模型的系数为 Qwen235B 的 3.51 倍，该系数基于在相同硬件（8xH200，8xB200）上的模型计算复杂度。
+- **Devshard 独立运行时** ([#1045](https://github.com/gonka-ai/gonka/pull/1045))。将 devshard 发布与 DAPI / 主网发布周期解耦。
+- **Certik 审计修复** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789))。已修复审计中发现的问题。
+- **协议强化。** 保留节点 (`POC_SLOT=true` ）将在单个 PoC / CPoC 时间内随机抽样。其他更新包括：将 `mlnode` 版本传播到链上的 `HardwareNode`，修复 DKG dealer 共识，对齐旧版验证者惩罚机制与所需抵押语义，确保 devshard 托管资金的原子性，以及为 `inference_finished` 事件解析增加零时间戳容错。
+
+**主机操作指引**
+
+- 部署、委托或明确拒绝新的经治理批准的模型（该模型将在升级后 2 个 epoch 启用）。参考 [指南](https://gonka.ai/docs/host/multi_model_poc/)
+
+- 请主机更新 dashboard/explorer。请在 `gonka/deploy/join` 目录下运行以下命令：
+
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+- 二进制版本：通过链上升级流程进行更新。
+
+-迁移：测试与迁移细节已记录在 [v0.2.12 文档中](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)。
+
+有关这些变更的更多详细信息，请参阅治理相关资料： [https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.12/proposals/](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.12/proposals/) 
+
 ## 2026年4月29日
 
 **升级 v0.2.12：预下载二进制文件**

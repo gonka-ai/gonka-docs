@@ -8,6 +8,35 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 5, 2026 
+
+Hosts observed during the Kimi-K2.6 bootstrap that the 30% minimum direct participation threshold is hard to meet in practice. To avoid the risk that Kimi-K2.6 becomes ineligible in a future epoch, and to simplify onboarding further models, the proposal is to lower the threshold to 10%.
+
+The security model is preserved: PoC validation itself is unchanged and still requires a supermajority of validation power to accept results.
+
+The proposal is expedited so the change can take effect before the next PoC. The voting will be active for 12 hours.
+
+To vote (`yes`, `no`, `abstain`, `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 48 yes \
+  --from <cold_key_name> \
+  --keyring-backend file \
+  --unordered \
+  --timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+  --node $NODE_URL/chain-rpc/ \
+  --chain-id gonka-mainnet \
+  --yes
+```
+
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 48 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Voting ends**: 2026-05-05 19:00:54 UTC
+
 ## May 4, 2026
 
 **Kimi K2.6 is now active on Gonka network**

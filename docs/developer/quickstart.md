@@ -282,7 +282,7 @@ Do not forget to write it down, you will need it in the next step.
 
     <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
     
-    Done! Your Gonka Developer account has been successfully created. 
+    Done! Your Gonka Developer account has been successfully created. Copy your Gonka account address. It starts with `gonka...` and is shown above your balance. You can safely share this address with anyone who needs to send you payments.
         
     <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
     

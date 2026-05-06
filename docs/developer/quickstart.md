@@ -72,7 +72,7 @@ Before creating an account, set up the required environment variables:
 - Replace `<your-desired-account-name>` with your chosen account name.
     - This name is not recorded on-chain — it exists only in your local key store.
     - Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. It is highly recommended to back up your public and private keys before performing this operation.
-- Replace `<http://random-node-url>` with a random Node URL. You can choose any node randomly — you do not need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. All nodes expose the same public API. You can either:
+- Replace `<http://random-node-url>` with a random Node URL. You can choose any node randomly — you do not need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. You can either:
     - Use one of the genesis nodes from the list below.
     - Fetch the current list of active participants and select a random node. To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages.
 
@@ -97,7 +97,7 @@ Before creating an account, set up the required environment variables:
         curl http://node1.gonka.ai:8000/v1/epochs/current/participants
         ```
         
-Do not forget to write it down, you will need it in the next step.
+Save the selected `NODE_URL`; you will use it in the next steps.
     
 ## 2. Create an account
 
@@ -105,7 +105,7 @@ Do not forget to write it down, you will need it in the next step.
     
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
     
-    ??? Note: "What is the `inferred` CLI tool?" 
+    ??? note "What is the `inferenced` CLI tool?" 
         The `inferenced` CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
         
     ??? note "Enabling Execution on Mac OS"
@@ -133,7 +133,7 @@ Do not forget to write it down, you will need it in the next step.
     This command will:
     
     - Generate a keypair
-    - Save it to `~/.inference`
+    - Save it to `~./inferenced`
     - Return your account address, public key, and mnemonic phrase (store it securely in a hard copy as well!)
 
     ```bash
@@ -189,11 +189,11 @@ Do not forget to write it down, you will need it in the next step.
     
     <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
     
-    Set Up Your Wallet.
+    Set up your wallet.
     
     <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
     
-    Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Keep this in a safe place.
+    Back up your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Keep this in a safe place.
     
     <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
@@ -343,12 +343,12 @@ Before inference, your account must have a balance and a published on-chain publ
 
 Check balance:
 ```bash
-inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc/"
+./inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc/"
 ```
 
 If your account was created with `inferenced`, publish the key:
 ```bash
-inferenced publish-pubkey \
+./inferenced publish-pubkey \
   --from "$ACCOUNT_NAME" \
   --node "$NODE_URL/chain-rpc/" \
   --chain-id "gonka-mainnet" \

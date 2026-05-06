@@ -24,48 +24,39 @@ This guide explains how to create a developer account in Gonka and submit an inf
 
 ---
 
-## 0. Get GNK (Gonka native coin)
+## 0. Choose your access path Get 
 
 There are two ways to start using Gonka
 
-### Option A — Use GNK (crypto-native path)
+There are two ways to start using Gonka:
 
-GNK is the native coin of the Gonka network. You’ll need it to pay for inference — every request you send to the network consumes a small amount of GNK.
+- **Crypto-native path** — use your own Gonka account, private key, and GNK balance to send inference requests directly.
 
-At the moment, GNK is not officially listed on any exchanges.
+- **Broker path** — use a third-party broker service to pay in USD and avoid managing wallets, private keys, or GNK directly.
 
-You can obtain GNK through:
+=== "Option A — Crypto-native path"
 
-- Running a host and earning rewards for contributing compute
-- Participating in [the bounty program](https://gonka.ai/docs/FAQ/#bounty-program)  
-- Community-driven channels (peer-to-peer transfers within the ecosystem)
-    - These interactions are not part of the protocol and rely on direct coordination between participants
-    - Any purchase, swap, or transfer is performed at your own risk
+    Use this path if you want to interact with Gonka directly using your own wallet, private key, GNK balance, and SDK requests.
+    
+    You will need to:
+    
+    1. Create or import a Gonka-compatible account
+    2. Export or store the private key securely
+    3. Fund the account with GNK
+    4. Publish the public key on-chain
+    5. Send inference requests through the SDK
 
-!!! note "Buying GNK"
+=== "Option B — Broker path"
 
-    Direct purchase flows are still a work in progress. Follow updates in [Discord](https://discord.com/invite/RADwCT2U6R) for announcements.
-    Any GNK listing you find on third-party websites or exchanges is not part of the Gonka protocol.
+    Use this path if you want to pay in USD and avoid managing GNK, wallets, private keys, or on-chain transactions.
+    Broker services handle GNK conversion and on-chain interaction internally.
+    
+    !!! caution "Trade-offs"
+    
+        Broker services are not part of the core protocol.  
+        They introduce an additional layer of trust and abstraction compared to direct interaction with the network.
 
-### Option B — Use broker services (no GNK required)
-
-Alternatively, you can use broker services. These services allow you to:
-
-- Pay for inference directly in USD  
-- Avoid managing wallets, keys, or tokens  
-- Start immediately with minimal setup  
-
-They handle GNK conversion and on-chain interaction internally.
-
-!!! note "When to use this option"
-
-    This is the easiest way to get started, especially for first-time users.  
-    You can switch to direct GNK usage later if needed.
-
-!!! caution "Trade-offs"
-
-    Broker services are not part of the core protocol.  
-    They introduce an additional layer of trust and abstraction compared to direct interaction with the network.
+    If you use a broker service, follow the broker's own onboarding instructions. The rest of this guide is intended for users who want to interact with Gonka directly.
 
 ## 1. Define variables
 
@@ -213,6 +204,16 @@ Do not forget to write it down, you will need it in the next step.
     Your Keplr wallet has been created.
         
     <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
+
+    Open Keplr, navigate, and click on “Copy Address” in your wallet.
+
+    <a href="/images/keplr_copy_address_2.png" target="_blank"><img src="/images/keplr_copy_address_2.png" style="width:auto; height:337.5px;"></a>
+
+    Click the Copy button next to the Gonka chain.
+
+    <a href="/images/keplr_web_copy_gonka_address_2.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address_2.png" style="width:auto; height:337.5px;"></a>
+
+    You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
         
     ??? note "Optional: How to add an additional Gonka account in Keplr wallet — click to view steps"
 
@@ -314,7 +315,26 @@ To retrieve a list of all locally stored accounts, execute the following command
 ./inferenced keys list [--keyring-backend test]
 ```
 
-## 3. Activate the account for inference
+## 3. Fund your account with GNK
+
+GNK is the native coin of the Gonka network. You’ll need it to pay for inference — every request you send to the network consumes a small amount of GNK.
+
+At the moment, GNK is not officially listed on any exchanges.
+
+You can obtain GNK through:
+
+- Running a host and earning rewards for contributing compute
+- Participating in [the bounty program](https://gonka.ai/docs/FAQ/#bounty-program)  
+- Community-driven channels (peer-to-peer transfers within the ecosystem)
+    - These interactions are not part of the protocol and rely on direct coordination between participants
+    - Any purchase, swap, or transfer is performed at your own risk
+
+!!! note "Buying GNK"
+
+    Direct purchase flows are still a work in progress. Follow updates in [Discord](https://discord.com/invite/RADwCT2U6R) for announcements.
+    Any GNK listing you find on third-party websites or exchanges is not part of the Gonka protocol.
+
+## 4. Activate the account for inference
 
 Before inference, your account must have a balance and a published on-chain public key.
 
@@ -342,7 +362,7 @@ Verify account data:
 curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 ```
 
-## 4. Inference using modified OpenAI SDK
+## 5. Run inference using the Gonka OpenAI SDK
 
 !!! important "Limited Transfer Agent Nodes"
     Currently, the list of nodes that can be used for inference requests is limited. To check the full list of available transfer agents, use:
@@ -474,11 +494,11 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 
 To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai), and adjust the examples accordingly.
 
-## 4. Tool Calling
+## 6. Tool Calling
 
 Only `type: "function"` is supported — vLLM implements the OpenAI chat completions spec, not the Assistants API (`code_interpreter`, `file_search` are unavailable).
 
-Define functions and the model will return structured call arguments when the user's request matches — you decide what to do with them.
+Define functions, and the model will return structured call arguments when the user's request matches — you decide what to do with them.
 
 === "Python"
 

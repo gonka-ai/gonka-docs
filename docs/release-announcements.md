@@ -10,6 +10,31 @@
 
 ## May 6, 2026
 
+**PR Review for Upgrade v0.2.13**
+
+[The pull request](https://github.com/gonka-ai/gonka/pull/1143) for the next on-chain software upgrade, v0.2.13, is open for review. 
+Please review the PR code directly and leave comments regarding any findings, questions, suggested improvements, edge cases, or vulnerabilities you identify.
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties during the next upgrade cycle.
+This is a call for review of the Pull Request only, and it does not initiate formal voting. The governance voting process will begin after the review period concludes, most likely tomorrow.
+
+**The release includes:**
+
+- confirmation PoC weight loss during new-model bootstrap.
+- upstream `stop_reason` unmarshalling errors.
+- devshard storage growth by adding pruning and Postgres support.
+- automatic re-invalidation after a host comes back from an invalid state.
+- missing complaint-response authz grants for older DAPIs.
+- devshard escrow param changes, including the old `20_000` nonce limit.
+
+The upgrade also disables confirmation PoC for the rest of the upgrade epoch so the new snapshot logic starts cleanly from the next epoch.
+
+Reviewers can find the full upgrade proposal, migration details, testing summary, and proposed process here: 
+
+- [https://github.com/gonka-ai/gonka/blob/347d947596aba754e453e58d5f82ae6054233a9a/proposals/governance-artifacts/update-v0.2.13/README.md](https://github.com/gonka-ai/gonka/blob/347d947596aba754e453e58d5f82ae6054233a9a/proposals/governance-artifacts/update-v0.2.13/README.md) 
+- [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+    
+## May 6, 2026
+
 A minor bug was found in parsing certain responses of Kimi-K2.6 during the last epoch.
 
 Fix: [https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8](https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8)

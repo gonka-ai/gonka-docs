@@ -114,7 +114,7 @@ Do not forget to write it down, you will need it in the next step.
     
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
     
-    ??? note "What is the `inferenced` CLI tool?" 
+    ??? Note: "What is the `inferred` CLI tool?" 
         The `inferenced` CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
         
     ??? note "Enabling Execution on Mac OS"
@@ -194,107 +194,26 @@ Do not forget to write it down, you will need it in the next step.
 
     <a href="/images/dashboard_keplr_step_2_4.png" target="_blank"><img src="/images/dashboard_keplr_step_2_4.png" style="width:500px; height:auto;"></a>
 
-    === "Connect with Google"
+    Click "Connect with Google". Do not create the wallet in Keplr using a mnemonic phrase. Keplr will not allow you to export the private key later, and you will need that private key for the next steps.
+    
+    <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
+    
+    Set Up Your Wallet.
+    
+    <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
+    
+    Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Keep this in a safe place.
+    
+    <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
-        Click "Connect with Google".
-    
-        <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
-    
-        Set Up Your Wallet.
-    
-        <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
-    
-        Backup your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Keep this in a safe place.
-    
-        <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
+    Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
 
-    === "Create new recovery phrase"
-
-        !!! note "Important Notice: Limited Functionality"
-            This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via `inferenced` CLI tool or Option 2: Via Keplr (external wallet, "Connect with Google") instead.
-        
-        Click "Create new recovery phrase"
-    
-        <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
-
-        DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times. Back up the phrase safely. You will never be able to restore your account without your recovery phrase.
-    
-        <a href="/images/keplr_new_recovery_phrase.png" target="_blank"><img src="/images/keplr_new_recovery_phrase.png" style="width:500px; height:auto;"></a>
-    
-        Verify your recovery phrase, create wallet name and password.
-    
-        <a href="/images/keplr_verify_your_recovery_phrase.png" target="_blank"><img src="/images/keplr_verify_your_recovery_phrase.png" style="width:500px; height:auto;"></a>
-    
-        Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
-
-        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
+    <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
                     
-        Your Keplr wallet has been created.
+    Your Keplr wallet has been created.
         
-        <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
+    <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
         
-    **Open Gonka’s decentralized Dashboard**
-    
-    Choose a random node from the list of genesis-nodes.
-    
-    - [http://185.216.21.98:8000](http://185.216.21.98:8000)
-    - [http://69.19.136.233:8000](http://69.19.136.233:8000)
-    - [http://36.189.234.197:18026](http://36.189.234.197:18026)
-    - [http://36.189.234.237:17241](http://36.189.234.237:17241)
-    - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
-    - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
-    - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
-    - [http://47.236.26.199:8000](http://47.236.26.199:8000)
-    - [http://47.236.19.22:18000](http://47.236.19.22:18000)
-    - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
-    
-    ??? note "An alternative, fully decentralized approach to choosing a random node from the list of active Hosts"
-        Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
-        
-        Choose any active Host from the list.
-        
-        Copy their `inference_url` value.
-        
-    Paste the `inference_url` into your browser to load the dashboard.
-    
-    Once opened, you’ll see real-time data streamed directly from the Host’s node — including network statistics, active workloads, and inference metrics.
-    
-    In the top-right corner, click "Connect Wallet" to get started.
-    
-    <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
-    
-    Select Keplr and hit Connect.
-    
-    <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
-    
-    Approve requested connection to Gonka network.
-
-    <a href="/images/keplr_approve_connection.png" target="_blank"><img src="/images/keplr_approve_connection.png" style="width:250px; height:auto;"></a>
-        
-    Done! Your Gonka Developer account has been successfully created.
-    
-    <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:500px; height:auto;"></a>
-
-    Open the extension and click on the account icon in the top-right corner of the extension window.
-            
-    <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
-
-    Navigate three dots and click "View private key" if you "connected with Google" or "View recovery phrase" if you created an account using a "recovery phrase".
-
-    === "Connect with Google"
-
-        <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/keplr_view_private_key.png" style="width:auto; height:337.5px;"></a>
-
-    === "Create new recovery phrase"
-
-        <a href="/images/keplr_view_recovery_phrase.png" target="_blank"><img src="/images/keplr_view_recovery_phrase.png" style="width:auto; height:337.5px;"></a>
-
-    Enter your password. 
-   
-    <a href="/images/keplr_enter_your_password.png" target="_blank"><img src="/images/keplr_enter_your_password.png" style="width:auto; height:337.5px;"></a>
-
-    Copy your private key or recovery phrase and store it securely (a hard copy is preferred).   
-
     ??? note "Optional: How to add an additional Gonka account in Keplr wallet — click to view steps"
 
         Open the extension and click on the account icon in the top-right corner of the extension window.
@@ -313,7 +232,7 @@ Do not forget to write it down, you will need it in the next step.
     
         <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
     
-        Paste your private key. You can import an account created using a recovery (mnemonic/seed) phrase. However, bridge functionality will be limited, as the bridge requires direct access to the raw private key to sign transactions and ensure full interoperability with Ethereum.
+        Paste your private key. Do not import a mnemonic phrase. Keplr will not allow you to export the private key later, and you will need that private key for the next steps.
     
         <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
             
@@ -321,10 +240,10 @@ Do not forget to write it down, you will need it in the next step.
             
         <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
             
-        Select Cosmos Hub and Ethereum.
-    
-        <a href="/images/dashboard_ping_pub_3_5_6.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_6.png" style="width:450px; height:auto; display:block;"></a>
-            
+        Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
+
+        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
+                    
         Done — your Gonka account has been successfully imported into Keplr!
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
@@ -366,7 +285,7 @@ Do not forget to write it down, you will need it in the next step.
         
     <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
     
-    Click on the Wallet name at the top. Click "Manage" on the top-right corner, then click the Wallet name. 
+    Click on the Wallet name at the top. Click "Manage" in the top-right corner, then click the Wallet name. 
             
     <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
     
@@ -395,9 +314,9 @@ To retrieve a list of all locally stored accounts, execute the following command
 ./inferenced keys list [--keyring-backend test]
 ```
 
-## 3. Activate account for inference
+## 3. Activate the account for inference
 
-Before inference, your account must have balance and a published on-chain public key.
+Before inference, your account must have a balance and a published on-chain public key.
 
 - You do **not** need to register as a Participant to run inference.
 - Participant registration is required only for hosting.

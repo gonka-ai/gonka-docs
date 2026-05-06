@@ -8,6 +8,65 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 6, 2026
+
+A minor bug was found in parsing certain responses of Kimi-K2.6 during the last epoch.
+
+Fix: [https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8](https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8)
+
+We recommend replacing the binary for the api container. Besides the fix, the new version also enables pruning for devshard DBs and adds Postgres support for devshard state.
+
+To deploy:
+```
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.12-api-post2/ .dapi/data/upgrade-info.json
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.12-api-post2/bin/
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.12-api-post2/decentralized-api-amd64.zip' && \
+echo "7bef88106fc3464d0141a2d14245cc06c341be186250f5d096e27e901deb185e  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12-api-post2/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12-api-post2/bin/decentralized-api && \
+echo "API Installed and Verified"
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.12-api-post2 .dapi/cosmovisor/current && \
+echo "9882b36ac6e5546fc18e3dd34da293cd5255f311f19e14ace74d3b9190c8ca1d .dapi/cosmovisor/current/bin/decentralized-api" && \
+docker start api
+```
+Besides that, if you have an MLNode hosting Kimi-K2.6, please add the deploy arg "--enable-auto-tool-choice" to the deploy params. To do that, you can repeat the command (example for B200):
+```
+curl -X POST http://localhost:9200/admin/v1/nodes \
+     -H "Content-Type: application/json" \
+     -d '{
+       "id": "<NODE_ID>",
+       "host": "<NODE_IP>",
+       "inference_port": 5050,
+       "poc_port": 8080,
+       "max_concurrent": 500,
+       "models": {
+         "moonshotai/Kimi-K2.6": {
+           "args": [
+             "--enable-auto-tool-choice",  #  new parameter
+             "--tensor-parallel-size", "4",
+             "--enable-expert-parallel",
+             "--trust-remote-code",
+             "--mm-encoder-tp-mode", "data",
+             "--tool-call-parser", "kimi_k2",
+             "--reasoning-parser", "kimi_k2",
+             "--attention-backend", "FLASHINFER_MLA",
+             "--disable-custom-all-reduce",
+             "--gpu-memory-utilization", "0.95",
+             "--max-num-seqs", "128",
+             "--max-model-len", "240000"
+           ]
+         }
+       }
+     }'
+```
+
+And then restart the MLNode container with docker restart join-mlnode-308-1.
+
+These actions should be applied when PoC / Confirmation PoC is not going through.
+
 ## May 5, 2026 
 
 Hosts observed during the Kimi-K2.6 bootstrap that the 30% minimum direct participation threshold is hard to meet in practice. To avoid the risk that Kimi-K2.6 becomes ineligible in a future epoch, and to simplify onboarding further models, the proposal is to lower the threshold to 10%.

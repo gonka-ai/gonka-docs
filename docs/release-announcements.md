@@ -10,6 +10,91 @@
 
 ## May 6, 2026
 
+**PR Review for Upgrade v0.2.13**
+
+[The pull request](https://github.com/gonka-ai/gonka/pull/1143) for the next on-chain software upgrade, v0.2.13, is open for review. 
+
+Please review the PR code directly and leave comments regarding any findings, questions, suggested improvements, edge cases, or vulnerabilities you identify.
+
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties during the next upgrade cycle.
+
+This is a call for review of the Pull Request only, and it does not initiate formal voting. The governance voting process will begin after the review period concludes, most likely tomorrow.
+
+**Key changes**
+
+**inference-chain**
+
+- Confirmation PoC used different model sets for measured weight, preserved weight, and reward rescaling. During new-model bootstrap, this could slash honest miners that served both an eligible model and a not-yet-eligible model. The fix stores one epoch snapshot of confirmable models and weight-scale factors, then uses that snapshot for all confirmation and reward-weight calculations.
+- `ConsecutiveInvalidInferences` was not reset when a participant became ACTIVE again. One new bad inference could immediately invalidate them again. The counter is now reset on reactivation and upcoming promotion.
+- DAPIs that joined before v0.2.12 did not have `MsgRespondDealerComplaints` in their cold-to-warm authz grants. The upgrade backfills that permission so they can respond to dealer complaints.
+- Devshard settlement used a hardcoded `20_000` nonce limit. The limit is now `DevshardEscrowParams.MaxNonce`, and the v0.2.13 upgrade sets it to `1_000_000`. The upgrade also raises `MaxEscrowsPerEpoch` to `500_000`.
+- The upgrade installs a grace-epoch entry for the current epoch with an extended `UpgradeProtectionWindow` (3000 blocks). Confirmation PoC triggers are skipped from the upgrade height through the end of the upgrade epoch, so the new snapshot logic only starts running from the next epoch. Reuses the v0.2.10 grace-epoch primitive.
+- Wasm keeper access is resolved after app wiring, so contract permission checks work for bridge and liquidity-pool operations.
+
+**decentralized-api**
+
+- Some OpenAI-compatible upstreams return numeric `stop_reason` values. `Choice.StopReason` now accepts any JSON type, so those responses no longer fail unmarshalling.
+- Internal devshard storage migration no longer blocks dapi startup. Devshard routes stay unavailable until migration and recovery finish.
+
+**devshard**
+  
+- Devshard storage could grow forever because old escrow data stayed in one SQLite store. Storage is now epoch-scoped and prunes old epochs in the background, keeping the latest 3 epochs.
+- Devshard needed a shared storage option for larger deployments. It can now use Postgres as the primary store, with SQLite kept as the local fallback.
+- Postgres data is partitioned by `epoch_id` for sessions, diffs, and signatures, so pruning can drop old epoch data cleanly.
+- State snapshots reduce recovery work for long-running sessions.
+- Payload lookup is pinned to the escrow epoch with fallback for epoch-boundary and legacy epoch-0 requests.
+- Current-epoch shard stats expose nonce, version, group, and per-host counters.
+
+**bridge**
+
+- Bridge tooling handles Sepolia flags and converts Gonka BLS keys/signatures to the EIP-2537 format expected by the Ethereum contract.
+- Adds scripts for GNK and wrapped-token bridge operations.
+
+Reviewers can find the full upgrade proposal, migration details, testing summary, and proposed process here: 
+
+- [https://github.com/gonka-ai/gonka/blob/347d947596aba754e453e58d5f82ae6054233a9a/proposals/governance-artifacts/update-v0.2.13/README.md ](https://github.com/gonka-ai/gonka/blob/347d947596aba754e453e58d5f82ae6054233a9a/proposals/governance-artifacts/update-v0.2.13/README.md )
+
+- [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+
+## May 6, 2026
+
+There was a potential issue in api container versions v0.2.11, v0.2.12, and v0.2.12-api-post2. After a container restart, servers on ports 9100, 9200, and 9400 could start with a long delay. This delayed api activation, and some miners skipped Confirmation PoC because of it
+
+The fix removes that blocker by loading devshards in parallel and restoring existing devshard sessions from snapshots.
+
+[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+
+Please update the binary for the api container. There is a 500 block window without CPoC (`confirmation_poc_safety_window`) before each PoC starts, so this might be the safest version to deploy.
+
+Before updating, make sure no CPoC or PoC is running.
+
+To deploy (one machine at a time to reduce risk):
+```
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.12-api-post3/ .dapi/data/upgrade-info.json
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.12-api-post3/bin/
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.12-api-post3/decentralized-api-amd64.zip' && \
+echo "3f2bc481b8320c53f0abe428dc262eaac5a86e8f38b8d796c409bd7116ba5017  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12-api-post3/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12-api-post3/bin/decentralized-api && \
+echo "API Installed and Verified"
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.12-api-post3 .dapi/cosmovisor/current && \
+echo "da495bc4c414ac9a0d416f85c30dd8dfbbcc76883fd71f6c1e969d37fa184b20 .dapi/cosmovisor/current/bin/decentralized-api" && \
+docker start api
+```
+After the deploy, double-check that the servers on ports 9100 and 9200 are running:
+```
+curl http://localhost:9200/admin/v1/nodes # may not be bound to localhost
+```
+
+```
+curl http://localhost:9100/versions # may not be bound to localhost
+```
+
+## May 6, 2026
+
 A minor bug was found in parsing certain responses of Kimi-K2.6 during the last epoch.
 
 Fix: [https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8](https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8)

@@ -7,10 +7,98 @@
     如需发布公告（例如您发起的治理投票相关公告），请在 gonka-docs 仓库中提交 Pull Request：[https://github.com/gonka-ai/gonka-docs](https://github.com/gonka-ai/gonka-docs)
 
     本页面内容不保证完全覆盖所有信息。有关最新信息（包括治理投票的发起及当前状态），请参考链上数据或查看相关浏览器与仪表盘。
-    
-## May 4, 2026
 
-**Kimi K2.6 is now active on Gonka network**
+## 2026年5月6日
+
+在上一个 epoch 中，发现了在解析某些 Kimi-K2.6 响应时存在一个小问题。
+
+修复：[https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8](https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8)
+
+我们建议替换 api 容器的二进制文件。除了该修复之外，新版本还为 devshard 数据库启用了 pruning，并为 devshard 状态增加了 Postgres 支持。
+
+部署方式：
+```
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.12-api-post2/ .dapi/data/upgrade-info.json
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.12-api-post2/bin/
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.12-api-post2/decentralized-api-amd64.zip' && \
+echo "7bef88106fc3464d0141a2d14245cc06c341be186250f5d096e27e901deb185e  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12-api-post2/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12-api-post2/bin/decentralized-api && \
+echo "API Installed and Verified"
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.12-api-post2 .dapi/cosmovisor/current && \
+echo "9882b36ac6e5546fc18e3dd34da293cd5255f311f19e14ace74d3b9190c8ca1d .dapi/cosmovisor/current/bin/decentralized-api" && \
+docker start api
+```
+此外，如果你有托管 Kimi-K2.6 的 MLNode，请在部署参数中添加部署参数 “--enable-auto-tool-choice”。为此，你可以重复执行命令（B200 示例）：
+```
+curl -X POST http://localhost:9200/admin/v1/nodes \
+     -H "Content-Type: application/json" \
+     -d '{
+       "id": "<NODE_ID>",
+       "host": "<NODE_IP>",
+       "inference_port": 5050,
+       "poc_port": 8080,
+       "max_concurrent": 500,
+       "models": {
+         "moonshotai/Kimi-K2.6": {
+           "args": [
+             "--enable-auto-tool-choice",  #  new parameter
+             "--tensor-parallel-size", "4",
+             "--enable-expert-parallel",
+             "--trust-remote-code",
+             "--mm-encoder-tp-mode", "data",
+             "--tool-call-parser", "kimi_k2",
+             "--reasoning-parser", "kimi_k2",
+             "--attention-backend", "FLASHINFER_MLA",
+             "--disable-custom-all-reduce",
+             "--gpu-memory-utilization", "0.95",
+             "--max-num-seqs", "128",
+             "--max-model-len", "240000"
+           ]
+         }
+       }
+     }'
+```
+
+然后使用 docker restart join-mlnode-308-1 重启 MLNode 容器。
+
+当 PoC / Confirmation PoC 未通过时，应执行上述操作。
+
+## 2026年5月5日
+
+主机在 Kimi-K2.6 bootstrap 过程中观察到，30% 的最低直接参与门槛在实际中较难达到。为了避免 Kimi-K2.6 在未来某个 epoch 中变为不合格，并进一步简化后续模型的接入，提议将该门槛降低至 10%。
+
+安全模型保持不变：PoC 验证本身没有变化，仍然需要验证算力的超级多数通过才能接受结果。
+
+该提案已加速推进，以便在下一次 PoC 之前生效。投票将持续 12 小时。
+
+投票 (`yes`, `no`, `abstain`, `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 48 yes \
+  --from <cold_key_name> \
+  --keyring-backend file \
+  --unordered \
+  --timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+  --node $NODE_URL/chain-rpc/ \
+  --chain-id gonka-mainnet \
+  --yes
+```
+
+查看投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 48 -o json --node $NODE_URL/chain-rpc/
+```
+
+**投票结束时间**: 2026-05-05 19:00:54 UTC
+
+## 2026年5月4日
+
+**Kimi K2.6 已在 Gonka 网络上线**
 
 `moonshotai/Kimi-K2.6` 已完成 bootstrap，并已加入 Gonka 网络的 PoC 参与。
 

@@ -24,9 +24,7 @@ This guide explains how to create a developer account in Gonka and submit an inf
 
 ---
 
-## 0. Choose your access path Get 
-
-There are two ways to start using Gonka
+## 0. Choose your access path
 
 There are two ways to start using Gonka:
 
@@ -133,7 +131,7 @@ Save the selected `NODE_URL`; you will use it in the next steps.
     This command will:
     
     - Generate a keypair
-    - Save it to `~./inferenced`
+    - Save it to `~/.inferenced`
     - Return your account address, public key, and mnemonic phrase (store it securely in a hard copy as well!)
 
     ```bash
@@ -306,7 +304,7 @@ Save the selected `NODE_URL`; you will use it in the next steps.
 
     <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
     
-Add private key to the environment variable `GONKA_PRIVATE_KEY,` or the `.env` file.
+Add private key to the environment variable `GONKA_PRIVATE_KEY` or the `.env` file.
 ```
 export GONKA_PRIVATE_KEY=<your-private-key>
 ```

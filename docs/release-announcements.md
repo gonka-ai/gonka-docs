@@ -21,6 +21,7 @@ Latest bridge image:
 ghcr.io/product-science/bridge:0.2.5-post5@sha256:8d2f217115c65b27fcb6fe1497471c30891534f18685bd3007d168aa7f1a9371
 ```
 Check whether your bridge is already running the correct version:
+```
 docker inspect --format='{{.Image}}' bridge \
     | xargs docker inspect --format='{{range .RepoDigests}}{{.}}{{end}}' \
     | grep -q 'sha256:8d2f217115c65b27fcb6fe1497471c30891534f18685bd3007d168aa7f1a9371' \

@@ -12,7 +12,7 @@
 
 **Bridge container update/verification required**
 
-Hosts are asked to verify that the bridge container is deployed and running the latest version.
+As part of preparations for the upcoming v0.2.13 upgrade, which may include Ethereum-side contract activation, all hosts are asked to verify that their bridge container is deployed, running the latest version, and synced correctly.
 
 Some hosts may already have the bridge container deployed. In that case, please first check that you are running the current version before taking any further action.
 

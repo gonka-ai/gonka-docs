@@ -8,6 +8,144 @@
 
     本页面内容不保证完全覆盖所有信息。有关最新信息（包括治理投票的发起及当前状态），请参考链上数据或查看相关浏览器与仪表盘。
 
+
+## 2026年5月7日
+
+**Bridge 容器需要更新/验证**
+
+请各 Host 验证 bridge 容器是否已部署并运行最新版本。
+
+部分 Host 可能已经部署了 bridge 容器。在这种情况下，请先检查当前运行的是否为最新版本，再进行后续操作。
+
+最新 bridge 镜像：
+```
+ghcr.io/product-science/bridge:0.2.5-post5@sha256:8d2f217115c65b27fcb6fe1497471c30891534f18685bd3007d168aa7f1a9371
+```
+检查你的 bridge 是否已经运行正确版本：
+```
+docker inspect --format='{{.Image}}' bridge \
+    | xargs docker inspect --format='{{range .RepoDigests}}{{.}}{{end}}' \
+    | grep -q 'sha256:8d2f217115c65b27fcb6fe1497471c30891534f18685bd3007d168aa7f1a9371' \
+    && echo "BRIDGE v0.2.5-post5 is running" || echo "WARNING: OLD BRIDGE"
+```
+如果命令返回：
+```
+BRIDGE v0.2.5-post5 is running
+```
+则表示你的 bridge 容器正在运行预期的镜像版本。
+
+同时请验证 bridge 是否已同步：
+```
+docker logs bridge --tail 10000 | grep "Skeleton sync bounds" | tail -1
+输出应指向一个近期 finalized 的 Ethereum 区块，并且不应明显落后。
+```
+如果命令返回 warning，请从 `gonka/deploy/join` 目录部署或更新 bridge 容器：
+```
+git checkout release/v0.2.5-post5
+docker compose down bridge && sudo rm -rf .inference-eth
+source config.env && docker compose pull bridge
+source config.env && docker compose up bridge -d --force-recreate --no-deps
+```
+部署完成后，请再次验证版本：
+```
+docker inspect --format='{{.Image}}' bridge \
+    | xargs docker inspect --format='{{range .RepoDigests}}{{.}}{{end}}' \
+    | grep -q 'sha256:8d2f217115c65b27fcb6fe1497471c30891534f18685bd3007d168aa7f1a9371' \
+    && echo "BRIDGE v0.2.5-post5 is running" || echo "WARNING: OLD BRIDGE"
+```
+如果 bridge 同步失败，则可能是 Ethereum checkpoint sync endpoint 不可用。在这种情况下，请更新 `BEACON_STATE_URL` 并重启 bridge：
+```
+sudo sed -i 's|- BEACON_STATE_URL=.*|- BEACON_STATE_URL=https://beaconstate.info/|' docker-compose.yml
+
+source config.env && docker compose up bridge -d --force-recreate --no-deps
+```
+在更新或重启 bridge 后，请按照上述说明再次验证其是否已完成同步。
+
+## 2026年5月6日
+
+**v0.2.13 升级 PR 审查**
+
+用于下一次链上软件升级 v0.2.13 的 [The pull request](https://github.com/gonka-ai/gonka/pull/1143) 已开放供审查。
+
+请直接审查该 PR 代码，并针对你发现的任何问题、疑问、建议优化、边界情况或安全漏洞留下评论。
+
+有意义的审查贡献，包括重要评论、Bug 发现以及安全问题，可能会在下一次升级周期中获得社区奖励（bounty）资格。
+
+本次仅为 Pull Request 的审查征集，并不会启动正式投票。治理投票流程将在审查期结束后开始，预计最可能于明天启动。
+
+**关键变更**
+
+**inference-chain**
+
+- Confirmation PoC 在 measured weight、preserved weight 以及 reward rescaling 中使用了不同的模型集合。在新模型 bootstrap 期间，这可能会错误惩罚同时服务于“符合资格模型”和“尚未符合资格模型”的诚实矿工。
+- 当参与者重新变为 ACTIVE 状态时，`ConsecutiveInvalidInferences` 未被重置。一次新的错误推理可能会立即再次使其失效。现在该计数器会在重新激活以及即将晋升时被重置。
+- 在 v0.2.12 之前加入的 DAPI，其 cold-to-warm authz grants 中没有 `MsgRespondDealerComplaints` 权限。本次升级会补充该权限，使其能够响应 dealer complaints。
+- Devshard settlement 用了硬编码的 `20_000` nonce 限制。现在该限制改为 `DevshardEscrowParams.MaxNonce`，并且 v0.2.13 升级会将其设置为 `1_000_000`本次升级还会将 `MaxEscrowsPerEpoch` 提升至 `500_000`。
+- 本次升级会为当前 epoch 安装一个 grace-epoch 条目，并扩展 `UpgradeProtectionWindow` (3000 blocks). Confirmation PoC triggers 将从升级高度开始一直到升级 epoch 结束期间被跳过，因此新的 snapshot 逻辑只会从下一个 epoch 开始运行。该机制复用了 v0.2.10 的 grace-epoch primitive。
+- Wasm keeper access 会在 app wiring 完成后再解析，因此 bridge 和 liquidity-pool 操作中的合约权限检查将正常工作。
+
+**decentralized-api**
+
+- 部分 OpenAI-compatible 上游返回的是数值类型的 `stop_reason` 。现在 `Choice.StopReason` 可接受任意 JSON 类型，因此这些响应不再会因 unmarshalling 失败。
+- 内部 devshard storage migration 不再阻塞 dapi 启动。在 migration 与 recovery 完成之前，devshard routes 将保持不可用。
+
+**devshard**
+  
+- Devshard storage 可能会无限增长，因为旧 escrow 数据一直保存在同一个 SQLite store 中。现在存储改为 epoch-scoped，并会在后台清理旧 epoch，仅保留最近 3 个 epoch。
+- Devshard 在大型部署场景中需要共享存储方案。现在可使用 Postgres 作为主存储，同时保留 SQLite 作为本地 fallback。
+- Postgres 数据会按 `epoch_id` 对 sessions、diffs 和 signatures 进行分区，因此清理旧 epoch 数据时可以直接删除对应分区。
+- State snapshots 可减少长时间运行 session 的恢复工作量。
+- Payload lookup 现在会固定到 escrow epoch，同时对 epoch-boundary 与 legacy epoch-0 请求提供 fallback。
+- 当前 epoch 的 shard stats 会暴露 nonce、version、group 以及 per-host counters。
+
+**bridge**
+
+- Bridge tooling 现支持处理 Sepolia flags，并将 Gonka BLS keys/signatures 转换为 Ethereum 合约所要求的 EIP-2537 格式。
+- 新增 GNK 与 wrapped-token bridge 操作脚本。
+
+审查者可在以下链接中查看完整升级提案、迁移细节、测试总结以及提议流程：
+
+- [https://github.com/gonka-ai/gonka/blob/347d947596aba754e453e58d5f82ae6054233a9a/proposals/governance-artifacts/update-v0.2.13/README.md ](https://github.com/gonka-ai/gonka/blob/347d947596aba754e453e58d5f82ae6054233a9a/proposals/governance-artifacts/update-v0.2.13/README.md )
+
+- [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+
+## 2026年5月6日
+
+在 api 容器版本 v0.2.11、v0.2.12 和 v0.2.12-api-post2 中存在一个潜在问题。在容器重启后，9100、9200 和 9400 端口上的服务可能会延迟很长时间才启动。这导致 api 激活延迟，因此部分矿工因此跳过了 Confirmation PoC。
+
+本次修复通过并行加载 devshards，以及从 snapshots 恢复现有 devshard sessions，移除了该阻塞问题。
+
+[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+
+请更新 api 容器的二进制文件。在每次 PoC 开始前，存在一个 500 block 的无 CPoC 窗口 (`confirmation_poc_safety_window`) ，因此这可能是最安全的部署版本。
+
+更新前，请确保当前没有运行 CPoC 或 PoC。
+
+部署方法（建议一次只更新一台机器以降低风险）：
+```
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.12-api-post3/ .dapi/data/upgrade-info.json
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.12-api-post3/bin/
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.12-api-post3/decentralized-api-amd64.zip' && \
+echo "3f2bc481b8320c53f0abe428dc262eaac5a86e8f38b8d796c409bd7116ba5017  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12-api-post3/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12-api-post3/bin/decentralized-api && \
+echo "API 已安装并校验完成"
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.12-api-post3 .dapi/cosmovisor/current && \
+echo "da495bc4c414ac9a0d416f85c30dd8dfbbcc76883fd71f6c1e969d37fa184b20 .dapi/cosmovisor/current/bin/decentralized-api" && \
+docker start api
+```
+部署完成后，请再次确认 9100 和 9200 端口上的服务器是否正常运行：
+```
+curl http://localhost:9200/admin/v1/nodes # 可能未绑定到 localhost
+```
+
+```
+curl http://localhost:9100/versions # 可能未绑定到 localhost
+```
+
 ## 2026年5月6日
 
 在上一个 epoch 中，发现了在解析某些 Kimi-K2.6 响应时存在一个小问题。
@@ -33,6 +171,7 @@ echo "9882b36ac6e5546fc18e3dd34da293cd5255f311f19e14ace74d3b9190c8ca1d .dapi/cos
 docker start api
 ```
 此外，如果你有托管 Kimi-K2.6 的 MLNode，请在部署参数中添加部署参数 “--enable-auto-tool-choice”。为此，你可以重复执行命令（B200 示例）：
+
 ```
 curl -X POST http://localhost:9200/admin/v1/nodes \
      -H "Content-Type: application/json" \

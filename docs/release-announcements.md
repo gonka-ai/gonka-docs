@@ -8,6 +8,57 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 7, 2026
+
+**Bridge container update/verification required**
+
+Hosts are asked to verify that the bridge container is deployed and running the latest version.
+
+Some hosts may already have the bridge container deployed. In that case, please first check that you are running the current version before taking any further action.
+
+Latest bridge image:
+```
+ghcr.io/product-science/bridge:0.2.5-post5@sha256:8d2f217115c65b27fcb6fe1497471c30891534f18685bd3007d168aa7f1a9371
+```
+Check whether your bridge is already running the correct version:
+docker inspect --format='{{.Image}}' bridge \
+    | xargs docker inspect --format='{{range .RepoDigests}}{{.}}{{end}}' \
+    | grep -q 'sha256:8d2f217115c65b27fcb6fe1497471c30891534f18685bd3007d168aa7f1a9371' \
+    && echo "BRIDGE v0.2.5-post5 is running" || echo "WARNING: OLD BRIDGE"
+```
+If the command returns:
+```
+BRIDGE v0.2.5-post5 is running
+```
+your bridge container is running the expected image.
+
+Please also verify that the bridge is synced:
+```
+docker logs bridge --tail 10000 | grep "Skeleton sync bounds" | tail -1
+The output should point to a recent finalized Ethereum block and should not be significantly behind.
+```
+If the command returns a warning, please deploy or update the bridge container from the `gonka/deploy/join` directory:
+```
+git checkout release/v0.2.5-post5
+docker compose down bridge && sudo rm -rf .inference-eth
+source config.env && docker compose pull bridge
+source config.env && docker compose up bridge -d --force-recreate --no-deps
+```
+After deployment, verify the version again:
+```
+docker inspect --format='{{.Image}}' bridge \
+    | xargs docker inspect --format='{{range .RepoDigests}}{{.}}{{end}}' \
+    | grep -q 'sha256:8d2f217115c65b27fcb6fe1497471c30891534f18685bd3007d168aa7f1a9371' \
+    && echo "BRIDGE v0.2.5-post5 is running" || echo "WARNING: OLD BRIDGE"
+```
+If the bridge fails to synchronize, the Ethereum checkpoint sync endpoint may be unavailable. In that case, update `BEACON_STATE_URL` and restart the bridge:
+```
+sudo sed -i 's|- BEACON_STATE_URL=.*|- BEACON_STATE_URL=https://beaconstate.info/|' docker-compose.yml
+
+source config.env && docker compose up bridge -d --force-recreate --no-deps
+```
+After updating or restarting the bridge, please also verify that it is synced, as described above.
+
 ## May 6, 2026
 
 **PR Review for Upgrade v0.2.13**

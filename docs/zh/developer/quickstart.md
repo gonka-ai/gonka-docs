@@ -24,9 +24,43 @@ name: index.md
 
 ---
 
+## 0. 选择你的接入方式
+
+有两种方式可以开始使用 Gonka：
+
+- **原生加密路径** —— 使用你自己的 Gonka 账户、私钥和 GNK 余额，直接发送推理请求。
+
+- **经纪商路径** —— 使用第三方 broker 服务，以 USD 支付，并避免自行管理钱包、私钥或 GNK。
+
+=== "Option A — Crypto-native path"
+
+    如果你希望使用自己的钱包、私钥、GNK 余额以及 SDK 请求直接与 Gonka 交互，请使用此方式。
+
+    你需要：
+
+    1. 创建或导入一个兼容 Gonka 的账户
+    2. 导出或安全保存私钥
+    3. 为账户充值 GNK
+    4. 在链上发布公钥
+    5. 通过 SDK 发送推理请求
+
+=== "Option B — Broker path"
+
+    如果你希望使用 USD 支付，并避免管理 GNK、钱包、私钥或链上交易，请使用此方式。
+    Broker 服务会在内部处理 GNK 转换以及链上交互。
+
+    !!! caution "权衡"
+
+        Broker 服务并不是核心协议的一部分。
+        相比直接与网络交互，它们会引入额外的信任层和抽象层。
+
+    如果你使用 broker 服务，请遵循该 broker 自身的 onboarding 指引。本指南后续内容适用于希望直接与 Gonka 交互的用户。
+
 ## 1. 定义变量
 
 在创建账户之前，设置所需的环境变量：
+
+=== "macOS / Linux"
 
 ```bash
 export ACCOUNT_NAME=<your-desired-account-name>
@@ -97,7 +131,7 @@ export NODE_URL=<http://random-node-url>
     此命令将：
 
     - 生成密钥对
-    - 保存到 `~/.inference`
+    - 保存到 `~/.inferenced`
     - 返回你的账户地址、公钥和助记词（也请安全地以硬拷贝形式存储！）
 
     ```bash
@@ -190,7 +224,7 @@ export NODE_URL=<http://random-node-url>
         
     **打开 Gonka 的去中心化仪表盘**
     
-    从创世节点的 `inference_url` 列表中选择随机节点。
+    从 genesis-nodes 列表中随机选择一个节点。
     
     - [http://185.216.21.98:8000](http://185.216.21.98:8000)
     - [http://69.19.136.233:8000](http://69.19.136.233:8000)
@@ -341,7 +375,7 @@ export NODE_URL=<http://random-node-url>
 
     <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
 
-将私钥添加到环境变量 `GONKA_PRIVATE_KEY,` 或 `.env` 文件中：
+将私钥添加到环境变量 `GONKA_PRIVATE_KEY` 或 `.env` 文件中：
 ```
 export GONKA_PRIVATE_KEY=<your-private-key>
 ```

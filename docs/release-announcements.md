@@ -36,8 +36,9 @@ your bridge container is running the expected image.
 Please also verify that the bridge is synced:
 ```
 docker logs bridge --tail 10000 | grep "Skeleton sync bounds" | tail -1
-The output should point to a recent finalized Ethereum block and should not be significantly behind.
 ```
+The output should point to a recent finalized Ethereum block and should not be significantly behind.
+
 If the command returns a warning, please deploy or update the bridge container from the `gonka/deploy/join` directory:
 ```
 git checkout release/v0.2.5-post5

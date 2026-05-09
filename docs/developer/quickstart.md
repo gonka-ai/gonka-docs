@@ -136,7 +136,7 @@ Save the selected `NODE_URL`; you will use it in the next steps.
 
     ```bash
     - address: <your-account-address>
-      name: ACCOUNT_NAME
+      name: <your-account-name>
       pubkey: '{"@type":"...","key":"..."}'
       type: local
     ```
@@ -149,15 +149,24 @@ Save the selected `NODE_URL`; you will use it in the next steps.
 
     You will use this account to purchase Gonka (GNK) coins and pay for inference requests.
 
-    Add Private Key to environment variables.
-    
-    If you'd like to perform the request, export your private key.
+    Export your private key so the SDK can sign requests in step 5.
+    The following command prints a hex-encoded private key to stdout:
     
     ```bash
-    ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
+    ./inferenced keys export "$ACCOUNT_NAME" --unarmored-hex --unsafe
     ```
     
-    This command outputs a plain-text private key.
+    Copy the output and add it to your environment (or `.env` file):
+    
+    ```bash
+    export GONKA_PRIVATE_KEY=<paste-the-hex-key-here>
+    ```
+
+    You can list all locally stored accounts at any time with:
+    ```bash
+    ./inferenced keys list [--keyring-backend test]
+    ```
+    This command reads the local `inferenced` keyring (`~/.inferenced/`) and does not apply to accounts created in Keplr or Cosmostation.
 
 === "Option 2: Via Keplr (external wallet)"
 
@@ -247,6 +256,12 @@ Save the selected `NODE_URL`; you will use it in the next steps.
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
 
+    Once you have the hex private key (copied from Keplr above), add it to your environment so the SDK can sign requests in step 5:
+    
+    ```bash
+    export GONKA_PRIVATE_KEY=<your-hex-private-key>
+    ```
+
 === "Option 3: Via Cosmostation (external wallet)"
 
     !!! note "Important Notice: Limited Functionality"
@@ -303,15 +318,12 @@ Save the selected `NODE_URL`; you will use it in the next steps.
     Click on "Gonka" to see the private key. Copy your private key or recovery phrase and store it securely (a hard copy is preferred).
 
     <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
+
+    Once you have the hex private key (copied from Cosmostation above), add it to your environment so the SDK can sign requests in step 5:
     
-Add private key to the environment variable `GONKA_PRIVATE_KEY` or the `.env` file.
-```
-export GONKA_PRIVATE_KEY=<your-private-key>
-```
-To retrieve a list of all locally stored accounts, execute the following command:
-```
-./inferenced keys list [--keyring-backend test]
-```
+    ```bash
+    export GONKA_PRIVATE_KEY=<your-hex-private-key>
+    ```
 
 ## 3. Fund your account with GNK
 

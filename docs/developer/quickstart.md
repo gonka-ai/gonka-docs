@@ -362,21 +362,20 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 
 ## 5. Run inference using the Gonka OpenAI SDK
 
-!!! important "Limited Transfer Agent Nodes"
-    Currently, the list of nodes that can be used for inference requests is limited. To check the full list of available transfer agents, use:
+!!! important "Public `devshard` creator node"
+    Inference on Gonka is settled through a **devshard-based billing** flow. A public node creates a devshard escrow session for your account and routes your requests to executors inside that session. Only nodes whose addresses are in the on-chain allowlist `devshard_escrow_params.allowed_creator_addresses` are allowed to create those escrows.
+
+    As of the latest mainnet update, the recommended public inference gateway is **`https://node4.gonka.ai`**.  
+
+    For SDK endpoint discovery, set `SOURCE_URL` to the public inference gateway:
     ```bash
-    curl "http://node1.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
+    export SOURCE_URL=https://node4.gonka.ai
     ```
 
-    **Active Transfer Agents URLs:**
-
-    - http://node1.gonka.ai:8000
-    - http://node2.gonka.ai:8000
-    - https://node3.gonka.ai
-
-    For SDK endpoint discovery, set `SOURCE_URL` to a node that has `/chain-api` enabled (for example `node1` or `node3`):
+    Optionally, you can inspect the on-chain allowlist of `devshard` creator addresses (use any `NODE_URL` from step 1 — `node4` does not expose `/chain-api`):
     ```bash
-    export SOURCE_URL=http://node1.gonka.ai:8000
+    curl "$NODE_URL/chain-api/productscience/inference/inference/params" \
+      | jq '.params.devshard_escrow_params.allowed_creator_addresses'
     ```
 
 === "Python"

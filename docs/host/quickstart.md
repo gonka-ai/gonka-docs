@@ -919,6 +919,62 @@ curl http://node2.gonka.ai:8000/chain-rpc/status
 
 Once your node is visible in the Dashboard, you may also want to update your public profile (host name, website, avatar). This helps other participants identify your node in the network. You can find [the instructions here](https://gonka.ai/host/validator_info/).
 
+## 5. [Local machine] Deposit Collateral
+
+**IMPORTANT: Perform this step on your secure local machine where you created the Account Key.**
+
+Collateral is locked GNK that activates the collateral-eligible portion of your PoC weight. Without it, a Host receives only the **base weight** (20% by default) of what Proof of Compute earns. The grace period has ended, so this step is required to run at full weight.
+
+> **Note on timing:** Verify Node Status confirms your containers are running and your participant is registered. It does **not** mean Proof of Compute has succeeded — PoC runs every ~24 hours and only after it completes can you see your actual weight at `$NODE_URL/v1/epochs/current/participants`. The two options below let you either deposit now with an estimate, or wait for the first PoC and deposit with precise data.
+
+There is no way to know your PoC weight in advance — it is determined by your hardware, the network's current size, and per-model coefficients.
+
+**Option A — Deposit now (full weight from epoch 1).** Look at the current weight distribution in the network and deposit enough to cover the upper end. Your node enters its first PoC with collateral already in place.
+
+```bash
+export NODE_URL="<seed_api_url from server's config.env>"   # e.g. https://node2.gonka.ai:8000
+export CHAIN_ID="gonka-mainnet"
+
+PARAMS=$(curl -s "$NODE_URL/chain-api/productscience/inference/inference/params")
+BASE_WEIGHT_RATIO=$(echo "$PARAMS" | jq -r '.params.collateral_params.base_weight_ratio
+  | (.value | tonumber) * pow(10; .exponent | tonumber)')
+COLLATERAL_PER_UNIT=$(echo "$PARAMS" | jq -r '.params.collateral_params.collateral_per_weight_unit
+  | (.value | tonumber) * pow(10; .exponent | tonumber)')
+
+MAX_WEIGHT=$(curl -s "$NODE_URL/v1/epochs/current/participants" \
+  | jq '[.active_participants.participants[].weight] | max')
+
+DEPOSIT=$(printf "%.0f" "$(echo "$MAX_WEIGHT * (1 - $BASE_WEIGHT_RATIO) * $COLLATERAL_PER_UNIT * 2" | bc -l)")
+echo "Recommended deposit (covers network max with 2x buffer): ${DEPOSIT} ngonka"
+```
+
+The formula is `MAX_WEIGHT × (1 − BASE_WEIGHT_RATIO) × COLLATERAL_PER_UNIT × 2`: only the collateral-eligible portion of the weight needs backing (the rest is granted as base weight), and `× 2` is the recommended safety buffer. All parameters are read from the chain so the script remains correct if governance updates them.
+
+> **Why the 2× buffer?** PoC weights fluctuate between epochs (network normalization, model coefficients, caps, penalties). The protocol does **not** auto-top-up: if your collateral falls short of your actual weight at the next epoch boundary, you silently get less weight until you deposit more — losing at least one epoch of full rewards. Excess collateral is not lost: it sits in the module and can be withdrawn later via `withdraw-collateral`.
+
+**Option B — Wait for first PoC, then deposit precisely (costs one epoch at 20% weight).** Skip this step now, wait for your first PoC stage to complete (every ~24 hours), then check your actual weight at `$NODE_URL/v1/epochs/current/participants` and re-run the same script above with your own weight in place of `MAX_WEIGHT`. From the second epoch onwards your node runs at full weight.
+
+Deposit collateral from your Account Key (always use `ngonka`):
+
+```bash
+./inferenced tx collateral deposit-collateral ${DEPOSIT}ngonka \
+  --from gonka-account-key \
+  --keyring-backend file \
+  --node $NODE_URL/chain-rpc/ \
+  --chain-id $CHAIN_ID
+```
+
+Verify:
+
+```bash
+MY_ADDR=$(./inferenced keys show gonka-account-key -a --keyring-backend file)
+curl -s "$NODE_URL/chain-api/productscience/inference/collateral/collateral/$MY_ADDR" | jq
+```
+
+Deposits are cumulative — top up later with another `deposit-collateral` if your weight grows. To free unused collateral, use `withdraw-collateral` (subject to an unbonding period, default 1 epoch).
+
+For details on slashing, withdrawal, and parameter tuning, see the [Collateral documentation](https://gonka.ai/host/collateral/).
+
 ## Optional: PoC delegation and refusal {#optional-poc-delegation-and-refusal}
 
 Use this section **after** your Host is registered, the ML Operational Key is authorized, and you can [verify](#verify-node-status) participation—typically from your **local machine** with the **Account (cold) key** (`gonka-account-key`). Nothing here is required to start containers; it applies when you **do not** run every governance-approved model on your own GPUs and must **delegate** PoC voting to another participant, **refuse** delegation, or compare timing against `params`.

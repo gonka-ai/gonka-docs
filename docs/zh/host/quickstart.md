@@ -66,6 +66,8 @@
 
 Kimi K2.6 在相同参考硬件（8×H200、8×B200）上相对 Qwen235B 的 PoC 权重系数约为 **3.51×**。详见 [多模型 PoC — 主机操作指南](/host/multi_model_poc/)。B200 档位的示例 vLLM 参数见下文 `node-config.json` 与 [Kimi K2.6 Bootstrap](/host/kimi-bootstrap/)。
 
+关于最佳部署配置的更多细节可以在 [这里](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)找到。
+
 承载网络节点的服务器应具备：
 
 - 16 核 CPU（amd64）
@@ -81,57 +83,86 @@ Kimi K2.6 在相同参考硬件（8×H200、8×B200）上相对 Qwen235B 的 PoC
 - 16 核 CPU（网络节点与 ML 节点可部署在同一台服务器）
 - 已安装并配置 NVIDIA Container Toolkit，CUDA Toolkit 版本在 12.6 与 12.9 之间。可用 `nvidia-smi` 查看版本。
 
-### 对公网开放的端口
+### 网络访问、代理与端口（重要）
 
-- 5000 - Tendermint P2P 通信
-- 8000 - 应用服务（可配置）
+Gonka 网络采用基于代理的架构，以保护节点免受滥用和 DDoS 攻击。所有公开的 HTTP/HTTPS 流量必须通过代理容器（proxy container）。直接暴露 Network Node 或 ML Node 服务是不安全的。
 
-!!! note "重要警告：API 节点端口 9100、9200 与 ML 节点端口 8080、5050 不得对外公开"
-    以下端口仅限内部使用：
-    
-    - 26657 — Tendermint RPC（仅限内部，外部访问请使用代理）
-- 9100、9200 — 网络节点内部 API
-- 5050 — ML 节点 / vLLM 推理 API
-- 8080 — ML 节点 API
-    
-    若这些端口暴露在公网，您的节点将面临风险。第三方可随意发送请求、占满 ML 节点、干扰挖矿或导致节点在 epoch 中掉线。
-    
+!!! note "对外暴露的端口"
+
+    以下端口可以暴露到公网：
+
+    - 5000 - Tendermint P2P 通信
+    - 8000 / 8443 - 仅通过代理（proxy）提供的应用服务
+
+!!! warning "警告：内部端口"
+
+    以下端口仅限内部使用，**严禁暴露到公网**：
+
+    - 26657 - Tendermint RPC
+    - 9100, 9200 — Network Node internal API
+    - 5050 — ML Node / vLLM inference API
+    - 8080 — ML Node API
+
+    如果这些端口被暴露到公网，你的节点将面临安全风险。第三方可以直接发送请求，导致 ML Node 被过载、挖矿中断，甚至在一个 epoch 中掉线。
+
     **要求：**
-    
-    - 仅允许 localhost、内网或白名单访问这些端口
-    - 切勿对外暴露
-    - Docker 默认配置不安全
 
-    === "情况 1：ML 节点与网络节点在同一台机器"
-        将端口仅绑定到 localhost。        
-        
-        **网络节点（`docker-compose.yml`）**
-        
-        若 ML 节点容器与网络节点容器在同一台机器，可直接编辑 `gonka/deploy/join/docker-compose.yml`：
-        ```
-        api:
-           ports:
-              - "127.0.0.1:9100:9100"
-              - "127.0.0.1:9200:9200"
-        ```
-        
-        **ML 节点（`docker-compose.mlnode.yml`）**
-        ```
+    - 仅允许 localhost、本地私有网络或白名单访问这些端口 
+    - 绝不能对公网开放 
+    - Docker 默认配置并不安全
+
+!!! note "从 Upgrade 0.2.8 开始"
+
+    为了默认提升安全性与性能，以下路由控制与链服务限制将自动生效，除非被显式覆盖。
+    ```bash title="API 手动路由控制"
+          # 定义哪些路由可以绕过限流 (Exempt) ，以及哪些路由被完全禁用（Blocked）
+          - GONKA_API_EXEMPT_ROUTES=chat inference
+          - GONKA_API_BLOCKED_ROUTES=poc-batches training
+    ```
+
+    ```bash title="链路由禁用"
+          # 默认禁用对 Chain 服务的公开访问
+          - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}
+          - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}
+          - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}
+    ```
+
+以下情况描述了 Network Node 与 ML Node 服务的内部端口隔离规则。这些规则是在已配置代理作为唯一公网入口之后生效的。它们不替代代理机制，必须与代理一起使用。
+
+=== "情况 1：ML Node 与 Network Node 在同一台机器上"
+    仅将端口绑定到 localhost。     
+
+    **Network Node（`docker-compose.yml`)**
+
+    如果你的 ML Node 容器和 Network Node 容器在同一台机器上，你可以直接修改 `gonka/deploy/join/docker-compose.yml`:
+    ```
+    api:
         ports:
-          - "127.0.0.1:${PORT:-8080}:8080"
-          - "127.0.0.1:${INFERENCE_PORT:-5050}:5000"
-        ```
-        
-        请勿使用：
-        
-        - "9100:9100"
-        - "9200:9200"
-        - "5050:5000"
-        - "8080:8080"
-    
-    === "情况 2：ML 节点与网络节点在不同机器"
-        若 ML 节点与网络节点容器在不同机器，情况 1 的绑定方式不适用，保护这些端口的具体方式取决于您的环境。您应通过同一 docker 网络或机器间内网建立 ML 节点与网络容器的连接，在这些网络中开放端口并禁止公网访问。此情况下还需正确设置配置中的 `DAPI_API__POC_CALLBACK_URL`。该 URL 必须指向内网/私有地址，而非公网地址。
+            - "127.0.0.1:9100:9100"
+            - "127.0.0.1:9200:9200"
+    ```
 
+    **ML Node (`docker-compose.mlnode.yml`)**
+    ```
+    ports:
+        - "127.0.0.1:${PORT:-8080}:8080"
+        - "127.0.0.1:${INFERENCE_PORT:-5050}:5000"
+    ```
+
+    不要使用：
+        
+    - "9100:9100"
+    - "9200:9200"
+    - "5050:5000"
+    - "8080:8080"
+
+=== "情况 2：ML Node 与 Network Node 在不同机器上"
+    在这种架构下，Network Node 与 ML Node 之间的所有通信必须通过私有网络进行。不得使用公网 IP 或公网 DNS 名称用于以下用途：
+
+    - ML Node APIs
+    - `DAPI_API__POC_CALLBACK_URL`
+
+    如果 ML Node 和 Network Node 容器部署在不同机器上，那么情况 1 中描述的修复方法将无法生效，并且具体的端口保护方式取决于你的部署方式。你需要在 ML Node 和 Network 容器之间建立连接，可以使用同一个 docker 网络，或者在机器之间搭建私有网络，在该网络中开放端口，并关闭对公网的访问。在这种情况下，你还需要在配置中正确设置 `DAPI_API__POC_CALLBACK_URL` 变量。该 URL 必须指向一个私有/内部地址，不能是公网地址。
 
 ## 配置您的节点
 
@@ -320,7 +351,7 @@ cp config.env.template config.env
 
 <!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "route53"]' -->
 ??? details "AWS Route53"
-    **方式 A — AWS CLI**
+    **Option A — AWS CLI**
     ```bash
     HOSTED_ZONE_ID="Z123EXAMPLE"
     cat > route53-acme.json <<'JSON'

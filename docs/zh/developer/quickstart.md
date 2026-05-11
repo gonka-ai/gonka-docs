@@ -32,7 +32,7 @@ name: index.md
 
 - **经纪商路径** —— 使用第三方 broker 服务，以 USD 支付，并避免自行管理钱包、私钥或 GNK。
 
-=== "Option A — Crypto-native path"
+=== "Option A — 原生加密路径"
 
     如果你希望使用自己的钱包、私钥、GNK 余额以及 SDK 请求直接与 Gonka 交互，请使用此方式。
 
@@ -44,7 +44,7 @@ name: index.md
     4. 在链上发布公钥
     5. 通过 SDK 发送推理请求
 
-=== "Option B — Broker path"
+=== "Option B — 经纪商路径"
 
     如果你希望使用 USD 支付，并避免管理 GNK、钱包、私钥或链上交易，请使用此方式。
     Broker 服务会在内部处理 GNK 转换以及链上交互。
@@ -136,7 +136,7 @@ export NODE_URL=<http://random-node-url>
 
     ```bash
     - address: <your-account-address>
-      name: ACCOUNT_NAME
+      name: <your-account-name>
       pubkey: @type:...
       type: local
     ```
@@ -149,15 +149,24 @@ export NODE_URL=<http://random-node-url>
 
     你将使用此账户购买 Gonka（GNK）代币并支付推理请求。
 
-    将私钥添加到环境变量。
-    
-    如果你想执行请求，请导出你的私钥。
+    导出你的私钥，以便 SDK 可以在第 5 步中对请求进行签名。
+    以下命令会将一个十六进制编码的私钥输出到 stdout（标准输出）：
     
     ```bash
-    ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
+    ./inferenced keys export "$ACCOUNT_NAME" --unarmored-hex --unsafe
     ```
     
-    此命令输出纯文本私钥。
+     复制输出内容，并将其添加到你的环境变量中（或者 `.env` 文件中）：
+    
+    ```bash
+    export GONKA_PRIVATE_KEY=<paste-the-hex-key-here>
+    ```
+
+    你也可以随时使用以下命令列出所有本地存储的账户：
+    ```bash
+    ./inferenced keys list [--keyring-backend test]
+    ```
+    该命令会读取本地的 `inferenced` 密钥库 (`~/.inferenced/`) ，不适用于在 Keplr 或 Cosmostation 中创建的账户。
 
 === "选项 2：通过 Keplr（外部钱包）"
 
@@ -185,138 +194,75 @@ export NODE_URL=<http://random-node-url>
 
     === "通过 Google 连接"
 
-        点击"通过 Google 连接"。
+    点击"通过 Google 连接"。
     
-        <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
+     <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
     
-        设置你的钱包。
+    设置你的钱包。
     
-        <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
+    <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
     
-        安全备份你的私钥。任何拥有你私钥的人都可以访问你的资产。如果你失去对 Gmail 账户的访问权限，恢复钱包的唯一方法是使用你的私钥。请将其保存在安全的地方。
+    安全备份你的私钥。任何拥有你私钥的人都可以访问你的资产。如果你失去对 Gmail 账户的访问权限，恢复钱包的唯一方法是使用你的私钥。请将其保存在安全的地方。
     
-        <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
+    <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
-    === "创建新恢复短语"
+    在搜索栏中输入 “Gonka”，然后选择 Gonka 链并将其添加到你的钱包中。
 
-        !!! note "重要通知：功能有限"
-            此选项使用助记词创建账户，不支持通过桥进行交易。如果你想通过桥执行交易，请使用选项 1：通过 `inferenced` CLI 工具或选项 2：通过 Keplr（外部钱包，"通过 Google 连接"）。
+    <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
+                    
+    你的 Keplr 钱包已经创建完成。
         
-        点击"创建新恢复短语"
-    
-        <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
+    <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
 
-        不要与任何人分享你的恢复短语。任何拥有你恢复短语的人都可以完全控制你的资产。请时刻警惕网络钓鱼攻击。安全备份短语。没有恢复短语，你将永远无法恢复账户。
-    
-        <a href="/images/keplr_new_recovery_phrase.png" target="_blank"><img src="/images/keplr_new_recovery_phrase.png" style="width:500px; height:auto;"></a>
-    
-        验证你的恢复短语，创建钱包名称和密码。
-    
-        <a href="/images/keplr_verify_your_recovery_phrase.png" target="_blank"><img src="/images/keplr_verify_your_recovery_phrase.png" style="width:500px; height:auto;"></a>
-    
-        在搜索栏中输入 “Gonka”，并选择 Gonka 链，将其添加到你的钱包中。
+    打开 Keplr，进入钱包页面，并点击 “Copy Address（复制地址）”。
+
+    <a href="/images/keplr_copy_address_2.png" target="_blank"><img src="/images/keplr_copy_address_2.png" style="width:auto; height:337.5px;"></a>
+
+    点击 Gonka 链旁边的 Copy（复制）按钮。
+
+    <a href="/images/keplr_web_copy_gonka_address_2.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address_2.png" style="width:auto; height:337.5px;"></a>
+
+    你已经复制了你的 Gonka 账户地址。你可以将其分享给任何需要向你付款的人。分享该地址是安全的。
         
-        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
-            
-        你的 Keplr 钱包已创建。
-        
-        <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
-        
-    **打开 Gonka 的去中心化仪表盘**
-    
-    从 genesis-nodes 列表中随机选择一个节点。
-    
-    - [http://185.216.21.98:8000](http://185.216.21.98:8000)
-    - [http://69.19.136.233:8000](http://69.19.136.233:8000)
-    - [http://36.189.234.197:18026](http://36.189.234.197:18026)
-    - [http://36.189.234.237:17241](http://36.189.234.237:17241)
-    - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
-    - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
-    - [http://node3.gonka.ai:8000](http://node3.gonka.ai:8000)
-    - [http://47.236.26.199:8000](http://47.236.26.199:8000)
-    - [http://47.236.19.22:18000](http://47.236.19.22:18000)
-    - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)
-    
-    ??? note "选择随机节点的另一种完全去中心化方法"
-        打开主机列表：[http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
-        
-        从列表中选择任何活跃主机。
-        
-        复制他们的 `inference_url` 值。
-        
-    将 `inference_url` 粘贴到浏览器中以加载仪表盘。
-    
-    打开后，你将看到从主机节点直接流式传输的实时数据 — 包括网络统计、活跃工作负载和推理指标。
-    
-    在右上角，点击"连接钱包"开始。
-    
-    <a href="/images/dashboard_ping_pub_3_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_1.png" style="width:500px; height:auto;"></a>
-    
-    选择 Keplr 并点击连接。
-    
-    <a href="/images/dashboard_ping_pub_3_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_2.png" style="width:500px; height:auto;"></a>
-    
-    批准与 Gonka 网络的连接请求。
-    
-    <a href="/images/keplr_approve_connection.png" target="_blank"><img src="/images/keplr_approve_connection.png" style="width:250px; height:auto;"></a>
-        
-    完成！你的 Gonka 开发者账户已成功创建。
-    
-    <a href="/images/dashboard_ping_pub_3_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_4.png" style="width:500px; height:auto;"></a>
+    ??? note "可选：如何在 Keplr 钱包中添加额外的 Gonka 账户 —— 点击查看步骤"
 
-    打开扩展程序并点击扩展程序窗口右上角的账户图标。
-            
-    <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
-
-    导航到三个点并点击"查看私钥"（如果你"通过 Google 连接"）或"查看恢复短语"（如果你使用"恢复短语"创建账户）。
-
-    === "通过 Google 连接"
-
-        <a href="/images/keplr_view_private_key.png" target="_blank"><img src="/images/keplr_view_private_key.png" style="width:auto; height:337.5px;"></a>
-
-    === "创建新恢复短语"
-
-        <a href="/images/keplr_view_recovery_phrase.png" target="_blank"><img src="/images/keplr_view_recovery_phrase.png" style="width:auto; height:337.5px;"></a>
-
-    输入你的密码。
-   
-    <a href="/images/keplr_enter_your_password.png" target="_blank"><img src="/images/keplr_enter_your_password.png" style="width:auto; height:337.5px;"></a>
-
-    复制你的私钥或恢复短语并安全存储（建议硬拷贝）。   
-
-    ??? note "可选：如何在 Keplr 钱包中添加额外的 Gonka 账户 — 点击查看步骤"
-
-        打开扩展程序并点击扩展程序窗口右上角的账户图标。
+        打开扩展程序，并点击扩展窗口右上角的账户图标。
             
         <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
             
-        点击"添加钱包"按钮。
+        点击 “Add wallet（添加钱包）” 按钮。
             
         <a href="/images/dashboard_ping_pub_3_5_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_2.png" style="width:auto; height:337.5px; display:block;"></a>
             
-        点击"导入现有钱包"。
+        点击 “Import an Existing Wallet（导入现有钱包）”。
             
         <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:450px; height:auto; display:block;"></a>
             
-        点击"使用恢复短语或私钥"
-    
+        点击 “Use recovery phrase or private key（使用恢复短语或私钥）”。
+
         <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
-    
-        粘贴你的私钥。你可以导入使用恢复（助记词/种子）短语创建的账户。但是，桥功能将受到限制，因为桥需要直接访问原始私钥来签名交易并确保与以太坊的完全互操作性。
-    
+
+        粘贴你的私钥。不要导入助记词。Keplr 后续将不允许你导出私钥，而你在接下来的步骤中会需要该私钥。
+
         <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
             
-        为你的钱包起一个名称以便参考。
+        为你的钱包命名，方便后续识别。
             
         <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
             
-        选择 Cosmos Hub 和 Ethereum。
-    
-        <a href="/images/dashboard_ping_pub_3_5_6.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_6.png" style="width:450px; height:auto; display:block;"></a>
-            
-        完成 — 你的 Gonka 账户已成功导入 Keplr！
+        在搜索栏中输入 “Gonka”，然后选择 Gonka 链并将其添加到你的钱包中。
+
+        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
+                    
+        完成 —— 你的 Gonka 账户已经成功导入到 Keplr 中！
             
         <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
+
+    一旦你获得了十六进制私钥（即上面从 Keplr 复制的私钥），请将其添加到你的环境变量中，以便 SDK 可以在第 5 步中对请求进行签名：
+    
+    ```bash
+    export GONKA_PRIVATE_KEY=<your-hex-private-key>
+    ```
 
 === "选项 3：通过 Cosmostation（外部钱包）"
 
@@ -374,76 +320,90 @@ export NODE_URL=<http://random-node-url>
     点击 “Gonka” 查看私钥。复制你的私钥或助记词，并妥善保存（建议保留纸质备份）。
 
     <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
+    
+    一旦你获得了十六进制私钥（即上面从 Cosmostation 复制的私钥），请将其添加到你的环境变量中，以便 SDK 可以在第 5 步中对请求进行签名：
+    
+    ```bash
+    export GONKA_PRIVATE_KEY=<your-hex-private-key>
+    ```
 
-将私钥添加到环境变量 `GONKA_PRIVATE_KEY` 或 `.env` 文件中：
-```
-export GONKA_PRIVATE_KEY=<your-private-key>
-```
-如需查看本地存储的所有账户列表，请执行以下命令：
-```
-./inferenced keys list [--keyring-backend test]
-```
+## 3. 为你的账户充值 GNK
 
-## 3. 启用账户以进行推理
+GNK 是 Gonka 网络的原生代币。你需要使用它来支付推理费用——你发送到网络的每个请求都会消耗少量 GNK。
 
-在发送推理请求前，你的账户必须有余额，且公钥已上链。
+目前，GNK 尚未在任何交易所正式上线。
 
-- 开发者推理不需要注册 Participant。
-- Participant 注册仅用于作为 Host 提供推理服务。
+你可以通过以下方式获取 GNK：
+
+- 运行节点并通过贡献算力获得奖励
+- 参与 [悬赏计划](https://gonka.ai/docs/FAQ/#bounty-program)  
+- 社区驱动渠道（生态内的点对点转账）
+    - 这些交互不属于协议本身，依赖参与者之间的直接协调
+    - 任何购买、兑换或转账均需自行承担风险
+
+!!! note "购买 GNK"
+
+    直接购买流程仍在开发中。请关注 [Discord](https://discord.com/invite/RADwCT2U6R) 获取最新公告。  
+    你在第三方网站或交易所看到的任何 GNK 上线信息，都不属于 Gonka 协议的一部分。
+
+## 4. 激活用于推理的账户
+
+在进行推理之前，你的账户必须满足两个条件：有余额，并且已在链上发布公钥。
+
+- 你 **不** 需要注册成为 Participant 才能运行推理
+- Participant 注册仅在你需要作为算力提供方（hosting）时才需要
 
 检查余额：
 ```bash
-inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc/"
+./inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc/"
 ```
 
-如果账户是通过 `inferenced` 创建的，请发布公钥：
+如果你的账户是通过 `inferenced`创建的，需要发布公钥：
 ```bash
-inferenced publish-pubkey \
+./inferenced publish-pubkey \
   --from "$ACCOUNT_NAME" \
   --node "$NODE_URL/chain-rpc/" \
   --chain-id "gonka-mainnet" \
   --yes
 ```
 
-如果账户是在外部钱包中创建的，请发送任意一笔链上交易（自转一笔即可）来发布公钥。
+如果你的账户是在外部钱包中创建的，发送任意一笔链上交易（例如转账给自己）即可发布公钥。
 
 验证账户数据：
 ```bash
 curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 ```
 
-## 4. 使用定制化的 OpenAI SDK 进行推理
+## 5. 使用 Gonka OpenAI SDK 运行推理
 
-!!! 重要 "受限的 Transfer Agent 节点"
-    目前，可用于推理（inference）请求的节点列表是受限的。要查看完整的可用 Transfer Agent 列表，请使用以下命令:
+!!! important "公共 `devshard` 创建节点"
+    Gonka 上的推理通过 ** devshard 计费流程** 进行结算。 公共节点会为你的账户创建一个 devshard 托管会话（escrow session），并将你的请求路由到该会话内的执行节点。只有在链上 `devshard_escrow_params.allowed_creator_addresses` 白名单中的节点地址才允许创建这些托管会话。
+
+    当前主网推荐的公共推理网关是 **`https://node4.gonka.ai`**。
+
+    用于 SDK 的 endpoint 发现，请将 `SOURCE_URL` 设置为该公共推理网关：
     ```bash
-    curl "http://node1.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
+    export SOURCE_URL=https://node4.gonka.ai
     ```
 
-    **当前可用的 Transfer Agent URL：**
-
-    - http://node1.gonka.ai:8000
-    - http://node2.gonka.ai:8000
-    - https://node3.gonka.ai
-
-    对于 SDK 的端点发现，请将 `SOURCE_URL` 设置为已启用 `/chain-api` 的节点（例如 `node1` 或 `node3`）：
+    可选：你也可以查看链上 `devshard`creator 地址白名单（使用任意 step 1 中的 `NODE_URL` ， `node4` 不提供 `/chain-api`）： 
     ```bash
-    export SOURCE_URL=http://node1.gonka.ai:8000
+    curl "$NODE_URL/chain-api/productscience/inference/inference/params" \
+      | jq '.params.devshard_escrow_params.allowed_creator_addresses'
     ```
 
 === "Python"
-    要在 Python 中使用 Gonka API，你可以使用[Gonka OpenAI SDK for Python](https://github.com/gonka-ai/gonka-openai/tree/main/python)。通过使用 pip 安装 SDK 开始：
-
+    在 Python 中使用 Gonka API，可以使用 [Gonka OpenAI SDK for Python](https://github.com/gonka-ai/gonka-openai/tree/main/python). 首先通过 pip 安装 SDK：
     ```
-    pip install gonka-openai
+    pip install gonka-openai==0.2.6
     ```
 
-    !!! note "如果遇到构建错误，你可能需要安装系统级库"
+    !!! note "如果遇到构建错误，可能需要安装系统级依赖"
         ```
         brew install pkg-config secp256k1
         ```
 
-    安装 SDK 后，创建一个名为 `example.py` 的文件并将示例代码复制到其中：
+    安装完成后，新建 `example.py` 并复制以下代码：
 
     ```py linenums="1"
     import os
@@ -457,23 +417,23 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     response = client.chat.completions.create(
         model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages=[
-            { "role": "user", "content": "写一个关于独角兽的一句话睡前故事" }
+            { "role": "user", "content": "Write a one-sentence bedtime story about a unicorn" }
         ]
     )
 
     print(response.choices[0].message.content)
     ```
 
-    使用 `python example.py` 执行代码。片刻后，终端将显示 API 请求的响应结果。
+    运行： `python example.py`.稍等片刻即可看到 API 返回结果。
 
 === "TypeScript"
-    要在 Node.js、Deno 或 Bun 等服务器端 JavaScript 环境中使用 Gonka API，你可以使用[Gonka OpenAI SDK for TypeScript and JavaScript](https://github.com/gonka-ai/gonka-openai/tree/main/typescript)。通过使用 npm 或你首选的包管理器安装 SDK 开始：
+    在 Node.js / Deno / Bun 等环境中，可以使用 [Gonka OpenAI SDK for TypeScript and JavaScript](https://github.com/gonka-ai/gonka-openai/tree/main/typescript). 开始时，请使用 npm 或你偏好的包管理器安装 SDK：
 
     ```
-    npm install gonka-openai
+    npm install gonka-openai@0.2.6
     ```
 
-    安装 SDK 后，创建一个名为 `example.mjs` 的文件并将示例代码复制到其中：
+    安装 SDK 后，创建一个名为 `example.mjs` 的文件，并将示例代码复制进去：
 
     ```ts linenums="1"
     import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
@@ -487,23 +447,23 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     const response = await client.chat.completions.create({
         model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages: [
-            { role: "user", content: "你好！给我讲个短笑话。" }
+            { role: "user", content: "Hello! Tell me a short joke." }
         ]
     });
 
     console.log(response.choices[0].message.content);
     ```
 
-    使用 `node example.mjs` 执行代码。片刻后，你应该看到 API 请求的输出。
+    使用 `node example.mjs`执行代码。稍等片刻后，你应该会看到 API 请求的输出结果。
 
 === "Go"
-    要在 Go 中使用 Gonka API，你可以使用[Gonka OpenAI SDK for Go](https://github.com/gonka-ai/gonka-openai/tree/main/go)。通过使用 go get 安装 SDK 开始：
+    要在 Go 中使用 Gonka API，你可以使用 [Gonka OpenAI SDK for Go](https://github.com/gonka-ai/gonka-openai/tree/main/go)。首先通过 go get 安装 SDK：
 
     ```
-    go get github.com/gonka-ai/gonka-openai/go
+    go get github.com/gonka-ai/gonka-openai/go@v0.2.6
     ```
 
-    安装 SDK 后，创建一个名为 `example.go` 的文件并将示例代码复制到其中：
+    安装 SDK 后，创建一个名为 `example.go` 的文件，并将示例代码复制进去：
 
     ```go linenums="1"
     package main
@@ -514,6 +474,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
         "os"
 
         gonka "github.com/gonka-ai/gonka-openai/go"
+        "github.com/openai/openai-go"
     )
 
     func main() {
@@ -525,10 +486,12 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
             log.Fatal(err)
         }
 
-        resp, err := client.ChatCompletion(context.Background(),
-            "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-            gonka.UserMessage("Write a haiku about programming"),
-        )
+        resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+            Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+            Messages: []openai.ChatCompletionMessageParamUnion{
+                openai.UserMessage("Write a haiku about programming"),
+            },
+        })
         if err != nil {
             log.Fatal(err)
         }
@@ -537,15 +500,15 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     }
     ```
 
-    使用 `go run example.go` 执行代码。片刻后，你应该看到 API 请求的输出。
+    使用 `go run example.go`执行代码。稍等片刻后，你应该会看到 API 请求的输出结果。
 
-要从另一种语言执行推理，请参阅[Gonka OpenAI 客户端库仓库](https://github.com/gonka-ai/gonka-openai)，并相应调整示例。
+要在其他语言中执行推理，请查看 [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai)，并根据示例进行相应调整。
 
-## 4. 工具调用
+## 6. 工具调用
 
-仅支持 `type: "function"` — vLLM 实现的是 OpenAI 聊天补全规范，而非 Assistants API（`code_interpreter`、`file_search` 不可用）。
+仅支持 `type: "function"` —— vLLM 实现的是 OpenAI Chat Completions 规范，而不是 Assistants API (`code_interpreter`, `file_search` 不可用）。
 
-定义函数后，当用户的请求匹配时，模型将返回结构化的调用参数 — 你来决定如何处理它们。
+你可以定义函数，当用户请求匹配时，模型会返回结构化的调用参数——由你决定如何处理这些参数。
 
 === "Python"
 
@@ -563,7 +526,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
             "type": "function",
             "function": {
                 "name": "get_weather",
-                "description": "Get the current weather for a city",
+                "description": "获取某个城市的当前天气",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -577,7 +540,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 
     response = client.chat.completions.create(
         model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-        messages=[{"role": "user", "content": "What's the weather in Paris?"}],
+        messages=[{"role": "user", "content": "巴黎的天气怎么样？"}],
         tools=tools,
         tool_choice="auto",
     )
@@ -586,7 +549,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     if message.tool_calls:
         call = message.tool_calls[0]
         args = json.loads(call.function.arguments)
-        # model chose get_weather with {"city": "Paris"} — call your function now
+        # 模型选择了 get_weather ，并返回 {"city": "Paris"} —— 现在你可以调用自己的函数
         print(call.function.name, args)
     ```
 
@@ -606,10 +569,10 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
             type: 'function',
             function: {
                 name: 'get_weather',
-                description: 'Get the current weather for a city',
+                description: '获取某个城市的当前天气',
                 parameters: {
                     type: 'object',
-                    properties: { city: { type: 'string', description: 'City name' } },
+                    properties: { city: { type: 'string', description: '城市名称' } },
                     required: ['city'],
                 },
             },
@@ -618,7 +581,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 
     const response = await client.chat.completions.create({
         model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-        messages: [{ role: "user", content: "What's the weather in Paris?" }],
+        messages: [{ role: "user", content: "巴黎的天气怎么样？" }],
         tools,
         tool_choice: "auto",
     });
@@ -627,7 +590,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     if (message.tool_calls) {
         const call = message.tool_calls[0];
         const args = JSON.parse(call.function.arguments);
-        // model chose get_weather with { city: "Paris" } — call your function now
+        // 模型选择了 get_weather ，并返回 { city: "Paris" } —— 现在可以调用你的函数
         console.log(call.function.name, args);
     }
     ```
@@ -659,18 +622,18 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
         resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
             Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
             Messages: []openai.ChatCompletionMessageParamUnion{
-                openai.UserMessage("What's the weather in Paris?"),
+                openai.UserMessage("巴黎的天气怎么样？"),
             },
             Tools: []openai.ChatCompletionToolParam{
                 {
                     Type: "function",
                     Function: openai.FunctionDefinitionParam{
                         Name:        "get_weather",
-                        Description: openai.String("Get the current weather for a city"),
+                        Description: openai.String("获取某个城市的当前天气"),
                         Parameters: openai.FunctionParameters{
                             "type": "object",
                             "properties": map[string]any{
-                                "city": map[string]string{"type": "string", "description": "City name"},
+                                "city": map[string]string{"type": "string", "description": "城市名称"}},
                             },
                             "required": []string{"city"},
                         },
@@ -687,10 +650,10 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
             var args struct{ City string }
             json.Unmarshal([]byte(call.Function.Arguments), &args)
             // model chose get_weather with {City: "Paris"} — call your function now
-            log.Printf("Tool: %s, City: %s\n", call.Function.Name, args.City)
+            log.Printf("工具: %s, 城市: %s\n", call.Function.Name, args.City)
         }
     }
     ```
 
 ---
-**需要帮助？** [请先查看我们的常见问题页面](https://gonka.ai/zh/FAQ/)，加入我们的 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。
+**需要帮助？**  可以查看 [FAQ 页面](https://gonka.ai/FAQ/)，或加入 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 获取支持（一般咨询、技术问题或安全相关问题）。

@@ -51,7 +51,7 @@ REQUIRED=$(echo "$WEIGHT * (1 - $BASE_WEIGHT_RATIO) * $COLLATERAL_PER_UNIT" | bc
 printf "Minimum required collateral: %.0f ngonka\n" "$REQUIRED"
 ```
 
-For example, with default parameters (`base_weight_ratio = 0.2`, `collateral_per_weight_unit = 1`) and `WEIGHT=1000`, the minimum required collateral is `1000 × 0.8 × 1 = 800 ngonka`.
+For example, with current mainnet parameters (`base_weight_ratio = 0.2`, `collateral_per_weight_unit = 4.2`) and `WEIGHT=1000`, the minimum required collateral is `1000 × 0.8 × 4.2 = 3360 ngonka`.
 
 > **Why `(1 − base_weight_ratio)`?** Each participant receives `weight × base_weight_ratio` (default 20%) as base weight unconditionally. Only the remaining `weight × (1 − base_weight_ratio)` (default 80%) must be backed by collateral. Depositing more than this minimum is safe but does not activate any additional weight beyond your potential weight — the chain takes `min(collateral-eligible weight, weight that the deposit can cover)`. See the [Recommended Buffer](#recommended-buffer) section below for guidance on overshooting the minimum.
 

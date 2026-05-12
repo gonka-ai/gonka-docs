@@ -21,15 +21,24 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def transform_nav(nav: list) -> list:
-    """Strip Home and remap Introduction for the docs build."""
+    """Strip Home and remap Introduction for the docs build (recursive).
+
+    The remap of ``Introduction: introduction.md`` -> ``Introduction: index.md``
+    is applied at any depth, because Introduction may live under a parent
+    section (e.g. ``Learn``) rather than at the top level.
+    """
     out: list = []
     for item in nav:
         if isinstance(item, dict):
             key = next(iter(item))
+            value = item[key]
             if key == "Home":
                 continue
-            if key == "Introduction" and item[key] == "introduction.md":
+            if key == "Introduction" and value == "introduction.md":
                 out.append({"Introduction": "index.md"})
+                continue
+            if isinstance(value, list):
+                out.append({key: transform_nav(value)})
                 continue
         out.append(item)
     return out

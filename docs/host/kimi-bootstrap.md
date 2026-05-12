@@ -59,7 +59,8 @@ export NODE=https://node3.gonka.ai/
   --keyring-backend file \
   --gas auto \
   --gas-adjustment 1.3 \
-  -y \
+  --gas-prices 10ngonka \
+  -y
 ```
 
 #### 2. Check your setup and make sure the `Kimi-K2.6` weights are downloaded and you can deploy the model successfully
@@ -162,6 +163,7 @@ export NODE=https://node3.gonka.ai/chain-rpc/
   --keyring-backend file \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```
 
@@ -175,5 +177,6 @@ export NODE=https://node3.gonka.ai/chain-rpc/
   --keyring-backend file \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```

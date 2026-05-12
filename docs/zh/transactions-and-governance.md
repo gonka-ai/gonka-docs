@@ -9,7 +9,7 @@
 - `--from <cold-key-name>` → 使用你的冷治理密钥。
 - `--keyring-backend file` → 确保使用本地密钥签名（系统会提示你）。
 - `--unordered --timeout-duration=60s` → 使交易在有限时间内有效，绕过序列排序（v0.53+ 新增）。
-- `--gas=2000000 --gas-adjustment=5.0` → 带缓冲的手动 gas 设置。
+- `--gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka` → 通过模拟自动估算 gas 并加 30% 缓冲，按链上最小 gas 价格支付（v0.2.12 起 `FeeParams.min_gas_price_ngonka` 默认值为 `10ngonka`；使用 `--gas-prices` 而非 `--fees` 可让 fee 与模拟出的 gas 成比例，并在 governance 调整 min price 时仍然有效）。
 - `--node $SEED_URL/chain-rpc/` → 除非你运行本地 RPC 节点，否则必需。
 - `--yes` → 自动批准广播。
 
@@ -68,7 +68,7 @@ inferenced tx gov vote <proposal_id> yes \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
+  --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
   --node $SEED_URL/chain-rpc/ \
   --yes
 ```
@@ -161,7 +161,7 @@ inferenced tx gov submit-proposal ./draft_proposal.json \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
+  --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
   --node $SEED_URL/chain-rpc/ \
   --yes
 ```
@@ -187,7 +187,7 @@ inferenced tx gov deposit <proposal_id> <amount> \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
+  --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
   --node $SEED_URL/chain-rpc/ \
   --yes
 ```
@@ -204,7 +204,7 @@ inferenced tx gov vote <proposal_id> yes \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
+  --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
   --node $SEED_URL/chain-rpc/ \
   --yes
 ```

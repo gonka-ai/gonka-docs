@@ -55,6 +55,16 @@ For example, with default parameters (`base_weight_ratio = 0.2`, `collateral_per
 
 > **Why `(1 − base_weight_ratio)`?** Each participant receives `weight × base_weight_ratio` (default 20%) as base weight unconditionally. Only the remaining `weight × (1 − base_weight_ratio)` (default 80%) must be backed by collateral. Depositing more than this minimum is safe but does not activate any additional weight beyond your potential weight — the chain takes `min(collateral-eligible weight, weight that the deposit can cover)`. See the [Recommended Buffer](#recommended-buffer) section below for guidance on overshooting the minimum.
 
+!!! note "Grace Period"
+    While the current epoch is below `grace_period_end_epoch` (default `180`), required collateral is **0 regardless of weight** and the formula above does not apply — all participants receive 100% of their potential weight unconditionally. To check whether the grace period is still active on the network you are operating on, compare the current epoch to `grace_period_end_epoch`:
+
+    ```bash
+    curl -s "$NODE_URL/chain-api/productscience/inference/inference/params" \
+      | jq '.params.collateral_params.grace_period_end_epoch'
+    ```
+
+    On mainnet the grace period has already ended, so collateral is required now.
+
 ## Recommended Buffer
 
 Because PoC weight may fluctuate between epochs (due to normalization and other factors), depositing the exact minimum required amount may lead to temporary under-collateralization. Smaller weights may experience proportionally larger relative fluctuations. It is recommended to deposit up to 2x while collateral levels remain relatively small. This provides operational safety and prevents unintended weight reduction at the epoch boundary. The protocol does not auto-top-up collateral.

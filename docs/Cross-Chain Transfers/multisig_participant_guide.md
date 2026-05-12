@@ -26,6 +26,7 @@ The current multisig owners will initiate a transaction to "Add Owner." This tra
 
 ### Step 3: Access the Safe
 Once the transaction is confirmed on the blockchain:
+
 1.  Go to [app.safe.global](https://app.safe.global).
 2.  Connect your wallet.
 3.  Click "Load Existing Safe."

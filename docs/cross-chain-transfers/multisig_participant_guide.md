@@ -5,7 +5,9 @@ This guide is for individuals who have been selected to be signers on the Gonka 
 ## What is a Safe Multisig?
 A **Safe** (formerly Gnosis Safe) is a **Smart Contract Account** that runs on the Ethereum blockchain. Unlike a regular wallet (which has a single private key), a Multisig requires multiple authorized signers to approve a transaction before it can be executed. 
 
-For the Gonka Bridge, this means that no single person can change bridge settings or move funds. It provides a "checks and balances" system that protects the network from hacks or the loss of a single private key.
+For the Gonka Ethereum Bridge, the Safe multisig protects a limited Ethereum-side admin role. This role is not used for normal bridge operations and does not control user funds. It can only be used in exceptional recovery cases, such as resolving a prolonged absence of valid BLS group key updates or handling a BLS key conflict.
+
+The multisig ensures that these rare admin actions cannot be performed by a single person. A required threshold of signers must review and approve the transaction before it can be executed.
 
 ## 1. Prerequisites
 

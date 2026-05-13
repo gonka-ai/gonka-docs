@@ -2,6 +2,8 @@
 
 **AI Token** is a model-specific unit of compute that quantifies the computational cost required for training or inference operations. For instance, in the context of a QwQ-32B model (FP16, 32K context), one AI Token may represent the resources needed to process a fixed number of input and/or output tokens. AI Tokens are tightly coupled to the characteristics of the base model and reflect actual memory, FLOP, etc. 
 
+**Collateral** mechanism allows participants to lock GNK coins in order to activate a portion of their already earned Proof of Compute (PoC) weight. Voting power is never derived solely from holding coins. GNK coins serve as economic collateral, not as a source of influence. Influence is earned through continuous computational contribution, while locking GNK collateral is required to secure participation in governance and enforce accountability.
+
 **Confirmation/Random Proof of Compute (cPoC)** is an auxiliary verification mechanism used to validate the stability of a Host’s declared computational weight outside the primary [Proof of Compute](https://gonka.ai/glossary/#glossary:~:text=Proof%20of%20Compute%20(PoC)%20is,is%20the%20execution%20phase%20of%20PoC.) (PoC) Sprint. These checks are designed to confirm that Hosts continue to provide the computational capacity reflected in their most recent PoC results. CPoC does not replace the standard PoC process (Sprint).
 
 **Confirmation Ratio** is the ratio between a Host’s epoch weight derived from the PoC stage and the weight obtained during the cPoC. A higher Confirmation Ratio indicates greater stability of the compute provided by the Host. If the Confirmation Ratio is 50% or lower, the Host is disqualified from receiving the epoch reward.

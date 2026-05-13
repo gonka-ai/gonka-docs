@@ -124,7 +124,7 @@ The deposit is now on-chain. It will activate the corresponding portion of your 
 
 ## Withdraw Collateral
 
-When you withdraw collateral, it is moved to an unbonding queue. The unbonding period lasts for a specific number of epochs (default is 1 epoch). During this period, the collateral is still subject to slashing.
+When you withdraw collateral, it is moved to an unbonding queue. The unbonding period lasts for a specific number of epochs (default is 1 epoch). During this period, the collateral is still subject to slashing. Slashing during the unbonding period applies proportionally to both active collateral and collateral that is still in the unbonding queue. In other words, withdrawing collateral does not immediately remove it from slash risk. The collateral remains slashable until the unbonding period is complete and the funds are returned to the account balance.
 
 After the unbonding period ends, the collateral is automatically returned to your account balance.
 
@@ -163,6 +163,13 @@ Collateral can be slashed for two reasons:
 
 - **Invalid inference** - when a participant submits an invalid inference result.
 - **Downtime** - when a participant fails Confirmation PoC or is jailed.
+
+When a slash is triggered, the penalty is applied proportionally to both:
+
+- the participant's active collateral, and
+- any collateral currently in the unbonding queue.
+
+This means that collateral remains slashable during the unbonding period. Withdrawing collateral does not protect it from penalties until the unbonding period has fully completed and the funds have been returned to the participant's account balance.
 
 To check if your collateral was slashed:
 

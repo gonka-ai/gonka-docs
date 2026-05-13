@@ -29,7 +29,7 @@ Once the transaction is confirmed on the blockchain:
 
 1.  Go to [app.safe.global](https://app.safe.global).
 2.  Connect your wallet.
-3.  Click "Load Existing Safe."
+3.  Click "Add trusted Safes"
 4.  Enter the Multisig Address provided by the administrator.
 5.  You should now see the Safe dashboard and your address listed under "Owners."
 

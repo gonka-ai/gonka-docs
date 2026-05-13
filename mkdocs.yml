@@ -39,6 +39,15 @@ nav:
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
 
+  - Cross-Chain Transfers:
+    - Overview: cross-chain-transfers/index.md
+    - Ethereum bridge:
+      - Wrap ERC-20 tokens (USDT): cross-chain-transfers/wrap-erc20-tokens.md
+      - Move GNK to Ethereum (WGNK): cross-chain-transfers/gnk-to-ethereum.md
+      - Move ETH to Gonka (WETH): cross-chain-transfers/eth-to-gonka.md
+    - IBC transfers:
+      - Withdraw IBC USDT via Kava: cross-chain-transfers/ibc-usdt-withdrawal.md
+
   - Reference:
     - Transactions & governance: transactions-and-governance.md
     - Software upgrades: software-upgrades.md
@@ -165,6 +174,14 @@ plugins:
             Wallet & transfer guide: 钱包与转账指南
             Dashboard: 仪表盘
             Pricing: 价格
+            Cross-Chain Transfers: 跨链转账
+            Overview: 概览
+            Ethereum bridge: 以太坊跨链桥
+            "Wrap ERC-20 tokens (USDT)": 包装 ERC-20 代币 (USDT)
+            "Move GNK to Ethereum (WGNK)": GNK 转至以太坊 (WGNK)
+            "Move ETH to Gonka (WETH)": ETH 转至 Gonka (WETH)
+            IBC transfers: IBC 转账
+            Withdraw IBC USDT via Kava: 通过 Kava 提取 IBC USDT
             Reference: 参考
             Transactions & governance: 交易与治理
             Software upgrades: 软件升级

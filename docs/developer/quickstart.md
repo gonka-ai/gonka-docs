@@ -444,13 +444,9 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     Execute the code with `node example.mjs`. In a few moments, you should see the output of your API request.
 
 === "Go"
-    To use the Gonka API in Go, you can use the [Gonka OpenAI SDK for Go](https://github.com/gonka-ai/gonka-openai/tree/main/go). Get started by installing the SDK using go get:
+    To use the Gonka API in Go, you can use the [Gonka OpenAI SDK for Go](https://github.com/gonka-ai/gonka-openai/tree/main/go).
 
-    ```
-    go get github.com/gonka-ai/gonka-openai/go@v0.2.6
-    ```
-
-    With the SDK installed, create a file called `example.go` and copy the example code into it:
+    Create a file called `example.go` and copy the example code into it:
 
     ```go linenums="1"
     package main
@@ -504,6 +500,18 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     }
     ```
 
+    Initialise the module — this creates a `go.mod` file:
+
+    ```
+    go mod init example
+    ```
+
+    Download dependencies — this resolves all imports (including `github.com/gonka-ai/gonka-openai/go@v0.2.6`) and creates a `go.sum` file:
+
+    ```
+    go mod tidy
+    ```
+
     Execute the code with `go run example.go`. In a few moments, you should see the output of your API request.
 
 To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai), and adjust the examples accordingly.
@@ -517,12 +525,17 @@ Define functions, and the model will return structured call arguments when the u
 === "Python"
 
     ```py linenums="1"
-    import os, json
-    from gonka_openai import GonkaOpenAI
+    import os
+    import httpx
+    import json
+    from gonka_openai import GonkaOpenAI, Endpoint
+
+    src = os.environ["SOURCE_URL"].rstrip("/")
+    address = httpx.get(f"{src}/v1/identity").json()["data"]["address"]
 
     client = GonkaOpenAI(
-        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-        source_url=os.environ.get('SOURCE_URL')
+        gonka_private_key=os.environ["GONKA_PRIVATE_KEY"],
+        endpoints=[Endpoint(url=f"{src}/v1", address=address)],
     )
 
     tools = [
@@ -560,12 +573,14 @@ Define functions, and the model will return structured call arguments when the u
 === "TypeScript"
 
     ```ts linenums="1"
-    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
+    import { GonkaOpenAI } from 'gonka-openai';
 
-    const endpoints = await resolveEndpoints({ sourceUrl: process.env.SOURCE_URL });
+    const src = process.env.SOURCE_URL.replace(/\/+$/, '');
+    const { data } = await fetch(`${src}/v1/identity`).then(r => r.json());
+
     const client = new GonkaOpenAI({
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
-        endpoints
+        endpoints: [{ url: `${src}/v1`, address: data.address }],
     });
 
     const tools = [
@@ -608,22 +623,38 @@ Define functions, and the model will return structured call arguments when the u
         "context"
         "encoding/json"
         "log"
+        "net/http"
         "os"
+        "strings"
 
         gonka "github.com/gonka-ai/gonka-openai/go"
         "github.com/openai/openai-go"
     )
 
     func main() {
+        src := strings.TrimRight(os.Getenv("SOURCE_URL"), "/")
+
+        resp, err := http.Get(src + "/v1/identity")
+        if err != nil {
+            log.Fatal(err)
+        }
+        defer resp.Body.Close()
+        var ident struct {
+            Data struct{ Address string } `json:"data"`
+        }
+        if err := json.NewDecoder(resp.Body).Decode(&ident); err != nil {
+            log.Fatal(err)
+        }
+
         client, err := gonka.NewGonkaOpenAI(gonka.Options{
             GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            SourceUrl:       os.Getenv("SOURCE_URL"),
+            Endpoints:       []gonka.Endpoint{{URL: src + "/v1", Address: ident.Data.Address}},
         })
         if err != nil {
             log.Fatal(err)
         }
 
-        resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+        r, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
             Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
             Messages: []openai.ChatCompletionMessageParamUnion{
                 openai.UserMessage("What's the weather in Paris?"),
@@ -649,8 +680,8 @@ Define functions, and the model will return structured call arguments when the u
             log.Fatal(err)
         }
 
-        if len(resp.Choices[0].Message.ToolCalls) > 0 {
-            call := resp.Choices[0].Message.ToolCalls[0]
+        if len(r.Choices[0].Message.ToolCalls) > 0 {
+            call := r.Choices[0].Message.ToolCalls[0]
             var args struct{ City string }
             json.Unmarshal([]byte(call.Function.Arguments), &args)
             // model chose get_weather with {City: "Paris"} — call your function now

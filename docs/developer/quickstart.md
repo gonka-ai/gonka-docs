@@ -372,12 +372,6 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     export SOURCE_URL=https://node4.gonka.ai
     ```
 
-    Optionally, you can inspect the on-chain allowlist of `devshard` creator addresses (use any `NODE_URL` from step 1 — `node4` does not expose `/chain-api`):
-    ```bash
-    curl "$NODE_URL/chain-api/productscience/inference/inference/params" \
-      | jq '.params.devshard_escrow_params.allowed_creator_addresses'
-    ```
-
 === "Python"
     To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/gonka-ai/gonka-openai/tree/main/python). Get started by installing the SDK using pip:
 
@@ -394,18 +388,22 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 
     ```py linenums="1"
     import os
-    from gonka_openai import GonkaOpenAI
+    import httpx
+    from gonka_openai import GonkaOpenAI, Endpoint
+
+    src = os.environ["SOURCE_URL"].rstrip("/")
+    address = httpx.get(f"{src}/v1/identity").json()["data"]["address"]
 
     client = GonkaOpenAI(
-        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-        source_url=os.environ.get('SOURCE_URL')
+        gonka_private_key=os.environ["GONKA_PRIVATE_KEY"],
+        endpoints=[Endpoint(url=f"{src}/v1", address=address)],
     )
 
     response = client.chat.completions.create(
         model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages=[
-            { "role": "user", "content": "Write a one-sentence bedtime story about a unicorn" }
-        ]
+            {"role": "user", "content": "Write a one-sentence bedtime story about a unicorn"}
+        ],
     )
 
     print(response.choices[0].message.content)
@@ -423,19 +421,21 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     With the SDK installed, create a file called `example.mjs` and copy the example code into it:
 
     ```ts linenums="1"
-    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
+    import { GonkaOpenAI } from 'gonka-openai';
 
-    const endpoints = await resolveEndpoints({ sourceUrl: process.env.SOURCE_URL });
+    const src = process.env.SOURCE_URL.replace(/\/+$/, '');
+    const { data } = await fetch(`${src}/v1/identity`).then(r => r.json());
+
     const client = new GonkaOpenAI({
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
-        endpoints
+        endpoints: [{ url: `${src}/v1`, address: data.address }],
     });
 
     const response = await client.chat.completions.create({
         model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages: [
             { role: "user", content: "Hello! Tell me a short joke." }
-        ]
+        ],
     });
 
     console.log(response.choices[0].message.content);
@@ -457,23 +457,40 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 
     import (
         "context"
+        "encoding/json"
         "log"
+        "net/http"
         "os"
+        "strings"
 
         gonka "github.com/gonka-ai/gonka-openai/go"
         "github.com/openai/openai-go"
     )
 
     func main() {
+        src := strings.TrimRight(os.Getenv("SOURCE_URL"), "/")
+
+        resp, err := http.Get(src + "/v1/identity")
+        if err != nil {
+            log.Fatal(err)
+        }
+        defer resp.Body.Close()
+        var ident struct {
+            Data struct{ Address string } `json:"data"`
+        }
+        if err := json.NewDecoder(resp.Body).Decode(&ident); err != nil {
+            log.Fatal(err)
+        }
+
         client, err := gonka.NewGonkaOpenAI(gonka.Options{
             GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            SourceUrl:       os.Getenv("SOURCE_URL"),
+            Endpoints:       []gonka.Endpoint{{URL: src + "/v1", Address: ident.Data.Address}},
         })
         if err != nil {
             log.Fatal(err)
         }
 
-        resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+        r, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
             Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
             Messages: []openai.ChatCompletionMessageParamUnion{
                 openai.UserMessage("Write a haiku about programming"),
@@ -483,7 +500,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
             log.Fatal(err)
         }
 
-        log.Println(resp.Choices[0].Message.Content)
+        log.Println(r.Choices[0].Message.Content)
     }
     ```
 

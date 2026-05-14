@@ -9,7 +9,7 @@ For the Gonka Ethereum Bridge, the Safe multisig protects a limited Ethereum-sid
 
 ## 1. Prerequisites
 
-Before you can be added to the multisig, you must have the following ready:
+Before you can be added to the multisig, please make sure the following items are ready:
 
 *   **Ethereum Wallet Address**: A secure Ethereum address that you control.
 *   **Hardware Wallet (Highly Recommended)**: For mainnet security, it is strongly advised to use a hardware wallet (e.g., Ledger or Trezor) rather than a software-only "hot" wallet.
@@ -29,7 +29,7 @@ Once the transaction is confirmed on the blockchain:
 
 1.  Go to [app.safe.global](https://app.safe.global).
 2.  Connect your wallet.
-3.  Click "Add trusted Safes"
+3.  Add the Safe.
 4.  Enter the Multisig Address provided by the administrator.
 5.  You should now see the Safe dashboard and your address listed under "Owners."
 

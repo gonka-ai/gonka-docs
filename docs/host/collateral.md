@@ -171,10 +171,16 @@ When a slash is triggered, the penalty is applied proportionally to both:
 
 This means that collateral remains slashable during the unbonding period. Withdrawing collateral does not protect it from penalties until the unbonding period has fully completed and the funds have been returned to the participant's account balance.
 
-To check if your collateral was slashed:
+To check if your collateral was slashed for Invalid Inference:
 
 ```bash
 curl "$NODE_URL/chain-api/cosmos/tx/v1beta1/txs?query=slash_collateral.participant='<GONKA_ACCOUNT_ADDRESS>'"
+```
+
+To check if your collateral was slashed for Downtime:
+```
+curl "$NODE_URL/chain-rpc/block_search?query=\"slash_collateral.participant='<GONKA_ACCOUNT_ADDRESS>'\""
+curl "$NODE_URL/chain-rpc/block_results?height=<BLOCK_HEIGHT>" | jq '.result.finalize_block_events[] | select(.type == "slash_collateral")'
 ```
 
 For automatic slashing events (e.g. jail) that occur during block processing (BeginBlock), use the block search RPC.

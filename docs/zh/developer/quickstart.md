@@ -415,7 +415,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     response = client.chat.completions.create(
         model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages=[
-            {"role": "user", "content": "Write a one-sentence bedtime story about a unicorn"}
+            {"role": "user", "content": "写一句关于独角兽的睡前小故事"}
         ],
     )
 
@@ -447,7 +447,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     const response = await client.chat.completions.create({
         model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
         messages: [
-            { role: "user", content: "Hello! Tell me a short joke." }
+            { role: "user", content: "你好！请讲一个短笑话。" }
         ],
     });
 
@@ -457,13 +457,11 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     使用 `node example.mjs`执行代码。稍等片刻后，你应该会看到 API 请求的输出结果。
 
 === "Go"
-    要在 Go 中使用 Gonka API，你可以使用 [Gonka OpenAI SDK for Go](https://github.com/gonka-ai/gonka-openai/tree/main/go)。首先通过 go get 安装 SDK：
+    要在 Go 中使用 Gonka API，你可以使用 [Gonka OpenAI SDK for Go](https://github.com/gonka-ai/gonka-openai/tree/main/go)。
 
-    ```
-    go get github.com/gonka-ai/gonka-openai/go@v0.2.6
-    ```
+    请按以下顺序操作：先创建 `example.go` 并粘贴下方程序（`import` 已列出所需模块，一般无需手改路径）；在同一目录执行 `go mod init` 生成 `go.mod`；再执行 `go mod tidy` 根据 import 下载依赖（含 `github.com/gonka-ai/gonka-openai/go@v0.2.6` 等）并生成 `go.sum`；最后运行程序。
 
-    安装 SDK 后，创建一个名为 `example.go` 的文件，并将示例代码复制进去：
+    **1.** 创建名为 `example.go` 的文件，复制以下代码：
 
     ```go linenums="1"
     package main
@@ -506,7 +504,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
         r, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
             Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
             Messages: []openai.ChatCompletionMessageParamUnion{
-                openai.UserMessage("Write a haiku about programming"),
+                openai.UserMessage("写一首关于编程的俳句"),
             },
         })
         if err != nil {
@@ -517,7 +515,25 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     }
     ```
 
-    使用 `go run example.go`执行代码。稍等片刻后，你应该会看到 API 请求的输出结果。
+    **2.** 初始化模块（会生成 `go.mod`）：
+
+    ```
+    go mod init example
+    ```
+
+    **3.** 同步依赖：根据 `example.go` 中的 import 解析并下载模块（包括 `github.com/gonka-ai/gonka-openai/go@v0.2.6`），并写入 `go.sum`：
+
+    ```
+    go mod tidy
+    ```
+
+    **4.** 运行程序：
+
+    ```
+    go run example.go
+    ```
+
+    稍等片刻后，你应该会看到 API 请求的输出结果。
 
 要在其他语言中执行推理，请查看 [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai)，并根据示例进行相应调整。
 
@@ -530,12 +546,17 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 === "Python"
 
     ```py linenums="1"
-    import os, json
-    from gonka_openai import GonkaOpenAI
+    import os
+    import httpx
+    import json
+    from gonka_openai import GonkaOpenAI, Endpoint
+
+    src = os.environ["SOURCE_URL"].rstrip("/")
+    address = httpx.get(f"{src}/v1/identity").json()["data"]["address"]
 
     client = GonkaOpenAI(
-        gonka_private_key=os.environ.get('GONKA_PRIVATE_KEY'),
-        source_url=os.environ.get('SOURCE_URL')
+        gonka_private_key=os.environ["GONKA_PRIVATE_KEY"],
+        endpoints=[Endpoint(url=f"{src}/v1", address=address)],
     )
 
     tools = [
@@ -547,7 +568,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "city": {"type": "string", "description": "City name"}
+                        "city": {"type": "string", "description": "城市名称"}
                     },
                     "required": ["city"],
                 },
@@ -573,12 +594,14 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 === "TypeScript"
 
     ```ts linenums="1"
-    import { GonkaOpenAI, resolveEndpoints } from 'gonka-openai';
+    import { GonkaOpenAI } from 'gonka-openai';
 
-    const endpoints = await resolveEndpoints({ sourceUrl: process.env.SOURCE_URL });
+    const src = process.env.SOURCE_URL.replace(/\/+$/, '');
+    const { data } = await fetch(`${src}/v1/identity`).then(r => r.json());
+
     const client = new GonkaOpenAI({
         gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
-        endpoints
+        endpoints: [{ url: `${src}/v1`, address: data.address }],
     });
 
     const tools = [
@@ -621,22 +644,38 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
         "context"
         "encoding/json"
         "log"
+        "net/http"
         "os"
+        "strings"
 
         gonka "github.com/gonka-ai/gonka-openai/go"
         "github.com/openai/openai-go"
     )
 
     func main() {
+        src := strings.TrimRight(os.Getenv("SOURCE_URL"), "/")
+
+        resp, err := http.Get(src + "/v1/identity")
+        if err != nil {
+            log.Fatal(err)
+        }
+        defer resp.Body.Close()
+        var ident struct {
+            Data struct{ Address string } `json:"data"`
+        }
+        if err := json.NewDecoder(resp.Body).Decode(&ident); err != nil {
+            log.Fatal(err)
+        }
+
         client, err := gonka.NewGonkaOpenAI(gonka.Options{
             GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            SourceUrl:       os.Getenv("SOURCE_URL"),
+            Endpoints:       []gonka.Endpoint{{URL: src + "/v1", Address: ident.Data.Address}},
         })
         if err != nil {
             log.Fatal(err)
         }
 
-        resp, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+        r, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
             Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
             Messages: []openai.ChatCompletionMessageParamUnion{
                 openai.UserMessage("巴黎的天气怎么样？"),
@@ -650,7 +689,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
                         Parameters: openai.FunctionParameters{
                             "type": "object",
                             "properties": map[string]any{
-                                "city": map[string]string{"type": "string", "description": "城市名称"}},
+                                "city": map[string]string{"type": "string", "description": "城市名称"},
                             },
                             "required": []string{"city"},
                         },
@@ -662,11 +701,11 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
             log.Fatal(err)
         }
 
-        if len(resp.Choices[0].Message.ToolCalls) > 0 {
-            call := resp.Choices[0].Message.ToolCalls[0]
+        if len(r.Choices[0].Message.ToolCalls) > 0 {
+            call := r.Choices[0].Message.ToolCalls[0]
             var args struct{ City string }
             json.Unmarshal([]byte(call.Function.Arguments), &args)
-            // model chose get_weather with {City: "Paris"} — call your function now
+            // 模型选择了 get_weather，参数为 {City: "巴黎"} —— 现在可以调用你的函数
             log.Printf("工具: %s, 城市: %s\n", call.Function.Name, args.City)
         }
     }

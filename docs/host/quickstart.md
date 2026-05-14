@@ -1010,7 +1010,7 @@ MODEL="moonshotai/Kimi-K2.6"
 DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
-  --from "$KEY" I am running a few minutes late; my previous meeting is running over.
+  --from "$KEY" \
   --node "$NODE" \
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \

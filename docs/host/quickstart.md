@@ -932,7 +932,7 @@ There is no way to know your PoC weight in advance — it is determined by your 
 **Option A — Deposit now (full weight from epoch 1).** Look at the current weight distribution in the network and deposit enough to cover the upper end. Your node enters its first PoC with collateral already in place.
 
 ```bash
-export NODE_URL="<seed_api_url from server's config.env>"   # e.g. https://node2.gonka.ai:8000
+export NODE_URL="<seed_api_url from server's config.env>"   # e.g. http://node2.gonka.ai:8000
 export CHAIN_ID="gonka-mainnet"
 
 PARAMS=$(curl -s "$NODE_URL/chain-api/productscience/inference/inference/params")
@@ -984,7 +984,7 @@ For each `model_id` you either run the model (PoC commits from your stack) or si
 Set `NODE` to any synced chain RPC (same pattern as `grant-ml-ops-permissions`: seed API URL from `config.env` with `/chain-rpc/` appended).
 
 ```bash
-export NODE="<PUBLIC_CHAIN_RPC>"   # e.g. https://node2.gonka.ai:8000/chain-rpc/
+export NODE="<PUBLIC_CHAIN_RPC>"   # e.g. http://node2.gonka.ai:8000/chain-rpc/
 export CHAIN_ID="gonka-mainnet"
 export KEY="gonka-account-key"
 export KEYRING_BACKEND="file"
@@ -1010,7 +1010,7 @@ MODEL="moonshotai/Kimi-K2.6"
 DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
-  --from "$KEY" \
+  --from "$KEY" I am running a few minutes late; my previous meeting is running over.
   --node "$NODE" \
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \

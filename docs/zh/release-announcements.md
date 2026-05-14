@@ -221,7 +221,7 @@ export NODE_URL=https://node3.gonka.ai/
   --from <cold_key_name> \
   --keyring-backend file \
   --unordered \
-  --timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+  --timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
   --node $NODE_URL/chain-rpc/ \
   --chain-id gonka-mainnet \
   --yes
@@ -486,7 +486,7 @@ export NODE_URL=https://node3.gonka.ai/
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes
@@ -694,7 +694,7 @@ export NODE_URL=https://node3.gonka.ai/
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes
@@ -1229,7 +1229,7 @@ export NODE_URL=https://node3.gonka.ai/
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes
@@ -1304,7 +1304,7 @@ export NODE_URL=https://node3.gonka.ai/
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes
@@ -1758,7 +1758,7 @@ export NODE_URL=https://node4.gonka.ai/
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes
@@ -2120,7 +2120,7 @@ export NODE_URL=https://node4.gonka.ai/
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes
@@ -2218,7 +2218,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes
@@ -2270,7 +2270,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes
@@ -2381,7 +2381,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes
@@ -2633,7 +2633,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 --from <cold_key_name> \
 --keyring-backend file \
 --unordered \
---timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
 --node $NODE_URL/chain-rpc/ \
 --chain-id gonka-mainnet \
 --yes

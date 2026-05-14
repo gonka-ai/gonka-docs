@@ -766,6 +766,7 @@ Grant permissions from your Account Key to the ML Operational Key:
     --from gonka-account-key \
     --keyring-backend file \
     --gas 2000000 \
+    --gas-prices 10ngonka \
     --node <seed_api_url from server's config.env>/chain-rpc/ 
 ```
 
@@ -1016,6 +1017,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```
 
@@ -1032,6 +1034,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```
 
@@ -1047,6 +1050,7 @@ MODEL="moonshotai/Kimi-K2.6"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```
 
@@ -1062,6 +1066,7 @@ MODEL="moonshotai/Kimi-K2.6"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```
 

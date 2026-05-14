@@ -495,7 +495,7 @@ To vote, you can use the command below. This example votes yes, but you can repl
       --from <cold_key_name> \
       --keyring-backend file \
       --unordered \
-      --timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+      --timeout-duration=60s --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
       --node $NODE_URL/chain-rpc/ \
       --chain-id gonka-mainnet \
       --yes
@@ -538,7 +538,7 @@ export NODE_URL=http://<NODE_URL>:<port>
     --chain-id gonka-mainnet \
     --gas auto \
     --gas-adjustment 1.5 \
-    --fees 200000ngonka \
+    --gas-prices 10ngonka \
     --node $NODE_URL/chain-rpc/
 ```
 Then, to check if the node was unjailed:
@@ -964,6 +964,7 @@ Back up the **cold key** on your local device, outside the server.
         --from gonka-account-key \
         --keyring-backend file \
         --gas 2000000 \
+        --gas-prices 10ngonka \
         --node http://<node-url>/chain-rpc/
     ```
 

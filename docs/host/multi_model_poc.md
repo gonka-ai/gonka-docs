@@ -244,6 +244,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```
 
@@ -259,6 +260,7 @@ MODEL="your-model-id"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```
 
@@ -274,6 +276,7 @@ MODEL="your-model-id"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```
 
@@ -289,6 +292,7 @@ MODEL="your-model-id"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 10ngonka \
   -y
 ```
 

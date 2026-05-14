@@ -9,7 +9,7 @@ Unordered transactions are supported and recommended here to avoid sequence cont
 - `--from <cold-key-name>` → use your cold governance key.
 - `--keyring-backend file` → ensures signing with your local key (you will be prompted).
 - `--unordered --timeout-duration=60s` → makes the tx valid for a bounded time, bypassing sequence ordering (new in v0.53+).
-- `--gas=2000000 --gas-adjustment=5.0` → manual gas setting with buffer.
+- `--gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka` → simulate gas with a 30% buffer and pay at the chain's minimum gas price (`FeeParams.min_gas_price_ngonka` defaults to `10ngonka` after v0.2.12; using `--gas-prices` instead of `--fees` keeps the fee proportional to simulated gas and survives a future governance bump of the min price).
 - `--node $SEED_URL/chain-rpc/` → required unless you run a local RPC node.
 - `--yes` → auto-approve broadcasting.
 
@@ -68,7 +68,7 @@ inferenced tx gov vote <proposal_id> yes \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
+  --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
   --node $SEED_URL/chain-rpc/ \
   --yes
 ```
@@ -161,7 +161,7 @@ inferenced tx gov submit-proposal ./draft_proposal.json \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
+  --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
   --node $SEED_URL/chain-rpc/ \
   --yes
 ```
@@ -187,7 +187,7 @@ inferenced tx gov deposit <proposal_id> <amount> \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
+  --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
   --node $SEED_URL/chain-rpc/ \
   --yes
 ```
@@ -204,7 +204,7 @@ inferenced tx gov vote <proposal_id> yes \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
+  --gas=auto --gas-adjustment=1.3 --gas-prices=10ngonka \
   --node $SEED_URL/chain-rpc/ \
   --yes
 ```

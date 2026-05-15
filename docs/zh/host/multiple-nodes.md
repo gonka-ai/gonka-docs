@@ -124,9 +124,6 @@ docker compose -f docker-compose.mlnode.yml up -d && docker compose -f docker-co
 
 ## 向网络节点添加（注册）推理节点
 
-!!! note 
-    通常服务器在数分钟内即可就绪。若 5 分钟后仍无法接受请求，请[联系我们](mailto:hello@productscience.ai)获取帮助。
-
 必须将每个推理节点注册到网络节点后才会生效。
 推荐通过网络节点服务器终端使用 Admin API 进行动态管理：
 ```

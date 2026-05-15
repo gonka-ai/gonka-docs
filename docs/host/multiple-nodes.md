@@ -122,9 +122,6 @@ docker compose -f docker-compose.mlnode.yml up -d && docker compose -f docker-co
 This will deploy the inference node and start handling inference and Proof of Compute (PoC) tasks as soon as they are registered with your network node (instructions below).
 ## Adding (Registering) Inference Nodes with the Network Node
 
-!!! note 
-    Usually, it takes the server a couple of minutes to start. However, if your server does not accept requests after 5 minutes, please [contact us](mailto:hello@productscience.ai) for assistance.
-
 You must register each inference node with the network node to make it operational. 
 The recommended method is via the Admin API for dynamic management, which is accessible from the terminal of your network node server.
 ```

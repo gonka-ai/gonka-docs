@@ -570,6 +570,7 @@ Define functions, and the model will return structured call arguments when the u
         call = message.tool_calls[0]
         args = json.loads(call.function.arguments)
         # model chose get_weather with {"city": "Paris"} — call your function now
+        print("TOOL CALL:")
         print(call.function.name, args)
     ```
 

@@ -131,7 +131,7 @@ Save the selected `NODE_URL`; you will use it in the next steps.
     This command will:
     
     - Generate a keypair
-    - Save it to `~/.inferenced`
+    - Save it to `~/.inference`
     - Return your account address, public key, and mnemonic phrase (store it securely in a hard copy as well!)
 
     ```bash

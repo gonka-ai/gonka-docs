@@ -43,6 +43,7 @@ nav:
     - Transactions & governance: transactions-and-governance.md
     - Software upgrades: software-upgrades.md
     - Model licenses: model-licenses.md
+    - Dashboard maintainer memo v0.2.13: dashboard-maintainer-memo-v0.2.13.md
     - Errors: Errors.md
 
   - Resources:
@@ -169,6 +170,7 @@ plugins:
             Transactions & governance: 交易与治理
             Software upgrades: 软件升级
             "Model licenses": 模型许可
+            Dashboard maintainer memo v0.2.13: 仪表盘维护者备忘录 v0.2.13
             Errors: 错误
             Resources: 资源
             Release announcements: 发布公告

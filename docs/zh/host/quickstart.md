@@ -892,50 +892,108 @@ http://node2.gonka.ai:8000/v1/epochs/current/participants
 http://node2.gonka.ai:8000/dashboard/gonka/validator
 ```
 
-节点运行后，可通过代理查看状态：
+当你的节点运行后，可以通过代理（proxy）检查节点状态。
 ```bash
 curl http://<PUBLIC_IP>:8000/chain-rpc/status
 ```
-在服务器上，您可以使用内网地址（从容器内部或若 26657 绑定到 localhost）：
+在服务器本机上，你也可以使用私有地址（例如在容器内部，或当 26657 端口绑定到 localhost 时）。
 ```bash
 curl http://0.0.0.0:26657/status
 ```
-使用创世节点的公共端点：
+也可以使用创世节点（genesis node）的公共端点进行查询。
 ```bash
 curl http://node2.gonka.ai:8000/chain-rpc/status
 ```
 
-当节点在仪表盘中可见后，您也可以更新公开资料（主机名、网站、头像），便于其他参与者识别。说明见[此处](https://gonka.ai/host/validator_info/)。
+当你的节点已经在 Dashboard 中可见后，你可能还希望更新你的公开资料（例如主机名称、网站、头像等）。这将帮助网络中的其他参与者识别你的节点。你可以 [查看说明](https://gonka.ai/host/validator_info/).
 
-## 可选：PoC 委托与拒绝 {#optional-poc-delegation-and-refusal}
+## 5. [本地机器] 存入抵押品
 
-在主机已注册、已完成 ML 运营密钥授权，并能[验证节点状态](#verify-node-status)之后，再在**本机**用**账户（冷）密钥**（`gonka-account-key`）执行本节。启动容器**不需要**这些交易；仅当您**未**在本机 GPU 上运行某一获批模型，需要**委托** PoC 投票、**拒绝**委托或对照 `params` 确认惩罚时间时使用。
+**重要：请在你创建 Account Key 的安全本地机器上执行此步骤。**
 
-对每个 `model_id`，要么自行运行该模型（由您的栈提交 PoC），要么链上声明。**委托**常见于信任另一位运行该模型的主机；**拒绝**为明确退出。背景见 [多模型 PoC — 主机操作指南](/host/multi_model_poc/)。
+Collateral（抵押品）是被锁定的 GNK，用于激活你 PoC（Proof of Compute，计算证明）权重中符合抵押条件的部分。如果没有抵押，Host 只能获得 Proof of Compute 所产生权重中的 基础权重（base weight）（默认仅为 20%）。宽限期现已结束，因此若想以完整权重运行，此步骤是必须的。
 
-将 `NODE` 设为任意已同步的 chain RPC（与 `grant-ml-ops-permissions` 相同：`config.env` 中种子 API + `/chain-rpc/`）。
+> **关于时间点说明：** Verify Node Status 仅表示你的容器已经运行且参与者已注册。它并不意味着 Proof of Compute 已成功完成——PoC 大约每 24 小时运行一次，只有在 PoC 完成后，你才能在 `$NODE_URL/v1/epochs/current/participants`中看到你的实际权重。
+下方两个选项允许你：要么现在先存入一个估算值，要么等待第一次 PoC 完成后再按精确数据存入。
+
+无法提前准确知道你的 PoC 权重——它取决于你的硬件、当前网络规模以及每个模型的系数。
+
+**选项 A —— 现在就存入（从第 1 个 Epoch 开始即获得完整权重）** 查看当前网络中的权重分布，并存入足够覆盖较高范围的抵押金。这样你的节点在第一次 PoC 时就已经具备抵押。
+
+```bash
+export NODE_URL="<seed_api_url from server's config.env>"   # e.g. http://node2.gonka.ai:8000
+export CHAIN_ID="gonka-mainnet"
+
+PARAMS=$(curl -s "$NODE_URL/chain-api/productscience/inference/inference/params")
+BASE_WEIGHT_RATIO=$(echo "$PARAMS" | jq -r '.params.collateral_params.base_weight_ratio
+  | (.value | tonumber) * pow(10; .exponent | tonumber)')
+COLLATERAL_PER_UNIT=$(echo "$PARAMS" | jq -r '.params.collateral_params.collateral_per_weight_unit
+  | (.value | tonumber) * pow(10; .exponent | tonumber)')
+
+MAX_WEIGHT=$(curl -s "$NODE_URL/v1/epochs/current/participants" \
+  | jq '[.active_participants.participants[].weight] | max')
+
+DEPOSIT=$(printf "%.0f" "$(echo "$MAX_WEIGHT * (1 - $BASE_WEIGHT_RATIO) * $COLLATERAL_PER_UNIT * 2" | bc -l)")
+echo "Recommended deposit (covers network max with 2x buffer): ${DEPOSIT} ngonka"
+```
+
+公式如下： `MAX_WEIGHT × (1 − BASE_WEIGHT_RATIO) × COLLATERAL_PER_UNIT × 2`。只有符合抵押条件的那部分权重需要抵押支持（其余部分会作为基础权重直接给予），而 `× 2` 推荐的安全缓冲倍数。所有参数都会从链上读取，因此即使治理参数发生变化，该脚本依然有效。
+
+> **为什么需要 2× 缓冲？** oC 权重会在不同 Epoch 之间波动（网络归一化、模型系数、上限、惩罚等原因）。协议不会自动补充抵押：如果你的抵押不足以覆盖下一个 Epoch 的实际权重，那么你会静默地获得更低权重，直到再次补充抵押为止——这意味着你至少会损失一个 Epoch 的完整奖励。多余的抵押不会丢失：它会保存在模块中，并且之后可以通过 `withdraw-collateral`提取。
+
+**选项 B —— 等待第一次 PoC 后再精确存入（代价是有一个 Epoch 仅以 20% 权重运行）** 现在先跳过此步骤，等待第一次 PoC 阶段完成（约每 24 小时一次），然后在 `$NODE_URL/v1/epochs/current/participants` 查看你的真实权重，并重新运行上面的脚本，将你自己的权重替换 `MAX_WEIGHT`从第二个 Epoch 开始，你的节点将以完整权重运行。
+
+使用你的 Account Key 存入抵押（始终使用 `ngonka`):
+
+```bash
+./inferenced tx collateral deposit-collateral ${DEPOSIT}ngonka \
+  --from gonka-account-key \
+  --keyring-backend file \
+  --node $NODE_URL/chain-rpc/ \
+  --chain-id $CHAIN_ID
+```
+
+验证：
+
+```bash
+MY_ADDR=$(./inferenced keys show gonka-account-key -a --keyring-backend file)
+curl -s "$NODE_URL/chain-api/productscience/inference/collateral/collateral/$MY_ADDR" | jq
+```
+
+存款是累计的——如果你的权重增长，之后可以再次执行 `deposit-collateral` 进行补充。若想释放未使用的抵押，可以使用 `withdraw-collateral` 需要经过解绑期，默认 1 个 Epoch）。
+
+关于 Slash（惩罚）、提现以及参数调优的更多细节，请查看 [Collateral documentation](https://gonka.ai/host/collateral/).
+
+## 可选：PoC 委托与拒绝
+
+在你的 Host 完成注册、ML Operational Key 完成授权，并且你已经可以 [验证](#verify-node-status) 参与状态之后，再使用本部分内容——通常是在你的本地机器上，使用 Account（冷）Key（`gonka-account-key`）进行操作。这里的内容并不是启动容器所必须的；它适用于你并未在自己的 GPU 上运行所有已通过治理批准的模型，并且需要将 PoC 投票权**委托（delegate）**给其他参与者、**拒绝（refuse）**委托，或结合 `params`对时间参数进行比较的情况。
+
+对于每个 `model_id` ，你要么运行该模型（PoC 提交来自你的节点堆栈），要么通过链上信号进行声明。当你信任某个运行该模型的 Host 时，Delegation（委托） 是最常见的选择；refuse（拒绝） 则表示明确退出。背景说明： [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md).
+
+将 `NODE` 设置为任意一个已同步的链 RPC（与 `grant-ml-ops-permissions`的使用方式相同：使用 `config.env` 中的 seed API URL，并在末尾追加 `/chain-rpc/` ）。
 
 ```bash
 export NODE="<PUBLIC_CHAIN_RPC>"   # 例如 https://node2.gonka.ai:8000/chain-rpc/
+export NODE="<PUBLIC_CHAIN_RPC>"   # 例如 http://node2.gonka.ai:8000/chain-rpc/
 export CHAIN_ID="gonka-mainnet"
 export KEY="gonka-account-key"
 export KEYRING_BACKEND="file"
 ```
 
-查询治理参数（惩罚、`penalty_start_epoch` 等）：
+检查治理参数（如惩罚规则、 `penalty_start_epoch`等）：
 
 ```bash
 ./inferenced query inference params --node "$NODE" -o json
 ```
 
-**查询当前 PoC 委托 / 拒绝 / 意向**（所有模型）：
+**检查你的 PoC 委托 / 拒绝 / intent 状态（所有模型）：
 
 ```bash
 MY_ADDR="$(./inferenced keys show "$KEY" -a --keyring-backend "$KEYRING_BACKEND")"
 ./inferenced query inference poc-delegation "$MY_ADDR" --node "$NODE" -o json
 ```
 
-**委托** — 将该模型的 PoC 验证权重关联到 `DELEGATEE`（对方的 `gonka1…` 地址）。Kimi 示例：
+**委托** ——将你的权重用于该模型的 PoC 验证，并分配给 `DELEGATEE` （其 `gonka1…` 地址)。 Kimi 示例：
 
 ```bash
 MODEL="moonshotai/Kimi-K2.6"
@@ -951,7 +1009,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   -y
 ```
 
-例如 GPU 上只跑 Kimi、不跑 Qwen，可对 Qwen 委托：
+Qwen 示例（例如你只在 GPU 上运行 Kimi）：
 
 ```bash
 MODEL="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
@@ -967,7 +1025,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   -y
 ```
 
-**取消**某一模型的委托：
+**清楚** 某个模型的委托：
 
 ```bash
 MODEL="moonshotai/Kimi-K2.6"
@@ -982,7 +1040,7 @@ MODEL="moonshotai/Kimi-K2.6"
   -y
 ```
 
-**拒绝**委托：
+**拒绝** 某个模型的委托（链上明确 “否”）：
 
 ```bash
 MODEL="moonshotai/Kimi-K2.6"
@@ -997,15 +1055,15 @@ MODEL="moonshotai/Kimi-K2.6"
   -y
 ```
 
-`declare-poc-intent` 多用于**新模型 bootstrap**；见 [Kimi K2.6 Bootstrap](/host/kimi-bootstrap/)。更多命令见 [多模型 PoC — 主机操作指南](/host/multi_model_poc/#copy-paste-setup-commands)。
+`declare-poc-intent` 主要适用于新模型启动（bootstrap）窗口；请参见 [Kimi K2.6 Bootstrap](./kimi-bootstrap.md)。更多命令与边缘情况： [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md#copy-paste-setup-commands).
 
-## 停止与清理节点
+## 停止并清理你的节点
 
-### 如何停止节点
+### 如何停止你的节点
 
-查看当前所处 epoch。打开：[http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest)（也可使用任意其他活跃参与者的 URL）。 
+检查你当前所处的 epoch。打开以下 URL： [http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest) （你也可以使用任何其他活跃参与者的 URL）
 
-在响应中查找：
+在返回结果中，查找：
 ```
 "latest_epoch": {
     "index": 88,
@@ -1013,30 +1071,30 @@ MODEL="moonshotai/Kimi-K2.6"
 }
 ```
 
-记住您的节点最后参与过的 epoch 索引。
+记住你的节点当前工作的最新 epoch index。
 
-在同一 JSON 响应中查找：
+在同一 JSON 返回中，查找：
 ```
 "next_epoch_stages": {
   ...
   "claim_money": <block_number>
 }
 ```
-该区块高度表示此之后可领取奖励。但请注意，您应**现在**就逐个禁用 ML 节点（不要等到该区块后再禁用）。
+该区块号表示在该区块之后你可以领取奖励。但需要理解的是：你应该现在就开始逐个禁用 ML Node，而不要等到该区块之后再操作。
 
-禁用每个 ML 节点。
+禁用每一个 ML Node：
 
 ```
 curl -X POST http://<api_node_static_ip>:<admin_port>/admin/v1/nodes/<id>/disable
 ```
-等待下一个 epoch。此时请勿停止网络节点或 ML 节点。禁用标志仅在下一 epoch 开始后生效。
+等待下一个 epoch。在此期间不要停止 Network Node 或 ML Nodes。disable 标志只有在下一个 epoch 开始后才会生效。
 
-保持网络节点在线并同步，它将自动处理奖励领取。
-要确认最近一次奖励是否已领取，在 `claim_money` 区块过后执行（将 `<YOUR_ADDRESS>` 和 `<EPOCH>` 替换为实际值）：
+保持 Network Node 在线并保持同步，它将自动处理奖励领取。
+要检查最新奖励是否已领取，请在 `claim_money` 区块之后运行以下命令（替换 `<YOUR_ADDRESS>` 和 `<EPOCH>` 为实际值）：
 ```
 inferenced query inference show-epoch-performance-summary <EPOCH> <YOUR_ADDRESS> --node http://node1.gonka.ai:8000/chain-rpc/ --output json
 ```
-示例： 
+示例：
 ```
 Output:
 {
@@ -1049,40 +1107,40 @@ Output:
   }
 }
 ```
-若结果为 `claimed = true`，说明奖励已领取。
-若为 `false`，请执行手动领取步骤。
+如果结果显示 `claimed = true`，说明奖励已经领取完成。
+如果显示 `false`，请继续执行手动领取步骤。
 
 !!! note "手动领取奖励（如需要）"
-    执行：
+    Run:
     ```
     curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
      -H "Content-Type: application/json" \
      -d '{"force_claim": true}'
     ```
 
-验证移除与权重。若已禁用所有节点，您的参与者应不再出现在活跃参与者列表中。若列表中仍能看到您的参与者，说明网络仍期望您参与当前 epoch，此时若停止节点可能错过推理并影响信誉。 
+验证节点移除与权重情况。如果你已禁用所有节点，那么你的 participant 应该不会再出现在 active participants 列表中。如果仍然存在，说明网络仍然期望你参与当前 epoch，此时若直接关闭节点可能会错过 inference，从而影响你的信誉。
 
-确保位于 `gonka/deploy/join` 目录。停止所有运行中的容器：
+确保你在 `gonka/deploy/join` 目录下。停止所有运行中的容器：
 ```
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
 ```
-此命令会停止并移除 `docker-compose.yml` 和 `docker-compose.mlnode.yml` 中定义的服务，除非另有配置，否则不会删除卷或数据。
+该命令会停止并移除 `docker-compose.yml` 和 `docker-compose.mlnode.yml` 中定义的所有服务，但不会删除 volumes 或数据（除非另有显式配置）。
 
-### 如何清理节点（完全重置）
+### 如何清理节点（完整重置）
 
-若需完全重置节点并删除所有数据（用于重新部署或迁移），请按以下步骤清理。  
+如果你希望完全重置节点并删除所有数据（用于重新部署或迁移），请执行以下步骤： 
 
-1. 清理缓存并重新开始：删除本地 `.inference`、`.dapi` 目录（推理运行时缓存与身份）：
+1. 清理缓存并重新开始，删除本地 `.inference` 和 `.dapi` 文件夹（推理运行时缓存与身份）：
 ```bash
 rm -rf .inference .dapi .tmkms
 ```
 
-2. （可选）清理模型权重缓存：
+2. （可选）清除模型权重缓存：
 ```bash
 rm -rf $HF_HOME
 ```
 
 !!! note
-    删除 `$HF_HOME` 后需重新从 Hugging Face 下载大体积模型文件或重新挂载 NFS 缓存。
+    删除 `$HF_HOME` 后，将需要重新从 Hugging Face 下载大型模型文件，或重新挂载 NFS 缓存。
 
-**需要帮助？** 请到 [FAQ 页](https://gonka.ai/FAQ/) 查找答案，或加入 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 获取一般咨询、技术问题或安全相关协助。
+**需要帮助？**  可查看 [FAQ page](https://gonka.ai/FAQ/)，或加入 [Discord server](https://discord.com/invite/RADwCT2U6R) 获取技术支持、通用咨询或安全问题帮助。

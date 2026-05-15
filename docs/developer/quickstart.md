@@ -310,7 +310,7 @@ export GONKA_PRIVATE_KEY=<your-private-key>
 ```
 To retrieve a list of all locally stored accounts, execute the following command:
 ```
-./inferenced keys list [--keyring-backend test]
+./inferenced keys list
 ```
 
 ## 3. Fund your account with GNK

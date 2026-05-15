@@ -406,6 +406,7 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
         ],
     )
 
+    print("RESPONSE:")
     print(response.choices[0].message.content)
     ```
 
@@ -472,7 +473,9 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
         }
         defer resp.Body.Close()
         var ident struct {
-            Data struct{ Address string } `json:"data"`
+            Data struct {
+                Address string `json:"address"`
+            } `json:"data"`
         }
         if err := json.NewDecoder(resp.Body).Decode(&ident); err != nil {
             log.Fatal(err)
@@ -567,6 +570,7 @@ Define functions, and the model will return structured call arguments when the u
         call = message.tool_calls[0]
         args = json.loads(call.function.arguments)
         # model chose get_weather with {"city": "Paris"} — call your function now
+        print("TOOL CALL:")
         print(call.function.name, args)
     ```
 
@@ -640,7 +644,9 @@ Define functions, and the model will return structured call arguments when the u
         }
         defer resp.Body.Close()
         var ident struct {
-            Data struct{ Address string } `json:"data"`
+            Data struct {
+                Address string `json:"address"`
+            } `json:"data"`
         }
         if err := json.NewDecoder(resp.Body).Decode(&ident); err != nil {
             log.Fatal(err)

@@ -515,27 +515,21 @@ curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
     }
     ```
 
-    **2.** 初始化模块（会生成 `go.mod`）：
+    初始化模块 —— 这将创建一个 `go.mod` 文件：
 
     ```
     go mod init example
     ```
 
-    **3.** 同步依赖：根据 `example.go` 中的 import 解析并下载模块（包括 `github.com/gonka-ai/gonka-openai/go@v0.2.6`），并写入 `go.sum`：
+    下载依赖项 —— 这会解析所有导入项（包括 `github.com/gonka-ai/gonka-openai/go@v0.2.6`) ，并创建一个 `go.sum` 文件：
 
     ```
     go mod tidy
     ```
 
-    **4.** 运行程序：
+    使用 `go run example.go`执行代码。稍等片刻后，你应该会看到你的 API 请求输出结果。
 
-    ```
-    go run example.go
-    ```
-
-    稍等片刻后，你应该会看到 API 请求的输出结果。
-
-要在其他语言中执行推理，请查看 [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai)，并根据示例进行相应调整。
+若要使用其他编程语言进行推理，请查看 [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai), ，并根据对应语言调整示例代码。
 
 ## 6. 工具调用
 

@@ -355,7 +355,7 @@ If your account was created with `inferenced`, publish the key:
 
 If your account was created in an external wallet, send any on-chain transaction (a self-transfer is enough) to publish the key.
 
-Verify account data:
+Verify account balance and public key:
 ```bash
 curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
 ```

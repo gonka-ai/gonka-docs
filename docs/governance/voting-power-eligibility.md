@@ -60,7 +60,7 @@ non_guardian.tokens = participant.weight                # unchanged
 - The combined Guardian share lands at `multiplier / (1 + multiplier) = 0.52 / 1.52 ≈ 34%` of total bonded.
 - Enough for veto (`>33%`), not enough to pass proposals (`>50%` required).
 - Cannot extract value or unilaterally change consensus, coordination among the Guardians is required for any action.
-- With 3 Guardians, each ends up with approximately `17.3%` of total bonded (`0.52 / 3`).
+- With 3 Guardians, each ends up with approximately `11.4%` of total bonded (`0.52 / (3 × 1.52)`).
 
 ---
 

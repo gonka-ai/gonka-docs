@@ -27,7 +27,7 @@ Standard Cosmos SDK delegators, meaning anyone who staked via `MsgDelegate`, can
 
 ---
 
-## Quick path (???????)
+## Verify and Vote
 
 Most participants only need to verify a proposal and cast a vote. Do these four things:
 

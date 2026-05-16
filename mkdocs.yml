@@ -48,11 +48,11 @@ nav:
     - Software upgrades: software-upgrades.md
     - Model licenses: model-licenses.md
     - Dashboard maintainer memo v0.2.13: dashboard-maintainer-memo-v0.2.13.md
+    - Errors: Errors.md
 
   - Resources:
     - Release announcements: release-announcements.md
     - FAQ: FAQ.md
-    - Errors: Errors.md
     - Get help: help.md
 
 # Visual

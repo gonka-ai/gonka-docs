@@ -8,6 +8,23 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 16, 2026
+
+**Epoch #266: PoC weight drop investigation**
+
+During the current epoch (#266), the network saw a significant drop in active weight.
+It appears that PoC voting did not collect the required votes for this epoch. The exact cause has not yet been confirmed, and the community is actively investigating the situation.
+
+**For affected participants**
+
+If your node did not make it into this epoch, please keep your API nodes online and accessible where possible.
+This may help the Restitution Committee collect evidence of PoC participation and account for affected contributions more accurately.
+
+**Investigation in progress**
+
+Community members are currently reviewing what happened during epoch #266. Updates will be shared once there is more clarity on the root cause.
+If you have relevant observations, logs, hypotheses, or other technical context that could help the investigation, please share them here. 
+
 ## May 15, 2026
 
 **v0.2.13 Upgrade Proposal Enters Governance**

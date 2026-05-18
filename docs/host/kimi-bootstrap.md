@@ -59,7 +59,7 @@ export NODE=https://node3.gonka.ai/
   --keyring-backend file \
   --gas auto \
   --gas-adjustment 1.3 \
-  -y \
+  -y
 ```
 
 #### 2. Check your setup and make sure the `Kimi-K2.6` weights are downloaded and you can deploy the model successfully

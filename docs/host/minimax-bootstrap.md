@@ -48,9 +48,9 @@ The bootstrap of MiniMax-M2.7 can follow these main scenarios:
 
 2. **MiniMax passes pre-evaluation but does not become eligible at PoC** (e.g., an INTENT host fails to deploy in time):
 
-    - Everyone who participated in PoC keeps their full weight from their existing model groups (no punishment)
+    - Hosts that actually deployed MiniMax-M2.7 and submitted MiniMax PoC commits during this epoch keep their full weight from their existing model groups (no punishment)
     - Everyone who submitted `PoCDelegation` / `PoCRefusal` keeps their full weight (no punishment)
-    - **From epoch `271` onwards**: everyone who submitted nothing loses 15% of their weight, and everyone who submitted `PoCIntent` and did not participate also loses 15% of their weight (`IntentMissed` resolution)
+    - **From epoch `271` onwards**: everyone who submitted nothing loses 15% of their weight, and everyone who submitted `PoCIntent` for MiniMax but did not deploy and submit MiniMax PoC commits also loses 15% (`IntentMissed` resolution)
 
 
 If MiniMax passes both checks, punishment follows the usual scenarios described in [Multi-Model PoC](./multi_model_poc.md).
@@ -72,7 +72,7 @@ MiniMax-M2.7 (FP8) requires **roughly 320 GB of total VRAM**. This is a meaningf
 ```bash
 export NODE=https://node3.gonka.ai/
 ./inferenced tx inference declare-poc-intent MiniMaxAI/MiniMax-M2.7 \
-  --from node-2 \
+  --from gonka-api-key \
   --node "$NODE" \
   --chain-id gonka-mainnet \
   --keyring-backend file \
@@ -83,7 +83,7 @@ export NODE=https://node3.gonka.ai/
 
 #### 2. Pre-download the weights and verify deployability
 
-The MiniMax-M2.7 FP8 weights are **~230 GB**. Plan disk space and bandwidth accordingly. Pin to the chain-registered HF commit:
+The MiniMax-M2.7 FP8 weights are **~230 GB**. Plan disk space and bandwidth accordingly. Follow the guide to [pre-download model weights](https://gonka.ai/host/quickstart/#server-pre-download-model-weights-to-hugging-face-cache-hf_home) using the repo and commit below:
 
 - `hf_repo`: `MiniMaxAI/MiniMax-M2.7`
 - `hf_commit`: `d494266a4affc0d2995ba1fa35c8481cbd84294b`
@@ -122,7 +122,7 @@ curl -s "$NODE/chain-rpc/block_results?height=$HEIGHT" \
       | $a'
 ```
 
-The results will be sent in all channels.
+The key attribute is `pre_eligible`. If it is `true`, the chain will run MiniMax PoC this epoch and you should be ready to deploy. The supporting fields show which of the three checks passed: `meets_v_min` (≥ `V_min` direct intent committers), `meets_weight_threshold` (intent weight ≥ `W_threshold` of `total_network_weight`), and `meets_reachability` (intent + delegated `reachable_voting_power` covers `>2/3`). `intent_host_count` and `intent_weight` show this epoch's direct intent coverage.
 
 #### 4. Switch the model to MiniMax-M2.7 if pre-eligible
 
@@ -164,29 +164,73 @@ For 4×B200 / 8×B200 deployments, use `--tensor-parallel-size 2` (two instances
 #### 1. Check if you trust any host who is going to deploy MiniMax / sent `PoCIntent`
 
 ```python
+import time
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 NODE = "https://node3.gonka.ai"
 MODEL = "MiniMaxAI/MiniMax-M2.7"
+TIMEOUT = 60
+DELAY = 0.15
 
-participants = requests.get(f"{NODE}/v1/epochs/current/participants").json()["active_participants"]["participants"]
+def session():
+    s = requests.Session()
+    s.mount("https://", HTTPAdapter(max_retries=Retry(total=5, backoff_factor=0.5)))
+    s.headers["Connection"] = "close"
+    return s
+
+def weight(p):
+    return int(p.get("weight") or 0)
+
+def get_json(s, url):
+    r = s.get(url, timeout=TIMEOUT)
+    r.raise_for_status()
+    return r.json()
+
+s = session()
+
+participants = get_json(s, f"{NODE}/v1/epochs/current/participants")[
+    "active_participants"
+]["participants"]
 
 intents = []
-for p in participants:
-    addr, weight = p["index"], int(p["weight"])
-    resp = requests.get(f"{NODE}/chain-api/productscience/inference/inference/poc_delegation/{addr}").json()
-    for i in resp.get("intents") or []:
-        if i["model_id"] == MODEL:
-            intents.append((addr, weight))
+with_minimax_model = []
 
-total = sum(int(p["weight"]) for p in participants)
+for p in participants:
+    addr = p["index"]
+    w = weight(p)
+    if MODEL in (p.get("models") or []):
+        with_minimax_model.append((addr, w))
+
+    try:
+        resp = get_json(
+            s,
+            f"{NODE}/chain-api/productscience/inference/inference/poc_delegation/{addr}",
+        )
+    except requests.RequestException as e:
+        print(f"SKIP {addr}: {e}")
+        time.sleep(DELAY)
+        continue
+
+    for i in resp.get("intents") or []:
+        if i.get("model_id") == MODEL:
+            intents.append((addr, w))
+    time.sleep(DELAY)
+
+total = sum(weight(p) for p in participants)
 intent_weight = sum(w for _, w in intents)
 
-print("Intent from:")
-for addr, weight in intents:
-    print(f"{addr} : {weight}")
+print(f"Active participants: {len(participants)}")
+print(f"With {MODEL} in models[]: {len(with_minimax_model)} (not same as intent)")
+print()
+print("Intent from (PoCDirectIntent on chain):")
+for addr, w in intents:
+    print(f"  {addr} : {w}")
 print()
 print(f"Intent weight: {intent_weight} / {total}")
+if total:
+    print(f"Intent share: {100.0 * intent_weight / total:.2f}%")
 ```
 
 #### 2. Send delegation or refusal

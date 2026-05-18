@@ -8,6 +8,73 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 18, 2026
+
+The proxy container might limit the amount of parallel connections to devshards globally instead of per client
+
+The PR with fix: [https://github.com/gonka-ai/gonka/pull/1183](https://github.com/gonka-ai/gonka/pull/1183)
+
+To apply the fix, please:
+
+1. Set container version in docker-compose.yml
+```
+...
+  proxy:
+    container_name: proxy
+    image: ghcr.io/product-science/proxy:0.2.12-post5
+...
+```
+
+2. Restart container:
+```
+source config.env && docker compose up -d proxy --force-recreate --no-deps
+```
+
+It's safer to update the container outside the PoC/Confirmation PoC phase. To check if there is a Confirmation PoC:
+```
+curl "https://node3.gonka.ai/v1/epochs/latest" | jq '.is_confirmation_poc_active'
+```
+
+## May 17, 2026
+
+**Epoch #267: PoC Validation Recovered**
+
+PoC validation completed successfully in epoch #267, and affected hosts were able to return to the active set.
+
+The issue in epoch #266 was caused by an attack that affected hosts running the Kimi model. The network continued operating, but the attack, combined with several related conditions, prevented many participants from entering epoch #266.
+
+Inference may be temporarily unavailable while additional protections are applied. Access is expected to return gradually, starting through several community proxy and broker endpoints.
+
+**What happened**
+
+In epoch #266, the network experienced a significant drop in active weight.
+
+The issue has been traced to inference requests with non-standard semantics. This attack vector affected hosts running the Kimi model and disrupted PoC participation for many of them.
+
+In epoch #267, hosts were able to return, and PoC validation completed successfully.
+
+**Inference availability**
+
+Requests using the affected non-standard semantics should no longer be accepted by the network.
+
+While the relevant protections are being applied, inference may be temporarily unavailable. Access is expected to resume gradually, first through several community proxy and broker endpoints.
+
+**Kimi weight in epoch #267**
+
+Kimi’s active weight is lower in epoch #267 because of an existing protocol rule: the total weight of one model cannot exceed 75% of the total weight of all models in the previous epoch.
+
+Since total active weight was significantly lower in epoch #266, this rule also limits Kimi’s weight in epoch #267.
+
+It may take several days for the weight to stabilize as normal PoC participation continues across future epochs.
+
+**Required actions for hosts**
+
+1. Keep your API nodes online and accessible where possible. This helps preserve visibility into host participation and supports any follow-up review.
+2. Monitor PoC participation in the next epochs. Check that your node enters PoC as expected and that active weight is reflected correctly.
+3. Use only supported inference request formats. Do not send or route inference traffic with non-standard request semantics.
+4. Expect temporary inference disruption. Access may not be available everywhere immediately and is expected to return gradually through community proxy and broker endpoints.
+5. Share relevant logs or observations in the community channels or this thread. This is especially important if your host was affected in epoch #266 or behaves unexpectedly in the following epochs.
+
 ## May 16, 2026
 
 **Epoch #266: PoC weight drop investigation**

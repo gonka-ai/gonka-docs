@@ -59,7 +59,7 @@ export NODE=https://node3.gonka.ai/
   --keyring-backend file \
   --gas auto \
   --gas-adjustment 1.3 \
-  -y \
+  -y
 ```
 
 #### 2. Check your setup and make sure the `Kimi-K2.6` weights are downloaded and you can deploy the model successfully
@@ -125,29 +125,73 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 Current intents:
 ```python
+import time
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 NODE = "https://node3.gonka.ai"
 MODEL = "moonshotai/Kimi-K2.6"
+TIMEOUT = 60
+DELAY = 0.15
 
-participants = requests.get(f"{NODE}/v1/epochs/current/participants").json()["active_participants"]["participants"]
+def session():
+    s = requests.Session()
+    s.mount("https://", HTTPAdapter(max_retries=Retry(total=5, backoff_factor=0.5)))
+    s.headers["Connection"] = "close"
+    return s
+
+def weight(p):
+    return int(p.get("weight") or 0)
+
+def get_json(s, url):
+    r = s.get(url, timeout=TIMEOUT)
+    r.raise_for_status()
+    return r.json()
+
+s = session()
+
+participants = get_json(s, f"{NODE}/v1/epochs/current/participants")[
+    "active_participants"
+]["participants"]
 
 intents = []
-for p in participants:
-    addr, weight = p["index"], int(p["weight"])
-    resp = requests.get(f"{NODE}/chain-api/productscience/inference/inference/poc_delegation/{addr}").json()
-    for i in resp.get("intents") or []:
-        if i["model_id"] == MODEL:
-            intents.append((addr, weight))
+with_kimi_model = []
 
-total = sum(int(p["weight"]) for p in participants)
+for p in participants:
+    addr = p["index"]
+    w = weight(p)
+    if MODEL in (p.get("models") or []):
+        with_kimi_model.append((addr, w))
+
+    try:
+        resp = get_json(
+            s,
+            f"{NODE}/chain-api/productscience/inference/inference/poc_delegation/{addr}",
+        )
+    except requests.RequestException as e:
+        print(f"SKIP {addr}: {e}")
+        time.sleep(DELAY)
+        continue
+
+    for i in resp.get("intents") or []:
+        if i.get("model_id") == MODEL:
+            intents.append((addr, w))
+    time.sleep(DELAY)
+
+total = sum(weight(p) for p in participants)
 intent_weight = sum(w for _, w in intents)
 
-print("Intent from:")
-for addr, weight in intents:
-    print(f"{addr} : {weight}")
+print(f"Active participants: {len(participants)}")
+print(f"With {MODEL} in models[]: {len(with_kimi_model)} (not same as intent)")
+print()
+print("Intent from (PoCDirectIntent on chain):")
+for addr, w in intents:
+    print(f"  {addr} : {w}")
 print()
 print(f"Intent weight: {intent_weight} / {total}")
+if total:
+    print(f"Intent share: {100.0 * intent_weight / total:.2f}%")
 ```
 
 #### 2. Send delegation or refusal

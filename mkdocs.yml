@@ -31,6 +31,7 @@ nav:
     - Models & benchmarks:
       - Multi-Model PoC: host/multi_model_poc.md
       - Kimi K2.6 bootstrap: host/kimi-bootstrap.md
+      - MiniMax-M2.7 bootstrap: host/minimax-bootstrap.md
       - Deployment benchmark: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
 
   - Wallet & Tokens:

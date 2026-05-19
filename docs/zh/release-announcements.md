@@ -8,6 +8,73 @@
 
     本页面内容不保证完全覆盖所有信息。有关最新信息（包括治理投票的发起及当前状态），请参考链上数据或查看相关浏览器与仪表盘。
 
+## 2026年5月18日
+
+proxy 容器可能会全局限制到 devshards 的并行连接数量，而不是按客户端分别限制。
+
+修复该问题的 PR： [https://github.com/gonka-ai/gonka/pull/1183](https://github.com/gonka-ai/gonka/pull/1183)
+
+应用修复方法：
+
+1. 在 docker-compose.yml 中设置容器版本
+```
+...
+  proxy:
+    container_name: proxy
+    image: ghcr.io/product-science/proxy:0.2.12-post5
+...
+```
+
+2. 重启容器：
+```
+source config.env && docker compose up -d proxy --force-recreate --no-deps
+```
+
+在 PoC / Confirmation PoC 阶段之外更新容器会更加安全。检查是否存在 Confirmation PoC：
+```
+curl "https://node3.gonka.ai/v1/epochs/latest" | jq '.is_confirmation_poc_active'
+```
+
+## 2026年5月17日
+
+**Epoch #267：PoC 验证已恢复**
+
+PoC 验证已在 epoch #267 成功完成，受影响的 hosts 已能够重新返回 active set。
+
+epoch #266 中的问题是由一次影响运行 Kimi 模型 hosts 的攻击所导致。网络本身仍持续运行，但该攻击结合多个相关条件，导致许多参与者无法进入 epoch #266。
+
+在额外保护措施应用期间，Inference 可能会暂时不可用。预计访问会逐步恢复，并首先通过部分社区 proxy 与 broker endpoints 提供。
+
+**发生了什么**
+
+在 epoch #266 中，网络的 active weight 出现了明显下降。
+
+问题已被追踪到带有非标准语义（non-standard semantics）的 inference 请求。该攻击向量影响了运行 Kimi 模型的 hosts，并干扰了许多 host 的 PoC 参与。
+
+在 epoch #267 中，hosts 已能够恢复，PoC 验证也已成功完成。
+
+**Inference 可用性**
+
+使用受影响的非标准语义的请求，网络现在应不再接受。
+
+在相关保护措施应用期间，Inference 可能暂时不可用。预计访问会逐步恢复，并首先通过部分社区 proxy 与 broker endpoints 恢复。
+
+**Epoch #267 中的 Kimi 权重**
+
+Kimi 在 epoch #267 中的 active weight 较低，是由于现有协议规则所导致：单个模型的总权重不能超过前一个 epoch 中所有模型总权重的 75%。
+
+由于 epoch #266 的总 active weight 明显较低，该规则也限制了 Kimi 在 epoch #267 中的权重。
+
+随着未来 epochs 中正常 PoC 参与持续进行，权重可能需要数天时间才能恢复稳定。
+
+**Hosts 需要执行的操作**
+
+1. 尽可能保持 API 节点在线并可访问。这有助于保留 host 参与情况的可见性，并支持后续审查。
+2. 监控后续 epochs 中的 PoC 参与情况。确认你的节点能够正常进入 PoC，并且 active weight 被正确反映。
+3. 仅使用受支持的 inference 请求格式。不要发送或转发带有非标准请求语义的 inference 流量。
+4. 预期会存在临时 inference 中断。访问可能不会立即在所有地方恢复，预计会通过社区 proxy 与 broker endpoints 逐步恢复。
+5. 在社区频道或当前帖子中分享相关日志或观察结果。如果你的 host 在 epoch #266 中受到影响，或者在后续 epochs 中表现异常，这一点尤其重要。
+
 ## 2026年5月16日
 
 **Epoch #266：PoC 权重下降调查**

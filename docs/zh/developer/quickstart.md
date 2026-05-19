@@ -131,7 +131,7 @@ export NODE_URL=<http://random-node-url>
     此命令将：
 
     - 生成密钥对
-    - 保存到 `~/.inferenced`
+    - 保存到 `~/.inference`
     - 返回你的账户地址、公钥和助记词（也请安全地以硬拷贝形式存储！）
 
     ```bash
@@ -297,7 +297,7 @@ export NODE_URL=<http://random-node-url>
 
     <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
 
-    完成！你的 Gonka Developer 账户已成功创建。
+    完成！你的 Gonka Developer 账户已成功创建。复制你的 Gonka 账户地址。它以 `gonka...` 开头，并显示在你的余额上方。你可以安全地将该地址分享给任何需要向你付款的人。
         
     <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
 

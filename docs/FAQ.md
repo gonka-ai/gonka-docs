@@ -224,7 +224,7 @@ Governance Proposals are required for any on-chain changes that affect the netwo
 - Any other actions that must be approved and executed via the governance module
 
 ### Who can create a Governance Proposal?
-Anyone with a valid governance key (cold account) can pay the required fee and create a Governance Proposal. However, each proposal must still be approved by active participants through PoC-weighted voting. Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.com/invite/RADwCT2U6R)) to increase the likelihood of approval. See [the full guide](https://gonka.ai/transactions-and-governance/).
+Anyone with a valid governance key (cold account) can pay the required fee and create a Governance Proposal. However, each proposal must still be approved by active participants through PoC-weighted voting. Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.com/invite/RADwCT2U6R)) to increase the likelihood of approval. See [the full guide](https://gonka.ai/governance/transactions-and-governance/).
 
 ### What happens if a proposal fails?
 - If a proposal does not meet quorum → it automatically fails

@@ -36,4 +36,4 @@ Governance power is earned through verifiable compute work, not passive coin own
 | **Veto Threshold**    | 33.4% of the entire non-abstaining voting power in the system | If the fraction of `No_with_Veto` votes reaches this level, the proposal is forcefully rejected regardless of other votes.                            | Acts as a safeguard against malicious or harmful proposals, even if they have majority support.                        |
 
 All these parameters are defined in the Genesis Code and can be modified via governance proposals, allowing the network to dynamically adjust decision-making rules over time.
-For on-chain governance steps, see [the detailed guide](https://gonka.ai/transactions-and-governance/).
+For on-chain governance steps, see [the detailed guide](https://gonka.ai/governance/transactions-and-governance/).

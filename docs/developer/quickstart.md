@@ -42,7 +42,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 - [https://gate.joingonka.ai/](https://gate.joingonka.ai/)
 
 ??? note "About this list"
-    Brokers listed here run a Gonka gateway against the mainnet and have agreed to public listing. Gonka does not endorse any specific broker. The list order is not a ranking; please evaluate each operator on its own merits.
+    Brokers listed here run a Gonka gateway against the mainnet and have agreed to public listing. Gonka does not endorse any specific broker. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits.
 
 ### 1.2 Get an API key
 

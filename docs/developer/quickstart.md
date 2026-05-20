@@ -4,541 +4,176 @@ name: index.md
 
 # Developer Quickstart
 
-This guide explains how to create a developer account in Gonka and submit an inference request using Gonka API.
+This guide explains how to send an inference request to Gonka through a community broker. It is the fastest way to start using the network today.
 
-!!! note "Important for existing Leap Wallet users"
+!!! note "How developers connect to Gonka now"
 
-    If you previously created your Gonka account with Leap Wallet, please be aware that [Leap is shutting down all of its products on May 28, 2026](https://www.leapwallet.io/), including the browser extension, mobile app, and dashboard.
-    
-    Because Leap is a non-custodial wallet, your assets and account remain on-chain. However, to keep access to your wallet, you should import your existing recovery phrase into another supported wallet, such as Keplr, before Leap services go offline.
+    Gonka inference is now organised around **devshards** — short-lived sessions that hold a small on-chain deposit (an escrow) and settle per-request billing off-chain. The role of opening a devshard, signing requests, rotating the session, and submitting settlement to the chain is performed by a piece of software called a **gateway**.
+
+    For most developers, the simplest way to use Gonka is to call a **community broker** — a third party who already runs a gateway and exposes a standard OpenAI-compatible API. You just need an API key from the broker.
+
+    If you would like to run your own gateway instead of going through a broker, see [Run your own gateway](#2-run-your-own-gateway-advanced) at the bottom of this page.
 
 ??? note "How Gonka differs from traditional AI APIs"
-    Gonka isn’t just another AI API — it’s a cryptographic protocol for provable inference. By eliminating centralized identity, Gonka removes the traditional single point of failure that plagues SaaS-based AI services. Here is a quick comparison table to help you understand the differences between a Traditional AI API and the Gonka API.
-    
-    | **Aspect**                         | **Traditional AI API** <br> *(OpenAI, Anthropic, etc.)* | **Gonka API** |
-    |-----------------------------------|---------------------------------------------------------|---------------|
-    | **Model provenance & verifiable output** | Models are hosted and versioned by the provider, but there’s no way to cryptographically verify which model actually produced a given output. There’s no proof that the model wasn’t switched, fine-tuned behind the scenes, or A/B tested on you. | Every inference request and response can be cryptographically linked to a specific model hash and execution environment. This enables verifiable provenance — anyone can prove that a particular model version generated a specific output. |
-    | **Censorship resistance**         | All access is controlled centrally — providers can restrict or terminate accounts at any time. This includes enforcement of geographic, political, or commercial policies. | Inference requests are signed and broadcast through a decentralized network. As long as you hold your private key and connect to a node, you can run inference. The system is designed to be uncensorable, unless restrictions are applied by a transparent, protocol-level consensus. |
-    | **Auditability & transparency**   | Logging, billing, and usage tracking are fully controlled by the API provider. Users cannot independently verify their own usage or inspect how pricing, latency, or errors were handled. | Every interaction is signed and timestamped, enabling independent audit trails. You can prove when and how an inference occurred, which model was used, whether the results were altered, and ensure that disputes can be publicly resolved. |
-    | **Transparent tokenomics**       | Billing rates have limited insight into compute pricing, model costs, or system load. | Tokenomics are on-chain or protocol-defined, meaning pricing mechanisms are transparent and inspectable. Users convert GNK into AI Tokens with predictable, traceable exchange logic, enabling clear forecasting of inference costs and supply-demand–driven economics. |
+
+    Gonka is not just another AI API. It is a cryptographic protocol for provable inference that aims to make model execution, billing, and settlement independently auditable, rather than fully controlled by a single provider.
+
+    | **Aspect** | **Traditional AI API** <br> *(OpenAI, Anthropic, etc.)* | **Gonka API** |
+    |---|---|---|
+    | **Model provenance and verifiable output** | Models are hosted and versioned by the provider, but users cannot independently verify which model produced a given output. | Inference can be linked to protocol-defined model metadata and network execution records, enabling verifiable provenance. |
+    | **Censorship resistance** | Access is controlled centrally by the provider. | Access is moving into transparent, protocol-governed mechanisms. Current production access is guarded while protocol-level request validation is being completed. |
+    | **Auditability and transparency** | Logging, billing, and usage tracking are controlled by the API provider. | Requests, billing, and settlement are designed to be signed, timestamped, and auditable. |
+    | **Transparent tokenomics** | Pricing and resource allocation are provider-defined. | Pricing and settlement are protocol-defined or on-chain, making inference economics more inspectable. |
 
 ---
 
-## 0. Choose your access path
+## 1. Use a community broker (recommended)
 
-There are two ways to start using Gonka:
+A broker is an independent operator who runs a Gonka gateway and resells inference to developers. From your application's point of view, a broker endpoint behaves like any OpenAI-compatible API: you set a `base_url`, pass an `Authorization: Bearer <API_KEY>` header, and call `/v1/chat/completions` as usual.
 
-- **Crypto-native path** — use your own Gonka account, private key, and GNK balance to send inference requests directly.
+!!! caution "Brokers are not part of the core protocol"
 
-- **Broker path** — use a third-party broker service to pay in USD and avoid managing wallets, private keys, or GNK directly.
+    Brokers are independent third parties. Pricing, payment method (USD, crypto, credits), rate limits, supported models, SLAs, refund policy, and data handling are decided by each broker. Read the broker's own documentation and terms before going live.
 
-=== "Option A — Crypto-native path"
+### 1.1 Pick a broker
 
-    Use this path if you want to interact with Gonka directly using your own wallet, private key, GNK balance, and SDK requests.
-    
-    You will need to:
-    
-    1. Create or import a Gonka-compatible account
-    2. Export or store the private key securely
-    3. Fund the account with GNK
-    4. Publish the public key on-chain
-    5. Send inference requests through the SDK
+- [https://proxy.gonka.gg/](https://proxy.gonka.gg/)
+- [https://gonkagate.com/](https://gonkagate.com/)
+- [https://gate.joingonka.ai/](https://gate.joingonka.ai/)
 
-=== "Option B — Broker path"
+??? note "About this list"
+    Brokers listed here run a Gonka gateway against the mainnet and have agreed to public listing. Gonka does not endorse any specific broker. The list order is not a ranking; please evaluate each operator on its own merits.
 
-    Use this path if you want to pay in USD and avoid managing GNK, wallets, private keys, or on-chain transactions.
-    Broker services handle GNK conversion and on-chain interaction internally.
-    
-    !!! caution "Trade-offs"
-    
-        Broker services are not part of the core protocol.  
-        They introduce an additional layer of trust and abstraction compared to direct interaction with the network.
+### 1.2 Get an API key
 
-    If you use a broker service, follow the broker's own onboarding instructions. The rest of this guide is intended for users who want to interact with Gonka directly.
+Follow the onboarding instructions on the broker's site. Typically, you will:
 
-## 1. Define variables
+1. Sign up on the broker's site (email, account, billing setup).
+2. Generate an API key in the broker's dashboard.
+3. Note the broker's `base_url` (for example `https://api.<broker-domain>/v1`) and the list of supported models.
 
-Before creating an account, set up the required environment variables:
+### 1.3 Send your first request
 
-=== "macOS / Linux"
+Set environment variables:
 
-    ```bash
-    export ACCOUNT_NAME=<your-desired-account-name>
-    export NODE_URL=<http://random-node-url>
-    ```
-
-- Replace `<your-desired-account-name>` with your chosen account name.
-    - This name is not recorded on-chain — it exists only in your local key store.
-    - Uniqueness is local: creating two keys with the same name will overwrite the existing one (with a CLI warning). If you proceed, the original key will be permanently lost. It is highly recommended to back up your public and private keys before performing this operation.
-- Replace `<http://random-node-url>` with a random Node URL. You can choose any node randomly — you do not need to consider which model it runs. At this point, the node is used purely as a gateway to fetch network state and broadcast transactions. You can either:
-    - Use one of the genesis nodes from the list below.
-    - Fetch the current list of active participants and select a random node. To avoid over-reliance on the genesis node and encourage decentralization, Gonka recommends selecting a random active node from the current epoch. This improves network load distribution and resilience to node outages.
-
-=== "Genesis nodes"
-    Set the `NODE_URL` to one of the genesis nodes:
-    ```bash title="Genesis Node List"
-    http://36.189.234.237:17241
-    http://node1.gonka.ai:8000
-    http://node2.gonka.ai:8000
-    http://47.236.26.199:8000
-    http://47.236.19.22:18000
-    http://gonka.spv.re:8000
-    ```
-    
-=== "Current list of active participants"
-    Alternatively, you can select a random active participant from the current epoch. Open the link or run the following command to fetch the list of active participants along with a cryptographic proof for verification:
-    === "Link"
-        [http://node1.gonka.ai:8000/v1/epochs/current/participants](http://node1.gonka.ai:8000/v1/epochs/current/participants)
-
-    === "Command"
-        ```bash
-        curl http://node1.gonka.ai:8000/v1/epochs/current/participants
-        ```
-        
-Save the selected `NODE_URL`; you will use it in the next steps.
-    
-## 2. Create an account
-
-=== "Option 1: Via `inferenced` CLI tool"
-    
-    Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).
-    
-    ??? note "What is the `inferenced` CLI tool?" 
-        The `inferenced` CLI tool is a command-line interface utility used to interact with the Gonka network. It is a standalone, executable binary that allows users to create and manage Gonka accounts, perform inference tasks, upload models, and automate various operations through scripted commands.
-        
-    ??? note "Enabling Execution on Mac OS"
-        On Mac OS, after downloading the inferenced binary, you may need to enable execution permissions manually. Follow these steps:
-        
-        1.	Open a terminal and navigate to the directory where the binary is located.
-        
-        2.	Run the following command to grant execution permission:
-        ```
-        chmod +x inferenced
-        ```
-        3.	Try running `./inferenced --help` to ensure it's working.
-            
-        4.	If you see a security warning when trying to run `inferenced`, go to System Settings → Privacy & Security.
-        
-        5.	Scroll down to the warning about `inferenced` and click "Allow Anyway".
-    
-    You can create an account with the following command:
-    ```bash
-    ./inferenced keys add "$ACCOUNT_NAME"
-    ```
-    
-    Make sure to securely save your passphrase — you'll need it for future access.
-    
-    This command will:
-    
-    - Generate a keypair
-    - Save it to `~/.inference`
-    - Return your account address, public key, and mnemonic phrase (store it securely in a hard copy as well!)
-
-    ```bash
-    - address: <your-account-address>
-      name: ACCOUNT_NAME
-      pubkey: '{"@type":"...","key":"..."}'
-      type: local
-    ```
-    
-    The account stores your balance, add it to environment variable `GONKA_ADDRESS`, or `.env` file.
-    
-    ```bash
-    export GONKA_ADDRESS=<your-account-address>
-    ```
-
-    You will use this account to purchase Gonka (GNK) coins and pay for inference requests.
-
-    Add Private Key to environment variables.
-    
-    If you'd like to perform the request, export your private key.
-    
-    ```bash
-    ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
-    ```
-    
-    This command outputs a plain-text private key.
-
-=== "Option 2: Via Keplr (external wallet)"
-
-    Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
-    
-    <a href="/images/dashboard_keplr_step_2_1.png" target="_blank"><img src="/images/dashboard_keplr_step_2_1.png" style="width:500px; height:auto;"></a>
-    
-    Choose an extension for your browser.
-    
-    <a href="/images/dashboard_keplr_step_2_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_2.png" style="width:500px; height:auto;"></a>
-    
-    Add the selected extension to your browser.
-    
-    === "Firefox"
-    
-        <a href="/images/dashboard_keplr_step_2_3.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3.png" style="width:500px; height:auto;"></a>
-    
-    === "Google Chrome"
-    
-        <a href="/images/dashboard_keplr_step_2_3_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3_2.png" style="width:500px; height:auto;"></a>
-    
-    Click "Create a new wallet".
-
-    <a href="/images/dashboard_keplr_step_2_4.png" target="_blank"><img src="/images/dashboard_keplr_step_2_4.png" style="width:500px; height:auto;"></a>
-
-    Click "Connect with Google". Do not create the wallet in Keplr using a mnemonic phrase. Keplr will not allow you to export the private key later, and you will need that private key for the next steps.
-    
-    <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
-    
-    Set up your wallet.
-    
-    <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
-    
-    Back up your private key securely. Anyone with your private key can have access to your assets. If you lose access to your Gmail Account, the only way to recover your wallet is using your private key. Keep this in a safe place.
-    
-    <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
-
-    Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
-
-    <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
-                    
-    Your Keplr wallet has been created.
-        
-    <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
-
-    Open Keplr, navigate, and click on “Copy Address” in your wallet.
-
-    <a href="/images/keplr_copy_address_2.png" target="_blank"><img src="/images/keplr_copy_address_2.png" style="width:auto; height:337.5px;"></a>
-
-    Click the Copy button next to the Gonka chain.
-
-    <a href="/images/keplr_web_copy_gonka_address_2.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address_2.png" style="width:auto; height:337.5px;"></a>
-
-    You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
-        
-    ??? note "Optional: How to add an additional Gonka account in Keplr wallet — click to view steps"
-
-        Open the extension and click on the account icon in the top-right corner of the extension window.
-            
-        <a href="/images/dashboard_ping_pub_3_5_1.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_1.png" style="width:auto; height:337.5px;"></a>
-            
-        Click the "Add wallet" button.
-            
-        <a href="/images/dashboard_ping_pub_3_5_2.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_2.png" style="width:auto; height:337.5px; display:block;"></a>
-            
-        Click "Import an Existing Wallet".
-            
-        <a href="/images/dashboard_ping_pub_3_5_3.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_3.png" style="width:450px; height:auto; display:block;"></a>
-            
-        Click "Use recovery phrase or private key"
-    
-        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_4.png" style="width:450px; height:auto;"></a>
-    
-        Paste your private key. Do not import a mnemonic phrase. Keplr will not allow you to export the private key later, and you will need that private key for the next steps.
-    
-        <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
-            
-        Give your wallet a name for easy reference.
-            
-        <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
-            
-        Type “Gonka” into the search bar and select Gonka chain to add it to your wallet.
-
-        <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
-                    
-        Done — your Gonka account has been successfully imported into Keplr!
-            
-        <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
-
-=== "Option 3: Via Cosmostation (external wallet)"
-
-    !!! note "Important Notice: Limited Functionality"
-        This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please use Option 1: Via `inferenced` CLI tool or Option 2: Via Keplr (external wallet, "Connect with Google") instead.
-        
-    Get [Cosmostation Wallet browser extension](https://cosmostation.io/products/application). 
-    
-    <a href="/images/1_cosmostation.png" target="_blank"><img src="/images/1_cosmostation.png" style="width:500px; height:auto;"></a>
-            
-    Add an extension to your browser.
-
-    <a href="/images/2_cosmostation_add_extention.png" target="_blank"><img src="/images/2_cosmostation_add_extention.png" style="width:500px; height:auto;"></a>
-
-    Choose "Create new wallet".
-
-    <a href="/images/5_cosmostation_create_a_new_wallet.png" target="_blank"><img src="/images/5_cosmostation_create_a_new_wallet.png" style="width:auto; height:337.5px;"></a>
-    
-    Write down your mnemonic phrase. DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times. Back up the phrase safely. 
-
-    <a href="/images/6_cosmostation_mnemonic.png" target="_blank"><img src="/images/6_cosmostation_mnemonic.png" style="width:auto; height:337.5px;"></a>
-    
-    Complete the quiz in order. Check the backed-up mnemonic and select the correct phrase in order for each number.
-
-    <a href="/images/7_cosmostation_quiz.png" target="_blank"><img src="/images/7_cosmostation_quiz.png" style="width:auto; height:337.5px;"></a>
-    
-    Set account name. Please enter a name for your account. You can change the account name at any time.
-
-    <a href="/images/8_cosmostation_account_name.png" target="_blank"><img src="/images/8_cosmostation_account_name.png" style="width:auto; height:337.5px;"></a>
-    
-    In the top-right corner, click “All Networks” and select the Gonka chain to add it to your wallet.
-
-    <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
-    
-    Done! Your Gonka Developer account has been successfully created. Copy your Gonka account address. It starts with `gonka...` and is shown above your balance. You can safely share this address with anyone who needs to send you payments.
-        
-    <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
-    
-    Click on the Wallet name at the top. Click "Manage" in the top-right corner, then click the Wallet name. 
-            
-    <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
-    
-    Click "View private key".
-
-    <a href="/images/13_cosmostation_view_private_key.png" target="_blank"><img src="/images/13_cosmostation_view_private_key.png" style="width:auto; height:337.5px;"></a>
-    
-    Verify your password.
-
-    <a href="/images/14_cosmostation_verify_password.png" target="_blank"><img src="/images/14_cosmostation_verify_password.png" style="width:auto; height:337.5px;"></a>
-    
-    Choose "Gonka" from the list.
-
-    <a href="/images/15_cosmostation.png" target="_blank"><img src="/images/15_cosmostation.png" style="width:auto; height:337.5px;"></a>
-       
-    Click on "Gonka" to see the private key. Copy your private key or recovery phrase and store it securely (a hard copy is preferred).
-
-    <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
-    
-Add private key to the environment variable `GONKA_PRIVATE_KEY` or the `.env` file.
-```
-export GONKA_PRIVATE_KEY=<your-private-key>
-```
-To retrieve a list of all locally stored accounts, execute the following command:
-```
-./inferenced keys list
-```
-
-## 3. Fund your account with GNK
-
-GNK is the native coin of the Gonka network. You’ll need it to pay for inference — every request you send to the network consumes a small amount of GNK.
-
-At the moment, GNK is not officially listed on any exchanges.
-
-You can obtain GNK through:
-
-- Running a host and earning rewards for contributing compute
-- Participating in [the bounty program](https://gonka.ai/docs/FAQ/#bounty-program)  
-- Community-driven channels (peer-to-peer transfers within the ecosystem)
-    - These interactions are not part of the protocol and rely on direct coordination between participants
-    - Any purchase, swap, or transfer is performed at your own risk
-
-!!! note "Buying GNK"
-
-    Direct purchase flows are still a work in progress. Follow updates in [Discord](https://discord.com/invite/RADwCT2U6R) for announcements.
-    Any GNK listing you find on third-party websites or exchanges is not part of the Gonka protocol.
-
-## 4. Activate the account for inference
-
-Before inference, your account must have a balance and a published on-chain public key.
-
-- You do **not** need to register as a Participant to run inference.
-- Participant registration is required only for hosting.
-
-Check balance:
 ```bash
-./inferenced query bank balances "$GONKA_ADDRESS" --node "$NODE_URL/chain-rpc/"
+export GONKA_BROKER_URL=<broker-base-url>     # e.g. https://api.example-broker.com/v1
+export GONKA_BROKER_API_KEY=<your-api-key>
+export GONKA_MODEL=Qwen/Qwen3-235B-A22B-Instruct-2507-FP8   # or any model your broker supports
 ```
 
-If your account was created with `inferenced`, publish the key:
-```bash
-./inferenced publish-pubkey \
-  --from "$ACCOUNT_NAME" \
-  --node "$NODE_URL/chain-rpc/" \
-  --chain-id "gonka-mainnet" \
-  --yes
-```
-
-If your account was created in an external wallet, send any on-chain transaction (a self-transfer is enough) to publish the key.
-
-Verify account balance and public key:
-```bash
-curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
-```
-
-## 5. Run inference using the Gonka OpenAI SDK
-
-!!! important "Public `devshard` creator node"
-    Inference on Gonka is settled through a **devshard-based billing** flow. A public node creates a devshard escrow session for your account and routes your requests to executors inside that session. Only nodes whose addresses are in the on-chain allowlist `devshard_escrow_params.allowed_creator_addresses` are allowed to create those escrows.
-
-    As of the latest mainnet update, the recommended public inference gateway is **`https://node4.gonka.ai`**.  
-
-    For SDK endpoint discovery, set `SOURCE_URL` to the public inference gateway:
-    ```bash
-    export SOURCE_URL=https://node4.gonka.ai
-    ```
+The Gonka broker endpoint is OpenAI-compatible, so you can use the official OpenAI SDK directly — no Gonka-specific client is required.
 
 === "Python"
-    To use the Gonka API in Python, you can use the [Gonka OpenAI SDK for Python](https://github.com/gonka-ai/gonka-openai/tree/main/python). Get started by installing the SDK using pip:
 
+    Install the OpenAI Python SDK:
+
+    ```bash
+    pip install openai
     ```
-    pip install gonka-openai==0.2.6
-    ```
 
-    !!! note "If you encounter build errors, you may need to install system-level libraries"
-        ```
-        brew install pkg-config secp256k1
-        ```
-
-    With the SDK installed, create a file called `example.py` and copy the example code into it:
+    Create `example.py`:
 
     ```py linenums="1"
     import os
-    import httpx
-    from gonka_openai import GonkaOpenAI, Endpoint
+    from openai import OpenAI
 
-    src = os.environ["SOURCE_URL"].rstrip("/")
-    address = httpx.get(f"{src}/v1/identity").json()["data"]["address"]
-
-    client = GonkaOpenAI(
-        gonka_private_key=os.environ["GONKA_PRIVATE_KEY"],
-        endpoints=[Endpoint(url=f"{src}/v1", address=address)],
+    client = OpenAI(
+        base_url=os.environ["GONKA_BROKER_URL"],
+        api_key=os.environ["GONKA_BROKER_API_KEY"],
     )
 
     response = client.chat.completions.create(
-        model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        model=os.environ["GONKA_MODEL"],
         messages=[
             {"role": "user", "content": "Write a one-sentence bedtime story about a unicorn"}
         ],
     )
 
-    print("RESPONSE:")
     print(response.choices[0].message.content)
     ```
 
-    Execute the code with `python example.py`. In a few moments, you should see the output of your API request.
+    Run with `python example.py`.
 
 === "TypeScript"
-    To use the Gonka API in server-side JavaScript environments like Node.js, Deno, or Bun, you can use the [Gonka OpenAI SDK for TypeScript and JavaScript](https://github.com/gonka-ai/gonka-openai/tree/main/typescript). Get started by installing the SDK using npm or your preferred package manager:
 
-    ```
-    npm install gonka-openai@0.2.6
+    Install the OpenAI JS SDK:
+
+    ```bash
+    npm install openai
     ```
 
-    With the SDK installed, create a file called `example.mjs` and copy the example code into it:
+    Create `example.mjs`:
 
     ```ts linenums="1"
-    import { GonkaOpenAI } from 'gonka-openai';
+    import OpenAI from "openai";
 
-    const src = process.env.SOURCE_URL.replace(/\/+$/, '');
-    const { data } = await fetch(`${src}/v1/identity`).then(r => r.json());
-
-    const client = new GonkaOpenAI({
-        gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
-        endpoints: [{ url: `${src}/v1`, address: data.address }],
+    const client = new OpenAI({
+        baseURL: process.env.GONKA_BROKER_URL,
+        apiKey: process.env.GONKA_BROKER_API_KEY,
     });
 
     const response = await client.chat.completions.create({
-        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-        messages: [
-            { role: "user", content: "Hello! Tell me a short joke." }
-        ],
+        model: process.env.GONKA_MODEL,
+        messages: [{ role: "user", content: "Hello! Tell me a short joke." }],
     });
 
     console.log(response.choices[0].message.content);
     ```
 
-    Execute the code with `node example.mjs`. In a few moments, you should see the output of your API request.
+    Run with `node example.mjs`.
 
 === "Go"
-    To use the Gonka API in Go, you can use the [Gonka OpenAI SDK for Go](https://github.com/gonka-ai/gonka-openai/tree/main/go).
 
-    Create a file called `example.go` and copy the example code into it:
+    Use the official `openai-go` client:
 
     ```go linenums="1"
     package main
 
     import (
         "context"
-        "encoding/json"
         "log"
-        "net/http"
         "os"
-        "strings"
 
-        gonka "github.com/gonka-ai/gonka-openai/go"
         "github.com/openai/openai-go"
+        "github.com/openai/openai-go/option"
     )
 
     func main() {
-        src := strings.TrimRight(os.Getenv("SOURCE_URL"), "/")
-
-        resp, err := http.Get(src + "/v1/identity")
-        if err != nil {
-            log.Fatal(err)
-        }
-        defer resp.Body.Close()
-        var ident struct {
-            Data struct {
-                Address string `json:"address"`
-            } `json:"data"`
-        }
-        if err := json.NewDecoder(resp.Body).Decode(&ident); err != nil {
-            log.Fatal(err)
-        }
-
-        client, err := gonka.NewGonkaOpenAI(gonka.Options{
-            GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            Endpoints:       []gonka.Endpoint{{URL: src + "/v1", Address: ident.Data.Address}},
-        })
-        if err != nil {
-            log.Fatal(err)
-        }
+        client := openai.NewClient(
+            option.WithBaseURL(os.Getenv("GONKA_BROKER_URL")),
+            option.WithAPIKey(os.Getenv("GONKA_BROKER_API_KEY")),
+        )
 
         r, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
-            Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-            Messages: []openai.ChatCompletionMessageParamUnion{
+            Model: openai.F(os.Getenv("GONKA_MODEL")),
+            Messages: openai.F([]openai.ChatCompletionMessageParamUnion{
                 openai.UserMessage("Write a haiku about programming"),
-            },
+            }),
         })
         if err != nil {
             log.Fatal(err)
         }
-
         log.Println(r.Choices[0].Message.Content)
     }
     ```
 
-    Initialise the module — this creates a `go.mod` file:
+In a few moments, you should see the inference response in your terminal.
 
-    ```
-    go mod init example
-    ```
+### 1.4 Tool calling
 
-    Download dependencies — this resolves all imports (including `github.com/gonka-ai/gonka-openai/go@v0.2.6`) and creates a `go.sum` file:
-
-    ```
-    go mod tidy
-    ```
-
-    Execute the code with `go run example.go`. In a few moments, you should see the output of your API request.
-
-To perform inference from another language, see [the Gonka OpenAI client library repository](https://github.com/gonka-ai/gonka-openai), and adjust the examples accordingly.
-
-## 6. Tool Calling
-
-Only `type: "function"` is supported — vLLM implements the OpenAI chat completions spec, not the Assistants API (`code_interpreter`, `file_search` are unavailable).
-
-Define functions, and the model will return structured call arguments when the user's request matches — you decide what to do with them.
+Tool calling is supported through the same OpenAI-compatible endpoint. Only `type: "function"` is supported — Gonka uses vLLM under the hood, which implements the OpenAI chat completions spec, not the Assistants API (`code_interpreter`, `file_search` are unavailable).
 
 === "Python"
 
     ```py linenums="1"
     import os
-    import httpx
     import json
-    from gonka_openai import GonkaOpenAI, Endpoint
+    from openai import OpenAI
 
-    src = os.environ["SOURCE_URL"].rstrip("/")
-    address = httpx.get(f"{src}/v1/identity").json()["data"]["address"]
-
-    client = GonkaOpenAI(
-        gonka_private_key=os.environ["GONKA_PRIVATE_KEY"],
-        endpoints=[Endpoint(url=f"{src}/v1", address=address)],
+    client = OpenAI(
+        base_url=os.environ["GONKA_BROKER_URL"],
+        api_key=os.environ["GONKA_BROKER_API_KEY"],
     )
 
     tools = [
@@ -559,7 +194,7 @@ Define functions, and the model will return structured call arguments when the u
     ]
 
     response = client.chat.completions.create(
-        model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        model=os.environ["GONKA_MODEL"],
         messages=[{"role": "user", "content": "What's the weather in Paris?"}],
         tools=tools,
         tool_choice="auto",
@@ -569,41 +204,36 @@ Define functions, and the model will return structured call arguments when the u
     if message.tool_calls:
         call = message.tool_calls[0]
         args = json.loads(call.function.arguments)
-        # model chose get_weather with {"city": "Paris"} — call your function now
-        print("TOOL CALL:")
         print(call.function.name, args)
     ```
 
 === "TypeScript"
 
     ```ts linenums="1"
-    import { GonkaOpenAI } from 'gonka-openai';
+    import OpenAI from "openai";
 
-    const src = process.env.SOURCE_URL.replace(/\/+$/, '');
-    const { data } = await fetch(`${src}/v1/identity`).then(r => r.json());
-
-    const client = new GonkaOpenAI({
-        gonkaPrivateKey: process.env.GONKA_PRIVATE_KEY,
-        endpoints: [{ url: `${src}/v1`, address: data.address }],
+    const client = new OpenAI({
+        baseURL: process.env.GONKA_BROKER_URL,
+        apiKey: process.env.GONKA_BROKER_API_KEY,
     });
 
     const tools = [
         {
-            type: 'function',
+            type: "function",
             function: {
-                name: 'get_weather',
-                description: 'Get the current weather for a city',
+                name: "get_weather",
+                description: "Get the current weather for a city",
                 parameters: {
-                    type: 'object',
-                    properties: { city: { type: 'string', description: 'City name' } },
-                    required: ['city'],
+                    type: "object",
+                    properties: { city: { type: "string", description: "City name" } },
+                    required: ["city"],
                 },
             },
         },
     ];
 
     const response = await client.chat.completions.create({
-        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        model: process.env.GONKA_MODEL,
         messages: [{ role: "user", content: "What's the weather in Paris?" }],
         tools,
         tool_choice: "auto",
@@ -613,88 +243,40 @@ Define functions, and the model will return structured call arguments when the u
     if (message.tool_calls) {
         const call = message.tool_calls[0];
         const args = JSON.parse(call.function.arguments);
-        // model chose get_weather with { city: "Paris" } — call your function now
         console.log(call.function.name, args);
     }
     ```
 
-=== "Go"
+---
 
-    ```go linenums="1"
-    package main
+## 2. Run your own gateway (advanced)
 
-    import (
-        "context"
-        "encoding/json"
-        "log"
-        "net/http"
-        "os"
-        "strings"
+If your application has high throughput or other requirements, you can run a Gonka gateway yourself instead of going through a broker. The gateway is a small program (shipped as a Docker container) that you run on your own machine or server — never on a Gonka host. It exposes the same OpenAI-compatible API as a broker, but you own the keys and you pay GNK directly on-chain for the devshards it creates.
 
-        gonka "github.com/gonka-ai/gonka-openai/go"
-        "github.com/openai/openai-go"
-    )
+!!! warning "Self-hosted gateway requires an allow-listed address"
 
-    func main() {
-        src := strings.TrimRight(os.Getenv("SOURCE_URL"), "/")
+    Today, only Gonka accounts on the on-chain `devshard_escrow_params.allowed_creator_addresses` list can open devshards. If your address is not on that list, your gateway will not be able to create sessions, and you will not be able to send inference. The allow-list is expanded by on-chain governance vote. See [Become a broker](#3-become-a-broker) below for how to request inclusion.
 
-        resp, err := http.Get(src + "/v1/identity")
-        if err != nil {
-            log.Fatal(err)
-        }
-        defer resp.Body.Close()
-        var ident struct {
-            Data struct {
-                Address string `json:"address"`
-            } `json:"data"`
-        }
-        if err := json.NewDecoder(resp.Body).Decode(&ident); err != nil {
-            log.Fatal(err)
-        }
-
-        client, err := gonka.NewGonkaOpenAI(gonka.Options{
-            GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            Endpoints:       []gonka.Endpoint{{URL: src + "/v1", Address: ident.Data.Address}},
-        })
-        if err != nil {
-            log.Fatal(err)
-        }
-
-        r, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
-            Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-            Messages: []openai.ChatCompletionMessageParamUnion{
-                openai.UserMessage("What's the weather in Paris?"),
-            },
-            Tools: []openai.ChatCompletionToolParam{
-                {
-                    Type: "function",
-                    Function: openai.FunctionDefinitionParam{
-                        Name:        "get_weather",
-                        Description: openai.String("Get the current weather for a city"),
-                        Parameters: openai.FunctionParameters{
-                            "type": "object",
-                            "properties": map[string]any{
-                                "city": map[string]string{"type": "string", "description": "City name"},
-                            },
-                            "required": []string{"city"},
-                        },
-                    },
-                },
-            },
-        })
-        if err != nil {
-            log.Fatal(err)
-        }
-
-        if len(r.Choices[0].Message.ToolCalls) > 0 {
-            call := r.Choices[0].Message.ToolCalls[0]
-            var args struct{ City string }
-            json.Unmarshal([]byte(call.Function.Arguments), &args)
-            // model chose get_weather with {City: "Paris"} — call your function now
-            log.Printf("Tool: %s, City: %s\n", call.Function.Name, args.City)
-        }
-    }
-    ```
+A separate guide is being prepared with full deployment instructions, configuration, devshard rotation, and operations. Contact in [Discord](https://discord.com/invite/RADwCT2U6R) for early access while the documentation is being finalised.
 
 ---
-**Need help?**  Find answers on [FAQ page](https://gonka.ai/FAQ/), or join [Discord server](https://discord.com/invite/RADwCT2U6R) for assistance with general inquiries, technical issues, or security concerns.  
+
+## 3. Become a broker
+
+If you want to be added to the public broker list above and (where applicable) to the on-chain allow-list of devshard creators, open a GitHub issue:
+
+[Open an issue: "Request to be added as a Gonka broker"](https://github.com/gonka-ai/gonka/issues/new?title=Request+to+be+added+as+a+Gonka+broker)
+
+Please include in the issue:
+
+- Operator name and contact (email or Discord handle).
+- Public endpoint URL of your gateway.
+- Gonka address you intend to use for devshard creation (`gonka1...`).
+- Supported models and any rate limits you plan to enforce.
+- A brief description of your billing model (USD / crypto / credits) and target audience.
+
+The community will review and, where on-chain inclusion is needed, an on-chain governance proposal will be created. Gonka does not unilaterally pick brokers — additions to the allow-list happen through public votes.
+
+---
+
+**Need help?** See the [FAQ page](https://gonka.ai/FAQ/), or join the [Discord server](https://discord.com/invite/RADwCT2U6R) for technical issues or security concerns.

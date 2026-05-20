@@ -85,7 +85,7 @@ Please follow the instructions: [https://gonka.ai/docs/release-announcements/#ma
 
 **Dashboard / explorer update (before or after upgrade)**
 
-Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory: If you do not have the `gonka` repository cloned locally, follow the join-network guide first. This dashboard update is just a container pull and is safe to run before or after the vote concludes, regardless of the outcome.
+Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory. If you do not have the `gonka` repository cloned locally, follow the join-network guide first. This dashboard update is just a container pull and is safe to run before or after the vote concludes, regardless of the outcome.
 ```
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer

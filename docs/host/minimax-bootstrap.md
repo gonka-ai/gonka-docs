@@ -16,27 +16,36 @@ For current deployment defaults (including `node-config.json`), see the [Host Qu
 
 ## Timeline
 
-Punishment for missing MiniMax-M2.7 starts at **epoch `271`**. Each epoch from upgrade activation onwards, the chain attempts to bootstrap the model: it captures a `BootstrapDelegationSnapshot` 500 blocks (the `DeployWindow`) before that epoch's PoC stage, evaluates pre-eligibility against `V_min = 3` direct committers and `W_threshold = 0.3` of total network weight with `>2/3` reachability via INTENT + DELEGATE, and (if pre-eligible) starts PoC for MiniMax that epoch.
+Punishment for missing MiniMax-M2.7 starts at **epoch `271`**. Each epoch from upgrade activation onwards, the chain attempts to bootstrap the model: it captures a `BootstrapDelegationSnapshot` 500 blocks (the `DeployWindow`) before that epoch's PoC stage, evaluates pre-eligibility against `V_min = 3` direct committers and a `W_threshold` fraction of total network weight with `>2/3` reachability via INTENT + DELEGATE, and (if pre-eligible) starts PoC for MiniMax that epoch.
 
-To compute the exact block numbers for any given evaluation epoch:
+The current `W_threshold` is a governance parameter — read it from the chain rather than hard-coding a value (it was lowered from `0.3` to `0.1` by GIP-48, and may change again):
+
+```bash
+curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \
+  | jq '.params.delegation_params.w_threshold'
+# {value, exponent} encodes a decimal: e.g. {"value":"1","exponent":-1} → 0.1 (10%).
+```
+
+To compute the exact block numbers for any given evaluation epoch, anchor on the chain's current epoch and forward-project. The `epoch_shift` parameter does not anchor to genesis (it gets stale across past epoch-length changes), so `epoch_shift + N * epoch_length` is wrong on mainnet — always anchor on the live current PoC_start instead:
 
 ```bash
 NODE=https://node3.gonka.ai
 
-# Read epoch params (epoch_length and epoch_shift) and current state.
 PARAMS=$(curl -s "$NODE/chain-api/productscience/inference/inference/params")
 EPOCH_LENGTH=$(echo "$PARAMS" | jq -r '.params.epoch_params.epoch_length | tonumber')
-EPOCH_SHIFT=$(echo "$PARAMS" | jq -r '.params.epoch_params.epoch_shift | tonumber')
 
-# PoC start for epoch N is: epoch_shift + N * epoch_length
+CURRENT=$(curl -s "$NODE/v1/epochs/current/participants" | jq '.active_participants')
+CURRENT_EPOCH=$(echo "$CURRENT" | jq -r '.epoch_id')
+CURRENT_POC_START=$(echo "$CURRENT" | jq -r '.poc_start_block_height')
+
 EPOCH=271                   # change to any target epoch
-POC_START=$(( EPOCH_SHIFT + EPOCH * EPOCH_LENGTH ))
+POC_START=$(( CURRENT_POC_START + (EPOCH - CURRENT_EPOCH) * EPOCH_LENGTH ))
 SNAPSHOT_BLOCK=$(( POC_START - 500 ))
 
-echo "Epoch $EPOCH: snapshot at block $SNAPSHOT_BLOCK, PoC starts at block $POC_START"
+echo "Epoch $EPOCH (current $CURRENT_EPOCH): snapshot at block $SNAPSHOT_BLOCK, PoC starts at block $POC_START"
 ```
 
-The same calculation works for any earlier evaluation epoch (264, 265, ...). MiniMax becomes pre-eligible at the earliest epoch where participating hosts plus delegations cover the thresholds.
+MiniMax becomes pre-eligible at the earliest epoch where participating hosts plus delegations cover the thresholds.
 
 
 ### Possible Scenarios
@@ -182,11 +191,21 @@ DELAY = 0.15
 
 def session():
     s = requests.Session()
-    s.mount("https://", HTTPAdapter(max_retries=Retry(total=5, backoff_factor=0.5)))
+    # Retry transient 5xx (node3 returns 503 for some poc_delegation lookups
+    # under load) so a single hiccup does not silently drop a participant
+    # from the result.
+    retry = Retry(
+        total=5,
+        backoff_factor=0.5,
+        status_forcelist=(502, 503, 504),
+        allowed_methods=("GET",),
+    )
+    s.mount("https://", HTTPAdapter(max_retries=retry))
     s.headers["Connection"] = "close"
     return s
 
 def weight(p):
+    # weight may be 0, missing, or literally null — all mean "no voting weight".
     return int(p.get("weight") or 0)
 
 def get_json(s, url):
@@ -202,6 +221,7 @@ participants = get_json(s, f"{NODE}/v1/epochs/current/participants")[
 
 intents = []
 with_minimax_model = []
+skipped = []  # participants whose poc_delegation lookup failed after retries
 
 for p in participants:
     addr = p["index"]
@@ -215,7 +235,7 @@ for p in participants:
             f"{NODE}/chain-api/productscience/inference/inference/poc_delegation/{addr}",
         )
     except requests.RequestException as e:
-        print(f"SKIP {addr}: {e}")
+        skipped.append((addr, w, str(e)))
         time.sleep(DELAY)
         continue
 
@@ -227,16 +247,29 @@ for p in participants:
 total = sum(weight(p) for p in participants)
 intent_weight = sum(w for _, w in intents)
 
+nonzero_intents = [(a, w) for a, w in intents if w > 0]
+zero_intents = [(a, w) for a, w in intents if w == 0]
+
 print(f"Active participants: {len(participants)}")
 print(f"With {MODEL} in models[]: {len(with_minimax_model)} (not same as intent)")
 print()
 print("Intent from (PoCDirectIntent on chain):")
-for addr, w in intents:
+for addr, w in nonzero_intents:
     print(f"  {addr} : {w}")
+if zero_intents:
+    print()
+    print("Zero-weight intents (count toward V_min, contribute 0 to W_threshold):")
+    for addr, _ in zero_intents:
+        print(f"  {addr} : 0")
 print()
 print(f"Intent weight: {intent_weight} / {total}")
 if total:
     print(f"Intent share: {100.0 * intent_weight / total:.2f}%")
+if skipped:
+    print()
+    print(f"Skipped {len(skipped)} participants after retries (intent may be undercounted):")
+    for addr, w, err in skipped:
+        print(f"  {addr} (weight={w}): {err}")
 ```
 
 #### 2. Send delegation or refusal

@@ -137,11 +137,21 @@ DELAY = 0.15
 
 def session():
     s = requests.Session()
-    s.mount("https://", HTTPAdapter(max_retries=Retry(total=5, backoff_factor=0.5)))
+    # Retry transient 5xx (node3 returns 503 for some poc_delegation lookups
+    # under load) so a single hiccup does not silently drop a participant
+    # from the result.
+    retry = Retry(
+        total=5,
+        backoff_factor=0.5,
+        status_forcelist=(502, 503, 504),
+        allowed_methods=("GET",),
+    )
+    s.mount("https://", HTTPAdapter(max_retries=retry))
     s.headers["Connection"] = "close"
     return s
 
 def weight(p):
+    # weight may be 0, missing, or literally null — all mean "no voting weight".
     return int(p.get("weight") or 0)
 
 def get_json(s, url):
@@ -157,6 +167,7 @@ participants = get_json(s, f"{NODE}/v1/epochs/current/participants")[
 
 intents = []
 with_kimi_model = []
+skipped = []  # participants whose poc_delegation lookup failed after retries
 
 for p in participants:
     addr = p["index"]
@@ -170,7 +181,7 @@ for p in participants:
             f"{NODE}/chain-api/productscience/inference/inference/poc_delegation/{addr}",
         )
     except requests.RequestException as e:
-        print(f"SKIP {addr}: {e}")
+        skipped.append((addr, w, str(e)))
         time.sleep(DELAY)
         continue
 
@@ -182,16 +193,29 @@ for p in participants:
 total = sum(weight(p) for p in participants)
 intent_weight = sum(w for _, w in intents)
 
+nonzero_intents = [(a, w) for a, w in intents if w > 0]
+zero_intents = [(a, w) for a, w in intents if w == 0]
+
 print(f"Active participants: {len(participants)}")
 print(f"With {MODEL} in models[]: {len(with_kimi_model)} (not same as intent)")
 print()
 print("Intent from (PoCDirectIntent on chain):")
-for addr, w in intents:
+for addr, w in nonzero_intents:
     print(f"  {addr} : {w}")
+if zero_intents:
+    print()
+    print("Zero-weight intents (count toward V_min, contribute 0 to W_threshold):")
+    for addr, _ in zero_intents:
+        print(f"  {addr} : 0")
 print()
 print(f"Intent weight: {intent_weight} / {total}")
 if total:
     print(f"Intent share: {100.0 * intent_weight / total:.2f}%")
+if skipped:
+    print()
+    print(f"Skipped {len(skipped)} participants after retries (intent may be undercounted):")
+    for addr, w, err in skipped:
+        print(f"  {addr} (weight={w}): {err}")
 ```
 
 #### 2. Send delegation or refusal

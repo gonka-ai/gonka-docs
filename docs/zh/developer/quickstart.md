@@ -40,6 +40,9 @@ name: index.md
 - [https://proxy.gonka.gg/](https://proxy.gonka.gg/)
 - [https://gonkagate.com/](https://gonkagate.com/)
 - [https://gate.joingonka.ai/](https://gate.joingonka.ai/)
+- [https://router.gonkascan.com/](https://router.gonkascan.com/)
+- [https://gonka.pw/](https://gonka.pw/)
+- [https://gonka-api.org/](https://gonka-api.org/)
 
 ??? note "关于此列表"
     此处列出的经纪商在主网上运行 Gonka gateway，并已同意被公开列出。Gonka 不为任何特定经纪商背书。列表会在每次页面加载时以随机顺序重新打乱，因此每家经纪商出现的位置不代表任何排名；请根据自身需求独立评估每家运营方。

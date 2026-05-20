@@ -1,5 +1,11 @@
 # MiniMax-M2.7 Bootstrap
 
+!!! warning "v0.2.13 Proposal Did Not Pass"
+
+    The upgrade proposal for v0.2.13 did not pass governance voting.
+    
+    If the proposal for the v0.2.13 upgrade and the addition of MiniMax-M2.7 is published again and successfully passes governance voting, this page will be updated accordingly.
+
 `MiniMaxAI/MiniMax-M2.7` (FP8) is added as a third governance-approved inference model in the `v0.2.13` upgrade. This document explains how to minimize the chance of weight reductions during bootstrap, whether or not the model gets enough participants in its first attempt.
 
 For current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md). For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./multi_model_poc.md). The previous model bootstrap and its mechanics are documented in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).

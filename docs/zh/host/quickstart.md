@@ -845,7 +845,7 @@ docker compose --profile "ssl" \
   up -d
 ```
 
-`--profile "ssl"` 会启用自动管理 SSL 证书的 `proxy-ssl` 容器。
+`--profile "ssl"` 参数会启用 `proxy-ssl` 容器，该容器会自动管理 SSL 证书。
 <!-- CONDITION END -->
 
 <!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
@@ -1025,7 +1025,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   -y
 ```
 
-**清楚** 某个模型的委托：
+**清除** 某个模型的委托：
 
 ```bash
 MODEL="moonshotai/Kimi-K2.6"

@@ -27,7 +27,7 @@
 
 本节说明如何配置硬件基础设施以参与 Gonka 网络启动，目标是通过与网络预期对齐的部署最大化协议奖励。
 
-### 支持的模型
+### 支持的模型 { #supported-models }
 
 协议支持经**治理批准**、用于推理与计算证明（PoC v2）的模型。自升级 v0.2.12 起为**多模型 PoC**：在 Gonka 主网上，每个获批模型有各自的 PoC 组与奖励统计。
 
@@ -515,7 +515,7 @@ source config.env
 
 ### [服务器] 编辑服务器推理节点描述
 
-编辑 `node-config.json`，使每个 ML 节点在 `"models"` 中声明其运行的**单个模型**。**务必**用 `/v1/governance/models` 核对模型 id（见上文 [支持的模型](#支持的模型)）—下文示例反映常见硬件布局，其中的模型 id 仅为撰写时的示例。批准列表由治理决定；详见 [交易与治理指南](https://gonka.ai/transactions-and-governance/)。
+编辑 `node-config.json`，使每个 ML 节点在 `"models"` 中声明其运行的**单个模型**。**务必**用 `/v1/governance/models` 核对模型 id（见上文 [支持的模型](#supported-models)）—下文示例反映常见硬件布局，其中的模型 id 仅为撰写时的示例。批准列表由治理决定；详见 [交易与治理指南](https://gonka.ai/transactions-and-governance/)。
 
 === "Qwen — 4xH100（同样适用于 8xH200 或 8xH100）"
 
@@ -964,7 +964,7 @@ curl -s "$NODE_URL/chain-api/productscience/inference/collateral/collateral/$MY_
 
 关于 Slash（惩罚）、提现以及参数调优的更多细节，请查看 [Collateral documentation](https://gonka.ai/host/collateral/).
 
-## 可选：PoC 委托与拒绝
+## 可选：PoC 委托与拒绝 { #optional-poc-delegation-and-refusal }
 
 在你的 Host 完成注册、ML Operational Key 完成授权，并且你已经可以 [验证](#verify-node-status) 参与状态之后，再使用本部分内容——通常是在你的本地机器上，使用 Account（冷）Key（`gonka-account-key`）进行操作。这里的内容并不是启动容器所必须的；它适用于你并未在自己的 GPU 上运行所有已通过治理批准的模型，并且需要将 PoC 投票权**委托（delegate）**给其他参与者、**拒绝（refuse）**委托，或结合 `params`对时间参数进行比较的情况。
 

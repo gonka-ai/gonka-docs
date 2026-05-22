@@ -12,7 +12,7 @@
 
 **v0.2.13 voting concluded — preparing for upgrade at height 4267300** 
 
-The on-chain governance vote for [Upgrade Proposal v0.2.13](https://github.com/gonka-ai/gonka/pull/1143) (proposal id `542`) has concluded. The proposal has been **APPROVED**.
+The on-chain governance vote for [Upgrade Proposal v0.2.13](https://github.com/gonka-ai/gonka/pull/1143) (proposal id `54`) has concluded. The proposal has been **APPROVED**.
 
 The upgrade will execute automatically on mainnet at **block height 4267300** (≈ **Tue May 26, 14:42 UTC** / **07:42 PDT**).
 

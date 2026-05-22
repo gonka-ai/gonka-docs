@@ -8,6 +8,25 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 22, 2026
+
+**v0.2.13 voting concluded — preparing for upgrade at height 4267300** 
+
+The on-chain governance vote for [Upgrade Proposal v0.2.13](https://github.com/gonka-ai/gonka/pull/1143) (proposal id `542`) has concluded. The proposal has been **APPROVED**.
+
+The upgrade will execute automatically on mainnet at **block height 4267300** (≈ **Tue May 26, 14:42 UTC** / **07:42 PDT**).
+
+**Reminders**
+
+1. Make sure your bridge container is up to date and synced. The Ethereum mainnet bridge contract (`0x972a7a92d92796a98801a8818bcf91f1648f2f68`), USDC/USDT token metadata, and CW20 `wrapped_token` code id `105` are registered through the upgrade handler itself, so the bridge becomes active on mainnet at the upgrade height. Verification instructions: [https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026).
+2. If you plan to serve `MiniMaxAI/MiniMax-M2.7`, pre-download the ~230 GB of FP8 weights now. Hugging Face rate limits and bandwidth saturation during the bootstrap window might lead to missing the first eligibility check.
+3. Right after the upgrade lands, every host will need to declare a participation mode for **each** governance-approved model — `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, `moonshotai/Kimi-K2.6`, and `MiniMaxAI/MiniMax-M2.7`. Hosts who only run one or two of those models still need DELEGATE or REFUSE for the others. The MiniMax deadline is **chain epoch `278`** (≈ **Fri May 29, 2026 UTC** — late Thu May 28 PDT). Hosts who do nothing take a 15% per-epoch penalty against their full weight from epoch 278 onward.
+4. Plan to be online during the upgrade window so any follow-up steps or mitigation instructions can be applied promptly. Make sure `.inference/data` has sufficient free space for the cosmovisor state backup; if `application.db` is large, consider applying [the cleanup techniques](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) from the cosmovisor backup guide before the upgrade.
+5. The v0.2.13 calibration adjusts the Kimi K2.6 `WeightScaleFactor` from `1.26` to `0.78` to reflect the post-vLLM-0.20.1 throughput baseline of the Qwen-on-B200 reference. The adjustment applies **only to the Kimi-derived part of your consensus weight**; your Qwen-derived weight and Kimi internal PoC distribution are unchanged. On B200/B300 Kimi remains the highest-paying option; on H100/H200, MiniMax-M2.7 becomes a comparable-to-Qwen, higher-than-Kimi option.
+
+- Proposal: [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+- Migration logic: [`upgrades.go`](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.13/inference-chain/app/upgrades/v0_2_13/upgrades.go)
+
 ## May 20, 2026
 
 **v0.2.13 Upgrade Proposal Enters Governance**

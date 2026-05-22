@@ -43,6 +43,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 - [https://router.gonkascan.com/](https://router.gonkascan.com/)
 - [https://gonka.pw/](https://gonka.pw/)
 - [https://gonka-api.org/](https://gonka-api.org/)
+- [https://gonkabroker.com/](https://gonkabroker.com/)
 
 ??? note "About this list"
     Brokers listed here run a Gonka gateway against the mainnet and have agreed to public listing. Gonka does not endorse any specific broker. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits.

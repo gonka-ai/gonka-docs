@@ -38,6 +38,7 @@ nav:
     - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
+    - Ethereum bridge: wallet/ethereum-bridge.md
 
   - Cross-Chain Transfers:
     - IBC USDT withdrawal guide: cross-chain-transfers/ibc-usdt-withdrawal-guide.md
@@ -168,6 +169,7 @@ plugins:
             Wallet & transfer guide: 钱包与转账指南
             Dashboard: 仪表盘
             Pricing: 价格
+            Ethereum bridge: 以太坊桥接
             Cross-Chain Transfers: 跨链转账
             IBC USDT withdrawal guide: IBC USDT 提现指南
             Reference: 参考

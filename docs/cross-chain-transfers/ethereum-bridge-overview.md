@@ -25,7 +25,7 @@ The bridge allows you to move:
 3. **Ownership**: After minting, ownership of the wrapped tokens is assigned to the Gonka address derived from the same private/public key pair used on Ethereum. From this point, the owner can freely transfer the wrapped tokens to any other Gonka account.
 
 !!! note
-    Wrapped tokens on the Gonka side must be registered on-chain through a governance proposal. Initially, the official USDT and USDC tokens are pre-registered. For instructions on how to register new tokens, see the [How to Register a New Bridge Token](#how-to-register-a-new-bridge-token) section below.
+    Wrapped tokens on the Gonka side must be registered on-chain through a governance proposal. Initially, the official USDT and USDC tokens are pre-registered. For instructions on how to register new tokens, see the [How to Register a New Bridge Token](how-to-register-a-new-bridge-token.md) page.
 
 ### Unwrapping / Withdrawing back to Ethereum
 1. **Request**: The owner submits a special withdrawal transaction on the Gonka chain. This locks/burns the wrapped token and triggers BLS signature generation.

@@ -127,13 +127,7 @@ plugins:
       minify_html: false
   - redirects:
       redirect_maps:
-        cross-chain-transfers/ethereum-bridge-overview.md: cross-chain-transfers/ethereum-bridge/overview.md
-        cross-chain-transfers/how-to-wrap-usdt-from-ethereum-to-gonka.md: cross-chain-transfers/ethereum-bridge/deposit-usdt.md
-        cross-chain-transfers/how-to-withdraw-wrapped-usdt-back-to-ethereum.md: cross-chain-transfers/ethereum-bridge/withdraw-usdt.md
-        cross-chain-transfers/transfer-gnk-from-gonka-to-ethereum-wgnk-and-back.md: cross-chain-transfers/ethereum-bridge/bridge-gnk.md
-        cross-chain-transfers/how-to-register-a-new-bridge-token.md: cross-chain-transfers/ethereum-bridge/register-token.md
         cross-chain-transfers/multisig_participant_guide.md: cross-chain-transfers/ethereum-bridge/multisig-signer-guide.md
-        cross-chain-transfers/ibc-usdt-withdrawal-guide.md: cross-chain-transfers/ibc/withdraw-usdt-via-kava.md
   - search:
       separator: '[\\s-]+'
       lang:

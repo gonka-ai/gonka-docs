@@ -8,15 +8,17 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 ```
 ---
 
-# How to Withdraw Wrapped USDT Back to Ethereum
+# Bridge GNK to Ethereum (WGNK)
 
-### A) Send Withdrawal Request on Gonka
+### A) Request Minting WGNK on Ethereum
 
-Initiate the withdrawal transaction using CLI:
+Use CLI to submit a bridge minting request:
 
 ```bash
-./inferenced tx wasm execute <gonka1CW20WrappedUSDTAddress> \
-  '{"withdraw":{"amount":"<amount>","destination_address":"0xYourEthereumAddr"}}' \
+./inferenced tx inference request-bridge-mint \
+  <amount> \
+  "0xYourEthereumAddr" \
+  "ethereum" \
   --from <your_key_name> \
   --chain-id gonka-mainnet \
   --gas auto \
@@ -33,15 +35,13 @@ Initiate the withdrawal transaction using CLI:
 txhash: 12E8ABCA5A35D73042564FDF6D686424F742414EEC172450AB6EDA34BD1F0805
 ```
 
-### B) Retrieve Withdrawal Receipt & Request ID
-
-Allow a couple of blocks to be mined, then query the transaction hash to obtain the request ID:
+Allow a couple of blocks to be mined, then check the status:
 
 ```bash
 ./inferenced query tx 12E8ABCA5A35D73042564FDF6D686424F742414EEC172450AB6EDA34BD1F0805
 ```
 
-Ensure the output contains `"code": 0` (indicating success) and extract the base64-encoded `request_id`:
+Verify that `"code": 0` and extract the base64 `request_id`:
 
 ```json
 "request_id": "vSTWiN1pvooxcFoDLzePCEq3x/C5NQ+jFMvfcEozCm4="
@@ -57,7 +57,7 @@ echo "vSTWiN1pvooxcFoDLzePCEq3x/C5NQ+jFMvfcEozCm4=" | base64 -d | xxd -p -c 256
 bd24d688dd69be8a31705a032f378f084ab7c7f0b9350fa314cbdf704a330a6e
 ```
 
-### C) Get BLS Signature Status
+### B) Get BLS Signature Status
 
 Query the BLS signature API with your request ID hex:
 
@@ -72,22 +72,16 @@ curl "https://node2.gonka.ai:8433/v1/bls/signatures/<REQUEST_ID_HEX>" \
   '
 ```
 
-The response includes:
-* `current_epoch_id`: The epoch of the request.
-* `request_id`: The 32-byte hash used on Gonka.
-* `uncompressed_signature_128`: The BLS signature needed for Ethereum execution.
+### C) Submit Withdrawal Command on Ethereum
 
-### D) Submit Withdrawal Command on Ethereum
-
-Use the [withdraw-tokens.js](https://github.com/gonka-ai/gonka/blob/gm/contracts/proposals/ethereum-bridge-contact/withdraw-tokens.js) script:
+Submit the mint command to the bridge contract on Ethereum using the [mint-wgnk.js](https://github.com/gonka-ai/gonka/blob/gm/contracts/proposals/ethereum-bridge-contact/mint-wgnk.js) script:
 
 ```bash
-HARDHAT_NETWORK=mainnet node withdraw-tokens.js \
+HARDHAT_NETWORK=mainnet node mint-wgnk.js \
   0x972a7a92d92796a98801a8818bcf91f1648f2f68 \
   <current_epoch_id> \
   <request_id> \
-  <destination_address> \
-  <USDT_contract_address> \
+  <0xYourEthereumAddr> \
   <amount> \
   <uncompressed_signature_128>
 ```

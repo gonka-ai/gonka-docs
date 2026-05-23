@@ -1,4 +1,4 @@
-# IBC USDT route: Gonka → Kava Cosmos → Kava EVM → Ethereum
+# Withdraw USDT via Kava (Gonka → Ethereum)
 
 **Use case:** spendable IBC USDT is already available in a Gonka wallet balance, and the target route is Gonka → Kava Cosmos → Kava EVM → Ethereum.
 

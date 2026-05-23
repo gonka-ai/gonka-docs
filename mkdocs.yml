@@ -39,15 +39,14 @@ nav:
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
     - Cross-chain transfers:
-      - Overview: cross-chain-transfers/ethereum-bridge-overview.md
       - Ethereum bridge:
-        - Wrap USDT (Ethereum → Gonka): cross-chain-transfers/how-to-wrap-usdt-from-ethereum-to-gonka.md
-        - Withdraw USDT (Gonka → Ethereum): cross-chain-transfers/how-to-withdraw-wrapped-usdt-back-to-ethereum.md
-        - Transfer GNK ↔ WGNK: cross-chain-transfers/transfer-gnk-from-gonka-to-ethereum-wgnk-and-back.md
-        - Register a new bridge token: cross-chain-transfers/how-to-register-a-new-bridge-token.md
-        - Multisig participant guide: cross-chain-transfers/multisig_participant_guide.md
+        - Overview: cross-chain-transfers/ethereum-bridge/overview.md
+        - Deposit USDT (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/deposit-usdt.md
+        - Withdraw USDT (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/withdraw-usdt.md
+        - Bridge GNK to Ethereum (WGNK): cross-chain-transfers/ethereum-bridge/bridge-gnk.md
+        - Register a bridge token: cross-chain-transfers/ethereum-bridge/register-token.md
       - IBC:
-        - IBC USDT withdrawal guide: cross-chain-transfers/ibc-usdt-withdrawal-guide.md
+        - Withdraw USDT via Kava (Gonka → Ethereum): cross-chain-transfers/ibc/withdraw-usdt-via-kava.md
 
   - Reference:
     - Transactions & governance: transactions-and-governance.md
@@ -126,6 +125,9 @@ extra_javascript:
 plugins:
   - minify:
       minify_html: false
+  - redirects:
+      redirect_maps:
+        cross-chain-transfers/multisig_participant_guide.md: cross-chain-transfers/ethereum-bridge/multisig-signer-guide.md
   - search:
       separator: '[\\s-]+'
       lang:
@@ -178,13 +180,12 @@ plugins:
             Cross-chain transfers: 跨链转账
             Overview: 概述
             Ethereum bridge: 以太坊跨链桥
-            "Wrap USDT (Ethereum → Gonka)": "包装 USDT（以太坊 → Gonka）"
+            "Deposit USDT (Ethereum → Gonka)": "存入 USDT（以太坊 → Gonka）"
             "Withdraw USDT (Gonka → Ethereum)": "提取 USDT（Gonka → 以太坊）"
-            "Transfer GNK ↔ WGNK": "转移 GNK ↔ WGNK"
-            Register a new bridge token: 注册新的跨链桥代币
-            Multisig participant guide: 多签参与者指南
+            "Bridge GNK to Ethereum (WGNK)": "将 GNK 跨链至以太坊 (WGNK)"
+            Register a bridge token: 注册跨链桥代币
             IBC: IBC
-            IBC USDT withdrawal guide: IBC USDT 提现指南
+            "Withdraw USDT via Kava (Gonka → Ethereum)": "通过 Kava 提取 USDT（Gonka → 以太坊）"
             Reference: 参考
             Transactions & governance: 交易与治理
             Software upgrades: 软件升级

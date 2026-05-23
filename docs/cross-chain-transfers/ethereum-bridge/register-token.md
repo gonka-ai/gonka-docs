@@ -9,7 +9,7 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 
 ---
 
-# How to Register a New Bridge Token
+# Register a bridge token
 
 To allow users to bridge a new ERC-20 token from Ethereum to Gonka, the token must be registered on-chain. This is done through a governance proposal that registers the token's metadata (name, symbol, decimals) so the Gonka consensus and the bridge know how to instantiate the wrapped CW-20 token contract.
 

@@ -9,7 +9,7 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 
 ---
 
-# How to Wrap USDT from Ethereum to Gonka
+# Deposit USDT (Ethereum → Gonka)
 
 To use an existing Ethereum address that already holds USDT, generate a Gonka address from the same private key. This Gonka address will receive the wrapped token.
 

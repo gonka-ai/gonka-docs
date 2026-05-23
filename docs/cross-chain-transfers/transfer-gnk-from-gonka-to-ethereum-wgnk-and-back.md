@@ -8,7 +8,7 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 ```
 ---
 
-# Transfer GNK from Gonka to Ethereum (WGNK) and Back
+# Bridge GNK to Ethereum (WGNK)
 
 ### A) Request Minting WGNK on Ethereum
 

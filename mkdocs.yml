@@ -34,7 +34,7 @@ nav:
       - MiniMax-M2.7 bootstrap: host/minimax-bootstrap.md
       - Deployment benchmark: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
 
-  - Wallet & Tokens:
+  - Wallet:
     - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
@@ -170,7 +170,7 @@ plugins:
             Multi-Model PoC: 多模型 PoC
             Kimi K2.6 bootstrap: Kimi K2.6 引导
             Deployment benchmark: 部署基准测试
-            Wallet & Tokens: 钱包与代币
+            Wallet: 钱包
             Wallet & transfer guide: 钱包与转账指南
             Dashboard: 仪表盘
             Pricing: 价格

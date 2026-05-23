@@ -8,7 +8,7 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 ```
 ---
 
-## How to Withdraw Wrapped USDT Back to Ethereum
+# How to Withdraw Wrapped USDT Back to Ethereum
 
 ### A) Send Withdrawal Request on Gonka
 

@@ -1597,3 +1597,356 @@ After a restart, the issue should not recur.
 
 !!! note 
 	`main` includes v0.2.10-post6. Nodes starting from this version apply this setting automatically, so you typically won’t need to change it manually.
+
+## Inference 
+
+### Why does the 4,096 output token limit cause the model to stall entirely during thinking — returning zero tokens, even on moderately sized requests?
+
+**Kimi-K2.6-specific behavior.** The model emits `<think>...</think>` blocks, and **both sections (`<think>` and visible content) reduce the `max_tokens` counter equally**. With small `max_tokens`, the model burns the entire budget inside `<think>` and returns only `</think>`, which vLLM strips as a special token. The result is `content=null`, `finish_reason=length`, and from the client side this looks like "0 tokens".
+
+At the gateway level, the following rules apply (all in `devshard-0.2.13`):
+
+- **Floor `max_tokens >= 16`** ([PR #1227](https://github.com/gonka-ai/gonka/pull/1227)): previously, `max_tokens=1` from probe clients was guaranteed to return `content=null`. Now it is silently raised to 16.
+- **`thinking_token_budget` resolver** ([PR #1202](https://github.com/gonka-ai/gonka/pull/1202)):
+  - If the client sent `max_tokens < 256`, `ttb` is forced to **0** (overrides the client value). The model does not enter hidden thinking.
+  - Otherwise, if `ttb` is missing, the default is `ttb = max_tokens / 2`.
+  - Absolute cap: `ttb <= 96,000` (Moonshot HLE/AIME budget).
+  - Clamp: `ttb <= max_tokens - 64` (64-token headroom for visible content after `</think>`).
+- **`thinking: {"type":"disabled"}` mirror** (PR #1224): the gateway mirrors the resolution into `chat_template_kwargs.thinking=false`. The Kimi chat template reads this kwarg; top-level `thinking` is stripped.
+
+**Verified live:** scenarios that historically returned `content=null` (`max_tokens=1`, probe-shaped `{max_tokens:100, min_tokens:100, thinking_token_budget:50}`) now return non-empty content through a broker running the current gateway.
+
+**For Inference User:**
+
+- Re-test against a broker with gateway >= 0.2.13 (release dated 2026-05-23 or later).
+- If you still see zero tokens, capture the `id` from the response (`devshard-XXXX-YYY`) and send it to your broker.
+- **Do not rely only on `thinking:disabled`:** to guarantee that thinking is disabled, send `thinking_token_budget: 0` explicitly (see "With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?").
+
+**For Broker:** make sure your gateway image includes PR [#1202](https://github.com/gonka-ai/gonka/pull/1202), [#1224](https://github.com/gonka-ai/gonka/pull/1224), and [#1227](https://github.com/gonka-ai/gonka/pull/1227), meaning >= `devshard-0.2.13`. Without them, the only workaround is to patch on the client side: inject `thinking_token_budget = max_tokens / 2` for Kimi and reject `max_tokens < 16`.
+
+### With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?
+
+**Same root cause as in "Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?":** model-side reasoning split (`<think>` and visible content share `max_tokens`), not bandwidth and not an output cap. There are two escape hatches, both available in production:
+
+1. **`thinking: {"type": "disabled"}`**: the gateway mirrors this into `chat_template_kwargs.thinking=false` (the Kimi chat template reads this kwarg) and removes the top-level `thinking`. `"adaptive"` and `"auto"` are also accepted (Claude Code CLI / Anthropic SDK preset, PR [#1224](https://github.com/gonka-ai/gonka/pull/1224)). Both resolve to `enabled`.
+2. **`thinking_token_budget: 0`**: explicit zero is passed directly into vLLM as a generation parameter and reliably zeroes out the thinking budget.
+
+**Important nuance:** these two mechanisms work at different levels (chat-template hint vs. generation parameter) and do not overlap. `thinking:disabled` does NOT automatically zero out `thinking_token_budget`. So with the default `max_tokens=4096` and only `disabled`, the model still receives a hidden budget of `ttb=2048` from the gateway resolver. On most prompts, the template hint will still persuade the model not to think, but on complex reasoning tasks the model may ignore the hint. **Belt and suspenders:** for critical flows, send both parameters together.
+
+**Numeric confirmation (same bug-finding prompt, `max_tokens=500`, semantically identical answer):**
+
+| Config | usage.completion_tokens | Wall-clock |
+|---|---:|---:|
+| `thinking: {"type":"disabled"}` | **65** | 3.6s |
+| Default - gateway automatically sets `ttb=250` | **312** | 12.5s |
+
+Half of the default budget gets spent on hidden thinking even for a trivial task, which is why disabling thinking is recommended for tool-heavy and agentic flows.
+
+**For Inference User:**
+
+- For tool-heavy or agentic flows where reasoning is not needed, use `"thinking": {"type": "disabled"}` (Kimi) or `"enable_thinking": false` (Qwen, translated automatically).
+- For complex reasoning, set `thinking_token_budget` explicitly. Do not rely on the default `max_tokens / 2`.
+- If `thinking:disabled` still causes budget burn on your prompt, also send `thinking_token_budget: 0` explicitly.
+
+**For Broker:** see "Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?". Pin to a build with PR [#1202](https://github.com/gonka-ai/gonka/pull/1202)/[#1224](https://github.com/gonka-ai/gonka/pull/1224)/[#1227](https://github.com/gonka-ai/gonka/pull/1227) (>= `devshard-0.2.13`). On the landing page, mention that Kimi for tool-heavy work requires either `thinking:disabled`, an explicit `thinking_token_budget`, or a large `max_tokens`.
+
+### The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?
+
+**The numbers in the question are incorrect:**
+
+- Output cap: **up to 4,096** at the network level; **the real cap depends on the broker** (e.g., measured 3,072 on gonka-api.org). Not 8,192.
+- Input: **up to 240,000 tokens** (`--max-model-len` on the mainnet Kimi deploy). Not 4,000.
+
+**Where the output cap comes from.** In the gateway code: `DefaultRequestMaxTokens = 3,072`, `RequestMaxTokensCap = 4,096` (`devshard/cmd/devshardctl/gateway.go:143-144`).
+
+The cap is **not set by on-chain governance**: the chain stores `context_window`, `units_of_compute_per_token`, `coins_per_input_token`, `coins_per_output_token`, and model_args for deployment, but there is **no field for output cap**. Therefore, per-model relaxation is done **locally by the broker operator** through the admin endpoint `POST /v1/admin/settings` (the `GatewayModelLimitSettings` structure in `devshard/cmd/devshardctl/gateway_store.go:32`, field `request_max_tokens_cap` per model). To raise the network-wide ceiling above 4,096, a PR plus a new devshard release are needed.
+
+**Where 240k input comes from.** The mainnet Kimi-K2.6 deploy was registered through on-chain governance proposal v0.2.12 (`inference-chain/app/upgrades/v0_2_12/upgrades.go:kimiGovernanceModel()`) with `ModelArgs: ["--max-model-len","240000","--tool-call-parser","kimi_k2","--reasoning-parser","kimi_k2"]` and `VRam: 720` (GB). The model card declares a 256K native context (`docs/chat-api/kimi-k2.6.md:11`). The gateway does not separately limit input except for the universal body size limit (10 MiB) and messages count (<= 2,048), as described in `docs/chat-api/README.md`, section "Request limits".
+
+**Important caveat (open issue):** even if a broker agrees to raise the output cap, individual nodes may be running with a smaller `--max-model-len`. This is a known unfixed issue: `devshard/docs/known-issues.md` §3, "Some nodes have lower max context than expected".
+
+**For Inference User:**
+
+- The real effective output cap is determined by the broker. Ask what `request_max_tokens_cap` they set for each model.
+- If you hit a small input limit, it is almost certainly `--max-model-len` on a specific node, not a global network limit. Retry: the next request may land on a node with a larger context window.
+- If you hit the output cap, ask the broker to raise it. For a network-wide bump above 4,096, that requires a code change, so raise it through a GitHub Discussion in `gonka-ai/gonka`.
+
+**For Broker:**
+
+- You can raise the output cap per model today through `POST /v1/admin/settings` with `model_limits[].request_max_tokens_cap`, without a code change. This immediately gives clients more output within the network ceiling (4,096).
+- A network-wide bump above 4,096 requires a PR in gateway code plus a new release. If you have a stable demand for larger outputs, open a Discussion.
+
+### Agents like Hermes and OpenClaw with 30k+ system prompts fail on Kimi. Why?
+
+**Kimi supports 30k+ input without issues.** Native context window is 256K, the mainnet deploy uses `--max-model-len 240,000`, and the gateway accepts request bodies up to 10 MiB. Empirically verified: ~69,000 prompt tokens (about 800 messages x 80 words) completed successfully in 5.5 seconds.
+
+**Verification sources (all in `gonka-ai/gonka`):**
+
+- Native context 256K: `docs/chat-api/kimi-k2.6.md`, "Model facts", line 11.
+- Mainnet deploy params (registered on-chain): `inference-chain/app/upgrades/v0_2_12/upgrades.go:kimiGovernanceModel()` with `ModelArgs: ["--max-model-len","240000","--tool-call-parser","kimi_k2","--reasoning-parser","kimi_k2"]`.
+- Body / messages limits (10 MiB, <= 2,048 messages): `docs/chat-api/README.md`, section "Request limits".
+
+**When 30k still breaks, there are two typical causes:**
+
+1. **One rejected field in the agent payload.** The gateway maintains a strict parameter allowlist. If the agent sends even one field that is not part of the OpenAI Chat Completions standard (for example, `tags`, `enforced_tokens`, `plugins`, `guided_json`), the entire request is rejected with HTTP 400. Full list with explanations: `docs/chat-api/troubleshooting.md`. Hermes-specific `tags` reject: anchor `#reject-tags`. Empirically: valid 69k payload + `tags:["session:abc"]` returns HTTP 400 in 2 seconds.
+2. **Routing to a node with a smaller `--max-model-len`.** Known open issue (`devshard/docs/known-issues.md` §3): not all hosts are necessarily deployed with the full 240k window, and the gateway cannot yet filter requests by per-host capacity. If you happen to hit a "small" node, the request fails on the vLLM side.
+
+Related: [issue #1229](https://github.com/gonka-ai/gonka/issues/1229) (OPEN, May 2026) explicitly lists "long reasoning, tool-call compatibility, continuation after output limits" as blockers for agentic workflows.
+
+**For Inference User:**
+
+- First, check your payload against the whitelist in `docs/chat-api/README.md`. Most Hermes/OpenClaw HTTP 400s are caused by one field (`tags`, `enforced_tokens`) or a schema inside `tools` / `response_format`. Remove the extra fields and resend the same request. It usually works.
+- **Generic broker errors like "upstream model provider rejected" are misleading:** often this means the gateway rejected your request at the validator layer, not the model. Check fields first, then suspect the model.
+- If the payload is clean and still fails, try another broker. The current one may be routing to nodes with a reduced context window.
+
+**For Broker:**
+
+- Two operational actions: (1) publish the native context window for each model on the landing page; (2) until host-level capacity advertising is implemented (`known-issues §3`), consider client-side filtering or a "preferred-host" list.
+- **UX gap (important):** the gateway returns specific 400s such as `"unknown parameter: tags"`, but many brokers mask them as generic "upstream provider rejected". Pass the upstream message to the client. It saves hours of debugging. Agent compatibility map: `docs/chat-api/agents.md`.
+
+### Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?
+
+**Neither bandwidth nor a Gonka-side limitation.** Three overlapping causes:
+
+**(a) `max_tokens` truncation.** Network cap: `RequestMaxTokensCap = 4,096` (`devshard/cmd/devshardctl/gateway.go:143-144`). When the assistant emits tool calls with large `arguments` JSON blobs plus additional visible content, it can hit the cap and produce truncated JSON. For per-broker overrides and general cap mechanics, see "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?"
+
+**(b) Upstream vLLM Kimi tool-parser duplicate-ID bug.** The `kimi_k2` parser has a confirmed counter-collision bug when `n > 1`: `history_tool_call_cnt` is recalculated inside the per-choice loop, causing colliding `functions.<name>:<idx>` ids. Upstream PR review: [vLLM PR #21259](https://github.com/vllm-project/vllm/pull/21259). The gateway then rejects duplicate ids (per OpenAI spec) with HTTP 400. See anchor `#reject-duplicate-tool-call-id` in `docs/chat-api/troubleshooting.md`.
+
+**(c) Hermes parser breaks on multiple tool blocks.** Another upstream issue: `JSONDecodeError` when the model emits multiple tool-call blocks in one response: [vLLM #17790](https://github.com/vllm-project/vllm/issues/17790). Related: `<tool_call>` inside a `<think>` block breaks hermes parsing: [vLLM #42021](https://github.com/vllm-project/vllm/issues/42021). These bugs are not Gonka-specific. These bugs require upstream fixes.
+
+**For Inference User:**
+
+- **Rewrite `tool_call.id` on the client side** before sending subsequent messages into the canonical format `functions.<name>:<global_idx>`. This is Moonshot's official recommendation, repeated in `docs/chat-api/troubleshooting.md#reject-duplicate-tool-call-id`. Alternative: fresh UUIDs.
+- **Do not deduplicate by id.** Two calls with the same ID can contain different real results. Dropping them means dropping agent work.
+- **Raise `max_tokens`** for assistant responses that contain tool calls. Large `arguments` JSON blobs quickly hit the cap.
+- **Generic broker error "upstream model provider rejected" usually means a gateway-side reject**, not the model. Check the message and IDs for duplicates first, then suspect the model. Same UX gap as in "Agents like Hermes and OpenClaw with 30k+ system prompts fail on Kimi. Why?".
+
+**For Broker:**
+
+- **No gateway-side dedup can be done safely** because it can lose real distinct outputs. Document the symptom in your customer FAQ with a link to `troubleshooting.md#reject-duplicate-tool-call-id`.
+- **UX:** pass through the specific gateway error message (for example, `"messages[N].tool_calls[M].id is duplicated"`) instead of a generic wrapper. This shortens time-to-fix for agent clients.
+
+### Could enabling guided decoding fix the token cap issue?
+
+**Guided decoding has nothing to do with the token cap.** It is a mechanism that forces the model to generate output according to a given schema (JSON Schema, regex, etc.), but it does not change the total number of tokens the model can return. For the cap, see "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?"
+
+**Low-level vLLM fields `guided_json`, `guided_regex`, `guided_grammar`, and `guided_choice` are rejected by the gateway with HTTP 400** (anchor `#reject-guided-decoding` in `docs/chat-api/troubleshooting.md`). Reason: they bypass xgrammar bounds, which are applied to the `response_format` / `structured_outputs` envelope to mitigate CVE-2025-48944.
+
+**Correct fields for structured output:**
+
+| Field | Kimi K2.6 | Qwen3-235B | Notes |
+|------|-----------|------------|-------|
+| `response_format` (`type: "json_schema"` or `"json_object"`) | ✅ | ✅ | OpenAI-standard. Reliable choice. Empirically verified on both models through a public broker. |
+| `structured_outputs` envelope (`json`/`regex`/`choice`/`grammar`/`structural_tag`/`json_object`) | ❌ HTTP 400 (per-route reject) | ✅ in code, real availability depends on broker | Validator: `StructuredOutputsValidator` in PR #1215 (merged 2026-05-22). On the Kimi route, it is explicitly rejected because the Moonshot API does not declare the field and it could crash the engine. On Qwen3, it is formally supported, but in my live check through one public broker, even a minimal envelope still returned HTTP 400. The broker may not yet have been updated to a build with PR #1215. Ask your broker. |
+| Both together (`response_format` + `structured_outputs`) | ❌ HTTP 400 | ❌ HTTP 400 | vLLM 0.20.0 merges them through `dataclasses.replace()`, which triggers the exactly-one rule in `StructuredOutputsParams.__post_init__`. Anchor: `#reject-structured_outputs-with-response_format`. |
+
+**For Inference User:**
+
+- **Use `response_format: {type: "json_schema", json_schema: {...}}`; it is the reliable cross-route choice.** Works on both models and both routes.
+- For regex / choice / grammar / structural_tag, use only the `structured_outputs` envelope, and only on a non-Kimi route. If the broker returns HTTP 400, ask whether it supports this.
+- Do not combine `response_format` and `structured_outputs` in one request. It will return HTTP 400.
+- Generic broker errors like "upstream model provider rejected" often just mean a validation reject at the gateway level.
+
+**For Broker:**
+
+- Guided decoding does not increase throughput. Do not promise it to clients as a solution to the token cap.
+- If you are still on an old gateway without PR [#1215](https://github.com/gonka-ai/gonka/pull/1215), clients will see HTTP 400 on the `structured_outputs` envelope even for Qwen3. Pin to build >= 2026-05-22 (`devshard 0.2.13`) so the envelope route works.
+
+### Why does generation speed fluctuate so drastically? And why does the boost apply only to reasoning tokens?
+
+**Speed fluctuations are a real, known open issue**. The roots are in three different layers:
+
+**1. Per-host slowdowns / stalls (host-level).** Open investigation task: issue [#818 "Slow nodes investigation"](https://github.com/gonka-ai/gonka/issues/818). Specific patterns without a root cause yet: `devshard/docs/known-issues.md` §1 ("Host returns no stream after receipt") and §2 ("Host stalls after producing chunks", in some cases resumes after a minute, in others never resumes).
+
+**2. Routing variance (broker-level).** Two consecutive broker requests can land on different hosts with different loads. Empirically: five simple questions sent one after another through a public broker produced throughput from **8 tok/s to 54 tok/s**, a **6.7x difference** within 30 seconds. Different `devshard-XXXX-YYY` IDs confirm different routing.
+
+**3. Chain-level validation windows (network-level).** During PoC / Confirmation-PoC (cPoC), some nodes are busy with validation and temporarily unavailable for normal inference. In these windows, the gateway can return `attempts: []` (no available hosts on the route), which looks like a timeout from the client side. The effect is more noticeable when the broker serves a model through a small number of nodes.
+
+**"Reasoning faster than visible" is not prioritization, but output structure.** The gateway has no special fast route for reasoning tokens (checked in `devshard/cmd/devshardctl/redundancy.go`: `delta.reasoning`, `delta.content`, `delta.reasoning_content`, and `delta.tool_calls` are all detected the same way through `sseChunkHasContent`). Per-token speed is the same. Kimi with thinking enabled simply generates a large `reasoning_content` first (hundreds to thousands of tokens), then a short visible answer (dozens to hundreds of tokens). If the client does not display the reasoning field, it looks like the model was "silent, then dumped the answer all at once". In reality, the model was generating the whole time; the result was just hidden.
+
+**For Inference User:**
+
+- Choose a broker that publishes uptime / p50 TTFT. For example, [gonka.pw](https://gonka.pw/) tracks all public brokers.
+- On a slow request, just retry: the next request usually lands on another node through another devshard.
+- If you want to see progress while the model is thinking, render `delta.reasoning_content` (or `delta.reasoning`) in the UI, for example, in a collapsed block.
+
+**For Broker:**
+
+- This is the highest-priority shared issue. Two actionable steps:
+  1. Take or comment on issue [#818](https://github.com/gonka-ai/gonka/issues/818).
+  2. Help implement the host-side improvements (chunked gossip recovery, per-escrow `lastAfterReq` tracking). They directly address routing/recovery weak spots.
+
+### Why does speed vary depending on hardware, faster on B200, slower on H200?
+
+**Speed depends on hardware by design.** PoC weight on-chain reflects real hardware throughput, and broker routing may land on different GPUs.
+
+**Where the difference comes from (based on public benchmarks in [`kaitakuai/experiments`](https://github.com/kaitakuai/experiments)):**
+
+| GPU | Memory | sm | Qwen3-235B nonces/min per instance | Per-GPU |
+|-----|--------|----|------------------------------------:|--------:|
+| 4xH100 SXM5 | 80 GB HBM3 | 90 | **1,248** @ batch=16 | ~312 |
+| 4xH200 | 141 GB HBM3e | 90 | **1,408** @ batch=32-64 | ~352 |
+| 2xB200 | 192 GB HBM3e | 100 | **1,984** @ batch=64 | **~992** |
+
+- **H200 vs H100:** +13% per GPU. Same chip (`sm_90`), but HBM3e + 141 GB vs HBM3 + 80 GB allows smaller TP for large models and faster KV cache.
+- **B200/B300 vs H100/H200:** **~3x per GPU** on Qwen, even more on Kimi-K2.6 INT4 (~2,240 nonces/min on 4xB200; see `experiments/2026-05/kimi_k26_int4_4xb200_q-int4-k2`).
+- **Blackwell-only env: `VLLM_USE_FLASHINFER_MOE_INT4=1` gives +138% vs Marlin** (A/B proven in `experiments/2026-05/kimi_k26_b300_eager_flashinfer`). Only on `sm_100`.
+
+**Tracing / diagnostics:** there are no per-host TTFT panels in Grafana yet. Open PR [#1046 "Implement dapi & devshard observability"](https://github.com/gonka-ai/gonka/pull/1046) could add OpenTelemetry traces, Prometheus metrics, and dashboards, if merged and approved by Governance.
+
+**For Inference User:** You do not choose hardware directly. You choose a broker, and its routing selects the host. If you need predictable latency, ask your broker which hardware tier they route to most often.
+
+**For Broker:** Once PR #1046 (observability) is merged, there will be per-host TTFT panels in Grafana. Until then, diagnostics sources are the [`kaitakuai/experiments`](https://github.com/kaitakuai/experiments) repo, which is updated regularly, and your own per-host stats from [gonka.pw](https://gonka.pw/). If you want to influence hardware distribution, scale your devshard escrow toward hosts with preferred GPUs.
+
+### Why can't the model use tools properly within Kilo Code?
+
+**Most likely, one of four reasons. The gateway applies a strict parameter allowlist and closed caps on JSON Schema. This is not Kilo-specific. The same reasons affect any coding agent (Cline, Continue.dev, OpenCode, etc.).**
+
+**1. Hard reject (HTTP 400) - must be fixed on the client side:**
+
+| Trigger | Reason | Fix |
+|---------|--------|-----|
+| `tags` field in payload | Not part of the OpenAI Chat Completions standard; folkloric Hermes convention; anchor `#reject-tags` | Use `metadata` (OpenAI standard) or `user` for tracking |
+| Schema depth > 16 in `tools[].function.parameters` | CVE-driven cap | Flatten the schema; PR [#1187](https://github.com/gonka-ai/gonka/pull/1187) raised this from 5 to 16 |
+| Schema nodes > 256 (total count) | CVE-driven cap | Reduce schema size; PR #1195 raised this from 128 to 256. NB: some MCP tools with large input schemas, for example `notionAppendBlockChildren` from Notion MCP at ~600+ nodes, are guaranteed to hit the limit |
+
+**2. Silent coerce/strip - the request does not fail, but behavior changes:**
+
+| Trigger | What the gateway does | Notes |
+|---------|------------------------|-------|
+| `tool_choice: "required"` | Silently coerces to `"auto"` (network policy) | Anchor `#coerce-tool-choice-required`. In most obvious tool-relevant prompts, the model still makes a tool_call, but there is no "required" guarantee |
+| `tools[].function.strict: true` | Silently strips the field | vLLM parsers (`hermes`, `kimi_k2`) ignore this flag. PR [#1193](https://github.com/gonka-ai/gonka/pull/1193) |
+
+Compatibility matrix for known clients: [`docs/chat-api/agents.md`](https://github.com/gonka-ai/gonka/blob/main/docs/chat-api/agents.md). Basic working tool-calling example: [Developer Quickstart §1.4](https://gonka.ai/developer/quickstart/#4-tool-calling).
+
+**For Inference User:**
+
+- **Reproduce with the same curl that Kilo Code generates** (through the client debug log or an intermediate proxy). In the body of the 400, the gateway usually names the rejected field. The broker may mask the message as generic "upstream rejected", but the specific problematic field is usually just one field.
+- **Compare against the lists in `agents.md` and `troubleshooting.md`**. Most 400s fall into one of the documented reject anchors (`#reject-tags`, `#reject-enforced_tokens`, `#reject-structured_outputs-kimi`, etc.).
+- **If the rejected field is not documented**, open an issue in [gonka-ai/gonka](https://github.com/gonka-ai/gonka) with the captured request. This is useful feedback.
+
+**For Broker:**
+
+- This pattern appears across many customers. Keep `agents.md` clearly linked from your dashboard.
+- If you see a new client serializing a non-standard field, open an issue or PR yourself. This improves the ecosystem for all brokers.
+
+### Agents like Hermes and OpenClaw fail to complete tool tasks on Kimi. Why?
+
+**A combination of three factors**. 
+
+1. **Kimi thinking consumes budget** (see "Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?"/"With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?"). With default settings, half of `max_tokens` goes into `<think>` before the model starts emitting a tool_call. For tool-heavy agentic flows, this often means the budget ends before useful output.
+2. **The 4,096 output cap is tight for tool-heavy outputs** (see "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?"). Large `arguments` JSON blobs plus additional visible content can easily hit the ceiling.
+3. **Upstream vLLM tool-parser bugs** (see "Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?"): duplicate `tool_calls[].id` collisions when `n>1` ([vLLM PR #21259](https://github.com/vllm-project/vllm/pull/21259)) and hermes parser `JSONDecodeError` on multiple tool blocks ([vLLM #17790](https://github.com/vllm-project/vllm/issues/17790)).
+
+Builder pain point linked to the same problem: [issue #1229](https://github.com/gonka-ai/gonka/issues/1229), "Agentic coding workflows stress the gateway layer much more heavily: long reasoning; tool-call compatibility; continuation after output limits".
+
+**For Inference User:**
+
+- **For Kimi, always use: `"thinking": {"type": "disabled"}` + `"max_tokens": 4096`** (or explicit `thinking_token_budget: 0`; see "With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?" for belt and suspenders). This frees the whole cap for tool-heavy output. Empirically, with this combination, Kimi can easily emit 5 parallel tool_calls in a single response in ~4 seconds.
+- **If you control `tool_call.id` on the client side**, rewrite it into the canonical format `functions.<name>:<global_idx>` (see "Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?") to avoid gateway duplicate-id rejects.
+- **If you control the schema**, keep depth <= 16 and nodes <= 256 (see "Why can't the model use tools properly within Kilo Code?"). MCP tools with large input schemas may not pass.
+
+**For Broker:**
+
+- Combine cap bump ("The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?": per-model `request_max_tokens_cap` through `/v1/admin/settings`) with the recommendations above. This covers the main class of agent failures on your gateway.
+
+### OpenCode cannot apply requested code changes (cuts off mid-sentence). What is causing this?
+
+**Three causes. The client can work around two of them; one cannot be worked around client-side:**
+
+1. **`max_tokens` truncation on large diffs.** Large code patches may not fit into the 4,096 cap (see "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?"). Workaround: split the diff into multiple tool calls. The model is more likely to fit into budget for each separate call.
+2. **vLLM crashes on edge-case params.** A series of 8 merged PRs ([#1170](https://github.com/gonka-ai/gonka/pull/1170), [#1171](https://github.com/gonka-ai/gonka/pull/1171), [#1172](https://github.com/gonka-ai/gonka/pull/1172), [#1174](https://github.com/gonka-ai/gonka/pull/1174), [#1180](https://github.com/gonka-ai/gonka/pull/1180), [#1212](https://github.com/gonka-ai/gonka/pull/1212), [#1215](https://github.com/gonka-ai/gonka/pull/1215), [#1216](https://github.com/gonka-ai/gonka/pull/1216)) added hardening against fields that crashed the engine. On a fresh gateway (>= devshard 0.2.13), most known crash scenarios are now caught by validators and return 400 instead of crashing.
+3. **Host stream drops after receipt** (open issue: `devshard/docs/known-issues.md` §1). The host accepted the request, but does not return chunks. This is a network-level issue with no client workaround other than retrying.
+
+**For Inference User:**
+
+- **For Kimi:** `"thinking": {"type": "disabled"}` + `"max_tokens": 4096`. For large diffs, split into multiple tool calls.
+- **Long-term:** see "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?" on broker caps and "Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?" on canonical tool-call id format.
+
+**For Broker:** document the "split big diffs" pattern in your customer FAQ for coding-agent clients.
+
+### Is there a model that handles both input and output without trade-offs?
+
+**MiniMax-M2.7** is the on-roadmap model that should close both gaps (large input + tool-friendly output). Progress:
+
+- **Draft PR [#1226](https://github.com/gonka-ai/gonka/pull/1226)**: per-model dispatch + tool-message shape + reasoning_split (4,219 / -730 LOC, May 2026). Currently DRAFT.
+- **PR #1163 Weight Scaling** is already merged (2026-05-13): on-chain scaling factor for MiniMax is already prepared (it will bring it to Kimi's level).
+- **Draft PR [#1148] Multi-model scheduling GIP**: general infrastructure.
+
+**Model facts (verified):**
+
+| Model | Native context | Mainnet deployed | Native thinking | Available on mainnet today |
+|-------|----------------|------------------|-----------------|-----------------------------|
+| Kimi-K2.6 | 256K | 240K | yes | ✅ |
+| Qwen3-235B-A22B-Instruct-2507-FP8 | 128K | 240K | no (Instruct variant) | ✅ |
+| MiniMax-M2.7 | planned | planned | yes (split parser) | ❌ (draft PR) |
+
+**For Inference User:** Follow [#1226](https://github.com/gonka-ai/gonka/pull/1226). When a broker rolls out MiniMax, you will see it in the `/v1/models` response. Until then, choose by workload: Kimi for reasoning + tools, Qwen3 for large context + structured outputs.
+
+**For Broker:** Prepare your gateway for MiniMax in advance and comment on [#1226](https://github.com/gonka-ai/gonka/pull/1226) with your deploy feedback. Deploy args (per draft PR): `--max-num-batched-tokens 65536 --enable-auto-tool-choice --tool-call-parser minimax_m2 --reasoning-parser minimax_m2_append_think`. Re-check exact values closer to merge.
+
+### Why is there no working web search available?
+
+**By design, Gonka is an inference network**, not an agent framework. Plugin/web execution belongs in the client agent layer or in broker value-add services, not in the inference path.
+
+**Specifically:** if you send `plugins: [...]` in a request (OpenRouter convention), the gateway silently removes it (`docs/chat-api/troubleshooting.md#strip-plugins`). vLLM has no plugin execution path, and silently passing this field through would imply a backend capability that does not exist.
+
+**For Inference User:** Run search in your agent layer (LangChain, LlamaIndex, your own wrapper), then inject results into `messages[].content` before calling `/v1/chat/completions`. This is the standard pattern for all OpenAI-compatible endpoints.
+
+**For Broker:** This is an opportunity for differentiation. Broker-level value-add ("we perform search and inject results into messages") is a legitimate product. Implement it fully above Gonka, without protocol changes. If you want to propose it as a standard, open an ecosystem Discussion in [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/discussions).
+
+### When will reliable web fetching be supported?
+
+**By design, it is not on [the Gonka roadmap](https://github.com/gonka-ai/gonka/discussions/1185).** The right place is a sidecar or value-add at the broker layer.
+
+**For Inference User:** Build or buy a fetch service, normalize into text, and send through an OpenAI-compatible call. There are enough off-the-shelf solutions.
+
+**For Broker:** If you want to offer this as a tier, open an ecosystem Discussion in [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/discussions), so the community can converge on common conventions, for example, a sidecar that everyone deploys consistently.
+
+### Context7 docs research: summary fails. Is this the output token limit?
+
+**Yes, this is the same blocker as in "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?".** The 4,096 output cap is tight for "tool result body + full summary in one response". If thinking is enabled, half goes there too (see "Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?"/"With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?").
+
+**Workaround today:**
+
+- **Kimi:** `"thinking": {"type": "disabled"}` + `"max_tokens": 4096` + `response_format` with an explicit summary schema. This compresses output into the required shape and guarantees a structured summary within budget.
+- **If the summary is genuinely long:** split into N+1 calls: 1 for fetch + plan, N for section drafts. Stitch results together on the client side.
+
+**For Broker:** Encourage clients to use `response_format`. This is the simplest mitigation until cap bump (Q3) is implemented. Consider a per-customer cap-bump option (more expensive) once per-model `request_max_tokens_cap` is part of your admin configuration.
+
+### Gonka has no KV cache. When will caching be added?
+
+**vLLM prefix KV cache works on each ML node.** Gateway-level `prompt_cache_key` / `cache_key` are currently silently stripped. This is a **temporary** limitation blocked by an unmerged upstream vLLM PR.
+
+**Current state:**
+
+- **Gateway behavior:** `prompt_cache_key` (OpenAI standard) and `cache_key` (Moonshot Kimi convention) are silently stripped. Neither reaches vLLM. Anchors: `docs/chat-api/troubleshooting.md#strip-prompt_cache_key` and `#strip-cache_key`.
+- **Upstream blocker:** vLLM uses the `cache_salt` field for prompt-cache isolation (RFC #16016, PR #17045). Aliasing `prompt_cache_key` to `cache_salt` is an open issue [vLLM #33264](https://github.com/vllm-project/vllm/issues/33264), open since January 2026, with no merged PR.
+- **Security rationale:** simply forwarding `cache_key` without isolation would be unsafe. There are [published prompt-cache timing side-channel attacks (arxiv 2502.07776 PROMPTPEEK)](https://arxiv.org/abs/2502.07776). The gateway cannot implement false cache-isolation guarantees.
+- **80-90% hit rate is not a Gonka claim.** It is either a misinterpretation of someone's marketing material or confusion with OpenAI/Anthropic native cache, which guarantees sticky routing inside a single provider.
+
+**Important architectural caveat:** even when vLLM #33264 is merged and the gateway adds a hash to `cache_salt` bridge, the cache remains **per-vLLM-instance**. Gonka multi-host routing means two requests with the same `cache_key` can land on different hosts with different prefix caches. Without sticky routing, which does not currently exist, guaranteeing an OpenAI-style ~80% hit rate is architecturally hard.
+
+**For Inference User:** Today there is nothing to do. `prompt_cache_key` and `cache_key` are no-ops. Do not rely on these fields for cost optimization.
+
+**For Broker:** No gateway-side change is needed until vLLM #33264 is merged. If you want to accelerate this, comment on or contribute to that upstream issue. After merge, the Gonka gateway will add a bridge exposing both fields together.
+
+### When will image input be enabled for Kimi on the Gonka gateway?
+
+This is an active area of work, but there is no committed timeline yet.
+
+**Hard blockers today:**
+
+1. **Multimodal-specific special-token sanitizer** (CVE-2026-44222). The Kimi-K2.6 chat template accepts `image_url` / `video_url` content parts, but the gateway currently validates only text. Multimodal payloads have an additional attack surface for special-token injection (through alt text, image URLs, metadata, and anything that reaches the tokenizer). Documented in `docs/chat-api/kimi-k2.6.md:21`. PR #1184 covers the text case (postponed as not critical there), but a separate multimodal sanitizer is still needed.
+2. **Independent VLM validation review.** Validation methodology for image inputs needs independent confirmation. Issue [#1026](https://github.com/gonka-ai/gonka/issues/1026) (initial research: Qwen2-VL-2B F1=100% intermediate) + [#1198](https://github.com/gonka-ai/gonka/issues/1198) (re-validate, up-for-grabs).
+
+**Public ballpark:** v0.2.14+  
+
+**What is empirically confirmed today:** a request with a `messages[0].content` array containing `{type:"image_url"}` returns HTTP 400 on both routes (Kimi and Qwen3). Multimodal inputs are not accepted at the gateway level.
+
+**For Inference User:** Not available today.
+
+**For Broker:** Three ways to accelerate this:
+1. Take issue [#1198](https://github.com/gonka-ai/gonka/issues/1198) (up-for-grabs). 
+2. Review PR [#1150 "vlm benchmark"](https://github.com/gonka-ai/gonka/pull/1150).
+3. When Phase 1-3 of the plan become feasible, prepare your gateway capability registry (Phase 3). Operator config will determine which content types your broker accepts.

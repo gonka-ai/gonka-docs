@@ -1620,13 +1620,13 @@ At the gateway level, the following rules apply (all in `devshard-0.2.13`):
 
 - Re-test against a broker with gateway >= 0.2.13 (release dated 2026-05-23 or later).
 - If you still see zero tokens, capture the `id` from the response (`devshard-XXXX-YYY`) and send it to your broker.
-- **Do not rely only on `thinking:disabled`:** to guarantee that thinking is disabled, send `thinking_token_budget: 0` explicitly (see "With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?").
+- **Do not rely only on `thinking:disabled`:** to guarantee that thinking is disabled, send `thinking_token_budget: 0` explicitly (see "[With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?](https://gonka.ai/docs/FAQ/#with-kimi-k2-the-entire-token-limit-can-be-spent-on-thinking-with-no-actual-output-is-this-an-output-cap-bandwidth-or-upstream-issue)").
 
 **For Broker:** make sure your gateway image includes PR [#1202](https://github.com/gonka-ai/gonka/pull/1202), [#1224](https://github.com/gonka-ai/gonka/pull/1224), and [#1227](https://github.com/gonka-ai/gonka/pull/1227), meaning >= `devshard-0.2.13`. Without them, the only workaround is to patch on the client side: inject `thinking_token_budget = max_tokens / 2` for Kimi and reject `max_tokens < 16`.
 
 ### With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?
 
-**Same root cause as in "Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?":** model-side reasoning split (`<think>` and visible content share `max_tokens`), not bandwidth and not an output cap. There are two escape hatches, both available in production:
+**Same root cause as in "[Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?](https://gonka.ai/docs/FAQ/#why-does-the-4096-output-token-limit-cause-the-model-to-stall-entirely-during-thinking-returning-zero-tokens-even-on-moderately-sized-requests)":** model-side reasoning split (`<think>` and visible content share `max_tokens`), not bandwidth and not an output cap. There are two escape hatches, both available in production:
 
 1. **`thinking: {"type": "disabled"}`**: the gateway mirrors this into `chat_template_kwargs.thinking=false` (the Kimi chat template reads this kwarg) and removes the top-level `thinking`. `"adaptive"` and `"auto"` are also accepted (Claude Code CLI / Anthropic SDK preset, PR [#1224](https://github.com/gonka-ai/gonka/pull/1224)). Both resolve to `enabled`.
 2. **`thinking_token_budget: 0`**: explicit zero is passed directly into vLLM as a generation parameter and reliably zeroes out the thinking budget.
@@ -1648,7 +1648,7 @@ Half of the default budget gets spent on hidden thinking even for a trivial task
 - For complex reasoning, set `thinking_token_budget` explicitly. Do not rely on the default `max_tokens / 2`.
 - If `thinking:disabled` still causes budget burn on your prompt, also send `thinking_token_budget: 0` explicitly.
 
-**For Broker:** see "Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?". Pin to a build with PR [#1202](https://github.com/gonka-ai/gonka/pull/1202)/[#1224](https://github.com/gonka-ai/gonka/pull/1224)/[#1227](https://github.com/gonka-ai/gonka/pull/1227) (>= `devshard-0.2.13`). On the landing page, mention that Kimi for tool-heavy work requires either `thinking:disabled`, an explicit `thinking_token_budget`, or a large `max_tokens`.
+**For Broker:** see "[Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?](https://gonka.ai/docs/FAQ/#why-does-the-4096-output-token-limit-cause-the-model-to-stall-entirely-during-thinking-returning-zero-tokens-even-on-moderately-sized-requests)". Pin to a build with PR [#1202](https://github.com/gonka-ai/gonka/pull/1202)/[#1224](https://github.com/gonka-ai/gonka/pull/1224)/[#1227](https://github.com/gonka-ai/gonka/pull/1227) (>= `devshard-0.2.13`). On the landing page, mention that Kimi for tool-heavy work requires either `thinking:disabled`, an explicit `thinking_token_budget`, or a large `max_tokens`.
 
 ### The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?
 
@@ -1719,7 +1719,7 @@ Related: [issue #1229](https://github.com/gonka-ai/gonka/issues/1229) (OPEN, May
 - **Rewrite `tool_call.id` on the client side** before sending subsequent messages into the canonical format `functions.<name>:<global_idx>`. This is Moonshot's official recommendation, repeated in `docs/chat-api/troubleshooting.md#reject-duplicate-tool-call-id`. Alternative: fresh UUIDs.
 - **Do not deduplicate by id.** Two calls with the same ID can contain different real results. Dropping them means dropping agent work.
 - **Raise `max_tokens`** for assistant responses that contain tool calls. Large `arguments` JSON blobs quickly hit the cap.
-- **Generic broker error "upstream model provider rejected" usually means a gateway-side reject**, not the model. Check the message and IDs for duplicates first, then suspect the model. Same UX gap as in "Agents like Hermes and OpenClaw with 30k+ system prompts fail on Kimi. Why?".
+- **Generic broker error "upstream model provider rejected" usually means a gateway-side reject**, not the model. Check the message and IDs for duplicates first, then suspect the model. Same UX gap as in ["Agents like Hermes and OpenClaw with 30k+ system prompts fail on Kimi. Why?"](https://gonka.ai/docs/FAQ/#agents-like-hermes-and-openclaw-with-30k-system-prompts-fail-on-kimi-why).
 
 **For Broker:**
 
@@ -1834,34 +1834,34 @@ Compatibility matrix for known clients: [`docs/chat-api/agents.md`](https://gith
 
 **A combination of three factors**. 
 
-1. **Kimi thinking consumes budget** (see "Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?"/"With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?"). With default settings, half of `max_tokens` goes into `<think>` before the model starts emitting a tool_call. For tool-heavy agentic flows, this often means the budget ends before useful output.
-2. **The 4,096 output cap is tight for tool-heavy outputs** (see "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?"). Large `arguments` JSON blobs plus additional visible content can easily hit the ceiling.
-3. **Upstream vLLM tool-parser bugs** (see "Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?"): duplicate `tool_calls[].id` collisions when `n>1` ([vLLM PR #21259](https://github.com/vllm-project/vllm/pull/21259)) and hermes parser `JSONDecodeError` on multiple tool blocks ([vLLM #17790](https://github.com/vllm-project/vllm/issues/17790)).
+1. **Kimi thinking consumes budget** (see "[Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?](https://gonka.ai/docs/FAQ/#why-does-the-4096-output-token-limit-cause-the-model-to-stall-entirely-during-thinking-returning-zero-tokens-even-on-moderately-sized-requests)"/"[With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?](https://gonka.ai/docs/FAQ/#with-kimi-k2-the-entire-token-limit-can-be-spent-on-thinking-with-no-actual-output-is-this-an-output-cap-bandwidth-or-upstream-issue)"). With default settings, half of `max_tokens` goes into `<think>` before the model starts emitting a tool_call. For tool-heavy agentic flows, this often means the budget ends before useful output.
+2. **The 4,096 output cap is tight for tool-heavy outputs** (see "[The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?](https://gonka.ai/docs/FAQ/#the-input-token-cap-for-kimi-is-4k-tokens-and-the-output-cap-is-8192-tokens-when-will-these-limits-be-raised)"). Large `arguments` JSON blobs plus additional visible content can easily hit the ceiling.
+3. **Upstream vLLM tool-parser bugs** (see ["Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?"](https://gonka.ai/docs/FAQ/#why-does-kimi-generate-malformed-json-for-tool-calls-when-output-exceeds-4k-8k-tokens)): duplicate `tool_calls[].id` collisions when `n>1` ([vLLM PR #21259](https://github.com/vllm-project/vllm/pull/21259)) and hermes parser `JSONDecodeError` on multiple tool blocks ([vLLM #17790](https://github.com/vllm-project/vllm/issues/17790)).
 
 Builder pain point linked to the same problem: [issue #1229](https://github.com/gonka-ai/gonka/issues/1229), "Agentic coding workflows stress the gateway layer much more heavily: long reasoning; tool-call compatibility; continuation after output limits".
 
 **For Inference User:**
 
-- **For Kimi, always use: `"thinking": {"type": "disabled"}` + `"max_tokens": 4096`** (or explicit `thinking_token_budget: 0`; see "With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?" for belt and suspenders). This frees the whole cap for tool-heavy output. Empirically, with this combination, Kimi can easily emit 5 parallel tool_calls in a single response in ~4 seconds.
-- **If you control `tool_call.id` on the client side**, rewrite it into the canonical format `functions.<name>:<global_idx>` (see "Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?") to avoid gateway duplicate-id rejects.
-- **If you control the schema**, keep depth <= 16 and nodes <= 256 (see "Why can't the model use tools properly within Kilo Code?"). MCP tools with large input schemas may not pass.
+- **For Kimi, always use: `"thinking": {"type": "disabled"}` + `"max_tokens": 4096`** (or explicit `thinking_token_budget: 0`; see "[With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?](https://gonka.ai/docs/FAQ/#with-kimi-k2-the-entire-token-limit-can-be-spent-on-thinking-with-no-actual-output-is-this-an-output-cap-bandwidth-or-upstream-issue)" for belt and suspenders). This frees the whole cap for tool-heavy output. Empirically, with this combination, Kimi can easily emit 5 parallel tool_calls in a single response in ~4 seconds.
+- **If you control `tool_call.id` on the client side**, rewrite it into the canonical format `functions.<name>:<global_idx>` (see ["Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?"](https://gonka.ai/docs/FAQ/#why-does-kimi-generate-malformed-json-for-tool-calls-when-output-exceeds-4k-8k-tokens)) to avoid gateway duplicate-id rejects.
+- **If you control the schema**, keep depth <= 16 and nodes <= 256 (see ["Why can't the model use tools properly within Kilo Code?"](https://gonka.ai/docs/FAQ/#why-cant-the-model-use-tools-properly-within-kilo-code)). MCP tools with large input schemas may not pass.
 
 **For Broker:**
 
-- Combine cap bump ("The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?": per-model `request_max_tokens_cap` through `/v1/admin/settings`) with the recommendations above. This covers the main class of agent failures on your gateway.
+- Combine cap bump ("[The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?](https://gonka.ai/docs/FAQ/#the-input-token-cap-for-kimi-is-4k-tokens-and-the-output-cap-is-8192-tokens-when-will-these-limits-be-raised)": per-model `request_max_tokens_cap` through `/v1/admin/settings`) with the recommendations above. This covers the main class of agent failures on your gateway.
 
 ### OpenCode cannot apply requested code changes (cuts off mid-sentence). What is causing this?
 
 **Three causes. The client can work around two of them; one cannot be worked around client-side:**
 
-1. **`max_tokens` truncation on large diffs.** Large code patches may not fit into the 4,096 cap (see "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?"). Workaround: split the diff into multiple tool calls. The model is more likely to fit into budget for each separate call.
+1. **`max_tokens` truncation on large diffs.** Large code patches may not fit into the 4,096 cap (see "[The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?](https://gonka.ai/docs/FAQ/#the-input-token-cap-for-kimi-is-4k-tokens-and-the-output-cap-is-8192-tokens-when-will-these-limits-be-raised)"). Workaround: split the diff into multiple tool calls. The model is more likely to fit into budget for each separate call.
 2. **vLLM crashes on edge-case params.** A series of 8 merged PRs ([#1170](https://github.com/gonka-ai/gonka/pull/1170), [#1171](https://github.com/gonka-ai/gonka/pull/1171), [#1172](https://github.com/gonka-ai/gonka/pull/1172), [#1174](https://github.com/gonka-ai/gonka/pull/1174), [#1180](https://github.com/gonka-ai/gonka/pull/1180), [#1212](https://github.com/gonka-ai/gonka/pull/1212), [#1215](https://github.com/gonka-ai/gonka/pull/1215), [#1216](https://github.com/gonka-ai/gonka/pull/1216)) added hardening against fields that crashed the engine. On a fresh gateway (>= devshard 0.2.13), most known crash scenarios are now caught by validators and return 400 instead of crashing.
 3. **Host stream drops after receipt** (open issue: `devshard/docs/known-issues.md` §1). The host accepted the request, but does not return chunks. This is a network-level issue with no client workaround other than retrying.
 
 **For Inference User:**
 
 - **For Kimi:** `"thinking": {"type": "disabled"}` + `"max_tokens": 4096`. For large diffs, split into multiple tool calls.
-- **Long-term:** see "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?" on broker caps and "Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?" on canonical tool-call id format.
+- **Long-term:** see "[The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?](https://gonka.ai/docs/FAQ/#the-input-token-cap-for-kimi-is-4k-tokens-and-the-output-cap-is-8192-tokens-when-will-these-limits-be-raised)" on broker caps and ["Why does Kimi generate malformed JSON for tool calls when output exceeds 4k-8k tokens?"](https://gonka.ai/docs/FAQ/#why-does-kimi-generate-malformed-json-for-tool-calls-when-output-exceeds-4k-8k-tokens) on canonical tool-call id format.
 
 **For Broker:** document the "split big diffs" pattern in your customer FAQ for coding-agent clients.
 
@@ -1905,7 +1905,7 @@ Builder pain point linked to the same problem: [issue #1229](https://github.com/
 
 ### Context7 docs research: summary fails. Is this the output token limit?
 
-**Yes, this is the same blocker as in "The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?".** The 4,096 output cap is tight for "tool result body + full summary in one response". If thinking is enabled, half goes there too (see "Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?"/"With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?").
+**Yes, this is the same blocker as in "[The input token cap for Kimi is 4k tokens, and the output cap is 8,192 tokens. When will these limits be raised?](https://gonka.ai/docs/FAQ/#the-input-token-cap-for-kimi-is-4k-tokens-and-the-output-cap-is-8192-tokens-when-will-these-limits-be-raised)".** The 4,096 output cap is tight for "tool result body + full summary in one response". If thinking is enabled, half goes there too (see "[Why does the 4,096 output token limit cause the model to stall during thinking, returning zero tokens?](https://gonka.ai/docs/FAQ/#why-does-the-4096-output-token-limit-cause-the-model-to-stall-entirely-during-thinking-returning-zero-tokens-even-on-moderately-sized-requests)"/"[With Kimi K2, the entire token limit can be spent on thinking with no actual output. Is this an output cap, bandwidth, or upstream issue?](https://gonka.ai/docs/FAQ/#with-kimi-k2-the-entire-token-limit-can-be-spent-on-thinking-with-no-actual-output-is-this-an-output-cap-bandwidth-or-upstream-issue)").
 
 **Workaround today:**
 

@@ -50,16 +50,16 @@ The bootstrap of MiniMax-M2.7 can follow these main scenarios:
 
     - Everyone who submitted `PoCIntent` keeps their full weight (no punishment)
     - Everyone who submitted `PoCDelegation` / `PoCRefusal` keeps their full weight (no punishment)
-    - **Before epoch `271`**: everyone who submitted nothing also keeps their full weight (punishment is suppressed during the grace period)
-    - **From epoch `271` onwards**: everyone who submitted nothing loses 15% of their weight per epoch per missed model
+    - **Before epoch `278`**: everyone who submitted nothing also keeps their full weight (punishment is suppressed during the grace period)
+    - **From epoch `278` onwards**: everyone who submitted nothing loses 15% of their weight per epoch per missed model
 
-    => it is important to explicitly send a transaction with your intended behavior **before epoch `271`**
+    => it is important to explicitly send a transaction with your intended behavior **before epoch `278`**
 
 2. **MiniMax passes pre-evaluation but does not become eligible at PoC** (e.g., an INTENT host fails to deploy in time):
 
     - Hosts that actually deployed MiniMax-M2.7 and submitted MiniMax PoC commits during this epoch keep their full weight from their existing model groups (no punishment)
     - Everyone who submitted `PoCDelegation` / `PoCRefusal` keeps their full weight (no punishment)
-    - **From epoch `271` onwards**: everyone who submitted nothing loses 15% of their weight, and everyone who submitted `PoCIntent` for MiniMax but did not deploy and submit MiniMax PoC commits also loses 15% (`IntentMissed` resolution)
+    - **From epoch `278` onwards**: everyone who submitted nothing loses 15% of their weight, and everyone who submitted `PoCIntent` for MiniMax but did not deploy and submit MiniMax PoC commits also loses 15% (`IntentMissed` resolution)
 
 
 If MiniMax passes both checks, punishment follows the usual scenarios described in [Multi-Model PoC](./multi_model_poc.md).

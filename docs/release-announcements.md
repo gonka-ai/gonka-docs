@@ -8,6 +8,273 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 25, 2026 
+
+**Upgrade v0.2.13: pre-download binaries and MiniMax-M2.7 weights**
+
+The v0.2.13 upgrade proposal (proposal id  (https://github.com/gonka-ai/gonka/pull/1143)54) has passed on-chain governance and the upgrade is now scheduled.
+
+• Upgrade height: 4267300
+• Estimated upgrade time: May 26, 2026, 14:42 UTC (07:42 PDT)
+
+Pre-downloading binaries and weights in advance helps avoid relying on GitHub / Hugging Face availability during the upgrade window.
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.13/bin \
+              .inference/cosmovisor/upgrades/v0.2.13/bin && \
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.13/decentralized-api-amd64.zip" && \
+echo "cf31fa4d715e721d1e17b7e2b46d628a0b66b6ef603d352d587abe1d57c40925 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.13/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.13/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.13/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.13/inferenced-amd64.zip" && \
+echo "ea7dea6c4e8d96ed61005bed196768cc9f44e5fb17f0714cb64d1d00a485be0c inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.13/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.13/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.13/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.13/bin/inferenced && \
+echo "f93d579ef9c46ade9f28c73c339df2f7ae73607115b7efeb849316984924f68d .dapi/cosmovisor/upgrades/v0.2.13/bin/decentralized-api" | sudo sha256sum --check && \
+echo "e52b86c4f64a47f0ea9bdb3327feb321b8a4208a76b35d52a7e9ddd1b9d6eed5 .inference/cosmovisor/upgrades/v0.2.13/bin/inferenced" | sudo sha256sum --check
+```
+
+
+## May 22, 2026
+
+**v0.2.13 voting concluded — preparing for upgrade at height 4267300** 
+
+The on-chain governance vote for [Upgrade Proposal v0.2.13](https://github.com/gonka-ai/gonka/pull/1143) (proposal id `54`) has concluded. The proposal has been **APPROVED**.
+
+The upgrade will execute automatically on mainnet at **block height 4267300** (≈ **Tue May 26, 14:42 UTC** / **07:42 PDT**).
+
+**Reminders**
+
+1. Make sure your bridge container is up to date and synced. The Ethereum mainnet bridge contract (`0x972a7a92d92796a98801a8818bcf91f1648f2f68`), USDC/USDT token metadata, and CW20 `wrapped_token` code id `105` are registered through the upgrade handler itself, so the bridge becomes active on mainnet at the upgrade height. Verification instructions: [https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026).
+2. If you plan to serve `MiniMaxAI/MiniMax-M2.7`, pre-download the ~230 GB of FP8 weights now. Hugging Face rate limits and bandwidth saturation during the bootstrap window might lead to missing the first eligibility check.
+3. Right after the upgrade lands, every host will need to declare a participation mode for **each** governance-approved model — `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, `moonshotai/Kimi-K2.6`, and `MiniMaxAI/MiniMax-M2.7`. Hosts who only run one or two of those models still need DELEGATE or REFUSE for the others. The MiniMax deadline is **chain epoch `278`** (≈ **Fri May 29, 2026 UTC** — late Thu May 28 PDT). Hosts who do nothing take a 15% per-epoch penalty against their full weight from epoch 278 onward.
+4. Plan to be online during the upgrade window so any follow-up steps or mitigation instructions can be applied promptly. Make sure `.inference/data` has sufficient free space for the cosmovisor state backup; if `application.db` is large, consider applying [the cleanup techniques](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) from the cosmovisor backup guide before the upgrade.
+5. The v0.2.13 calibration adjusts the Kimi K2.6 `WeightScaleFactor` from `1.26` to `0.78` to reflect the post-vLLM-0.20.1 throughput baseline of the Qwen-on-B200 reference. The adjustment applies **only to the Kimi-derived part of your consensus weight**; your Qwen-derived weight and Kimi internal PoC distribution are unchanged. On B200/B300 Kimi remains the highest-paying option; on H100/H200, MiniMax-M2.7 becomes a comparable-to-Qwen, higher-than-Kimi option.
+
+- Proposal: [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+- Migration logic: [`upgrades.go`](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.13/inference-chain/app/upgrades/v0_2_13/upgrades.go)
+
+## May 20, 2026
+
+**v0.2.13 Upgrade Proposal Enters Governance**
+
+[The v0.2.13 proposal](https://github.com/gonka-ai/gonka/pull/1143) is back on-chain and open for voting. This is a renewed vote on the proposal that was published earlier but did not pass, now resubmitted with several updates.
+
+- Includes: Recalibrated weights for Kimi (`0.78`), new model `MiniMaxAI/MiniMax-M2.7`, validation thresholds update, devshard storage rework, plus several PoC/reward fixes.
+- Activates the Ethereum bridge on mainnet (see dedicated section below).
+- The proposal extends the post-upgrade grace window to 3000 blocks so hosts are not penalized while the new snapshot logic stabilizes.
+- Governance: reduces genesis-guardian voting power to ~25% and sets the chain-wide quorum to 0.25. If guardians abstain, non-guardians need roughly ⅓ turnout among the remaining 75% to satisfy quorum (see inference-chain section).
+- Required preparation: bridge container check, MiniMax decision, dashboard update, cast vote.
+- Nothing on chain changes until and unless the proposal is approved.
+
+The PR: [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+
+**Key changes**
+
+**Models**
+
+- Adds `MiniMaxAI/MiniMax-M2.7` as a governance-approved model and PoC model.
+- Updates inference validation thresholds:
+    - Qwen 235B: `0.940`
+    - Kimi K2.6: `0.900`
+    - MiniMax-M2.7: `0.922`
+- Recalibrates `WeightScaleFactor` values against the Qwen-on-B200 reference after the vLLM 0.20.1 release:
+    - Qwen 235B: `0.359` (unchanged)
+    - Kimi K2.6: `0.78` (down from 1.26, roughly a 38% reduction in per-epoch consensus weight from Kimi at the same PoC weight)
+    - MiniMax-M2.7: `0.3024`
+
+Reference data: [https://docs.google.com/spreadsheets/d/1dHHlbhW1_hVgd7Q6MtmcVSOpmnl7NnynoTzPHJ1oU-g/edit?gid=0#gid=0](https://docs.google.com/spreadsheets/d/1dHHlbhW1_hVgd7Q6MtmcVSOpmnl7NnynoTzPHJ1oU-g/edit?gid=0#gid=0)
+
+**inference-chain**
+
+- Raises the devshard nonce limit from `20_000` to `1_000_000`.
+- Raises the max devshards per epoch from `100` to `500_000`.
+- Fixes confirmation PoC reward accounting during new-model bootstrap.
+- Disables confirmation PoC for the rest of the upgrade epoch so the new snapshot logic starts cleanly from the next epoch.
+- Resets `ConsecutiveInvalidInferences` when a participant becomes active again.
+- Backfills missing `MsgRespondDealerComplaints` authz grants for DAPIs that joined before v0.2.12.
+- Fixes a wiring issue that could cause intermittent permission errors in bridge and liquidity-pool contract calls.
+- Reduces genesis guardian adjusted voting power to about 25% and sets the chain-wide governance quorum to `0.25`. With guardians not voting, this gives an effective 1/3 quorum among the remaining 75% of voting power (`0.25 / 0.75 = 0.334`).
+- Add 4 early hosts & brokers to `allowed_creator_addresses`.
+
+**Ethereum bridge mainnet activation**
+
+- Activates Ethereum mainnet bridge setup through the upgrade handler.
+- Registers the Ethereum bridge contract address `0x972a7a92d92796a98801a8818bcf91f1648f2f68`, USDC and USDT token metadata, bridge trading approvals, and CW20 `wrapped_token` code ID `105`.
+- Once activated, the bridge enables cross-chain transfers between Gonka mainnet and Ethereum (including wrapping GNK on Ethereum and bridging USDC/USDT). Wrap/unwrap scripts and operator workflows will be documented separately.
+
+**decentralized-api & devshard**
+
+- Enables `NodeManagerGrpcPort` by default on port `9400`.
+- Adds Postgres support for devshard state.
+- Adds pruning for SQLite and Postgres devshard databases.
+- Adds state snapshots for faster devshard startup and recovery.
+- Fixes OpenAI-compatible API response parsing.
+- Fixes long startup behavior and devshard invalidation flow edge cases.
+
+**Upgrade plan**
+
+If approved, the binary versions would be updated via the on-chain upgrade proposal. For more information on the upgrade process, refer to [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.13/docs/upgrades.md)
+
+**Required actions in preparation for the upgrade**
+
+In case the proposal is approved, the following preparation is recommended.
+
+**`MiniMaxAI/MiniMax-M2.7` participation choice by epoch 278 (penalty starts then)**
+
+For each governance-approved model, multi-model PoC requires every host to explicitly choose participation (DIRECT / DELEGATE / REFUSE). Doing nothing after the model's `PenaltyStartEpoch` would result in a penalty. At this stage, you should decide your preferred option in advance so you are ready to act quickly if the proposal passes and the upgrade is successfully applied on mainnet.   
+
+**Bridge container update / verification**
+
+All hosts are asked to verify that their bridge container is deployed, running the latest version, and synced correctly. Some hosts may already have the bridge container deployed. In that case, please first check that you are running the current version before taking any further action.
+Please follow the instructions: [https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026)
+
+**Dashboard / explorer update (before or after upgrade)**
+
+Hosts are asked to update the dashboard/explorer. Please run the following commands from the `gonka/deploy/join` directory. If you do not have the `gonka` repository cloned locally, follow the join-network guide first. This dashboard update is just a container pull and is safe to run before or after the vote concludes, regardless of the outcome.
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.12 or later.
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 54 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 54 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+- Voting ends: May 22, 2026, 22:12:25 UTC
+- Proposed upgrade height: 4267300
+- Estimated upgrade time: May 26, 2026, 14:42:02 UTC
+- Timeline for operators: voting ends May 22, 22:12 UTC → upgrade height ~May 26 14:42 UTC → rest of the upgrade epoch runs with confirmation PoC skipped (≤ 10000-block grace window) → MiniMax bootstrap snapshot at start_poc − 500 blocks (~43 min before) → first MiniMax PoC stage at the next epoch boundary after the upgrade → MiniMax penalty enforcement at chain epoch 278.
+
+**Attention**
+
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available (the Cosmovisor backup of `application.db` on mainnet is typically tens of GB, so verify in advance). Guidance on safely removing old backups from the `.inference` directory is available in [the documentation.](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described in the cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- The proposal would intentionally skip Confirmation PoC from the upgrade height through the end of the upgrade epoch (10000-block grace window). If approved, this skip is expected and not a malfunction; the new snapshot logic would start from the next epoch.
+- If approved, devshard storage could optionally be backed by a shared Postgres instance after the upgrade (same env vars as payload storage). Local SQLite would remain the default and would prune automatically (last 3 epochs retained).
+- If the proposal fails (quorum not met, or `no_with_veto` exceeds ⅓), nothing on chain changes and the upgrade simply does not occur. Operators may see a `PROPOSAL_FAILED` status; this is expected and does not require action.
+
+## May 18, 2026
+
+The proxy container might limit the amount of parallel connections to devshards globally instead of per client
+
+The PR with fix: [https://github.com/gonka-ai/gonka/pull/1183](https://github.com/gonka-ai/gonka/pull/1183)
+
+To apply the fix, please:
+
+1. Set container version in docker-compose.yml
+```
+...
+  proxy:
+    container_name: proxy
+    image: ghcr.io/product-science/proxy:0.2.12-post5
+...
+```
+
+2. Restart container:
+```
+source config.env && docker compose up -d proxy --force-recreate --no-deps
+```
+
+It's safer to update the container outside the PoC/Confirmation PoC phase. To check if there is a Confirmation PoC:
+```
+curl "https://node3.gonka.ai/v1/epochs/latest" | jq '.is_confirmation_poc_active'
+```
+
+## May 17, 2026
+
+**Epoch #267: PoC Validation Recovered**
+
+PoC validation completed successfully in epoch #267, and affected hosts were able to return to the active set.
+
+The issue in epoch #266 was caused by an attack that affected hosts running the Kimi model. The network continued operating, but the attack, combined with several related conditions, prevented many participants from entering epoch #266.
+
+Inference may be temporarily unavailable while additional protections are applied. Access is expected to return gradually, starting through several community proxy and broker endpoints.
+
+**What happened**
+
+In epoch #266, the network experienced a significant drop in active weight.
+
+The issue has been traced to inference requests with non-standard semantics. This attack vector affected hosts running the Kimi model and disrupted PoC participation for many of them.
+
+In epoch #267, hosts were able to return, and PoC validation completed successfully.
+
+**Inference availability**
+
+Requests using the affected non-standard semantics should no longer be accepted by the network.
+
+While the relevant protections are being applied, inference may be temporarily unavailable. Access is expected to resume gradually, first through several community proxy and broker endpoints.
+
+**Kimi weight in epoch #267**
+
+Kimi’s active weight is lower in epoch #267 because of an existing protocol rule: the total weight of one model cannot exceed 75% of the total weight of all models in the previous epoch.
+
+Since total active weight was significantly lower in epoch #266, this rule also limits Kimi’s weight in epoch #267.
+
+It may take several days for the weight to stabilize as normal PoC participation continues across future epochs.
+
+**Required actions for hosts**
+
+1. Keep your API nodes online and accessible where possible. This helps preserve visibility into host participation and supports any follow-up review.
+2. Monitor PoC participation in the next epochs. Check that your node enters PoC as expected and that active weight is reflected correctly.
+3. Use only supported inference request formats. Do not send or route inference traffic with non-standard request semantics.
+4. Expect temporary inference disruption. Access may not be available everywhere immediately and is expected to return gradually through community proxy and broker endpoints.
+5. Share relevant logs or observations in the community channels or this thread. This is especially important if your host was affected in epoch #266 or behaves unexpectedly in the following epochs.
+
+## May 16, 2026
+
+**Epoch #266: PoC weight drop investigation**
+
+During the current epoch (#266), the network saw a significant drop in active weight.
+It appears that PoC voting did not collect the required votes for this epoch. The exact cause has not yet been confirmed, and the community is actively investigating the situation.
+
+**For affected participants**
+
+If your node did not make it into this epoch, please keep your API nodes online and accessible where possible.
+This may help the Restitution Committee collect evidence of PoC participation and account for affected contributions more accurately.
+
+**Investigation in progress**
+
+Community members are currently reviewing what happened during epoch #266. Updates will be shared once there is more clarity on the root cause.
+If you have relevant observations, logs, hypotheses, or other technical context that could help the investigation, please share them here. 
+
 ## May 15, 2026
 
 **v0.2.13 Upgrade Proposal Enters Governance**

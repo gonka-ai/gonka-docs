@@ -15,4 +15,35 @@ document.addEventListener("DOMContentLoaded", function() {
     sync();
     window.addEventListener("scroll", sync, { passive: true });
   }
+
+  shuffleBrokerList();
 });
+
+// Shuffle the community broker list on the developer quickstart page so no
+// single broker is permanently displayed first. The list is identified by the
+// presence of links to the known broker hostnames, so no markdown change is
+// required when this script ships. New brokers added to the same <ul> in
+// docs/developer/quickstart.md will be shuffled together automatically as long
+// as at least one of the known hostnames is still present.
+//
+// The order is re-randomized on every page load.
+function shuffleBrokerList() {
+  const BROKER_HOST_PATTERN = /(proxy\.gonka\.gg|gonkagate\.com|gate\.joingonka\.ai)/i;
+
+  const targets = new Set();
+  document.querySelectorAll("a[href]").forEach((a) => {
+    if (!BROKER_HOST_PATTERN.test(a.href)) return;
+    const ul = a.closest("ul");
+    if (ul) targets.add(ul);
+  });
+  if (targets.size === 0) return;
+
+  targets.forEach((ul) => {
+    const items = Array.from(ul.children);
+    for (let i = items.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [items[i], items[j]] = [items[j], items[i]];
+    }
+    items.forEach((li) => ul.appendChild(li));
+  });
+}

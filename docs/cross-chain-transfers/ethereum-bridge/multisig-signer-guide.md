@@ -1,4 +1,4 @@
-# Participant Guide: Gonka Ethereum Bridge Multisig (Safe)
+# Multisig signer guide
 
 This guide is for individuals who have been selected to be signers on the Gonka Ethereum Bridge Multisig. 
 

@@ -8,6 +8,328 @@
 
     本页面内容不保证完全覆盖所有信息。有关最新信息（包括治理投票的发起及当前状态），请参考链上数据或查看相关浏览器与仪表盘。
 
+## 2026年5月20日
+
+**v0.2.13 升级提案进入治理投票阶段**
+
+[The v0.2.13 proposal](https://github.com/gonka-ai/gonka/pull/1143) 已重新上链并开放投票。这是此前已发布但未通过的提案的重新提交版本，目前包含了若干更新内容。
+
+- 包含内容：重新校准 Kimi 的权重 (`0.78`)、新增模型 `MiniMaxAI/MiniMax-M2.7`、验证阈值更新、devshard 存储重构，以及多个 PoC / 奖励修复。
+- 在主网上激活 Ethereum bridge（详见下方专门章节）。
+- 提案将升级后的宽限窗口扩展至 3000 个区块，以便新的 snapshot 逻辑稳定期间，host 不会受到惩罚。
+- Governance: 将 genesis-guardian 的投票权降低至约 25%，并将全链 quorum 设置为 0.25。如果 guardian 不投票，则非 guardian 节点需要在剩余 75% 投票权中达到约 1/3 的参与率才能满足 quorum（详见 inference-chain 部分）。
+- 必需准备：检查 bridge 容器、决定是否参与 MiniMax、更新 dashboard、完成投票。
+- 在提案通过之前，链上不会发生任何变化。
+
+PR 地址: [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+
+**关键变更**
+
+**模型**
+
+- 新增 `MiniMaxAI/MiniMax-M2.7` 作为 governance 批准模型及 PoC 模型。
+- 更新 inference 验证阈值：
+    - Qwen 235B: `0.940`
+    - Kimi K2.6: `0.900`
+    - MiniMax-M2.7: `0.922`
+- 基于 vLLM 0.20.1 发布后，以 Qwen-on-B200 为参考重新校准 `WeightScaleFactor` ：
+    - Qwen 235B: `0.359` （无变化）
+    - Kimi K2.6: `0.78` （从 1.26 下调，在相同 PoC 权重下，Kimi 每 epoch 的共识权重大约下降 38%）
+    - MiniMax-M2.7: `0.3024`
+
+参考数据： [https://docs.google.com/spreadsheets/d/1dHHlbhW1_hVgd7Q6MtmcVSOpmnl7NnynoTzPHJ1oU-g/edit?gid=0#gid=0](https://docs.google.com/spreadsheets/d/1dHHlbhW1_hVgd7Q6MtmcVSOpmnl7NnynoTzPHJ1oU-g/edit?gid=0#gid=0)
+
+**inference-chain**
+
+- 将 devshard nonce 限制从 `20_000` 提升至 `1_000_000`。
+- 将每 epoch 最大 devshards 数量从 `100` 提升至 `500_000`。
+- 修复新模型 bootstrap 期间 confirmation PoC 奖励计算问题。
+- 在升级 epoch 剩余时间内禁用 confirmation PoC，使新的 snapshot 逻辑能够从下一个 epoch 干净启动。
+- 当参与者重新变为 active 状态时，重置 `ConsecutiveInvalidInferences`。
+- 为在 v0.2.12 之前加入的 DAPI 回填缺失的 `MsgRespondDealerComplaints` authz 授权。
+- 修复 bridge 与 liquidity-pool 合约调用中可能导致间歇性权限错误的 wiring 问题。
+- 将 genesis guardian 调整后的投票权降低至约 25%，并将全链治理 quorum 设置为 `0.25`。如果 guardian 不参与投票，则剩余 75% 投票权中的有效 quorum 为约 1/3 (`0.25 / 0.75 = 0.334`)。
+- 向 `allowed_creator_addresses`新增 4 个早期 host 与 broker。
+
+**Ethereum bridge 主网激活**
+
+- 通过 upgrade handler 激活 Ethereum 主网 bridge 配置。
+- 注册 Ethereum bridge 合约地址 `0x972a7a92d92796a98801a8818bcf91f1648f2f68`、USDC 与 USDT token metadata、bridge trading approvals，以及 CW20 `wrapped_token` code ID `105`。
+- 活后，bridge 将支持 Gonka 主网与 Ethereum 之间的跨链转账（包括 Ethereum 上的 GNK wrapping，以及 USDC / USDT bridge）。Wrap / unwrap 脚本及 operator 工作流文档将后续单独提供。
+
+**decentralized-api & devshard**
+
+- 默认启用 `NodeManagerGrpcPort` ，端口为 `9400`。
+- 为 devshard state 新增 Postgres 支持。
+- 为 SQLite 与 Postgres devshard 数据库新增 pruning 功能。
+- 新增 state snapshot，用于更快的 devshard 启动与恢复。
+- 修复 OpenAI-compatible API response parsing。
+- 修复长时间启动行为以及 devshard invalidation flow 的边缘情况。
+
+**升级计划**
+
+如果提案通过，binary 版本将通过链上升级提案进行更新。更多升级流程信息请参考 [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.13/docs/upgrades.md)
+
+**升级前需要准备的操作**
+
+如果提案通过，建议提前完成以下准备。
+
+**`MiniMaxAI/MiniMax-M2.7` 参与选择（需在 epoch 278 前完成，届时开始惩罚）**
+
+对于每一个 governance 批准模型，多模型 PoC 要求每个 host 必须明确选择参与方式（DIRECT / DELEGATE / REFUSE）。如果在模型的 `PenaltyStartEpoch` 之后仍未操作，将会受到惩罚。现阶段，建议提前决定自己的选择，以便在提案通过且升级成功应用于主网后，能够快速完成配置。
+
+**Bridge 容器更新 / 验证**
+
+所有 host 都需要确认自己的 bridge 容器已经部署、运行最新版本，并且同步正常。部分 host 可能已经部署了 bridge 容器。在这种情况下，请先确认当前运行的是最新版本，再执行后续操作。请参考说明 [https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026)
+
+**Dashboard / Explorer 更新（升级前后均可）**
+
+请 host 更新 dashboard / explorer。请在 `gonka/deploy/join` 目录下执行以下命令：如果本地尚未 clone `gonka` 仓库，请先按照 join-network guide 操作。该 dashboard 更新只是 container pull，无论投票结果如何，均可安全地在投票结束前或结束后执行。
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+**如何投票**
+
+如果你没有直接访问持有投票权 key 的权限，或者希望由其他 key 代为投票，请参考该指南，通过 cold key 向 warm key 授予 governance voting 权限：[the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) 提案详情与投票可通过 `inferenced` 查看。任意 active node 均可使用。可用节点：
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+进行投票 (`yes`, `no`, `abstain`, `no_with_veto`): `--unordered` 与 `--timeout-duration` 参数要求 `inferenced` 版本为 v0.2.12 或更高。
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 54 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+查看投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 54 -o json --node $NODE_URL/chain-rpc/
+```
+
+**时间节点**
+
+- 投票结束时间：2026年5月22日 22:12:25 UTC
+- 提议升级高度：4267300
+- 预计升级时间：2026年5月26日 14:42:02 UTC
+- Operator 时间线：投票于 5 月 22 日 22:12 UTC 结束 → 升级高度预计约为 5 月 26 日 14:42 UTC → 升级 epoch 剩余时间内跳过 confirmation PoC（≤ 10000 区块宽限窗口）→ MiniMax bootstrap snapshot 将在 start_poc 前 500 个区块进行（约提前 43 分钟）→ 第一个 MiniMax PoC 阶段将在升级后的下一个 epoch 边界启动 → MiniMax 惩罚机制将在链 epoch 278 开始执行。
+
+**注意事项**
+
+- 请确保在升级窗口期间在线，以便能够及时执行任何后续步骤或缓解措施。
+- 升级期间，Cosmovisor 会在 `.inference/data`目录中创建完整状态备份；请确保磁盘空间充足（主网上 `application.db` 的 Cosmovisor 备份通常为数十 GB，请提前确认）。关于如何安全删除 `.inference` 目录中的旧备份，请参考 [文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- 如果 `application.db` 占用了大量磁盘空间，可参考 cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 中描述的清理方法： [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 。
+- 提案将故意从升级高度开始，到升级 epoch 结束期间跳过 Confirmation PoC（10000 区块宽限窗口）。如果提案通过，该跳过行为属于预期情况，并非故障；新的 snapshot 逻辑将从下一个 epoch 开始生效。
+- 如果提案通过，升级后 devshard storage 可以选择使用共享 Postgres 实例作为后端（环境变量与 payload storage 相同）。本地 SQLite 仍然是默认方案，并会自动 pruning（仅保留最近 3 个 epoch）。
+- 如果提案未通过（未达到 quorum，或 `no_with_veto` 超过 1/3），链上不会发生任何变化，升级也不会执行。Operator 可能会看到 `PROPOSAL_FAILED` 状态，这是正常现象，无需采取任何操作。
+
+## 2026年5月18日
+
+proxy 容器可能会全局限制到 devshards 的并行连接数量，而不是按客户端分别限制。
+
+修复该问题的 PR： [https://github.com/gonka-ai/gonka/pull/1183](https://github.com/gonka-ai/gonka/pull/1183)
+
+应用修复方法：
+
+1. 在 docker-compose.yml 中设置容器版本
+```
+...
+  proxy:
+    container_name: proxy
+    image: ghcr.io/product-science/proxy:0.2.12-post5
+...
+```
+
+2. 重启容器：
+```
+source config.env && docker compose up -d proxy --force-recreate --no-deps
+```
+
+在 PoC / Confirmation PoC 阶段之外更新容器会更加安全。检查是否存在 Confirmation PoC：
+```
+curl "https://node3.gonka.ai/v1/epochs/latest" | jq '.is_confirmation_poc_active'
+```
+
+## 2026年5月17日
+
+**Epoch #267：PoC 验证已恢复**
+
+PoC 验证已在 epoch #267 成功完成，受影响的 hosts 已能够重新返回 active set。
+
+epoch #266 中的问题是由一次影响运行 Kimi 模型 hosts 的攻击所导致。网络本身仍持续运行，但该攻击结合多个相关条件，导致许多参与者无法进入 epoch #266。
+
+在额外保护措施应用期间，Inference 可能会暂时不可用。预计访问会逐步恢复，并首先通过部分社区 proxy 与 broker endpoints 提供。
+
+**发生了什么**
+
+在 epoch #266 中，网络的 active weight 出现了明显下降。
+
+问题已被追踪到带有非标准语义（non-standard semantics）的 inference 请求。该攻击向量影响了运行 Kimi 模型的 hosts，并干扰了许多 host 的 PoC 参与。
+
+在 epoch #267 中，hosts 已能够恢复，PoC 验证也已成功完成。
+
+**Inference 可用性**
+
+使用受影响的非标准语义的请求，网络现在应不再接受。
+
+在相关保护措施应用期间，Inference 可能暂时不可用。预计访问会逐步恢复，并首先通过部分社区 proxy 与 broker endpoints 恢复。
+
+**Epoch #267 中的 Kimi 权重**
+
+Kimi 在 epoch #267 中的 active weight 较低，是由于现有协议规则所导致：单个模型的总权重不能超过前一个 epoch 中所有模型总权重的 75%。
+
+由于 epoch #266 的总 active weight 明显较低，该规则也限制了 Kimi 在 epoch #267 中的权重。
+
+随着未来 epochs 中正常 PoC 参与持续进行，权重可能需要数天时间才能恢复稳定。
+
+**Hosts 需要执行的操作**
+
+1. 尽可能保持 API 节点在线并可访问。这有助于保留 host 参与情况的可见性，并支持后续审查。
+2. 监控后续 epochs 中的 PoC 参与情况。确认你的节点能够正常进入 PoC，并且 active weight 被正确反映。
+3. 仅使用受支持的 inference 请求格式。不要发送或转发带有非标准请求语义的 inference 流量。
+4. 预期会存在临时 inference 中断。访问可能不会立即在所有地方恢复，预计会通过社区 proxy 与 broker endpoints 逐步恢复。
+5. 在社区频道或当前帖子中分享相关日志或观察结果。如果你的 host 在 epoch #266 中受到影响，或者在后续 epochs 中表现异常，这一点尤其重要。
+
+## 2026年5月16日
+
+**Epoch #266：PoC 权重下降调查**
+
+在当前 Epoch（#266）期间，网络的活跃权重出现了明显下降。 
+目前看来，本轮 Epoch 的 PoC 投票未能收集到所需票数。具体原因尚未最终确认，社区正在积极调查该情况。
+
+**针对受影响的参与者**
+
+如果你的节点未能进入本轮 Epoch，请尽可能保持你的 API 节点在线并可访问。 这可能有助于 Restitution Committee 收集 PoC 参与证据，并更准确地统计受影响的贡献。
+
+**调查进行中**
+
+社区成员目前正在审查 Epoch #266 期间发生的情况。一旦对根本原因有更多明确结论，将会分享进一步更新。 如果你有相关观察、日志、假设或其他可能有助于调查的技术背景信息，请在这里分享。
+
+## 2026年5月15日
+
+**v0.2.13 升级提案进入治理流程**
+
+[v0.2.13 proposal](https://github.com/gonka-ai/gonka/pull/1143) 现已上链并开放投票。
+
+- 包含内容：Kimi (`0.78`) 重新校准权重、新模型 `MiniMaxAI/MiniMax-M2.7`、验证阈值更新、devshard 存储重构，以及多个 PoC / 奖励修复、Ethereum bridge 主网激活。
+- 提案增加了升级后的宽限窗口，以避免升级完成后 3000 个区块内对主机进行惩罚。
+- 所需准备：检查 bridge 容器、决定是否参与 MiniMax、更新 dashboard、进行投票。
+- 在提案获得批准之前，链上不会发生任何变化。
+
+PR 地址：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+
+**关键变更**
+
+**Models**
+
+- 新增 `MiniMaxAI/MiniMax-M2.7` 作为治理批准模型及 PoC 模型。
+- 在 vLLM 0.20.1 发布后，基于 Qwen-on-B200 参考重新校准 `WeightScaleFactor` ：
+    - Qwen 235B: `0.359`
+    - Kimi K2.6: `0.78`
+    - MiniMax-M2.7: `0.3024`
+    - 参考数据： [https://docs.google.com/spreadsheets/d/1dHHlbhW1_hVgd7Q6MtmcVSOpmnl7NnynoTzPHJ1oU-g/edit?gid=0#gid=0](https://docs.google.com/spreadsheets/d/1dHHlbhW1_hVgd7Q6MtmcVSOpmnl7NnynoTzPHJ1oU-g/edit?gid=0#gid=0)
+- 更新推理验证阈值。
+
+**inference-chain**
+
+- 将 devshard nonce 限制从 `20_000` 提升至 `1_000_000`。
+- 将每个 Epoch 最大 devshards 数量从 `100` 提升至 `500_000`。
+- 修复新模型 bootstrap 期间 confirmation PoC 奖励统计问题。
+- 在升级 Epoch 剩余期间禁用 confirmation PoC，以便新的 snapshot 逻辑从下一个 Epoch 开始干净启动。
+- 当参与者重新变为 active 状态时，重置 `ConsecutiveInvalidInferences` 。
+- 为在 v0.2.12 之前加入的 DAPI 补全缺失的 `MsgRespondDealerComplaints` authz 授权。
+- 修复 bridge 和 liquidity-pool 合约权限检查中的 Wasm keeper 访问问题。
+- 将 genesis guardian 调整后的投票权降低至约 25%，并将全链治理 quorum 设置为 `0.25`。在 guardian 不投票的情况下，这意味着剩余 75% 投票权中的有效 quorum 为约 1/3（ `0.25 / 0.75 = 0.334`）。
+
+**Ethereum bridge 主网激活**
+
+- 通过升级处理程序激活 Ethereum 主网 bridge 配置。
+- 注册 Ethereum bridge 合约地址 `0x972a7a92d92796a98801a8818bcf91f1648f2f68`、USDC 与 USDT token 元数据、bridge 交易授权，以及 CW20 `wrapped_token` code ID `105`。
+
+**decentralized-api & devshard**
+
+- 默认启用 `NodeManagerGrpcPort` ，端口为 `9400`。
+- 为 devshard 状态新增 Postgres 支持。
+- 为 SQLite 与 Postgres devshard 数据库新增 pruning 功能。
+- 新增 state snapshots，以加快 devshard 启动与恢复速度。
+- 修复 OpenAI-compatible API 响应解析问题。
+- 修复长时间启动行为及 devshard invalidation 流程中的边缘情况。
+
+**升级计划**
+
+如果提案获得批准，二进制版本将通过链上升级提案进行更新。关于升级流程的更多信息，请参考 [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.13/docs/upgrades.md)
+
+**为升级所需进行的准备工作**
+
+如果提案获得批准，建议提前完成以下准备。
+
+**自 Epoch 271 起关于 `MiniMaxAI/MiniMax-M2.7` 的参与选择**
+
+对于每个治理批准模型，多模型 PoC 要求每个 host 明确选择参与方式（DIRECT / DELEGATE / REFUSE）。 如果在模型的 `PenaltyStartEpoch` 之后未进行任何操作，将会受到惩罚。 因此，建议你提前决定首选方案，以便在提案通过并成功应用于主网后能够快速操作。
+
+**Bridge 容器更新 / 验证**
+
+所有 host 都需要确认其 bridge 容器已部署、运行最新版本并正确同步。 部分 host 可能已经部署了 bridge 容器。在这种情况下，请先确认你运行的是当前版本，再进行后续操作。 请参考说明：[https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026)
+
+**Dashboard / explorer 更新（升级前或升级后）**
+
+请 host 更新 dashboard/explorer。请在 `gonka/deploy/join` 目录下执行以下命令：
+```
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
+docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
+```
+
+**如何投票**
+
+如果你无法直接访问持有投票权的 key，或者希望其他 key 代为投票，请参考 [指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) ，了解如何将治理投票权限从 cold key 授权给 warm key。
+
+提案详情与投票可通过 `inferenced` 完成。任何 active 节点均可使用。可用节点包括：
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+进行投票 (`yes`, `no`, `abstain`, `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 52 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+查看投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 52 -o json --node $NODE_URL/chain-rpc/
+```
+
+**截止时间**
+
+- 投票结束时间：2026年5月17日 07:58:37 UTC
+- 提议升级高度：4133422
+- 预计升级时间：2026年5月18日 13:03:17 UTC
+
+**注意事项**
+
+- 请尽量在升级窗口期间保持在线，以便及时执行后续步骤或缓解措施。
+- 在升级期间，Cosmovisor 会在 `.inference/data` 目录中创建完整状态备份；请确保有足够磁盘空间。关于如何安全删除 `.inference` 目录中的旧备份，可参考 [文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- 如果 `application.db` 占用了大量磁盘空间，可参考 cosmovisor backup [指南](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 中描述的清理方法。
+- 提案将有意从升级高度开始至升级 Epoch 结束（3000 区块宽限窗口）期间跳过 Confirmation PoC。如果提案通过，这是预期行为，并非故障；新的 snapshot 逻辑将从下一个 Epoch 开始。
+- 如果提案通过，升级后 devshard 存储可选使用共享 Postgres 实例（与 payload storage 使用相同环境变量）。本地 SQLite 仍为默认方案，并会自动 pruning（仅保留最近 3 个 Epoch）。
 
 ## 2026年5月7日
 

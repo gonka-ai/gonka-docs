@@ -10,7 +10,7 @@ For current deployment defaults (including `node-config.json`), see the [Host Qu
 
 ## Timeline
 
-Punishment for missing MiniMax-M2.7 starts at **epoch `271`**. Each epoch from upgrade activation onwards, the chain attempts to bootstrap the model: it captures a `BootstrapDelegationSnapshot` 500 blocks (the `DeployWindow`) before that epoch's PoC stage, evaluates pre-eligibility against `V_min = 3` direct committers and a `W_threshold` fraction of total network weight with `>2/3` reachability via INTENT + DELEGATE, and (if pre-eligible) starts PoC for MiniMax that epoch.
+Punishment for missing MiniMax-M2.7 starts at **epoch `278`**. Each epoch from upgrade activation onwards, the chain attempts to bootstrap the model: it captures a `BootstrapDelegationSnapshot` 500 blocks (the `DeployWindow`) before that epoch's PoC stage, evaluates pre-eligibility against `V_min = 3` direct committers and a `W_threshold` fraction of total network weight with `>2/3` reachability via INTENT + DELEGATE, and (if pre-eligible) starts PoC for MiniMax that epoch.
 
 The current `W_threshold` is a governance parameter — read it from the chain rather than hard-coding a value (it was lowered from `0.3` to `0.1` by GIP-48, and may change again):
 
@@ -32,7 +32,7 @@ CURRENT=$(curl -s "$NODE/v1/epochs/current/participants" | jq '.active_participa
 CURRENT_EPOCH=$(echo "$CURRENT" | jq -r '.epoch_id')
 CURRENT_POC_START=$(echo "$CURRENT" | jq -r '.poc_start_block_height')
 
-EPOCH=271                   # change to any target epoch
+EPOCH=278                   # change to any target epoch
 POC_START=$(( CURRENT_POC_START + (EPOCH - CURRENT_EPOCH) * EPOCH_LENGTH ))
 SNAPSHOT_BLOCK=$(( POC_START - 500 ))
 
@@ -50,16 +50,16 @@ The bootstrap of MiniMax-M2.7 can follow these main scenarios:
 
     - Everyone who submitted `PoCIntent` keeps their full weight (no punishment)
     - Everyone who submitted `PoCDelegation` / `PoCRefusal` keeps their full weight (no punishment)
-    - **Before epoch `271`**: everyone who submitted nothing also keeps their full weight (punishment is suppressed during the grace period)
-    - **From epoch `271` onwards**: everyone who submitted nothing loses 15% of their weight per epoch per missed model
+    - **Before epoch `278`**: everyone who submitted nothing also keeps their full weight (punishment is suppressed during the grace period)
+    - **From epoch `278` onwards**: everyone who submitted nothing loses 15% of their weight per epoch per missed model
 
-    => it is important to explicitly send a transaction with your intended behavior **before epoch `271`**
+    => it is important to explicitly send a transaction with your intended behavior **before epoch `278`**
 
 2. **MiniMax passes pre-evaluation but does not become eligible at PoC** (e.g., an INTENT host fails to deploy in time):
 
     - Hosts that actually deployed MiniMax-M2.7 and submitted MiniMax PoC commits during this epoch keep their full weight from their existing model groups (no punishment)
     - Everyone who submitted `PoCDelegation` / `PoCRefusal` keeps their full weight (no punishment)
-    - **From epoch `271` onwards**: everyone who submitted nothing loses 15% of their weight, and everyone who submitted `PoCIntent` for MiniMax but did not deploy and submit MiniMax PoC commits also loses 15% (`IntentMissed` resolution)
+    - **From epoch `278` onwards**: everyone who submitted nothing loses 15% of their weight, and everyone who submitted `PoCIntent` for MiniMax but did not deploy and submit MiniMax PoC commits also loses 15% (`IntentMissed` resolution)
 
 
 If MiniMax passes both checks, punishment follows the usual scenarios described in [Multi-Model PoC](./multi_model_poc.md).

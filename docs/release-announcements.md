@@ -8,6 +8,13 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 26, 2026
+
+**UPGRADE EXECUTED: v0.2.13 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.13 (proposal id 54) has concluded. 
+The proposal was APPROVED, and the upgrade was successfully executed on the mainnet at block `4267300`.
+
 ## May 25, 2026 
 
 **Upgrade v0.2.13: pre-download binaries and MiniMax-M2.7 weights**

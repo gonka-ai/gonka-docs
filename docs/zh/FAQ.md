@@ -1604,3 +1604,70 @@ docker start node
 
 !!! 重要提示 
 	`main` 分支已包含 v0.2.10-post6。从该版本开始启动的节点会自动应用此设置，因此一般不需要再手动修改配置。
+
+## Inference 
+
+### 为什么 4,096 输出 token 限制会导致模型在 thinking 期间完全卡住——即使是中等大小的请求，也会返回零 token？
+
+**Kimi-K2.6 特有行为。** 模型会输出 `<think>...</think>` 块，并且 **两个部分 (`<think>` 与可见内容) 都会同等消耗 `max_tokens` 计数器。** 。当`max_tokens`较小时，模型会在 `<think>` 中耗尽全部预算，仅返回 `</think>`，而 vLLM 会将其作为特殊 token 进行剥离。结果就是 `content=null`、`finish_reason=length`，从客户端视角看起来就像“0 tokens”。
+
+在 gateway 层面，以下规则生效（均在 `devshard-0.2.13`中）：
+
+- **最低 `max_tokens >= 16`** ([PR #1227](https://github.com/gonka-ai/gonka/pull/1227)): 此前，probe clients 发出的 `max_tokens=1` 一定会返回 `content=null`。现在会被静默提升至 16。
+- **`thinking_token_budget` resolver** ([PR #1202](https://github.com/gonka-ai/gonka/pull/1202)):
+  - 如果客户端发送 `max_tokens < 256`，则 `ttb` 会被强制设为 **0**（覆盖客户端值）。模型不会进入隐藏 thinking。 
+  - 否则，如果缺少 `ttb` ，默认值为 `ttb = max_tokens / 2`.
+  - 绝对上限：`ttb <= 96,000` （Moonshot HLE/AIME budget）。
+  - Clamp：`ttb <= max_tokens - 64` （为 `</think>` 之后的可见内容预留 64 token 空间）。
+- **`thinking: {"type":"disabled"}` mirror** (PR #1224): gateway 会将该设置镜像到 `chat_template_kwargs.thinking=false`。Kimi chat template 会读取这个 kwarg；顶层的 `thinking` 参数会被移除。
+
+**已在线验证：** 历史上会返回 `content=null` 的场景 (`max_tokens=1` 、probe 形态的 `{max_tokens:100, min_tokens:100, thinking_token_budget:50}`)，现在通过运行当前 gateway 的 broker 已能够返回非空内容。
+
+**对于 Inference 用户：**
+
+- 请针对 gateway >= 0.2.13 的 broker 重新测试（2026-05-23 或之后发布的版本）。
+- 如果你仍然看到零 token，请从响应中捕获 `id` (`devshard-XXXX-YYY`) 并发送给你的 broker。
+- **不要只依赖 `thinking:disabled`:** 为了确保 thinking 被禁用，请显式发送 `thinking_token_budget: 0` （参见“在 Kimi K2 中，整个 token 限额可能全部消耗在 thinking 上而没有任何实际输出。这是输出上限、带宽还是上游问题？”）。
+
+**对于 Broker:** 请确保你的 gateway image 包含PR [#1202](https://github.com/gonka-ai/gonka/pull/1202)、 [#1224](https://github.com/gonka-ai/gonka/pull/1224)以及 [#1227](https://github.com/gonka-ai/gonka/pull/1227)，即版本 >= `devshard-0.2.13`。如果没有这些修复，唯一的 workaround 是在客户端侧进行 patch：为 Kimi 注入 `thinking_token_budget = max_tokens / 2` 并拒绝 `max_tokens < 16`。
+
+### 在 Kimi K2 中，整个 token 限额可能全部消耗在 thinking 上而没有任何实际输出。这是输出上限、带宽还是上游问题？
+
+**根本原因与“为什么 4,096 输出 token 限制会导致模型在 thinking 期间卡住并返回零 token？”相同： 属于模型侧 reasoning 拆分 (`<think>` 与可见内容共享 `max_tokens`)，而不是带宽问题，也不是输出上限问题。有两个 escape hatch，且都已在生产环境可用：
+
+1. **`thinking: {"type": "disabled"}`**：gateway 会将其镜像到 `chat_template_kwargs.thinking=false` （Kimi chat template 会读取该 kwarg），并移除顶层的 `thinking`。同时也接受`"adaptive"` 和 `"auto"` （Claude Code CLI / Anthropic SDK preset，PR [#1224](https://github.com/gonka-ai/gonka/pull/1224)。两者最终都会解析为 `enabled`。
+2. **`thinking_token_budget: 0`**：显式的 0 会直接作为 generation parameter 传递给 vLLM，并可靠地将 thinking budget 归零。
+
+**重要细节：** 这两个机制工作在不同层级（chat-template hint vs. generation parameter），彼此不会重叠。 `thinking:disabled` 并不会自动将 `thinking_token_budget`归零。因此，在默认 `max_tokens=4096` 且仅设置 `disabled`的情况下，模型仍会从 gateway resolver 收到隐藏预算 `ttb=2048` 。对于大多数 prompt，template hint 仍然会说服模型不要进行 thinking，但在复杂推理任务中，模型可能会忽略该 hint。双保险做法： 对于关键流程，请同时发送这两个参数。
+
+**数值验证（相同的 bug-finding prompt、 `max_tokens=500`、语义完全相同的回答）：**
+
+| 配置 | usage.completion_tokens | 总耗时 |
+|---|---:|---:|
+| `thinking: {"type":"disabled"}` | **65** | 3.6秒 |
+| 默认 - gateway 自动设置 `ttb=250` | **312** | 12.5秒 |
+
+即使是一个简单任务，默认预算中也有一半会消耗在隐藏 thinking 上，这也是为什么对于 tool-heavy 与 agentic flows，建议禁用 thinking。
+
+**对于 Inference 用户：**
+
+- 对于不需要 reasoning 的 tool-heavy 或 agentic flows，请使用 `"thinking": {"type": "disabled"}` （Kimi）或 `"enable_thinking": false` （Qwen，会被自动转换）。
+- 对于复杂推理，请显式设置 `thinking_token_budget` 。不要依赖默认的 `max_tokens / 2`。
+- 如果 `thinking:disabled` 仍然导致你的 prompt 出现 budget 消耗，也请显式发送 `thinking_token_budget: 0` explicitly。
+
+**对于 Broker：** 请参见“为什么 4,096 输出 token 限制会导致模型在 thinking 期间卡住并返回零 token？”。请固定到包含 PR [#1202](https://github.com/gonka-ai/gonka/pull/1202)/[#1224](https://github.com/gonka-ai/gonka/pull/1224)/[#1227](https://github.com/gonka-ai/gonka/pull/1227) 的 build（>= `devshard-0.2.13`)。在 landing page 上，请说明：Kimi 在 tool-heavy 工作场景下，需要使用 `thinking:disabled`、显式 `thinking_token_budget`，或者较大的`max_tokens`。
+
+### Kimi 的输入 token 上限是 4k，输出上限是 8,192 token。这些限制什么时候会提高？
+
+**问题中的数字并不正确：**
+
+- 输出上限： 网络级别 **最高为 4,096** ；实际上限取决于 broker（例如在 gonka-api.org 上实测为 3,072）。并不是 8,192。
+- 输入：最高为 240,000 tokens（主网 Kimi deploy 中的 `--max-model-len`）。并不是 4,000。
+
+**输出上限来源。**在 gateway 代码中： `DefaultRequestMaxTokens = 3,072`, `RequestMaxTokensCap = 4,096` (`devshard/cmd/devshardctl/gateway.go:143-144`).
+
+该上限 **不是由链上治理设置的**: 链上只存储 `context_window`、`units_of_compute_per_token`、`coins_per_input_token`、`coins_per_output_token` 以及 `deployment 的 model_args`，但没有 `output cap`字段。因此，每个模型的放宽限制是由 `broker operator` 本地 通过 `admin endpoint POST /v1/admin/settings` 完成的（`devshard/cmd/devshardctl/gateway_store.go:32` 中的 `GatewayModelLimitSettings` 结构，字段为每个模型的 `request_max_tokens_cap`）。如果要将网络级上限提高到 4,096 以上，则需要一个 PR 加新的 `devshard release`。
+
+**240k 输入上限来源。** 主网 Kimi-K2.6 deploy 是通过链上治理提案 v0.2.12 注册的 (`inference-chain/app/upgrades/v0_2_12/upgrades.go:kimiGovernanceModel()`) ，其参数为 `ModelArgs: ["--max-model-len","240000","--tool-call-parser","kimi_k2","--reasoning-parser","kimi_k2"]` ，以及 `VRam: 720` (GB)。模型卡声明原生 context 为 256K (`docs/chat-api/kimi-k2.6.md:11`)。除了通用 body size limit（10 MiB）与 messages 数量限制（<= 2,048）之外，gateway 不会单独限制输入，的 “Request limits” 部分中有说明。 `docs/chat-api/README.md`,。
+
+**重要注意事项（未解决 issue）：* 即使 broker 同意提高 output cap，单个节点也可能运行着更小的 `--max-model-len`。这是一个已知但未修复的问题：`devshard/docs/known-issues.md`§3，“Some nodes have lower max context than expected”。

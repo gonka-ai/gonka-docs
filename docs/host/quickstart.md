@@ -33,6 +33,7 @@ The protocol supports **governance-approved** models for inference and Proof of 
 |----------|------|
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | Original enforced model; still supported |
 | `moonshotai/Kimi-K2.6` | **Kimi K2.6** — active in PoC on the network (passed bootstrap; participates alongside Qwen) |
+| `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — newly approved model added with MLNode 3.0.14; participates alongside Qwen and Kimi |
 
 !!! tip "Authoritative model list (governance API)"
     Approved models can change between releases or epochs. **Before you edit `node-config.json`,** call the governance API and use each returned object’s `"id"` as the key under `"models"`:
@@ -41,7 +42,16 @@ The protocol supports **governance-approved** models for inference and Proof of 
     ```
     To list only model ids, pipe the response: `jq -r '.models[].id'`. If `node2.gonka.ai` is unreachable, use another participant’s public API base URL (scheme, host, and port). The response also includes network parameters such as `model_args`; the `node-config.json` examples later show typical `args` for common hardware—adjust for your GPUs and benchmarks.
 
-You typically run **one model per ML Node** in `node-config.json`. Hosts may operate separate ML Nodes (or fleets) for Qwen and Kimi.
+You typically run **one model per ML Node** in `node-config.json`. Hosts may operate separate ML Nodes (or fleets) for Qwen, Kimi, and MiniMax.
+
+!!! tip "Reference deploy configs in the repo"
+    The `deploy/join/` folder ships ready-to-use `node-config-*.json` files for every approved model and the most common GPU classes. Copy the one that matches your hardware to `node-config.json` instead of writing one from scratch:
+
+    - **Qwen3-235B** — `deploy/join/node-config-qwen235B-B200.json`
+    - **Kimi K2.6** — `deploy/join/node-config-kimik26-H200.json`, `deploy/join/node-config-kimik26-B200.json`
+    - **MiniMax M2.7** — `deploy/join/node-config-minimax-A100.json`, `deploy/join/node-config-minimax-H100.json`, `deploy/join/node-config-minimax-H200.json`, `deploy/join/node-config-minimax-B200.json`
+
+    The contents of these files are reproduced inline below for convenience.
 
 !!! note "If you will not run every approved model"
     Multi-model PoC tracks participation **per model**. If your hardware does **not** cover every governance-approved model, you will need on-chain **delegation** or **refusal** so your consensus weight is handled correctly for the models you skip. That is **not** required to bring a node online—you use the same **Account (cold) key** as in [Grant Permissions to ML Operational Key](#33-local-machine-grant-permissions-to-ml-operational-key), **after** registration and verification. Copy-paste commands are at the end: [Optional: PoC delegation and refusal](#optional-poc-delegation-and-refusal). For strategy and penalties, read [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md).
@@ -58,6 +68,7 @@ To run a valid node, you need machines with [supported GPU(s)](/host/hardware-sp
 |------------------------------------------|-------------------|-------------------------------------------------|----------------|
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
 | `moonshotai/Kimi-K2.6`                  | ≥ 2               | 8× H200 or 8× B200 per MLNode (reference class) | 640 GB         |
+| `MiniMaxAI/MiniMax-M2.7`                | ≥ 2               | 4× A100 / 4× H100 / 2× H200 / 2× B200 per MLNode | ~320 GB        |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple ML Nodes across all model tiers.
 
@@ -532,9 +543,37 @@ Edit `node-config.json` so each ML Node entry lists the **one model** that node 
         ]
         ```
 
+=== "Qwen — 8×B200"
+
+    Reference deploy config in the repo: `deploy/join/node-config-qwen235B-B200.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+                        "args": [
+                            "--tensor-parallel-size", "2",
+                            "--max-model-len", "240000",
+                            "--gpu-memory-utilization", "0.88"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
 === "Kimi — 4×B200 / 8×B200 (and 8×H200 reference class)"
 
     Use this vLLM argument set for **Kimi K2.6** on Blackwell **4×B200 or 8×B200**, and as the reference for **8×H200** on the same layout (`tensor_parallel_size` 4 with expert parallelism across eight GPUs). Adjust only if your stack or benchmarking requires it.
+
+    Reference deploy config in the repo: `deploy/join/node-config-kimik26-B200.json`.
 
     !!! note "edit node-config.json"
         ```
@@ -568,6 +607,174 @@ Edit `node-config.json` so each ML Node entry lists the **one model** that node 
 
     The same `"models"` block is used when registering or updating a node via the API; see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) for an equivalent `curl` example.
 
+=== "Kimi — 8×H200"
+
+    Reference deploy config in the repo: `deploy/join/node-config-kimik26-H200.json`. Uses `FLASHMLA` attention and `tensor_parallel_size=8` across all GPUs without expert parallelism.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "moonshotai/Kimi-K2.6": {
+                        "args": [
+                            "--tensor-parallel-size", "8",
+                            "--enable-expert-parallel",
+                            "--trust-remote-code",
+                            "--mm-encoder-tp-mode", "data",
+                            "--tool-call-parser", "kimi_k2",
+                            "--reasoning-parser", "kimi_k2",
+                            "--attention-backend", "FLASHMLA",
+                            "--gpu-memory-utilization", "0.90",
+                            "--max-model-len", "240000"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "MiniMax — 4×A100"
+
+    Use this vLLM argument set for **MiniMax M2.7** on **4×A100**. A100 cannot use the FP8 FlashInfer MoE path, so this config uses the `marlin` MoE backend. You also need to set the env var `VLLM_USE_FLASHINFER_MOE_FP8=0` for the `mlnode-308` service (this is already pre-set in `deploy/join/docker-compose.mlnode.yml` shipped with MLNode 3.0.14).
+
+    Reference deploy config in the repo: `deploy/join/node-config-minimax-A100.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "MiniMaxAI/MiniMax-M2.7": {
+                        "args": [
+                            "--moe-backend", "marlin",
+                            "--tensor-parallel-size", "4",
+                            "--gpu-memory-utilization", "0.95",
+                            "--max-num-seqs", "128",
+                            "--enable-auto-tool-choice",
+                            "--max-model-len", "180000",
+                            "--kv-cache-dtype", "fp8",
+                            "--tool-call-parser", "minimax_m2",
+                            "--reasoning-parser", "minimax_m2_append_think"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "MiniMax — 4×H100"
+
+    Use this vLLM argument set for **MiniMax M2.7** on **4×H100**. Uses the `FLASHINFER` attention backend with FP8 kv-cache.
+
+    Reference deploy config in the repo: `deploy/join/node-config-minimax-H100.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "MiniMaxAI/MiniMax-M2.7": {
+                        "args": [
+                            "--tensor-parallel-size", "4",
+                            "--attention-backend", "FLASHINFER",
+                            "--gpu-memory-utilization", "0.92",
+                            "--max-num-seqs", "128",
+                            "--enable-auto-tool-choice",
+                            "--max-model-len", "180000",
+                            "--kv-cache-dtype", "fp8",
+                            "--tool-call-parser", "minimax_m2",
+                            "--reasoning-parser", "minimax_m2_append_think"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "MiniMax — 2×H200"
+
+    Use this vLLM argument set for **MiniMax M2.7** on **2×H200** (Hopper reference class for MiniMax). Uses the `FLASHINFER` attention backend with FP8 kv-cache and `tensor_parallel_size=2`. The PoC golden vectors for MiniMax M2.7 were recorded on this exact configuration.
+
+    Reference deploy config in the repo: `deploy/join/node-config-minimax-H200.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "MiniMaxAI/MiniMax-M2.7": {
+                        "args": [
+                            "--tensor-parallel-size", "2",
+                            "--attention-backend", "FLASHINFER",
+                            "--gpu-memory-utilization", "0.92",
+                            "--max-num-seqs", "128",
+                            "--enable-auto-tool-choice",
+                            "--max-model-len", "180000",
+                            "--kv-cache-dtype", "fp8",
+                            "--tool-call-parser", "minimax_m2",
+                            "--reasoning-parser", "minimax_m2_append_think"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "MiniMax — 2×B200"
+
+    Use this vLLM argument set for **MiniMax M2.7** on **2×B200** (Blackwell reference class for MiniMax). Uses the `FLASHINFER_TRTLLM` MoE backend with FP8 kv-cache and `tensor_parallel_size=2`.
+
+    Reference deploy config in the repo: `deploy/join/node-config-minimax-B200.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "MiniMaxAI/MiniMax-M2.7": {
+                        "args": [
+                            "--tensor-parallel-size", "2",
+                            "--moe-backend", "FLASHINFER_TRTLLM",
+                            "--gpu-memory-utilization", "0.92",
+                            "--max-num-seqs", "128",
+                            "--enable-auto-tool-choice",
+                            "--max-model-len", "180000",
+                            "--kv-cache-dtype", "fp8",
+                            "--tool-call-parser", "minimax_m2",
+                            "--reasoning-parser", "minimax_m2_append_think"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
@@ -589,6 +796,15 @@ To make sure the model weights are ready for inference, you should download them
     ```
 
     Model license: see [Model licenses](../model-licenses.md). For operational notes and on-chain options (intent, delegation), see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
+
+=== "MiniMax M2.7"
+
+    ```bash
+    mkdir -p $HF_HOME
+    huggingface-cli download MiniMaxAI/MiniMax-M2.7
+    ```
+
+    Model license: see [Model licenses](../model-licenses.md). MiniMax M2.7 requires **MLNode 3.0.14 or newer** (image `ghcr.io/gonka-ai/mlnode:3.0.14-cu129`, pinned in `deploy/join/docker-compose.mlnode.yml`). On A100 hardware also make sure the `VLLM_USE_FLASHINFER_MOE_FP8=0` environment variable is set for the `mlnode-308` service (pre-set in the shipped compose file).
 
 ## Launch Nodes
     
@@ -1023,6 +1239,22 @@ Example for Qwen (e.g. you run Kimi only on your GPUs):
 
 ```bash
 MODEL="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
+Example for MiniMax (e.g. you run Qwen and Kimi only on your GPUs):
+
+```bash
+MODEL="MiniMaxAI/MiniMax-M2.7"
 DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \

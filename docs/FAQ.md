@@ -1883,7 +1883,7 @@ Builder pain point linked to the same problem: [issue #1229](https://github.com/
 
 **For Inference User:** Follow [#1226](https://github.com/gonka-ai/gonka/pull/1226). When a broker rolls out MiniMax, you will see it in the `/v1/models` response. Until then, choose by workload: Kimi for reasoning + tools, Qwen3 for large context + structured outputs.
 
-**For Broker:** Prepare your gateway for MiniMax in advance and comment on [#1226](https://github.com/gonka-ai/gonka/pull/1226) with your deploy feedback. Deploy args (per draft PR): `--max-num-batched-tokens 65536 --enable-auto-tool-choice --tool-call-parser minimax_m2 --reasoning-parser minimax_m2_append_think`. Re-check exact values closer to merge.
+**For Broker:** Prepare your gateway for MiniMax in advance and comment on [#1226](https://github.com/gonka-ai/gonka/pull/1226) with your deploy feedback. The chain registration now uses `--enable-auto-tool-choice --max-model-len 180000 --tool-call-parser minimax_m2 --reasoning-parser minimax_m2_append_think`.
 
 ### Why is there no working web search available?
 

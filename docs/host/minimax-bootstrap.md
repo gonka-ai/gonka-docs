@@ -101,12 +101,11 @@ Verify the model loads on your hardware before the bootstrap snapshot block. The
 
 ```
 --enable-auto-tool-choice
+--max-model-len 180000
 --kv-cache-dtype fp8
 --tool-call-parser minimax_m2
 --reasoning-parser minimax_m2_append_think
 ```
-
-(No explicit `--max-model-len` — vLLM uses the model default.)
 
 #### 3. Wait for the next evaluation epoch and check pre-eligibility
 
@@ -154,6 +153,7 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
              "--trust-remote-code",
              "--mm-encoder-tp-mode", "data",
              "--enable-auto-tool-choice",
+             "--max-model-len", "180000",
              "--kv-cache-dtype", "fp8",
              "--tool-call-parser", "minimax_m2",
              "--reasoning-parser", "minimax_m2_append_think",

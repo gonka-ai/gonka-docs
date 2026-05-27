@@ -67,10 +67,10 @@ If MiniMax passes both checks, punishment follows the usual scenarios described 
 
 ## Hardware eligibility
 
-MiniMax-M2.7 (FP8) requires **roughly 320 GB of total VRAM**. This is a meaningfully smaller footprint than Kimi K2.6 (≥720 GB) and Qwen3-235B (≥720 GB). Practical implications:
+MiniMax-M2.7 (FP8) requires **roughly 320 GB of total VRAM** per instance — a meaningfully smaller footprint than Kimi K2.6 or Qwen3-235B, which both require ≥640 GB per instance per the [host quickstart reference layout](./quickstart.md#hardware-and-machines). Practical implications:
 
 - **A100 80GB owners**: MiniMax-M2.7 is the **first governance-approved model that fits the A100 80GB envelope**. If you previously could not host Kimi or Qwen-235B, you are now eligible to earn consensus weight via MiniMax. Recommended config: 8×A100 80GB with `tp=4` (two instances per host) or `tp=8` (one instance).
-- **H100 / H200 owners**: MiniMax-M2.7 has the highest per-8xGPU consensus output on this hardware tier (clearly above Kimi K2.6 after Kimi's coefficient adjustment in `v0.2.13`, and slightly above Qwen3-235B). Switching from Qwen or Kimi to MiniMax on H100/H200 is the network-preferred direction.
+- **H100 / H200 owners**: MiniMax-M2.7 is comparable to Qwen3-235B on consensus output (a few percent in either direction depending on workload mix) and clearly preferable to Kimi K2.6 after Kimi's coefficient adjustment in `v0.2.13`. Switching from Kimi to MiniMax is recommended; switching from Qwen to MiniMax is operator preference.
 - **B200 / B300 owners**: MiniMax-M2.7 runs well, but Kimi K2.6 retains a narrow consensus-output lead on flagship hardware. No change required if you already run Kimi.
 
 

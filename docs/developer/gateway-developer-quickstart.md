@@ -219,14 +219,14 @@ source config.devshard.env
 echo "DEVSHARD_CREATOR=$DEVSHARD_CREATOR"
 
 curl -sS "$NODE_CHAIN_API/productscience/inference/inference/params" \
-  | jq '.params.devshard_escrow_params | {min_amount, allowed_creator_addresses}'
+  | jq '.params.devshard_escrow_params | {min_amount, max_escrows_per_epoch, max_nonce, allowed_creator_addresses}'
 
 curl -sS "$NODE_CHAIN_API/productscience/inference/inference/params" \
   | jq --arg addr "$DEVSHARD_CREATOR" \
     '.params.devshard_escrow_params.allowed_creator_addresses | index($addr) != null'
 ```
 
-The second command must print `true`. If it prints `false`, your address is **not** allowlisted—do not proceed to [§2.5](#25-fund-the-creator-account), [§3](#3-deploy-the-gateway), or [§4](#4-create-an-escrow-and-open-api-access) until it is added on chain.
+The second command must print `true`. Use the first command to read live limits (`min_amount`, `max_escrows_per_epoch`, `max_nonce`). On mainnet after the [v0.2.13 upgrade](https://github.com/gonka-ai/gonka/blob/gm/microrelease/inference-chain/app/upgrades/v0_2_13/upgrades.go), expect `max_escrows_per_epoch` **500,000** and `max_nonce` **1,000,000**. If it prints `false`, your address is **not** allowlisted—do not proceed to [§2.5](#25-fund-the-creator-account), [§3](#3-deploy-the-gateway), or [§4](#4-create-an-escrow-and-open-api-access) until it is added on chain.
 
 ### 2.5 Fund the creator account
 
@@ -404,13 +404,13 @@ This guide’s steps in [§4](#4-create-an-escrow-and-open-api-access)–[§6](#
 **There is no fixed wall-clock expiry** in the gateway for a single escrow you create yourself.
 
 
-| Limit              | What it means                                                                                                                                                                                                                                                                                                         |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Your workflow**  | The escrow keeps serving chat until you **finalize and settle** ([§6](#6-finalize-and-settle-the-escrow)).                                                                                                                                                                                                            |
-| **On-chain epoch** | Each escrow is tied to the chain **epoch** it was created in (`epoch_index`). That matters for protocol storage and chain rules, not a simple “expires after N hours” timer in this guide.                                                                                                                            |
-| **Balance**        | Inference spends the escrow deposit. The gateway periodically checks active escrows (about every **30 seconds**). If usable balance drops below **1,000,000 ngonka**, it treats the escrow as depleted.                                                                                                               |
-| **Nonce budget**   | Off-chain devshard state advances by **nonce**. The gateway stops routing new chat to an escrow whose nonce is very high (around **19,800** in current builds) and treats it like a depleted escrow. Chain params also define `devshard_escrow_params.max_nonce` (query in [§2.4](#24-confirm-allowlist-membership)). |
-| **Chain caps**     | Governance limits how many escrows a creator can open per epoch (`max_escrows_per_epoch`, default **100** on chain).                                                                                                                                                                                                  |
+| Limit              | What it means                                                                                                                                                                                                                                                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Your workflow**  | The escrow keeps serving chat until you **finalize and settle** ([§6](#6-finalize-and-settle-the-escrow)).                                                                                                                                                                                                                                             |
+| **On-chain epoch** | Each escrow is tied to the chain **epoch** it was created in (`epoch_index`). That matters for protocol storage and chain rules, not a simple “expires after N hours” timer in this guide.                                                                                                                                                             |
+| **Balance**        | Inference spends the escrow deposit. The gateway periodically checks active escrows (about every **30 seconds**). If usable balance drops below **1,000,000 ngonka**, it treats the escrow as depleted.                                                                                                                                                |
+| **Nonce budget**   | Off-chain devshard state advances by **nonce**. The multi-escrow gateway stops routing new chat around **19,800** nonce (implementation limit in current proxy builds). Separately, `devshard_escrow_params.max_nonce` is the on-chain settlement ceiling—query it in [§2.4](#24-confirm-allowlist-membership) (mainnet after v0.2.13: **1,000,000**). |
+| **Chain caps**     | Governance sets `max_escrows_per_epoch`: the maximum number of **devshard escrows allowed chain-wide in the current epoch** (not per creator). Query the live value in [§2.4](#24-confirm-allowlist-membership). On mainnet after v0.2.13 this is **500,000**.                                                                                         |
 
 
 **Default behaviour:** `escrow_rotation` is **off** until you enable it in admin settings. With rotation off, the gateway **does not** auto-create a replacement when balance or nonce is exhausted—it only logs and may stop using that escrow for new requests. Plan to **finalize and settle** before the deposit is spent, or enable rotation (below).

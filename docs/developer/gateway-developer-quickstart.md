@@ -1,16 +1,22 @@
-# Run your own gateway (testnet)
+# Run your own gateway
 
-This guide explains how to run a Gonka devshard gateway on **gonka-testnet** without installing a full chain node. You will deploy the gateway on your own Linux host, fund a dedicated escrow creator address, open an on-chain devshard escrow, send OpenAI-compatible inference requests, and settle the escrow when you are finished.
+This guide explains how to run a Gonka devshard gateway on **gonka-mainnet** without installing a full chain node. You will deploy the gateway on your own Linux host, fund a dedicated escrow creator address, open an on-chain devshard escrow, send OpenAI-compatible inference requests, and settle the escrow when you are finished.
 
-If you only need inference through an existing endpoint, use a [community broker](https://gonka.ai/docs/developer/quickstart/#1-use-a-community-broker-recommended) instead — that path does not require Docker, on-chain escrows, or an allow-listed creator address.
+If you only need inference through an existing endpoint, use a [community broker](quickstart.md#1-use-a-community-broker-recommended) instead — that path does not require Docker, on-chain escrows, or an allow-listed creator address.
 
 ### Allowlisted creator address required
 
 > **Prerequisite:** The `gonka1…` address for your devshard escrow creator (`$DEVSHARD_CREATOR`, from `DEVSHARD_PRIVATE_KEY`) **must** appear on the chain allowlist `devshard_escrow_params.allowed_creator_addresses` **before** you can create an escrow.
 >
-> The allowlist is maintained on-chain through **governance**. You cannot add yourself via `config.devshard.env` or admin settings. Ask **gonka-testnet operators** to include your address via a params-update proposal, or use a [community broker](https://gonka.ai/docs/developer/quickstart/#1-use-a-community-broker-recommended) instead.
+> The allowlist is maintained on-chain through **governance**. You cannot add yourself via `config.devshard.env` or admin settings. Request inclusion through an on-chain governance vote — see [Become a broker](quickstart.md#3-become-a-broker) in the Developer Quickstart — or use a [community broker](quickstart.md#1-use-a-community-broker-recommended) instead.
 >
 > After you import your key in [§2.3](#23-import-the-creator-key), verify membership in [§2.4](#24-confirm-allowlist-membership). Do not fund the creator or deploy the gateway until that check passes (funding alone does not grant allowlist access).
+
+!!! warning "Production network"
+
+```
+Mainnet escrows and fees use **real** ngonka. Confirm `devshard_escrow_params.min_amount` on chain (§2.4) before funding or creating an escrow. The example deposit below must be **≥ `min_amount`**.
+```
 
 ### How this setup works
 
@@ -22,21 +28,21 @@ On a **gateway-only** server you run only the gateway container (`devshardctl`).
 
 1. **Allowlisted escrow creator** — `$DEVSHARD_CREATOR` on `allowed_creator_addresses` ([prerequisite](#allowlisted-creator-address-required) above; confirm in [§2.4](#24-confirm-allowlist-membership))
 2. A Linux host with Docker
-3. Outbound HTTPS to a public Gonka testnet endpoint (chain REST + public API)
+3. Outbound HTTPS to a public Gonka mainnet endpoint ([node3](https://node3.gonka.ai/) for chain REST + public API)
 4. The [inferenced CLI v0.2.13](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.13) on the same host (for queries and on-chain settle)
 5. A funded `gonka1…` address used **only** as that escrow creator (after allowlist is confirmed)
 
-### Testnet reference
+### Mainnet reference
 
 
-| Item                     | Value                                   |
-| ------------------------ | --------------------------------------- |
-| Chain ID                 | `gonka-testnet`                         |
-| Model (example)          | `Qwen/Qwen2.5-7B-Instruct`              |
-| Escrow deposit (example) | `5000000000` ngonka (~5 GONKA)          |
-| Public node (example)    | `http://89.169.110.250:8000`            |
-| CometBFT RPC (example)   | `http://89.169.110.250:8000/chain-rpc/` |
-| Gateway image            | `libermans/gonka-devshard-proxy:latest` |
+| Item                     | Value                                                           |
+| ------------------------ | --------------------------------------------------------------- |
+| Chain ID                 | `gonka-mainnet`                                                 |
+| Model (example)          | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`                        |
+| Escrow deposit (example) | `5000000000` ngonka (~5 GONKA); must be ≥ on-chain `min_amount` |
+| Public node (example)    | `https://node3.gonka.ai`                                        |
+| CometBFT RPC (example)   | `https://node3.gonka.ai/chain-rpc/`                             |
+| Gateway image            | `libermans/gonka-devshard-proxy:latest`                         |
 
 
 Copy the chain URLs into `config.devshard.env` in [§2.2](#22-create-configdevshardenv). Every command below assumes you have run `source config.devshard.env` from your deploy directory.
@@ -106,14 +112,14 @@ This file must exist before `source config.devshard.env` or `docker compose up`.
 nano config.devshard.env
 ```
 
-Example testnet contents (paste secrets from [§2.1](#21-generate-api-keys-and-escrow-wallet)):
+Example mainnet contents (paste secrets from [§2.1](#21-generate-api-keys-and-escrow-wallet)):
 
 ```bash
-# Chain (public node — gonka-testnet)
-export NODE_RPC=http://89.169.110.250:8000/chain-rpc/
-export CHAIN_ID="gonka-testnet"
-export NODE_BASE=http://89.169.110.250:8000
-export NODE_CHAIN_API=http://89.169.110.250:8000/chain-api
+# Chain (public node — gonka-mainnet)
+export NODE_RPC=https://node3.gonka.ai/chain-rpc/
+export CHAIN_ID="gonka-mainnet"
+export NODE_BASE=https://node3.gonka.ai
+export NODE_CHAIN_API=https://node3.gonka.ai/chain-api
 
 # inferenced CLI (local; not used by the gateway container)
 export INFERENCED_HOME="$HOME/.devshard-inferenced"
@@ -127,13 +133,13 @@ export DEVSHARD_ADMIN_API_KEY=sk-admin-...
 # Gateway (devshardctl container)
 export DEVSHARD_INSTANCE_NAME=devshardctl-multi
 export DEVSHARDS_JSON='[]'
-export DEVSHARD_CHAIN_REST=http://89.169.110.250:8000/chain-api
-export DEVSHARD_TX_QUERY_REST=http://89.169.110.250:8000/chain-api
-export DEVSHARD_PUBLIC_API=http://89.169.110.250:8000
+export DEVSHARD_CHAIN_REST=https://node3.gonka.ai/chain-api
+export DEVSHARD_TX_QUERY_REST=https://node3.gonka.ai/chain-api
+export DEVSHARD_PUBLIC_API=https://node3.gonka.ai
 export DEVSHARD_PORT=8080
 export DEVSHARD_STORAGE_DIR=/root/.devshardctl
 export DEVSHARD_STORAGE_HOST_DIR=.devshardctl
-export DEVSHARD_MODEL=Qwen/Qwen2.5-7B-Instruct
+export DEVSHARD_MODEL=Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
 export GATEWAY_MAX_CONCURRENT_REQUESTS=512
 export GATEWAY_MAX_INPUT_TOKENS_IN_FLIGHT=0
 export GATEWAY_DEFAULT_MAX_TOKENS=3072
@@ -205,7 +211,7 @@ The name `devshard-create` is only a local label; on-chain transactions use `--f
 
 **Do not skip this step.** Escrow creation in [§4](#4-create-an-escrow-and-open-api-access) only succeeds when `$DEVSHARD_CREATOR` is on the chain allowlist.
 
-You do **not** need to run a validator to use a gateway; you only need your creator address on `devshard_escrow_params.allowed_creator_addresses`. If it is missing, stop here and ask **gonka-testnet operators** for a governance params update to add it. Re-run this check after any governance vote before creating an escrow.
+You do **not** need to run a validator to use a gateway; you only need your creator address on `devshard_escrow_params.allowed_creator_addresses`. If it is missing, stop here and follow [Become a broker](quickstart.md#3-become-a-broker) to request a governance params update. Re-run this check after any governance vote before creating an escrow.
 
 ```bash
 source config.devshard.env
@@ -213,11 +219,14 @@ source config.devshard.env
 echo "DEVSHARD_CREATOR=$DEVSHARD_CREATOR"
 
 curl -sS "$NODE_CHAIN_API/productscience/inference/inference/params" \
+  | jq '.params.devshard_escrow_params | {min_amount, allowed_creator_addresses}'
+
+curl -sS "$NODE_CHAIN_API/productscience/inference/inference/params" \
   | jq --arg addr "$DEVSHARD_CREATOR" \
     '.params.devshard_escrow_params.allowed_creator_addresses | index($addr) != null'
 ```
 
-The command must print `true`. If it prints `false`, your address is **not** allowlisted—do not proceed to [§2.5](#25-fund-the-creator-account), [§3](#3-deploy-the-gateway), or [§4](#4-create-an-escrow-and-open-api-access) until it is added on chain.
+The second command must print `true`. If it prints `false`, your address is **not** allowlisted—do not proceed to [§2.5](#25-fund-the-creator-account), [§3](#3-deploy-the-gateway), or [§4](#4-create-an-escrow-and-open-api-access) until it is added on chain.
 
 ### 2.5 Fund the creator account
 
@@ -229,7 +238,7 @@ inferenced query bank balances "$DEVSHARD_CREATOR" \
   | jq '.balances[] | select(.denom=="ngonka")'
 ```
 
-Send at least **~6 GONKA** in ngonka (5 GONKA for the example escrow deposit plus create/settle fees) from any wallet you control.
+Send enough **ngonka** to cover the escrow deposit (`5000000000` in the example if that is ≥ `min_amount`), plus create/settle gas and transaction fees.
 
 ---
 
@@ -288,8 +297,6 @@ services:
 - The volume mount keeps registered escrows and admin settings across restarts.
 - `127.0.0.1:18080` binds the API to localhost only; put nginx or another reverse proxy in front if remote clients need access.
 
-Do not start the gateway until `config.devshard.env` contains real values (not placeholders), including `export DEVSHARDS_JSON='[]'`.
-
 ### 3.2 Pull the image and start the container
 
 1. Load environment variables and pull the image:
@@ -300,13 +307,13 @@ source config.devshard.env
 sudo docker compose pull
 ```
 
-2. Start the gateway in the background:
+1. Start the gateway in the background:
 
 ```bash
 sudo docker compose up -d
 ```
 
-3. Confirm the service is healthy:
+1. Confirm the service is healthy:
 
 ```bash
 sudo docker compose ps
@@ -334,9 +341,11 @@ Chat completions are available at:
 
 **Allowlist check:** `$DEVSHARD_CREATOR` must already be allowlisted ([§2.4](#24-confirm-allowlist-membership)). Otherwise escrow create fails on chain.
 
+The deposit in §4.1 must be **≥** on-chain `min_amount` from §2.4.
+
 ### 4.1 Create and register the escrow
 
-The gateway admin API creates the on-chain escrow and registers it when `"register": true`.
+The gateway admin API creates the on-chain escrow and registers it when `"register": true`. The escrow stays active until you finalize and settle it in [§6](#6-finalize-and-settle-the-escrow), unless you enable automatic rotation in [Escrow lifetime and rotation](#escrow-lifetime-and-rotation) below.
 
 ```bash
 cd /srv/gonka/devshard-gateway
@@ -347,7 +356,7 @@ CREATE_JSON=$(curl -sS -X POST http://127.0.0.1:18080/v1/admin/escrows \
   -H "Content-Type: application/json" \
   -d "{
     \"amount\": 5000000000,
-    \"model_id\": \"Qwen/Qwen2.5-7B-Instruct\",
+    \"model_id\": \"Qwen/Qwen3-235B-A22B-Instruct-2507-FP8\",
     \"private_key\": \"$DEVSHARD_PRIVATE_KEY\",
     \"chain_id\": \"$CHAIN_ID\",
     \"register\": true
@@ -372,7 +381,7 @@ curl -sS -X POST http://127.0.0.1:18080/v1/admin/settings \
     "default_request_max_tokens": 3072,
     "request_max_tokens_cap": 4096,
     "model_limits": [{
-      "model_id": "Qwen/Qwen2.5-7B-Instruct",
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
       "access_mode": "api_key"
     }]
   }'
@@ -385,6 +394,91 @@ curl -fsS http://127.0.0.1:18080/v1/status | jq .
 curl -fsS http://127.0.0.1:18080/v1/admin/devshards \
   -H "Authorization: Bearer $DEVSHARD_ADMIN_API_KEY" | jq .
 ```
+
+### Escrow lifetime and rotation
+
+This guide’s steps in [§4](#4-create-an-escrow-and-open-api-access)–[§6](#6-finalize-and-settle-the-escrow) walk through **one manual escrow**. That is the right model for a first test. On mainnet, a gateway can also **rotate** escrows automatically across epoch boundaries so you do not run out of capacity.
+
+#### How long does a manual escrow live?
+
+**There is no fixed wall-clock expiry** in the gateway for a single escrow you create yourself.
+
+
+| Limit              | What it means                                                                                                                                                                                                                                                                                                         |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Your workflow**  | The escrow keeps serving chat until you **finalize and settle** ([§6](#6-finalize-and-settle-the-escrow)).                                                                                                                                                                                                            |
+| **On-chain epoch** | Each escrow is tied to the chain **epoch** it was created in (`epoch_index`). That matters for protocol storage and chain rules, not a simple “expires after N hours” timer in this guide.                                                                                                                            |
+| **Balance**        | Inference spends the escrow deposit. The gateway periodically checks active escrows (about every **30 seconds**). If usable balance drops below **1,000,000 ngonka**, it treats the escrow as depleted.                                                                                                               |
+| **Nonce budget**   | Off-chain devshard state advances by **nonce**. The gateway stops routing new chat to an escrow whose nonce is very high (around **19,800** in current builds) and treats it like a depleted escrow. Chain params also define `devshard_escrow_params.max_nonce` (query in [§2.4](#24-confirm-allowlist-membership)). |
+| **Chain caps**     | Governance limits how many escrows a creator can open per epoch (`max_escrows_per_epoch`, default **100** on chain).                                                                                                                                                                                                  |
+
+
+**Default behaviour:** `escrow_rotation` is **off** until you enable it in admin settings. With rotation off, the gateway **does not** auto-create a replacement when balance or nonce is exhausted—it only logs and may stop using that escrow for new requests. Plan to **finalize and settle** before the deposit is spent, or enable rotation (below).
+
+#### Does the gateway auto-rotate?
+
+**Not by default.** Auto-rotation is optional and configured with `POST /v1/admin/settings` → `escrow_rotation`.
+
+When `**escrow_rotation.enabled` is `true`**, a background task runs about every **15 seconds** and coordinates escrows with the chain’s **epoch / PoC schedule**:
+
+1. `**pre_poc_blocks` before the next epoch switch** (measured to the upcoming `set_new_validators` boundary, not “PoC start” alone): for each configured model, create `**temp_count`** temporary “bridge” escrows, then **finalize and settle** active **regular** escrows for that model (settlement is skipped while a devshard still has in-flight requests).
+2. **After the chain leaves the PoC-active window** for that transition: create `**target_count`** new **regular** escrows per model, then **finalize and settle** the **temp** escrows from the bridge window.
+
+If temp escrow creation fails, the gateway may **promote** existing regular escrows to the temp role instead of leaving you with no bridge escrows.
+
+When rotation is enabled, the gateway can also **replace** a depleted escrow (low balance, high nonce, or balance exhausted mid-request) by creating a new on-chain escrow and settling the old one—**only for models listed under `escrow_rotation.models`**.
+
+#### Enable rotation (production / always-on gateways)
+
+Use this after you have already created, funded, and tested at least one escrow manually ([§4](#4-create-an-escrow-and-open-api-access)). Rotation needs the same `**private_key_env**` in the container (for example `DEVSHARD_PRIVATE_KEY`) with enough ngonka for creates and settle fees.
+
+Example for one model (adjust counts for your capacity; production operators often run several regular escrows per model, with `**temp_count`: 1** for the epoch bridge):
+
+```bash
+source config.devshard.env
+
+curl -sS -X POST http://127.0.0.1:18080/v1/admin/settings \
+  -H "Authorization: Bearer $DEVSHARD_ADMIN_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "escrow_rotation": {
+      "enabled": true,
+      "pre_poc_blocks": 300,
+      "models": [{
+        "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        "temp_count": 1,
+        "target_count": 1,
+        "amount": 5000000000,
+        "private_key_env": "DEVSHARD_PRIVATE_KEY"
+      }]
+    }
+  }'
+```
+
+Restart is not required: enabling rotation in settings starts the rotator on the running gateway.
+
+Inspect timing and the last per-model rotation results:
+
+```bash
+curl -fsS http://127.0.0.1:18080/v1/debug/rotation \
+  -H "Authorization: Bearer $DEVSHARD_ADMIN_API_KEY" | jq
+```
+
+Useful fields include `chain.blocks_until_next_rotation`, `settings`, and `latest` (per-model stage, counts, and errors).
+
+#### If rotation does not run or escrows pile up
+
+
+| Symptom                        | What to check                                                                                                                                                                                                                                                                             |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nothing happens across epochs  | Confirm `"escrow_rotation": { "enabled": true, ... }` in settings and `GET /v1/debug/rotation` shows `enabled: true`.                                                                                                                                                                     |
+| Creates stop after one failure | The gateway **suppresses repeat creates** for the same model, role, and epoch after a failed on-chain create (for example insufficient funds or the per-epoch escrow limit). Read `/v1/debug/rotation` and `docker logs` for `escrow_rotation_`* / `escrow_depletion_replacement_failed`. |
+| Settles never finish           | Settlement waits until the devshard has **no active requests**. Drain or stop traffic before expecting rotation settle to complete.                                                                                                                                                       |
+| Depletion but no replacement   | **Replacement requires rotation enabled** and a matching entry in `escrow_rotation.models`. Otherwise finalize and settle manually in [§6](#6-finalize-and-settle-the-escrow).                                                                                                            |
+| Wrong epoch timing             | Rotation uses live chain phase data; ensure `DEVSHARD_PUBLIC_API` / chain REST point at your mainnet node ([§2.2](#22-create-configdevshardenv)).                                                                                                                                         |
+
+
+For a **single manual test**, leave rotation **disabled**, complete [§5](#5-send-a-test-request), then [§6](#6-finalize-and-settle-the-escrow). Enable rotation when you want the gateway to keep fresh escrows across epochs without manual recreate.
 
 ---
 
@@ -399,7 +493,7 @@ curl -sS http://127.0.0.1:18080/v1/chat/completions \
   -H "Authorization: Bearer $DEVSHARD_API_KEYS" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
     "messages": [{"role": "user", "content": "How long do hamsters live?"}],
     "max_tokens": 32
   }' | jq '{id, content: .choices[0].message.content}'
@@ -486,7 +580,7 @@ inferenced query bank balances "$DEVSHARD_CREATOR" \
   | jq '.balances[] | select(.denom=="ngonka") | {denom, amount}'
 ```
 
-After a ~5 GONKA deposit, you should see most of the balance on the creator again, minus inference cost, settlement fees, and transaction gas.
+After settlement, most of the unused deposit should return to `$DEVSHARD_CREATOR`, minus inference cost, settlement fees, and transaction gas.
 
 ---
 
@@ -528,6 +622,6 @@ sudo docker compose down
 
 ## Related
 
-- [Developer Quickstart](https://gonka.ai/docs/developer/quickstart/) — use a community broker instead of self-hosting
+- [Developer Quickstart](quickstart.md) — community brokers and [Become a broker](quickstart.md#3-become-a-broker)
 
-Need help? See the [Gonka FAQ](https://gonka.ai/docs/) or join the project Discord for testnet access and allowlist requests.
+**Need help?** See the [FAQ](https://gonka.ai/FAQ/), join [Discord](https://discord.com/invite/RADwCT2U6R), or open a [broker / allowlist request](https://github.com/gonka-ai/gonka/issues/new?title=Request+to+be+added+as+a+Gonka+broker) on GitHub.

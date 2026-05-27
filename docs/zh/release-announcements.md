@@ -8,6 +8,68 @@
 
     本页面内容不保证完全覆盖所有信息。有关最新信息（包括治理投票的发起及当前状态），请参考链上数据或查看相关浏览器与仪表盘。
 
+## 2026年5月26日
+
+**升级已执行：v0.2.13 现已在主网上线**
+
+Upgrade Proposal v0.2.13（proposal id 54）的链上治理投票已结束。
+该提案已被批准（APPROVED），并且升级已在区块 `4267300`时成功于主网上执行。
+
+## 2026年5月25日
+
+**升级 v0.2.13：预下载二进制文件与 MiniMax-M2.7 权重**
+
+v0.2.13 升级提案（proposal id 54） (https://github.com/gonka-ai/gonka/pull/1143)54)已通过链上治理，升级现已排期。
+
+• 升级高度：4267300
+• 预计升级时间：2026年5月26日 14:42 UTC（07:42 PDT）
+
+提前预下载二进制文件和权重，有助于避免在升级窗口期间依赖 GitHub / Hugging Face 的可用性。
+```
+# 1. 创建目录
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.13/bin \
+              .inference/cosmovisor/upgrades/v0.2.13/bin && \
+# 2. DAPI: 下载 -> 校验 -> 直接解压到 bin -> 添加可执行权限
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.13/decentralized-api-amd64.zip" && \
+echo "cf31fa4d715e721d1e17b7e2b46d628a0b66b6ef603d352d587abe1d57c40925 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.13/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.13/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+# 3. Inference: 下载 -> 校验 -> 直接解压到 bin -> 添加可执行权限
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.13/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.13/inferenced-amd64.zip" && \
+echo "ea7dea6c4e8d96ed61005bed196768cc9f44e5fb17f0714cb64d1d00a485be0c inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.13/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.13/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+# 4. 清理与最终检查
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.13/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.13/bin/inferenced && \
+echo "f93d579ef9c46ade9f28c73c339df2f7ae73607115b7efeb849316984924f68d .dapi/cosmovisor/upgrades/v0.2.13/bin/decentralized-api" | sudo sha256sum --check && \
+echo "e52b86c4f64a47f0ea9bdb3327feb321b8a4208a76b35d52a7e9ddd1b9d6eed5 .inference/cosmovisor/upgrades/v0.2.13/bin/inferenced" | sudo sha256sum --check
+```
+
+## 2026年5月22日
+
+**v0.2.13 投票已结束——准备在高度 4267300 进行升级** 
+
+链上治理投票 [升级提案 v0.2.13](https://github.com/gonka-ai/gonka/pull/1143) (提案 id `54`) 已结束。该提案已被 **批准**。
+
+升级将在主网上于 **区块高度 4267300** (约为 2026年5月26日 星期二 14:42 UTC / 07:42 PDT ）。
+
+**提醒事项**
+
+1. 请确保你的 bridge 容器为最新版本并已同步。Ethereum 主网 bridge 合约 (`0x972a7a92d92796a98801a8818bcf91f1648f2f68`)、USDC/USDT token metadata，以及 CW20 `wrapped_token` code id `105` ，都会通过 upgrade handler 本身完成注册，因此 bridge 会在升级高度时于主网上激活。验证说明详见[https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026).
+2. 如果你计划运行 `MiniMaxAI/MiniMax-M2.7`，请现在预下载约 230 GB 的 FP8 权重。在 bootstrap window 期间，Hugging Face 的限速和带宽拥堵可能会导致错过首次 eligibility check。
+3. 升级完成后，每个host都需要为**每一个**治理批准模型声明 participation mode —— `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、`moonshotai/Kimi-K2.6`以及`MiniMaxAI/MiniMax-M2.7` 。即使 host 只运行其中一个或两个模型，也仍然需要为其他模型设置 DELEGATE 或 REFUSE。MiniMax 的截止时间为 **chain epoch `278`** (约为**2026年5月29日 星期五 UTC** — 或 5月28日 星期四晚 PDT). 如果 host 不进行任何操作，则从 epoch 278 开始，其全部 weight 每 epoch 将受到 15% 的惩罚。
+4. 请计划在升级窗口期间保持在线，以便及时执行任何后续步骤或缓解措施。请确保 `.inference/data` 有足够的可用空间用于 cosmovisor 状态备份；如果 `application.db` 较大，请考虑在升级前应用 cosmovisor backup guide 中的 [ cleanup techniques](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 。
+5. v0.2.13 的 calibration 将 Kimi K2.6 的 `WeightScaleFactor` 从 `1.26` 调整为 `0.78` ，以反映 vLLM-0.20.1 之后 Qwen-on-B200 reference 的吞吐基准。该调整 仅影响你 consensus weight 中来源于 Kimi 的部分；你的 Qwen-derived weight 以及 Kimi 内部 PoC 分配不会改变。在 B200/B300 上，Kimi 仍然是收益最高的选项；在 H100/H200 上，MiniMax-M2.7 将成为与 Qwen 相近、但高于 Kimi 的选项。
+
+- 提案: [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+- 迁移逻辑: [`upgrades.go`](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.13/inference-chain/app/upgrades/v0_2_13/upgrades.go)
+
 ## 2026年5月20日
 
 **v0.2.13 升级提案进入治理投票阶段**

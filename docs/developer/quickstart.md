@@ -136,41 +136,21 @@ The Gonka broker endpoint is OpenAI-compatible, so you can use the official Open
 
     import (
         "context"
-        "encoding/json"
         "log"
-        "net/http"
         "os"
-        "strings"
 
-        gonka "github.com/gonka-ai/gonka-openai/go"
         "github.com/openai/openai-go"
+        "github.com/openai/openai-go/option"
     )
 
     func main() {
-        src := strings.TrimRight(os.Getenv("SOURCE_URL"), "/")
-
-        resp, err := http.Get(src + "/v1/identity")
-        if err != nil {
-            log.Fatal(err)
-        }
-        defer resp.Body.Close()
-        var ident struct {
-            Data struct{ Address string } `json:"data"`
-        }
-        if err := json.NewDecoder(resp.Body).Decode(&ident); err != nil {
-            log.Fatal(err)
-        }
-
-        client, err := gonka.NewGonkaOpenAI(gonka.Options{
-            GonkaPrivateKey: os.Getenv("GONKA_PRIVATE_KEY"),
-            Endpoints:       []gonka.Endpoint{{URL: src + "/v1", Address: ident.Data.Address}},
-        })
-        if err != nil {
-            log.Fatal(err)
-        }
+        client := openai.NewClient(
+            option.WithBaseURL(os.Getenv("GONKA_BROKER_URL")),
+            option.WithAPIKey(os.Getenv("GONKA_BROKER_API_KEY")),
+        )
 
         r, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
-            Model: "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+            Model: os.Getenv("GONKA_MODEL"),
             Messages: []openai.ChatCompletionMessageParamUnion{
                 openai.UserMessage("Write a haiku about programming"),
             },
@@ -178,10 +158,8 @@ The Gonka broker endpoint is OpenAI-compatible, so you can use the official Open
         if err != nil {
             log.Fatal(err)
         }
-
         log.Println(r.Choices[0].Message.Content)
     }
-
     ```
 
 In a few moments, you should see the inference response in your terminal.

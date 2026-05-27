@@ -19,7 +19,7 @@ Upgrade Proposal v0.2.13（proposal id 54）的链上治理投票已结束。
 
 **升级 v0.2.13：预下载二进制文件与 MiniMax-M2.7 权重**
 
-Tv0.2.13 升级提案（proposal id 54） (https://github.com/gonka-ai/gonka/pull/1143)54)已通过链上治理，升级现已排期。
+v0.2.13 升级提案（proposal id 54） (https://github.com/gonka-ai/gonka/pull/1143)54)已通过链上治理，升级现已排期。
 
 • 升级高度：4267300
 • 预计升级时间：2026年5月26日 14:42 UTC（07:42 PDT）

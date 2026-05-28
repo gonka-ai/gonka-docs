@@ -119,6 +119,10 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
      }'
 ```
 
+#### 5. Validate your deployment
+
+The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates a deployed ML Node against pre-computed honest PoC vectors for a specific model. For Kimi K2.6 the committed golden reference is `mlnode/packages/benchmarks/scripts/poc_validation/artifacts/moonshotai-kimi-k2.6.json` (200 vectors; recorded on 4×B200). See [Validate ML Node Deployment](./mlnode-validation.md) and [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md).
+
 ## Instructions for hosts who are NOT going to deploy Kimi-K2.6
 
 #### 1. Check if you trust any host who is going to deploy Kimi K2.6 / send `PoCIntent`

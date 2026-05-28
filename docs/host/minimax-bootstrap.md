@@ -167,6 +167,10 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 For 4×B200 / 8×B200 deployments, use `--tensor-parallel-size 2` (two instances per 8×B200 box) or `--tensor-parallel-size 4` (one instance) depending on throughput preference. The chain `Model.ModelArgs` are minimal; deployment-side flags (`--tensor-parallel-size`, `--gpu-memory-utilization`, `--max-num-seqs`, etc.) are operator choices.
 
+#### 5. Validate your deployment
+
+The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates a deployed ML Node against pre-computed honest PoC vectors for a specific model. For MiniMax M2.7 the committed golden reference is `mlnode/packages/benchmarks/scripts/poc_validation/artifacts/minimaxai-minimax-m2.7.json` (200 vectors; recorded on 2×H200). Ready-made `deploy/join/` configs are also available for `4×A100`, `4×H100`, `2×H200`, and `2×B200`. See [Validate ML Node Deployment](./mlnode-validation.md) and [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md).
+
 
 ## Instructions for hosts who are NOT going to deploy MiniMax-M2.7
 

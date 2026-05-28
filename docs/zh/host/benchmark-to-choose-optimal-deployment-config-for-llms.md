@@ -4,6 +4,9 @@
 
 为了获得最佳结果，vLLM 需要仔细的、特定于服务器的配置。最佳性能取决于 GPU 特性和跨 GPU 数据传输速度。本指南提供如何使用 Qwen/QwQ-32 模型作为示例选择 vLLM 参数的说明。我们还将描述哪些参数可以调整以获得最佳性能而不影响验证，以及哪些参数必须保持不变。
 
+!!! note "性能与正确性"
+    本指南讨论的是**性能调优**（`compressa-perf`、TP / PP）。要验证您的部署生成与目标模型黄金参考相匹配的诚实 PoC 向量，请参见[验证 ML 节点部署](./mlnode-validation.md)（[`gonka` 仓库](https://github.com/gonka-ai/gonka)中的 `mlnode-validate` 技能）。
+
 [链接到我们的 vLLM 分支](https://github.com/product-science/vllm/tree/productscience/v0.8.1)。
 
 ## 理解 vLLM 参数

@@ -777,6 +777,9 @@ Edit `node-config.json` so each ML Node entry lists the **one model** that node 
 
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
+!!! tip "Validate the deployment"
+    The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates an ML Node against pre-computed honest PoC vectors for a specific model. Committed golden references are available for Qwen3-0.6B, Qwen3-235B (default + DeepGEMM + pubkey-v2 variants), Kimi K2.6, and MiniMax M2.7. See [Validate ML Node Deployment](./mlnode-validation.md).
+
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
 To make sure the model weights are ready for inference, you should download them before deployment.

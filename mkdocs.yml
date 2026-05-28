@@ -25,6 +25,7 @@ nav:
       - Genesis: host/genesis.md
     - Operate:
       - ML Node management: host/mlnode-management.md
+      - Validate ML Node: host/mlnode-validation.md
       - Multiple nodes: host/multiple-nodes.md
       - Edit public host info: host/host_info.md
       - Network Node API: host/network-node-api.md
@@ -170,6 +171,7 @@ plugins:
             Genesis: 创世
             Operate: 运维
             ML Node management: ML 节点管理
+            Validate ML Node: 验证 ML 节点
             "Multiple nodes": 多节点
             Edit public host info: 编辑主机公开信息
             "Network Node API": 网络节点 API

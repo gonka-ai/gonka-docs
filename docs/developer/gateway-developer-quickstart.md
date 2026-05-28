@@ -395,9 +395,15 @@ curl -fsS http://127.0.0.1:18080/v1/admin/devshards \
   -H "Authorization: Bearer $DEVSHARD_ADMIN_API_KEY" | jq .
 ```
 
+### Running multiple escrows (parallel pool)
+
+One gateway process can serve **many escrows at once**. Register them at first start with `**DEVSHARDS_JSON`** in the container environment, or add more later with `**POST /v1/admin/devshards`** or `**POST /v1/admin/escrows**` (`"register": true`). Pooled `**POST /v1/chat/completions**` picks an active escrow per request—the **picker** scores runtimes by load (in-flight requests vs capacity weight) and routes to the best match for the requested model. 
+
+`**GET /v1/status`** in pool mode lists all devshards plus limiter and capacity; with exactly one escrow it behaves like the simple proxy. Per-escrow admin calls use the `**/devshard/{id}/…`** prefix (for example `**POST /devshard/{id}/v1/finalize**`); bare `**POST /v1/finalize**` only works when a single escrow is configured. [§5](#5-send-a-test-request)–[§6](#6-finalize-and-settle-the-escrow) below use one escrow; use the pool when you need more throughput or rotation across epochs.
+
 ### Escrow lifetime and rotation
 
-This guide’s steps in [§4](#4-create-an-escrow-and-open-api-access)–[§6](#6-finalize-and-settle-the-escrow) walk through **one manual escrow**. That is the right model for a first test. On mainnet, a gateway can also **rotate** escrows automatically across epoch boundaries so you do not run out of capacity.
+This guide’s steps in [§4.1](#41-create-and-register-the-escrow)–[§4.2](#42-open-user-api-access) and [§5](#5-send-a-test-request)–[§6](#6-finalize-and-settle-the-escrow) walk through **one manual escrow**. That is the right model for a first test. On mainnet, a gateway can also **rotate** escrows automatically across epoch boundaries so you do not run out of capacity.
 
 #### How long does a manual escrow live?
 
@@ -428,7 +434,7 @@ If temp escrow creation fails, the gateway may **promote** existing regular escr
 
 When rotation is enabled, the gateway can also **replace** a depleted escrow (low balance, high nonce, or balance exhausted mid-request) by creating a new on-chain escrow and settling the old one—**only for models listed under `escrow_rotation.models`**.
 
-**Funding and rotation:** Each epoch transition creates **new** on-chain escrows (`temp_count` bridge escrows, then `target_count` regular escrows per model) before the previous ones are finalized and settled. Every create locks another `amount` from `$DEVSHARD_CREATOR` until settlement returns the unused portion. Plan creator-wallet balance for at least **`(temp_count + target_count) × amount`** ngonka **per model, per epoch**, plus gas for create and settle transactions—and keep extra headroom, because bridge and regular escrows can overlap for a short time while rotation is in progress.
+**Funding and rotation:** Each epoch transition creates **new** on-chain escrows (`temp_count` bridge escrows, then `target_count` regular escrows per model) before the previous ones are finalized and settled. Every create locks another `amount` from `$DEVSHARD_CREATOR` until settlement returns the unused portion. Plan creator-wallet balance for at least `**(temp_count + target_count) × amount`** ngonka **per model, per epoch**, plus gas for create and settle transactions—and keep extra headroom, because bridge and regular escrows can overlap for a short time while rotation is in progress.
 
 #### Enable rotation (production / always-on gateways)
 
@@ -586,11 +592,13 @@ After settlement, most of the unused deposit should return to `$DEVSHARD_CREATOR
 
 ---
 
-## 7. Deactivate and stop the gateway
+## 7. Pause, redirect, and stop the gateway
 
-### 7.1 Deactivate (gateway pause)
+Sections [§1](#1-install-tools-and-create-a-deploy-directory)–[§6](#6-finalize-and-settle-the-escrow) cover a single test escrow. This section is for pausing routing, redirecting clients when asked, or shutting down the host.
 
-After you settle in [§6](#6-finalize-and-settle-the-escrow), the escrow record remains on chain; deactivate only stops the gateway from routing new requests to that escrow locally:
+### 7.1 Deactivate one escrow
+
+After you settle in [§6](#6-finalize-and-settle-the-escrow), the escrow record remains on chain; **deactivate** only stops this gateway from routing new chat to that escrow locally. Other escrows in the pool keep serving if they are still active.
 
 ```bash
 source config.devshard.env
@@ -599,7 +607,28 @@ curl -sS -X POST "http://127.0.0.1:18080/v1/admin/devshards/${ESCROW_ID}/deactiv
   -H "Authorization: Bearer $DEVSHARD_ADMIN_API_KEY"
 ```
 
-### 7.2 Stop the container and optional cleanup
+### 7.2 Redirect all client traffic (gateway kill-switch)
+
+To tell API clients to stop using this gateway URL while you keep admin access (finalize, settings, import, debug), enable the gateway **disabled** state. Non-admin requests (for example pooled `/v1/chat/completions`) receive **HTTP 308** with JSON `status`, `message`, and `new_url`. Admin routes (`/v1/admin/`*, `/v1/debug/*`, per-escrow finalize under `/devshard/{id}/…`) still work with the admin API key.
+
+```bash
+source config.devshard.env
+
+curl -sS -X POST http://127.0.0.1:18080/v1/admin/settings \
+  -H "Authorization: Bearer $DEVSHARD_ADMIN_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "disabled": {
+      "enabled": true,
+      "message": "This gateway is retired; use the new base URL.",
+      "new_url": "https://your-new-host.example/v1/chat/completions"
+    }
+  }'
+```
+
+To resume normal service, POST again with `"enabled": false`. On **first** gateway start only, the same flags can be bootstrapped from `DEVSHARD_GATEWAY_DISABLED`, `DEVSHARD_GATEWAY_DISABLED_MESSAGE`, and `DEVSHARD_GATEWAY_DISABLED_NEW_URL` in `config.devshard.env` (see the gateway env template in the [gonka](https://github.com/gonka-ai/gonka) repo). After `gateway.db` exists, use `**POST /v1/admin/settings`**.
+
+### 7.3 Stop the container and optional cleanup
 
 Optional — remove the local gateway record (run while the container is still up, after settle):
 
@@ -619,6 +648,24 @@ sudo docker compose down
 # Optional: remove persisted gateway state
 # sudo rm -rf .devshardctl
 ```
+
+---
+
+## 8. Update the gateway without dropping traffic (hot-swap)
+
+Replacing the gateway **image** or recreating the main container would drop in-flight `/v1/chat/completions` streams if you restarted it in place. Production operators use a **two-container** pattern: run a **temporary** gateway alongside the main one, move public traffic with an **nginx alias** and graceful `nginx -s reload`, **drain** `active_requests` on the old instance, update the main container, switch traffic back, then **import** temp escrow state into the main gateway.
+
+**What the gateway provides**:
+
+- Second `devshardctl` process (often port **18081**) with `DEVSHARDS_JSON=[]` so it does not load main escrows at boot.
+- `POST /v1/admin/escrows` on the temp instance to fund temp bridge escrows.
+- `GET /v1/status` (or admin state) to confirm `**active_requests`** is zero before stopping an instance.
+- `POST /v1/admin/devshards/import` on main with `active: false`, then register/activate on main so temp escrows survive the cutover.
+- Public routing via reverse proxy upstream name change (not a full proxy container restart for chat).
+
+**Step-by-step playbook:** the full ordered checklist (init → temp gateway → alias switch → drain → update main → import → activate) lives in the gateway operator **blue/green update** runbook and script used by Gonka mainnet operators (`blue-green-update.sh`), not in this quickstart. Ask your operator contact for that procedure, or follow the internal deploy runbook for your host. This guide documents the **APIs**; the script wires them for a specific nginx and compose layout.
+
+Do not use hot-swap for your first test in [§3](#3-deploy-the-gateway)–[§6](#6-finalize-and-settle-the-escrow); use it when you already run a **parallel pool** ([Running multiple escrows (parallel pool)](#running-multiple-escrows-parallel-pool)) or rotation ([Escrow lifetime and rotation](#escrow-lifetime-and-rotation)) in production.
 
 ---
 

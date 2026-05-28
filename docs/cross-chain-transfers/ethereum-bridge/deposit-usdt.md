@@ -27,12 +27,15 @@ const tx = await usdtContract.transfer(
 await tx.wait();
 ```
 
+!!! warning
+    The wrapped balance does not appear immediately. The bridge waits for the deposit block to be **finalised** on Ethereum (about two epochs), so expect **15–20 minutes** between the Ethereum transaction being mined and the wrapped balance appearing on Gonka.
+
 ### B) Check Wrapped Token Balance on Gonka
 
 Query the wrapped tokens owned by your Gonka address:
 
 ```bash
-curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
+curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
 ```
 
 #### Example Response
@@ -65,7 +68,9 @@ export WUSDT_CONTRACT="gonka1CW20WrappedUSDTAddress"
   '{"transfer":{"recipient":"gonka1xxxxxxxx...","amount":"123456"}}' \
   --from <your_key_name> \
   --chain-id gonka-mainnet \
-  --gas auto
+  --gas auto --gas-adjustment 1.5 \
+  -y \
+  --node http://node1.gonka.ai:8000/chain-rpc/
 ```
 
 #### Example Output
@@ -77,7 +82,7 @@ txhash: 39E3D4B86CF6B0C8952C789F4D73DB9FE27DEA4BD25F3842BE9298C78980A51D
 Allow 2-3 blocks to be mined, then check the status of the transaction:
 
 ```bash
-./inferenced query tx 39E3D4B86CF6B0C8952C789F4D73DB9FE27DEA4BD25F3842BE9298C78980A51D
+./inferenced query tx 39E3D4B86CF6B0C8952C789F4D73DB9FE27DEA4BD25F3842BE9298C78980A51D --node http://node1.gonka.ai:8000/chain-rpc/
 ```
 
 !!! tip

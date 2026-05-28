@@ -238,7 +238,7 @@ inferenced query bank balances "$DEVSHARD_CREATOR" \
   | jq '.balances[] | select(.denom=="ngonka")'
 ```
 
-Send enough **ngonka** to cover the escrow deposit (`5000000000` in the example if that is ≥ `min_amount`), plus create/settle gas and transaction fees.
+Send enough **ngonka** to cover the escrow deposit (`5000000000` in the example if that is ≥ `min_amount`), plus create/settle gas and transaction fees. If you will enable automatic escrow rotation ([Escrow lifetime and rotation](#escrow-lifetime-and-rotation)), fund the creator for **several** deposits per epoch—not only the one manual escrow in [§4](#4-create-an-escrow-and-open-api-access).
 
 ---
 
@@ -428,9 +428,11 @@ If temp escrow creation fails, the gateway may **promote** existing regular escr
 
 When rotation is enabled, the gateway can also **replace** a depleted escrow (low balance, high nonce, or balance exhausted mid-request) by creating a new on-chain escrow and settling the old one—**only for models listed under `escrow_rotation.models`**.
 
+**Funding and rotation:** Each epoch transition creates **new** on-chain escrows (`temp_count` bridge escrows, then `target_count` regular escrows per model) before the previous ones are finalized and settled. Every create locks another `amount` from `$DEVSHARD_CREATOR` until settlement returns the unused portion. Plan creator-wallet balance for at least **`(temp_count + target_count) × amount`** ngonka **per model, per epoch**, plus gas for create and settle transactions—and keep extra headroom, because bridge and regular escrows can overlap for a short time while rotation is in progress.
+
 #### Enable rotation (production / always-on gateways)
 
-Use this after you have already created, funded, and tested at least one escrow manually ([§4](#4-create-an-escrow-and-open-api-access)). Rotation needs the same `**private_key_env**` in the container (for example `DEVSHARD_PRIVATE_KEY`) with enough ngonka for creates and settle fees.
+Use this after you have already created, funded, and tested at least one escrow manually ([§4](#4-create-an-escrow-and-open-api-access)). Rotation needs the same `private_key_env` in the container (for example `DEVSHARD_PRIVATE_KEY`) with enough ngonka on the creator account for the deposits above, not just one escrow’s `amount`.
 
 Example for one model (adjust counts for your capacity; production operators often run several regular escrows per model, with `**temp_count`: 1** for the epoch bridge):
 

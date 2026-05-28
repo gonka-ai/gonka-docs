@@ -8,6 +8,14 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## May 28, 2026
+
+**MiniMax-M2.7 is now active on Gonka network**
+
+The bootstrap stage announced in v0.2.13 is complete. As of chain epoch 278, MiniMaxAI/MiniMax-M2.7 joins Qwen3-235B and Kimi K2.6 as an active model group, and PoC weight earned in the MiniMax group is now being converted into consensus weight at the calibrated coefficient 0.3024.
+
+Per-model participation enforcement for MiniMax is now in effect. Hosts that have already chosen DIRECT, DELEGATE or REFUSE for MiniMax do not need to do anything else — the same setup keeps working. Hosts that have not yet made a choice are encouraged to do so now to avoid the per-epoch penalty ([https://gonka.ai/docs/host/quickstart/#optional-poc-delegation-and-refusal](https://gonka.ai/docs/host/quickstart/#optional-poc-delegation-and-refusal)).
+
 ## May 26, 2026
 
 **UPGRADE EXECUTED: v0.2.13 is now live on mainnet**

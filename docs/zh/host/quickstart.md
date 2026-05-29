@@ -577,6 +577,9 @@ source config.env
 
 更多关于最优部署配置的说明请参阅 [此链接](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
+!!! tip "验证部署"
+    [`gonka` 仓库](https://github.com/gonka-ai/gonka)提供了一个名为 `mlnode-validate` 的智能体技能，可针对预先计算的诚实 PoC 向量验证 ML 节点。已提交的黄金参考涵盖 Qwen3-0.6B、Qwen3-235B（默认 + DeepGEMM + pubkey-v2 变体）、Kimi K2.6 和 MiniMax M2.7。参见[验证 ML 节点部署](./mlnode-validation.md)。
+
 ### [服务器] 将模型权重预下载到 Hugging Face 缓存（HF_HOME）
 
 推理节点从 Hugging Face 下载模型权重。为确保推理前权重已就绪，应在部署前下载。

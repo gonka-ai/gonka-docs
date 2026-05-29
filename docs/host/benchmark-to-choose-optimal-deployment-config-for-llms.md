@@ -4,6 +4,9 @@ Effective GPU utilization is critical for deploying large language models. Gonka
 
 To achieve the best results, vLLM requires careful, server-specific configuration. The optimal performance depends on both GPUs' characteristics and the speed of cross-GPU data transfer. This guide provides instructions on how to select vLLM parameters using the Qwen/Qwen3-32B-FP8 model as an example. We will also describe which parameters can be tuned for optimal performance without affecting validation and which parameters must remain unchanged.
 
+!!! note "Performance vs. correctness"
+    This guide is about **performance tuning** (`compressa-perf`, TP / PP). To validate that your deployment produces honest PoC vectors matching the golden reference for the target model, see [Validate ML Node Deployment](./mlnode-validation.md) (`mlnode-validate` skill in the [`gonka` repo](https://github.com/gonka-ai/gonka)).
+
 [Link to our vLLM fork](https://github.com/product-science/vllm/tree/productscience/v0.8.1).
 
 ## Understanding vLLM Parameters

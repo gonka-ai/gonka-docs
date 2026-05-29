@@ -299,7 +299,7 @@ services:
 
 ### 3.2 Pull the image and start the container
 
-1. Load environment variables and pull the image:
+Load environment variables and pull the image:
 
 ```bash
 cd /srv/gonka/devshard-gateway
@@ -307,13 +307,13 @@ source config.devshard.env
 sudo docker compose pull
 ```
 
-1. Start the gateway in the background:
+Start the gateway in the background:
 
 ```bash
 sudo docker compose up -d
 ```
 
-1. Confirm the service is healthy:
+Confirm the service is healthy:
 
 ```bash
 sudo docker compose ps

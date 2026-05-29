@@ -43,6 +43,7 @@ nav:
     - Cross-chain transfers:
       - Ethereum bridge:
         - Overview: cross-chain-transfers/ethereum-bridge/overview.md
+        - Register a token: cross-chain-transfers/ethereum-bridge/register-token.md
         - Deposit USDT (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/deposit-usdt.md
         - Withdraw USDT (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/withdraw-usdt.md
         - Deposit GNK (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/deposit-gnk.md
@@ -189,6 +190,7 @@ plugins:
             "Withdraw USDT via Kava (Gonka → Ethereum)": "通过 Kava 提取 USDT（Gonka → 以太坊）"
             Overview: 概述
             Ethereum bridge: 以太坊跨链桥
+            Register a token: 注册代币
             "Deposit USDT (Ethereum → Gonka)": "存入 USDT（以太坊 → Gonka）"
             "Withdraw USDT (Gonka → Ethereum)": "提取 USDT（Gonka → 以太坊）"
             "Deposit GNK (Gonka → Ethereum)": "存入 GNK（Gonka → 以太坊）"

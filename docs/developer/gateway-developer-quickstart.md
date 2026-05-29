@@ -415,7 +415,7 @@ This guide’s steps in [§4.1](#41-create-and-register-the-escrow)–[§4.2](#4
 | **Your workflow**  | The escrow keeps serving chat until you **finalize and settle** ([§6](#6-finalize-and-settle-the-escrow)).                                                                                                                                                                                                                                             |
 | **On-chain epoch** | Each escrow is tied to the chain **epoch** it was created in (`epoch_index`). That matters for protocol storage and chain rules, not a simple “expires after N hours” timer in this guide.                                                                                                                                                             |
 | **Balance**        | Inference spends the escrow deposit. The gateway periodically checks active escrows (about every **30 seconds**). If usable balance drops below **1,000,000 ngonka**, it treats the escrow as depleted.                                                                                                                                                |
-| **Nonce budget**   | Off-chain devshard state advances by **nonce**. The multi-escrow gateway stops routing new chat around **19,800** nonce (implementation limit in current proxy builds). Separately, `devshard_escrow_params.max_nonce` is the on-chain settlement ceiling—query it in [§2.4](#24-confirm-allowlist-membership) (mainnet after v0.2.13: **1,000,000**). |
+| **Nonce budget**   | Off-chain devshard state advances by **nonce**. The multi-escrow gateway stops routing new chat around **19,800** nonce (this limit will be set to signigicantly higher number in future). Separately, `devshard_escrow_params.max_nonce` is the on-chain settlement ceiling—query it in [§2.4](#24-confirm-allowlist-membership) (mainnet after v0.2.13: **1,000,000**). |
 | **Chain caps**     | Governance sets `max_escrows_per_epoch`: the maximum number of **devshard escrows allowed chain-wide in the current epoch** (not per creator). Query the live value in [§2.4](#24-confirm-allowlist-membership). On mainnet after v0.2.13 this is **500,000**.                                                                                         |
 
 
@@ -663,9 +663,7 @@ Replacing the gateway **image** or recreating the main container would drop in-f
 - `POST /v1/admin/devshards/import` on main with `active: false`, then register/activate on main so temp escrows survive the cutover.
 - Public routing via reverse proxy upstream name change (not a full proxy container restart for chat).
 
-**Step-by-step playbook:** the full ordered checklist (init → temp gateway → alias switch → drain → update main → import → activate) lives in the gateway operator **blue/green update** runbook and script used by Gonka mainnet operators (`blue-green-update.sh`), not in this quickstart. Ask your operator contact for that procedure, or follow the internal deploy runbook for your host. This guide documents the **APIs**; the script wires them for a specific nginx and compose layout.
-
-Do not use hot-swap for your first test in [§3](#3-deploy-the-gateway)–[§6](#6-finalize-and-settle-the-escrow); use it when you already run a **parallel pool** ([Running multiple escrows (parallel pool)](#running-multiple-escrows-parallel-pool)) or rotation ([Escrow lifetime and rotation](#escrow-lifetime-and-rotation)) in production.
+**The Step-by-step playbook** is being prepared at the moment.
 
 ---
 

@@ -15,6 +15,7 @@ nav:
 
   - Developer:
     - Quickstart: developer/quickstart.md
+    - Run your own gateway: developer/gateway-developer-quickstart.md
 
   - Host:
     - Get started:

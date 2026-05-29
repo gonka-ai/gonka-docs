@@ -261,7 +261,7 @@ If your application has high throughput or other requirements, you can run a Gon
 
     Today, only Gonka accounts on the on-chain `devshard_escrow_params.allowed_creator_addresses` list can open devshards. If your address is not on that list, your gateway will not be able to create sessions, and you will not be able to send inference. The allow-list is expanded by on-chain governance vote. See [Become a broker](#3-become-a-broker) below for how to request inclusion.
 
-A separate guide is being prepared with full deployment instructions, configuration, devshard rotation, and operations. Contact in [Discord](https://discord.com/invite/RADwCT2U6R) for early access while the documentation is being finalised.
+Full deployment instructions are in [Run your own gateway](gateway-developer-quickstart.md).
 
 ---
 

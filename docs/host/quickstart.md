@@ -59,7 +59,7 @@ You typically run **one model per ML Node** in `node-config.json`. Hosts may ope
 !!! note "Governance and model classification"
     - Models may be classified into a category if approved by governance.
     - Decisions about adding or changing supported models are made by governance.
-    - For details on governance procedures and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+    - For details on governance procedures and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
 
 ### Proposed Hardware Configuration
 To run a valid node, you need machines with [supported GPU(s)](/host/hardware-specifications/). Below is a reference layout:
@@ -519,7 +519,8 @@ source config.env
 
 ### [Server] Edit Inference Node Description for the Server
 
-Edit `node-config.json` so each ML Node entry lists the **one model** that node serves under `"models"`. **Confirm** each model id against `/v1/governance/models` ([Supported models](#supported-models)) before you rely on it—the examples below mirror common layouts but may list ids that were valid when this page was published. Governance decides the approved set; see the [Transactions and Governance Guide](https://gonka.ai/transactions-and-governance/).
+!!! note
+    The network currently supports the Qwen/Qwen3-235B-A22B-Instruct-2507-FP8 only. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
 
 === "Qwen — 4xH100 (same works for 8xH200 or 8xH100)"
 

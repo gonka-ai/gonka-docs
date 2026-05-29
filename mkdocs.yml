@@ -53,8 +53,13 @@ nav:
       - IBC:
         - Withdraw USDT via Kava (Gonka → Ethereum): cross-chain-transfers/ibc/withdraw-usdt-via-kava.md
 
+  - Governance:
+    - Transactions & Governance: governance/transactions-and-governance.md
+    - Voting on Proposals: governance/voting-on-proposals.md
+    - Creating Proposals: governance/creating-proposals.md
+    - Voting Power, Eligibility, Delegation: governance/voting-power-eligibility.md
+
   - Reference:
-    - Transactions & governance: transactions-and-governance.md
     - Software upgrades: software-upgrades.md
     - Model licenses: model-licenses.md
     - Dashboard maintainer memo v0.2.13: dashboard-maintainer-memo-v0.2.13.md

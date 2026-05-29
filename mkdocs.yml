@@ -41,16 +41,11 @@ nav:
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
     - Cross-chain transfers:
-      # Ethereum bridge subsection is hidden until the bridge upgrade is
-      # announced. Pages themselves stay in docs/cross-chain-transfers/ethereum-bridge/
-      # and remain reachable by direct URL — only the sidebar links are hidden.
-      # Uncomment as-is to republish.
-      # - Ethereum bridge:
-      #   - Overview: cross-chain-transfers/ethereum-bridge/overview.md
-      #   - Deposit USDT (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/deposit-usdt.md
-      #   - Withdraw USDT (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/withdraw-usdt.md
-      #   - Deposit GNK (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/deposit-gnk.md
-      #   - Register a bridge token: cross-chain-transfers/ethereum-bridge/register-token.md
+      - Ethereum bridge:
+        - Overview: cross-chain-transfers/ethereum-bridge/overview.md
+        - Deposit USDT (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/deposit-usdt.md
+        - Withdraw USDT (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/withdraw-usdt.md
+        - Deposit GNK (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/deposit-gnk.md
       - IBC:
         - Withdraw USDT via Kava (Gonka → Ethereum): cross-chain-transfers/ibc/withdraw-usdt-via-kava.md
 
@@ -192,14 +187,11 @@ plugins:
             Cross-chain transfers: 跨链转账
             IBC: IBC
             "Withdraw USDT via Kava (Gonka → Ethereum)": "通过 Kava 提取 USDT（Gonka → 以太坊）"
-            # Hidden together with the Ethereum bridge nav block above.
-            # Uncomment in sync when republishing.
-            # Overview: 概述
-            # Ethereum bridge: 以太坊跨链桥
-            # "Deposit USDT (Ethereum → Gonka)": "存入 USDT（以太坊 → Gonka）"
-            # "Withdraw USDT (Gonka → Ethereum)": "提取 USDT（Gonka → 以太坊）"
-            # "Deposit GNK (Gonka → Ethereum)": "存入 GNK（Gonka → 以太坊）"
-            # Register a bridge token: 注册跨链桥代币
+            Overview: 概述
+            Ethereum bridge: 以太坊跨链桥
+            "Deposit USDT (Ethereum → Gonka)": "存入 USDT（以太坊 → Gonka）"
+            "Withdraw USDT (Gonka → Ethereum)": "提取 USDT（Gonka → 以太坊）"
+            "Deposit GNK (Gonka → Ethereum)": "存入 GNK（Gonka → 以太坊）"
             Reference: 参考
             Transactions & governance: 交易与治理
             Software upgrades: 软件升级

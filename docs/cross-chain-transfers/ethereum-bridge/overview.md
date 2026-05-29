@@ -1,7 +1,7 @@
 # Ethereum bridge overview
 
 !!! warning
-    To avoid unintentional loss of tokens, do not use these instructions before the official announcement that the bridge is fully activated.
+    Always start with a small test transaction. Bridge transfers are irreversible, so before moving large amounts, send a small amount first and confirm it arrives as expected.
 
 The dedicated Bridge smart contract, controlled by the Gonka consensus, is active on Ethereum at the address:
 

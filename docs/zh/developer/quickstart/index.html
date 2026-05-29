@@ -1,0 +1,2989 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/docs/zh/developer/quickstart/">
+      
+      
+        <link rel="prev" href="../../glossary/">
+      
+      
+        <link rel="next" href="../gateway-developer-quickstart/">
+      
+      
+        
+          <link rel="alternate" href="../../../developer/quickstart/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>快速上手 - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - 快速上手">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/docs/zh/developer/quickstart/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="https://gonka.ai/" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              快速上手
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../developer/quickstart/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://gonka.ai/" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    了解
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    了解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用社区经纪商（推荐）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 使用社区经纪商（推荐）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 选择经纪商
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 获取 API key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 发送你的第一个请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 工具调用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-run-your-own-gateway-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 自行运行 gateway（进阶）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-become-a-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 成为经纪商
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gateway-developer-quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run your own gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    硬件规格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    密钥管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    抵押
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 节点管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/mlnode-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    验证 ML 节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编辑主机公开信息
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型与基准测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型与基准测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/multi_model_poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模型 PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/kimi-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kimi K2.6 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/minimax-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MiniMax-M2.7 bootstrap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包与转账指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链转账
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    跨链转账
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_1" id="__nav_4_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    以太坊跨链桥
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    以太坊跨链桥
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/register-token/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    注册代币
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 USDT（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 GNK（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_2" id="__nav_4_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IBC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ibc/withdraw-usdt-via-kava/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过 Kava 提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Governance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-on-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting on Proposals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/creating-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Proposals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-power-eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting Power, Eligibility, Delegation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件升级
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘维护者备忘录 v0.2.13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    发布公告
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 使用社区经纪商（推荐）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 使用社区经纪商（推荐）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 选择经纪商
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 获取 API key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 发送你的第一个请求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 工具调用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-run-your-own-gateway-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 自行运行 gateway（进阶）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-become-a-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 成为经纪商
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="_1">开发者快速开始</h1>
+<p>本指南介绍如何通过 <strong>社区经纪商（community broker）</strong> 向 Gonka 发送推理请求。这是目前接入网络最快的方式。</p>
+<div class="admonition note">
+<p class="admonition-title">开发者目前如何接入 Gonka</p>
+<p>Gonka 推理现在围绕 <strong>devshards</strong> 组织 —— 这是一种短生命周期的会话，它在链上持有少量押金（escrow），并将每次请求的计费在链下结算。打开 devshard、对请求进行签名、轮换会话以及向链上提交结算的工作，都由一段被称为 <strong>gateway</strong> 的软件完成。</p>
+<p>对大多数开发者而言，使用 Gonka 最简单的方式就是调用一个 <strong>社区经纪商（community broker）</strong> —— 这是一家已经运行 gateway 并对外提供标准 OpenAI 兼容 API 的第三方。你只需要从经纪商那里获取一个 API key。</p>
+<p>如果你希望自己运行 gateway 而不是通过经纪商，请参见页面底部的 <a href="#2-run-your-own-gateway-advanced">自行运行 gateway</a>。</p>
+</div>
+<details class="note">
+<summary>Gonka 与传统 AI API 的区别</summary>
+<p>Gonka 不仅仅是另一个 AI API，它是一个用于可证明推理（provable inference）的加密协议，其目标是让模型执行、计费与结算可以被独立审计，而不是完全由单一服务商掌控。</p>
+<table>
+<thead>
+<tr>
+<th><strong>方面</strong></th>
+<th><strong>传统 AI API</strong> <br> <em>(OpenAI、Anthropic 等)</em></th>
+<th><strong>Gonka API</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>模型来源与可验证输出</strong></td>
+<td>模型由服务商托管和版本管理，但用户无法独立验证某次输出实际上是由哪个模型产生的。</td>
+<td>推理可以与协议定义的模型元数据以及网络执行记录建立关联，从而实现可验证的来源（verifiable provenance）。</td>
+</tr>
+<tr>
+<td><strong>抗审查性</strong></td>
+<td>访问由服务商集中控制。</td>
+<td>访问正在迁移到由协议治理的透明机制。在协议层面的请求校验完善之前，当前生产环境的访问仍处于受控状态。</td>
+</tr>
+<tr>
+<td><strong>可审计性与透明度</strong></td>
+<td>日志、计费和用量统计由 API 服务商控制。</td>
+<td>请求、计费与结算被设计为经过签名、加时间戳，并可被审计。</td>
+</tr>
+<tr>
+<td><strong>透明的代币经济学</strong></td>
+<td>价格与资源分配由服务商定义。</td>
+<td>价格与结算由协议或链上规则定义，使推理的经济模型更易于检查。</td>
+</tr>
+</tbody>
+</table>
+</details>
+<hr>
+<h2 id="1">1. 使用社区经纪商（推荐）</h2>
+<p>经纪商（broker）是一个独立运营方，自行运行 Gonka gateway，并将推理服务转售给开发者。从你的应用视角看，经纪商的接入点与任意 OpenAI 兼容 API 完全相同：设置 <code>base_url</code>，添加 <code>Authorization: Bearer &lt;API_KEY&gt;</code> 头，按惯例调用 <code>/v1/chat/completions</code> 即可。</p>
+<div class="admonition caution">
+<p class="admonition-title">经纪商不是核心协议的一部分</p>
+<p>经纪商是独立的第三方。定价、支付方式（USD、加密货币、抵用额度）、速率限制、所支持的模型、SLA、退款政策以及数据处理方式，都由每家经纪商自行决定。在正式上线前，请先阅读经纪商自己的文档与服务条款。</p>
+</div>
+<h3 id="11">1.1 选择经纪商</h3>
+<ul>
+<li><a href="https://proxy.gonka.gg/">https://proxy.gonka.gg/</a></li>
+<li><a href="https://gonkagate.com/">https://gonkagate.com/</a></li>
+<li><a href="https://gate.joingonka.ai/">https://gate.joingonka.ai/</a></li>
+<li><a href="https://router.gonkascan.com/">https://router.gonkascan.com/</a></li>
+<li><a href="https://gonka.pw/">https://gonka.pw/</a></li>
+<li><a href="https://gonka-api.org/">https://gonka-api.org/</a></li>
+<li><a href="https://gonkabroker.com/">https://gonkabroker.com/</a></li>
+</ul>
+<details class="note">
+<summary>关于此列表</summary>
+<p>此处列出的经纪商在主网上运行 Gonka gateway，并已同意被公开列出。Gonka 不为任何特定经纪商背书。列表会在每次页面加载时以随机顺序重新打乱，因此每家经纪商出现的位置不代表任何排名；请根据自身需求独立评估每家运营方。</p>
+</details>
+<h3 id="12-api-key">1.2 获取 API key</h3>
+<p>按经纪商网站上的接入说明操作。通常你需要：</p>
+<ol>
+<li>在经纪商网站注册（邮箱、账户、计费配置）。</li>
+<li>在经纪商的控制台中生成 API key。</li>
+<li>记下经纪商的 <code>base_url</code>（例如 <code>https://api.&lt;broker-domain&gt;/v1</code>）以及它支持的模型列表。</li>
+</ol>
+<h3 id="13">1.3 发送你的第一个请求</h3>
+<p>设置环境变量：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">GONKA_BROKER_URL</span><span class="o">=</span>&lt;broker-base-url&gt;<span class="w">     </span><span class="c1"># 例如 https://api.example-broker.com/v1</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GONKA_BROKER_API_KEY</span><span class="o">=</span>&lt;your-api-key&gt;
+<span class="nb">export</span><span class="w"> </span><span class="nv">GONKA_MODEL</span><span class="o">=</span>Qwen/Qwen3-235B-A22B-Instruct-2507-FP8<span class="w">   </span><span class="c1"># 或经纪商支持的任意模型</span>
+</code></pre></div>
+<p>Gonka 经纪商接入点是 OpenAI 兼容的，因此可以直接使用 OpenAI 官方 SDK —— 不需要 Gonka 特定的客户端库。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Python</label><label for="__tabbed_1_2">TypeScript</label><label for="__tabbed_1_3">Go</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>安装 OpenAI Python SDK：</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>openai
+</code></pre></div>
+<p>创建 <code>example.py</code>：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GONKA_BROKER_URL"</span><span class="p">],</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GONKA_BROKER_API_KEY"</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GONKA_MODEL"</span><span class="p">],</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"写一句关于独角兽的睡前小故事"</span><span class="p">}</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>使用 <code>python example.py</code> 运行。</p>
+</div>
+<div class="tabbed-block">
+<p>安装 OpenAI JS SDK：</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>openai
+</code></pre></div>
+<p>创建 <code>example.mjs</code>：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">OpenAI</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"openai"</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OpenAI</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">baseURL</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.GONKA_BROKER_URL</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.GONKA_BROKER_API_KEY</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">completions</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.GONKA_MODEL</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s2">"你好！请讲一个短笑话。"</span><span class="w"> </span><span class="p">}],</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">choices</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">message</span><span class="p">.</span><span class="nx">content</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>使用 <code>node example.mjs</code> 运行。</p>
+</div>
+<div class="tabbed-block">
+<p>使用 OpenAI 官方 <code>openai-go</code> 客户端：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"context"</span>
+<span class="w">    </span><span class="s">"log"</span>
+<span class="w">    </span><span class="s">"os"</span>
+
+<span class="w">    </span><span class="s">"github.com/openai/openai-go"</span>
+<span class="w">    </span><span class="s">"github.com/openai/openai-go/option"</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">openai</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">option</span><span class="p">.</span><span class="nx">WithBaseURL</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">"GONKA_BROKER_URL"</span><span class="p">)),</span>
+<span class="w">        </span><span class="nx">option</span><span class="p">.</span><span class="nx">WithAPIKey</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">"GONKA_BROKER_API_KEY"</span><span class="p">)),</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="w">    </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Chat</span><span class="p">.</span><span class="nx">Completions</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="nx">openai</span><span class="p">.</span><span class="nx">ChatCompletionNewParams</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Model</span><span class="p">:</span><span class="w"> </span><span class="nx">openai</span><span class="p">.</span><span class="nx">F</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">"GONKA_MODEL"</span><span class="p">)),</span>
+<span class="w">        </span><span class="nx">Messages</span><span class="p">:</span><span class="w"> </span><span class="nx">openai</span><span class="p">.</span><span class="nx">F</span><span class="p">([]</span><span class="nx">openai</span><span class="p">.</span><span class="nx">ChatCompletionMessageParamUnion</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">openai</span><span class="p">.</span><span class="nx">UserMessage</span><span class="p">(</span><span class="s">"写一首关于编程的俳句"</span><span class="p">),</span>
+<span class="w">        </span><span class="p">}),</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Choices</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Message</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<p>稍等片刻，你应该会在终端中看到推理响应。</p>
+<h3 id="14">1.4 工具调用</h3>
+<p>工具调用通过同一个 OpenAI 兼容接入点提供。仅支持 <code>type: "function"</code> —— Gonka 底层使用 vLLM，它实现的是 OpenAI Chat Completions 规范，而不是 Assistants API（<code>code_interpreter</code>、<code>file_search</code> 等功能不可用）。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Python</label><label for="__tabbed_2_2">TypeScript</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GONKA_BROKER_URL"</span><span class="p">],</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GONKA_BROKER_API_KEY"</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">tools</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"function"</span><span class="p">,</span>
+        <span class="s2">"function"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"get_weather"</span><span class="p">,</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"获取某个城市的当前天气"</span><span class="p">,</span>
+            <span class="s2">"parameters"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"object"</span><span class="p">,</span>
+                <span class="s2">"properties"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"city"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span> <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"城市名称"</span><span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s2">"required"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"city"</span><span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GONKA_MODEL"</span><span class="p">],</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"巴黎的天气怎么样？"</span><span class="p">}],</span>
+    <span class="n">tools</span><span class="o">=</span><span class="n">tools</span><span class="p">,</span>
+    <span class="n">tool_choice</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">message</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span>
+<span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+    <span class="n">call</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">OpenAI</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"openai"</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OpenAI</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">baseURL</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.GONKA_BROKER_URL</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.GONKA_BROKER_API_KEY</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">tools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">"function"</span><span class="p">,</span>
+<span class="w">        </span><span class="kd">function</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"get_weather"</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">"获取某个城市的当前天气"</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">parameters</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">properties</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">city</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">"城市名称"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"city"</span><span class="p">],</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">];</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">chat</span><span class="p">.</span><span class="nx">completions</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.GONKA_MODEL</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s2">"巴黎的天气怎么样？"</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">    </span><span class="nx">tools</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">tool_choice</span><span class="o">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">choices</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">message</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">tool_calls</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">call</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">message</span><span class="p">.</span><span class="nx">tool_calls</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">call</span><span class="p">.</span><span class="kd">function</span><span class="p">.</span><span class="nx">arguments</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">call</span><span class="p">.</span><span class="kd">function</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<hr>
+<h2 id="2-run-your-own-gateway-advanced">2. 自行运行 gateway（进阶）</h2>
+<p>如果你的应用有较高的吞吐量或其他特殊需求，可以自行运行 Gonka gateway，而不必通过经纪商。Gateway 是一个以 Docker 容器形式分发的小型程序，你可以将它运行在自己的机器或服务器上 —— <strong>绝不要运行在 Gonka 主机上</strong>。它对外暴露与经纪商相同的 OpenAI 兼容 API，但密钥由你掌控，且为它创建的 devshard 直接在链上以 GNK 支付。</p>
+<div class="admonition warning">
+<p class="admonition-title">自托管 gateway 需要白名单地址</p>
+<p>目前，只有处于链上 <code>devshard_escrow_params.allowed_creator_addresses</code> 列表中的 Gonka 账户才能创建 devshards。如果你的地址不在该列表中，你的 gateway 就无法创建会话，也就无法发起推理请求。该白名单由链上治理投票扩充。如需申请加入，请参见下文 <a href="#3-become-a-broker">成为经纪商</a>。</p>
+</div>
+<p>我们正在准备一份独立指南，其中包含完整的部署说明、配置、devshard 轮换以及运维相关内容。在文档完善之前，如需提前获取相关信息，请在 <a href="https://discord.com/invite/RADwCT2U6R">Discord</a> 联系我们。</p>
+<hr>
+<h2 id="3-become-a-broker">3. 成为经纪商</h2>
+<p>如果你希望被加入到上方的公开经纪商列表，并（在需要时）被加入到链上的 devshard 创建者白名单，请在 GitHub 上提交一个 issue：</p>
+<p><a href="https://github.com/gonka-ai/gonka/issues/new?title=Request+to+be+added+as+a+Gonka+broker">提交 issue：“Request to be added as a Gonka broker”</a></p>
+<p>请在 issue 中包含以下信息：</p>
+<ul>
+<li>运营方名称与联系方式（邮箱或 Discord 用户名）。</li>
+<li>你的 gateway 的公开接入点 URL。</li>
+<li>你打算用于创建 devshard 的 Gonka 地址（<code>gonka1...</code>）。</li>
+<li>你计划支持的模型，以及你将施加的速率限制（如有）。</li>
+<li>简要描述你的计费模式（USD / 加密货币 / 抵用额度）以及目标用户群体。</li>
+</ul>
+<p>社区将进行评审；当需要链上加入白名单时，将创建相应的链上治理提案。Gonka 不会单方面挑选经纪商 —— 加入白名单需要通过公开投票。</p>
+<hr>
+<p><strong>需要帮助？</strong> 请查看 <a href="https://gonka.ai/FAQ/">FAQ 页面</a>，或加入 <a href="https://discord.com/invite/RADwCT2U6R">Discord 服务器</a> 反馈技术问题或安全相关问题。</p></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3879 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/docs/developer/gateway-developer-quickstart/">
+      
+      
+        <link rel="prev" href="../quickstart/">
+      
+      
+        <link rel="next" href="../../host/quickstart/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../zh/developer/gateway-developer-quickstart/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Run your own gateway - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Manrope";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - Run your own gateway">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/docs/developer/gateway-developer-quickstart/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#run-your-own-gateway" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://gonka.ai/" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Run your own gateway
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../zh/developer/gateway-developer-quickstart/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://gonka.ai/" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learn
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run your own gateway
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run your own gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#allowlisted-creator-address-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allowlisted creator address required
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-this-setup-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How this setup works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mainnet-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mainnet reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-install-tools-and-create-a-deploy-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Install tools and create a deploy directory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Install tools and create a deploy directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-install-docker-and-inferenced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Install Docker and inferenced
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-create-the-deploy-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Create the deploy directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-prepare-identity-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prepare identity and configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Prepare identity and configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-generate-api-keys-and-escrow-wallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Generate API keys and escrow wallet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-create-configdevshardenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Create config.devshard.env
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-import-the-creator-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Import the creator key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-confirm-allowlist-membership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Confirm allowlist membership
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-fund-the-creator-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Fund the creator account
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-deploy-the-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Deploy the gateway
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Deploy the gateway">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-create-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Create docker-compose.yml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-pull-the-image-and-start-the-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Pull the image and start the container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-verify-the-http-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Verify the HTTP API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-create-an-escrow-and-open-api-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Create an escrow and open API access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Create an escrow and open API access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-create-and-register-the-escrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Create and register the escrow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-open-user-api-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Open user API access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-multiple-escrows-parallel-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running multiple escrows (parallel pool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escrow-lifetime-and-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escrow lifetime and rotation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Escrow lifetime and rotation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-long-does-a-manual-escrow-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How long does a manual escrow live?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#does-the-gateway-auto-rotate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does the gateway auto-rotate?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-rotation-production-always-on-gateways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable rotation (production / always-on gateways)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-rotation-does-not-run-or-escrows-pile-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If rotation does not run or escrows pile up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-send-a-test-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Send a test request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-finalize-and-settle-the-escrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Finalize and settle the escrow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Finalize and settle the escrow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-finalize-off-chain-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Finalize off-chain state
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-settle-on-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Settle on chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-confirm-settlement-and-refund" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Confirm settlement and refund
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-pause-redirect-and-stop-the-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Pause, redirect, and stop the gateway
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Pause, redirect, and stop the gateway">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-deactivate-one-escrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Deactivate one escrow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-redirect-all-client-traffic-gateway-kill-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Redirect all client traffic (gateway kill-switch)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-stop-the-container-and-optional-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Stop the container and optional cleanup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-update-the-gateway-without-dropping-traffic-hot-swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Update the gateway without dropping traffic (hot-swap)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Host
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Get started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/mlnode-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validate ML Node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Edit public host info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Node API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models & benchmarks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Models & benchmarks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/multi_model_poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Model PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/kimi-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kimi K2.6 bootstrap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/minimax-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MiniMax-M2.7 bootstrap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host/benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment benchmark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wallet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pricing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross-chain transfers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cross-chain transfers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_1" id="__nav_4_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ethereum bridge
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ethereum bridge
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/register-token/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Register a token
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deposit USDT (Ethereum → Gonka)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Withdraw USDT (Gonka → Ethereum)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deposit GNK (Gonka → Ethereum)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_2" id="__nav_4_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IBC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ibc/withdraw-usdt-via-kava/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Withdraw USDT via Kava (Gonka → Ethereum)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Governance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-on-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting on Proposals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/creating-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Proposals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-power-eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting Power, Eligibility, Delegation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software upgrades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model licenses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-announcements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release announcements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#allowlisted-creator-address-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allowlisted creator address required
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-this-setup-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How this setup works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mainnet-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mainnet reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-install-tools-and-create-a-deploy-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Install tools and create a deploy directory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Install tools and create a deploy directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-install-docker-and-inferenced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Install Docker and inferenced
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-create-the-deploy-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Create the deploy directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-prepare-identity-and-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prepare identity and configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Prepare identity and configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-generate-api-keys-and-escrow-wallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Generate API keys and escrow wallet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-create-configdevshardenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Create config.devshard.env
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-import-the-creator-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Import the creator key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-confirm-allowlist-membership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Confirm allowlist membership
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-fund-the-creator-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Fund the creator account
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-deploy-the-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Deploy the gateway
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Deploy the gateway">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-create-docker-composeyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Create docker-compose.yml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-pull-the-image-and-start-the-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Pull the image and start the container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-verify-the-http-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Verify the HTTP API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-create-an-escrow-and-open-api-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Create an escrow and open API access
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Create an escrow and open API access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-create-and-register-the-escrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Create and register the escrow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-open-user-api-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Open user API access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-multiple-escrows-parallel-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running multiple escrows (parallel pool)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escrow-lifetime-and-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escrow lifetime and rotation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Escrow lifetime and rotation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-long-does-a-manual-escrow-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How long does a manual escrow live?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#does-the-gateway-auto-rotate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does the gateway auto-rotate?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-rotation-production-always-on-gateways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable rotation (production / always-on gateways)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-rotation-does-not-run-or-escrows-pile-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If rotation does not run or escrows pile up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-send-a-test-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Send a test request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-finalize-and-settle-the-escrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Finalize and settle the escrow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Finalize and settle the escrow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-finalize-off-chain-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Finalize off-chain state
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-settle-on-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Settle on chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-confirm-settlement-and-refund" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Confirm settlement and refund
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-pause-redirect-and-stop-the-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Pause, redirect, and stop the gateway
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Pause, redirect, and stop the gateway">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-deactivate-one-escrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Deactivate one escrow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-redirect-all-client-traffic-gateway-kill-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Redirect all client traffic (gateway kill-switch)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-stop-the-container-and-optional-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Stop the container and optional cleanup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-update-the-gateway-without-dropping-traffic-hot-swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Update the gateway without dropping traffic (hot-swap)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="run-your-own-gateway">Run your own gateway</h1>
+<p>This guide explains how to run a Gonka devshard gateway on <strong>gonka-mainnet</strong> without installing a full chain node. You will deploy the gateway on your own Linux host, fund a dedicated escrow creator address, open an on-chain devshard escrow, send OpenAI-compatible inference requests, and settle the escrow when you are finished.</p>
+<p>If you only need inference through an existing endpoint, use a <a href="../quickstart/#1-use-a-community-broker-recommended">community broker</a> instead — that path does not require Docker, on-chain escrows, or an allow-listed creator address.</p>
+<h3 id="allowlisted-creator-address-required">Allowlisted creator address required</h3>
+<blockquote>
+<p><strong>Prerequisite:</strong> The <code>gonka1…</code> address for your devshard escrow creator (<code>$DEVSHARD_CREATOR</code>, from <code>DEVSHARD_PRIVATE_KEY</code>) <strong>must</strong> appear on the chain allowlist <code>devshard_escrow_params.allowed_creator_addresses</code> <strong>before</strong> you can create an escrow.</p>
+<p>The allowlist is maintained on-chain through <strong>governance</strong>. You cannot add yourself via <code>config.devshard.env</code> or admin settings. Request inclusion through an on-chain governance vote — see <a href="../quickstart/#3-become-a-broker">Become a broker</a> in the Developer Quickstart — or use a <a href="../quickstart/#1-use-a-community-broker-recommended">community broker</a> instead.</p>
+<p>After you import your key in <a href="#23-import-the-creator-key">§2.3</a>, verify membership in <a href="#24-confirm-allowlist-membership">§2.4</a>. Do not fund the creator or deploy the gateway until that check passes (funding alone does not grant allowlist access).</p>
+</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Production network</p>
+</div>
+<div class="highlight"><pre><span></span><code>Mainnet escrows and fees use **real** ngonka. Confirm `devshard_escrow_params.min_amount` on chain (§2.4) before funding or creating an escrow. The example deposit below must be **≥ `min_amount`**.
+</code></pre></div>
+<h3 id="how-this-setup-works">How this setup works</h3>
+<p>Gonka inference is organised around <strong>devshards</strong> — short-lived sessions backed by a small on-chain deposit (an escrow). A <strong>gateway</strong> opens the escrow, routes <code>/v1/chat/completions</code> to the network, coordinates off-chain settlement state, and submits finalize/settle transactions to the chain.</p>
+<p>On a <strong>gateway-only</strong> server you run only the gateway container (<code>devshardctl</code>). Chain access uses public REST/RPC URLs. You do not run CometBFT, <code>api</code>, or <code>mlnode</code> on the same machine.</p>
+<h3 id="what-you-need">What you need</h3>
+<ol>
+<li><strong>Allowlisted escrow creator</strong> — <code>$DEVSHARD_CREATOR</code> on <code>allowed_creator_addresses</code> (<a href="#allowlisted-creator-address-required">prerequisite</a> above; confirm in <a href="#24-confirm-allowlist-membership">§2.4</a>)</li>
+<li>A Linux host with Docker</li>
+<li>Outbound HTTPS to a public Gonka mainnet endpoint (<a href="https://node3.gonka.ai/">node3</a> for chain REST + public API)</li>
+<li>The <a href="https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.13">inferenced CLI v0.2.13</a> on the same host (for queries and on-chain settle)</li>
+<li>A funded <code>gonka1…</code> address used <strong>only</strong> as that escrow creator (after allowlist is confirmed)</li>
+</ol>
+<h3 id="mainnet-reference">Mainnet reference</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chain ID</td>
+<td><code>gonka-mainnet</code></td>
+</tr>
+<tr>
+<td>Model (example)</td>
+<td><code>Qwen/Qwen3-235B-A22B-Instruct-2507-FP8</code></td>
+</tr>
+<tr>
+<td>Escrow deposit (example)</td>
+<td><code>5000000000</code> ngonka (~5 GONKA); must be ≥ on-chain <code>min_amount</code></td>
+</tr>
+<tr>
+<td>Public node (example)</td>
+<td><code>https://node3.gonka.ai</code></td>
+</tr>
+<tr>
+<td>CometBFT RPC (example)</td>
+<td><code>https://node3.gonka.ai/chain-rpc/</code></td>
+</tr>
+<tr>
+<td>Gateway image</td>
+<td><code>libermans/gonka-devshard-proxy:latest</code></td>
+</tr>
+</tbody>
+</table>
+<p>Copy the chain URLs into <code>config.devshard.env</code> in <a href="#22-create-configdevshardenv">§2.2</a>. Every command below assumes you have run <code>source config.devshard.env</code> from your deploy directory.</p>
+<hr>
+<h2 id="1-install-tools-and-create-a-deploy-directory">1. Install tools and create a deploy directory</h2>
+<h3 id="11-install-docker-and-inferenced">1.1 Install Docker and <code>inferenced</code></h3>
+<p>Confirm Docker is available:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>--version
+</code></pre></div>
+<p>Download <strong>inferenced v0.2.13</strong> from the <a href="https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.13">release page</a>:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>-o<span class="w"> </span>/tmp/inferenced-amd64.zip<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"https://github.com/gonka-ai/gonka/releases/download/release/v0.2.13/inferenced-amd64.zip"</span>
+unzip<span class="w"> </span>-o<span class="w"> </span>/tmp/inferenced-amd64.zip<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/bin"</span>
+chmod<span class="w"> </span>+x<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/bin/inferenced"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+inferenced<span class="w"> </span>version<span class="w">   </span><span class="c1"># should report v0.2.13</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">INFERENCED_HOME</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.devshard-inferenced"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">INFERENCED_KEYRING</span><span class="o">=</span><span class="s2">"</span><span class="nv">$INFERENCED_HOME</span><span class="s2">/keyring-devshard"</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_HOME</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_KEYRING</span><span class="s2">"</span>
+</code></pre></div>
+<p><code>INFERENCED_HOME</code> keeps CLI state separate from a default <code>~/.inference</code> install. <code>INFERENCED_KEYRING</code> is only a folder name for imported keys.</p>
+<h3 id="12-create-the-deploy-directory">1.2 Create the deploy directory</h3>
+<p>Use one directory for <code>config.devshard.env</code>, <code>docker-compose.yml</code>, and gateway data. The examples below use <code>/srv/gonka/devshard-gateway</code>.</p>
+<p>Create the directory <strong>owned by your login user</strong>:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/srv/gonka/devshard-gateway
+sudo<span class="w"> </span>chown<span class="w"> </span><span class="s2">"</span><span class="nv">$USER</span><span class="s2">:</span><span class="nv">$USER</span><span class="s2">"</span><span class="w"> </span>/srv/gonka/devshard-gateway
+<span class="nb">cd</span><span class="w"> </span>/srv/gonka/devshard-gateway
+</code></pre></div>
+<hr>
+<h2 id="2-prepare-identity-and-configuration">2. Prepare identity and configuration</h2>
+<h3 id="21-generate-api-keys-and-escrow-wallet">2.1 Generate API keys and escrow wallet</h3>
+<p>From the deploy directory, generate secrets and save the output for the next step:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'export DEVSHARD_PRIVATE_KEY=%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">32</span><span class="k">)</span><span class="s2">"</span>
+<span class="nb">printf</span><span class="w"> </span><span class="s1">'export DEVSHARD_API_KEYS=sk-%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">24</span><span class="k">)</span><span class="s2">"</span>
+<span class="nb">printf</span><span class="w"> </span><span class="s1">'export DEVSHARD_ADMIN_API_KEY=sk-admin-%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">24</span><span class="k">)</span><span class="s2">"</span>
+</code></pre></div>
+<p><code>DEVSHARD_PRIVATE_KEY</code> is a <strong>dedicated escrow creator</strong> wallet. Do not reuse validator, participant, or broker keys.</p>
+<h3 id="22-create-configdevshardenv">2.2 Create <code>config.devshard.env</code></h3>
+<p>This file must exist before <code>source config.devshard.env</code> or <code>docker compose up</code>. Docker Compose loads it into the container.</p>
+<div class="highlight"><pre><span></span><code>nano<span class="w"> </span>config.devshard.env
+</code></pre></div>
+<p>Example mainnet contents (paste secrets from <a href="#21-generate-api-keys-and-escrow-wallet">§2.1</a>):</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Chain (public node — gonka-mainnet)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NODE_RPC</span><span class="o">=</span>https://node3.gonka.ai/chain-rpc/
+<span class="nb">export</span><span class="w"> </span><span class="nv">CHAIN_ID</span><span class="o">=</span><span class="s2">"gonka-mainnet"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">NODE_BASE</span><span class="o">=</span>https://node3.gonka.ai
+<span class="nb">export</span><span class="w"> </span><span class="nv">NODE_CHAIN_API</span><span class="o">=</span>https://node3.gonka.ai/chain-api
+
+<span class="c1"># inferenced CLI (local; not used by the gateway container)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">INFERENCED_HOME</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.devshard-inferenced"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">INFERENCED_KEYRING</span><span class="o">=</span><span class="s2">"</span><span class="nv">$INFERENCED_HOME</span><span class="s2">/keyring-devshard"</span>
+
+<span class="c1"># Escrow creator + gateway auth (from §2.1)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_PRIVATE_KEY</span><span class="o">=</span>&lt;<span class="m">64</span>-char-hex-no-0x-prefix&gt;
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_API_KEYS</span><span class="o">=</span>sk-...
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_ADMIN_API_KEY</span><span class="o">=</span>sk-admin-...
+
+<span class="c1"># Gateway (devshardctl container)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_INSTANCE_NAME</span><span class="o">=</span>devshardctl-multi
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARDS_JSON</span><span class="o">=</span><span class="s1">'[]'</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_CHAIN_REST</span><span class="o">=</span>https://node3.gonka.ai/chain-api
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_TX_QUERY_REST</span><span class="o">=</span>https://node3.gonka.ai/chain-api
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_PUBLIC_API</span><span class="o">=</span>https://node3.gonka.ai
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_PORT</span><span class="o">=</span><span class="m">8080</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_STORAGE_DIR</span><span class="o">=</span>/root/.devshardctl
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_STORAGE_HOST_DIR</span><span class="o">=</span>.devshardctl
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_MODEL</span><span class="o">=</span>Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+<span class="nb">export</span><span class="w"> </span><span class="nv">GATEWAY_MAX_CONCURRENT_REQUESTS</span><span class="o">=</span><span class="m">512</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GATEWAY_MAX_INPUT_TOKENS_IN_FLIGHT</span><span class="o">=</span><span class="m">0</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GATEWAY_DEFAULT_MAX_TOKENS</span><span class="o">=</span><span class="m">3072</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GATEWAY_MAX_TOKENS_CAP</span><span class="o">=</span><span class="m">4096</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_TX_GAS_LIMIT</span><span class="o">=</span><span class="m">700000</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_POC_REQUEST_MODE</span><span class="o">=</span>relaxed
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_CAPACITY_AWARE_LIMITS</span><span class="o">=</span>on
+</code></pre></div>
+<p><code>DEVSHARDS_JSON='[]'</code> is required for multi-escrow mode before the first escrow exists. Without it, the container expects <code>DEVSHARD_ESCROW_ID</code> (single-escrow mode) and will exit until you set one.</p>
+<p>Lock down permissions and verify the public node:</p>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>config.devshard.env
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_HOME</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_KEYRING</span><span class="s2">"</span>
+
+<span class="nb">cd</span><span class="w"> </span>/srv/gonka/devshard-gateway
+<span class="nb">source</span><span class="w"> </span>config.devshard.env
+curl<span class="w"> </span>-fsS<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NODE_RPC</span><span class="si">}</span><span class="s2">status"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.result.sync_info.latest_block_height'</span>
+</code></pre></div>
+<p>You should see a recent block height. Optional — list governance models:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sS<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE_BASE</span><span class="s2">/v1/governance/models"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</code></pre></div>
+<h3 id="23-import-the-creator-key">2.3 Import the creator key</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+<span class="nb">test</span><span class="w"> </span>-f<span class="w"> </span>config.devshard.env
+<span class="nb">test</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$DEVSHARD_PRIVATE_KEY</span><span class="s2">"</span>
+</code></pre></div>
+<p><code>--keyring-backend test</code> is the Cosmos SDK backend name (local dev keyring).</p>
+<div class="highlight"><pre><span></span><code>inferenced<span class="w"> </span>keys<span class="w"> </span>import-hex<span class="w"> </span>devshard-create<span class="w"> </span><span class="s2">"</span><span class="nv">$DEVSHARD_PRIVATE_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-dir<span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_KEYRING</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--home<span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_HOME</span><span class="s2">"</span>
+</code></pre></div>
+<p>If import reports the key already exists, skip import.</p>
+<p>Resolve the on-chain creator address:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_CREATOR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>inferenced<span class="w"> </span>keys<span class="w"> </span>show<span class="w"> </span>devshard-create<span class="w"> </span>-a<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-dir<span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_KEYRING</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--home<span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_HOME</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"DEVSHARD_CREATOR=</span><span class="nv">$DEVSHARD_CREATOR</span><span class="s2">"</span>
+</code></pre></div>
+<p>Optional — persist <code>DEVSHARD_CREATOR</code> in the env file (run once):</p>
+<div class="highlight"><pre><span></span><code>grep<span class="w"> </span>-q<span class="w"> </span><span class="s1">'^export DEVSHARD_CREATOR='</span><span class="w"> </span>config.devshard.env<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"export DEVSHARD_CREATOR=</span><span class="nv">$DEVSHARD_CREATOR</span><span class="s2">"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>config.devshard.env
+</code></pre></div>
+<p>The name <code>devshard-create</code> is only a local label; on-chain transactions use <code>--from devshard-create</code> to sign as <code>$DEVSHARD_CREATOR</code>.</p>
+<h3 id="24-confirm-allowlist-membership">2.4 Confirm allowlist membership</h3>
+<p><strong>Do not skip this step.</strong> Escrow creation in <a href="#4-create-an-escrow-and-open-api-access">§4</a> only succeeds when <code>$DEVSHARD_CREATOR</code> is on the chain allowlist.</p>
+<p>You do <strong>not</strong> need to run a validator to use a gateway; you only need your creator address on <code>devshard_escrow_params.allowed_creator_addresses</code>. If it is missing, stop here and follow <a href="../quickstart/#3-become-a-broker">Become a broker</a> to request a governance params update. Re-run this check after any governance vote before creating an escrow.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"DEVSHARD_CREATOR=</span><span class="nv">$DEVSHARD_CREATOR</span><span class="s2">"</span>
+
+curl<span class="w"> </span>-sS<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE_CHAIN_API</span><span class="s2">/productscience/inference/inference/params"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.params.devshard_escrow_params | {min_amount, max_escrows_per_epoch, max_nonce, allowed_creator_addresses}'</span>
+
+curl<span class="w"> </span>-sS<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE_CHAIN_API</span><span class="s2">/productscience/inference/inference/params"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>--arg<span class="w"> </span>addr<span class="w"> </span><span class="s2">"</span><span class="nv">$DEVSHARD_CREATOR</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'.params.devshard_escrow_params.allowed_creator_addresses | index($addr) != null'</span>
+</code></pre></div>
+<p>The second command must print <code>true</code>. Use the first command to read live limits (<code>min_amount</code>, <code>max_escrows_per_epoch</code>, <code>max_nonce</code>). On mainnet after the <a href="https://github.com/gonka-ai/gonka/blob/gm/microrelease/inference-chain/app/upgrades/v0_2_13/upgrades.go">v0.2.13 upgrade</a>, expect <code>max_escrows_per_epoch</code> <strong>500,000</strong> and <code>max_nonce</code> <strong>1,000,000</strong>. If it prints <code>false</code>, your address is <strong>not</strong> allowlisted—do not proceed to <a href="#25-fund-the-creator-account">§2.5</a>, <a href="#3-deploy-the-gateway">§3</a>, or <a href="#4-create-an-escrow-and-open-api-access">§4</a> until it is added on chain.</p>
+<h3 id="25-fund-the-creator-account">2.5 Fund the creator account</h3>
+<p>Only after <a href="#24-confirm-allowlist-membership">§2.4</a> returns <code>true</code>, fund the creator:</p>
+<div class="highlight"><pre><span></span><code>inferenced<span class="w"> </span>query<span class="w"> </span>bank<span class="w"> </span>balances<span class="w"> </span><span class="s2">"</span><span class="nv">$DEVSHARD_CREATOR</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE_RPC</span><span class="s2">"</span><span class="w"> </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--home<span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_HOME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.balances[] | select(.denom=="ngonka")'</span>
+</code></pre></div>
+<p>Send enough <strong>ngonka</strong> to cover the escrow deposit (<code>5000000000</code> in the example if that is ≥ <code>min_amount</code>), plus create/settle gas and transaction fees. If you will enable automatic escrow rotation (<a href="#escrow-lifetime-and-rotation">Escrow lifetime and rotation</a>), fund the creator for <strong>several</strong> deposits per epoch—not only the one manual escrow in <a href="#4-create-an-escrow-and-open-api-access">§4</a>.</p>
+<hr>
+<h2 id="3-deploy-the-gateway">3. Deploy the gateway</h2>
+<p>This section starts the gateway process. You <strong>create</strong> <code>docker-compose.yml</code> locally; Docker <strong>pulls</strong> the pre-built image. You are not downloading a compose file from the network and you are not installing a Gonka chain node.</p>
+<p>The gateway reads <code>config.devshard.env</code>, stores state under <code>.devshardctl/</code>, and listens on <code>http://127.0.0.1:18080</code> on the host. On-chain escrow creation happens in <a href="#4-create-an-escrow-and-open-api-access">§4</a>; starting the gateway first is fine.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config.devshard.env</code></td>
+<td>Secrets and chain URLs (host + container)</td>
+</tr>
+<tr>
+<td><code>docker-compose.yml</code></td>
+<td>How Docker runs <code>devshardctl</code></td>
+</tr>
+<tr>
+<td><code>.devshardctl/</code></td>
+<td>Gateway database (created on first <code>up</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>All commands assume:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/gonka/devshard-gateway
+</code></pre></div>
+<h3 id="31-create-docker-composeyml">3.1 Create <code>docker-compose.yml</code></h3>
+<div class="highlight"><pre><span></span><code>nano<span class="w"> </span>docker-compose.yml
+</code></pre></div>
+<p>Gateway-only compose (no <code>node</code> or <code>api</code> services):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">devshardctl</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DEVSHARD_INSTANCE_NAME:-devshardctl-multi}</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">libermans/gonka-devshard-proxy:latest</span>
+<span class="w">    </span><span class="nt">env_file</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./config.devshard.env</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEVSHARD_PORT=8080</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEVSHARD_STORAGE_DIR=/root/.devshardctl</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DEVSHARD_STORAGE_HOST_DIR:-.devshardctl}:/root/.devshardctl</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"127.0.0.1:18080:8080"</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"CMD"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"curl"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"-f"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"http://localhost:8080/v1/status"</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">start_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+</code></pre></div>
+<ul>
+<li><code>env_file</code> injects chain URLs and keys into the container.</li>
+<li>The volume mount keeps registered escrows and admin settings across restarts.</li>
+<li><code>127.0.0.1:18080</code> binds the API to localhost only; put nginx or another reverse proxy in front if remote clients need access.</li>
+</ul>
+<h3 id="32-pull-the-image-and-start-the-container">3.2 Pull the image and start the container</h3>
+<p>Load environment variables and pull the image:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/gonka/devshard-gateway
+<span class="nb">source</span><span class="w"> </span>config.devshard.env
+sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>pull
+</code></pre></div>
+<p>Start the gateway in the background:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<p>Confirm the service is healthy:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>ps
+</code></pre></div>
+<p>Expect <code>devshardctl-multi</code> (or your <code>DEVSHARD_INSTANCE_NAME</code>) in state <strong>running</strong>, with health <strong>healthy</strong> after the start period.</p>
+<h3 id="33-verify-the-http-api">3.3 Verify the HTTP API</h3>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1:18080/v1/status<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'{runtimes, capacity: .capacity.models}'</span>
+</code></pre></div>
+<p>A JSON response means the gateway is up. Escrows may be empty until you complete <a href="#4-create-an-escrow-and-open-api-access">§4</a>.</p>
+<p>Chat completions are available at:</p>
+<p><code>http://127.0.0.1:18080/v1/chat/completions</code></p>
+<p>(or the URL your reverse proxy forwards to that port).</p>
+<hr>
+<h2 id="4-create-an-escrow-and-open-api-access">4. Create an escrow and open API access</h2>
+<p><strong>Allowlist check:</strong> <code>$DEVSHARD_CREATOR</code> must already be allowlisted (<a href="#24-confirm-allowlist-membership">§2.4</a>). Otherwise escrow create fails on chain.</p>
+<p>The deposit in §4.1 must be <strong>≥</strong> on-chain <code>min_amount</code> from §2.4.</p>
+<h3 id="41-create-and-register-the-escrow">4.1 Create and register the escrow</h3>
+<p>The gateway admin API creates the on-chain escrow and registers it when <code>"register": true</code>. The escrow stays active until you finalize and settle it in <a href="#6-finalize-and-settle-the-escrow">§6</a>, unless you enable automatic rotation in <a href="#escrow-lifetime-and-rotation">Escrow lifetime and rotation</a> below.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/gonka/devshard-gateway
+<span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+<span class="nv">CREATE_JSON</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:18080/v1/admin/escrows<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s2">"{</span>
+<span class="s2">    \"amount\": 5000000000,</span>
+<span class="s2">    \"model_id\": \"Qwen/Qwen3-235B-A22B-Instruct-2507-FP8\",</span>
+<span class="s2">    \"private_key\": \"</span><span class="nv">$DEVSHARD_PRIVATE_KEY</span><span class="s2">\",</span>
+<span class="s2">    \"chain_id\": \"</span><span class="nv">$CHAIN_ID</span><span class="s2">\",</span>
+<span class="s2">    \"register\": true</span>
+<span class="s2">  }"</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREATE_JSON</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">ESCROW_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREATE_JSON</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.escrow_id'</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"ESCROW_ID=</span><span class="nv">$ESCROW_ID</span><span class="s2">"</span>
+</code></pre></div>
+<p>Keep <code>ESCROW_ID</code> in your shell for the rest of this guide. In a new session, set it again (for example <code>export ESCROW_ID=1</code>).</p>
+<h3 id="42-open-user-api-access">4.2 Open user API access</h3>
+<p>Models default to <code>admin_only</code> until you enable API-key access:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:18080/v1/admin/settings<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">    "default_request_max_tokens": 3072,</span>
+<span class="s1">    "request_max_tokens_cap": 4096,</span>
+<span class="s1">    "model_limits": [{</span>
+<span class="s1">      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",</span>
+<span class="s1">      "access_mode": "api_key"</span>
+<span class="s1">    }]</span>
+<span class="s1">  }'</span>
+</code></pre></div>
+<p>Confirm the escrow is loaded:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1:18080/v1/status<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1:18080/v1/admin/devshards<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<h3 id="running-multiple-escrows-parallel-pool">Running multiple escrows (parallel pool)</h3>
+<p>One gateway process can serve <strong>many escrows at once</strong>. Register them at first start with <code>**DEVSHARDS_JSON</code><strong> in the container environment, or add more later with <code>**POST /v1/admin/devshards</code></strong> or <code>**POST /v1/admin/escrows**</code> (<code>"register": true</code>). Pooled <code>**POST /v1/chat/completions**</code> picks an active escrow per request—the <strong>picker</strong> scores runtimes by load (in-flight requests vs capacity weight) and routes to the best match for the requested model. </p>
+<p><code>**GET /v1/status</code><strong> in pool mode lists all devshards plus limiter and capacity; with exactly one escrow it behaves like the simple proxy. Per-escrow admin calls use the <code>**/devshard/{id}/…</code></strong> prefix (for example <code>**POST /devshard/{id}/v1/finalize**</code>); bare <code>**POST /v1/finalize**</code> only works when a single escrow is configured. <a href="#5-send-a-test-request">§5</a>–<a href="#6-finalize-and-settle-the-escrow">§6</a> below use one escrow; use the pool when you need more throughput or rotation across epochs.</p>
+<h3 id="escrow-lifetime-and-rotation">Escrow lifetime and rotation</h3>
+<p>This guide’s steps in <a href="#41-create-and-register-the-escrow">§4.1</a>–<a href="#42-open-user-api-access">§4.2</a> and <a href="#5-send-a-test-request">§5</a>–<a href="#6-finalize-and-settle-the-escrow">§6</a> walk through <strong>one manual escrow</strong>. That is the right model for a first test. On mainnet, a gateway can also <strong>rotate</strong> escrows automatically across epoch boundaries so you do not run out of capacity.</p>
+<h4 id="how-long-does-a-manual-escrow-live">How long does a manual escrow live?</h4>
+<p><strong>There is no fixed wall-clock expiry</strong> in the gateway for a single escrow you create yourself.</p>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Your workflow</strong></td>
+<td>The escrow keeps serving chat until you <strong>finalize and settle</strong> (<a href="#6-finalize-and-settle-the-escrow">§6</a>).</td>
+</tr>
+<tr>
+<td><strong>On-chain epoch</strong></td>
+<td>Each escrow is tied to the chain <strong>epoch</strong> it was created in (<code>epoch_index</code>). That matters for protocol storage and chain rules, not a simple “expires after N hours” timer in this guide.</td>
+</tr>
+<tr>
+<td><strong>Balance</strong></td>
+<td>Inference spends the escrow deposit. The gateway periodically checks active escrows (about every <strong>30 seconds</strong>). If usable balance drops below <strong>1,000,000 ngonka</strong>, it treats the escrow as depleted.</td>
+</tr>
+<tr>
+<td><strong>Nonce budget</strong></td>
+<td>Off-chain devshard state advances by <strong>nonce</strong>. The multi-escrow gateway stops routing new chat around <strong>19,800</strong> nonce (this limit will be set to signigicantly higher number in future). Separately, <code>devshard_escrow_params.max_nonce</code> is the on-chain settlement ceiling—query it in <a href="#24-confirm-allowlist-membership">§2.4</a> (mainnet after v0.2.13: <strong>1,000,000</strong>).</td>
+</tr>
+<tr>
+<td><strong>Chain caps</strong></td>
+<td>Governance sets <code>max_escrows_per_epoch</code>: the maximum number of <strong>devshard escrows allowed chain-wide in the current epoch</strong> (not per creator). Query the live value in <a href="#24-confirm-allowlist-membership">§2.4</a>. On mainnet after v0.2.13 this is <strong>500,000</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Default behaviour:</strong> <code>escrow_rotation</code> is <strong>off</strong> until you enable it in admin settings. With rotation off, the gateway <strong>does not</strong> auto-create a replacement when balance or nonce is exhausted—it only logs and may stop using that escrow for new requests. Plan to <strong>finalize and settle</strong> before the deposit is spent, or enable rotation (below).</p>
+<h4 id="does-the-gateway-auto-rotate">Does the gateway auto-rotate?</h4>
+<p><strong>Not by default.</strong> Auto-rotation is optional and configured with <code>POST /v1/admin/settings</code> → <code>escrow_rotation</code>.</p>
+<p>When <code>**escrow_rotation.enabled</code> is <code>true</code><strong>, a background task runs about every </strong>15 seconds<strong> and coordinates escrows with the chain’s </strong>epoch / PoC schedule**:</p>
+<ol>
+<li><code>**pre_poc_blocks</code> before the next epoch switch<strong> (measured to the upcoming <code>set_new_validators</code> boundary, not “PoC start” alone): for each configured model, create <code>**temp_count</code></strong> temporary “bridge” escrows, then <strong>finalize and settle</strong> active <strong>regular</strong> escrows for that model (settlement is skipped while a devshard still has in-flight requests).</li>
+<li><strong>After the chain leaves the PoC-active window</strong> for that transition: create <code>**target_count</code><strong> new </strong>regular<strong> escrows per model, then </strong>finalize and settle<strong> the </strong>temp** escrows from the bridge window.</li>
+</ol>
+<p>If temp escrow creation fails, the gateway may <strong>promote</strong> existing regular escrows to the temp role instead of leaving you with no bridge escrows.</p>
+<p>When rotation is enabled, the gateway can also <strong>replace</strong> a depleted escrow (low balance, high nonce, or balance exhausted mid-request) by creating a new on-chain escrow and settling the old one—<strong>only for models listed under <code>escrow_rotation.models</code></strong>.</p>
+<p><strong>Funding and rotation:</strong> Each epoch transition creates <strong>new</strong> on-chain escrows (<code>temp_count</code> bridge escrows, then <code>target_count</code> regular escrows per model) before the previous ones are finalized and settled. Every create locks another <code>amount</code> from <code>$DEVSHARD_CREATOR</code> until settlement returns the unused portion. Plan creator-wallet balance for at least <code>**(temp_count + target_count) × amount</code><strong> ngonka </strong>per model, per epoch**, plus gas for create and settle transactions—and keep extra headroom, because bridge and regular escrows can overlap for a short time while rotation is in progress.</p>
+<h4 id="enable-rotation-production-always-on-gateways">Enable rotation (production / always-on gateways)</h4>
+<p>Use this after you have already created, funded, and tested at least one escrow manually (<a href="#4-create-an-escrow-and-open-api-access">§4</a>). Rotation needs the same <code>private_key_env</code> in the container (for example <code>DEVSHARD_PRIVATE_KEY</code>) with enough ngonka on the creator account for the deposits above, not just one escrow’s <code>amount</code>.</p>
+<p>Example for one model (adjust counts for your capacity; production operators often run several regular escrows per model, with <code>**temp_count</code>: 1** for the epoch bridge):</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:18080/v1/admin/settings<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">    "escrow_rotation": {</span>
+<span class="s1">      "enabled": true,</span>
+<span class="s1">      "pre_poc_blocks": 300,</span>
+<span class="s1">      "models": [{</span>
+<span class="s1">        "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",</span>
+<span class="s1">        "temp_count": 1,</span>
+<span class="s1">        "target_count": 1,</span>
+<span class="s1">        "amount": 5000000000,</span>
+<span class="s1">        "private_key_env": "DEVSHARD_PRIVATE_KEY"</span>
+<span class="s1">      }]</span>
+<span class="s1">    }</span>
+<span class="s1">  }'</span>
+</code></pre></div>
+<p>Restart is not required: enabling rotation in settings starts the rotator on the running gateway.</p>
+<p>Inspect timing and the last per-model rotation results:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1:18080/v1/debug/rotation<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</code></pre></div>
+<p>Useful fields include <code>chain.blocks_until_next_rotation</code>, <code>settings</code>, and <code>latest</code> (per-model stage, counts, and errors).</p>
+<h4 id="if-rotation-does-not-run-or-escrows-pile-up">If rotation does not run or escrows pile up</h4>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>What to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nothing happens across epochs</td>
+<td>Confirm <code>"escrow_rotation": { "enabled": true, ... }</code> in settings and <code>GET /v1/debug/rotation</code> shows <code>enabled: true</code>.</td>
+</tr>
+<tr>
+<td>Creates stop after one failure</td>
+<td>The gateway <strong>suppresses repeat creates</strong> for the same model, role, and epoch after a failed on-chain create (for example insufficient funds or the per-epoch escrow limit). Read <code>/v1/debug/rotation</code> and <code>docker logs</code> for <code>escrow_rotation_</code>* / <code>escrow_depletion_replacement_failed</code>.</td>
+</tr>
+<tr>
+<td>Settles never finish</td>
+<td>Settlement waits until the devshard has <strong>no active requests</strong>. Drain or stop traffic before expecting rotation settle to complete.</td>
+</tr>
+<tr>
+<td>Depletion but no replacement</td>
+<td><strong>Replacement requires rotation enabled</strong> and a matching entry in <code>escrow_rotation.models</code>. Otherwise finalize and settle manually in <a href="#6-finalize-and-settle-the-escrow">§6</a>.</td>
+</tr>
+<tr>
+<td>Wrong epoch timing</td>
+<td>Rotation uses live chain phase data; ensure <code>DEVSHARD_PUBLIC_API</code> / chain REST point at your mainnet node (<a href="#22-create-configdevshardenv">§2.2</a>).</td>
+</tr>
+</tbody>
+</table>
+<p>For a <strong>single manual test</strong>, leave rotation <strong>disabled</strong>, complete <a href="#5-send-a-test-request">§5</a>, then <a href="#6-finalize-and-settle-the-escrow">§6</a>. Enable rotation when you want the gateway to keep fresh escrows across epochs without manual recreate.</p>
+<hr>
+<h2 id="5-send-a-test-request">5. Send a test request</h2>
+<p>The gateway endpoint is OpenAI-compatible. Set your API key and send a chat completion:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+curl<span class="w"> </span>-sS<span class="w"> </span>http://127.0.0.1:18080/v1/chat/completions<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_API_KEYS</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",</span>
+<span class="s1">    "messages": [{"role": "user", "content": "How long do hamsters live?"}],</span>
+<span class="s1">    "max_tokens": 32</span>
+<span class="s1">  }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'{id, content: .choices[0].message.content}'</span>
+</code></pre></div>
+<p>In a few moments, you should see a model reply in <code>content</code>. If you receive <strong>401</strong> with <code>"requires an admin API key"</code>, repeat the settings POST in <a href="#42-open-user-api-access">§4.2</a>.</p>
+<hr>
+<h2 id="6-finalize-and-settle-the-escrow">6. Finalize and settle the escrow</h2>
+<p>When you are done with inference, the gateway finalizes off-chain devshard state, then you submit settlement on-chain. Both steps need <code>source config.devshard.env</code> and a non-empty <code>ESCROW_ID</code> from <a href="#41-create-and-register-the-escrow">§4.1</a>.</p>
+<p>Finalize is <strong>per escrow</strong> and must use the path <code>/devshard/{id}/v1/finalize</code>, not <code>/v1/finalize</code> alone.</p>
+<h3 id="61-finalize-off-chain-state">6.1 Finalize off-chain state</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/gonka/devshard-gateway
+<span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">ESCROW_ID</span><span class="k">:-</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"ESCROW_ID is unset — export it from §4.1 (e.g. export ESCROW_ID=2)"</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Using ESCROW_ID=</span><span class="nv">$ESCROW_ID</span><span class="s2">"</span>
+
+curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1:18080/v1/admin/devshards<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+
+curl<span class="w"> </span>-fS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">"http://127.0.0.1:18080/devshard/</span><span class="si">${</span><span class="nv">ESCROW_ID</span><span class="si">}</span><span class="s2">/v1/finalize"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>settlement.json
+
+jq<span class="w"> </span><span class="s1">'{escrow_id, version, fees}'</span><span class="w"> </span>settlement.json
+wc<span class="w"> </span>-c<span class="w"> </span>settlement.json
+</code></pre></div>
+<p><code>-f</code> makes <code>curl</code> fail on HTTP errors instead of writing an empty file. A <strong>0-byte</strong> <code>settlement.json</code> usually means <code>ESCROW_ID</code> was empty (the request hit <code>/devshard//v1/finalize</code> and returned <strong>404</strong> with no body).</p>
+<p>If finalize fails, inspect the response and gateway logs:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sS<span class="w"> </span>-w<span class="w"> </span><span class="s2">"\nHTTP %{http_code}\n"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">"http://127.0.0.1:18080/devshard/</span><span class="si">${</span><span class="nv">ESCROW_ID</span><span class="si">}</span><span class="s2">/v1/finalize"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span>
+sudo<span class="w"> </span>docker<span class="w"> </span>logs<span class="w"> </span>devshardctl-multi<span class="w"> </span>--tail<span class="w"> </span><span class="m">80</span>
+</code></pre></div>
+<h3 id="62-settle-on-chain">6.2 Settle on chain</h3>
+<p>The ngonka amount which was not used is returned to your creator address after host payouts and protocol fees.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">"http://127.0.0.1:18080/v1/admin/devshards/</span><span class="si">${</span><span class="nv">ESCROW_ID</span><span class="si">}</span><span class="s2">/settle"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"private_key_env":"DEVSHARD_PRIVATE_KEY"}'</span>
+</code></pre></div>
+<h3 id="63-confirm-settlement-and-refund">6.3 Confirm settlement and refund</h3>
+<p>Escrow state on chain:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>show-devshard-escrow<span class="w"> </span><span class="s2">"</span><span class="nv">$ESCROW_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE_RPC</span><span class="s2">"</span><span class="w"> </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--home<span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_HOME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'{id: .escrow.id, settled: .escrow.settled, creator: .escrow.creator, amount: .escrow.amount}'</span>
+</code></pre></div>
+<p>Expect <code>settled: true</code>. The <code>amount</code> field is the original deposit metadata; live coins return to <code>$DEVSHARD_CREATOR</code> after settlement.</p>
+<p>Creator wallet balance (main check that funds came back):</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+inferenced<span class="w"> </span>query<span class="w"> </span>bank<span class="w"> </span>balances<span class="w"> </span><span class="s2">"</span><span class="nv">$DEVSHARD_CREATOR</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE_RPC</span><span class="s2">"</span><span class="w"> </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span>--home<span class="w"> </span><span class="s2">"</span><span class="nv">$INFERENCED_HOME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.balances[] | select(.denom=="ngonka") | {denom, amount}'</span>
+</code></pre></div>
+<p>After settlement, most of the unused deposit should return to <code>$DEVSHARD_CREATOR</code>, minus inference cost, settlement fees, and transaction gas.</p>
+<hr>
+<h2 id="7-pause-redirect-and-stop-the-gateway">7. Pause, redirect, and stop the gateway</h2>
+<p>Sections <a href="#1-install-tools-and-create-a-deploy-directory">§1</a>–<a href="#6-finalize-and-settle-the-escrow">§6</a> cover a single test escrow. This section is for pausing routing, redirecting clients when asked, or shutting down the host.</p>
+<h3 id="71-deactivate-one-escrow">7.1 Deactivate one escrow</h3>
+<p>After you settle in <a href="#6-finalize-and-settle-the-escrow">§6</a>, the escrow record remains on chain; <strong>deactivate</strong> only stops this gateway from routing new chat to that escrow locally. Other escrows in the pool keep serving if they are still active.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">"http://127.0.0.1:18080/v1/admin/devshards/</span><span class="si">${</span><span class="nv">ESCROW_ID</span><span class="si">}</span><span class="s2">/deactivate"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span>
+</code></pre></div>
+<h3 id="72-redirect-all-client-traffic-gateway-kill-switch">7.2 Redirect all client traffic (gateway kill-switch)</h3>
+<p>To tell API clients to stop using this gateway URL while you keep admin access (finalize, settings, import, debug), enable the gateway <strong>disabled</strong> state. Non-admin requests (for example pooled <code>/v1/chat/completions</code>) receive <strong>HTTP 308</strong> with JSON <code>status</code>, <code>message</code>, and <code>new_url</code>. Admin routes (<code>/v1/admin/</code>*, <code>/v1/debug/*</code>, per-escrow finalize under <code>/devshard/{id}/…</code>) still work with the admin API key.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:18080/v1/admin/settings<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">    "disabled": {</span>
+<span class="s1">      "enabled": true,</span>
+<span class="s1">      "message": "This gateway is retired; use the new base URL.",</span>
+<span class="s1">      "new_url": "https://your-new-host.example/v1/chat/completions"</span>
+<span class="s1">    }</span>
+<span class="s1">  }'</span>
+</code></pre></div>
+<p>To resume normal service, POST again with <code>"enabled": false</code>. On <strong>first</strong> gateway start only, the same flags can be bootstrapped from <code>DEVSHARD_GATEWAY_DISABLED</code>, <code>DEVSHARD_GATEWAY_DISABLED_MESSAGE</code>, and <code>DEVSHARD_GATEWAY_DISABLED_NEW_URL</code> in <code>config.devshard.env</code> (see the gateway env template in the <a href="https://github.com/gonka-ai/gonka">gonka</a> repo). After <code>gateway.db</code> exists, use <code>**POST /v1/admin/settings</code>**.</p>
+<h3 id="73-stop-the-container-and-optional-cleanup">7.3 Stop the container and optional cleanup</h3>
+<p>Optional — remove the local gateway record (run while the container is still up, after settle):</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.devshard.env
+
+curl<span class="w"> </span>-sS<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span><span class="s2">"http://127.0.0.1:18080/v1/admin/devshards/</span><span class="si">${</span><span class="nv">ESCROW_ID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$DEVSHARD_ADMIN_API_KEY</span><span class="s2">"</span>
+</code></pre></div>
+<p>Stop Docker:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/gonka/devshard-gateway
+sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>down
+
+<span class="c1"># Optional: remove persisted gateway state</span>
+<span class="c1"># sudo rm -rf .devshardctl</span>
+</code></pre></div>
+<hr>
+<h2 id="8-update-the-gateway-without-dropping-traffic-hot-swap">8. Update the gateway without dropping traffic (hot-swap)</h2>
+<p>Replacing the gateway <strong>image</strong> or recreating the main container would drop in-flight <code>/v1/chat/completions</code> streams if you restarted it in place. Production operators use a <strong>two-container</strong> pattern: run a <strong>temporary</strong> gateway alongside the main one, move public traffic with an <strong>nginx alias</strong> and graceful <code>nginx -s reload</code>, <strong>drain</strong> <code>active_requests</code> on the old instance, update the main container, switch traffic back, then <strong>import</strong> temp escrow state into the main gateway.</p>
+<p><strong>What the gateway provides</strong>:</p>
+<ul>
+<li>Second <code>devshardctl</code> process (often port <strong>18081</strong>) with <code>DEVSHARDS_JSON=[]</code> so it does not load main escrows at boot.</li>
+<li><code>POST /v1/admin/escrows</code> on the temp instance to fund temp bridge escrows.</li>
+<li><code>GET /v1/status</code> (or admin state) to confirm <code>**active_requests</code>** is zero before stopping an instance.</li>
+<li><code>POST /v1/admin/devshards/import</code> on main with <code>active: false</code>, then register/activate on main so temp escrows survive the cutover.</li>
+<li>Public routing via reverse proxy upstream name change (not a full proxy container restart for chat).</li>
+</ul>
+<p><strong>The Step-by-step playbook</strong> is being prepared at the moment.</p>
+<hr>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="../quickstart/">Developer Quickstart</a> — community brokers and <a href="../quickstart/#3-become-a-broker">Become a broker</a></li>
+</ul>
+<p><strong>Need help?</strong> See the <a href="https://gonka.ai/FAQ/">FAQ</a>, join <a href="https://discord.com/invite/RADwCT2U6R">Discord</a>, or open a <a href="https://github.com/gonka-ai/gonka/issues/new?title=Request+to+be+added+as+a+Gonka+broker">broker / allowlist request</a> on GitHub.</p></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/javascripts/links.js"></script>
+      
+        <script src="../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

@@ -33,9 +33,9 @@ When you deposit on Ethereum, you sign the transaction with your Ethereum privat
 3. Computes the **Gonka address** for that public key (the `gonka1…` standard derivation above).
 4. Mints/releases the bridged tokens to that `gonka1…` address.
 
-In other words: **the wrapped tokens are delivered to the Gonka address that belongs to the exact key that signed the Ethereum deposit.** To spend them, you must control that same key on Gonka.
+In other words: **the wrapped tokens are delivered to the Gonka address that belongs to the exact key that signed the Ethereum deposit.** To spend them, you must use the same key on Gonka.
 
-The reverse direction works the same way: when you burn/withdraw on the Gonka side, the destination Ethereum address is one you specify explicitly in the transaction.
+The reverse direction is different: when you withdraw or burn on the Gonka side, you **explicitly specify the destination Ethereum address** in the transaction — it is not derived from a key.
 
 ## The seed-phrase pitfall (read this!)
 

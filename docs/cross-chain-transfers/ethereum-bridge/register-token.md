@@ -11,9 +11,22 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 
 # Register a bridge token
 
-To allow users to bridge a new ERC-20 token from Ethereum to Gonka, the token must be registered on-chain. This is done through a governance proposal that registers the token's metadata (name, symbol, decimals) so the Gonka consensus and the bridge know how to instantiate the wrapped CW-20 token contract.
+!!! important "Registration is optional"
+    You do **not** need to register a token to bridge it. Any ERC-20 can be deposited to the bridge, and Gonka will automatically instantiate its wrapped CW-20 contract and mint your balance. Registration is a convenience that:
+
+    * attaches **metadata** (name, symbol, decimals) so the wrapped token displays correctly in wallets, explorers, and the dashboard, and
+    * makes the token **eligible for trading** in the on-chain liquidity pool.
+
+    Without registration the token still bridges and transfers normally — it simply shows with empty/default metadata until someone registers it. USDT and USDC are pre-registered.
+
+Registering a token records its metadata on-chain through a governance proposal. The Gonka consensus uses this metadata to label the wrapped CW-20 token contract.
+
+Because registration goes through a governance vote, it also acts as a lightweight **verification / anti-fraud step**: it is how the community vouches that a given Ethereum contract is the genuine token it claims to be, rather than a look-alike or invalid contract. A registered token is therefore a stronger signal of legitimacy (and a prerequisite for liquidity-pool trading), while an unregistered token still bridges but carries no such on-chain endorsement.
 
 This section walks you through drafting and submitting a governance proposal to register a new bridge token.
+
+!!! tip "Testnet first"
+    Register and test new tokens on **testnet** (chain ID `sepolia`) first. Promote a token to **mainnet** (chain ID `ethereum`) only once its bridging and metadata have been verified end-to-end. The mainnet rollout schedule for additional tokens is decided by governance.
 
 ### Prerequisites
 
@@ -138,4 +151,12 @@ Once a user bridges their tokens to the bridge contract on Ethereum, the Gonka c
 
 ```bash
 curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
+```
+
+##### 3. One wrapped contract per token
+
+Each Ethereum token maps to exactly one wrapped CW-20 contract on Gonka. The first deposit instantiates it; every later deposit of the **same** token reuses the **same** contract, so all balances and transfers for that token live under one address. You can inspect a wrapped contract's transactions in the dashboard, e.g.:
+
+```text
+https://node1.gonka.ai:8443/dashboard/gonka/cosmwasm/105/transactions?contract=<wrappedContractAddress>
 ```

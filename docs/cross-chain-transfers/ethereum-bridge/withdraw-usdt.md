@@ -10,6 +10,9 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 
 # Withdraw USDT (Gonka → Ethereum)
 
+!!! note
+    Withdrawals are released on Ethereum by a BLS signature tied to the **current epoch's group key**, which is refreshed about once per day. A single epoch signature can authorize any number of withdrawals started in that epoch, so this step is normally fast. See [How Gonka → Ethereum is authorized](overview.md#how-gonka-ethereum-is-authorized-the-daily-group-key) for the background.
+
 ### A) Send Withdrawal Request on Gonka
 
 Initiate the withdrawal transaction using CLI:

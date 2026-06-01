@@ -43,10 +43,14 @@ nav:
     - Cross-chain transfers:
       - Ethereum bridge:
         - Overview: cross-chain-transfers/ethereum-bridge/overview.md
+        - Addresses and keys: cross-chain-transfers/ethereum-bridge/addresses-and-keys.md
+        - Using the dashboard: cross-chain-transfers/ethereum-bridge/dashboard.md
         - Register a token: cross-chain-transfers/ethereum-bridge/register-token.md
         - Deposit USDT (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/deposit-usdt.md
         - Withdraw USDT (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/withdraw-usdt.md
         - Deposit GNK (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/deposit-gnk.md
+        - Withdraw GNK (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/withdraw-gnk.md
+        - Dashboard & tracker integration: cross-chain-transfers/ethereum-bridge/tracker-integration.md
       - IBC:
         - Withdraw USDT via Kava (Gonka → Ethereum): cross-chain-transfers/ibc/withdraw-usdt-via-kava.md
 

@@ -35,7 +35,7 @@ When you bridge tokens from Ethereum to Gonka, you send them to the bridge contr
 
 In other words: **the wrapped tokens are delivered to the Gonka address generated from the same public key — and controlled by the same private key — that signed the Ethereum deposit.** To spend them, you must use the same key on Gonka.
 
-In the reverse direction (Gonka → Ethereum), the destination Ethereum address is one you **specify explicitly** in the withdrawal transaction.
+The reverse direction works the other way around: bridging **back to Ethereum**, you **specify the destination address explicitly** in the withdrawal transaction, whereas bridging **to Gonka** you cannot choose the recipient — it is fixed by your key.
 
 ## The seed-phrase pitfall (read this!)
 

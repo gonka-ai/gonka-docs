@@ -26,7 +26,7 @@ So a single private key produces **two different-looking addresses** — one `0x
 
 ## How the bridge decides where your tokens go
 
-When you deposit on Ethereum, you sign the transaction with your Ethereum private key. The Gonka bridge:
+When you bridge tokens from Ethereum to Gonka, you send them to the bridge contract and sign that Ethereum transaction with your Ethereum private key. The Gonka bridge:
 
 1. Detects the finalized deposit transaction on Ethereum.
 2. **Recovers the public key** from your transaction's signature.

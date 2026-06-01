@@ -9,9 +9,11 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 0x972a7a92d92796a98801a8818bcf91f1648f2f68
 ```
 
+[View the bridge contract on Etherscan](https://etherscan.io/address/0x972a7a92d92796a98801a8818bcf91f1648f2f68){target=_blank}
+
 The bridge allows you to move:
 
-* **Any ERC-20 token** (e.g., USDT, USDC, WETH) from Ethereum to Gonka and back.
+* **Any ERC-20 token** (e.g., [USDT](https://etherscan.io/token/0xdAC17F958D2ee523a2206206994597C13D831ec7){target=_blank}, [USDC](https://etherscan.io/token/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48){target=_blank}, [WETH](https://etherscan.io/token/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2){target=_blank}) from Ethereum to Gonka and back.
 * **Native Gonka coin (GNK)** to Ethereum (as wrapped GNK) and back.
 
 !!! note "ETH is bridged as WETH"
@@ -31,7 +33,7 @@ The bridge allows you to move:
 1. **Deposit**: The owner of the ERC-20 token sends their tokens to the bridge smart contract address on Ethereum.
 2. **Locking & Minting**: The tokens become locked in the contract. Each Gonka host runs a small bridge container that watches the bridge address. Once the deposit is **finalized** on Ethereum and **more than 50% of the hosts (by voting power)** have independently confirmed it, the bridge mints wrapped versions of that ERC-20 on the Gonka chain as CW-20 tokens.
 3. **One wrapped contract per token**: Each Ethereum token maps to exactly **one** wrapped CW-20 contract on Gonka (keyed by chain ID + Ethereum contract address). The first deposit of a given token instantiates that contract; every later deposit of the **same** token reuses the **same** wrapped contract. Only the bridge can create or mint these contracts.
-4. **Ownership**: After minting, ownership of the wrapped tokens is assigned to the Gonka address derived from the same private/public key pair used on Ethereum. From this point, the owner can freely transfer the wrapped tokens to any other Gonka account.
+4. **Ownership**: After minting, ownership of the wrapped tokens is assigned to the Gonka address derived from the same private/public key pair used on Ethereum. From this point, the owner can freely transfer the wrapped tokens to any other Gonka account. See [Deposit USDT (Ethereum → Gonka)](deposit-usdt.md) for the step-by-step flow.
 
 !!! note
     Registering a token (see [Register a bridge token](register-token.md)) is optional. It does not affect whether a token can be bridged — it only attaches metadata so the wrapped token shows a proper name/symbol/decimals in wallets and dashboards, and makes it eligible for the on-chain liquidity pool. USDT and USDC are pre-registered. You can bridge and test any other ERC-20 without registering it first.
@@ -39,11 +41,11 @@ The bridge allows you to move:
 ### Unwrapping / Withdrawing back to Ethereum
 1. **Request**: The owner submits a special withdrawal transaction on the Gonka chain. This locks/burns the wrapped token and triggers BLS signature generation.
 2. **Signature Retrieval**: Check the status of the signature generation using the provided API endpoint.
-3. **Execution**: Once the BLS signature is produced, it is used to send a withdrawal command to the bridge contract on Ethereum. The contract verifies the signature and releases the original tokens to the target Ethereum address.
+3. **Execution**: Once the BLS signature is produced, it is used to send a withdrawal command to the bridge contract on Ethereum. The contract verifies the signature and releases the original tokens to the target Ethereum address. See [Withdraw USDT (Gonka → Ethereum)](withdraw-usdt.md) for the step-by-step flow.
 
 ### Wrapping Native GNK to Ethereum (WGNK)
 1. **Escrow**: A special transaction locks GNK on an escrow account and triggers BLS signature generation.
-2. **Execution**: The generated BLS signature is submitted to the bridge contract on Ethereum to mint WGNK to the target Ethereum address.
+2. **Execution**: The generated BLS signature is submitted to the bridge contract on Ethereum to mint WGNK to the target Ethereum address. See [Deposit GNK (Gonka → Ethereum)](deposit-gnk.md) for the step-by-step flow.
 
 !!! note
     GNK never exists "natively" on Ethereum. On the Ethereum side it is always the wrapped **WGNK** ERC-20 token issued by the bridge contract. "Bridging GNK to Ethereum" means locking native GNK in escrow on Gonka and minting the equivalent WGNK on Ethereum.

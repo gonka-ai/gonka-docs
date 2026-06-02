@@ -11,6 +11,9 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 
 [View the bridge contract on Etherscan](https://etherscan.io/address/0x972a7a92d92796a98801a8818bcf91f1648f2f68){target=_blank}
 
+!!! important "This address is also the WGNK token"
+    The bridge contract **is** the **WGNK** ERC-20 token — they are one and the same contract at this address, not two separate contracts. So the Etherscan page above is simultaneously the bridge and the WGNK token. Wrapped ERC-20 tokens bridged *into* Gonka live on the Gonka side as CW-20 tokens; only **WGNK** lives on Ethereum, and it is this contract.
+
 !!! note "Security audit"
     The bridge has been audited by [CertiK](https://skynet.certik.com/projects/gonka){target=_blank}. The full report is available on the CertiK Skynet page (where the Gonka – Ethereum Bridge audit is listed alongside the consensus and inference audits) and as a local copy: [CertiK Gonka – Ethereum Bridge audit (PDF)](../../assets/audits/CertiK-Gonka-Ethereum-Bridge-Audit.pdf){target=_blank}.
 
@@ -51,7 +54,7 @@ The bridge allows you to move:
 2. **Execution**: The generated BLS signature is submitted to the bridge contract on Ethereum to mint WGNK to the target Ethereum address. See [Deposit GNK (Gonka → Ethereum)](deposit-gnk.md) for the step-by-step flow.
 
 !!! note
-    GNK never exists "natively" on Ethereum. On the Ethereum side it is always the wrapped **WGNK** ERC-20 token issued by the bridge contract. "Bridging GNK to Ethereum" means locking native GNK in escrow on Gonka and minting the equivalent WGNK on Ethereum.
+    GNK never exists "natively" on Ethereum. On the Ethereum side it is always the wrapped **WGNK** ERC-20 token — and that token **is the bridge contract itself** (same address; the bridge contract is also the WGNK ERC-20). "Bridging GNK to Ethereum" means locking native GNK in escrow on Gonka and minting the equivalent WGNK on Ethereum.
 
 ### Returning WGNK from Ethereum back to GNK
 1. **Burn**: WGNK is sent to the bridge contract on Ethereum, which burns it.

@@ -46,10 +46,10 @@ A seed phrase does not map to a single key. Wallets derive keys from it using **
 * Ethereum wallets use coin type **60** → path `m/44'/60'/0'/0/0`
 * Cosmos/Gonka wallets use coin type **118** → path `m/44'/118'/0'/0/0`
 
-Because the paths differ, the **same seed phrase produces two completely different private keys** for Ethereum and Gonka — and therefore two unrelated address pairs. If you deposit from a seed-derived Ethereum account and then look at the seed-derived Gonka account in your wallet, **they are not the same key**, so the bridged tokens will land on a `gonka1…` address your wallet is not showing you and may not control.
+Because the paths differ, the **same seed phrase produces two completely different private keys** for Ethereum and Gonka — and therefore two unrelated addresses. If you deposit from a seed-derived Ethereum account and then look at the seed-derived Gonka account in your wallet, **they are not the same key**, so the bridged tokens will land on a `gonka1…` address your wallet is not showing you and may not control.
 
 !!! danger
-    Do **not** assume "same seed phrase = same account on both chains." For the bridge you need the **same private key** on both chains, not the same seed phrase. Using the standard, different derivation paths will send your funds to an address derived from your Ethereum key — which your Gonka wallet, derived on a different path, does not control.
+    Do **not** assume "same seed phrase = same account on both chains." For the bridge you need the **same private key** on both chains, not the same seed phrase. Using the standard, different derivation paths will send your funds to an address derived from your Ethereum key — which your Gonka wallet, derived on a different path, does not control. This is not a loss, you can still derive your Ethereum private key from the same seed phrase, and that key controls the receiving account on the Gonka chain. 
 
 ## How to get the matching Gonka address
 

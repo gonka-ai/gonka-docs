@@ -62,7 +62,7 @@ The Gonka dashboard solves the derivation for you. Connect the **same Ethereum w
 Open the dashboard at:
 
 ```text
-https://node1.gonka.ai:8443/dashboard
+https://node1.gonka.ai:8443/dashboard/
 ```
 
 ### Option B — Import the same private key into the Gonka keyring

@@ -20,7 +20,7 @@ The examples below use `https://node2.gonka.ai:8443/chain-api/...`; you can poin
 The hosted dashboard already exposes bridge functionality for end users — connecting an Ethereum wallet, deriving the matching `gonka1…` address (see [Addresses and keys](addresses-and-keys.md)), viewing wrapped balances, and driving deposits/withdrawals:
 
 ```text
-https://node1.gonka.ai:8443/dashboard
+https://node1.gonka.ai:8443/dashboard/
 ```
 
 Per-contract CosmWasm transaction history (useful for auditing a wrapped token) is available at:

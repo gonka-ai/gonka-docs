@@ -76,6 +76,10 @@ Once the current epoch's group key is registered, withdrawals are fast: a **sing
 2. Retrieve the produced signature.
 3. Submit the signature plus the transfer data to the bridge contract on Ethereum, which verifies it against the current group key and releases the ERC-20, ETH, or WGNK to the recipient.
 
+### If the current epoch key isn't registered yet
+
+Withdrawals are signed with the current epoch's group key, and the bridge contract must already hold that key. Just after an epoch change (about daily) the contract can briefly lag, and your release will revert with `InvalidEpoch`. You do not have to wait — anyone can push the key. Fetch it from `https://node2.gonka.ai:8443/chain-api/productscience/inference/bls/epoch_data/<epochId>` (use the `group_public_key` and `validation_signature` fields) and submit it with `submit-epoch-public.js <bridge> <epochId> <group_public_key> <validation_signature>`. Submit any missing epochs in order (`latest + 1` first); it's a normal Ethereum transaction, so you just pay a usual amount of gas. Then retry your withdrawal.
+
 ## Timing & finalization
 
 Transfer time depends on the direction:

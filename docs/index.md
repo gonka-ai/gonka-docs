@@ -57,7 +57,7 @@ landing: true
       <div class="partner-card">
         <span class="partner-label">Auditor</span>
         <div class="partner-logos">
-          <a href="https://www.certik.com/" target="_blank" rel="noopener noreferrer">
+          <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
             <img src="images/logos/certik.svg" alt="CertiK" />
           </a>
         </div>

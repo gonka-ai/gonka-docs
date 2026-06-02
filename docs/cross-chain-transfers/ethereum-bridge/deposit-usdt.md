@@ -16,7 +16,7 @@ To use an existing Ethereum address that already holds USDT, generate a Gonka ad
 If instead you want to use an existing Gonka address, generate the corresponding Ethereum address from the same private key, acquire USDT on it, and ensure you have enough ETH for gas.
 
 !!! important
-    The wrapped tokens are delivered to the `gonka1…` address **derived from the key that signs this Ethereum deposit** — not to a seed-derived Gonka account. If you skip this, your funds may land on an address you do not control. See [Addresses and keys](addresses-and-keys.md) for how to derive the correct address (or use the dashboard).
+    The wrapped tokens are delivered to the `gonka1…` address **derived from the key that signs this Ethereum deposit** — not to a seed-derived Gonka account. If you skip this, your funds will land on a different Gonka address than your usual wallet — recoverable via your Ethereum key, but not where you'd expect. See [Addresses and keys](addresses-and-keys.md) for how to derive the correct address (or use the dashboard).
 
 ### A) Send USDT to the Bridge Contract on Ethereum
 

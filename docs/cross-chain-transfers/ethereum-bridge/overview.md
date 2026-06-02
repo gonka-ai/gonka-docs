@@ -20,10 +20,10 @@ The bridge allows you to move:
     The bridge tracks **ERC-20 token transfers** to the bridge contract. Native ETH is not an ERC-20, so to bridge ether you first wrap it into **WETH** (the standard Wrapped Ether ERC-20 token) on Ethereum, then bridge WETH exactly like any other ERC-20.
 
 !!! important "Any ERC-20 token works — registration is not required"
-    You can bridge **any** ERC-20 token, even one that has never been registered on Gonka. When the deposit is recognized, the bridge automatically creates the wrapped CW-20 contract and mints your balance. Registration through governance is **optional** and only adds display metadata (name, symbol, decimals) and trading eligibility — it is **not** needed to move tokens. See [Register a bridge token](register-token.md) for details.
+    You can bridge **any** ERC-20 token, even one that has never been registered on Gonka. When the deposit is recognized, the bridge automatically creates the wrapped CW-20 contract and mints your balance. Registration through governance is **optional** and only adds display metadata (name, symbol, decimals) and trading eligibility — it is **not** needed to move tokens. Note that without registration, the decimals might not match the original token and it is expected. Until a token is registered, its wrapped version may not reflect the original's decimals. This is expected and does not affect your balance. See [Register a bridge token](register-token.md) for details.
 
 !!! important "Both addresses come from the same key"
-    Gonka delivers wrapped tokens to the Gonka address **derived from the same private key** that signed your Ethereum deposit. If your Ethereum and Gonka keys come from a seed phrase, they are usually **different** keys and this will not work. Read [Addresses and keys](addresses-and-keys.md) **before** your first transfer.
+    Gonka delivers wrapped tokens to the Gonka address **derived from the same public key** that signed your Ethereum deposit. If your Ethereum and Gonka keys come from a seed phrase, they are usually **different** keys and this will not work. Don't use your seed phrase to derive a Gonka address and assume it matches your Ethereum one, the two are derived differently. Read [Addresses and keys](addresses-and-keys.md) **before** your first transfer.
 
 ---
 
@@ -32,7 +32,7 @@ The bridge allows you to move:
 ### Wrapping ERC-20 Tokens (e.g., USDT) from Ethereum to Gonka
 1. **Deposit**: The owner of the ERC-20 token sends their tokens to the bridge smart contract address on Ethereum.
 2. **Locking & Minting**: The tokens become locked in the contract. Each Gonka host runs a small bridge container that watches the bridge address. Once the deposit is **finalized** on Ethereum and **more than 50% of the hosts (by voting power)** have independently confirmed it, the bridge mints wrapped versions of that ERC-20 on the Gonka chain as CW-20 tokens.
-3. **One wrapped contract per token**: Each Ethereum token maps to exactly **one** wrapped CW-20 contract on Gonka (keyed by chain ID + Ethereum contract address). The first deposit of a given token instantiates that contract; every later deposit of the **same** token reuses the **same** wrapped contract. Only the bridge can create or mint these contracts.
+3. **One wrapped contract per token**: Each Ethereum token maps to exactly **one** wrapped CW-20 contract on Gonka (keyed by chain ID + Ethereum contract address). The first deposit of a given token instantiates that contract; every later deposit of the **same** token reuses the **same** wrapped contract. Only the bridge can instantiate these contracts or mint their tokens.
 4. **Ownership**: After minting, ownership of the wrapped tokens is assigned to the Gonka address derived from the same private/public key pair used on Ethereum. From this point, the owner can freely transfer the wrapped tokens to any other Gonka account. See [Deposit USDT (Ethereum → Gonka)](deposit-usdt.md) for the step-by-step flow.
 
 !!! note

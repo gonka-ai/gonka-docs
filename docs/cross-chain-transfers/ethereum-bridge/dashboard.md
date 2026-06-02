@@ -14,7 +14,7 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 The dashboard is the easiest way to bridge. It handles the key derivation for you (see [Addresses and keys](addresses-and-keys.md)), so you don't need to import private keys or compute addresses by hand. Open it at:
 
 ```text
-https://node1.gonka.ai:8443/dashboard
+https://node1.gonka.ai:8443/dashboard/
 ```
 
 ## What the dashboard does for you

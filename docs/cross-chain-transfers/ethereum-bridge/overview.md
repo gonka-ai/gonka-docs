@@ -11,6 +11,9 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 
 [View the bridge contract on Etherscan](https://etherscan.io/address/0x972a7a92d92796a98801a8818bcf91f1648f2f68){target=_blank}
 
+!!! note "Security audit"
+    The bridge has been audited by [CertiK](https://skynet.certik.com/projects/gonka){target=_blank}. The full report is available on the CertiK Skynet page (where the Gonka – Ethereum Bridge audit is listed alongside the consensus and inference audits) and as a local copy: [CertiK Gonka – Ethereum Bridge audit (PDF)](../../assets/audits/CertiK-Gonka-Ethereum-Bridge-Audit.pdf){target=_blank}.
+
 The bridge allows you to move:
 
 * **Any ERC-20 token** (e.g., [USDT](https://etherscan.io/token/0xdAC17F958D2ee523a2206206994597C13D831ec7){target=_blank}, [USDC](https://etherscan.io/token/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48){target=_blank}, [WETH](https://etherscan.io/token/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2){target=_blank}) from Ethereum to Gonka and back.

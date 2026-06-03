@@ -23,6 +23,7 @@ https://node1.gonka.ai:8443/dashboard/
 * **Warns about seed-phrase accounts.** If you are using a wallet whose Ethereum and Gonka keys come from the same **mnemonic**, the dashboard detects this and warns you, because seed-derived accounts use different keys on each chain and would send funds to an address you don't control. Read [Addresses and keys](addresses-and-keys.md) for the full explanation.
 * **Shows your bridged balances** in a Bridge Assets section, so you can confirm a deposit arrived.
 * **Reports chain status**, so you can see if the chain is degraded before initiating a transfer.
+* **Prompts for bridge epoch updates** when the Ethereum bridge is behind the Gonka chain. If you see **A Bridge needs epoch update**, click **Update bridge** to submit the missing epoch key. This is a normal Ethereum transaction, so the connected wallet pays gas. See [Bridge epoch update](bridge-epoch-update.md).
 
 ## Supported flows
 

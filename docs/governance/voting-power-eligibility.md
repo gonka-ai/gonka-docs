@@ -55,12 +55,12 @@ guardian.tokens     = per_guardian_power                # original PoC weight is
 non_guardian.tokens = participant.weight                # unchanged
 ```
 
-**Effect:**
+**Effect (measured at each epoch transition):**
 
-- The combined Guardian share lands at `multiplier / (1 + multiplier) = 0.52 / 1.52 ≈ 34%` of total bonded.
-- Enough for veto (`>33%`), not enough to pass proposals (`>50%` required).
-- Cannot extract value or unilaterally change consensus, coordination among the Guardians is required for any action.
-- With 3 Guardians, each ends up with approximately `11.4%` of total bonded (`0.52 / (3 × 1.52)`).
+- At the instant the boost is applied, the combined Guardian share *targets* `multiplier / (1 + multiplier) = 0.52 / 1.52 ≈ 34%` of total bonded — about `11.4%` each with 3 Guardians (`0.52 / (3 × 1.52)`).
+- This `≈34%` is the level the formula reaches **when the boost runs**, not a fixed steady state. Guardian `tokens` are set once per epoch, so as the rest of the network's PoC weight grows the combined Guardian share drifts below 34%. On live mainnet at the time of writing the three Guardians sat at roughly `27%` combined (`~9%` each) — i.e. currently below the `>33%` veto line. Do not assume the Guardians continuously hold veto power.
+- The design intent is to keep the Guardians near veto strength (`>33%`) but below passing strength (`>50%`): enough to block a malicious proposal, never enough to pass one alone.
+- Cannot extract value or unilaterally change consensus — coordination among the Guardians is required for any action.
 
 ---
 
@@ -193,27 +193,35 @@ This delegation only allows voting on governance proposals. The grantee can stil
     
     
     # Vote using the file 
-    ./inferenced tx authz exec /tmp/authz-vote.json \  --from=<GRANTEE_KEY_NAME> \ 
-    --chain-id=gonka-mainnet \
-    --home .inference \
-    --keyring-backend file \
-    --node="<NODE_URL>/chain-rpc/" -y
+    ./inferenced tx authz exec /tmp/authz-vote.json \
+      --from=<GRANTEE_KEY_NAME> \
+      --chain-id=gonka-mainnet \
+      --home .inference \
+      --keyring-backend file \
+      --node="<NODE_URL>/chain-rpc/" -y
     ```
     
 === "Example response"
 
     ```
     {
-        "pagination": {
-            "total": "1"
-        },
-        "proposals": [
-            {
-                "id": "1"
-            }
-        ]
+        "height": "0",
+        "txhash": "C31311D9C43DD6F1DDE7CA143989A0551E3075C2FA0A2BB5F054A120AE552B2B",
+        "codespace": "",
+        "code": 0,
+        "data": "",
+        "raw_log": "",
+        "logs": [],
+        "info": "",
+        "gas_wanted": "0",
+        "gas_used": "0",
+        "tx": null,
+        "timestamp": "",
+        "events": []
     }
     ```
+
+    `code: 0` means the vote transaction was accepted — this is what tells you the vote went through. The CLI returns the broadcast receipt with the `txhash`; `height` is `0` until the tx is included in a block.
 
 ---
 

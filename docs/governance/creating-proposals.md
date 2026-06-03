@@ -57,6 +57,8 @@ Your proposal JSON `deposit` must satisfy `min_deposit` (same denom, amount >= m
 
 Prepare a gov v1 JSON (`messages`, `metadata`, `deposit`, `title`, `summary`).
 
+A proposal must carry either at least one message **or** a non-empty `metadata` field. A signaling proposal with an empty `messages` array and an empty `metadata` is rejected on submission (`either metadata or Msgs length must be non-nil`), so set `metadata` to a non-empty value in that case.
+
 There are two main parts to prepare:
 
 #### Proposal description fields

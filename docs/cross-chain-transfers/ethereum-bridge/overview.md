@@ -84,7 +84,7 @@ Once the current epoch's group key is registered, withdrawals are fast: a **sing
 
 ### If the current epoch key isn't registered yet
 
-Withdrawals are signed with the current epoch's group key, and the bridge contract must already hold that key. Just after an epoch change (about daily) the contract can briefly lag, and your release will revert with `InvalidEpoch`. You do not have to wait — anyone can push the key. Fetch it from `https://node2.gonka.ai:8443/chain-api/productscience/inference/bls/epoch_data/<epochId>` (use the `group_public_key` and `validation_signature` fields) and submit it with `submit-epoch-public.js <bridge> <epochId> <group_public_key> <validation_signature>`. Submit any missing epochs in order (`latest + 1` first); it's a normal Ethereum transaction, so you just pay a usual amount of gas. Then retry your withdrawal.
+Withdrawals are signed with the current epoch's group key, and the bridge contract must already hold that key. Just after an epoch change (about daily) the contract can briefly lag, and your release may fail with `InvalidEpoch` or the dashboard may show that the bridge is behind the chain. You do not have to wait: anyone can push the missing key update, either from the dashboard or manually. See [Bridge epoch update](bridge-epoch-update.md).
 
 ## Timing & finalization
 
@@ -118,6 +118,7 @@ This bridge connects Gonka directly with **Ethereum**. Gonka also supports **IBC
 
 * [Addresses and keys](addresses-and-keys.md) — how a single private key controls both your Ethereum and Gonka addresses, and the seed-phrase pitfall.
 * [Using the dashboard](dashboard.md) — the easiest way to bridge, with no CLI or raw keys.
+* [Bridge epoch update](bridge-epoch-update.md) — what to do if the bridge is one or more epochs behind the Gonka chain.
 * [Deposit USDT (Ethereum → Gonka)](deposit-usdt.md) and [Withdraw USDT (Gonka → Ethereum)](withdraw-usdt.md) — bridging an ERC-20 both ways.
 * [Deposit GNK (Gonka → Ethereum)](deposit-gnk.md) and [Withdraw GNK (Ethereum → Gonka)](withdraw-gnk.md) — bridging native GNK both ways.
 * [Register a bridge token](register-token.md) — optional metadata/trading registration.

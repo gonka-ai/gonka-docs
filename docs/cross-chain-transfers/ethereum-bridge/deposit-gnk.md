@@ -75,6 +75,9 @@ curl "https://node2.gonka.ai:8443/v1/bls/signatures/<REQUEST_ID_HEX>" \
   '
 ```
 
+!!! tip "Bridge epoch update"
+    Before submitting the Ethereum mint transaction, make sure the Ethereum bridge contract is synced to `current_epoch_id`. If the dashboard shows **A Bridge needs epoch update** or the Ethereum execution fails with `InvalidEpoch`, follow [Bridge epoch update](bridge-epoch-update.md).
+
 ### C) Submit Mint Command on Ethereum
 
 Submit the mint command to the bridge contract on Ethereum using the [mint-wgnk.js](https://github.com/gonka-ai/gonka/blob/gm/contracts/proposals/ethereum-bridge-contact/mint-wgnk.js) script:

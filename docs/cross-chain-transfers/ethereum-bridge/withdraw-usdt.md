@@ -80,6 +80,9 @@ The response includes:
 * `request_id`: The 32-byte hash used on Gonka.
 * `uncompressed_signature_128`: The BLS signature needed for Ethereum execution.
 
+!!! tip "Bridge epoch update"
+    Before submitting the Ethereum withdrawal transaction, make sure the Ethereum bridge contract is synced to `current_epoch_id`. If the dashboard shows **A Bridge needs epoch update** or the Ethereum execution fails with `InvalidEpoch`, follow [Bridge epoch update](bridge-epoch-update.md).
+
 ### D) Submit Withdrawal Command on Ethereum
 
 Use the [withdraw-tokens.js](https://github.com/gonka-ai/gonka/blob/gm/contracts/proposals/ethereum-bridge-contact/withdraw-tokens.js) script:

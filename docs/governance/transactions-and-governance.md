@@ -10,7 +10,7 @@ Unordered transactions are supported and recommended here to avoid sequence cont
     - `--from <COLD_KEY_NAME>` → use your cold governance key.
     - `--keyring-backend file` → ensures signing with your local key (you will be prompted).
     - `--unordered --timeout-duration=60s` → makes the tx valid for a bounded time, bypassing sequence ordering (new in v0.53+).
-    - `--gas=2000000 --gas-adjustment=5.0` → manual gas setting with buffer.
+    - `--gas=2000000` → manual gas limit (a generous fixed value, enough for these txs). Note: `--gas-adjustment` only multiplies the estimate when `--gas auto` is used, so alongside a fixed `--gas` it is ignored and adds no buffer.
     - `--node <NODE_URL>/chain-rpc/` → required unless you run a local RPC node.
     - `--yes` → auto-approve broadcasting.
     

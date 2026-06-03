@@ -79,7 +79,7 @@ MiniMax-M2.7 (FP8) requires **roughly 320 GB of total VRAM** per instance — a 
 #### 1. Send `PoCIntent` to the chain
 
 ```bash
-export NODE=https://node3.gonka.ai/
+export NODE=https://node3.gonka.ai/chain-rpc/
 ./inferenced tx inference declare-poc-intent MiniMaxAI/MiniMax-M2.7 \
   --from gonka-api-key \
   --node "$NODE" \

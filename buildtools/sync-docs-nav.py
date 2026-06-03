@@ -20,6 +20,21 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 
 
+class MkDocsConfigLoader(yaml.SafeLoader):
+    """Safe YAML loader that tolerates MkDocs Python object references."""
+
+
+def construct_python_name(loader: yaml.Loader, tag_suffix: str, node: yaml.Node) -> str:
+    loader.construct_scalar(node)
+    return tag_suffix
+
+
+MkDocsConfigLoader.add_multi_constructor(
+    "tag:yaml.org,2002:python/name:",
+    construct_python_name,
+)
+
+
 def transform_nav(nav: list) -> list:
     """Strip Home and remap Introduction for the docs build (recursive).
 
@@ -70,7 +85,10 @@ def strip_nav_block(lines: list[str]) -> list[str]:
 
 
 def main() -> int:
-    base = yaml.safe_load((ROOT / "mkdocs.yml").read_text(encoding="utf-8"))
+    base = yaml.load(
+        (ROOT / "mkdocs.yml").read_text(encoding="utf-8"),
+        Loader=MkDocsConfigLoader,
+    )
     nav = base.get("nav")
     if not nav:
         print("error: mkdocs.yml has no nav key", file=sys.stderr)

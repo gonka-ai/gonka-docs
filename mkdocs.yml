@@ -53,6 +53,7 @@ nav:
         - Dashboard & tracker integration: cross-chain-transfers/ethereum-bridge/tracker-integration.md
       - IBC:
         - Withdraw USDT via Kava (Gonka → Ethereum): cross-chain-transfers/ibc/withdraw-usdt-via-kava.md
+      - Widget integration: cross-chain-transfers/widget-integration.md
 
   - Governance:
     - Transactions & Governance: governance/transactions-and-governance.md
@@ -113,7 +114,11 @@ markdown_extensions:
   - attr_list
   - toc
   # https://facelessuser.github.io/pymdown-extensions/
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.mark
@@ -190,6 +195,7 @@ plugins:
             Dashboard: 仪表盘
             Pricing: 价格
             Cross-chain transfers: 跨链转账
+            Widget integration: 组件集成
             IBC: IBC
             "Withdraw USDT via Kava (Gonka → Ethereum)": "通过 Kava 提取 USDT（Gonka → 以太坊）"
             Overview: 概述

@@ -646,3 +646,31 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
 .quickstart-conditional.quickstart-visible {
   display: block;
 }
+
+/* == 9. Mermaid diagram overrides for dark mode ==================== */
+[data-md-color-scheme="slate"] .mermaid .messageLine0,
+[data-md-color-scheme="slate"] .mermaid .messageLine1 {
+  stroke: var(--md-default-fg-color) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .messageText {
+  fill: var(--md-default-fg-color) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid marker path,
+[data-md-color-scheme="slate"] .mermaid .arrowheadPath,
+[data-md-color-scheme="slate"] .mermaid [id^="arrowhead"] path,
+[data-md-color-scheme="slate"] .mermaid [id^="filled-arrowhead"] path {
+  fill: var(--md-default-fg-color) !important;
+  stroke: var(--md-default-fg-color) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .loopLine {
+  stroke: var(--md-default-fg-color) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .loopText,
+[data-md-color-scheme="slate"] .mermaid .loopText tspan {
+  fill: var(--md-default-fg-color) !important;
+}
+

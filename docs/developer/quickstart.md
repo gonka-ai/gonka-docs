@@ -41,7 +41,6 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 - [https://gonkagate.com/](https://gonkagate.com/)
 - [https://gate.joingonka.ai/](https://gate.joingonka.ai/)
 - [https://router.gonkascan.com/](https://router.gonkascan.com/)
-- [https://gonka.pw/](https://gonka.pw/)
 - [https://gonka-api.org/](https://gonka-api.org/)
 - [https://gonkabroker.com/](https://gonkabroker.com/)
 

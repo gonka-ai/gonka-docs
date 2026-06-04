@@ -1913,7 +1913,7 @@ Kimi with thinking enabled first generates a bulky `reasoning_content` (hundreds
 
 **For Inference User:**
 
-- Choose a broker that publishes uptime / p50 TTFT metrics. One of the available dashboards is [gonka.pw](https://gonka.pw/) (there may be others; the list is not exhaustive).
+- Choose a broker that publishes uptime / p50 TTFT metrics. Available dashboards include [gonka.pw](https://gonka.pw/) and [meter.gonka.gg](https://meter.gonka.gg/) (there may be others; the list is not exhaustive).
 - On a slow request, remember the payload size: for short ones a retry lands on a different node; for sustained large payloads (>50k) landing on a node with a reduced window is a systematic problem (issue #818), and a retry alone may not work — better to split.
 - Want to see progress while the model thinks — render `delta.reasoning_content` (or `delta.reasoning`) in the UI, e.g. in a collapsed block.
 
@@ -1945,7 +1945,7 @@ Where exactly the difference comes from (per internal benchmarks from [`kaitakua
 
 **Tracing and diagnostics:** observability was merged in [PR #1046 "Implement dapi & devshard observability"](https://github.com/gonka-ai/gonka/pull/1046) — it adds OpenTelemetry traces, Prometheus metrics, and dashboards. If Grafana has no per-host TTFT panels — check that DAPI / devshard are updated and the dashboards are included in the build.
 
-Additional sources: the repo [`kaitakuai/experiments`](https://github.com/kaitakuai/experiments) (updated regularly) and your own per-host stats from [gonka.pw](https://gonka.pw/). Want to influence the hardware distribution — scale devshard escrow toward hosts with the preferred GPUs.
+Additional sources: the repo [`kaitakuai/experiments`](https://github.com/kaitakuai/experiments) (updated regularly), your own per-host stats from [gonka.pw](https://gonka.pw/), and network status from [meter.gonka.gg](https://meter.gonka.gg/). Want to influence the hardware distribution — scale devshard escrow toward hosts with the preferred GPUs.
 
 ### Why can't the model use tools properly within Kilo Code?
 

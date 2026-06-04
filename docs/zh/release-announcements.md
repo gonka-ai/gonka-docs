@@ -335,7 +335,7 @@ PR 地址：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gon
 
 如果提案获得批准，建议提前完成以下准备。
 
-**自 Epoch 271 起关于 `MiniMaxAI/MiniMax-M2.7` 的参与选择**
+**请在 Epoch 278 前完成 `MiniMaxAI/MiniMax-M2.7` 的参与选择**
 
 对于每个治理批准模型，多模型 PoC 要求每个 host 明确选择参与方式（DIRECT / DELEGATE / REFUSE）。 如果在模型的 `PenaltyStartEpoch` 之后未进行任何操作，将会受到惩罚。 因此，建议你提前决定首选方案，以便在提案通过并成功应用于主网后能够快速操作。
 

@@ -348,7 +348,7 @@ If approved, the binary versions would be updated via the on-chain upgrade propo
 
 In case the proposal is approved, the following preparation is recommended.
 
-**`MiniMaxAI/MiniMax-M2.7` participation choice since epoch 271**
+**`MiniMaxAI/MiniMax-M2.7` participation choice by epoch 278**
 
 For each governance-approved model, multi-model PoC requires every host to explicitly choose participation (DIRECT / DELEGATE / REFUSE). Doing nothing after the model's `PenaltyStartEpoch` would result in a penalty. At this stage, you should decide your preferred option in advance so you are ready to act quickly if the proposal passes and the upgrade is successfully applied on mainnet.   
 

@@ -1,10 +1,20 @@
 # Multi-Model PoC — Host Operations Guide
 
-Upgrade v0.2.12 introduces multi-model Proof-of-Compute (PoC). 
+Multi-model Proof-of-Compute (PoC) arrived in v0.2.12 and expanded again in v0.2.13.
 
-## What changes in v0.2.12
+## What changed in v0.2.12 and v0.2.13
 
-Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. After v0.2.12, the network can support multiple governance-approved models. Each model has its own PoC group, parameters, and weight contribution. Participation is tracked per model. The second model introduced with this upgrade is `moonshotai/Kimi-K2.6`; it has **passed bootstrap** and **participates in PoC** on mainnet alongside Qwen235B. Its coefficient is approximately 3.51× the coefficient of Qwen235B, based on relative compute complexity on the same hardware classes, including 8×H200 and 8×B200.
+Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. v0.2.12 added `moonshotai/Kimi-K2.6` as the second governance-approved model and introduced per-model participation, delegation, and penalty timing. v0.2.13 recalibrated model coefficients and added `MiniMaxAI/MiniMax-M2.7` as the third governance-approved model.
+
+As of June 3, 2026 (mainnet epoch `285`), `poc_params.models` on mainnet contains:
+
+| `model_id` | Current mainnet status | `weight_scale_factor` | `penalty_start_epoch` |
+|---|---|---:|---:|
+| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | Active | `0.3593` | `0` |
+| `moonshotai/Kimi-K2.6` | Active | `0.78` | `251` |
+| `MiniMaxAI/MiniMax-M2.7` | Active | `0.3024` | `278` |
+
+These values are governance-controlled and can change. Before acting, always verify them with a live `params` query on the chain you use.
 
 ??? note "Why multi-model PoC works this way"
 
@@ -76,11 +86,11 @@ In most cases:
 
 ## Recommended actions
 
-If you are not running Kimi:
-    
-- If you operate multiple nodes and at least one runs Kimi: delegate to your own Kimi node
-- If you do not run Kimi at all: delegate to a host you trust
-- If you do not trust any delegate: use `refuse-poc-delegation`
+If you are not running a given model:
+
+- If you operate multiple nodes and at least one runs that model: delegate to your own node for that model
+- If you do not run that model at all: delegate to a host you trust
+- If you do not trust any delegate: use `refuse-poc-delegation` for that model
 
 Once `penalty_start_epoch` is reached for a model, not participating in that model directly or via valid delegation may reduce your consensus weight, depending on governance-configured parameters.
 

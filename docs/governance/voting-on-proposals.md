@@ -48,6 +48,112 @@ Confirm the **id**, **title**, **summary**, and (if present) **metadata** match 
     - **Flow:** proposals open (after deposit) -> voting period runs -> outcome decided by quorum/threshold/veto parameters -> if passed, messages execute via the gov module.
     - You may change your vote any time before voting period ends; the last vote counts.
 
+### Check current governance parameters
+
+Governance parameters are configurable on-chain. Do not rely on fixed numbers copied from older docs or announcements; query the live chain before recommending how participants should vote.
+
+```bash
+inferenced query gov params -o json --node <NODE_URL>/chain-rpc/ \
+  | jq '.params | {
+      voting_period,
+      expedited_voting_period,
+      quorum,
+      threshold,
+      expedited_threshold,
+      veto_threshold,
+      burn_vote_veto,
+      min_deposit,
+      expedited_min_deposit
+    }'
+```
+
+At the time of writing, mainnet parameters are:
+
+```text
+voting_period:            172800s   # 48 hours
+expedited_voting_period:  43200s    # 12 hours
+quorum:                   0.25
+threshold:                0.500000000000000000
+expedited_threshold:      0.667000000000000000
+veto_threshold:           0.334000000000000000
+burn_vote_veto:           true
+```
+
+### How the result is counted
+
+The tally uses PoC-weighted voting power. A proposal can pass only after quorum is reached:
+
+```text
+total_votes / total_bonded_voting_power >= quorum
+```
+
+Where:
+
+```text
+total_votes = Yes + No + NoWithVeto + Abstain
+non_abstain_votes = Yes + No + NoWithVeto
+```
+
+With current mainnet params, quorum is:
+
+```text
+total_votes / total_bonded_voting_power >= 0.25
+```
+
+After quorum, veto is checked before the pass threshold:
+
+```text
+NoWithVeto / (Yes + No + NoWithVeto + Abstain) > veto_threshold
+```
+
+With current mainnet params:
+
+```text
+NoWithVeto / total_votes > 0.334
+```
+
+If this condition is true, the proposal fails by veto. Since `burn_vote_veto` is currently `true`, a veto rejection burns the proposal deposit.
+
+Finally, the regular pass threshold is:
+
+```text
+Yes / (Yes + No + NoWithVeto) > threshold
+```
+
+With current mainnet params:
+
+```text
+Yes / non_abstain_votes > 0.5
+```
+
+For expedited proposals:
+
+```text
+Yes / non_abstain_votes > 0.667
+```
+
+### How `abstain` affects the result
+
+`abstain` is neutral, but it still affects the tally:
+
+- It counts toward quorum.
+- It is excluded from the Yes threshold denominator.
+- It is included in the veto denominator, so it pushes the veto ratio down.
+
+Important: `abstain` does **not** add to `no_with_veto`. The veto numerator is only `NoWithVeto`.
+
+Example:
+
+```text
+Yes = 40
+No = 0
+NoWithVeto = 20
+Abstain = 40
+
+veto ratio = 20 / 100 = 20%       # veto does not trigger
+pass ratio = 40 / 60 = 66.7%      # passes regular threshold
+```
+
 ### Cast (or change) your vote
 
 ```bash
@@ -66,21 +172,6 @@ inferenced tx gov vote <VOTE_PROPOSAL_ID> yes \
 inferenced query gov tally <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain-rpc/
 # Optional: list votes
 inferenced query gov votes <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain-rpc/
-```
-
-## Vote
-
-Again, this will need to be from you private machine with your Governance account:
-
-```bash
-# options: yes | no | no_with_veto | abstain
-inferenced tx gov vote <VOTE_PROPOSAL_ID> yes \
-  --from <COLD_KEY_NAME> \
-  --keyring-backend file \
-  --unordered --timeout-duration=60s \
-  --gas=2000000 --gas-adjustment=5.0 \
-  --node <NODE_URL>/chain-rpc/ \
-  --yes
 ```
 
 ---

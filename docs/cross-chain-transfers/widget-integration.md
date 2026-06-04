@@ -150,6 +150,7 @@ EVM deposits involve locking ERC-20 assets on an EVM source chain to mint corres
 
    ```typescript
    import { toBech32 } from '@cosmjs/encoding';
+   import { ethers } from 'ethers';
 
    async function verifyAddressMismatch(
      activeEvmAddress: string,
@@ -163,18 +164,23 @@ EVM deposits involve locking ERC-20 assets on an EVM source chain to mint corres
 
      // 2. Fetch key properties from Cosmos wallet
      const key = await walletProvider.getKey(cosmosChainId);
-     const derivedEvmAddress = key.ethereumHexAddress;
-
-     if (!derivedEvmAddress) {
-       console.warn("EVM Address check not supported by provider.");
+     const pubKeyBytes = key.pubKey;
+     if (!pubKeyBytes || pubKeyBytes.length === 0) {
+       console.warn("Public key not available from provider.");
        return { isMismatch: false };
      }
 
-     // 3. Compare active EVM address with key's EVM address
+     // 3. Derive the REAL Ethereum address from the Cosmos public key (keccak256-based)
+     // NOTE: key.ethereumHexAddress is NOT the real EVM address — it is just the Cosmos 
+     // address bytes (sha256+ripemd160) represented as hex, which will mismatch.
+     const pubKeyHex = '0x' + Array.from(pubKeyBytes, (b) => b.toString(16).padStart(2, '0')).join('');
+     const derivedEvmAddress = ethers.computeAddress(pubKeyHex);
+
+     // 4. Compare active EVM address with derived EVM address
      const isMismatch = activeEvmAddress.toLowerCase() !== derivedEvmAddress.toLowerCase();
 
      if (isMismatch) {
-       // 4. Derive where the tokens will land by decoding EVM hex and encoding as Bech32
+       // 5. Derive where the tokens will land by decoding EVM hex and encoding as Bech32
        const rawHex = activeEvmAddress.startsWith('0x') ? activeEvmAddress.substring(2) : activeEvmAddress;
        const hexBytes = new Uint8Array(
          rawHex.match(/.{1,2}/g)?.map((byte: string) => parseInt(byte, 16)) || []
@@ -184,7 +190,7 @@ EVM deposits involve locking ERC-20 assets on an EVM source chain to mint corres
        return {
          isMismatch: true,
          targetCosmosAddress,      // Tokens will mint here
-         expectedEvmAddress: derivedEvmAddress // User must switch MetaMask to this EVM address
+         expectedEvmAddress: derivedEvmAddress // User must switch EVM wallet to this address
        };
      }
 

@@ -10,7 +10,7 @@ This guide explains how to send an inference request to Gonka through a communit
 
     Gonka inference is now organised around **devshards** — short-lived sessions that hold a small on-chain deposit (an escrow) and settle per-request billing off-chain. The role of opening a devshard, signing requests, rotating the session, and submitting settlement to the chain is performed by a piece of software called a **gateway**.
 
-        For most developers, the simplest way to use Gonka is to call a **community broker** — a third party that provides inference access through a gateway and exposes a standard OpenAI-compatible API. You just need an API key from the broker.
+    For most developers, the simplest way to use Gonka is to call a **community broker** — a third party that provides inference access through a gateway and exposes a standard OpenAI-compatible API. You just need an API key from the broker.
 
     If you would like to run your own gateway instead of going through a broker, see [Run your own gateway](#2-run-your-own-gateway-advanced) at the bottom of this page.
 

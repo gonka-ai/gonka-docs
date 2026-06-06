@@ -175,6 +175,7 @@ plugins:
             Glossary: 术语表
             Developer: 开发者
             Quickstart: 快速上手
+            Run your own gateway: 部署自己的网关
             Host: 主机
             Get started: 入门
             Hardware specifications: 硬件规格
@@ -190,6 +191,7 @@ plugins:
             Models & benchmarks: 模型与基准测试
             Multi-Model PoC: 多模型 PoC
             Kimi K2.6 bootstrap: Kimi K2.6 引导
+            MiniMax-M2.7 bootstrap: MiniMax-M2.7 引导
             Deployment benchmark: 部署基准测试
             Wallet: 钱包
             Wallet & transfer guide: 钱包与转账指南
@@ -206,14 +208,14 @@ plugins:
             Bridge epoch update: 跨链桥 Epoch 更新
             Register a token: 注册代币
             "Deposit USDT (Ethereum → Gonka)": "存入 USDT（以太坊 → Gonka）"
-            "Withdraw GNK (Ethereum → Gonka))": "提取 GNK（以太坊 → Gonka）"
+            "Withdraw GNK (Ethereum → Gonka)": "提取 GNK（以太坊 → Gonka）"
             "Withdraw USDT (Gonka → Ethereum)": "提取 USDT（Gonka → 以太坊）"
             "Deposit GNK (Gonka → Ethereum)": "存入 GNK（Gonka → 以太坊）"
             Governance: 治理
             Transactions & Governance: 交易与治理
             Voting on Proposals: 提案投票
             Creating Proposals: 创建提案
-            Voting Power, Eligibilty and Delegation: 投票权、资格与委托
+            Voting Power,Eligibilty,Delegation: 投票权、资格与委托
             Reference: 参考
             Transactions & governance: 交易与治理
             Software upgrades: 软件升级

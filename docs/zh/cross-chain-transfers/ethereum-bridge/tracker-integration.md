@@ -1,9 +1,11 @@
 !!! warning
     务必先进行小额测试交易。跨链转账是不可逆的，因此在转移大额资金之前，请先发送少量金额，并确认其如期到账。
 
-由 Gonka 共识控制的专用跨链桥智能合约已在以太坊上激活，合约地址为：```text
+由 Gonka 共识控制的专用跨链桥智能合约已在以太坊上激活，合约地址为：
+```text
 0x972a7a92d92796a98801a8818bcf91f1648f2f68
-```---
+```
+---
 
 # 仪表板与追踪器集成
 
@@ -13,31 +15,45 @@
 
 ## 终端用户仪表板
 
-托管的仪表板已为终端用户提供了桥接功能——连接以太坊钱包、推导对应的 `gonka1…` 地址（参见 [地址与密钥](addresses-and-keys.md)）、查看封装资产余额，以及发起存入/提取操作：```text
+托管的仪表板已为终端用户提供了桥接功能——连接以太坊钱包、推导对应的 `gonka1…` 地址（参见 [地址与密钥](addresses-and-keys.md)）、查看封装资产余额，以及发起存入/提取操作：
+```text
 https://node1.gonka.ai:8443/dashboard/
-```每个合约的 CosmWasm 交易历史（对审计封装代币很有用）可在以下地址查看：```text
+```
+每个合约的 CosmWasm 交易历史（对审计封装代币很有用）可在以下地址查看：
+```text
 https://node1.gonka.ai:8443/dashboard/gonka/cosmwasm/105/transactions?contract=<wrappedContractAddress>
-```## 桥接合约地址（按链划分）
+```
+## 桥接合约地址（按链划分）
 
-Gonka 接受存款的可信桥接合约地址，按链划分：```bash
+Gonka 接受存款的可信桥接合约地址，按链划分：
+```bash
 curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/bridge_addresses/ethereum"
-```## 桥接交易
+```
+## 桥接交易
 
-列出入站桥接交易（正在验证和完成的存款/销毁）：```bash
+列出入站桥接交易（正在验证和完成的存款/销毁）：
+```bash
 curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/bridge_transactions"
-```通过其源坐标 `(originChain, 区块号, receiptIndex)` 查找单个交易：```bash
+```
+通过其源坐标 `(originChain, 区块号, receiptIndex)` 查找单个交易：
+```bash
 curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/bridge_transaction/ethereum/{blockNumber}/{receiptIndex}"
-```每条记录包含 `status`（`BRIDGE_PENDING` 或 `BRIDGE_COMPLETED`）、推导出的 `ownerAddress`（即 `gonka1…` 收款地址）、`amount` 以及验证纪元（epoch），这些信息足以跟踪一笔转账从“已看到”到“已完成”的全过程。
+```
+每条记录包含 `status`（`BRIDGE_PENDING` 或 `BRIDGE_COMPLETED`）、推导出的 `ownerAddress`（即 `gonka1…` 收款地址）、`amount` 以及验证纪元（epoch），这些信息足以跟踪一笔转账从“已看到”到“已完成”的全过程。
 
 ## 地址的封装代币余额
 
-列出某个 Gonka 地址持有的所有封装代币（CW-20）余额，包括代币符号（symbol）、小数位数（decimals）以及格式化后的可读余额：```bash
+列出某个 Gonka 地址持有的所有封装代币（CW-20）余额，包括代币符号（symbol）、小数位数（decimals）以及格式化后的可读余额：
+```bash
 curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
-```## 代币元数据
+```
+## 代币元数据
 
-通过源链和以太坊合约地址解析已注册的跨链代币名称/符号/小数位数：```bash
+通过源链和以太坊合约地址解析已注册的跨链代币名称/符号/小数位数：
+```bash
 curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/token_metadata/ethereum/{ethereumContractAddress}"
-```!!! note
+```
+!!! note
     元数据仅存在于已注册的代币中（参见[注册跨链代币](register-token.md)）。未注册的代币仍然可以跨链并在余额中显示，但其元数据为空或为默认值。前端应用应优雅地处理缺失的元数据，并回退到原始合约地址。
 
 ## 每个代币对应一个封装合约
@@ -46,7 +62,8 @@ curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/t
 
 ## 交易相关查询（流动性池）
 
-如果您同时提供交易数据：```bash
+如果您同时提供交易数据：
+```bash
 # Tokens approved for trading via the liquidity pool
 curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/approved_tokens_for_trade"
 
@@ -55,9 +72,11 @@ curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/v
 
 # The singleton liquidity pool contract address / code id
 curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/liquidity_pool"
-```## 桥接服务状态
+```
+## 桥接服务状态
 
-去中心化 API 提供了桥接数据摄入队列的健康状况，可用于运维监控面板：```bash
+去中心化 API 提供了桥接数据摄入队列的健康状况，可用于运维监控面板：
+```bash
 curl "https://node2.gonka.ai:8443/v1/bridge/status"
 curl "https://node2.gonka.ai:8443/v1/bridge/addresses?chain=ethereum"
 ```

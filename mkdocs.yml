@@ -201,6 +201,9 @@ plugins:
             "Withdraw USDT via Kava (Gonka → Ethereum)": "通过 Kava 提取 USDT（Gonka → 以太坊）"
             Overview: 概述
             Ethereum bridge: 以太坊跨链桥
+            Addresses-and-keys: 地址和密钥
+            Using the dashboard: 使用看板
+            Bridge-epoch-update: 桥纪元更新
             Register a token: 注册代币
             "Deposit USDT (Ethereum → Gonka)": "存入 USDT（以太坊 → Gonka）"
             "Withdraw USDT (Gonka → Ethereum)": "提取 USDT（Gonka → 以太坊）"

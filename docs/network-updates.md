@@ -84,7 +84,7 @@ The upgrade will execute automatically on mainnet at **block height 4267300** (â
 
 **Reminders**
 
-1. Make sure your bridge container is up to date and synced. The Ethereum mainnet bridge contract (`0x972a7a92d92796a98801a8818bcf91f1648f2f68`), USDC/USDT token metadata, and CW20 `wrapped_token` code id `105` are registered through the upgrade handler itself, so the bridge becomes active on mainnet at the upgrade height. Verification instructions: [https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026).
+1. Make sure your bridge container is up to date and synced. The Ethereum mainnet bridge contract (`0x972a7a92d92796a98801a8818bcf91f1648f2f68`), USDC/USDT token metadata, and CW20 `wrapped_token` code id `105` are registered through the upgrade handler itself, so the bridge becomes active on mainnet at the upgrade height. Verification instructions: [https://gonka.ai/docs/network-updates/#may-7-2026](https://gonka.ai/docs/network-updates/#may-7-2026).
 2. If you plan to serve `MiniMaxAI/MiniMax-M2.7`, pre-download the ~230 GB of FP8 weights now. Hugging Face rate limits and bandwidth saturation during the bootstrap window might lead to missing the first eligibility check.
 3. Right after the upgrade lands, every host will need to declare a participation mode for **each** governance-approved model â€” `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, `moonshotai/Kimi-K2.6`, and `MiniMaxAI/MiniMax-M2.7`. Hosts who only run one or two of those models still need DELEGATE or REFUSE for the others. The MiniMax deadline is **chain epoch `278`**. Hosts who do nothing take a 15% per-epoch penalty against their full weight from epoch 278 onward.
 4. Plan to be online during the upgrade window so any follow-up steps or mitigation instructions can be applied promptly. Make sure `.inference/data` has sufficient free space for the cosmovisor state backup; if `application.db` is large, consider applying [the cleanup techniques](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) from the cosmovisor backup guide before the upgrade.
@@ -166,7 +166,7 @@ For each governance-approved model, multi-model PoC requires every host to expli
 **Bridge container update / verification**
 
 All hosts are asked to verify that their bridge container is deployed, running the latest version, and synced correctly. Some hosts may already have the bridge container deployed. In that case, please first check that you are running the current version before taking any further action.
-Please follow the instructions: [https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026)
+Please follow the instructions: [https://gonka.ai/docs/network-updates/#may-7-2026](https://gonka.ai/docs/network-updates/#may-7-2026)
 
 **Dashboard / explorer update (before or after upgrade)**
 
@@ -369,7 +369,7 @@ For each governance-approved model, multi-model PoC requires every host to expli
 **Bridge container update / verification**
 
 All hosts are asked to verify that their bridge container is deployed, running the latest version, and synced correctly. Some hosts may already have the bridge container deployed. In that case, please first check that you are running the current version before taking any further action.
-Please follow the instructions: [https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026)
+Please follow the instructions: [https://gonka.ai/docs/network-updates/#may-7-2026](https://gonka.ai/docs/network-updates/#may-7-2026)
 
 **Dashboard / explorer update (before or after upgrade)**
 

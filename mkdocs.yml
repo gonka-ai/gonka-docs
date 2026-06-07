@@ -69,7 +69,7 @@ nav:
     - Errors: Errors.md
 
   - Resources:
-    - Release announcements: release-announcements.md
+    - Network updates: network-updates.md
     - FAQ: FAQ.md
     - Get help: help.md
 
@@ -145,6 +145,7 @@ plugins:
   - redirects:
       redirect_maps:
         cross-chain-transfers/multisig_participant_guide.md: cross-chain-transfers/ethereum-bridge/multisig-signer-guide.md
+        release-announcements.md: network-updates.md
   - search:
       separator: '[\\s-]+'
       lang:
@@ -223,7 +224,7 @@ plugins:
             Dashboard maintainer memo v0.2.13: 仪表盘维护者备忘录 v0.2.13
             Errors: 错误
             Resources: 资源
-            Release announcements: 发布公告
+            Network updates: 网络更新
             FAQ: 常见问题
             "Get help": 获取支持
 

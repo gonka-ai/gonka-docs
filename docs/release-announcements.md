@@ -8,6 +8,20 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## June 6, 2026
+
+**[The PR for the devshard-only upgrade](https://github.com/gonka-ai/gonka/pull/1289) is now open for review.**
+
+This is the first devshard-only upgrade, so the process is different from a standard chain upgrade. Devshard upgrades update the devshard runtime independently from the main blockchain. They do not require a coordinated full-node upgrade through Cosmovisor, do not affect mainnet behavior, and are not expected to cause downtime for inference serving.
+
+If approved through the governance process, the new devshard version will run in parallel with the existing v1 runtime.
+
+Please review the PR directly and leave comments on any findings, questions, suggested improvements, edge cases, or potential vulnerabilities.
+
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties in the next upgrade cycle.
+
+This is a call for PR review only. It does not start formal voting. The governance voting process will begin after the review period concludes.
+
 ## May 28, 2026
 
 **MiniMax-M2.7 is now active on Gonka network**

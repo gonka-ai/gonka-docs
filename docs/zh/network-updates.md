@@ -61,7 +61,7 @@ echo "e52b86c4f64a47f0ea9bdb3327feb321b8a4208a76b35d52a7e9ddd1b9d6eed5 .inferenc
 
 **提醒事项**
 
-1. 请确保你的 bridge 容器为最新版本并已同步。Ethereum 主网 bridge 合约 (`0x972a7a92d92796a98801a8818bcf91f1648f2f68`)、USDC/USDT token metadata，以及 CW20 `wrapped_token` code id `105` ，都会通过 upgrade handler 本身完成注册，因此 bridge 会在升级高度时于主网上激活。验证说明详见[https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026).
+1. 请确保你的 bridge 容器为最新版本并已同步。Ethereum 主网 bridge 合约 (`0x972a7a92d92796a98801a8818bcf91f1648f2f68`)、USDC/USDT token metadata，以及 CW20 `wrapped_token` code id `105` ，都会通过 upgrade handler 本身完成注册，因此 bridge 会在升级高度时于主网上激活。验证说明详见[https://gonka.ai/docs/network-updates/#may-7-2026](https://gonka.ai/docs/network-updates/#may-7-2026).
 2. 如果你计划运行 `MiniMaxAI/MiniMax-M2.7`，请现在预下载约 230 GB 的 FP8 权重。在 bootstrap window 期间，Hugging Face 的限速和带宽拥堵可能会导致错过首次 eligibility check。
 3. 升级完成后，每个host都需要为**每一个**治理批准模型声明 participation mode —— `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、`moonshotai/Kimi-K2.6`以及`MiniMaxAI/MiniMax-M2.7` 。即使 host 只运行其中一个或两个模型，也仍然需要为其他模型设置 DELEGATE 或 REFUSE。MiniMax 的截止时间为 **chain epoch `278`** (约为**2026年5月29日 星期五 UTC** — 或 5月28日 星期四晚 PDT). 如果 host 不进行任何操作，则从 epoch 278 开始，其全部 weight 每 epoch 将受到 15% 的惩罚。
 4. 请计划在升级窗口期间保持在线，以便及时执行任何后续步骤或缓解措施。请确保 `.inference/data` 有足够的可用空间用于 cosmovisor 状态备份；如果 `application.db` 较大，请考虑在升级前应用 cosmovisor backup guide 中的 [ cleanup techniques](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 。
@@ -142,7 +142,7 @@ PR 地址: [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonk
 
 **Bridge 容器更新 / 验证**
 
-所有 host 都需要确认自己的 bridge 容器已经部署、运行最新版本，并且同步正常。部分 host 可能已经部署了 bridge 容器。在这种情况下，请先确认当前运行的是最新版本，再执行后续操作。请参考说明 [https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026)
+所有 host 都需要确认自己的 bridge 容器已经部署、运行最新版本，并且同步正常。部分 host 可能已经部署了 bridge 容器。在这种情况下，请先确认当前运行的是最新版本，再执行后续操作。请参考说明 [https://gonka.ai/docs/network-updates/#may-7-2026](https://gonka.ai/docs/network-updates/#may-7-2026)
 
 **Dashboard / Explorer 更新（升级前后均可）**
 
@@ -341,7 +341,7 @@ PR 地址：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gon
 
 **Bridge 容器更新 / 验证**
 
-所有 host 都需要确认其 bridge 容器已部署、运行最新版本并正确同步。 部分 host 可能已经部署了 bridge 容器。在这种情况下，请先确认你运行的是当前版本，再进行后续操作。 请参考说明：[https://gonka.ai/docs/release-announcements/#may-7-2026](https://gonka.ai/docs/release-announcements/#may-7-2026)
+所有 host 都需要确认其 bridge 容器已部署、运行最新版本并正确同步。 部分 host 可能已经部署了 bridge 容器。在这种情况下，请先确认你运行的是当前版本，再进行后续操作。 请参考说明：[https://gonka.ai/docs/network-updates/#may-7-2026](https://gonka.ai/docs/network-updates/#may-7-2026)
 
 **Dashboard / explorer 更新（升级前或升级后）**
 

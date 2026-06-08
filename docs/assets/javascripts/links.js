@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   shuffleBrokerList();
+  shuffleUseAiBrokerTable();
 });
 
 // Shuffle the community broker list on the developer quickstart page so no
@@ -45,5 +46,30 @@ function shuffleBrokerList() {
       [items[i], items[j]] = [items[j], items[i]];
     }
     items.forEach((li) => ul.appendChild(li));
+  });
+}
+
+// Shuffle the broker table on the Use AI page so table position is not a
+// ranking. The table is identified by its header labels.
+function shuffleUseAiBrokerTable() {
+  document.querySelectorAll("table").forEach((table) => {
+    const headers = Array.from(table.querySelectorAll("thead th")).map((th) =>
+      th.textContent.trim().toLowerCase()
+    );
+    const isUseAiBrokerTable =
+      headers[0] === "broker" &&
+      headers[1] === "for humans" &&
+      headers[2] === "for agents";
+    if (!isUseAiBrokerTable) return;
+
+    const tbody = table.querySelector("tbody");
+    if (!tbody) return;
+
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+    for (let i = rows.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [rows[i], rows[j]] = [rows[j], rows[i]];
+    }
+    rows.forEach((row) => tbody.appendChild(row));
   });
 }

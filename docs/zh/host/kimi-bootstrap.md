@@ -1,51 +1,57 @@
-# Kimi K2.6 启动引导
+# Kimi K2.6 引导流程
 
-`moonshotai/Kimi-K2.6` 已**通过启动引导**，并在 Gonka 主网上处于**激活状态**。以下时间线和交易示例仍有助于理解激活机制以及委托等操作；有关当前部署的默认设置（包括 `node-config.json`），请参阅[主机快速入门指南](./quickstart.md)。
+`moonshotai/Kimi-K2.6` 已**通过引导阶段**，并在 Gonka 主网上处于 **活跃状态**。以下时间线和交易示例仍有助于理解激活机制以及委托等操作；有关当前部署的默认设置（包括 `node-config.json`），请参阅 [主机快速入门指南](./quickstart.md)。
 
-模型组 `moonshotai/Kimi-K2.6` 在第 251 轮次（Epoch 251）变得具备资格。
+模型组 `moonshotai/Kimi-K2.6` 在第 251 轮（Epoch 251）变得符合条件。
 
 本文档说明如何最小化权重减少的风险，无论该模型是否获得足够多的参与者。
 
 !!! note
-    启动过程可能持续多个轮次，具体取决于准备就绪的参与者数量。在激活之前，只要参与者明确提交了选择，且准备部署的主机提交了 `PoCIntent`，就不会发生权重减少。
+    引导过程可能持续多个轮次，具体取决于准备就绪的参与者数量。在激活之前，只要参与者明确提交了选择，并且将要部署的主机提交了 `PoCIntent`，就不会发生权重削减。
 
 ## 时间线
 
 #### 1. 在区块 `3873996` 之前，所有参与者必须提交：
-    - `PoCIntent` - 如果你计划部署 `Kimi-K2.6`。主机应保持节点运行 `Qwen235B`，仅在区块 `3873996` 评估后切换
-    - `PoCDelegation` / `PoCRefusal` - 如果你**不**计划部署 `Kimi-K2.6`
+ 
+   - `PoCIntent`
+ - 如果你打算部署 `Kimi-K2.6`。主机应继续使用 `Qwen235B` 部署节点，并仅在区块 `3873996` 的评估后切换
+ 
+   - `PoCDelegation` / `PoCRefusal`
+ - 如果你不打算部署 `Kimi-K2.6`
 
-#### 2. 在区块 `3873996`，链上执行预评估，以检查是否应基于 `PoCIntent` / `PoCDelegation` 尝试激活模型
-    - 如果模型变为预合格状态 => 提交了 `PoCIntent` 的主机应将其模型节点切换为 `Kimi-K2.6`（在此 500 个区块窗口内无 CPoC）
-    - 如果模型未变为预合格状态 => 提交了 `PoCIntent` 的主机应继续在 `Qwen235B` 上运行节点
+#### 2. 在区块 `3873996`，链上执行预评估，以根据 `PoCIntent` / `PoCDelegation` 判断是否尝试激活该模型
+ 
+   - 如果模型变为预合格状态 => 提交了 `PoCIntent` 的主机应将其模型节点切换为 `Kimi-K2.6`（此 500 个区块窗口内无 CPoC）
+ 
+   - 如果模型未变为预合格状态 => 提交了 `PoCIntent` 的主机应保持其节点运行 `Qwen235B`
 
 #### 3. 在区块 `3874496`，PoC 正式开始
 
 
 ### 可能出现的情况
 
-新模型的启动可能遵循以下主要场景：
+新模型的引导过程可能出现以下主要场景：
 
-1. 模型在区块 `3873996` 未通过预评估，且未获得资格
+1. 模型在区块 `3873996` 未通过预评估，未能获得资格
 
 - 所有提交了 `PoCIntent` 的用户保留全部权重（无惩罚）
 - 所有提交了 `PoCDelegation` / `PoCRefusal` 的用户保留全部权重（无惩罚）
-- 所有未提交任何内容的用户将损失 15% 的权重
+- 未提交任何交易的用户将损失 15% 的权重
 
-=> 明确发送交易以表明你的意图非常重要
+=> 明确发送体现你意图的交易非常重要
 
-2. 模型在区块 `3873996` 通过预评估，但在 PoC 阶段未获得资格
+2. 模型在区块 `3873996` 通过预评估，但在 PoC 阶段未达到合格条件
 
-- 所有参与 PoC 的用户保留其 `Qwen235` 的全部权重（无惩罚）
+- 所有参与 PoC 的用户保留其来自 `Qwen235` 的全部权重（无惩罚）
 - 所有提交了 `PoCDelegation` / `PoCRefusal` 的用户保留全部权重（无惩罚）
-- 所有未提交任何内容的用户将损失 15% 的权重
-- 所有提交了 `PoCIntent` 但未实际参与的用户将损失 15% 的权重
+- 未提交任何交易的用户将损失 15% 的权重
+- 提交了 `PoCIntent` 但未实际参与的用户将损失 15% 的权重
 
 
 如果模型通过了两个检查，惩罚机制将遵循文档中描述的常规情况。
 
 
-## 计划部署 Kimi-K2.6 的主机操作指南
+## 对于计划部署 Kimi-K2.6 的主机操作指南
 
 #### 1. 向链上发送 `PoCIntent`：
 
@@ -59,9 +65,13 @@ export NODE=https://node3.gonka.ai/
   --gas auto \
   --gas-adjustment 1.3 \
   -y
-```#### 2. 检查你的环境设置，确保已下载 `Kimi-K2.6` 权重，并能够成功部署模型
+```
 
-3. 等待区块高度达到 `3873996` 及以上，并检查模型是否变为预合格状态：```bash
+#### 2. 检查你的设置，确保已下载 `Kimi-K2.6` 权重，并能够成功部署模型
+
+3. 等待区块 `3873996` 及之后，检查模型是否变为预合格状态：
+
+```bash
 NODE=https://node3.gonka.ai
 MODEL='moonshotai/Kimi-K2.6'
 
@@ -78,11 +88,14 @@ curl -s "$NODE/chain-rpc/block_results?height=$HEIGHT" \
       | (.attributes | from_entries) as $a
       | select($a.model_id==$m)
       | $a'
-```结果将发送到所有频道。
+```
 
-#### 4. 如有需要，切换模型为 Kimi-K2.6
+结果将被发送到所有频道。
 
-在 4xB200 / 8xB200 上部署 Kimi-K2.6 的示例命令：```
+#### 4. 如有需要，切换模型至 Kimi-K2.6
+
+在 4xB200 / 8xB200 上部署 Kimi-K2.6 的示例命令：
+```
 curl -X POST http://localhost:9200/admin/v1/nodes \
      -H "Content-Type: application/json" \
      -d '{
@@ -109,15 +122,18 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
          }
        }
      }'
-```#### 5. 验证您的部署
+```
 
-[`gonka` 代码仓库](https://github.com/gonka-ai/gonka) 提供了一个名为 `mlnode-validate` 的代理技能，可用于将已部署的 ML Node 与特定模型的预计算诚实 PoC 向量进行比对验证。对于 Kimi K2.6 模型，提交的黄金参考文件为 `mlnode/packages/benchmarks/scripts/poc_validation/artifacts/moonshotai-kimi-k2.6.json`（包含 200 个向量；记录于 4×B200 设备上）。详见 [验证 ML Node 部署](./mlnode-validation.md) 和 [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md)。
+#### 5. 验证您的部署
 
-## 不打算部署 Kimi-K2.6 的主机操作指南
+[`gonka` 仓库](https://github.com/gonka-ai/gonka) 提供了一个代理技能 `mlnode-validate`，可用于针对特定模型的预计算诚实 PoC 向量来验证已部署的 ML 节点。对于 Kimi K2.6，提交的黄金参考文件为 `mlnode/packages/benchmarks/scripts/poc_validation/artifacts/moonshotai-kimi-k2.6.json`（包含 200 个向量；记录于 4×B200 上）。详见 [验证 ML 节点部署](./mlnode-validation.md) 和 [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md)。
+
+## 不计划部署 Kimi-K2.6 的主机操作指南
 
 #### 1. 检查您是否信任将要部署 Kimi K2.6 的主机 / 发送 `PoCIntent`
 
-当前的意图列表：```python
+当前的意图：
+```python
 import time
 import requests
 from requests.adapters import HTTPAdapter
@@ -209,9 +225,12 @@ if skipped:
     print(f"Skipped {len(skipped)} participants after retries (intent may be undercounted):")
     for addr, w, err in skipped:
         print(f"  {addr} (weight={w}): {err}")
-```#### 2. 发送委派或拒绝
+```
 
-委派：```
+#### 2. 发送委派或拒绝
+
+委派：
+```
 export NODE=https://node3.gonka.ai/chain-rpc/
 ./inferenced tx inference set-poc-delegation moonshotai/Kimi-K2.6 <DELEGATEE> \
   --from gonka-account-key \
@@ -221,7 +240,10 @@ export NODE=https://node3.gonka.ai/chain-rpc/
   --gas auto \
   --gas-adjustment 1.3 \
   -y
-```拒绝：```
+```
+
+拒绝：
+```
 export NODE=https://node3.gonka.ai/chain-rpc/
 ./inferenced tx inference refuse-poc-delegation moonshotai/Kimi-K2.6 \
   --from gonka-account-key \

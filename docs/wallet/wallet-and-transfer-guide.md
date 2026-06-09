@@ -86,7 +86,7 @@ In Cosmos, a fund transfer means sending coins from one account (wallet address)
 
     !!! note
     
-        `<sender-key-name>` is the **local key name** in your keyring—the same label you chose when creating the key (for example, as `ACCOUNT_NAME` in the [Developer Quickstart](https://gonka.ai/developer/quickstart/)). Use `inferenced keys list` to see names on this machine.
+        `<sender-key-name>` is the **local key name** in your keyring—the same label you chose when creating the key. Use `inferenced keys list` to see names on this machine.
 
     **Example:**
 

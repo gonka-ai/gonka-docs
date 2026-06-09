@@ -29,7 +29,7 @@ landing: true
     <!-- Banner -->
     <p class="gonka-banner">
       <span class="nowrap">主网已上线。</span>
-      <span class="nowrap">Qwen3-235B 推理免费。</span>
+      <span class="nowrap">Kimi K2.6、MiniMax M2.7、Qwen3-235B 现已上线。</span>
       <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">加入 Discord</a>
     </p>
 

@@ -7,7 +7,7 @@ There are several ways to do this:
 - Via `inferenced` CLI tool
 
 !!! note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
-    An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
+    An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. 
     
     Eligible (you can export/use a raw private key):
     

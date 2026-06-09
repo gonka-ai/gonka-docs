@@ -28,7 +28,7 @@ landing: true
     <!-- Banner -->
     <p class="gonka-banner">
       <span class="nowrap">Mainnet is live. </span>
-      <span class="nowrap">Kimi K2.6, MiniMax M2.7, Qwen3-235B are now available. </span>
+      <span class="nowrap">Kimi K2.6 and MiniMax M2.7 are now available. </span>
       <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">Join Discord.</a>
     </p>
     <!-- Hero -->

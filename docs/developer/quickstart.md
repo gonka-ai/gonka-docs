@@ -44,6 +44,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 - [https://gonka-api.org/](https://gonka-api.org/)
 - [https://gonkabroker.com/](https://gonkabroker.com/)
 - [https://gonka-gateway.mingles.ai/](https://gonka-gateway.mingles.ai/)
+- [https://console.hyperfusion.io/](https://console.hyperfusion.io/) 
 
 ??? note "About this list"
     ??? note "About this list"

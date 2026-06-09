@@ -270,7 +270,7 @@ Full deployment instructions are in [Run your own gateway](gateway-developer-qui
 
 Inference reaches the network through a gateway. There are two ways to have one, and they are governed differently.
 
-**Use a public gateway (current brokers).** The brokers in [§1.1](#11-pick-a-broker) reach inference through a public Gonka gateway under access arrangements made during the early rollout. That was a bootstrap step, not an open process, and the directory is not being actively expanded.
+**Use a public gateway (current brokers).** The brokers in [§1.1](#11-pick-a-broker) reach inference through a public Gonka gateway under access arrangements made during the early rollout. That was a bootstrap step, and the directory is not being actively expanded.
 
 **Run your own gateway.** Operate your own on-chain devshard gateway. This requires your address on the governance-controlled allow-list (`devshard_escrow_params.allowed_creator_addresses`), and it is the recommended path for new operators. Full instructions are in the [gateway guide](gateway-developer-quickstart.md).
 

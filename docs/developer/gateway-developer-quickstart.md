@@ -242,7 +242,7 @@ Send enough **ngonka** to cover the escrow deposit (`5000000000` in the example 
 
 !!! tip "How to get GNK"
 
-    If you do not already hold GNK, the easiest way to fund your creator address is to bridge tokens from Ethereum using the [dashboard bridge UI](https://gonka.ai/cross-chain-transfers/ethereum-bridge/dashboard/). The dashboard derives the correct `gonka1…` address from your Ethereum wallet and handles the full deposit flow without CLI tools.
+    GNK is available as WGNK (wrapped GNK) on Ethereum. Acquire WGNK on a DEX or through a peer transfer, then bridge it to Gonka using the [dashboard bridge UI](https://gonka.ai/cross-chain-transfers/ethereum-bridge/dashboard/). The dashboard derives the correct `gonka1…` address from your Ethereum wallet and handles the deposit without CLI tools.
 
 ---
 

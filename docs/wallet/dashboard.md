@@ -22,7 +22,7 @@ You can interact with the dashboard in two ways:
         - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)  
     
         ??? note "Alternative: fully decentralized way to choose a random node"
-            Open the Hosts list: [http://node2.gonka.ai:8000/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants).  
+            Open the Hosts list: [http://node2.gonka.ai:8443/v1/epochs/current/participants](http://node2.gonka.ai:8443/v1/epochs/current/participants).  
             Choose any active Host from the list.
             Copy their `inference_url` value.
             Paste the `inference_url` into your browser to load the dashboard.

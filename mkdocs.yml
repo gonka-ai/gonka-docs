@@ -37,6 +37,7 @@ nav:
       - Deployment benchmark: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
 
   - Wallet:
+    - Create a Gonka account: wallet/create-account.md
     - Wallet & transfer guide: wallet/wallet-and-transfer-guide.md
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
@@ -44,7 +45,7 @@ nav:
       - Ethereum bridge:
         - Overview: cross-chain-transfers/ethereum-bridge/overview.md
         - Addresses and keys: cross-chain-transfers/ethereum-bridge/addresses-and-keys.md
-        - Using the dashboard: cross-chain-transfers/ethereum-bridge/dashboard.md
+        - Bridge via dashboard (UI guide): cross-chain-transfers/ethereum-bridge/dashboard.md
         - Bridge epoch update: cross-chain-transfers/ethereum-bridge/bridge-epoch-update.md
         - Register a token: cross-chain-transfers/ethereum-bridge/register-token.md
         - Deposit USDT (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/deposit-usdt.md
@@ -146,6 +147,7 @@ plugins:
       redirect_maps:
         cross-chain-transfers/multisig_participant_guide.md: cross-chain-transfers/ethereum-bridge/multisig-signer-guide.md
         release-announcements.md: network-updates.md
+        developer/create_a_new_gonka_account.md: wallet/create-account.md
   - search:
       separator: '[\\s-]+'
       lang:
@@ -205,7 +207,8 @@ plugins:
             Overview: 概述
             Ethereum bridge: 以太坊跨链桥
             Addresses and keys: 地址和密钥
-            Using the dashboard: 使用看板
+            "Bridge via dashboard (UI guide)": 通过看板桥接（UI 指南）
+            Create a Gonka account: 创建 Gonka 账户
             Bridge epoch update: 跨链桥 Epoch 更新
             Register a token: 注册代币
             "Deposit USDT (Ethereum → Gonka)": "存入 USDT（以太坊 → Gonka）"

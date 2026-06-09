@@ -10,8 +10,9 @@
 
 **你是开发者（Developer）吗？**
 
-你利用网络的分布式算力构建与部署 AI 应用。你需要创建账户，并安装 CLI 工具以便脚本化与自动化操作。
-请前往[这里](https://gonka.ai/developer/quickstart/)完成 CLI 安装并访问你的账户。
+如果你只需要推理（发送提示并接收响应），则不需要 Gonka 账户——请前往[开发者快速上手](https://gonka.ai/developer/quickstart/)通过社区代理开始使用。
+
+如果你正在运行自己的网关或需要在链上持有和转移 GNK，请先[创建 Gonka 账户](https://gonka.ai/wallet/create-account/)，然后返回此指南。
 
 当你能够访问你的账户后，回到本指南继续：
 

@@ -9,7 +9,7 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 
 ---
 
-# Using the dashboard
+# Bridge via dashboard (UI guide)
 
 The dashboard is the easiest way to bridge. It handles the key derivation for you (see [Addresses and keys](addresses-and-keys.md)), so you don't need to import private keys or compute addresses by hand. Open it at:
 

@@ -245,7 +245,7 @@ There are several ways to do this:
     
                 - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if bridge compatibility matters.
 
-            Install an extension for your browser (if you have extension installed, go to the step [“Add Gonka network to your wallet”](https://gonka.ai/developer/create_a_new_gonka_account/#add-gonka-network-to-your-wallet_1).
+            Install an extension for your browser (if you have extension installed, go to the step [“Add Gonka network to your wallet”](#add-gonka-network-to-your-wallet).
             
             Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
             
@@ -408,18 +408,3 @@ There are several ways to do this:
     ```
 
     Now you can add your Gonka account to Keplr by importing it using your public and private keys.
-
-    To use this account for developer inference, fund it first, then publish your public key:
-    ```bash
-    export GONKA_ADDRESS=<your-account-address>
-
-    inferenced publish-pubkey \
-      --from "$ACCOUNT_NAME" \
-      --node "$NODE_URL/chain-rpc/" \
-      --chain-id "gonka-mainnet" \
-      --yes
-
-    curl -s "$NODE_URL/v2/accounts/$GONKA_ADDRESS" | jq .
-    ```
-
-    You do **not** need to register as a Participant for developer inference.

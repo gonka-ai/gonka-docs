@@ -10,8 +10,9 @@ Before proceeding, you need access to your wallet, which is automatically create
 
 **Are you a Developer?**
 
-You build and deploy AI applications using the network’s distributed power. You’ll need to create an account and CLI tools for scripting and automation.
-Go [here](https://gonka.ai/developer/quickstart/) to set up the CLI and access your account.
+If you only need inference (sending prompts and receiving completions), you do not need a Gonka account — go to [Developer Quickstart](https://gonka.ai/developer/quickstart/) to get started with a community broker.
+
+If you are running your own gateway or need to hold and transfer GNK on-chain, [create a Gonka account](https://gonka.ai/wallet/create-account/) first, then return here.
 
 Once you have access to your account, return to this guide to learn how to:
 

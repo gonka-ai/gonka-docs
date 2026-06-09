@@ -240,6 +240,10 @@ inferenced query bank balances "$DEVSHARD_CREATOR" \
 
 Send enough **ngonka** to cover the escrow deposit (`5000000000` in the example if that is ≥ `min_amount`), plus create/settle gas and transaction fees. If you will enable automatic escrow rotation ([Escrow lifetime and rotation](#escrow-lifetime-and-rotation)), fund the creator for **several** deposits per epoch—not only the one manual escrow in [§4](#4-create-an-escrow-and-open-api-access).
 
+!!! tip "How to get GNK"
+
+    If you do not already hold GNK, the easiest way to fund your creator address is to bridge tokens from Ethereum using the [dashboard bridge UI](https://gonka.ai/cross-chain-transfers/ethereum-bridge/dashboard/). The dashboard derives the correct `gonka1…` address from your Ethereum wallet and handles the full deposit flow without CLI tools.
+
 ---
 
 ## 3. Deploy the gateway

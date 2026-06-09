@@ -14,7 +14,6 @@ You can interact with the dashboard in two ways:
     
     1. Here is the list of genesis nodes. Choose a random node from the list below and open it in a new browser window/tab.
     
-        - [http://36.189.234.197:18026](http://36.189.234.197:18026)  
         - [http://36.189.234.237:17241](http://36.189.234.237:17241)  
         - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)  
         - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)  

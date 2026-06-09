@@ -8,7 +8,7 @@ This guide explains how to send an inference request to Gonka through a communit
 
 !!! note "How developers connect to Gonka now"
 
-    Gonka inference is now organised around **devshards** — short-lived sessions that hold a small on-chain deposit (an escrow) and settle per-request billing off-chain. The role of opening a devshard, signing requests, rotating the session, and submitting settlement to the chain is performed by a piece of software called a **gateway**.
+    Gonka inference is now organized around **devshards** — short-lived sessions that hold a small on-chain deposit (an escrow) and settle per-request billing off-chain. The role of opening a devshard, signing requests, rotating the session, and submitting settlement to the chain is performed by a piece of software called a **gateway**.
 
     For most developers, the simplest way to use Gonka is to call a **community broker** — a third party that provides inference access through a gateway and exposes a standard OpenAI-compatible API. You just need an API key from the broker.
 
@@ -33,7 +33,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 
 !!! caution "Brokers are not part of the core protocol"
 
-    Brokers are independent third parties. Pricing, payment method (USD, crypto, credits), rate limits, supported models, SLAs, refund policy, and data handling are decided by each broker. Read the broker's own documentation and terms before going live.
+    Brokers are independent third parties. Pricing, payment methods (USD, crypto, credits), rate limits, supported models, SLAs, refund policies, and data handling are determined by each broker. Read the broker's own documentation and terms before going live.
 
 ### 1.1 Pick a broker
 
@@ -47,8 +47,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 - [https://console.hyperfusion.io/](https://console.hyperfusion.io/) 
 
 ??? note "About this list"
-    ??? note "About this list"
-    This is a curated directory of community brokers that route inference through a public Gonka gateway and have agreed to be publicly listed. It is not exhaustive and is not an endorsement of any operator. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits. This directory reflects an early bootstrap set. New operators who want to serve inference independently should see [Interested in operating a gateway?](#3-interested-in-operating-a-gateway).
+    This is a curated directory of community brokers that route inference through a public Gonka gateway and have agreed to be publicly listed. It is not exhaustive and does not endorse any operator. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits. This directory reflects an early bootstrap set. New operators who want to serve inference independently should see [Interested in operating a gateway?](#3-interested-in-operating-a-gateway).
     
 ### 1.2 Get an API key
 
@@ -257,7 +256,7 @@ Tool calling is supported through the same OpenAI-compatible endpoint. Only `typ
 
 ## 2. Run your own gateway (advanced)
 
-If your application has high throughput or other requirements, you can run a Gonka gateway yourself instead of going through a broker. The gateway is a small program (shipped as a Docker container) that you run on your own machine or server — never on a Gonka host. It exposes the same OpenAI-compatible API as a broker, but you own the keys and you pay GNK directly on-chain for the devshards it creates.
+If your application has high throughput or other requirements, you can run a Gonka gateway yourself instead of going through a broker. The gateway is a small program (shipped as a Docker container) that you run on your own machine or server — never on a Gonka host. It exposes the same OpenAI-compatible API as a broker, but you own the keys, and you pay GNK directly on-chain for the devshards it creates.
 
 !!! warning "Self-hosted gateway requires an allow-listed address"
 
@@ -275,7 +274,7 @@ Inference reaches the network through a gateway. There are two ways to have one,
 
 **Run your own gateway.** Operate your own on-chain devshard gateway. This requires your address on the governance-controlled allow-list (`devshard_escrow_params.allowed_creator_addresses`), and it is the recommended path for new operators. Full instructions are in the [gateway guide](gateway-developer-quickstart.md).
 
-To request consideration for on-chain allow-listing, open a [GitHub issue](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request) including your operator name and contact, the `gonka1...` address you intend to use, the models you plan to serve. Inclusion is an on-chain governance decision — no single operator or organization adds an address unilaterally — and expressing interest does not guarantee inclusion, review, or a timeline.
+To request consideration for on-chain allow-listing, open a [GitHub issue](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request) including your operator name and contact, the `gonka1...` address you intend to use, and the models you plan to serve. Inclusion is an on-chain governance decision — no single operator or organization adds an address unilaterally — and expressing interest does not guarantee inclusion, review, or a timeline.
 
 ---
 

@@ -17,7 +17,18 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   shuffleBrokerList();
+  shuffleList(".broker-dashboards");
 });
+
+// Fisher-Yates shuffle for children of a container element.
+function shuffleChildren(container) {
+  const items = Array.from(container.children);
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+  items.forEach((el) => container.appendChild(el));
+}
 
 // Shuffle the community broker list on the developer quickstart page so no
 // single broker is permanently displayed first. The list is identified by the
@@ -38,12 +49,12 @@ function shuffleBrokerList() {
   });
   if (targets.size === 0) return;
 
-  targets.forEach((ul) => {
-    const items = Array.from(ul.children);
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [items[i], items[j]] = [items[j], items[i]];
-    }
-    items.forEach((li) => ul.appendChild(li));
+  targets.forEach((ul) => shuffleChildren(ul));
+}
+
+// Shuffle any list identified by CSS selector.
+function shuffleList(selector) {
+  document.querySelectorAll(selector).forEach((el) => {
+    if (el.children.length > 1) shuffleChildren(el);
   });
 }

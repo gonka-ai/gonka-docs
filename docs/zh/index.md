@@ -2,10 +2,10 @@
 landing: true
 ---
 
-<!-- prettier-ignore:start -->
 <div>
 <div class="gonka-landing">
-  <!-- Header -->
+  <!-
+页眉 -->
   <header class="gonka-header">
       <a href="/" class="gonka-logo">
         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +16,7 @@ landing: true
           <path d="M23.3938 0.0447591C34.8946 0.763813 44 10.3179 44 22C44 28.5649 41.123 34.4565 36.5628 38.4875C30.4919 31.7747 23.4655 25.0585 23.4368 18.3459C23.4108 12.2455 23.4027 6.14511 23.3938 0.0447591Z" fill="#2A2A2A"/>
         </svg>
     </a>
-    <a href="/docs/zh/" class="gonka-docs-link">
+    <a href="/docs/" class="gonka-docs-link">
       <span>文档</span> 
       <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.5 13.5L10.5 6.5" stroke="black" stroke-width="1.5"/>
@@ -26,79 +26,108 @@ landing: true
   </header>
 
   <main class="gonka-main">      
-    <!-- Banner -->
+    <!-
+横幅 -->
     <p class="gonka-banner">
-      <span class="nowrap">主网已上线。</span>
-      <span class="nowrap">Kimi K2.6 & MiniMax M2.7 现已上线。</span>
-      <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">加入 Discord</a>
+      <span class="nowrap">主网上线。 </span>
+      <span class="nowrap">Kimi K2.6 与 MiniMax M2.7 现已上线。 </span>
+      <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">加入 Discord。</a>
     </p>
-
-    <!-- Hero -->
+    <!-
+英雄区 -->
     <section class="gonka-hero">
       <div class="gonka-inner">
         <h1>Gonka</h1>
-        <p class="tagline">AI 算力是新型“货币”</p>
+        <p class="tagline">AI 算力即新货币</p>
         <div class="gonka-cards">
+          <!-
+-
           <a href="https://chat.gonka.ai/">
           <div class="card">
-              <span>与 AI 对话</span><small>由 Gonka 去中心化网络提供</small>
+              <span>与 AI 聊天</span><small>由 Gonka 去中心化网络驱动</small>
           </div>
           </a>
-        </div>
-      </div>
-
-      <!-- Horizontal scroll row under Chat with AI -->
-      <div class="gonka-carousel">
-        <div class="carousel-track">
-          <div class="partner-card">
-            <span class="partner-label">审计方</span>
-            <div class="partner-logos">
-              <img src="../images/logos/certik.svg" alt="CertiK" />
-            </div>
-          </div>
-          <div class="partner-card">
-            <span class="partner-label">社区合作伙伴</span>
-            <div class="partner-logos">
-              <img src="../images/logos/web3.svg" alt="Web3" />
-              <img src="../images/logos/hardyaka.svg" alt="Hard Yaka" />
-              <img src="../images/logos/bitfury.svg" alt="Bitfury" />
-            </div>
-          </div>
-          <div class="partner-card">
-            <span class="partner-label">优选主机</span>
-            <div class="partner-logos">
-              <img src="../images/logos/gcore.svg" alt="Gcore" />
-              <img src="../images/logos/hyperfusion.svg" alt="Hyperfusion" />
-              <img src="../images/logos/6block.svg" alt="6block" />
-            </div>
-          </div>
-          <div class="partner-card">
-            <span class="partner-label">优选 AI 开发者</span>
-            <div class="partner-logos">
-              <img src="../images/logos/aiden.svg" alt="Aiden" />
-            </div>
-          </div>
-          <div class="partner-card">
-            <span class="partner-label">协议创建者</span>
-            <div class="partner-logos">
-              <img src="../images/logos/productscience.svg" alt="Product Science" />
-              <span class="partner-label">支持方</span>
-              <img src="../images/logos/coatue.svg" alt="Coatue" />
-              <img src="../images/logos/slow.svg" alt="Slow" />
-              <img src="../images/logos/mantis.svg" alt="Mantis" />
-              <img src="../images/logos/k5.svg" alt="K5" />
-            </div>
-          </div>
+          -->
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer – 4 plain columns ---------------------------------------->
+<!-
+页脚 – 4个纯色列 -->
 <footer class="gonka-footer">
+  <!-
+内页脚上方的水平动画轮播行 -->
+  <div class="gonka-carousel">
+    <div class="carousel-track">
+      <div class="partner-card">
+        <span class="partner-label">审计机构</span>
+        <div class="partner-logos">
+          <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/certik.svg" alt="CertiK" />
+          </a>
+        </div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-label">社区合作伙伴</span>
+        <div class="partner-logos">
+          <a href="https://web3.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/web3.svg" alt="Web3.com Ventures" />
+          </a>
+          <a href="https://www.hardyaka.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/hardyaka.svg" alt="HardYaka" />
+          </a>
+          <a href="https://bitfury.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/bitfury.svg" alt="Bitfury" />
+          </a>
+        </div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-label">精选托管方</span>
+        <div class="partner-logos">
+          <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/gcore.svg" alt="Gcore" />
+          </a>
+          <a href="https://hyperfusion.io/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/hyperfusion.svg" alt="Hyperfusion" />
+          </a>
+          <a href="https://6block.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/6block.svg" alt="6blocks" />
+          </a>
+        </div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-label">精选AI开发者</span>
+        <div class="partner-logos">
+          <a href="https://aidenai.io/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/aiden.svg" alt="Aiden" />
+          </a>
+        </div>
+      </div>
+      <div class="partner-card">
+        <span class="partner-label">协议创建者</span>
+        <div class="partner-logos">
+          <a href="https://productscience.ai/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/productscience.svg" alt="Product Science" />
+          </a>
+          <span class="partner-label">支持方</span>
+          <a href="https://www.coatue.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/coatue.svg" alt="Coatue" />
+          </a>
+          <a href="https://slow.co/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/slow.svg" alt="Slow Ventures" />
+          </a>
+          <a href="https://www.mantisvc.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/mantis.svg" alt="Mantis" />
+          </a>
+          <a href="https://k5ventures.com/" target="_blank" rel="noopener noreferrer">
+            <img src="images/logos/k5.svg" alt="K5" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="footer-inner">
-
-    <!-- Brand row --------------------------------------------------->
     <div class="brand">
       <a class="brand-logo" href="/">
         <svg width="34" height="33" viewBox="0 0 42 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,38 +165,35 @@ landing: true
           </svg>
         </a>
       </div>
-    </div>
-
-    <!-- 4 columns ---------------------------------------------------->
+  </div>  
+    <!-
+4 columns -->
     <div class="footer-cols">
       <div class="footer-col">
         <h4>社区</h4>
         <ul>
           <li><a href="https://github.com/gonka-ai/gonka/">GitHub</a></li>
-          <li><a href="https://discord.gg/W73zX4sNx6">活动</a></li>
+          <li><a href="https://discord.com/invite/RADwCT2U6R">活动</a></li>
           <li><a href="https://what-is-gonka.hashnode.dev">博客</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4>协议</h4>
         <ul>
           <li><a href="/whitepaper.pdf">白皮书</a></li>
-          <li><a href="/pow-security-analysis.pdf">基于 Transformer 的 PoW</a></li>
+          <li><a href="/pow-security-analysis.pdf">基于 Transformer 的工作量证明</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4>GNK</h4>
         <ul>
-          <li><a href="/tokenomics.pdf">Gonka 代币经济学</a></li>
+          <li><a href="/tokenomics.pdf">Gonka 代币经济模型</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4>法律</h4>
         <ul>
-          <li><a href="/protocol-license.pdf">Gonka 协议许可证</a></li>
+          <li><a href="/protocol-license.pdf">Gonka 协议许可</a></li>
           <li><a href="#">专利</a></li>
         </ul>
       </div>
@@ -178,10 +204,9 @@ landing: true
 
 </div>
 
-<!-- prettier-ignore:end -->
 
 <script>
-  // Ensure dark mode attribute is respected early on landing without adding persistent classes
+  // 确保在页面加载时遵守暗色模式属性，而无需添加持久性类
   (function() {
     var palette = localStorage.getItem('/.__palette');
     if (palette) {
@@ -196,18 +221,19 @@ landing: true
 </script>
 
 <script>
-// Ensure MkDocs navigation works when coming from landing page
+// 确保从登录页面进入时 MkDocs 导航正常工作
 document.addEventListener('DOMContentLoaded', function() {
   const docLink = document.querySelector('.gonka-docs-link');
   if (docLink) {
     docLink.addEventListener('click', function(e) {
       e.preventDefault();
-      // Force a full page reload to ensure MkDocs initializes properly
-      window.location.href = this.href + '?from=landing';
+      // 强制完全页面重载以确保 MkDocs 正确初始化
+      window.location.href = this.href
+ '?from=landing';
     });
   }
   
-  // Mobile header shadow on scroll
+  // 移动端头部滚动阴影
   const header = document.querySelector('.gonka-header');
   if (header) {
     function handleScroll() {
@@ -218,12 +244,122 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // Add scroll event listener
+    // 添加滚动事件监听器
     window.addEventListener('scroll', handleScroll);
     
-    // Check initial scroll position
+    // 检查初始滚动位置
     handleScroll();
   }
+  
+  // 平滑无限轮播
+  const carouselTrack = document.querySelector('.gonka-carousel .carousel-track');
+  if (carouselTrack) {
+    // 在克隆前捕获第一组卡片
+    const originals = Array.from(carouselTrack.querySelectorAll('.partner-card'));
+    let raf = null;
+    let offset = 0;   // 当前滚动偏移量 [0, period)
+    let period = 0;   // 一组完整卡片的宽度 (A → A')
+    const speed = 72; // 像素每秒 (可按需调整)
+    let lastTs = null;
+
+    // 确保有足够的副本 (A, A', A'', ...) 以覆盖视口加一个周期
+    function ensureCopies(minCopies) {
+      const have = Math.floor(carouselTrack.children.length / originals.length);
+      const need = Math.max(2, minCopies | 0);
+      for (let i = have; i < need; i++) {
+        originals.forEach(card => carouselTrack.appendChild(card.cloneNode(true)));
+      }
+    }
+
+    // 使用 DOM 位置测量重复周期：从第一个原始元素到第一个克隆元素的距离
+    function measurePeriod() {
+      const first = originals[0];
+      const firstClone = carouselTrack.children[originals.length];
+      if (!first || !firstClone) return 0;
+      let p = firstClone.offsetLeft
+ first.offsetLeft;
+      if (p <= 0) {
+        const r1 = first.getBoundingClientRect();
+        const r2 = firstClone.getBoundingClientRect();
+        p = r2.left
+ r1.left;
+      }
+      return p;
+    }
+
+    function frame(ts) {
+      if (lastTs == null) lastTs = ts;
+      const dt = (ts
+ lastTs) / 1000; // 秒
+      lastTs = ts;
+
+      // 按时间推进，而非按帧，然后用取模运算避免任何超调跳跃
+      offset += speed
+ dt;
+      if (period > 0) {
+        offset = offset % period; // 保持在 [0, period) 范围内
+        carouselTrack.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (raf == null) {
+        lastTs = null;
+        raf = requestAnimationFrame(frame);
+      }
+    }
+    function stop() {
+      if (raf != null) {
+        cancelAnimationFrame(raf);
+        raf = null;
+        lastTs = null;
+      }
+    }
+
+    // 初始克隆和测量
+    ensureCopies(2);
+    period = measurePeriod();
+    const vpW0 = carouselTrack.parentElement.getBoundingClientRect().width;
+    const minCopies0 = period > 0 ? Math.max(2, Math.ceil((vpW0
+ period) / period)) : 3;
+    ensureCopies(minCopies0);
+    period = measurePeriod();
+
+    // 在调整大小/字体加载时重新计算，同时保持进度以防止视觉跳变
+    function recompute() {
+      const progress = period > 0 ? (offset % period) / period : 0;
+      stop();
+      period = measurePeriod();
+      const vpW = carouselTrack.parentElement.getBoundingClientRect().width;
+      const minCopies = period > 0 ? Math.max(2, Math.ceil((vpW
+ period) / period)) : 3;
+      ensureCopies(minCopies);
+      period = measurePeriod();
+      if (period > 0) {
+        offset = progress
+ period;
+        carouselTrack.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      } else {
+        offset = 0;
+      }
+      start();
+    }
+
+    window.addEventListener('resize', recompute);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(recompute);
+    }
+
+    // GPU 提示 & 悬停时暂停
+    carouselTrack.style.willChange = 'transform';
+    carouselTrack.parentElement.addEventListener('mouseenter', stop);
+    carouselTrack.parentElement.addEventListener('mouseleave', start);
+
+    // 启动动画
+    start();
+  }
 });
+</script>
 </script>
 </div>

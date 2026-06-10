@@ -13,10 +13,7 @@ If you only need inference through an existing endpoint, use a [community broker
 > After you import your key in [§2.3](#23-import-the-creator-key), verify membership in [§2.4](#24-confirm-allowlist-membership). Do not fund the creator or deploy the gateway until that check passes (funding alone does not grant allowlist access).
 
 !!! warning "Production network"
-
-```
-Mainnet escrows and fees use **real** ngonka. Confirm `devshard_escrow_params.min_amount` on chain (§2.4) before funding or creating an escrow. The example deposit below must be **≥ `min_amount`**.
-```
+    Mainnet escrows and fees use **real** ngonka. Confirm `devshard_escrow_params.min_amount` on chain (§2.4) before funding or creating an escrow. The example deposit below must be **≥ `min_amount`**.
 
 ### How this setup works
 

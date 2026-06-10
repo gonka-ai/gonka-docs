@@ -407,4 +407,4 @@ There are several ways to do this:
      inferenced keys list [--keyring-backend test]
     ```
 
-    Now you can add your Gonka account to Keplr by importing it using your public and private keys.
+    Now you can add your Gonka account to Keplr by importing the exported private key. Do not import the mnemonic phrase if you need Keplr to show the same Gonka address created by the `inferenced` CLI. Depending on the derivation path used by the wallet, importing the mnemonic phrase may produce a different Gonka address.

@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //
 // The order is re-randomized on every page load.
 function shuffleBrokerList() {
-  const BROKER_HOST_PATTERN = /(proxy\.gonka\.gg|gonkagate\.com|gate\.joingonka\.ai)/i;
+  const BROKER_HOST_PATTERN = /(proxy\.gonka\.gg|gonkagate\.com|gate\.joingonka\.ai|router\.gonkascan\.com|gonka-api\.org|gonkabroker\.com|gonka-gateway\.mingles\.ai|console\.hyperfusion\.io)/i;
 
   const targets = new Set();
   document.querySelectorAll("a[href]").forEach((a) => {

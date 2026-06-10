@@ -40,15 +40,15 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 - [https://proxy.gonka.gg/](https://proxy.gonka.gg/)
 - [https://gonkagate.com/](https://gonkagate.com/)
 - [https://gate.joingonka.ai/](https://gate.joingonka.ai/)
-- [https://router.gonkascan.com/](https://router.gonkascan.com/)
+- [https://router.gonkascan.com/](https://router.gonkascan.com/) · [▶ demo](https://youtu.be/1uWmLGPoBCM)
 - [https://gonka-api.org/](https://gonka-api.org/)
 - [https://gonkabroker.com/](https://gonkabroker.com/)
 - [https://gonka-gateway.mingles.ai/](https://gonka-gateway.mingles.ai/)
 - [https://console.hyperfusion.io/](https://console.hyperfusion.io/) 
 
 ??? note "About this list"
-    This is a curated directory of community brokers that route inference through a public Gonka gateway and have agreed to be publicly listed. It is not exhaustive and does not endorse any operator. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits. This directory reflects an early bootstrap set. New operators who want to serve inference independently should see [Interested in operating a gateway?](#3-interested-in-operating-a-gateway).
-    
+    This is a curated directory of community brokers that route inference through a public Gonka gateway and have agreed to be publicly listed. It is not exhaustive and does not endorse any operator. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits. This directory reflects an early bootstrap set. New operators who want to serve inference independently should see [Interested in operating a gateway?](#3-interested-in-operating-a-gateway). Some brokers provide a **▶ demo** link to a short onboarding screencast — style and length may vary.
+
 ### 1.2 Get an API key
 
 Follow the onboarding instructions on the broker's site. Typically, you will:

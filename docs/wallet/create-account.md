@@ -193,6 +193,63 @@ There are several ways to do this:
                     
                 <a href="/images/dashboard_ping_pub_3_5_7.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_7.png" style="width:450px; height:auto;"></a>
 
+        === "Cosmostation browser extension"
+
+            !!! note "Important Notice: Limited Functionality"
+                This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please create Gonka account via `inferenced` CLI tool or via Keplr ("Connect with Google" path) instead.
+                
+            Get [Cosmostation Wallet browser extension](https://cosmostation.io/products/application). 
+            
+            <a href="/images/1_cosmostation.png" target="_blank"><img src="/images/1_cosmostation.png" style="width:500px; height:auto;"></a>
+                    
+            Add an extension to your browser.
+            
+            <a href="/images/2_cosmostation_add_extention.png" target="_blank"><img src="/images/2_cosmostation_add_extention.png" style="width:500px; height:auto;"></a>
+            
+            Choose "Create new wallet".
+            
+            <a href="/images/5_cosmostation_create_a_new_wallet.png" target="_blank"><img src="/images/5_cosmostation_create_a_new_wallet.png" style="width:auto; height:337.5px;"></a>
+            
+            Write down your mnemonic phrase. DO NOT share your recovery phrase with ANYONE. Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times. Back up the phrase safely. 
+            
+            <a href="/images/6_cosmostation_mnemonic.png" target="_blank"><img src="/images/6_cosmostation_mnemonic.png" style="width:auto; height:337.5px;"></a>
+            
+            Complete the quiz in order. Check the backed-up mnemonic and select the correct phrase in order for each number.
+            
+            <a href="/images/7_cosmostation_quiz.png" target="_blank"><img src="/images/7_cosmostation_quiz.png" style="width:auto; height:337.5px;"></a>
+            
+            Set account name. Please enter a name for your account. You can change the account name at any time.
+            
+            <a href="/images/8_cosmostation_account_name.png" target="_blank"><img src="/images/8_cosmostation_account_name.png" style="width:auto; height:337.5px;"></a>
+            
+            In the top-right corner, click “All Networks” and select the Gonka chain to add it to your wallet.
+            
+            <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
+            
+            Done! Your Gonka account has been successfully created. To copy your address, which you can share with others to receive payments, click the address above your balance. It usually starts with `gonka...`.
+                
+            <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
+            
+            Click on the Wallet name at the top. Click "Manage" on the top-right corner, then click the Wallet name. 
+                    
+            <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
+            
+            Click "View private key".
+            
+            <a href="/images/13_cosmostation_view_private_key.png" target="_blank"><img src="/images/13_cosmostation_view_private_key.png" style="width:auto; height:337.5px;"></a>
+            
+            Verify your password.
+            
+            <a href="/images/14_cosmostation_verify_password.png" target="_blank"><img src="/images/14_cosmostation_verify_password.png" style="width:auto; height:337.5px;"></a>
+            
+            Choose "Gonka" from the list.
+            
+            <a href="/images/15_cosmostation.png" target="_blank"><img src="/images/15_cosmostation.png" style="width:auto; height:337.5px;"></a>
+               
+            Click on "Gonka" to see the private key. Copy your private key or recovery phrase and store it securely (a hard copy is preferred).
+            
+            <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
+
     === "I have an external wallet"
 
         === "Keplr mobile app"

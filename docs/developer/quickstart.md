@@ -49,6 +49,17 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 ??? note "About this list"
     This is a curated directory of community brokers that route inference through a public Gonka gateway and have agreed to be publicly listed. It is not exhaustive and does not endorse any operator. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits. This directory reflects an early bootstrap set. New operators who want to serve inference independently should see [Interested in operating a gateway?](#3-interested-in-operating-a-gateway). Some brokers provide a **▶ demo** link to a short onboarding screencast — style and length may vary.
 
+??? tip "Compare brokers — community observability dashboards"
+
+    Community members run independent monitoring probes against public broker endpoints and publish the results. These dashboards can help you compare uptime, latency, and pricing before choosing a broker:
+
+    <ul class="broker-dashboards">
+    <li><a href="https://meter.gonka.gg/">G-Meter</a> — network status overview</li>
+    <li><a href="https://power.gnk.space/">Gonka Power</a> — per-provider uptime, latency, throughput, context reliability, and estimated cost</li>
+    </ul>
+
+    These dashboards are **community-built tools, not part of the core protocol**. Data accuracy, methodology, and availability are the responsibility of each dashboard operator. Always verify critical metrics against your own testing. The list is displayed in a random order on every page load.
+
 ### 1.2 Get an API key
 
 Follow the onboarding instructions on the broker's site. Typically, you will:

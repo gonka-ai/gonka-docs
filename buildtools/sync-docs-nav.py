@@ -39,8 +39,7 @@ def transform_nav(nav: list) -> list:
     """Strip Home and remap Introduction for the docs build (recursive).
 
     The remap of ``Introduction: introduction.md`` -> ``Introduction: index.md``
-    is applied at any depth, because Introduction may live under a parent
-    section (e.g. ``Learn``) rather than at the top level.
+    is applied at any depth (top-level or nested).
     """
     out: list = []
     for item in nav:

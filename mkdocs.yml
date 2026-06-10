@@ -8,8 +8,9 @@ site_description: >-
 nav:
   - Home: index.md
 
+  - Introduction: introduction.md
+
   - Learn:
-    - Introduction: introduction.md
     - Architecture: architecture.md
     - Glossary: glossary.md
 

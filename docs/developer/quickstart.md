@@ -54,8 +54,8 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
     Community members run independent monitoring probes against public broker endpoints and publish the results. These dashboards can help you compare uptime, latency, and pricing before choosing a broker:
 
     <ul class="broker-dashboards">
-    <li><a href="https://meter.gonka.gg/">G-Meter</a> — network status overview</li>
-    <li><a href="https://power.gnk.space/">Gonka Power</a> — per-provider uptime, latency, throughput, context reliability, and estimated cost</li>
+    <li><a href="https://meter.gonka.gg/">G-Meter</a></li>
+    <li><a href="https://power.gnk.space/">Gonka Power</a></li>
     </ul>
 
     These dashboards are **community-built tools, not part of the core protocol**. Data accuracy, methodology, and availability are the responsibility of each dashboard operator. Always verify critical metrics against your own testing. The list is displayed in a random order on every page load.

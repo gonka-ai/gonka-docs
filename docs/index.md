@@ -15,112 +15,242 @@ landing: true
           <path d="M23.3938 0.0447591C34.8946 0.763813 44 10.3179 44 22C44 28.5649 41.123 34.4565 36.5628 38.4875C30.4919 31.7747 23.4655 25.0585 23.4368 18.3459C23.4108 12.2455 23.4027 6.14511 23.3938 0.0447591Z" fill="#2A2A2A"/>
         </svg>
     </a>
-    <a href="/docs/" class="gonka-docs-link">
-      <span>Documentation</span> 
-      <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3.5 13.5L10.5 6.5" stroke="black" stroke-width="1.5"/>
-        <path d="M3.83398 6.5H10.5007V13.1667" stroke="black" stroke-width="1.5"/>
-      </svg>
-    </a>
+    <nav class="header-nav" aria-label="Primary">
+      <a href="/whitepaper.pdf">
+        <span class="footer-link-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3.5h8l4 4V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20V3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.5 3.5V8h4.5M8.5 12h7M8.5 15h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span>White paper</span>
+      </a>
+      <a href="https://github.com/gonka-ai/gonka/">
+        <span class="footer-link-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0083 2.16663C6.47396 2.16663 2 6.67357 2 12.2493C2 16.7062 4.86662 20.4789 8.84338 21.8142C9.34058 21.9146 9.5227 21.5973 9.5227 21.3303C9.5227 21.0966 9.50631 20.2954 9.50631 19.4606C6.72225 20.0616 6.14249 18.2587 6.14249 18.2587C5.69508 17.0901 5.03215 16.7898 5.03215 16.7898C4.12092 16.1721 5.09852 16.1721 5.09852 16.1721C6.1093 16.2389 6.63969 17.2071 6.63969 17.2071C7.53432 18.7427 8.97592 18.3088 9.55588 18.0417C9.63865 17.3907 9.90394 16.94 10.1856 16.6896C7.96514 16.4559 5.62891 15.5879 5.62891 11.715C5.62891 10.6132 6.02634 9.71186 6.65608 9.01082C6.55672 8.76048 6.20866 7.72532 6.75564 6.33985C6.75564 6.33985 7.60069 6.07271 9.5061 7.3748C10.3219 7.1541 11.1632 7.04183 12.0083 7.04088C12.8533 7.04088 13.7148 7.15786 14.5102 7.3748C16.4159 6.07271 17.2609 6.33985 17.2609 6.33985C17.8079 7.72532 17.4596 8.76048 17.3603 9.01082C18.0066 9.71186 18.3876 10.6132 18.3876 11.715C18.3876 15.5879 16.0514 16.4391 13.8143 16.6896C14.179 17.0067 14.4936 17.6076 14.4936 18.5592C14.4936 19.9113 14.4773 20.9964 14.4773 21.3301C14.4773 21.5973 14.6596 21.9146 15.1566 21.8144C19.1333 20.4787 22 16.7062 22 12.2493C22.0163 6.67357 17.526 2.16663 12.0083 2.16663Z" fill="currentColor"/></svg>
+        </span>
+        <span>GitHub</span>
+      </a>
+      <a href="https://x.com/gonka_ai">
+        <span class="footer-link-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.1761 3.8468H19.9362L13.9061 10.6242L21 19.8468H15.4456L11.0951 14.2534L6.11723 19.8468H3.35544L9.80517 12.5976L3 3.8468H8.69545L12.6279 8.95942L17.1761 3.8468ZM16.2073 18.2222H17.7368L7.86441 5.38608H6.2232L16.2073 18.2222Z" fill="currentColor"/></svg>
+        </span>
+        <span>X</span>
+      </a>
+      <a href="https://discord.com/invite/RADwCT2U6R">
+        <span class="footer-link-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.9308 5.64149C17.6561 5.05658 16.2892 4.62565 14.8599 4.37884C14.8339 4.37408 14.8079 4.38598 14.7945 4.40979C14.6187 4.72247 14.4239 5.13039 14.2876 5.45101C12.7503 5.22087 11.221 5.22087 9.71527 5.45101C9.57887 5.12326 9.37707 4.72247 9.20048 4.40979C9.18707 4.38678 9.16107 4.37487 9.13504 4.37884C7.70659 4.62487 6.33963 5.0558 5.06411 5.64149C5.05307 5.64625 5.04361 5.65419 5.03732 5.6645C2.44449 9.53813 1.73421 13.3166 2.08265 17.0481C2.08423 17.0664 2.09447 17.0839 2.10867 17.095C3.81934 18.3512 5.47642 19.1139 7.10273 19.6194C7.12876 19.6274 7.15634 19.6179 7.1729 19.5964C7.55761 19.0711 7.90054 18.5171 8.19456 17.9346C8.21192 17.9005 8.19535 17.86 8.15989 17.8465C7.61594 17.6402 7.098 17.3886 6.59977 17.1029C6.56037 17.0799 6.55721 17.0235 6.59347 16.9965C6.69831 16.918 6.80318 16.8362 6.9033 16.7537C6.92141 16.7386 6.94665 16.7354 6.96794 16.745C10.2411 18.2393 13.7846 18.2393 17.0191 16.745C17.0404 16.7346 17.0657 16.7378 17.0846 16.7529C17.1847 16.8354 17.2895 16.918 17.3952 16.9965C17.4314 17.0235 17.4291 17.0799 17.3897 17.1029C16.8914 17.3941 16.3735 17.6402 15.8288 17.8457C15.7933 17.8592 15.7775 17.9005 15.7949 17.9346C16.0952 18.5163 16.4381 19.0702 16.8157 19.5956C16.8315 19.6179 16.8599 19.6274 16.8859 19.6194C18.5201 19.1139 20.1772 18.3512 21.8879 17.095C21.9028 17.0839 21.9123 17.0672 21.9139 17.0489C22.3309 12.7348 21.2154 8.98737 18.9568 5.66529C18.9513 5.65419 18.9419 5.64625 18.9308 5.64149ZM8.68335 14.776C7.69792 14.776 6.88594 13.8713 6.88594 12.7602C6.88594 11.6491 7.68217 10.7444 8.68335 10.7444C9.69239 10.7444 10.4965 11.6571 10.4807 12.7602C10.4807 13.8713 9.68451 14.776 8.68335 14.776ZM15.329 14.776C14.3435 14.776 13.5316 13.8713 13.5316 12.7602C13.5316 11.6491 14.3278 10.7444 15.329 10.7444C16.338 10.7444 17.1421 11.6571 17.1264 12.7602C17.1264 13.8713 16.338 14.776 15.329 14.776Z" fill="currentColor"/></svg>
+        </span>
+        <span>Discord</span>
+      </a>
+      <a href="/tokenomics.pdf">
+        <span class="footer-link-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.25" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 14.5c0 1.1 1.1 2 2.5 2s2.5-.9 2.5-2-1.1-1.6-2.5-2-2.5-.9-2.5-2 1.1-2 2.5-2 2.5.9 2.5 2M12 6v1.5M12 16.5V18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </span>
+        <span>Tokenomics</span>
+      </a>
+      <a href="/docs/" class="gonka-docs-link">
+        <span class="footer-link-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3.5h8l4 4V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20V3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.5 3.5V8h4.5M8.5 12h7M8.5 15h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span>Documentation</span>
+      </a>
+    </nav>
   </header>
 
-  <main class="gonka-main">      
-    <!-- Banner -->
-    <p class="gonka-banner">
-      <span class="nowrap">Mainnet is live. </span>
-      <span class="nowrap">Kimi K2.6 & MiniMax M2.7 are now available. </span>
-      <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">Join Discord.</a>
-    </p>
+  <main class="gonka-main">
     <!-- Hero -->
     <section class="gonka-hero">
       <div class="gonka-inner">
         <h1>Gonka</h1>
-        <p class="tagline">AI Compute is the New Currency</p>
-        <div class="gonka-cards">
-          <!--
-          <a href="https://chat.gonka.ai/">
-          <div class="card">
-              <span>Chat with AI</span><small>Powered by Gonka Decentralized Network</small>
-          </div>
+        <p class="tagline">AI compute is the new currency</p>
+        <p class="hero-uniswap">
+          <a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">
+            <span>Buy or Sell GNK on</span>
+            <img class="uni-logo" src="images/logos/uniswap-wordmark.png" alt="Uniswap" />
           </a>
-          -->
+        </p>
+      </div>
+    </section>
+
+    <!-- Partner logos: credibility band (auto-scrolling), sits above the role fork -->
+    <div class="gonka-carousel">
+      <div class="carousel-track">
+        <div class="partner-card">
+          <span class="partner-label">Auditor</span>
+          <div class="partner-logos">
+            <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/certik.svg" alt="CertiK" />
+            </a>
+          </div>
+        </div>
+        <div class="partner-card">
+          <span class="partner-label">Community Partners</span>
+          <div class="partner-logos">
+            <a href="https://web3.com/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/web3.svg" alt="Web3.com Ventures" />
+            </a>
+            <a href="https://www.hardyaka.com/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/hardyaka.svg" alt="HardYaka" />
+            </a>
+            <a href="https://bitfury.com/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/bitfury.svg" alt="Bitfury" />
+            </a>
+          </div>
+        </div>
+        <div class="partner-card">
+          <span class="partner-label">Select Hosts</span>
+          <div class="partner-logos">
+            <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/gcore.svg" alt="Gcore" />
+            </a>
+            <a href="https://hyperfusion.io/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/hyperfusion.svg" alt="Hyperfusion" />
+            </a>
+            <a href="https://6block.com/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/6block.svg" alt="6blocks" />
+            </a>
+          </div>
+        </div>
+        <div class="partner-card">
+          <span class="partner-label">Select AI Developers</span>
+          <div class="partner-logos">
+            <a href="https://aidenai.io/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/aiden.svg" alt="Aiden" />
+            </a>
+          </div>
+        </div>
+        <div class="partner-card">
+          <span class="partner-label">Protocol Creator</span>
+          <div class="partner-logos">
+            <a href="https://productscience.ai/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/productscience.svg" alt="Product Science" />
+            </a>
+            <span class="partner-label">backed by</span>
+            <a href="https://www.coatue.com/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/coatue.svg" alt="Coatue" />
+            </a>
+            <a href="https://slow.co/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/slow.svg" alt="Slow Ventures" />
+            </a>
+            <a href="https://www.mantisvc.com/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/mantis.svg" alt="Mantis" />
+            </a>
+            <a href="https://k5ventures.com/" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/k5.svg" alt="K5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Get started: role fork -->
+    <section class="gonka-fork" aria-labelledby="get-started">
+      <div class="gonka-inner">
+        <p class="gonka-eyebrow" id="get-started">Get started</p>
+        <div class="role-grid">
+
+          <!-- Card A: Developer (featured) -->
+          <div class="role-card role-card--featured">
+            <h2 class="role-title">I'm a developer</h2>
+            <p class="role-value">Run inference through an OpenAI-compatible API. Pay in GNK.</p>
+            <a class="role-cta gonka-doc-cta" href="/docs/developer/quickstart/">Start building <span aria-hidden="true">&rarr;</span></a>
+            <ul class="role-links">
+              <li>
+                <a class="gonka-doc-cta" href="/docs/developer/quickstart/">
+                  <span class="role-link-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3.5h8l4 4V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20V3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.5 3.5V8h4.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span>Quickstart &amp; API docs</span>
+                </a>
+              </li>
+              <li>
+                <a class="gonka-doc-cta" href="/docs/wallet/pricing/">
+                  <span class="role-link-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.25" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 14.5c0 1.1 1.1 2 2.5 2s2.5-.9 2.5-2-1.1-1.6-2.5-2-2.5-.9-2.5-2 1.1-2 2.5-2 2.5.9 2.5 2M12 6v1.5M12 16.5V18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  </span>
+                  <span>Available models &amp; pricing</span>
+                </a>
+              </li>
+              <li>
+                <a class="gonka-doc-cta" href="/docs/developer/gateway-developer-quickstart/">
+                  <span class="role-link-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="13" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h.01M7 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </span>
+                  <span>SDK &amp; broker setup</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card B: GPU provider -->
+          <div class="role-card">
+            <h2 class="role-title">I'm a GPU provider</h2>
+            <p class="role-value">Host models, serve inference, and earn GNK.</p>
+            <a class="role-cta gonka-doc-cta" href="/docs/host/quickstart/">Become a host <span aria-hidden="true">&rarr;</span></a>
+            <ul class="role-links">
+              <li>
+                <a class="gonka-doc-cta" href="/docs/host/hardware-specifications/">
+                  <span class="role-link-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="6" width="16" height="12" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 10h8M8 13h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  </span>
+                  <span>Hardware requirements</span>
+                </a>
+              </li>
+              <li>
+                <a class="gonka-doc-cta" href="/docs/host/genesis/">
+                  <span class="role-link-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5 5 7v6c0 4 3 6.2 7 7.5 4-1.3 7-3.5 7-7.5V7l-7-3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m9.5 12 1.8 1.8 3.2-3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span>Node setup guide</span>
+                </a>
+              </li>
+              <li>
+                <a class="gonka-doc-cta" href="/docs/host/rewards/">
+                  <span class="role-link-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="13" r="6" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 4.5 12 7l2.5-2.5M12 11v4M10.5 12.5h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span>Rewards &amp; tokenomics</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Live on the network: on-chain pricing -->
+    <section class="gonka-live" aria-labelledby="live-network">
+      <div class="gonka-inner">
+        <div class="live-card">
+          <div class="live-head">
+            <span class="live-title" id="live-network">
+              Live on the network
+            </span>
+            <span class="live-caption">on-chain pricing &middot; per 1M tokens</span>
+          </div>
+          <table class="live-table">
+            <thead>
+              <tr>
+                <th scope="col">Model</th>
+                <th scope="col" class="num">Price (GNK)</th>
+              </tr>
+            </thead>
+            <tbody id="live-pricing-rows">
+              <!-- Seed rows (illustrative placeholders); replaced by live data when available -->
+              <tr><td>Kimi K2.6</td><td class="num">&mdash; GNK</td></tr>
+              <tr><td>MiniMax M2.7</td><td class="num">&mdash; GNK</td></tr>
+              <tr><td>Qwen3-235B</td><td class="num">&mdash; GNK</td></tr>
+            </tbody>
+          </table>
+          <div class="live-foot">
+            <a class="live-viewall gonka-doc-cta" href="/docs/wallet/pricing/">View all models &amp; pricing <span aria-hidden="true">&rarr;</span></a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-<!-- Footer – 4 plain columns -->
+<!-- Footer -->
 <footer class="gonka-footer">
-  <!-- Horizontal Animated Carousel row over inner footer -->
-  <div class="gonka-carousel">
-    <div class="carousel-track">
-      <div class="partner-card">
-        <span class="partner-label">Auditor</span>
-        <div class="partner-logos">
-          <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/certik.svg" alt="CertiK" />
-          </a>
-        </div>
-      </div>
-      <div class="partner-card">
-        <span class="partner-label">Community Partners</span>
-        <div class="partner-logos">
-          <a href="https://web3.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/web3.svg" alt="Web3.com Ventures" />
-          </a>
-          <a href="https://www.hardyaka.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/hardyaka.svg" alt="HardYaka" />
-          </a>
-          <a href="https://bitfury.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/bitfury.svg" alt="Bitfury" />
-          </a>
-        </div>
-      </div>
-      <div class="partner-card">
-        <span class="partner-label">Select Hosts</span>
-        <div class="partner-logos">
-          <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/gcore.svg" alt="Gcore" />
-          </a>
-          <a href="https://hyperfusion.io/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/hyperfusion.svg" alt="Hyperfusion" />
-          </a>
-          <a href="https://6block.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/6block.svg" alt="6blocks" />
-          </a>
-        </div>
-      </div>
-      <div class="partner-card">
-        <span class="partner-label">Select AI Developers</span>
-        <div class="partner-logos">
-          <a href="https://aidenai.io/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/aiden.svg" alt="Aiden" />
-          </a>
-        </div>
-      </div>
-      <div class="partner-card">
-        <span class="partner-label">Protocol Creator</span>
-        <div class="partner-logos">
-          <a href="https://productscience.ai/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/productscience.svg" alt="Product Science" />
-          </a>
-          <span class="partner-label">backed by</span>
-          <a href="https://www.coatue.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/coatue.svg" alt="Coatue" />
-          </a>
-          <a href="https://slow.co/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/slow.svg" alt="Slow Ventures" />
-          </a>
-          <a href="https://www.mantisvc.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/mantis.svg" alt="Mantis" />
-          </a>
-          <a href="https://k5ventures.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/k5.svg" alt="K5" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="footer-inner">
     <div class="brand">
       <a class="brand-logo" href="/">
@@ -159,7 +289,7 @@ landing: true
           </svg>
         </a>
       </div>
-  </div>  
+    </div>
     <!-- 4 columns -->
     <div class="footer-cols">
       <div class="footer-col">
@@ -174,13 +304,14 @@ landing: true
         <h4>Protocol</h4>
         <ul>
           <li><a href="/whitepaper.pdf">White Paper</a></li>
-          <li><a href="/pow-security-analysis.pdf">Transformer‑Based Proof‑of‑Work</a></li>
+          <li><a href="/pow-security-analysis.pdf">Transformer&#8209;Based Proof&#8209;of&#8209;Work</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>GNK</h4>
         <ul>
           <li><a href="/tokenomics.pdf">Gonka Tokenomics</a></li>
+          <li><a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">Gonka on Uniswap</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -191,7 +322,6 @@ landing: true
         </ul>
       </div>
     </div>
-
   </div>
 </footer>
 
@@ -216,14 +346,15 @@ landing: true
 <script>
 // Ensure MkDocs navigation works when coming from landing page
 document.addEventListener('DOMContentLoaded', function() {
-  const docLink = document.querySelector('.gonka-docs-link');
-  if (docLink) {
-    docLink.addEventListener('click', function(e) {
+  // Force a full page reload into docs so MkDocs initializes properly when
+  // navigating from the landing page (header/sidebar are hidden here).
+  const docLinks = document.querySelectorAll('.gonka-docs-link, .gonka-doc-cta');
+  docLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
       e.preventDefault();
-      // Force a full page reload to ensure MkDocs initializes properly
       window.location.href = this.href + '?from=landing';
     });
-  }
+  });
   
   // Mobile header shadow on scroll
   const header = document.querySelector('.gonka-header');
@@ -346,5 +477,64 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+
+<script>
+// Live on-chain pricing for the "Live on the network" table.
+// The governance endpoint exposes a single price_per_token (in ngonka) per
+// model; we convert to GNK per 1M tokens. On any failure we keep the seed rows
+// and show a cached/unavailable indicator rather than an empty table.
+document.addEventListener('DOMContentLoaded', function() {
+  const tbody = document.getElementById('live-pricing-rows');
+  const updated = document.getElementById('live-pricing-updated');
+  if (!tbody) return;
+
+  // Must be HTTPS to avoid mixed-content blocking on the https site.
+  // TODO: point at an HTTPS, CORS-enabled pricing endpoint / aggregator.
+  const ENDPOINT = 'https://node2.gonka.ai:8000/v1/governance/pricing';
+  const NGONKA_PER_GONKA = 1e9;
+  const TOKENS = 1e6; // price shown per 1M tokens
+  const MAX_ROWS = 6;
+
+  function displayName(id) {
+    if (!id) return '';
+    const last = id.indexOf('/') >= 0 ? id.slice(id.indexOf('/') + 1) : id;
+    return last;
+  }
+
+  function gnkPer1M(pricePerToken) {
+    return (Number(pricePerToken) * TOKENS) / NGONKA_PER_GONKA;
+  }
+
+  function stamp() {
+    try {
+      return new Date().toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' });
+    } catch (e) { return new Date().toUTCString(); }
+  }
+
+  fetch(ENDPOINT, { headers: { 'Accept': 'application/json' } })
+    .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(data) {
+      const models = (data && Array.isArray(data.models)) ? data.models : [];
+      if (!models.length) throw new Error('no models');
+      const rows = models.slice(0, MAX_ROWS).map(function(m) {
+        const price = gnkPer1M(m.price_per_token).toFixed(2);
+        const tr = document.createElement('tr');
+        const tdName = document.createElement('td');
+        tdName.textContent = displayName(m.id);
+        const tdPrice = document.createElement('td');
+        tdPrice.className = 'num';
+        tdPrice.textContent = price + ' GNK';
+        tr.appendChild(tdName);
+        tr.appendChild(tdPrice);
+        return tr;
+      });
+      tbody.replaceChildren.apply(tbody, rows);
+      if (updated) updated.textContent = 'last updated: ' + stamp();
+    })
+    .catch(function() {
+      // Keep seed rows; signal that live data is unavailable.
+      if (updated) updated.textContent = 'last updated: live feed unavailable';
+    });
+});
 </script>
 </div>

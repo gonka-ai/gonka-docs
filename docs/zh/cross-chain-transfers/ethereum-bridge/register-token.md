@@ -129,7 +129,7 @@ inferenced tx gov vote <proposal_id> yes \
 使用链 API 或 CLI 查询代币元数据：
 
 ```bash
-curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/token_metadata/ethereum/0xTokenContractAddressOnEthereum"
+curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/token_metadata/ethereum/0xTokenContractAddressOnEthereum"
 ```
 
 ##### 2. 验证包装代币余额
@@ -137,5 +137,5 @@ curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/t
 当用户将其代币充值到以太坊上的跨链桥合约后，Gonka 共识将自动为该代币实例化一个包装 CW-20 合约，并将铸造的余额分配给用户派生的地址。您可以查询余额：
 
 ```bash
-curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
+curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
 ```

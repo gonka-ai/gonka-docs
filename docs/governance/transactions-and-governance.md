@@ -61,7 +61,7 @@ inferenced query gov params -o json --node <NODE_URL>/chain-rpc/ \
     }'
 ```
 
-At the time of writing, mainnet uses a 48-hour regular voting period, 12-hour expedited voting period, 25% quorum, >50% regular Yes threshold, >66.7% expedited Yes threshold, and >33.4% veto threshold.
+At the time of writing, mainnet uses a 48-hour regular voting period, 12-hour expedited voting period, 25% quorum, >50% regular Yes threshold, >66.7% expedited Yes threshold, >33.4% veto threshold, 500 GNK minimum deposit for regular proposals, and 1000 GNK minimum deposit for expedited proposals.
 
 ## Track Proposal Status
 

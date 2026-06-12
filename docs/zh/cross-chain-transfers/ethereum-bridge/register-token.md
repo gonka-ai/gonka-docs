@@ -58,7 +58,7 @@ inferenced query auth module-accounts --node $SEED_URL/chain-rpc/ | grep -B2 'na
     }
   ],
   "metadata": "ipfs://CID",
-  "deposit": "10000000ngonka",
+  "deposit": "500000000000ngonka",
   "title": "Register Wrapped SYMBOL Token Metadata",
   "summary": "This proposal registers the metadata for the SYMBOL ERC-20 token bridged from Ethereum on the Gonka chain."
 }
@@ -99,7 +99,7 @@ inferenced query gov proposals --node $SEED_URL/chain-rpc/
 如果您的初始存款低于进入投票期所需的最低金额，请进行追加：
 
 ```bash
-inferenced tx gov deposit <proposal_id> 10000000ngonka \
+inferenced tx gov deposit <proposal_id> 500000000000ngonka \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \

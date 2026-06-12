@@ -41,7 +41,7 @@ You can interact with the dashboard in two ways:
     To unlock the full functionality of the dashboard, you need a Gonka account.
     
     - Already have one? Proceed to the ["Set Up External Wallet"](https://gonka.ai/wallet/dashboard/#2-set-up-external-wallet) section below.
-    - New user? Visit [the Developer](https://gonka.ai/developer/quickstart/){target=_blank} or [Host](https://gonka.ai/host/quickstart/){target=_blank} Quickstart to create an account.
+    - New user? [Create a Gonka account](https://gonka.ai/wallet/create-account/) first, then return here.
     
     ### 2. Set Up External Wallet
     To interact with Dashboard through your wallet, it is recommended to use [Keplr](https://www.keplr.app/){target=_blank} (a browser extension wallet built for Cosmos-based chains).
@@ -49,7 +49,7 @@ You can interact with the dashboard in two ways:
     ??? note "What is a wallet?"
         A crypto wallet serves as a secure container for a user's public and private cryptographic keys, enabling them to manage, transfer, and purchase cryptocurrencies. Gonka is built on the Cosmos-SDK blockchain framework and can be accessed using Keplr wallet.
         
-    - If you have a Keplr wallet browser extention, proceed to the ["Connect wallet"](https://gonka.ai/wallet/dashboard/#3-connect-wallet) section.
+    - If you have a Keplr wallet browser extension, proceed to the ["Connect wallet"](https://gonka.ai/wallet/dashboard/#3-connect-wallet) section.
     - If you haven't set it up yet, follow the steps below.
     
     Install an extension for your browser.
@@ -77,7 +77,7 @@ You can interact with the dashboard in two ways:
     <a href="/images/keplr_extension.png" target="_blank"><img src="/images/keplr_extension.png" style="width:500px; height:auto;"></a>
 
     At this point, the extension is installed, but not yet connected to your wallet. 
-    Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to  and continue with the setup process.
+    Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to continue with the setup process.
 
     Click "Import an Existing Wallet".
                         
@@ -89,17 +89,13 @@ You can interact with the dashboard in two ways:
                 
     Paste your private key.
     
-    ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
-        An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. 
-                        
-        Eligible (you can export/use a raw private key):
-                        
-        - Accounts created via `inferenced` CLI tool
-        - Accounts created via the “Connect with Google” flow in Keplr
-                    
-        Not eligible (no private key export):
-                        
-        - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if bridge compatibility matters.
+    ??? note "Important note on wallet-bridge compatibility"
+        The bridge currently expects a specific account setup. Some wallets may let you create a Gonka account and even export a private key, but that does not always mean the account will work correctly with the bridge. For bridge use, please create your Gonka account in one of the following ways:
+
+        - With the `inferenced` CLI tool
+        - In Keplr using the “Connect with Google” flow
+        
+        These are the recommended and supported options for users who need Ethereum bridge compatibility. See [Create a Gonka account](https://gonka.ai/wallet/create-account/) for details.
                 
         <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:500px; height:auto;"></a>
                         
@@ -155,17 +151,13 @@ You can interact with the dashboard in two ways:
                 
         Paste your private key.
     
-        ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge in the future"
-            An Ethereum bridge is a system that lets you securely move assets or data between Ethereum and another blockchain, locking coins on one chain and minting or releasing equivalent coins on the other. Essentially, it’s the mechanism you need if you want to sell, trade, or use coins from another chain within the Ethereum ecosystem. At the moment, there is no bridge to Ethereum on Gonka. Any future deployment of such a bridge would require on-chain governance approval. If an Ethereum bridge is approved by on-chain governance, only accounts with a raw private key are expected to be eligible.
-                        
-            Eligible (you can export/use a raw private key):
-                        
-            - Accounts created via `inferenced` CLI tool
-            - Accounts created via the “Connect with Google” flow in Keplr
-                    
-            Not eligible (no private key export):
-                        
-            - Keplr wallets created from a recovery phrase. Keplr does not export the private key, so avoid creating mnemonic-based wallets there if future bridge compatibility matters.
+        ??? note "Important note on wallet-bridge compatibility"
+            The bridge currently expects a specific account setup. Some wallets may let you create a Gonka account and even export a private key, but that does not always mean the account will work correctly with the bridge. For bridge use, please create your Gonka account in one of the following ways:
+
+            - With the `inferenced` CLI tool
+            - In Keplr using the “Connect with Google” flow
+            
+            These are the recommended and supported options for users who need Ethereum bridge compatibility. See [Create a Gonka account](https://gonka.ai/wallet/create-account/) for details.
                 
         <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
                         

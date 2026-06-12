@@ -2,9 +2,9 @@
 
 **使用场景：** 可用的 IBC USDT 已存在于 Gonka 钱包余额中，目标路径为 Gonka → Kava Cosmos → Kava EVM → 以太坊。
 
-本指南描述了通往以太坊的**完整路径**。该路径可在任意完成的步骤后停止：IBC USDT 可保留在 **Keplr 中的 Kava**，转移至 **MetaMask 中的 Kava EVM**，或继续前往 **以太坊**。
+本指南描述了通往以太坊的**完整路径**。该路线可在任意完成的步骤后停止：IBC USDT 可保留在 **Keplr 中的 Kava**、转移到 **MetaMask 中的 Kava EVM**，或继续前往 **以太坊**。
 
-**免责声明：** 本指南**不构成财务建议**。路线参数、支持的资产、费用以及钱包/桥接 UI 可能会发生变化。在发送资金前，请始终验证当前路线、地址和金额。
+**免责声明：** 本指南**不构成财务建议**。路线参数、支持的资产、费用以及钱包/桥接 UI 可能会发生变化。在发送资金前，请务必验证当前路线、地址和金额。
 
 ## 重要提示：本指南适用于 IBC USDT
 
@@ -18,7 +18,7 @@
 
 在发送资金前，请始终检查：
 
-- 资产 denom
+- 资产代号（denom）
 - 源网络
 - 目标网络
 - 目标地址
@@ -44,31 +44,30 @@
 
 - Keplr 帮助（含 IBC）：[help.keplr.app](https://help.keplr.app/)
 - Kava 应用（含转账
- 
 - wKAVA）：[app.kava.io](https://app.kava.io) — 转账页面：[app.kava.io/transfer](https://app.kava.io/transfer)
 - Kava 帮助中心：[help.app.kava.io](https://help.app.kava.io/)
 - Stargate 桥接 UI：[stargate.finance/transfer](https://stargate.finance/transfer)
 Kava 关于使用 Stargate 桥接 USDT 的指南：[如何使用 Stargate 桥接 USDt](https://www.kava.io/news/how-to-bridge-usdt-with-stargate)
 
-## 重要提示：每一步都要使用正确的地址
+## 重要提示：每个步骤使用正确的地址
 
-- 在 **步骤 1** 中，发送至 Keplr 中的 **Kava Cosmos 地址**：**`kava1...`**
-- 在 **步骤 2** 中，在 **app.kava.io** 内连接两个钱包
-- 在 **步骤 3** 中，接收地址为 MetaMask 中的 **以太坊地址**：**`0x...`**
+- 在 **第 1 步**，发送至 Keplr 中的 **Kava Cosmos 地址**：**`kava1...`**
+- 在 **第 2 步**，在 **app.kava.io** 内连接两个钱包
+- 在 **第 3 步**，在 MetaMask 中接收至 **以太坊地址**：**`0x...`**
 
 ---
 
-## 步骤 1 — 从 Gonka 发送 USDT 至 Kava (Cosmos)
+## 第 1 步 — 从 Gonka 发送 USDT 至 Kava (Cosmos)
 
 此步骤将资金从 **Gonka** 发送到 **Keplr 中的 Kava Cosmos 地址**。
 
-### 1. 在 Keplr 中开启手动 IBC 功能
+### 1. 在 Keplr 中启用手动 IBC
 
 在 **Keplr** 中：
 
 **设置 → 高级 → 手动 IBC 转账 → 开启**
 
-如果不同版本中的标签略有差异，请参考 Keplr 官方文档：[help.keplr.app](https://help.keplr.app/)。
+如果不同版本的标签略有差异，请参考 Keplr 官方文档：[help.keplr.app](https://help.keplr.app/)。
 
 ### 2. 配置 Gonka 上的转账
 
@@ -83,7 +82,7 @@ Kava 关于使用 Stargate 桥接 USDT 的指南：[如何使用 Stargate 桥接
 
 ### 3. 复制 Kava 地址
 
-- 确保 Keplr 中可见 **Kava**
+- 确保 **Kava** 在 Keplr 中可见
 - 切换到 **Kava**
 - 复制完整的 **`kava1...`** 地址
 
@@ -94,8 +93,8 @@ Kava 关于使用 Stargate 桥接 USDT 的指南：[如何使用 Stargate 桥接
 然后：
 
 - 粘贴 **`kava1...`** 地址
-- 输入一个**小额测试金额**
-- 除非目标是需要 **备注/标签** 的**交易所充值地址**，否则请保持 **备注（memo）为空**
+- 输入**小额测试金额**
+- 除非目标是需要 **备注/标签** 的**交易所充值地址**，否则请将 **备注（memo）** 留空
 - 查看 **`ngonka`** 中的手续费
 - 确认并批准交易
 
@@ -103,7 +102,7 @@ USDT 应出现在 **Keplr 中的 Kava** 上。
 
 ---
 
-## 步骤 2 — 将 USDT 从 Kava IBC 转移到 Kava EVM
+## 第 2 步 — 将 USDT 从 Kava IBC 转移到 Kava EVM
 
 此步骤将资金从 **Kava Cosmos** 转移到 **Kava EVM**。
 
@@ -129,7 +128,7 @@ USDT 应出现在 **Keplr 中的 Kava** 上。
 
 USDT 应出现在 **MetaMask 中的 Kava EVM** 上。
 
-Kava 官方帮助文章介绍了如何在 Kava 不同层之间转移 USDT，相关方向为 **Cosmos → Kava EVM**：[如何一键将 USDt 转移至 Cosmos 链](https://help.app.kava.io/article/44-how-to-transfer-usdt-to-cosmos-chains-with-a-single-click)。
+Kava 帮助文章中有关于在 Kava 不同层面间转移 USDT 的说明，相关方向为 **Cosmos → Kava EVM**：[如何一键将 USDt 转移到 Cosmos 链](https://help.app.kava.io/article/44-how-to-transfer-usdt-to-cosmos-chains-with-a-single-click)。
 
 ### 如果 USDT 未在 MetaMask 中显示
 
@@ -139,25 +138,25 @@ Kava 帮助文档列出的 **Kava EVM 上的 USDT 合约** 如下：
 
 `0x919C1c267BC06a7039e03fcc2eF738525769109c`
 
-在真实转账前使用该合约地址时，请再次在以下位置验证合约：
+在真实转账前使用该合约地址时，请再次在以下位置核实合约：
 
 - 当前的 **[Kava 帮助中心](https://help.app.kava.io/)**
-- **[app.kava.io](https://app.kava.io)** 的 UI 界面
+- **[app.kava.io](https://app.kava.io)** 的 UI
 - 钱包中的代币信息
 
 如果 MetaMask 提示输入小数位数，请使用 **6**。
 
 ---
 
-## 步骤 3 — 从 Kava EVM 桥接 USDT 至以太坊
+## 第 3 步 — 从 Kava EVM 桥接 USDT 至以太坊
 
-此步骤将资金从 **Kava EVM** 桥接至 **以太坊主网**。
+此步骤将资金从 **Kava EVM** 桥接到 **以太坊主网**。
 
 ### 1. 打开 Stargate
 
 打开：[stargate.finance/transfer](https://stargate.finance/transfer)。
 
-背景信息来自 Kava 对该桥接模式的说明：[如何使用 Stargate 桥接 USDt](https://www.kava.io/news/how-to-bridge-usdt-with-stargate)。
+背景信息来自 Kava 对此桥接模式的说明：[如何使用 Stargate 桥接 USDt](https://www.kava.io/news/how-to-bridge-usdt-with-stargate)。
 
 ### 2. 确保 MetaMask 处于 Kava EVM 网络
 
@@ -169,19 +168,19 @@ Kava 帮助文档列出的 **Kava EVM 上的 USDT 合约** 如下：
 
 在 Stargate 中选择：
 
-- **来源/从：** **Kava EVM**
-- **目标/至：** **以太坊**
+- **来源 / 源网络：** **Kava EVM**
+- **目标 / 目的地：** **以太坊**
 - **资产：** **USDT**
 
-在某些 UI 中，源网络可能仅显示为 **Kava**。关键是要匹配步骤 2 后 USDT 所在的网络。
+在某些 UI 中，源网络可能仅显示为 **Kava**。关键是确保网络与第 2 步后 USDT 所在的位置一致。
 
-### 4. 查看费用并进行小额测试
+### 4. 查看费用并先进行小额测试
 
 确认前：
 
-- 检查 **桥接费用**
-- 检查 **预估到账金额**
-- 先发送**小额测试**
+- 检查**桥接费用**
+- 检查**预计到账金额**
+- **先发送小额测试**
 
 然后在 MetaMask 中批准交易。
 
@@ -189,15 +188,15 @@ USDT 应出现在 **MetaMask 中的以太坊主网** 上。
 
 ### 如果 Stargate 未提供此路线
 
-请立即停止操作。
+请立即停止。
 
 **不要猜测替代桥接方式。**
 
-如果 **从 Kava EVM 到以太坊的 USDT** 路线未显示，该路线可能已暂停、更改或暂时不可用。
+如果 **Kava EVM 到以太坊的 USDT** 路线未显示，可能该路线已暂停、更改或暂时不可用。
 
 ---
 
-## 步骤 4 — 确认以太坊上的资金
+## 第 4 步 — 确认以太坊上的资金
 
 - 将 MetaMask 切换至 **以太坊主网**
 - 检查接收地址的 **USDT** 余额
@@ -207,54 +206,54 @@ USDT 应出现在 **MetaMask 中的以太坊主网** 上。
 
 `0xdAC17F958D2ee523a2206206994597C13D831ec7`
 
-导入前，请通过可信来源验证当前合约，例如：
+导入前，请通过可信来源核实当前合约，例如：
 
-- **Tether 官方**
+- **Tether 官网**
 - **[Etherscan](https://etherscan.io/)**
 - 钱包的已验证代币列表
 
-测试金额到账后，可对剩余余额重复相同流程。
+测试金额到账后，可对剩余金额重复相同流程。
 
 ---
 
 ## 可选 — 在 Kava Cosmos 与 Kava EVM 之间转移 KAVA
 
-如果需要另一侧的 KAVA 作为燃料费，请使用：[app.kava.io/evm/wkava](https://app.kava.io/evm/wkava)。
+如果需要 KAVA 作为另一侧的燃气费，可使用：[app.kava.io/evm/wkava](https://app.kava.io/evm/wkava)。
 
-Kava 提供的逐步指南：[在 Kava Cosmos 与 Kava EVM 之间发送 KAVA](https://help.app.kava.io/article/26-send-kava-to-and-from-kava-cosmos-and-kava-evm)。
+Kava 提供的分步指南：[在 Kava Cosmos 与 Kava EVM 之间发送 KAVA](https://help.app.kava.io/article/26-send-kava-to-and-from-kava-cosmos-and-kava-evm)。
 
 ---
 
-## 高级提示 — 在大额转账前验证 Gonka IBC 通道
+## 高级提示 — 大额转账前验证 Gonka IBC 通道
 
-对大多数用户而言，**小额测试转账无需验证通道**。
+对于大多数用户而言，**小额测试转账无需验证通道**。
 
-若要在发送大额资金前验证当前 Gonka 出站通道，请使用以下方式检查通道：
+若要在发送大额资金前验证当前 Gonka 出站通道，可通过以下方式检查通道：
 
 ```bash
 curl -sS "https://node1.gonka.ai:8443/chain-api/ibc/core/channel/v1/channels" | jq '.channels[] | select(.port_id=="transfer") | {gonka_channel_id:.channel_id, kava_counterparty:.counterparty.channel_id}'
 ```
 
-在本指南编写时，Gonka → Kava 的转账使用：
+在本指南编写时，Gonka → Kava 的跨链转账使用：
 
 - **Gonka 侧：** `channel-5`
 - **Kava 侧：** `channel-161`
 
-当**从 Gonka 发送**时，请使用**Gonka 侧通道**，即**`channel-5`**。
+从 **Gonka 发送**时，请使用 **Gonka 侧通道**，即 **`channel-5`**。
 
 ---
 
 ## 最终安全提醒
 
-在发送全额之前，请确认以下事项：
+在发送全额之前，请务必确认以下步骤均已成功完成：
 
-- 步骤 1 已完成，且 **Keplr 中的 Kava 链**上可见 USDT
-- 步骤 2 已完成，且 **MetaMask 中的 Kava EVM** 上可见 USDT
-- 步骤 3 在 **Stargate** 中支持 **从 Kava EVM 到以太坊**的 USDT 转账
+- 步骤 1 结束后，**Keplr 中的 Kava 链**已显示 USDT
+- 步骤 2 结束后，**MetaMask 中的 Kava EVM 链**已显示 USDT
+- 步骤 3 在 **Stargate** 中可成功执行 **从 Kava EVM 到以太坊的 USDT 转账**
 - 小额测试转账已成功完成
 
-如果其中任何一项未通过，请立即停止操作，仔细检查后再继续转账全额。
+若上述任一检查未通过，请立即停止操作，仔细排查问题后再考虑转移全部资金。
 
 ---
 
-请务必反复核对转账路径、地址、资产和金额，并始终先进行小额测试转账。
+请务必反复核对转账路径、地址、资产类型和数量，并始终先进行小额测试转账。

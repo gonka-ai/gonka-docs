@@ -1,18 +1,19 @@
 # 软件升级
 
-以下 3 个版本可独立升级：
+有三种不同的版本可以独立升级：
 
 1. 区块链代码
 2. API 代码
-3. ML 节点版本
+3. 机器学习节点（ML Node）版本
 
-可以单独升级其中任意一项，也可以三者同时升级。上述升级均通过[治理](https://gonka.ai/transactions-and-governance/)投票与提案完成。
+以上任意一项均可独立升级，也可同时升级全部三项。所有升级均通过[治理](https://gonka.ai/governance/transactions-and-governance/)投票和提案完成。
 
-## 仅升级 API 或 ML 节点（或二者同时）
+## 仅升级 API 或 ML 节点（或两者同时升级）
 
-通过提交 `PartialUpgrade` 提案执行，与 `SetParams` 大体相同。消息示例如下：
+此类升级通过提交一个 `PartialUpgrade` 提案完成，其流程与 `SetParams` 大致相同。提案消息内容如下所示：
 
 ```
+
 {
   "body": {
     "messages": [
@@ -21,10 +22,10 @@
         "messages": [
     {
      "@type":"/inference.inference.MsgCreatePartialUpgrade",
-           "authority": "gonka10d07y265gmmuvt4z0w9aw880jnsr700j2h5m33", // 治理地址
-  "height": "60",  // 提案生效的高度
-  "nodeVersion": "v1", // 如果不升级 ML 节点则省略
-  "apiBinariesJson": "{\"api_binaries\":{\"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.1.1-alpha1/decentralized-api-amd64.zip?checksum=sha256:dbc01f2bde3d911eaf65ed7bbde6f67b15664897f4ce15f9d009adf77e956cd1\",\"linux/arm64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.1.1-alpha1/decentralized-api-arm64.zip?checksum=sha256:5cba5158c8a4f1b855edd9598eb233783fc1e8ed7a2b9aa33e921edc1bac6255\"}}" // 如果不升级 API 则省略
+           "authority": "gonka10d07y265gmmuvt4z0w9aw880jnsr700j2h5m33", // governance address
+  "height": "60",  // the height this proposal should be effective
+  "nodeVersion": "v1", // exclude if you're not upgrading ML Nodes
+  "apiBinariesJson": "{\"api_binaries\":{\"linux/amd64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.1.1-alpha1/decentralized-api-amd64.zip?checksum=sha256:dbc01f2bde3d911eaf65ed7bbde6f67b15664897f4ce15f9d009adf77e956cd1\",\"linux/arm64\":\"https://github.com/product-science/race-releases/releases/download/release%2Fv0.1.1-alpha1/decentralized-api-arm64.zip?checksum=sha256:5cba5158c8a4f1b855edd9598eb233783fc1e8ed7a2b9aa33e921edc1bac6255\"}}" // Exclude if you're not upgrading the API.
 }
 
         ],
@@ -34,11 +35,11 @@
             "amount": "10000000"
           }
         ],
-  "metadata": "ipfs://CID",  // 可选
+  "metadata": "ipfs://CID",  // Optional
   "title": "Update to 1000 epoch length",
   "summary": "Epoch length should be longer",
   "expedited": false,
-        "proposer": "cosmos...", // 替换为你的账户地址
+        "proposer": "cosmos...", // Should be the address of YOUR account
       }
     ],
     "memo": "",

@@ -1,55 +1,61 @@
 # Kimi K2.6 启动引导
 
-`moonshotai/Kimi-K2.6` 已**通过启动引导**，并在 Gonka 主网上处于**激活状态**。以下时间线和交易示例仍有助于理解激活机制以及委托等操作；有关当前部署的默认设置（包括 `node-config.json`），请参阅[主机快速入门指南](./quickstart.md)。
+`moonshotai/Kimi-K2.6` 已**通过启动引导**，并在 Gonka 主网上处于 Proof of Compute（计算证明）的**激活状态**。以下时间线和交易示例对于理解激活机制以及委托等操作仍然具有参考价值；有关当前部署的默认设置（包括 `node-config.json`），请参阅[主机快速入门指南](./quickstart.md)。
 
-模型组 `moonshotai/Kimi-K2.6` 在第 251 轮次（Epoch 251）变得具备资格。
+模型组 `moonshotai/Kimi-K2.6` 在第 251 轮（Epoch 251）时具备了资格。
 
-本文档说明如何最小化权重减少的风险，无论该模型是否获得足够多的参与者。
+本文档说明了如何最小化权重减少的风险，无论模型是否获得足够的参与者。
 
 !!! note
-    启动过程可能持续多个轮次，具体取决于准备就绪的参与者数量。在激活之前，只要参与者明确提交了选择，且准备部署的主机提交了 `PoCIntent`，就不会发生权重减少。
+    启动过程可能需要多个轮次，具体取决于准备就绪的参与者数量。在激活之前，只要参与者明确提交了选择，且计划部署的主机提交了 `PoCIntent`，就不会发生权重减少。
 
 ## 时间线
 
 #### 1. 在区块 `3873996` 之前，所有参与者必须提交：
-    - `PoCIntent` - 如果你计划部署 `Kimi-K2.6`。主机应保持节点运行 `Qwen235B`，仅在区块 `3873996` 评估后切换
-    - `PoCDelegation` / `PoCRefusal` - 如果你**不**计划部署 `Kimi-K2.6`
+ 
+ 
+   - `PoCIntent` —— 如果他们计划部署 `Kimi-K2.6`。主机应保持节点运行 `Qwen235B`，并在区块 `3873996` 的评估后才进行切换
+ 
+ 
+   - `PoCDelegation` / `PoCRefusal` —— 如果他们**不**计划部署 `Kimi-K2.6`
 
-#### 2. 在区块 `3873996`，链上执行预评估，以检查是否应基于 `PoCIntent` / `PoCDelegation` 尝试激活模型
-    - 如果模型变为预合格状态 => 提交了 `PoCIntent` 的主机应将其模型节点切换为 `Kimi-K2.6`（在此 500 个区块窗口内无 CPoC）
-    - 如果模型未变为预合格状态 => 提交了 `PoCIntent` 的主机应继续在 `Qwen235B` 上运行节点
+#### 2. 在区块 `3873996`，链上执行预评估，以检查是否应基于 `PoCIntent` / `PoCDelegation` 尝试激活该模型
+ 
+ 
+   - 如果模型达到预资格状态 => 提交了 `PoCIntent` 的主机应将其模型节点切换为 `Kimi-K2.6`（此 500 个区块窗口内无 CPoC）
+ 
+ 
+   - 如果模型未达到预资格状态 => 提交了 `PoCIntent` 的主机应保持其节点运行 `Qwen235B`
 
-#### 3. 在区块 `3874496`，PoC 正式开始
+#### 3. 在区块 `3874496`，PoC 开始
 
-
-### 可能出现的情况
+### 可能的情况
 
 新模型的启动可能遵循以下主要场景：
 
 1. 模型在区块 `3873996` 未通过预评估，且未获得资格
 
-- 所有提交了 `PoCIntent` 的用户保留全部权重（无惩罚）
-- 所有提交了 `PoCDelegation` / `PoCRefusal` 的用户保留全部权重（无惩罚）
-- 所有未提交任何内容的用户将损失 15% 的权重
+- 所有提交了 `PoCIntent` 的参与者保留全部权重（无惩罚）
+- 所有提交了 `PoCDelegation` / `PoCRefusal` 的参与者保留全部权重（无惩罚）
+- 所有未提交任何内容的参与者将损失 15% 的权重
 
-=> 明确发送交易以表明你的意图非常重要
+=> 明确发送一条包含你预期行为的交易非常重要
 
 2. 模型在区块 `3873996` 通过预评估，但在 PoC 阶段未获得资格
 
-- 所有参与 PoC 的用户保留其 `Qwen235` 的全部权重（无惩罚）
-- 所有提交了 `PoCDelegation` / `PoCRefusal` 的用户保留全部权重（无惩罚）
-- 所有未提交任何内容的用户将损失 15% 的权重
-- 所有提交了 `PoCIntent` 但未实际参与的用户将损失 15% 的权重
+- 所有参与 PoC 的参与者从 `Qwen235` 起保留全部权重（无惩罚）
+- 所有提交了 `PoCDelegation` / `PoCRefusal` 的参与者保留全部权重（无惩罚）
+- 所有未提交任何内容的参与者将损失 15% 的权重
+- 所有提交了 `PoCIntent` 但未参与的参与者将损失 15% 的权重
 
-
-如果模型通过了两个检查，惩罚机制将遵循文档中描述的常规情况。
-
+如果模型通过了两次检查，惩罚将遵循文档中描述的常规情况。
 
 ## 计划部署 Kimi-K2.6 的主机操作指南
 
 #### 1. 向链上发送 `PoCIntent`：
 
 ```
+
 export NODE=https://node3.gonka.ai/
 ./inferenced tx inference declare-poc-intent moonshotai/Kimi-K2.6 \
   --from node-2 \
@@ -59,9 +65,13 @@ export NODE=https://node3.gonka.ai/
   --gas auto \
   --gas-adjustment 1.3 \
   -y
-```#### 2. 检查你的环境设置，确保已下载 `Kimi-K2.6` 权重，并能够成功部署模型
+```
 
-3. 等待区块高度达到 `3873996` 及以上，并检查模型是否变为预合格状态：```bash
+#### 2. 检查您的设置，确保已下载 `Kimi-K2.6` 权重，并且能够成功部署模型
+
+3. 等待区块高度达到 `3873996`+，并检查模型是否变为预合格状态：
+
+```bash
 NODE=https://node3.gonka.ai
 MODEL='moonshotai/Kimi-K2.6'
 
@@ -72,17 +82,17 @@ HEIGHT=$(curl -sG "$NODE/chain-rpc/block_search" \
 echo "Latest snapshot at height $HEIGHT"
 
 curl -s "$NODE/chain-rpc/block_results?height=$HEIGHT" \
-  | jq --arg m "$MODEL" '
-      .result.finalize_block_events[]
-      | select(.type=="bootstrap_model_preeligibility")
-      | (.attributes | from_entries) as $a
-      | select($a.model_id==$m)
-      | $a'
-```结果将发送到所有频道。
+  | jq --arg m "$MODEL" ' .result.finalize_block_events[] select(.type=="bootstrap_model_preeligibility") (.attributes | from_entries) as $a select($a.model_id==$m) $a'
+ 
 
-#### 4. 如有需要，切换模型为 Kimi-K2.6
 
-在 4xB200 / 8xB200 上部署 Kimi-K2.6 的示例命令：```
+结果将发送到所有频道。
+
+如有需要，切换模型至 Kimi-K2.6
+
+在 4xB200 / 8xB200 上部署 Kimi-K2.6 的示例命令：
+
+
 curl -X POST http://localhost:9200/admin/v1/nodes \
      -H "Content-Type: application/json" \
      -d '{
@@ -109,15 +119,19 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
          }
        }
      }'
-```#### 5. 验证您的部署
 
-[`gonka` 代码仓库](https://github.com/gonka-ai/gonka) 提供了一个名为 `mlnode-validate` 的代理技能，可用于将已部署的 ML Node 与特定模型的预计算诚实 PoC 向量进行比对验证。对于 Kimi K2.6 模型，提交的黄金参考文件为 `mlnode/packages/benchmarks/scripts/poc_validation/artifacts/moonshotai-kimi-k2.6.json`（包含 200 个向量；记录于 4×B200 设备上）。详见 [验证 ML Node 部署](./mlnode-validation.md) 和 [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md)。
 
-## 不打算部署 Kimi-K2.6 的主机操作指南
+验证您的部署
 
-#### 1. 检查您是否信任将要部署 Kimi K2.6 的主机 / 发送 `PoCIntent`
+[`gonka` 仓库](https://github.com/gonka-ai/gonka) 提供了一个代理技能 `mlnode-validate`，可用于将已部署的 ML 节点与特定模型的预计算诚实 PoC 向量进行比对验证。对于 Kimi K2.6 模型，已提交的黄金参考数据为 `mlnode/packages/benchmarks/scripts/poc_validation/artifacts/moonshotai-kimi-k2.6.json`（200 个向量；记录于 4×B200 设备）。详见 [验证 ML 节点部署](./mlnode-validation.md) 和 [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md)。
 
-当前的意图列表：```python
+不计划部署 Kimi-K2.6 的主机操作指南
+
+检查您是否信任计划部署 Kimi K2.6 的主机 / 发送 `PoCIntent`
+
+当前意向：
+
+
 import time
 import requests
 from requests.adapters import HTTPAdapter
@@ -130,9 +144,12 @@ DELAY = 0.15
 
 def session():
     s = requests.Session()
-    # Retry transient 5xx (node3 returns 503 for some poc_delegation lookups
-    # under load) so a single hiccup does not silently drop a participant
-    # from the result.
+ 
+   Retry transient 5xx (node3 returns 503 for some poc_delegation lookups
+ 
+   under load) so a single hiccup does not silently drop a participant
+ 
+   from the result.
     retry = Retry(
         total=5,
         backoff_factor=0.5,
@@ -144,7 +161,8 @@ def session():
     return s
 
 def weight(p):
-    # weight may be 0, missing, or literally null — all mean "no voting weight".
+ 
+   weight may be 0, missing, or literally null — all mean "no voting weight".
     return int(p.get("weight") or 0)
 
 def get_json(s, url):
@@ -160,7 +178,8 @@ participants = get_json(s, f"{NODE}/v1/epochs/current/participants")[
 
 intents = []
 with_kimi_model = []
-skipped = []  # participants whose poc_delegation lookup failed after retries
+skipped = []
+  participants whose poc_delegation lookup failed after retries
 
 for p in participants:
     addr = p["index"]
@@ -203,15 +222,20 @@ if zero_intents:
 print()
 print(f"Intent weight: {intent_weight} / {total}")
 if total:
-    print(f"Intent share: {100.0 * intent_weight / total:.2f}%")
+    print(f"Intent share: {100.0
+ intent_weight / total:.2f}%")
 if skipped:
     print()
     print(f"Skipped {len(skipped)} participants after retries (intent may be undercounted):")
     for addr, w, err in skipped:
         print(f"  {addr} (weight={w}): {err}")
-```#### 2. 发送委派或拒绝
 
-委派：```
+
+发送委派或拒绝
+
+委派：
+
+
 export NODE=https://node3.gonka.ai/chain-rpc/
 ./inferenced tx inference set-poc-delegation moonshotai/Kimi-K2.6 <DELEGATEE> \
   --from gonka-account-key \
@@ -221,7 +245,11 @@ export NODE=https://node3.gonka.ai/chain-rpc/
   --gas auto \
   --gas-adjustment 1.3 \
   -y
-```拒绝：```
+
+
+拒绝：
+
+
 export NODE=https://node3.gonka.ai/chain-rpc/
 ./inferenced tx inference refuse-poc-delegation moonshotai/Kimi-K2.6 \
   --from gonka-account-key \
@@ -231,4 +259,4 @@ export NODE=https://node3.gonka.ai/chain-rpc/
   --gas auto \
   --gas-adjustment 1.3 \
   -y
-```
+

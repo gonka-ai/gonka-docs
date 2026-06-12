@@ -1,4 +1,4 @@
-# 重定向到主机密钥管理
+# 重定向至主机密钥管理
 
 <meta http-equiv="refresh" content="0; url=/host/key-management/" />
 

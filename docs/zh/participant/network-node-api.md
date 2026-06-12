@@ -4,4 +4,4 @@
 
 此页面已移至 [主机部分/host/network-node-api/)。
 
-如果未自动跳转，请[点击此处/host/network-node-api/)。
+如果未自动重定向，请[单击此处/host/network-node-api/)。

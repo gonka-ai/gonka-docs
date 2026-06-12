@@ -1,12 +1,16 @@
 # 注册
 
-加入候补名单！注册后，我们将在面向更广泛用户开放时第一时间通知你。
+加入等待列表！注册后，我们将在产品向更广泛用户推出时第一时间通知您。
 
 <div class="signup-form" style="max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-    <!-- HubSpot 联系表单 -->
+    <!
+-
+- 新的 HubSpot 联系人表单 -->
     <div id="hubspot-form" style="margin-bottom: 20px;"></div>
 
-<!-- HubSpot Form Script -->
+<!
+-
+- HubSpot 表单脚本 -->
 <script>
   var script = document.createElement('script');
   script.src = "https://js.hsforms.net/forms/v2.js";
@@ -24,13 +28,10 @@
 
 
 <script>
-    // 可选：若你还保留了自定义表单，可在此处处理提交逻辑
-    var el = document.getElementById("signupForm");
-    if (el) {
-      el.addEventListener("submit", function(event) {
+    // 现有邮箱注册表单的 JavaScript（如果保留该表单则可选）
+    document.getElementById("signupForm").addEventListener("submit", function(event) {
         event.preventDefault(); 
-        var err = document.getElementById("errorMessage");
-        if (err) err.style.display = "block";
-      });
-    }
+
+        document.getElementById("errorMessage").style.display = "block";
+    });
 </script>

@@ -1,9 +1,11 @@
-# 模型许可
+# 模型许可证
 - [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1/blob/main/LICENSE)
 - [DeepSeek-V3](https://github.com/deepseek-ai/DeepSeek-V3/blob/main/LICENSE-MODEL)
 - [Gemma-3-27B](https://ai.google.dev/gemma/terms)
 - [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b/blob/main/LICENSE)
+- [Kimi-k2.6](https://huggingface.co/moonshotai/Kimi-K2.6/blob/main/LICENSE)
 - [Llama-3.1-70B](https://ollama.com/library/llama3:70b/blobs/4fa551d4f938)
 - [Llama-3.1-405B](https://ollama.com/library/llama3.1:405b/blobs/0ba8f0e314b4)
+- [MiniMax-M2.7](https://github.com/MiniMax-AI/MiniMax-M2.7/blob/main/LICENSE)
 - [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B/blob/main/LICENSE)
 - [Qwen3-235B](https://huggingface.co/Qwen/Qwen3-235B-A22B/blob/main/LICENSE)

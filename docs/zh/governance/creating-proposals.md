@@ -4,7 +4,7 @@
 与 Gonka 交易及治理机制保持一致。  
 在运行命令前，请将所有占位符替换为自己的实际值。
 
-## 占位符说明
+## 占位符
 
 | 占位符 | 含义 |
 | --- | --- |
@@ -12,8 +12,7 @@
 | `<PATH_TO_PROPOSAL_JSON>` | 提案 JSON 文件的路径，例如 `./proposal.json` |
 | `<NODE_URL>` | 节点基础 URL，不含 `/chain-rpc/`，例如 `http://node1.gonka.ai:8000` |
 | `<CHAIN_ID>` | 例如主网的 `gonka-mainnet` |
-
-如果命令因 `connection` 或 `parse` 失败，请检查每个 RPC 命令是否都正确使用了带且仅带一个 `<NODE_URL>/chain-rpc/` 的 `/chain-rpc/`。
+如果命令因 `connection` 或 `parse` 失败，请检查每个 RPC 命令是否都使用了 `<NODE_URL>/chain-rpc/`，且仅包含一个 `/chain-rpc/`。
 
 ---
 
@@ -23,7 +22,6 @@
 | --- | --- |
 | `inferenced query / tx` | `<NODE_URL>/chain-rpc/`（必须包含 `/chain-rpc/`） |
 | `create-client`（种子节点上的 HTTP `.../v1/participants`） | `<NODE_URL>`（不含 `/chain-rpc/`） |
-
 在 `create-client` 中对 `--node-address` 使用 `<NODE_URL>/chain-rpc/` 是错误的，会导致失败或访问错误的服务。
 
 ---
@@ -31,7 +29,7 @@
 ## 前提条件
 ### 1. 安装 CLI
 
-从 Gonka 发布页面下载适用于你操作系统的版本，解压后执行：
+从 Gonka 发布版本中下载适用于你操作系统的构建包，解压后执行：
 
 ```bash
 chmod +x inferenced
@@ -42,7 +40,7 @@ chmod +x inferenced
 
 ### 2. 从链上读取 `min_deposit` 和 `voting_period`
 
-请勿依赖旧文档中固定的 `ngonka` 数量。应查询实时数值：
+请勿依赖旧文档中固定的 `ngonka` 数值。应查询实时数值：
 
 ```bash
 ./inferenced query gov params \
@@ -51,13 +49,13 @@ chmod +x inferenced
   -o json | jq '{min_deposit: .params.min_deposit, voting_period: .params.voting_period}'
 ```
 
-您的提案 JSON `deposit` 必须满足 `min_deposit`（相同的 denom，金额 >= 最低要求）。
+您的提案 JSON `deposit` 必须满足 `min_deposit`（相同的 denom，金额 >= 最小值）。
 
 ### 3. 提案 JSON
 
-准备一个 gov v1 版本的 JSON（`messages`，`metadata`，`deposit`，`title`，`summary`）。
+准备一个 gov v1 JSON（`messages`、`metadata`、`deposit`、`title`、`summary`）。
 
-一个提案必须至少包含一条消息 **或** 一个非空的 `metadata` 字段。如果一个信号类提案的 `messages` 数组和 `metadata` 均为空，则在提交时会被拒绝（`either metadata or Msgs length must be non-nil`），因此在此类情况下，请将 `metadata` 设置为非空值。
+一个提案必须至少包含一条消息 **或** 一个非空的 `metadata` 字段。如果一个信号类提案的 `messages` 数组为空且 `metadata` 也为空，则在提交时会被拒绝（`either metadata or Msgs length must be non-nil`），因此在此类情况下，请将 `metadata` 设置为非空值。
 
 准备内容主要分为两部分：
 
@@ -74,12 +72,11 @@ chmod +x inferenced
 
 #### 提案 JSON 结构
 
-关于 JSON 结构，最佳方法是查看以往的提案，并以其作为参考。
+关于 JSON 结构，最佳做法是查看以往的提案，并以其作为参考。
 
-您可查阅此前的提案 JSON，了解不同类型提案的结构形式。  
-通常，从一个类似的过往提案出发并进行修改会更加简便。
+您可查阅之前提案的 JSON，了解不同类型提案的结构。大多数情况下，从一个类似的过往提案出发并进行修改会更加简便。
 
-对于如 `MsgUpdateParams` 这类消息，链上要求提供完整的参数对象（params object）并设置正确的 authority（治理模块地址）。  
+对于 `MsgUpdateParams` 等消息，链上要求提供完整的参数对象（params object）以及正确的权限地址（即治理模块地址）。  
 请获取治理模块地址：
 
 ```bash
@@ -91,11 +88,11 @@ chmod +x inferenced
 
 在需要指定消息类型的场景中，使用该地址作为 `authority`。
 
-如果 `jq` 命令行没有输出，请去掉 `jq` 再执行一次查询，并手动查找 gov 模块条目。输出格式可能因 SDK 版本不同而略有差异。
+如果 `jq` 命令行没有输出内容，请在不带 `jq` 的情况下运行相同的查询一次，并手动查找 gov 模块条目。输出格式可能因 SDK 版本略有差异。
 
 ### 4. 可选：新建密钥并注册参与者（`create-client`）
 
-此步骤将创建一个密钥并调用 seed HTTP API（参与者注册）。
+此步骤将创建一个密钥并调用种子节点 HTTP API（参与者注册）。  
 仅使用 `<NODE_URL>`：
 
 ```bash
@@ -121,11 +118,11 @@ chmod +x inferenced
   --chain-id "<CHAIN_ID>"
 ```
 
-确保您有足够的 `ngonka`（或您的节点所要求的费用代币）用于 `min_deposit` 和手续费。
+确保您有足够的 `ngonka`（或您的节点所要求的费用代币）用于 `min_deposit` 和交易费用。
 
 ### 2. 提交
 
-推荐采用官方 Gonka 文档中的模式：
+来自官方 Gonka 文档的推荐模式：
 
 ```bash
 ./inferenced tx gov submit-proposal "<PATH_TO_PROPOSAL_JSON>" \
@@ -138,8 +135,8 @@ chmod +x inferenced
   --yes
 ```
 
-提交后，请记下输出中的提案编号，或通过查询命令找到该编号。  
-共享提案编号，以便向社区发布公告。
+提交后，请注意输出中的提案编号，或通过查询命令找到该编号。  
+分享提案编号，以便向社区发布公告。
 
 ---
 
@@ -153,7 +150,7 @@ chmod +x inferenced
 
 ## 提交参数变更提案
 
-**简要说明：** 使用 `MsgUpdateParams` 起草提案，包含该模块的**所有**参数，确保保证金满足 `min_deposit` 要求，提交后进行跟踪、追加保证金和投票。
+**简要说明：** 使用 `MsgUpdateParams` 起草提案，包含该模块的**所有**参数，确保保证金达到 `min_deposit`，然后提交，并进行跟踪、追加保证金和投票。
 
 ### 1. 获取治理模块地址（授权方）
 
@@ -194,7 +191,7 @@ inferenced tx gov submit-proposal ./draft_proposal.json \
   --yes
 ```
 
-### 6. 确保您的提案在链上
+### 6. 确保你的提案在链上
 
 ```bash
 inferenced query gov proposals --node <NODE_URL>/chain-rpc/
@@ -214,4 +211,4 @@ inferenced query gov proposal <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain
 diff -u current_params.json proposed_params.json || true
 ```
 
-对于 `MsgUpdateParams`，模块通常期望完整的 params 对象，并将 `authority` 设置为 **gov 模块账户**。
+对于 `MsgUpdateParams`，模块通常期望完整的参数对象 `authority` 并将其设置为 **gov 模块账户**。

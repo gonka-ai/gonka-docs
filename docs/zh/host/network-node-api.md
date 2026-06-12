@@ -1,25 +1,26 @@
 # 网络节点 API
 
-本节介绍 `Network Node API` 的 `/v1/epochs/{epoch_id}/participants` 接口。该接口用于获取：
+本节介绍 `Network Node API`，特别是 `/v1/epochs/{epoch_id}/participants` 端点。该端点用于检索以下信息：
 
 - Merkle 证明
-- Host（主机）数据
-- 验证者签名
+- 主机数据
+- 验证器签名
 
-## 用法
+## 使用方法
 
-当前 Epoch 数据
+当前纪元数据
+
 ```bash
 curl -X GET http://<your_api_node_url:public_port>/v1/epochs/current/participants
 ```
 
-指定 Epoch 数据
+特定周期数据
+
 ```bash
 curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/participants
 ```
 
 ---
-
 ## 示例响应解析
 ```bash linenums="1"
 {
@@ -115,7 +116,8 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
       	}
     	]
   	}
-	]
+	}
+  ]
 }
 ```
 
@@ -124,28 +126,28 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 `participants`：活跃参与者列表，包括：
 
 - `index`：gonka 地址
-- `validator_key`：公钥（Base64）
+- `validator_key`：公钥（Base64 格式）
 - `weight`：投票权重
 - `inference_url`：服务端点
 - `models`：支持的模型列表
-- `seed`：带有元数据的签名种子
+- `seed`：包含元数据的签名种子
 
-**`addresses`**：参与者地址列表（大写十六进制）
+**`addresses`**：参与者地址列表（大写十六进制格式）
 
-**`active_participants_bytes`**：编码 Host 数据的原始字节数组（十六进制编码）——可用于 Merkle 证明验证或状态同步。
+**`active_participants_bytes`**：编码 Host 数据的原始字节数组（十六进制编码）—— 可用于 Merkle 证明验证或状态同步。
 
-**`proof_ops`**：用于验证的 ICS23 兼容的证明操作列表
+**`proof_ops`**：符合 ICS23 的证明操作列表，用于验证
 
 **`validators`**：该 epoch 时刻的验证者集合：
 
 - `address`：验证者地址
-- `pub_key`：公钥（Base64）
-- `voting_power`：当前投票权重
-- `proposer_priority`：共识出块优先级
+- `pub_key`：公钥（Base64 格式）
+- `voting_power`：当前投票权值
+- `proposer_priority`：共识提议者优先级
 
-**`block`**：围绕该 epoch 事件的区块列表
+**`block`**：围绕 epoch 事件的区块列表
 
-- 包含完整区块头元数据、提议者地址、提交签名等
-- 用于验证 Host 数据的包含与提交
+- 包含完整的区块头元数据、提议者地址、提交签名等
+- 有助于验证 Host 数据的包含性和提交承诺
 
-**需要帮助？** [请先查看我们的常见问题页面](https://gonka.ai/zh/FAQ/)，或加入我们的[Discord 服务器](https://discord.com/invite/RADwCT2U6R) 服务器，以获取关于一般咨询、技术问题或安全相关事项的协助。
+**需要帮助？** 请访问 [FAQ 页面](https://gonka.ai/FAQ/) 获取答案，或加入 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 获得有关常规咨询、技术问题或安全问题的帮助。  

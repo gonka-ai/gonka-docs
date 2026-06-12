@@ -14,9 +14,9 @@
     - 通过 `inferenced` CLI 工具创建的账户
     - 通过 Keplr 中“Connect with Google”流程创建的账户
 
-    不符合条件（无法导出私钥）：
+    需要额外步骤：
 
-    - 通过助记词创建的 Keplr 钱包。Keplr 不支持导出私钥，因此如果未来需要桥接兼容性，请避免使用助记词方式在该钱包中创建账户。
+    - 通过助记词创建的 Keplr 钱包。由于以太坊和 Gonka 使用不同的 BIP-44 派生路径，跨链桥会将代币发送到与钱包当前显示不同的 `gonka1…` 地址。你仍然控制该地址（可以从同一助记词中使用币种类型 `60` 派生出以太坊私钥），但需要手动派生密钥。为简化操作，建议使用上述推荐方式创建账户。
 
 === "外部钱包"
 
@@ -46,9 +46,9 @@
                 - 通过 `inferenced` CLI 工具创建的账户
                 - 通过 Keplr 中“Connect with Google”流程创建的账户
 
-                不符合条件（无法导出私钥）：
+                需要额外步骤：
                 
-                - 通过助记词创建的 Keplr 钱包。Keplr 不支持导出私钥，因此如果未来需要桥接兼容性，请避免使用助记词方式在该钱包中创建账户。
+                - 通过助记词创建的 Keplr 钱包。由于以太坊和 Gonka 使用不同的 BIP-44 派生路径，跨链桥会将代币发送到与钱包当前显示不同的 `gonka1…` 地址。你仍然控制该地址（可以从同一助记词中使用币种类型 `60` 派生出以太坊私钥），但需要手动派生密钥。为简化操作，建议使用上述推荐方式创建账户。
                 
             <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
                 
@@ -114,9 +114,9 @@
                 - 通过 `inferenced` CLI 工具创建的账户
                 - 通过 Keplr 中“Connect with Google”流程创建的账户
                             
-                不符合条件（无法导出私钥）：
+                需要额外步骤：
                 
-                - 通过助记词创建的 Keplr 钱包。Keplr 不支持导出私钥，因此如果未来需要桥接兼容性，请避免使用助记词方式在该钱包中创建账户。
+                - 通过助记词创建的 Keplr 钱包。由于以太坊和 Gonka 使用不同的 BIP-44 派生路径，跨链桥会将代币发送到与钱包当前显示不同的 `gonka1…` 地址。你仍然控制该地址（可以从同一助记词中使用币种类型 `60` 派生出以太坊私钥），但需要手动派生密钥。为简化操作，建议使用上述推荐方式创建账户。
                 
             <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
                 
@@ -175,9 +175,9 @@
                     - 通过 `inferenced` CLI 工具创建的账户
                     - 通过 Keplr 中“Connect with Google”流程创建的账户
                 
-                    不符合条件（无法导出私钥）：
+                    需要额外步骤：
                     
-                    - 通过助记词创建的 Keplr 钱包。Keplr 不支持导出私钥，因此如果未来需要桥接兼容性，请避免使用助记词方式在该钱包中创建账户。
+                    - 通过助记词创建的 Keplr 钱包。由于以太坊和 Gonka 使用不同的 BIP-44 派生路径，跨链桥会将代币发送到与钱包当前显示不同的 `gonka1…` 地址。你仍然控制该地址（可以从同一助记词中使用币种类型 `60` 派生出以太坊私钥），但需要手动派生密钥。为简化操作，建议使用上述推荐方式创建账户。
             
                 <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
                     
@@ -203,9 +203,9 @@
                 - 通过 `inferenced` CLI 工具创建的账户
                 - 通过 Keplr 中“Connect with Google”流程创建的账户
 
-                不符合条件（无法导出私钥）：
+                需要额外步骤：
 
-                - 通过助记词创建的 Keplr 钱包。Keplr 不支持导出私钥，因此如果未来需要桥接兼容性，请避免使用助记词方式在该钱包中创建账户。
+                - 通过助记词创建的 Keplr 钱包。由于以太坊和 Gonka 使用不同的 BIP-44 派生路径，跨链桥会将代币发送到与钱包当前显示不同的 `gonka1…` 地址。你仍然控制该地址（可以从同一助记词中使用币种类型 `60` 派生出以太坊私钥），但需要手动派生密钥。为简化操作，建议使用上述推荐方式创建账户。
 
             如果你尚未安装浏览器扩展，请先进行安装（如果已安装扩展，可直接跳转至步骤 [“将 Gonka 网络添加到钱包”](https://gonka.ai/developer/create_a_new_gonka_account/#add-gonka-network-to-your-wallet_1).
             

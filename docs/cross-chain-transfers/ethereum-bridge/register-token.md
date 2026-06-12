@@ -142,7 +142,7 @@ After the voting period ends and the proposal passes, you can verify that the me
 Query the token metadata using the chain API or CLI:
 
 ```bash
-curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/token_metadata/ethereum/0xTokenContractAddressOnEthereum"
+curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/token_metadata/ethereum/0xTokenContractAddressOnEthereum"
 ```
 
 ##### 2. Verify Wrapped Token Balances
@@ -150,7 +150,7 @@ curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/t
 Once a user bridges their tokens to the bridge contract on Ethereum, the Gonka consensus will automatically instantiate a wrapped CW-20 contract for the token and assign the minted balance to the user's derived address. You can query the balance:
 
 ```bash
-curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
+curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
 ```
 
 ##### 3. One wrapped contract per token

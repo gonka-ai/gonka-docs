@@ -179,8 +179,8 @@ There are several ways to do this:
 
         === "Cosmostation browser extension"
 
-            !!! note "Important Notice: Limited Functionality"
-                This option creates an account using a mnemonic phrase and does not support transactions through the bridge. If you want to perform transactions via the bridge, please create Gonka account via `inferenced` CLI tool or via Keplr ("Connect with Google" path) instead.
+            !!! note "Important Notice: Extra steps required for bridge use"
+                This option creates an account using a mnemonic phrase. Because Ethereum and Gonka use different BIP-44 derivation paths, the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. You still control that address (you can derive the Ethereum key from the same mnemonic using coin type `60`), but it requires a manual key derivation step. For a simpler bridge experience, create your Gonka account via the `inferenced` CLI tool or via Keplr ("Connect with Google" path) instead.
                 
             Get [Cosmostation Wallet browser extension](https://cosmostation.io/products/application). 
             

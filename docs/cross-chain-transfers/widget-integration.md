@@ -143,7 +143,7 @@ EVM deposits involve locking ERC-20 assets on an EVM source chain to mint corres
    When a user is connected via a standard software mnemonic seed phrase, their EVM wallet (MetaMask) derives addresses using coin type `60` while their Cosmos wallet (Keplr) derives addresses using coin type `118` or `1200`. 
    * Because these derivation paths are different, their EVM public key and Cosmos public key do **not** match.
    * The Ethereum bridge contract catches the public key of the depositing EVM address and mints tokens on Gonka to the Bech32 address derived **directly from that EVM public key**.
-   * If a mnemonic-derived mismatch occurs, the tokens will be minted to a completely **different** Cosmos address than their active Keplr wallet, resulting in lost funds!
+   * If a mnemonic-derived mismatch occurs, the tokens will be minted to a completely **different** Cosmos address than their active Keplr wallet. The funds are not permanently lost — the user can still derive the Ethereum private key from their mnemonic (coin type `60`) and use it to access the receiving Gonka account — but this requires a manual key derivation step that most users won't expect.
 
    **The Solution: Key Verification Checklist**  
    Before allowing a user to deposit, perform this validation:

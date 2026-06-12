@@ -16,7 +16,7 @@ The dashboard is the easiest way to bridge. It handles the key derivation for yo
 ## What the dashboard does for you
 
 * **Derives the correct addresses.** Connect the Ethereum wallet you bridge with, and the dashboard shows the matching `gonka1…` address the bridge will deliver tokens to — so you always know where your wrapped tokens will land.
-* **Warns about seed-phrase accounts.** If you are using a wallet whose Ethereum and Gonka keys come from the same **mnemonic**, the dashboard detects this and warns you, because seed-derived accounts use different keys on each chain and would send funds to an address you don't control. Read [Addresses and keys](addresses-and-keys.md) for the full explanation.
+* **Warns about seed-phrase accounts.** If you are using a wallet whose Ethereum and Gonka keys come from the same **mnemonic**, the dashboard detects this and warns you, because seed-derived accounts use different keys on each chain — so your Gonka wallet won't show the bridged tokens by default. You still control the receiving address (you can derive the matching key from the same mnemonic), but it requires an extra manual step. Read [Addresses and keys](addresses-and-keys.md) for the full explanation.
 * **Shows your bridged balances** in a Bridge Assets section, so you can confirm a deposit arrived.
 * **Reports chain status**, so you can see if the chain is degraded before initiating a transfer.
 * **Prompts for bridge epoch updates** when the Ethereum bridge is behind the Gonka chain. If you see **A Bridge needs epoch update**, click **Update bridge** to submit the missing epoch key. This is a normal Ethereum transaction, so the connected wallet pays gas. See [Bridge epoch update](bridge-epoch-update.md).
@@ -62,7 +62,7 @@ Enter your Keplr password if prompted. Once connected, the widget will show **Ke
 <a href="/images/bridge_widget_4.png" target="_blank"><img src="/images/bridge_widget_4.png" style="width:500px; height:auto;"></a>
 
 !!! warning "Seed-phrase (mnemonic) accounts"
-    If your Gonka account was created from a **seed phrase** (mnemonic) rather than a raw private key, the bridge widget will detect the address mismatch and warn you. This happens because Ethereum and Gonka derive **different keys** from the same seed phrase, so tokens would be delivered to an address you may not control. If you see this warning, stop and read [Addresses and keys](addresses-and-keys.md) before proceeding.
+    If your Gonka account was created from a **seed phrase** (mnemonic) rather than a raw private key, the bridge widget will detect the address mismatch and warn you. This happens because Ethereum and Gonka derive **different keys** from the same seed phrase, so tokens will be delivered to a different `gonka1…` address than your wallet currently shows. The funds are not lost — you can derive the matching key from the same mnemonic — but it requires a manual derivation step. If you see this warning, stop and read [Addresses and keys](addresses-and-keys.md) before proceeding.
 
 ### 3. Choose token and amount
 

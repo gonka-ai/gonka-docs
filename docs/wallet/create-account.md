@@ -367,8 +367,8 @@ There are several ways to do this:
         Set the `NODE_URL` to one of the genesis nodes:
         ```bash title="Genesis Node List"
         http://36.189.234.237:17241
-        http://node1.gonka.ai:8443
-        http://node2.gonka.ai:8443
+        https://node1.gonka.ai:8443
+        https://node2.gonka.ai:8443
         http://47.236.26.199:8000
         http://47.236.19.22:18000
         http://gonka.spv.re:8000
@@ -377,11 +377,11 @@ There are several ways to do this:
     === "Current list of active participants"
         Alternatively, you can select a random active participant from the current epoch. Open the link or run the following command to fetch the list of active participants along with a cryptographic proof for verification:
         === "Link"
-            [http://node2.gonka.ai:8443/v1/epochs/current/participants](http://node2.gonka.ai:8000/v1/epochs/current/participants)
+            [https://node2.gonka.ai:8443/v1/epochs/current/participants](https://node2.gonka.ai:8443/v1/epochs/current/participants)
     
         === "Command"
             ```bash
-            curl http://node2.gonka.ai:8443/v1/epochs/current/participants
+            curl https://node2.gonka.ai:8443/v1/epochs/current/participants
             ```
         
     Download the `inferenced` CLI tool (the latest `inferenced` binary for your system is [here](https://github.com/gonka-ai/gonka/releases)).

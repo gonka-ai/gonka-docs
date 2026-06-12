@@ -71,7 +71,7 @@ Create a file named `register_token_proposal.json`. This proposal will include t
     }
   ],
   "metadata": "ipfs://CID",
-  "deposit": "10000000ngonka",
+  "deposit": "500000000000ngonka",
   "title": "Register Wrapped SYMBOL Token Metadata",
   "summary": "This proposal registers the metadata for the SYMBOL ERC-20 token bridged from Ethereum on the Gonka chain."
 }
@@ -112,7 +112,7 @@ inferenced query gov proposals --node $SEED_URL/chain-rpc/
 If your initial deposit was below the minimum required to enter the voting period, top it up:
 
 ```bash
-inferenced tx gov deposit <proposal_id> 10000000ngonka \
+inferenced tx gov deposit <proposal_id> 500000000000ngonka \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \

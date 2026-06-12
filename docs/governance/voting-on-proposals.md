@@ -70,6 +70,9 @@ inferenced query gov params -o json --node <NODE_URL>/chain-rpc/ \
 At the time of writing, mainnet parameters are:
 
 ```text
+min_deposit:              500000000000ngonka   # 500 GNK
+expedited_min_deposit:    1000000000000ngonka  # 1000 GNK
+max_deposit_period:       86400s    # 24 hours
 voting_period:            172800s   # 48 hours
 expedited_voting_period:  43200s    # 12 hours
 quorum:                   0.25

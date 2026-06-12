@@ -21,7 +21,7 @@ For the Genesis Guardians, an additional power-enhancement step is applied first
 
 ## Genesis Guardians
 
-A small set of bootstrap validators operated by the project team, hardcoded into chain params. They receive a temporary power boost so that their combined stake exceeds the 33% governance veto threshold.
+A small set of bootstrap validators operated by the project team, hardcoded into chain params. They receive a temporary power boost during the early network phase. The boost is configurable on-chain and has changed over time, so query live params before publishing exact Guardian voting-power numbers.
 
 ??? note "Current Genesis Guardian set on the live network"
     - `gonkavaloper1y2a9p56kv044327uycmqdexl7zs82fs5lyang5` (`gonka-1`)
@@ -36,7 +36,7 @@ Mechanism is documented in the official proposal:
 
 ???+ note "Purpose"
     - Prevent a 67% takeover of consensus during the early, low-stake phase.
-    - Block malicious governance proposals via the developer veto authority.
+    - Help block malicious governance proposals during bootstrap.
     - Provide rapid-response capability against protocol exploits.
     - Make cheap majority acquisition during bootstrap economically uninteresting.
 
@@ -48,18 +48,25 @@ Before `SetComputeValidators` runs, the inference module applies `applyEarlyNetw
 
 ```text
 other_total         = total_network_power − Σ guardian_original_power
-total_enhancement   = other_total × multiplier          # multiplier = 0.52
+total_enhancement   = other_total × multiplier
 per_guardian_power  = total_enhancement / guardian_count
 
 guardian.tokens     = per_guardian_power                # original PoC weight is REPLACED
 non_guardian.tokens = participant.weight                # unchanged
 ```
 
+As of the v0.2.13 upgrade, the configured multiplier is `0.33334`, which targets roughly `25%` combined Guardian power at the epoch transition where the boost is applied:
+
+```text
+guardian_share = multiplier / (1 + multiplier)
+guardian_share = 0.33334 / 1.33334 ≈ 25%
+```
+
 **Effect (measured at each epoch transition):**
 
-- At the instant the boost is applied, the combined Guardian share *targets* `multiplier / (1 + multiplier) = 0.52 / 1.52 ≈ 34%` of total bonded — about `11.4%` each with 3 Guardians (`0.52 / (3 × 1.52)`).
-- This `≈34%` is the level the formula reaches **when the boost runs**, not a fixed steady state. Guardian `tokens` are set once per epoch, so as the rest of the network's PoC weight grows the combined Guardian share drifts below 34%. On live mainnet at the time of writing the three Guardians sat at roughly `27%` combined (`~9%` each) — i.e. currently below the `>33%` veto line. Do not assume the Guardians continuously hold veto power.
-- The design intent is to keep the Guardians near veto strength (`>33%`) but below passing strength (`>50%`): enough to block a malicious proposal, never enough to pass one alone.
+- At the instant the boost is applied, the combined Guardian share targets `multiplier / (1 + multiplier)` of total bonded power.
+- This target is reached **when the boost runs**, not as a fixed steady state. Guardian `tokens` are set once per epoch, so as the rest of the network's PoC weight grows the combined Guardian share can drift between epoch transitions.
+- With the current `0.33334` multiplier, Guardians target roughly `25%` combined adjusted power, not enough to pass proposals alone and not enough to veto alone under the current `33.4%` veto threshold.
 - Cannot extract value or unilaterally change consensus — coordination among the Guardians is required for any action.
 
 ---
@@ -230,7 +237,7 @@ This delegation only allows voting on governance proposals. The grantee can stil
 | Status | Can vote? | Vote weight |
 |---|---|---|
 | Active participant, in epoch | Yes | `= participant.weight` |
-| Genesis Guardian, in epoch | Yes | `= (other_total × 0.52) / guardian_count` (boosted) |
+| Genesis Guardian, in epoch | Yes | `= (other_total × current_multiplier) / guardian_count` (boosted while early network protection is active) |
 | Failed PoC last epoch (INACTIVE) | No | `0` |
 | Failed CPoC, removed from epoch | No | `0` |
 | Jailed validator | No | `0` (until unjailed + re-bonded) |

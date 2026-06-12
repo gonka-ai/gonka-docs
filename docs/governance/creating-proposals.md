@@ -40,18 +40,41 @@ chmod +x inferenced
 
 For detailed CLI installation instructions, see the [local machine CLI setup guide](https://gonka.ai/host/quickstart/#local-machine-install-the-cli-tool). After installing the CLI, you can return to this page and continue.
 
-### 2. Read `min_deposit` and `voting_period` from the chain
+### 2. Read governance parameters from the chain
 
-Do not rely on a fixed `ngonka` amount from old docs. Query live values:
+Do not rely on fixed numbers from old docs. Governance parameters are configurable on-chain, so query live values before drafting a proposal or announcing voting rules:
 
 ```bash
 ./inferenced query gov params \
   --node "<NODE_URL>/chain-rpc/" \
   --chain-id "<CHAIN_ID>" \
-  -o json | jq '{min_deposit: .params.min_deposit, voting_period: .params.voting_period}'
+  -o json | jq '.params | {
+      min_deposit,
+      expedited_min_deposit,
+      max_deposit_period,
+      voting_period,
+      expedited_voting_period,
+      quorum,
+      threshold,
+      expedited_threshold,
+      veto_threshold,
+      burn_vote_veto
+    }'
 ```
 
-Your proposal JSON `deposit` must satisfy `min_deposit` (same denom, amount >= minimum).
+Your proposal JSON `deposit` must satisfy `min_deposit` (same denom, amount >= minimum). If the proposal is expedited, check `expedited_min_deposit`, `expedited_voting_period`, and `expedited_threshold` as well.
+
+At the time of writing, mainnet uses:
+
+```text
+voting_period:            172800s   # 48 hours
+expedited_voting_period:  43200s    # 12 hours
+quorum:                   0.25
+threshold:                0.500000000000000000
+expedited_threshold:      0.667000000000000000
+veto_threshold:           0.334000000000000000
+burn_vote_veto:           true
+```
 
 ### 3. Proposal JSON
 
@@ -145,7 +168,7 @@ Share the proposal number so the community announcement can go out.
 
 ## Voting and tally
 
-Voting steps are documented on the dedicated page:
+Voting steps and result formulas are documented on the dedicated page:
 
 - [Voting on Proposals](https://gonka.ai/governance/voting-on-proposals/)
 
@@ -167,10 +190,21 @@ inferenced query auth module-accounts --node <NODE_URL>/chain-rpc/ | grep -B2 'n
 inferenced query inference params -o json --node <NODE_URL>/chain-rpc/ > current_params.json
 ```
 
-### 3. Check the minimum deposit
+### 3. Check governance deposit and tally parameters
 
 ```bash
-inferenced query gov params -o json --node <NODE_URL>/chain-rpc/ | jq '.params.min_deposit'
+inferenced query gov params -o json --node <NODE_URL>/chain-rpc/ \
+  | jq '.params | {
+      min_deposit,
+      expedited_min_deposit,
+      voting_period,
+      expedited_voting_period,
+      quorum,
+      threshold,
+      expedited_threshold,
+      veto_threshold,
+      burn_vote_veto
+    }'
 ```
 
 ### 4. Draft the proposal file

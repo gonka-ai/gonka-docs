@@ -32,13 +32,15 @@ https://node1.gonka.ai:8443/dashboard/
 
 ## 存入代币（以太坊 → Gonka）
 
+本节介绍如何通过仪表板上的跨链桥小组件将 ERC-20 代币从以太坊存入 Gonka。支持 USDC、USDT 以及 WGNK——操作流程完全相同。存入 WGNK 时，跨链桥会在 Gonka 上释放原生 GNK。
+
 存款分为三个阶段：
 
 1. **在以太坊上锁定代币（Lock tokens on Ethereum）** —— 您的代币被发送至以太坊上的跨链桥合约并锁定。
 2. **验证者签名（Validator signatures）** —— Gonka 验证者观察已最终确认的以太坊存款并收集 BLS 签名。
 3. **在 Gonka 上铸造（Mint on Gonka）** —— 封装代币在 Gonka 上被铸造并发送到您派生的 `gonka1…` 地址。
 
-详细的分步操作指南（含截图）请参阅英文版 [Bridge via dashboard (UI guide)](../../../cross-chain-transfers/ethereum-bridge/dashboard.md) 中的 Deposit 部分。
+详细的分步操作指南（含 USDC、USDT 和 GNK 截图）请参阅英文版 [Bridge via dashboard (UI guide)](../../../cross-chain-transfers/ethereum-bridge/dashboard.md) 中的 Deposit 部分。
 
 ## 提现代币（Gonka → 以太坊）
 

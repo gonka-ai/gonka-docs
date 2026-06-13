@@ -28,21 +28,41 @@ The dashboard is the easiest way to bridge. It handles the key derivation for yo
 
 The dashboard supports the full set of transfers without using the CLI:
 
-* **Ethereum → Gonka**: deposit any ERC-20 (USDT, USDC, WETH, …) and receive the wrapped token on Gonka.
-* **Gonka → Ethereum**: withdraw a wrapped token back to an Ethereum address.
-* **GNK ↔ WGNK**: bridge native GNK to Ethereum as WGNK and back.
+* **ETH Bridge** — deposit any ERC-20 (USDT, USDC, WETH, …) from Ethereum to Gonka, or withdraw back to Ethereum.
+* **GNK Bridge** — bridge native GNK to Ethereum as WGNK and back.
+* **IBC Bridge** — transfer IBC-native tokens (e.g. USDT) between Gonka and connected Cosmos chains (Kava).
+
+### Processing time & fees
+
+| Bridge type | Direction | Processing time | Gas paid in |
+|---|---|---|---|
+| ETH Bridge (ERC-20) | Ethereum → Gonka | ~15–20 min (waits for Ethereum finalization) | ETH |
+| ETH Bridge (ERC-20) | Gonka → Ethereum | ~1–5 min | ETH |
+| GNK Bridge | Gonka → Ethereum (mint WGNK) | ~1–5 min | ETH |
+| GNK Bridge | Ethereum → Gonka (burn WGNK) | ~15–20 min | ETH |
+| IBC | Kava → Gonka | ~1–3 min | KAVA |
+| IBC | Gonka → Kava | ~1–3 min | GNK (0 fee) |
 
 ---
 
-## Deposit ERC-20 tokens (Ethereum → Gonka)
+## Deposit tokens to Gonka
 
-This section walks you through depositing ERC-20 tokens from Ethereum to Gonka using the bridge widget on the native dashboard. The examples below use USDC, USDT, and WGNK — the flow is identical for any supported ERC-20 token. When you deposit WGNK, the bridge releases native GNK on Gonka.
+This section walks you through depositing tokens to Gonka using the bridge widget. Select the token from the **Token** dropdown — the widget detects the bridge type automatically:
 
-A deposit goes through three stages:
+* **ERC-20 tokens** (USDC, USDT, WETH, …) and **GNK** (as WGNK) go through the **Ethereum bridge**.
+* **IBC tokens** (USDT <span class="md-tag">IBC</span>, …) go through **IBC** to a connected Cosmos chain.
 
-1. **Lock tokens on Ethereum** — your tokens are sent to the bridge contract on Ethereum and locked.
+### How ETH / GNK bridge deposits work
+
+1. **Lock tokens on Ethereum** — your tokens are sent to the bridge contract and locked.
 2. **Validator signatures** — Gonka validators observe the finalized Ethereum deposit and collect BLS signatures.
 3. **Mint on Gonka** — the wrapped tokens are minted on Gonka and delivered to your derived `gonka1…` address.
+
+### How IBC deposits work
+
+1. **Approve transfer in wallet** — you sign an IBC transfer from the source chain (e.g. Kava).
+2. **IBC packet relay** — the packet is relayed to Gonka.
+3. **Tokens arrive on Gonka** — IBC tokens appear in your Gonka wallet.
 
 ### 1. Open the dashboard
 
@@ -75,21 +95,21 @@ Enter your Keplr password if prompted. Once connected, the widget will show **Ke
 
 ### 3. Choose token and amount
 
-On Step 2, select the token you want to deposit from the **Token** dropdown and enter the **Amount**. The widget displays your current balance of that token on Ethereum. The **Receiving address on Gonka** is auto-filled from your connected wallet.
+On Step 2, select the token you want to deposit from the **Token** dropdown and enter the **Amount**. The widget displays your current balance and the **Receiving address on Gonka** is auto-filled from your connected wallet.
 
-The widget also shows the estimated **processing time** and **approximate fee** in ETH.
+The widget shows the estimated **processing time** and **approximate fee** (the fee currency depends on the bridge type — see the table above).
 
-=== "USDC"
+=== "ERC-20 (USDC)"
 
     <a href="/images/bridge_widget_5.png" target="_blank"><img src="/images/bridge_widget_5.png" style="width:500px; height:auto;"></a>
-
-=== "USDT"
-
-    <a href="/images/bridge_widget_8.png" target="_blank"><img src="/images/bridge_widget_8.png" style="width:500px; height:auto;"></a>
 
 === "GNK"
 
     <a href="/images/bridge_widget_20.png" target="_blank"><img src="/images/bridge_widget_20.png" style="width:500px; height:auto;"></a>
+
+=== "IBC (USDT)"
+
+    <a href="/images/bridge_ibc_deposit_1.png" target="_blank"><img src="/images/bridge_ibc_deposit_1.png" style="width:500px; height:auto;"></a>
 
 Click **REVIEW & BRIDGE**.
 
@@ -97,22 +117,30 @@ Click **REVIEW & BRIDGE**.
 
 Your wallet will open a **Confirm Transaction** screen. Review the details carefully before approving:
 
-- **Token and amount** — verify the correct token and amount.
-- **From** — your Ethereum address (the sender).
-- **To** — the bridge contract address (`0x972a7A92…648f2F68`). This is expected — you are sending tokens to the bridge, which will then mint wrapped tokens on Gonka.
-- **Tx Fee** — the Ethereum gas fee you will pay for this transaction.
+=== "ERC-20 (USDC)"
 
-=== "USDC"
+    - **Token and amount** — verify the correct token and amount.
+    - **From** — your Ethereum address (the sender).
+    - **To** — the bridge contract address (`0x972a7A92…648f2F68`). This is expected — you are sending tokens to the bridge, which will then mint wrapped tokens on Gonka.
+    - **Tx Fee** — the Ethereum gas fee you will pay.
 
     <a href="/images/bridge_widget_6.png" target="_blank"><img src="/images/bridge_widget_6.png" style="width:500px; height:auto;"></a>
 
-=== "USDT"
-
-    <a href="/images/bridge_widget_9.png" target="_blank"><img src="/images/bridge_widget_9.png" style="width:500px; height:auto;"></a>
-
 === "GNK"
 
+    - **Token and amount** — verify the correct token and amount.
+    - **To** — the bridge contract address.
+    - **Tx Fee** — the Ethereum gas fee.
+
     <a href="/images/bridge_widget_21.png" target="_blank"><img src="/images/bridge_widget_21.png" style="width:500px; height:auto;"></a>
+
+=== "IBC (USDT)"
+
+    - **Message type** — `IBC Transfer`.
+    - **Amount and destination** — e.g. "Send 0.1 USDt to gonka1… via channel-161".
+    - **Tx Fee** — paid in KAVA (e.g. 0.05 KAVA).
+
+    <a href="/images/bridge_ibc_deposit_2.png" target="_blank"><img src="/images/bridge_ibc_deposit_2.png" style="width:500px; height:auto;"></a>
 
 Click **Approve** to submit the transaction.
 
@@ -121,23 +149,28 @@ Click **Approve** to submit the transaction.
 
 ### 5. Deposit complete
 
-After the transaction is confirmed on Ethereum, the bridge will lock your tokens, collect validator signatures, and mint the wrapped tokens on Gonka. The widget will show a **Deposit complete** screen with a summary of the operation.
+The widget will show a **Deposit complete** screen with a summary of the operation.
 
-=== "USDC"
+=== "ERC-20 (USDC)"
 
     <a href="/images/bridge_widget_7.png" target="_blank"><img src="/images/bridge_widget_7.png" style="width:500px; height:auto;"></a>
-
-=== "USDT"
-
-    <a href="/images/bridge_widget_10.png" target="_blank"><img src="/images/bridge_widget_10.png" style="width:500px; height:auto;"></a>
 
 === "GNK"
 
     <a href="/images/bridge_widget_22.png" target="_blank"><img src="/images/bridge_widget_22.png" style="width:500px; height:auto;"></a>
 
+=== "IBC (USDT)"
+
+    The progress tracker shows:
+
+    - **Approve transfer in wallet** — done
+    - **IBC packet relay transfer** — done
+
+    <a href="/images/bridge_ibc_deposit_3.png" target="_blank"><img src="/images/bridge_ibc_deposit_3.png" style="width:500px; height:auto;"></a>
+
 From this screen you can:
 
-- Click **VIEW ON EXPLORER** to see the transaction details on Ethereum.
+- Click **VIEW ON EXPLORER** to see the transaction details.
 - Click **TRANSFER MORE TOKENS** to make another deposit.
 - Click **DISCONNECT** to disconnect your wallet.
 
@@ -153,7 +186,7 @@ You can confirm your wrapped tokens arrived in several ways:
 
 ### Add wrapped tokens to Keplr
 
-Wrapped ERC-20 tokens (such as wUSDC and wUSDT) are CW-20 tokens on the Gonka chain. Keplr does not detect CW-20 tokens automatically, so you need to add them as custom tokens. Once added, they will appear in your Keplr asset list alongside your other tokens.
+Wrapped ERC-20 tokens (such as wUSDC and wUSDT) are CW-20 tokens on the Gonka chain. Keplr does not detect CW-20 tokens automatically, so you need to add them as custom tokens.
 
 !!! note
     IBC tokens (transferred via IBC, not the Ethereum bridge) appear in Keplr automatically. The manual steps below are only needed for bridge-wrapped CW-20 tokens.
@@ -168,45 +201,39 @@ Wrapped ERC-20 tokens (such as wUSDC and wUSDT) are CW-20 tokens on the Gonka ch
 
 **Step 3.** On the **Add Custom Token** page, select **Gonka** from the chain dropdown. Paste the CW-20 contract address into the **Contract Address** field. The token metadata (name, symbol, decimals) will be filled in automatically. Click **Confirm**.
 
-=== "USDC"
+Known contract addresses:
 
-    Contract address:
-    ```
-    gonka1fa83z7np903k9vh63guy82qthtv373d7vjeq0y7xeqh50rzn8vtssffkre
-    ```
+| Token | CW-20 contract address on Gonka |
+|---|---|
+| USDC | `gonka1fa83z7np903k9vh63guy82qthtv373d7vjeq0y7xeqh50rzn8vtssffkre` |
+| USDT | `gonka15ggwj9un6qrmu4nj5ev6l7kpdcr00td03ff2mmj4cyhl8u8vjd2qnl3hgk` |
 
-    <a href="/images/bridge_widget_14.png" target="_blank"><img src="/images/bridge_widget_14.png" style="width:auto; height:337.5px;"></a>
-
-=== "USDT"
-
-    Contract address:
-    ```
-    gonka15ggwj9un6qrmu4nj5ev6l7kpdcr00td03ff2mmj4cyhl8u8vjd2qnl3hgk
-    ```
-
-    <a href="/images/bridge_widget_18.png" target="_blank"><img src="/images/bridge_widget_18.png" style="width:auto; height:337.5px;"></a>
+<a href="/images/bridge_widget_14.png" target="_blank"><img src="/images/bridge_widget_14.png" style="width:auto; height:337.5px;"></a>
 
 **Step 4.** Done — the token now appears in your Keplr wallet as a **Gonka CW20** token.
 
-=== "USDC"
-
-    <a href="/images/bridge_widget_15.png" target="_blank"><img src="/images/bridge_widget_15.png" style="width:auto; height:337.5px;"></a>
-
-=== "USDT"
-
-    <a href="/images/bridge_widget_19.png" target="_blank"><img src="/images/bridge_widget_19.png" style="width:auto; height:337.5px;"></a>
+<a href="/images/bridge_widget_15.png" target="_blank"><img src="/images/bridge_widget_15.png" style="width:auto; height:337.5px;"></a>
 
 ---
 
-## Withdraw tokens (Gonka → Ethereum)
+## Withdraw tokens from Gonka
 
-This section walks you through withdrawing tokens from Gonka back to Ethereum using the bridge widget. The examples below use GNK and USDC — the flow is identical for any supported token.
+This section walks you through withdrawing tokens from Gonka using the bridge widget. Select the token from the **Token** dropdown — the widget detects the bridge type automatically:
 
-A withdrawal goes through three stages, tracked by a progress indicator in the widget:
+* **ERC-20 tokens** and **GNK** go through the **Ethereum bridge**.
+* **IBC tokens** (USDT <span class="md-tag">IBC</span>, …) go through **IBC** to a connected Cosmos chain.
+
+### How ETH / GNK bridge withdrawals work
 
 1. **Burn tokens on Gonka** — the wrapped token is burned (or native GNK is locked) on the Gonka chain.
 2. **Validator signatures** — Gonka validators produce a BLS aggregate signature authorizing the release.
 3. **Release on Ethereum** — the original token is released from the bridge contract on Ethereum (or WGNK is minted).
+
+### How IBC withdrawals work
+
+1. **Approve transfer in wallet** — you sign an IBC transfer on Gonka.
+2. **IBC packet relay** — the packet is relayed to the destination chain.
+3. **Tokens arrive** — IBC tokens appear in your wallet on the destination chain (e.g. Kava).
 
 ### 1. Open the dashboard
 
@@ -239,46 +266,64 @@ Enter your Keplr password if prompted. Once connected, the widget will show **Ke
 
 ### 3. Choose token and amount
 
-On Step 2, select the token you want to withdraw from the **Token** dropdown and enter the **Amount**. The widget displays your current balance of that token on Gonka. The **Destination Address** is auto-filled from your connected wallet. 
+On Step 2, select the token you want to withdraw from the **Token** dropdown and enter the **Amount**. The widget displays your current balance of that token on Gonka. The **Destination Address** is auto-filled from your connected wallet.
 
-Note: unlike deposits, you can edit this field to withdraw to a different Ethereum address. Just make sure it's an address you control and that it's entered correctly.
-
-The widget also shows the bridge epoch status and the **approximate fee** in ETH.
+!!! tip
+    Unlike deposits, you can edit the destination field to withdraw to a different address. Make sure it's an address you control and that it's entered correctly.
 
 === "GNK"
 
     <a href="/images/bridge_withdraw_4.png" target="_blank"><img src="/images/bridge_withdraw_4.png" style="width:500px; height:auto;"></a>
 
-=== "USDC (Ethereum)"
+=== "ERC-20 (USDC)"
 
     <a href="/images/bridge_withdraw_8.png" target="_blank"><img src="/images/bridge_withdraw_8.png" style="width:500px; height:auto;"></a>
 
+=== "IBC (USDT)"
+
+    The destination address is a `kava1…` address on the Kava chain. Processing time is ~1–3 minutes.
+
+    <a href="/images/bridge_ibc_withdraw_1.png" target="_blank"><img src="/images/bridge_ibc_withdraw_1.png" style="width:500px; height:auto;"></a>
+
 Click **REVIEW & BRIDGE**.
 
-### 4. Confirm the burn transaction on Gonka
+### 4. Confirm the transaction on Gonka
 
-Keplr will open a **Confirm Transaction** popup for the Gonka chain. This transaction burns the wrapped token (or locks native GNK) on Gonka — this is the **Burn tokens on Gonka** step shown in the progress tracker. Review the details and click **Approve**.
-
-- For **GNK**: the message type is `MsgRequestBridgeMint`, which locks your GNK on Gonka and requests minting of WGNK on Ethereum.
-- For **ERC-20 tokens** (USDC, USDT, …): the message is an `Execute Wasm Contract` call to the wrapped token's CW-20 contract with a `withdraw` payload.
-- **Tx Fee** — 0 GNK (no gas fee on the Gonka chain for this transaction).
+Keplr will open a **Confirm Transaction** popup for the Gonka chain. Review the details and click **Approve**.
 
 === "GNK"
 
+    - **Message type** — `MsgRequestBridgeMint`, which locks your GNK on Gonka and requests minting of WGNK on Ethereum.
+    - **Tx Fee** — 0 GNK.
+
     <a href="/images/bridge_withdraw_5.png" target="_blank"><img src="/images/bridge_withdraw_5.png" style="width:500px; height:auto;"></a>
 
-=== "USDC (Ethereum)"
+=== "ERC-20 (USDC)"
+
+    - **Message type** — `Execute Wasm Contract` call to the wrapped token's CW-20 contract with a `withdraw` payload.
+    - **Tx Fee** — 0 GNK.
 
     <a href="/images/bridge_withdraw_9.png" target="_blank"><img src="/images/bridge_withdraw_9.png" style="width:500px; height:auto;"></a>
+
+=== "IBC (USDT)"
+
+    - **Message type** — `IBC Transfer`.
+    - **Amount and destination** — e.g. "Send 0.1 USDt (Kava/channel-5) to kava1… via channel-5".
+    - **Tx Fee** — 0 GNK.
+
+    <a href="/images/bridge_ibc_withdraw_2.png" target="_blank"><img src="/images/bridge_ibc_withdraw_2.png" style="width:500px; height:auto;"></a>
 
 !!! warning
     Double-check the details before confirming. Bridge transfers are **irreversible**. If anything looks wrong, click **✕** to cancel and start over.
 
-After you approve, the progress tracker marks **Burn tokens on Gonka** as complete. The Gonka validators then automatically collect and aggregate their BLS signatures (**Validator signatures** step) — no action is required from you during this stage.
+For **ETH / GNK bridge**: after you approve, the progress tracker marks **Burn tokens on Gonka** as complete. The Gonka validators then automatically collect and aggregate their BLS signatures (**Validator signatures** step) — no action is required from you during this stage.
 
-### 5. Confirm the release transaction on Ethereum
+### 5. Confirm the release transaction on Ethereum (ETH / GNK bridge only)
 
-Once the validators have produced the BLS aggregate signature (**Validator signatures** — done), Keplr opens a second popup — this time for the **Ethereum chain**. This transaction executes the bridge contract (`0x972a7a92…648f2f68`) to release the tokens on Ethereum (the **Release on Ethereum** step).
+!!! note
+    This step applies only to **ETH bridge** and **GNK bridge** withdrawals. For **IBC** withdrawals, the transfer completes automatically after Step 4 — skip to Step 6.
+
+Once the validators have produced the BLS aggregate signature (**Validator signatures** — done), Keplr opens a second popup — this time for the **Ethereum chain**. This transaction executes the bridge contract (`0x972a7a92…648f2f68`) to release the tokens on Ethereum.
 
 - **To** — the bridge contract address on Ethereum.
 - **Tx Fee** — the Ethereum gas fee (paid in ETH). The exact amount depends on current gas prices.
@@ -287,7 +332,7 @@ Once the validators have produced the BLS aggregate signature (**Validator signa
 
     <a href="/images/bridge_withdraw_6.png" target="_blank"><img src="/images/bridge_withdraw_6.png" style="width:500px; height:auto;"></a>
 
-=== "USDC (Ethereum)"
+=== "ERC-20 (USDC)"
 
     <a href="/images/bridge_withdraw_10.png" target="_blank"><img src="/images/bridge_withdraw_10.png" style="width:500px; height:auto;"></a>
 
@@ -295,23 +340,28 @@ Click **Approve** to submit the release transaction.
 
 ### 6. Withdrawal complete
 
-After the release transaction is confirmed on Ethereum, the widget shows a **Withdrawal complete** screen with all three stages marked as done:
-
-- **Burn tokens on Gonka** — done
-- **Validator signatures** — done
-- **Release on Ethereum** — done
+The widget shows a **Withdrawal complete** screen with all stages marked as done.
 
 === "GNK"
 
     <a href="/images/bridge_withdraw_7.png" target="_blank"><img src="/images/bridge_withdraw_7.png" style="width:500px; height:auto;"></a>
 
-=== "USDC (Ethereum)"
+=== "ERC-20 (USDC)"
 
     <a href="/images/bridge_withdraw_11.png" target="_blank"><img src="/images/bridge_withdraw_11.png" style="width:500px; height:auto;"></a>
 
+=== "IBC (USDT)"
+
+    The progress tracker shows:
+
+    - **Approve transfer in wallet** — done
+    - **IBC packet relay transfer** — done
+
+    <a href="/images/bridge_ibc_withdraw_3.png" target="_blank"><img src="/images/bridge_ibc_withdraw_3.png" style="width:500px; height:auto;"></a>
+
 From this screen you can:
 
-- Click **VIEW ON EXPLORER** to see the transaction details on Ethereum.
+- Click **VIEW ON EXPLORER** to see the transaction details.
 - Click **TRANSFER MORE TOKENS** to make another withdrawal.
 - Click **DISCONNECT** to disconnect your wallet.
 
@@ -319,8 +369,8 @@ From this screen you can:
 
 You can confirm your tokens arrived in several ways:
 
-- **In the dashboard**: check the transaction via the explorer link on the Withdrawal complete screen.
-- **In your Ethereum wallet**: the released ERC-20 tokens (USDC, USDT, etc.) should appear in your wallet balance.
-- **WGNK in Keplr**: if you withdrew GNK, the resulting WGNK token is added to your Keplr wallet **automatically** and appears in your asset list without any manual steps.
+- **ETH bridge / GNK**: check the released ERC-20 tokens or WGNK in your Ethereum wallet. WGNK appears in Keplr automatically.
+- **IBC**: check the token balance on the destination chain (e.g. USDT on Kava in Keplr).
+- **Explorer link**: use the **VIEW ON EXPLORER** link on the Withdrawal complete screen.
 
 <a href="/images/bridge_withdraw_12.png" target="_blank"><img src="/images/bridge_withdraw_12.png" style="width:auto; height:337.5px;"></a>

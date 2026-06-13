@@ -227,7 +227,9 @@ Enter your Keplr password if prompted. Once connected, the widget will show **Ke
 
 ### 3. Choose token and amount
 
-On Step 2, select the token you want to withdraw from the **Token** dropdown and enter the **Amount**. The widget displays your current balance of that token on Gonka. The **Destination Address** is auto-filled from your connected wallet.
+On Step 2, select the token you want to withdraw from the **Token** dropdown and enter the **Amount**. The widget displays your current balance of that token on Gonka. The **Destination Address** is auto-filled from your connected wallet. 
+
+Note: unlike deposits, you can edit this field to withdraw to a different Ethereum address. Just make sure it's an address you control and that it's entered correctly.
 
 The widget also shows the bridge epoch status and the **approximate fee** in ETH.
 

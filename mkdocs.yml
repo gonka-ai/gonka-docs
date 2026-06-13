@@ -43,10 +43,10 @@ nav:
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
     - Cross-chain transfers:
+      - Bridge via dashboard (UI guide): cross-chain-transfers/ethereum-bridge/dashboard.md
       - Ethereum bridge:
         - Overview: cross-chain-transfers/ethereum-bridge/overview.md
         - Addresses and keys: cross-chain-transfers/ethereum-bridge/addresses-and-keys.md
-        - Bridge via dashboard (UI guide): cross-chain-transfers/ethereum-bridge/dashboard.md
         - Bridge epoch update: cross-chain-transfers/ethereum-bridge/bridge-epoch-update.md
         - Register a token: cross-chain-transfers/ethereum-bridge/register-token.md
         - Deposit USDT (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/deposit-usdt.md

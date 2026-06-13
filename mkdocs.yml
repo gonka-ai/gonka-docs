@@ -53,10 +53,11 @@ nav:
         - Withdraw USDT (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/withdraw-usdt.md
         - Deposit GNK (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/deposit-gnk.md
         - Withdraw GNK (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/withdraw-gnk.md
-        - Dashboard & tracker integration: cross-chain-transfers/ethereum-bridge/tracker-integration.md
       - IBC:
         - Withdraw USDT via Kava (Gonka → Ethereum): cross-chain-transfers/ibc/withdraw-usdt-via-kava.md
-      - Widget integration: cross-chain-transfers/widget-integration.md
+      - Developer integration:
+        - Widget integration: cross-chain-transfers/widget-integration.md
+        - Dashboard & tracker integration: cross-chain-transfers/ethereum-bridge/tracker-integration.md
 
   - Governance:
     - Transactions & Governance: governance/transactions-and-governance.md
@@ -202,7 +203,9 @@ plugins:
             Dashboard: 仪表盘
             Pricing: 价格
             Cross-chain transfers: 跨链转账
+            Developer integration: 开发者集成
             Widget integration: 组件集成
+            Dashboard & tracker integration: 仪表盘与跟踪器集成
             IBC: IBC
             "Withdraw USDT via Kava (Gonka → Ethereum)": "通过 Kava 提取 USDT（Gonka → 以太坊）"
             Overview: 概述

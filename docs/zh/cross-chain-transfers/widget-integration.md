@@ -63,201 +63,200 @@ sequenceDiagram
 IBC 充值将资产直接从 Cosmos 源链（例如 Osmosis、Cosmos Hub、Injective）转移到 Gonka。
 
 1. **启用并连接源链**：向 Keplr 查询源链凭证。
-```typescript
-async function connectSourceChain(chainId: string) {
-  const walletProvider = (window as any).keplr;
-  if (!walletProvider) throw new Error("未找到 Cosmos 钱包扩展。");
-  
-  await walletProvider.enable(chainId);
-  const offlineSigner = walletProvider.getOfflineSigner(chainId);
-  const accounts = await offlineSigner.getAccounts();
-  return { address: accounts[0].address, offlineSigner };
-}
-```
+    ```typescript
+    async function connectSourceChain(chainId: string) {
+      const walletProvider = (window as any).keplr;
+      if (!walletProvider) throw new Error("未找到 Cosmos 钱包扩展。");
+      
+      await walletProvider.enable(chainId);
+      const offlineSigner = walletProvider.getOfflineSigner(chainId);
+      const accounts = await offlineSigner.getAccounts();
+      return { address: accounts[0].address, offlineSigner };
+    }
+    ```
 
 2. **解析通道路由**：查询 Gonka RPC 通道元数据（`/ibc/core/channel/v1/channels`）以解析交易对手路径。
-```typescript
-async function resolveIbcChannel(apiEndpoint: string, targetChainId: string): Promise<string | null> {
-  const response = await fetch(`${apiEndpoint}/ibc/core/channel/v1/channels`).then(r => r.json());
-  const channels = response?.channels || [];
+    ```typescript
+    async function resolveIbcChannel(nodeUrl: string, targetChainId: string): Promise<string | null> {
+      const response = await fetch(`${nodeUrl}/ibc/core/channel/v1/channels`).then(r => r.json());
+      const channels = response?.channels || [];
 
-  for (const channel of channels) {
-    if (channel.state !== 'STATE_OPEN' || channel.port_id !== 'transfer') continue;
+      for (const channel of channels) {
+        if (channel.state !== 'STATE_OPEN' || channel.port_id !== 'transfer') continue;
 
-    const clientData = await fetch(
-      `${apiEndpoint}/ibc/core/channel/v1/channels/${channel.channel_id}/ports/transfer/client_state`
-    ).then(r => r.json());
-    
-    const clientChainId = clientData?.identified_client_state?.client_state?.chain_id || 
-                          clientData?.client_state?.chain_id;
+        const clientData = await fetch(
+          `${nodeUrl}/ibc/core/channel/v1/channels/${channel.channel_id}/ports/transfer/client_state`
+        ).then(r => r.json());
+        
+        const clientChainId = clientData?.identified_client_state?.client_state?.chain_id || 
+                              clientData?.client_state?.chain_id;
 
-    if (clientChainId === targetChainId) {
-      return channel.counterparty?.channel_id || null;
+        if (clientChainId === targetChainId) {
+          return channel.counterparty?.channel_id || null;
+        }
+      }
+      return null;
     }
-  }
-  return null;
-}
-```
+    ```
 
 3. **执行 IBC 转账**：从源链发送标准的 CosmJS `MsgTransfer`。
+    ```typescript
+    import { SigningStargateClient } from '@cosmjs/stargate';
 
-```typescript
-import { SigningStargateClient } from '@cosmjs/stargate';
+    async function initiateIbcDeposit(
+      sourceChainId: string,
+      sourcePort: string,    // 例如 'transfer'
+      sourceChannel: string, // 例如 'channel-0'
+      denom: string,         // 例如 'uusdt'
+      amount: string,        // 基础单位数量
+      senderSourceAddress: string,
+      receiverGonkaAddress: string,
+      offlineSigner: any,
+      rpcUrl: string
+    ) {
+      const client = await SigningStargateClient.connectWithSigner(rpcUrl, offlineSigner);
+      
+      const timeoutTimestamp = (BigInt(Date.now()) + 600_000n) * 1_000_000n; // 10分钟超时（纳秒）
 
-async function initiateIbcDeposit(
-  sourceChainId: string,
-  sourcePort: string,    // 例如 'transfer'
-  sourceChannel: string, // 例如 'channel-0'
-  denom: string,         // 例如 'uusdt'
-  amount: string,        // 基础单位数量
-  senderSourceAddress: string,
-  receiverGonkaAddress: string,
-  offlineSigner: any,
-  rpcUrl: string
-) {
-  const client = await SigningStargateClient.connectWithSigner(rpcUrl, offlineSigner);
-  
-  const timeoutTimestamp = (BigInt(Date.now()) + 600_000n) * 1_000_000n; // 10分钟超时（纳秒）
-
-  const response = await client.sendIbcTokens(
-    senderSourceAddress,  // 源链发送方地址（如 Osmosis 地址）
-    receiverGonkaAddress, // Gonka 链接收方地址
-    { denom, amount },
-    sourcePort,
-    sourceChannel,
-    undefined, // timeoutHeight
-    Number(timeoutTimestamp) / 1_000_000_000, // 超时时间（秒）
-    { amount: [], gas: '200000' } // 手续费
-  );
-  
-  return response.transactionHash;
-}
-```
+      const response = await client.sendIbcTokens(
+        senderSourceAddress,  // 源链发送方地址（如 Osmosis 地址）
+        receiverGonkaAddress, // Gonka 链接收方地址
+        { denom, amount },
+        sourcePort,
+        sourceChannel,
+        undefined, // timeoutHeight
+        Number(timeoutTimestamp) / 1_000_000_000, // 超时时间（秒）
+        { amount: [], gas: '200000' } // 手续费
+      );
+      
+      return response.transactionHash;
+    }
+    ```
 
 ### B. EVM 跨链桥充值（EVM 至 Gonka）
 EVM 充值涉及在 EVM 源链上锁定 ERC-20 资产，以在 Gonka 上铸造相应的代币。交易流程包含以下步骤：
 
 1. **验证 EVM 地址密钥不匹配 (Key-Mismatch)**：验证当前活动的 EVM 地址所派生的 Cosmos 地址是否与连接 of Keplr 公钥相匹配。
    
-   **核心问题**  
-   当用户通过标准的软件助记词连接时，其 EVM 钱包 (MetaMask) 会使用币种类型 `60` 来派生地址，而其 Cosmos 钱包 (Keplr) 会使用币种类型 `118` 或 `1200` 来派生地址。
-   * 由于这些派生路径不同，其 EVM 公钥和 Cosmos 公钥并**不**一致。
-   * 以太坊跨链桥合约会捕获充值 EVM 地址的公钥，并基于**直接从该 EVM 公钥派生**的 Bech32 地址在 Gonka 上铸造代币。
-   * 如果发生因助记词派生引起的不匹配，代币将被铸造到与当前活跃的 Keplr 钱包完全**不同**的 Cosmos 地址，从而导致资金丢失！
+    > **警告：EVM 地址密钥不匹配 (Key-Mismatch)**  
+    > 当用户通过标准的软件助记词连接时，其 EVM 钱包 (MetaMask) 会使用币种类型 `60` 来派生地址，而其 Cosmos 钱包 (Keplr) 会使用币种类型 `118` 或 `1200` 来派生地址。
+    > * 由于这些派生路径不同，其 EVM 公钥和 Cosmos 公钥并**不**一致。
+    > * 以太坊跨链桥合约会捕获充值 EVM 地址的公钥，并基于**直接从该 EVM 公钥派生**的 Bech32 地址在 Gonka 上铸造代币。
+    > * 如果发生因助记词派生引起的不匹配，代币将被铸造到与当前活跃的 Keplr 钱包完全**不同**的 Cosmos 地址。资金并非永久丢失——用户仍可以从其助记词（币种类型 `60`）派生出以太坊私钥并使用它来访问接收代币的 Gonka 账户——但这需要手动的密钥派生步骤，大多数用户可能无法预料到。
 
-   **解决方案：密钥验证清单**  
-   在允许用户充值之前，请执行以下验证：
+    **解决方案：密钥验证清单**  
+    在允许用户充值之前，请执行以下验证：
 
-   ```typescript
-   import { toBech32 } from '@cosmjs/encoding';
-   import { ethers } from 'ethers';
+    ```typescript
+    import { toBech32 } from '@cosmjs/encoding';
+    import { ethers } from 'ethers';
 
-   async function verifyAddressMismatch(
-     activeEvmAddress: string,
-     cosmosChainId: string,
-     currentCosmosAddress: string,
-     bech32Prefix: string = 'gonka'
-   ) {
-     // 1. Resolve active wallet provider (Keplr)
-     const walletProvider = (window as any).keplr;
-     if (!walletProvider) return { isMismatch: false };
+    async function verifyAddressMismatch(
+      activeEvmAddress: string,
+      cosmosChainId: string,
+      currentCosmosAddress: string,
+      bech32Prefix: string = 'gonka'
+    ) {
+      // 1. Resolve active wallet provider (Keplr)
+      const walletProvider = (window as any).keplr;
+      if (!walletProvider) return { isMismatch: false };
 
-     // 2. Fetch key properties from Cosmos wallet
-     const key = await walletProvider.getKey(cosmosChainId);
-     const pubKeyBytes = key.pubKey;
-     if (!pubKeyBytes || pubKeyBytes.length === 0) {
-       console.warn("Public key not available from provider.");
-       return { isMismatch: false };
-     }
+      // 2. Fetch key properties from Cosmos wallet
+      const key = await walletProvider.getKey(cosmosChainId);
+      const pubKeyBytes = key.pubKey;
+      if (!pubKeyBytes || pubKeyBytes.length === 0) {
+        console.warn("Public key not available from provider.");
+        return { isMismatch: false };
+      }
 
-     // 3. Derive the REAL Ethereum address from the Cosmos public key (keccak256-based)
-     // NOTE: key.ethereumHexAddress is NOT the real EVM address — it is just the Cosmos 
-     // address bytes (sha256+ripemd160) represented as hex, which will mismatch.
-     const pubKeyHex = '0x' + Array.from(pubKeyBytes, (b) => b.toString(16).padStart(2, '0')).join('');
-     const derivedEvmAddress = ethers.computeAddress(pubKeyHex);
+      // 3. Derive the REAL Ethereum address from the Cosmos public key (keccak256-based)
+      // NOTE: key.ethereumHexAddress is NOT the real EVM address — it is just the Cosmos 
+      // address bytes (sha256+ripemd160) represented as hex, which will mismatch.
+      const pubKeyHex = '0x' + Array.from(pubKeyBytes, (b) => b.toString(16).padStart(2, '0')).join('');
+      const derivedEvmAddress = ethers.computeAddress(pubKeyHex);
 
-     // 4. Compare active EVM address with derived EVM address
-     const isMismatch = activeEvmAddress.toLowerCase() !== derivedEvmAddress.toLowerCase();
+      // 4. Compare active EVM address with derived EVM address
+      const isMismatch = activeEvmAddress.toLowerCase() !== derivedEvmAddress.toLowerCase();
 
-     if (isMismatch) {
-       // 5. Derive where the tokens will land by decoding EVM hex and encoding as Bech32
-       const rawHex = activeEvmAddress.startsWith('0x') ? activeEvmAddress.substring(2) : activeEvmAddress;
-       const hexBytes = new Uint8Array(
-         rawHex.match(/.{1,2}/g)?.map((byte: string) => parseInt(byte, 16)) || []
-       );
-       const targetCosmosAddress = toBech32(bech32Prefix, hexBytes);
+      if (isMismatch) {
+        // 5. Derive where the tokens will land by decoding EVM hex and encoding as Bech32
+        const rawHex = activeEvmAddress.startsWith('0x') ? activeEvmAddress.substring(2) : activeEvmAddress;
+        const hexBytes = new Uint8Array(
+          rawHex.match(/.{1,2}/g)?.map((byte: string) => parseInt(byte, 16)) || []
+        );
+        const targetCosmosAddress = toBech32(bech32Prefix, hexBytes);
 
-       return {
-         isMismatch: true,
-         targetCosmosAddress,      // Tokens will mint here
-         expectedEvmAddress: derivedEvmAddress // User must switch EVM wallet to this address
-       };
-     }
+        return {
+          isMismatch: true,
+          targetCosmosAddress,      // Tokens will mint here
+          expectedEvmAddress: derivedEvmAddress // User must switch EVM wallet to this address
+        };
+      }
 
-     return { isMismatch: false };
-   }
-   ```
+      return { isMismatch: false };
+    }
+    ```
 
 2. **解析跨链桥合约地址**：从注册表 API 获取目标代币已获批的跨链桥合约地址。
-   ```typescript
-   async function resolveBridgeAddress(apiEndpoint: string, chainId: string): Promise<string> {
-     const response = await fetch(
-       `${apiEndpoint}/productscience/inference/inference/bridge_addresses/${chainId}`
-     ).then(r => r.json());
-     
-     const address = response?.bridge_address || response?.address || response?.approved_bridge_address;
-     if (!address) {
-       throw new Error(`无法解析链的跨链桥地址: ${chainId}`);
-     }
-     return address;
-   }
-   ```
+    ```typescript
+    async function resolveBridgeAddress(nodeUrl: string, chainId: string): Promise<string> {
+      const response = await fetch(
+        `${nodeUrl}/productscience/inference/inference/bridge_addresses/${chainId}`
+      ).then(r => r.json());
+      
+      const address = response?.bridge_address || response?.address || response?.approved_bridge_address;
+      if (!address) {
+        throw new Error(`无法解析链的跨链桥地址: ${chainId}`);
+      }
+      return address;
+    }
+    ```
 
 3. **切换 EVM 网络**：验证并请求切换（`wallet_switchEthereumChain`）到正确的以太坊网络（主网或 Sepolia 测试网）。
-   ```typescript
-   async function switchEvmNetwork(ethProvider: any, isTestnet: boolean) {
-     const targetChainIdHex = isTestnet ? '0xaa36a7' : '0x1'; // Sepolia 或主网
-     try {
-       await ethProvider.request({
-         method: 'wallet_switchEthereumChain',
-         params: [{ chainId: targetChainIdHex }],
-       });
-     } catch (switchError: any) {
-       if (switchError.code === 4902) {
-         throw new Error(`请先将 ${isTestnet ? 'Sepolia' : 'Ethereum'} 网络添加到您的 EVM 钱包中。`);
-       }
-       throw switchError;
-     }
-   }
-   ```
+    ```typescript
+    async function switchEvmNetwork(ethProvider: any, isTestnet: boolean) {
+      const targetChainIdHex = isTestnet ? '0xaa36a7' : '0x1'; // Sepolia 或主网
+      try {
+        await ethProvider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: targetChainIdHex }],
+        });
+      } catch (switchError: any) {
+        if (switchError.code === 4902) {
+          throw new Error(`请先将 ${isTestnet ? 'Sepolia' : 'Ethereum'} 网络添加到您的 EVM 钱包中。`);
+        }
+        throw switchError;
+      }
+    }
+    ```
 
-4. **执行 ERC-20 转账**：生成 ERC-20 `transfer(bridgeAddress, amount)` ABI 调用数据，并通过 EVM 提供商将其发送到 ERC-20 代币合约地址。
+4. **执行 ERC-20 转账**：生成 ERC-20 `transfer(bridgeAddress, amount)` ABI 调用数据，并通过 EVM 提供商将其发送 to ERC-20 代币合约地址。
 
-   > **警告：**  
-   > 充值 ERC-20 代币时，**请勿**直接向跨链桥合约地址发送原始交易。相反，您必须将 **ERC-20 代币合约地址**作为接收方 (`to`)，并传递表示 `transfer(bridgeContractAddress, amount)` 函数调用的编码数据载荷 (data payload)。
+    > **警告：**  
+    > 充值 ERC-20 代币时，**请勿**直接向跨链桥合约地址发送原始交易。相反，您必须将 **ERC-20 代币合约地址**作为接收方 (`to`)，并传递表示 `transfer(bridgeContractAddress, amount)` 函数调用的编码数据载荷 (data payload)。
 
-   ```typescript
-   // 1. 手动编码 ERC-20 transfer(address to, uint256 value) 函数调用
-   // transfer(address,uint256) 的方法选择器是 0xa9059cbb
-   const methodId = '0xa9059cbb';
-   const toPadding = bridgeContractAddress.replace(/^0x/i, '').padStart(64, '0');
-   const amountHex = amountInBaseUnits.toString(16).padStart(64, '0');
-   const data = methodId + toPadding + amountHex;
+    ```typescript
+    // 1. 手动编码 ERC-20 transfer(address to, uint256 value) 函数调用
+    // transfer(address,uint256) 的方法选择器是 0xa9059cbb
+    const methodId = '0xa9059cbb';
+    const toPadding = bridgeContractAddress.replace(/^0x/i, '').padStart(64, '0');
+    const amountHex = amountInBaseUnits.toString(16).padStart(64, '0');
+    const data = methodId + toPadding + amountHex;
 
-   // 2. 发送针对 ERC-20 代币合约地址的交易
-   // （解析 Keplr 注入的 EVM 提供商或标准的 window.ethereum）
-   const ethProvider = (window as any).keplr?.ethereum || (window as any).ethereum;
-   if (!ethProvider) throw new Error("未找到 EVM 提供商。");
+    // 2. 发送针对 ERC-20 代币合约地址的交易
+    // （解析 Keplr 注入的 EVM 提供商或标准的 window.ethereum）
+    const ethProvider = (window as any).keplr?.ethereum || (window as any).ethereum;
+    if (!ethProvider) throw new Error("未找到 EVM 提供商。");
 
-   await ethProvider.request({
-     method: 'eth_sendTransaction',
-     params: [{
-       from: activeEvmAddress,
-       to: erc20ContractAddress, // 目标是 ERC-20 合约地址
-       data: data                // 编码后的调用数据，将代币转账至 bridgeContractAddress
-     }],
-   });
-   ```
+    await ethProvider.request({
+      method: 'eth_sendTransaction',
+      params: [{
+        from: activeEvmAddress,
+        to: erc20ContractAddress, // 目标是 ERC-20 合约地址
+        data: data                // 编码后的调用数据，将代币转账至 bridgeContractAddress
+      }],
+    });
+    ```
 
 ---
 

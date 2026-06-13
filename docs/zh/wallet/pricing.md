@@ -18,35 +18,35 @@
 ### 稳定区间模型
 系统将 40%–60% 定义为利用率“稳定区间”，在此区间内价格不变。超出该区间时，价格会调整以引导利用率回归最优范围。计算流程如下：
 
-1. 当前利用率计算：在每个区块结束时，根据当前区块与近期区块处理的推理请求量相对估算网络容量计算最近利用率。
-2. 稳定区间检查：若利用率在 40%–60% 之间，则不调整价格，维持正常网络运行时的价格稳定。
-3. 价格调整：利用率低于 40% 时，下调价格以鼓励更多使用；高于 60% 时，上调价格以抑制需求。
-4. 线性价格调整：价格变动与偏离稳定区间的幅度成正比；弹性系数决定在极端利用率（0% 或 100%）下的单区块最大变动。
+1. **当前利用率计算**：在每个区块结束时，根据当前区块与近期区块处理的推理请求量相对估算网络容量计算最近利用率。
+2. **稳定区间检查**：若利用率在 40%–60% 之间，则不调整价格，维持正常网络运行时的价格稳定。
+3. **价格调整**：利用率低于 40% 时，下调价格以鼓励更多使用；高于 60% 时，上调价格以抑制需求。
+4. **线性价格调整**：价格变动与偏离稳定区间的幅度成正比；弹性系数决定在极端利用率（0% 或 100%）下的单区块最大变动。
 
 ??? note "价格调整公式"
     定价计算参考以太坊 EIP-1559 的思路，但对每个模型独立计算：
     
     ```
-    // 逐模型计算利用率与价格
+    // Calculate per-model utilization and pricing
     for each_model in active_epoch_models:
-        model_capacity = get_cached_capacity(model_id)  // 从 capacity/{model_id} KV 读取
+        model_capacity = get_cached_capacity(model_id)  // from capacity/{model_id} KV store
         model_utilization = model_tokens_processed_in_recent_blocks[model_id] / model_capacity
     
         if model_utilization >= 0.40 and model_utilization <= 0.60:
-            // 稳定区间 - 不调整
+            // Stability zone - no price change
             new_model_price[model_id] = previous_model_price[model_id]
         else if model_utilization < 0.40:
-            // 低于稳定区间 - 降价
+            // Below stability zone - decrease price
             utilization_deficit = 0.40 - model_utilization
             adjustment_factor = 1.0 - (utilization_deficit * price_elasticity)
             new_model_price[model_id] = previous_model_price[model_id] * adjustment_factor
         else:
-            // 高于稳定区间 - 涨价
+            // Above stability zone - increase price
             utilization_excess = model_utilization - 0.60
             adjustment_factor = 1.0 + (utilization_excess * price_elasticity)
             new_model_price[model_id] = previous_model_price[model_id] * adjustment_factor
     
-        // 保底：单 token 不低于 1 nicoin
+        // Ensure price never goes below 1 nicoin per token
         new_model_price[model_id] = max(new_model_price[model_id], min_per_token_price)
     ```
     
@@ -72,8 +72,8 @@ curl http://node2.gonka.ai:8000/v1/governance/pricing | jq
 ```
 示例返回：
 ```
-  % 总计    % 接收 % 传输  平均速度   时间    时间     时间  当前
-                                 下载  上传   总计   已用    剩余  速度
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
 100   175  100   175    0     0    315      0 --:--:-- --:--:-- --:--:--   314
 {
   "unit_of_compute_price": 100,
@@ -105,14 +105,14 @@ Cosmos SDK 虽然允许定义额外的计量单位，但这些单位并不具有
 
 动态定价带来多方面的经济与运营益处：
 
-- 模型级市场效率：按模型自动发现价格，使推理费用真实反映该模型的供需与计算要求，提升资源分配效率并实现公平定价。
-- 面向模型的网络稳定性：按模型目标利用率调节，既避免热门模型拥堵，也减少小众模型闲置，保证整体服务质量一致。
-- 更强的参与者激励：动态定价鼓励参与者：
+- **模型级市场效率**。按模型自动发现价格，使推理费用真实反映该模型的供需与计算要求，提升资源分配效率并实现公平定价。
+- **面向模型的网络稳定性**。按模型目标利用率调节，既避免热门模型拥堵，也减少小众模型闲置，保证整体服务质量一致。
+- **更强的参与者激励**。动态定价鼓励参与者：
     - 维护多样化模型组合以捕捉不同定价机会
     - 针对重算力模型维持高性能节点
     - 根据需求模式优化模型间资源分配
     - 在所支持模型的峰值时段保持在线
-- 友好的开发者体验：可预期的逐模型定价叠加宽限期，为开发者提供：
+- **友好的开发者体验**。可预期的逐模型定价叠加宽限期，为开发者提供：
     - 更好的特定模型成本预测
     - 清晰的需求与资源信号
     - 针对用例选择最优模型的灵活性

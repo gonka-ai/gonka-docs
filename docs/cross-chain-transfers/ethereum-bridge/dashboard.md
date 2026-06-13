@@ -36,7 +36,7 @@ The dashboard supports the full set of transfers without using the CLI:
 
 ## Deposit ERC-20 tokens (Ethereum → Gonka)
 
-This section walks you through depositing ERC-20 tokens from Ethereum to Gonka using the bridge widget on the native dashboard. The examples below use USDC and USDT — the flow is identical for any supported ERC-20 token.
+This section walks you through depositing ERC-20 tokens from Ethereum to Gonka using the bridge widget on the native dashboard. The examples below use USDC, USDT, and WGNK — the flow is identical for any supported ERC-20 token. When you deposit WGNK, the bridge releases native GNK on Gonka.
 
 A deposit goes through three stages:
 
@@ -87,6 +87,10 @@ The widget also shows the estimated **processing time** and **approximate fee** 
 
     <a href="/images/bridge_widget_8.png" target="_blank"><img src="/images/bridge_widget_8.png" style="width:500px; height:auto;"></a>
 
+=== "GNK"
+
+    <a href="/images/bridge_widget_20.png" target="_blank"><img src="/images/bridge_widget_20.png" style="width:500px; height:auto;"></a>
+
 Click **REVIEW & BRIDGE**.
 
 ### 4. Confirm the transaction
@@ -106,6 +110,10 @@ Your wallet will open a **Confirm Transaction** screen. Review the details caref
 
     <a href="/images/bridge_widget_9.png" target="_blank"><img src="/images/bridge_widget_9.png" style="width:500px; height:auto;"></a>
 
+=== "GNK"
+
+    <a href="/images/bridge_widget_21.png" target="_blank"><img src="/images/bridge_widget_21.png" style="width:500px; height:auto;"></a>
+
 Click **Approve** to submit the transaction.
 
 !!! warning
@@ -122,6 +130,10 @@ After the transaction is confirmed on Ethereum, the bridge will lock your tokens
 === "USDT"
 
     <a href="/images/bridge_widget_10.png" target="_blank"><img src="/images/bridge_widget_10.png" style="width:500px; height:auto;"></a>
+
+=== "GNK"
+
+    <a href="/images/bridge_widget_22.png" target="_blank"><img src="/images/bridge_widget_22.png" style="width:500px; height:auto;"></a>
 
 From this screen you can:
 

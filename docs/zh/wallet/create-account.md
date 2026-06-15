@@ -14,6 +14,8 @@
     - 使用 `inferenced` CLI 工具
     - 在 Keplr 中使用"Connect with Google"流程
 
+以下提供了 **Keplr** 和 **Cosmostation** 的分步说明。同样的流程——安装钱包或扩展、登录、启用 Gonka 链、复制地址——也适用于 [Fox Wallet](https://foxwallet.com/){target=_blank}。
+
 === "外部钱包"
 
     === "我没有外部钱包"
@@ -227,8 +229,6 @@
             <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
 
     === "我已有外部钱包"
-
-        以下提供了 **Keplr** 和 **Cosmostation** 的分步说明。同样的流程——安装钱包或扩展、登录、启用 Gonka 链、复制地址——也适用于 [Fox Wallet](https://foxwallet.com/){target=_blank}。
 
         === "Keplr 移动应用"
 

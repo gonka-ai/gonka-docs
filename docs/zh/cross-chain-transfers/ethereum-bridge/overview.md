@@ -14,6 +14,9 @@
 !!! important "该地址同时也是 WGNK 代币"
     跨链桥合约**就是** **WGNK** ERC-20 代币——它们是位于该地址的同一个合约，而非两个独立的合约。因此上面的 Etherscan 页面同时是跨链桥和 WGNK 代币。跨链桥**进入** Gonka 的包装 ERC-20 代币在 Gonka 侧以 CW-20 代币形式存在；在以太坊上只有 **WGNK**，而它就是该合约。
 
+!!! tip "在以太坊钱包中添加 WGNK"
+    WGNK 是标准的 ERC-20 代币，因此您可以在任何支持 ERC-20 的钱包中将其添加为**自定义代币**——包括 MetaMask、Trust Wallet、Ledger 浏览器扩展等钱包。使用上方的跨链桥合约地址（`0x972a7a92d92796a98801a8818bcf91f1648f2f68`）作为代币合约地址——它既是跨链桥，也是 WGNK 代币。
+
 !!! note "安全审计"
     该跨链桥已由 [CertiK](https://skynet.certik.com/projects/gonka){target=_blank} 审计。完整报告可在 CertiK Skynet 页面获取（其中 Gonka – 以太坊跨链桥审计与共识和推理审计一同列出），同时也提供本地副本：[CertiK Gonka – 以太坊跨链桥审计 (PDF)](../../../assets/audits/CertiK-Gonka-Ethereum-Bridge-Audit.pdf){target=_blank}。
 

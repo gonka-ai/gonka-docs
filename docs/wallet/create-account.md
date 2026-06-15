@@ -14,6 +14,8 @@ There are several ways to do this:
     - With the `inferenced` CLI tool
     - In Keplr using the “Connect with Google” flow
 
+Step-by-step instructions are provided below for **Keplr** and **Cosmostation**. The same process — install the wallet or extension, log in, enable the Gonka chain, and copy your address — also works in [Fox Wallet](https://foxwallet.com/){target=_blank}.
+
 === "External wallet"
 
     === "I do not have an external wallet"
@@ -223,8 +225,6 @@ There are several ways to do this:
             <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
 
     === "I have an external wallet"
-
-        Step-by-step instructions are provided below for **Keplr** and **Cosmostation**. The same process — install the wallet or extension, log in, enable the Gonka chain, and copy your address — also works in [Fox Wallet](https://foxwallet.com/){target=_blank}.
 
         === "Keplr mobile app"
 

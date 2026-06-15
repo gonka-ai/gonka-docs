@@ -3,16 +3,16 @@
 To start using Gonka Network, you first need to create a Gonka Account.
 There are several ways to do this:
 
-- Via external wallet (Keplr)
+- Via external wallet (Keplr, Cosmostation, Fox Wallet)
 - Via `inferenced` CLI tool
 
-!!! note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge"
-    The bridge currently expects a specific account setup. Some wallets may let you create a Gonka account and even export a private key, but that does not always mean the account will work correctly with the bridge. For bridge use, please create your Gonka account in one of the following ways:
+!!! note "Bridge compatibility and seed (mnemonic) phrases"
+    If you create your Gonka account using a **mnemonic (seed) phrase** — as Cosmostation and Fox Wallet do by default — the account **is compatible** with the Ethereum bridge, but the bridge will deliver tokens to a different `gonka1…` address than the one your wallet displays. This happens because Ethereum and Gonka use different BIP-44 derivation paths (coin type `60` vs `118`), so the same seed phrase produces different private keys on each chain. You still control those funds and can access them with an extra derivation step. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for a full explanation.
+
+    For the simplest bridge experience — where your wallet automatically shows the address the bridge uses and no extra derivation step is needed — create your Gonka account in one of the following ways:
 
     - With the `inferenced` CLI tool
     - In Keplr using the “Connect with Google” flow
-    
-    These are the recommended and supported options for users who need Ethereum bridge compatibility.
 
 === "External wallet"
 
@@ -35,12 +35,8 @@ There are several ways to do this:
             Click "Connect with Google". Follow the instructions to sign in via Gmail.
 
             ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge"
-                The bridge currently expects a specific account setup. Some wallets may let you create a Gonka account and even export a private key, but that does not always mean the account will work correctly with the bridge. For bridge use, please create your Gonka account in one of the following ways:
+                If your wallet was created using a **mnemonic (seed) phrase**, the account is compatible with the Ethereum bridge but requires extra steps — the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. You still control those funds and can access them by deriving the correct key. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details. For the simplest bridge experience, create your Gonka account via the `inferenced` CLI or Keplr “Connect with Google” flow.
 
-                - With the `inferenced` CLI tool
-                - In Keplr using the “Connect with Google” flow
-                
-                These are the recommended and supported options for users who need Ethereum bridge compatibility.
                 
             <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
                 
@@ -99,12 +95,8 @@ There are several ways to do this:
             Click "Connect with Google". Follow the instructions to sign in via Gmail.
 
             ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge"
-                The bridge currently expects a specific account setup. Some wallets may let you create a Gonka account and even export a private key, but that does not always mean the account will work correctly with the bridge. For bridge use, please create your Gonka account in one of the following ways:
+                If your wallet was created using a **mnemonic (seed) phrase**, the account is compatible with the Ethereum bridge but requires extra steps — the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. You still control those funds and can access them by deriving the correct key. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details. For the simplest bridge experience, create your Gonka account via the `inferenced` CLI or Keplr “Connect with Google” flow.
 
-                - With the `inferenced` CLI tool
-                - In Keplr using the “Connect with Google” flow
-                
-                These are the recommended and supported options for users who need Ethereum bridge compatibility.
                 
             <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
                 
@@ -156,12 +148,8 @@ There are several ways to do this:
                 Paste your private key.
 
                 ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge"
-                    The bridge currently expects a specific account setup. Some wallets may let you create a Gonka account and even export a private key, but that does not always mean the account will work correctly with the bridge. For bridge use, please create your Gonka account in one of the following ways:
+                    If your wallet was created using a **mnemonic (seed) phrase**, the account is compatible with the Ethereum bridge but requires extra steps — the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. You still control those funds and can access them by deriving the correct key. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details. For the simplest bridge experience, create your Gonka account via the `inferenced` CLI or Keplr “Connect with Google” flow.
 
-                    - With the `inferenced` CLI tool
-                    - In Keplr using the “Connect with Google” flow
-                    
-                    These are the recommended and supported options for users who need Ethereum bridge compatibility.
             
                 <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
                     
@@ -236,15 +224,13 @@ There are several ways to do this:
 
     === "I have an external wallet"
 
+        Step-by-step instructions are provided below for **Keplr** and **Cosmostation**. The same process — install the wallet or extension, log in, enable the Gonka chain, and copy your address — also works in [Fox Wallet](https://foxwallet.com/){target=_blank}.
+
         === "Keplr mobile app"
 
             ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge"
-                The bridge currently expects a specific account setup. Some wallets may let you create a Gonka account and even export a private key, but that does not always mean the account will work correctly with the bridge. For bridge use, please create your Gonka account in one of the following ways:
+                If your wallet was created using a **mnemonic (seed) phrase**, the account is compatible with the Ethereum bridge but requires extra steps — the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. You still control those funds and can access them by deriving the correct key. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details. For the simplest bridge experience, create your Gonka account via the `inferenced` CLI or Keplr “Connect with Google” flow.
 
-                - With the `inferenced` CLI tool
-                - In Keplr using the “Connect with Google” flow
-                
-                These are the recommended and supported options for users who need Ethereum bridge compatibility.
 
             Open Keplr mobile app and log in to your wallet. Select the menu in the top left corner.
             
@@ -271,14 +257,10 @@ There are several ways to do this:
         === "Keplr browser extension"
 
             ??? note "Important note on wallet-bridge compatibility. Please read carefully  if you intend to sell Gonka coins via the Ethereum bridge"
-                The bridge currently expects a specific account setup. Some wallets may let you create a Gonka account and even export a private key, but that does not always mean the account will work correctly with the bridge. For bridge use, please create your Gonka account in one of the following ways:
+                If your wallet was created using a **mnemonic (seed) phrase**, the account is compatible with the Ethereum bridge but requires extra steps — the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. You still control those funds and can access them by deriving the correct key. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details. For the simplest bridge experience, create your Gonka account via the `inferenced` CLI or Keplr “Connect with Google” flow.
 
-                - With the `inferenced` CLI tool
-                - In Keplr using the “Connect with Google” flow
-                
-                These are the recommended and supported options for users who need Ethereum bridge compatibility.
 
-            Install an extension for your browser (if you have extension installed, go to the step [“Add Gonka network to your wallet”](#add-gonka-network-to-your-wallet).
+            Install an extension for your browser (if you have the extension installed, go to the step [“Add Gonka network to your wallet”](#add-gonka-network-to-your-wallet)).
             
             Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
             
@@ -330,6 +312,55 @@ There are several ways to do this:
 
             You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe. 
             To access your wallet on a mobile device, download the Keplr app and log in using the same method you used during registration. Your Gonka Network account will automatically appear in the mobile wallet app.
+
+        === "Cosmostation browser extension"
+
+            !!! note "Important Notice: Extra steps required for bridge use"
+                This option uses an account created from a mnemonic phrase. Because Ethereum and Gonka use different BIP-44 derivation paths, the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. You still control that address (you can derive the Ethereum key from the same mnemonic using coin type `60`), but it requires a manual key derivation step. For a simpler bridge experience, create your Gonka account via the `inferenced` CLI tool or via Keplr ("Connect with Google" path) instead.
+
+            Install the [Cosmostation Wallet browser extension](https://cosmostation.io/products/application) if you haven't already (if you have the extension installed, go to the step ["Add Gonka network to your Cosmostation wallet"](#add-gonka-network-to-your-cosmostation-wallet)).
+            
+            <a href="/images/1_cosmostation.png" target="_blank"><img src="/images/1_cosmostation.png" style="width:500px; height:auto;"></a>
+                    
+            Add the extension to your browser.
+            
+            <a href="/images/2_cosmostation_add_extention.png" target="_blank"><img src="/images/2_cosmostation_add_extention.png" style="width:500px; height:auto;"></a>
+
+            Open the Cosmostation extension and log in to your existing wallet.
+
+            #### Add Gonka network to your Cosmostation wallet
+
+            In the top-right corner, click "All Networks" and select the Gonka chain to add it to your wallet.
+            
+            <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
+            
+            Your Gonka account is now active. To copy your address, click the address above your balance. It usually starts with `gonka...`.
+                
+            <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
+
+            You copied your Gonka account address. You can share it with anyone who will send you payments. Sharing it is safe.
+
+            #### View your Gonka private key
+
+            Click on the Wallet name at the top. Click "Manage" on the top-right corner, then click the Wallet name. 
+                    
+            <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
+            
+            Click "View private key".
+            
+            <a href="/images/13_cosmostation_view_private_key.png" target="_blank"><img src="/images/13_cosmostation_view_private_key.png" style="width:auto; height:337.5px;"></a>
+            
+            Verify your password.
+            
+            <a href="/images/14_cosmostation_verify_password.png" target="_blank"><img src="/images/14_cosmostation_verify_password.png" style="width:auto; height:337.5px;"></a>
+            
+            Choose "Gonka" from the list.
+            
+            <a href="/images/15_cosmostation.png" target="_blank"><img src="/images/15_cosmostation.png" style="width:auto; height:337.5px;"></a>
+               
+            Click on "Gonka" to see the private key. Copy your private key or recovery phrase and store it securely (a hard copy is preferred).
+            
+            <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
 
 === "Via `inferenced` CLI tool"
     

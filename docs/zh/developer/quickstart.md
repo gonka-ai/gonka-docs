@@ -43,7 +43,7 @@ name: index.md
 - [https://router.gonkascan.com/](https://router.gonkascan.com/)
 - [https://gonka-api.org/](https://gonka-api.org/)
 - [https://gonkabroker.com/](https://gonkabroker.com/)
-- [https://gonka-gateway.mingles.ai/](https://gonka-gateway.mingles.ai/)
+- [https://gonka-gateway.mingles.ai/](https://gonka-gateway.mingles.ai/) · [▶ demo](https://youtu.be/gegiRnNMavY)
 - [https://console.hyperfusion.io/](https://console.hyperfusion.io/)
 
 ??? note "关于此列表"

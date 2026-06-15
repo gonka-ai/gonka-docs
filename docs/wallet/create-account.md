@@ -260,7 +260,7 @@ Step-by-step instructions are provided below for **Keplr** and **Cosmostation**.
                 If your wallet was created using a **mnemonic (seed) phrase**, the account is compatible with the Ethereum bridge but requires extra steps — the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. You still control those funds and can access them by deriving the correct key. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details. For the simplest bridge experience, create your Gonka account via the `inferenced` CLI or Keplr “Connect with Google” flow.
 
 
-            Install an extension for your browser (if you have the extension installed, go to the step [“Add Gonka network to your wallet”](#add-gonka-network-to-your-wallet)).
+            Install an extension for your browser (if you have the extension installed, go to the step [“Add Gonka network to your Keplr wallet”](#add-gonka-network-to-your-keplr-wallet)).
             
             Go to [the official Keplr website](https://www.keplr.app/){target=_blank} and click "Get Keplr wallet".
             
@@ -287,7 +287,7 @@ Step-by-step instructions are provided below for **Keplr** and **Cosmostation**.
             At this point, the extension is installed, but not yet connected to your wallet. 
             Next, open the extension and log in to your wallet. Once you are logged in, follow the steps below to  and continue with the setup process.
 
-            #### Add Gonka network to your wallet
+            #### Add Gonka network to your Keplr wallet
 
             Here is the guide on how to add the Gonka network to your wallet and how your Gonka account will be created.
             Open Keplr browser extension. Navigate to the menu on the top left corner”.

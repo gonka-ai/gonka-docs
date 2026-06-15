@@ -264,7 +264,7 @@
                 如果你的钱包是使用**助记词（seed phrase）**创建的，该账户与以太坊桥接兼容，但需要额外步骤——桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。你仍然控制这些资金，可以通过派生正确的密钥来访问。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。如需最简便的桥接体验，请通过 `inferenced` CLI 或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。
 
 
-            如果你尚未安装浏览器扩展，请先进行安装（如果已安装扩展，可直接跳转至步骤 ["将 Gonka 网络添加到你的钱包"](#add-gonka-network-to-your-wallet)）。
+            如果你尚未安装浏览器扩展，请先进行安装（如果已安装扩展，可直接跳转至步骤 ["将 Gonka 网络添加到你的 Keplr 钱包"](#将-gonka-网络添加到你的-keplr-钱包)）。
             
             前往 [the official Keplr website](https://www.keplr.app/){target=_blank} 点击 "Get Keplr wallet"（获取 Keplr 钱包）。
             
@@ -291,7 +291,7 @@
             此时扩展已安装完成，但尚未连接到你的钱包。
             接下来请打开扩展并登录你的钱包。登录后，按照以下步骤继续完成设置。
 
-            #### 将 Gonka 网络添加到你的钱包
+            #### 将 Gonka 网络添加到你的 Keplr 钱包
 
             以下是如何将 Gonka 网络添加到钱包，以及如何创建你的 Gonka 账户的指南。
             打开 Keplr 浏览器扩展，进入左上角菜单。

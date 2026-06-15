@@ -14,6 +14,9 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 !!! important "This address is also the WGNK token"
     The bridge contract **is** the **WGNK** ERC-20 token — they are one and the same contract at this address, not two separate contracts. So the Etherscan page above is simultaneously the bridge and the WGNK token. Wrapped ERC-20 tokens bridged *into* Gonka live on the Gonka side as CW-20 tokens; only **WGNK** lives on Ethereum, and it is this contract.
 
+!!! tip "Adding WGNK to your Ethereum wallet"
+    WGNK is a standard ERC-20 token, so you can add it as a **custom token** in any wallet that supports ERC-20 — MetaMask, Trust Wallet, Ledger browser extension, and similar wallets. Use the bridge contract address above (`0x972a7a92d92796a98801a8818bcf91f1648f2f68`) as the token contract address — it is both the bridge and the WGNK token.
+
 !!! note "Security audit"
     The bridge has been audited by [CertiK](https://skynet.certik.com/projects/gonka){target=_blank}. The full report is available on the CertiK Skynet page (where the Gonka – Ethereum Bridge audit is listed alongside the consensus and inference audits) and as a local copy: [CertiK Gonka – Ethereum Bridge audit (PDF)](../../assets/audits/CertiK-Gonka-Ethereum-Bridge-Audit.pdf){target=_blank}.
 

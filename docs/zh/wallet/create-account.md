@@ -36,8 +36,8 @@
 
             点击 "Connect with Google"，按照提示通过 Gmail 登录。
 
-            ??? note "关于钱包与桥接兼容性的重要说明。如果你打算通过以太坊桥出售 Gonka 代币，请仔细阅读"
-                如果你的钱包是使用**助记词（seed phrase）**创建的，该账户与以太坊桥接兼容，但需要额外步骤——桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。你仍然控制这些资金，可以通过派生正确的密钥来访问。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。如需最简便的桥接体验，请通过 `inferenced` CLI 或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。
+            !!! note "桥接兼容性"
+                通过 Keplr "Connect with Google" 流程创建的账户基于密钥而非助记词，因此与以太坊桥接完全兼容——桥接会将代币发送到与钱包显示相同的 `gonka1…` 地址，无需额外的派生步骤。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
                 
             <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
@@ -96,8 +96,8 @@
             
             点击 "Connect with Google"，按照提示通过 Gmail 登录。
 
-            ??? note "关于钱包与桥接兼容性的重要说明。如果你打算通过以太坊桥出售 Gonka 代币，请仔细阅读"
-                如果你的钱包是使用**助记词（seed phrase）**创建的，该账户与以太坊桥接兼容，但需要额外步骤——桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。你仍然控制这些资金，可以通过派生正确的密钥来访问。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。如需最简便的桥接体验，请通过 `inferenced` CLI 或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。
+            !!! note "桥接兼容性"
+                通过 Keplr "Connect with Google" 流程创建的账户基于密钥而非助记词，因此与以太坊桥接完全兼容——桥接会将代币发送到与钱包显示相同的 `gonka1…` 地址，无需额外的派生步骤。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
                 
             <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
@@ -149,13 +149,8 @@
             
                 粘贴你的私钥。
 
-                ??? note "关于钱包与桥接兼容性的重要说明。如果你打算通过以太坊桥出售 Gonka 代币，请仔细阅读"
-                    如果你的钱包是使用**助记词（seed phrase）**创建的，该账户与以太坊桥接兼容，但需要额外步骤——桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。你仍然控制这些资金，可以通过派生正确的密钥来访问。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。如需最简便的桥接体验，请通过 `inferenced` CLI 或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。
-
-                    - 使用 `inferenced` CLI 工具
-                    - 在 Keplr 中使用"Connect with Google"流程
-                    
-                    这些是需要以太坊桥接兼容性的用户的推荐和支持选项。
+                !!! note "桥接兼容性"
+                    如果你的 Keplr 钱包是使用**助记词（seed phrase）**创建的，该账户仍与以太坊桥接兼容，但桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。这是因为以太坊和 Gonka 使用不同的 BIP-44 派生路径（币种类型 `60` vs `118`）。你仍然控制这些资金，可以通过额外的派生步骤来访问。如需最简便的桥接体验，请通过 `inferenced` CLI 工具或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
             
                 <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
                     
@@ -173,8 +168,8 @@
 
         === "Cosmostation 浏览器扩展"
 
-            !!! note "重要提示：使用桥接需要额外步骤"
-                此选项通过助记词创建账户。由于以太坊和 Gonka 使用不同的 BIP-44 派生路径，桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。你仍然控制该地址（可以使用相同助记词通过币种类型 `60` 派生以太坊密钥），但需要手动派生密钥。为获得更简便的桥接体验，请改为通过 `inferenced` CLI 工具或 Keplr（"Connect with Google"流程）创建你的 Gonka 账户。
+            !!! note "桥接兼容性"
+                此选项通过**助记词（seed phrase）**创建账户，因此该账户与以太坊桥接兼容，但桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。这是因为以太坊和 Gonka 使用不同的 BIP-44 派生路径（币种类型 `60` vs `118`）。你仍然控制该地址，可以通过额外的派生步骤来访问。如需最简便的桥接体验，请改为通过 `inferenced` CLI 工具或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
                 
             获取 [Cosmostation Wallet 浏览器扩展](https://cosmostation.io/products/application)。
             
@@ -232,8 +227,8 @@
 
         === "Keplr 移动应用"
 
-            ??? note "关于钱包与桥接兼容性的重要说明。如果你打算通过以太坊桥出售 Gonka 代币，请仔细阅读"
-                如果你的钱包是使用**助记词（seed phrase）**创建的，该账户与以太坊桥接兼容，但需要额外步骤——桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。你仍然控制这些资金，可以通过派生正确的密钥来访问。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。如需最简便的桥接体验，请通过 `inferenced` CLI 或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。
+            !!! note "桥接兼容性"
+                如果你的 Keplr 钱包是使用**助记词（seed phrase）**创建的，该账户仍与以太坊桥接兼容，但桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。这是因为以太坊和 Gonka 使用不同的 BIP-44 派生路径（币种类型 `60` vs `118`）。你仍然控制这些资金，可以通过额外的派生步骤来访问。如需最简便的桥接体验，请通过 `inferenced` CLI 工具或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
 
             打开 Keplr 移动应用并登录你的钱包。点击左上角的菜单。
@@ -260,11 +255,11 @@
 
         === "Keplr 浏览器扩展"
 
-            ??? note "关于钱包与桥接兼容性的重要说明。如果你打算通过以太坊桥出售 Gonka 代币，请仔细阅读"
-                如果你的钱包是使用**助记词（seed phrase）**创建的，该账户与以太坊桥接兼容，但需要额外步骤——桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。你仍然控制这些资金，可以通过派生正确的密钥来访问。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。如需最简便的桥接体验，请通过 `inferenced` CLI 或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。
+            !!! note "桥接兼容性"
+                如果你的 Keplr 钱包是使用**助记词（seed phrase）**创建的，该账户仍与以太坊桥接兼容，但桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。这是因为以太坊和 Gonka 使用不同的 BIP-44 派生路径（币种类型 `60` vs `118`）。你仍然控制这些资金，可以通过额外的派生步骤来访问。如需最简便的桥接体验，请通过 `inferenced` CLI 工具或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
 
-            如果你尚未安装浏览器扩展，请先进行安装（如果已安装扩展，可直接跳转至步骤 ["将 Gonka 网络添加到你的钱包"](#add-gonka-network-to-your-wallet)）。
+            如果你尚未安装浏览器扩展，请先进行安装（如果已安装扩展，可直接跳转至步骤 ["将 Gonka 网络添加到你的 Keplr 钱包"](#将-gonka-网络添加到你的-keplr-钱包)）。
             
             前往 [the official Keplr website](https://www.keplr.app/){target=_blank} 点击 "Get Keplr wallet"（获取 Keplr 钱包）。
             
@@ -291,7 +286,7 @@
             此时扩展已安装完成，但尚未连接到你的钱包。
             接下来请打开扩展并登录你的钱包。登录后，按照以下步骤继续完成设置。
 
-            #### 将 Gonka 网络添加到你的钱包
+            #### 将 Gonka 网络添加到你的 Keplr 钱包
 
             以下是如何将 Gonka 网络添加到钱包，以及如何创建你的 Gonka 账户的指南。
             打开 Keplr 浏览器扩展，进入左上角菜单。
@@ -319,8 +314,8 @@
 
         === "Cosmostation 浏览器扩展"
 
-            !!! note "重要提示：使用桥接需要额外步骤"
-                此选项使用由助记词创建的账户。由于以太坊和 Gonka 使用不同的 BIP-44 派生路径，桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。你仍然控制该地址（可以使用相同助记词通过币种类型 `60` 派生以太坊密钥），但需要手动派生密钥。为获得更简便的桥接体验，请改为通过 `inferenced` CLI 工具或 Keplr（"Connect with Google"流程）创建你的 Gonka 账户。
+            !!! note "桥接兼容性"
+                此选项通过**助记词（seed phrase）**创建账户，因此该账户与以太坊桥接兼容，但桥接会将代币发送到与你钱包显示的不同的 `gonka1…` 地址。这是因为以太坊和 Gonka 使用不同的 BIP-44 派生路径（币种类型 `60` vs `118`）。你仍然控制该地址，可以通过额外的派生步骤来访问。如需最简便的桥接体验，请改为通过 `inferenced` CLI 工具或 Keplr "Connect with Google" 流程创建你的 Gonka 账户。详见 [地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
             如果尚未安装，请先安装 [Cosmostation Wallet 浏览器扩展](https://cosmostation.io/products/application)（如果已安装扩展，可直接跳转至步骤 ["将 Gonka 网络添加到你的 Cosmostation 钱包"](#将-gonka-网络添加到你的-cosmostation-钱包)）。
             

@@ -6,6 +6,10 @@ name: index.md
 
 This guide explains how to send an inference request to Gonka through a community broker. It is the fastest way to start using the network today.
 
+!!! tip "Not writing code?"
+
+    If you just want to connect Gonka to an existing app, chat interface, or no-code tool, see [Use Gonka in your app](use-in-your-app.md) for a step-by-step, UI-focused guide.
+
 !!! note "How developers connect to Gonka now"
 
     Gonka inference is now organized around **devshards** — short-lived sessions that hold a small on-chain deposit (an escrow) and settle per-request billing off-chain. The role of opening a devshard, signing requests, rotating the session, and submitting settlement to the chain is performed by a piece of software called a **gateway**.

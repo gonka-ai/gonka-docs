@@ -10,7 +10,7 @@
 
 ## June 15, 2026
 
-**v0.2.13-devshard-v2 Upgrade Proposal Enters Governance**
+**The v0.2.13-devshard-v2 runtime upgrade proposal has entered governance.**
 
 This proposal covers the devshard v2 release: [https://github.com/gonka-ai/gonka/releases/tag/release/devshard/v2.0.0](https://github.com/gonka-ai/gonka/releases/tag/release/devshard/v2.0.0) 
 This is the first devshard-only upgrade. It operates independently of full-chain software upgrades. If approved, v2 will run in parallel with the existing v1 devshard runtime.

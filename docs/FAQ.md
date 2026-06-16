@@ -26,13 +26,15 @@ GNK is the native coin of the Gonka network. It is used to incentivize participa
 
 ### Can I buy GNK coin?
 
-No, you can not buy GNK on exchanges right now because the coin has not been listed yet.
-Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
+Native GNK is **not listed on any centralized exchange (CEX)** yet, so you cannot buy it on a CEX. Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
 
-At the moment, the main legitimate way to obtain GNK before any listing is to [mine as a Host](https://gonka.ai/host/quickstart/) (GNK can already be earned by contributing computational resources to the network).
+There are, however, two legitimate ways to obtain GNK today:
 
-!!! note "Important"
-	Be aware that fake GNK listings and pages currently exist, including on CoinGecko. These pages do not represent the official GNK coin and are not affiliated with the project in any way. GNK is not tradable on any exchange at this time. Any coin claiming to be GNK, whether on Solana or other networks, is not an official GNK asset. Always verify information through official channels.
+- **Mine as a Host.** Contribute computational resources to the network and earn GNK directly. See [mine as a Host](https://gonka.ai/host/quickstart/).
+- **Buy WGNK on Ethereum and bridge it back to GNK.** GNK can be bridged to Ethereum as **WGNK** (wrapped GNK), which is a standard ERC-20 that trades on DEXs such as Uniswap. You can buy WGNK there and then [bridge it back to native GNK](cross-chain-transfers/ethereum-bridge/withdraw-gnk.md). See the [Ethereum bridge overview](cross-chain-transfers/ethereum-bridge/overview.md).
+
+!!! note "Important — verify the contract address"
+	The **only** official Ethereum representation of GNK is **WGNK** at `0x972a7a92d92796a98801a8818bcf91f1648f2f68` — this address is both the bridge contract and the WGNK ERC-20 token. Always verify this exact address before trading, e.g. on [Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68) or [CoinMarketCap](https://coinmarketcap.com/currencies/gonka/). Fake GNK listings and pages still exist on other trackers and networks: any coin claiming to be GNK on Solana, or on any contract other than the WGNK address above, is **not** an official GNK asset. Always verify information through official channels.
 
 ### What makes the protocol efficient?
 What differentiates Gonka from the "big players" is its pricing and the fact that, despite the Host's size, the inference is distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).

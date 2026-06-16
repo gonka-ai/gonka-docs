@@ -23,7 +23,7 @@ This guide explains how to send an inference request to Gonka through a communit
     | **Model provenance and verifiable output** | Models are hosted and versioned by the provider, but users cannot independently verify which model produced a given output. | Inference can be linked to protocol-defined model metadata and network execution records, enabling verifiable provenance. |
     | **Censorship resistance** | Access is controlled centrally by the provider. | Access is moving into transparent, protocol-governed mechanisms. Current production access is guarded while protocol-level request validation is being completed. |
     | **Auditability and transparency** | Logging, billing, and usage tracking are controlled by the API provider. | Requests, billing, and settlement are designed to be signed, timestamped, and auditable. |
-    | **Transparent tokenomics** | Pricing and resource allocation are provider-defined. | Pricing and settlement are protocol-defined or on-chain, making inference economics more inspectable. |
+    | **Transparent tokenomics** | Pricing and resource allocation are provider-defined. | The network's per-inference price and settlement are protocol-defined and on-chain, making the underlying inference economics inspectable. Brokers are independent resellers and set their own retail prices on top, so the price you pay differs from broker to broker. |
 
 ---
 

@@ -16,7 +16,6 @@ nav:
 
   - Developer:
     - Quickstart: developer/quickstart.md
-    - Use Gonka in your app: developer/use-in-your-app.md
     - Run your own gateway: developer/gateway-developer-quickstart.md
 
   - Host:
@@ -181,7 +180,6 @@ plugins:
             Glossary: 术语表
             Developer: 开发者
             Quickstart: 快速上手
-            Use Gonka in your app: 在你的应用中使用 Gonka
             Run your own gateway: 部署自己的网关
             Host: 主机
             Get started: 入门

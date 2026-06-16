@@ -26,13 +26,15 @@ GNK 是 Gonka 网络的原生代币。它用于激励参与者、为资源定价
 
 ### 我可以购买 GNK 代币吗？
 
-不可以，您目前无法在交易所购买 GNK，因为该代币尚未上市。
-请关注 [Twitter](https://x.com/gonka_ai) 上的官方公告，了解有关上市的任何更新。
+原生 GNK **尚未在任何中心化交易所（CEX）上市**，因此您无法在 CEX 上购买它。请关注 [Twitter](https://x.com/gonka_ai) 上的官方公告，了解有关上市的任何更新。
 
-目前，在任何上线交易之前，获取 GNK 的主要合法方式是 [作为 Host 进行挖矿](https://gonka.ai/host/quickstart/) (通过向网络贡献计算资源，已经可以赚取GNK。).
+不过，目前有两种合法的方式来获取 GNK：
 
-!!! note "重要"
-	请注意，目前存在虚假的 GNK 上线信息和页面，包括在 CoinGecko 和 CoinMarketCap 上。 这些页面并不代表官方的 GNK 代币，也与项目方没有任何关联。 目前 GNK 尚未在任何交易所上线或可交易。 任何声称是 GNK 的代币，无论是在 Solana 还是其他网络上，都不是官方的 GNK 资产。请务必通过官方渠道核实所有相关信息。
+- **作为 Host 进行挖矿。** 通过向网络贡献计算资源直接赚取 GNK。请参阅 [作为 Host 进行挖矿](https://gonka.ai/host/quickstart/)。
+- **在以太坊上购买 WGNK，然后将其桥接回 GNK。** GNK 可以作为 **WGNK**（wrapped GNK）桥接到以太坊，WGNK 是一种标准的 ERC-20 代币，可在 Uniswap 等 DEX 上交易。您可以在那里购买 WGNK，然后[将其桥接回原生 GNK](cross-chain-transfers/ethereum-bridge/withdraw-gnk.md)。请参阅 [以太坊桥接概览](cross-chain-transfers/ethereum-bridge/overview.md)。
+
+!!! note "重要 — 请核实合约地址"
+	GNK 在以太坊上**唯一**的官方表示形式是地址为 `0x972a7a92d92796a98801a8818bcf91f1648f2f68` 的 **WGNK** —— 该地址既是桥接合约，也是 WGNK ERC-20 代币。交易前请务必核实此确切地址，例如在 [Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68) 或 [CoinMarketCap](https://coinmarketcap.com/currencies/gonka/) 上。请注意，其他追踪网站和网络上仍存在虚假的 GNK 上线信息和页面：任何声称是 GNK 的代币，无论是在 Solana 上，还是在上述 WGNK 地址以外的任何合约上，都不是官方的 GNK 资产。请务必通过官方渠道核实所有相关信息。
 
 ### 协议为何高效？
 Gonka 与那些“头部玩家”之间的区别在于其定价方式，以及即使 Host 的规模不同，推理任务仍然会被公平地分配。若想了解更多内容，请查看[白皮书](https://gonka.ai/whitepaper.pdf).

@@ -8,6 +8,66 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## June 15, 2026
+
+**v0.2.13-devshard-v2 Upgrade Proposal Enters Governance**
+
+This proposal covers the devshard v2 release: [https://github.com/gonka-ai/gonka/releases/tag/release/devshard/v2.0.0](https://github.com/gonka-ai/gonka/releases/tag/release/devshard/v2.0.0) 
+This is the first devshard-only upgrade. It operates independently of full-chain software upgrades. If approved, v2 will run in parallel with the existing v1 devshard runtime.
+See [the upgrade design doc](https://github.com/gonka-ai/gonka/blob/devshard-0.2.13-v2/devshard/docs/upgrade.md) and [the versioned package](https://github.com/gonka-ai/gonka/tree/devshard-0.2.13-v2/versioned) for details.
+
+**Key Changes**
+
+1. Remove the seed reveal round, seal completed inference stats, and prune payloads so long-running sessions do not keep all served inferences in RAM or state
+
+2. Add internal devshard traces and metrics through OpenTelemetry and Prometheus
+
+3. Add join-stack observability with Grafana, Jaeger, Prometheus, Loki, Promtail, and cAdvisor
+
+4. Store per-inference validation counters outside the state root in SQLite/Postgres and expose per-slot totals through devshard stats endpoints after inference pruning
+
+5. Prune old epoch storage on epoch changes, move SQLite/Postgres schema setup out of hot paths, and select exactly one storage backend per process
+
+**Upgrade Plan**
+
+The devshard runtime is upgraded through an on-chain params proposal, not a full chain software upgrade.
+
+The proposal registers a new entry in `DevshardEscrowParams.approved_versions`.
+
+The release publishes the `devshardd` binary as a Gonka release artifact. If the on-chain proposal is approved, `versiond` automatically downloads the binary, verifies the sha256 hash, and starts an additional `devshardd` process inside the existing `versiond` container.
+
+The new process is served under the `/devshard/v2` prefix. Existing v1 devshard traffic continues on `/devshard/v1` and `/v1/devshard`. No node container restart or manual host steps are expected during this type of upgrade.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+  
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.13 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 76 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 76 -o json --node $NODE_URL/chain-rpc/
+```
+**Deadlines**
+
+Voting ends:  June 17th, 2026, at 23:39:02 UTC
+
 ## June 6, 2026
 
 **[The PR for the devshard-only upgrade](https://github.com/gonka-ai/gonka/pull/1289) is now open for review.**

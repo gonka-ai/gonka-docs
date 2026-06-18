@@ -213,10 +213,36 @@ body:has(.gonka-landing) .gonka-header{padding-left:calc(max((100vw - 1440px)/2,
 .gonka-hero{text-align:center;overflow:visible;}
 .gonka-banner,
 .gonka-hero h1,
-.gonka-hero .tagline{
+.gonka-hero .tagline,
+.gonka-hero .gonka-cta{
   position: relative;
   top: -70pt;
 }
+
+/* "Buy or Sell GNK on Uniswap" call-to-action under the tagline */
+.gonka-cta{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin:0;
+  font-size:15px;
+  line-height:1.1;
+  letter-spacing:-0.04em;
+}
+.gonka-cta__label{color:#2a2a2a;}
+.gonka-cta__uniswap{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  color:#FF37C7;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  text-decoration:none;
+}
+.gonka-cta__uniswap:hover{text-decoration:underline;}
+.gonka-uniswap-icon{flex:none;width:22px;height:24px;display:block;}
 .gonka-hero::before{
   content:"";
   position:absolute;
@@ -233,7 +259,8 @@ body:has(.gonka-landing) .gonka-header{padding-left:calc(max((100vw - 1440px)/2,
 @media (max-width:500px){
   .gonka-banner,
   .gonka-hero h1,
-  .gonka-hero .tagline{
+  .gonka-hero .tagline,
+  .gonka-hero .gonka-cta{
     top: 0;
   }
   .gonka-cards{
@@ -262,6 +289,13 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
 }
 [data-md-color-scheme="slate"] .tagline {
   color: #bbb;
+}
+[data-md-color-scheme="slate"] .gonka-cta__label {
+  color: #fff;
+}
+/* Keep the Uniswap brand colour; don't invert it like the mono logos. */
+[data-md-color-scheme="slate"] .gonka-uniswap-icon {
+  filter: none !important;
 }
 
 [data-md-color-scheme="slate"] .footer-col h4,
@@ -460,6 +494,60 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
 [data-md-color-scheme="slate"] .brand-logo img,
 [data-md-color-scheme="slate"] .social img{filter:invert(100%);} /* keep logos visible */
 [data-md-color-scheme="slate"] .footer-col a{color:#bbb;}
+
+/* == 6b. Standalone content page (Gonka, e.g. /disclaimer/) ===== */
+/* Reuses .gonka-landing chrome (hidden Material header/sidebar, full-width
+   grid) but lays content out from the top with the footer pinned at the
+   bottom, instead of vertically centering a hero. */
+.gonka-landing--doc{justify-content:flex-start;}
+
+/* The landing variant forces the content wrapper to exactly 100vh so the
+   hero can center; for a flowing document we want it to grow with content. */
+body:has(.gonka-landing--doc) .md-content__inner,
+body:has(.gonka-landing--doc) .md-content__inner > div{
+  height:auto !important;
+  min-height:100vh !important;
+}
+
+.gonka-landing--doc .gonka-main{
+  justify-content:flex-start;
+  align-items:stretch;
+}
+
+.gonka-doc-section{
+  width:100%;
+  padding:156px 20px 80px;
+}
+@media (max-width:500px){
+  .gonka-doc-section{padding:96px 16px 64px;}
+}
+
+/* Centered 800px column with left-aligned text, matching the Figma design. */
+.gonka-doc-content{
+  width:100%;
+  max-width:800px;
+  margin:0 auto;
+}
+.gonka-doc-section h1{
+  font-size:24px;
+  line-height:1.1;
+  letter-spacing:-0.04em;
+  font-weight:500;
+  color:#2a2a2a;
+  margin:0 0 40px;
+}
+.gonka-doc-section p{
+  font-size:15px;
+  font-weight:400;
+  line-height:1.2;
+  letter-spacing:-0.01em;
+  color:#2a2a2a;
+  margin:0;
+}
+
+/* Dark mode */
+[data-md-color-scheme="slate"] .gonka-doc-section h1{color:#fff;}
+[data-md-color-scheme="slate"] .gonka-doc-section p{color:#e0e0e0;}
 
 /* == 7. Helper buttons (site‑wide) ============================== */
 .header-button{margin-left:15px;padding:8px 16px;font-weight:bold;color:#fff;text-decoration:none;border-radius:5px;transition:background-color .3s;}

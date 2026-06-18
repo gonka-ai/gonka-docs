@@ -16,6 +16,7 @@ docs_dir: _stage/home
 
 nav:
   - Home: index.md
+  - Disclaimer: disclaimer.md
 
 # Lists in INHERIT are replaced, not merged, so the plugin list has to be
 # redeclared. Keep it minimal: the landing doesn't need minify/video.

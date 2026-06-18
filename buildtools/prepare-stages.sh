@@ -23,6 +23,10 @@ mkdir -p "$STAGE/home/zh"
 cp "$SRC/index.md"       "$STAGE/home/index.md"
 cp "$SRC/zh/index.md"    "$STAGE/home/zh/index.md"
 
+# Standalone root-level landing pages (served at /<name>/ and /zh/<name>/).
+cp "$SRC/disclaimer.md"    "$STAGE/home/disclaimer.md"
+cp "$SRC/zh/disclaimer.md" "$STAGE/home/zh/disclaimer.md"
+
 # Assets referenced by the landing (non-.md files are copied verbatim by mkdocs).
 for dir in assets images stylesheets; do
   if [ -d "$SRC/$dir" ]; then
@@ -60,6 +64,11 @@ rm -f "$STAGE/docs/introduction.md" "$STAGE/docs/zh/introduction.md"
 
 # CNAME only belongs at the site root; remove the copy inside /docs/.
 rm -f "$STAGE/docs/CNAME"
+
+# Standalone root-level pages (disclaimer, etc.) are served from the site root
+# by the home build, not under /docs/. Remove them from the docs stage so the
+# strict docs build doesn't fail on "page not in nav".
+rm -f "$STAGE/docs/disclaimer.md" "$STAGE/docs/zh/disclaimer.md"
 
 echo "Staged:"
 echo "  $STAGE/home -> landing"

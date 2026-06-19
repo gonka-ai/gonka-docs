@@ -57,7 +57,7 @@ name: index.md
 2. 在经纪商的控制台中生成 API key。
 3. 记下经纪商的 `base_url`（例如 `https://api.<broker-domain>/v1`）以及它支持的模型列表。
 
-### 1.3 发送你的第一个请求
+### 1.3 在 Gonka 上发送你的第一个请求
 
 设置环境变量：
 

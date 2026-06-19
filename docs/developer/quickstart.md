@@ -100,9 +100,9 @@ The exact menu names below may differ between app versions — look for the equi
 
     Use the standard **OpenAI** module, then look for advanced settings to override the **Base Path / Base URL** with your broker's URL.
 
-Prefer to write code instead? Continue to [§1.4 Send your first request](#14-send-your-first-request).
+Prefer to write code instead? Continue to [§1.4 Send your first request on Gonka](#14-send-your-first-request-on-gonka).
 
-### 1.4 Send your first request
+### 1.4 Send your first request on Gonka
 
 Set environment variables:
 

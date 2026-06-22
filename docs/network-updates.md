@@ -8,6 +8,30 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## June 22, 2026
+
+**The v0.2.13-devshard-v2 runtime upgrade proposal has passed governance**
+
+The devshard v2 runtime has been approved on-chain and added to `DevshardEscrowParams.approved_versions`.
+
+This proposal covered the devshard v2 release: [https://github.com/gonka-ai/gonka/releases/tag/release/devshard/v2.0.0](https://github.com/gonka-ai/gonka/releases/tag/release/devshard/v2.0.0)
+
+This was the first devshard-only runtime upgrade. It operates independently of full-chain software upgrades and does not require a chain binary upgrade.
+
+With the proposal approved, v2 can now run in parallel with the existing v1 devshard runtime. The new process is served under the `/devshard/v2` prefix, while existing v1 traffic continues on `/devshard/v1` and `/v1/devshard`.
+
+The release publishes the `devshardd` binary as a Gonka release artifact. `versiond` automatically downloads the binary, verifies the sha256 hash, and starts an additional `devshardd` process inside the existing `versiond` container.
+
+No node container restart or manual host steps are expected for this type of devshard-only runtime upgrade.
+
+**Key Changes**
+
+1) Removed the seed reveal round, sealed completed inference stats, and pruned payloads so long-running sessions do not keep all served inferences in RAM or state.
+2) Added internal devshard traces and metrics through OpenTelemetry and Prometheus.
+3) Added join-stack observability with Grafana, Jaeger, Prometheus, Loki, Promtail, and cAdvisor.
+4) Moved per-inference validation counters outside the state root into SQLite/Postgres and exposed per-slot totals through devshard stats endpoints after inference pruning.
+5) Pruned old epoch storage on epoch changes, moved SQLite/Postgres schema setup out of hot paths, and enforced selection of exactly one storage backend per process.
+
 ## June 15, 2026
 
 **The v0.2.13-devshard-v2 runtime upgrade proposal has entered governance.**

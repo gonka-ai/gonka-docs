@@ -37,13 +37,13 @@ name: index.md
 
 ### 1.1 选择经纪商
 
-- [https://proxy.gonka.gg/](https://proxy.gonka.gg/)
+- [https://proxy.gonka.gg/](https://proxy.gonka.gg/) · [▶ demo](https://drive.google.com/file/d/1-Zk__4cY_ENi0Q8gw-JHgEBz6XZWXKAj/view?pli=1)
 - [https://gonkagate.com/](https://gonkagate.com/)
 - [https://gate.joingonka.ai/](https://gate.joingonka.ai/)
-- [https://router.gonkascan.com/](https://router.gonkascan.com/)
-- [https://gonka-api.org/](https://gonka-api.org/)
+- [https://router.gonkascan.com/](https://router.gonkascan.com/) · [▶ demo](https://youtu.be/1uWmLGPoBCM)
+- [https://gonka-api.org/](https://gonka-api.org/) · [▶ demo](https://youtu.be/JgY2ikjcP9M)
 - [https://gonkabroker.com/](https://gonkabroker.com/)
-- [https://gonka-gateway.mingles.ai/](https://gonka-gateway.mingles.ai/) · [▶ demo](https://youtu.be/gegiRnNMavY)
+- [https://router.mingles.ai/](https://router.mingles.ai/) · [▶ demo](https://youtu.be/gegiRnNMavY)
 - [https://console.hyperfusion.io/](https://console.hyperfusion.io/)
 
 ??? note "关于此列表"

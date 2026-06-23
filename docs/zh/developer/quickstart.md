@@ -45,6 +45,7 @@ name: index.md
 - [https://gonkabroker.com/](https://gonkabroker.com/)
 - [https://router.mingles.ai/](https://router.mingles.ai/) · [▶ demo](https://youtu.be/gegiRnNMavY)
 - [https://console.hyperfusion.io/](https://console.hyperfusion.io/)
+- [https://inference.dahl.global](https://inference.dahl.global)
 
 ??? note "关于此列表"
     此处列出的经纪商在主网上运行 Gonka gateway，并已同意被公开列出。Gonka 不为任何特定经纪商背书。列表会在每次页面加载时以随机顺序重新打乱，因此每家经纪商出现的位置不代表任何排名；请根据自身需求独立评估每家运营方。

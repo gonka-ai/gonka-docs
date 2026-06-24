@@ -96,35 +96,36 @@ export NODE_URL=https://node3.gonka.ai/
 
 **[仅 devshard 升级的 PR](https://github.com/gonka-ai/gonka/pull/1289) 现已开放审查。**
 
-这是首次仅针对 devshard 的升级，因此流程与标准链升级不同。devshard 升级独立于主区块链更新 devshard 运行时。它们不需要通过 Cosmovisor 进行协调的全节点升级，不会影响主网行为，也不预期会导致推理服务中断。
+这是首次仅针对 devshard 的升级，因此流程与标准链升级不同。devshard 升级独立于主区块链更新 devshard 运行时，无需通过 Cosmovisor 进行协调的全节点升级，不会影响主网行为，也不应导致推理服务停机。
 
 如果通过治理流程获得批准，新的 devshard 版本将与现有的 v1 运行时并行运行。
 
-请直接查看 PR 并对发现的问题、疑问、改进建议、边缘情况或潜在漏洞留下评论。
+请直接查看 PR 并对任何发现、问题、改进建议、边缘情况或潜在漏洞留下评论。
 
-有意义的评审贡献，包括重要评论、发现的漏洞和安全问题，可能有资格在下一次升级周期中获得社区赏金。
+有意义的评审贡献，包括重要评论、发现漏洞和安全问题，在下一次升级周期中可能有资格获得社区赏金。
 
-这仅是一次 PR 评审呼吁，不会启动正式投票。治理投票流程将在评审期结束后开始。
+这仅是一次 PR 评审请求，不会启动正式投票。治理投票流程将在评审期结束后开始。
 
 ## 2026年5月28日
 
 **MiniMax-M2.7 现已在 Gonka 网络上线**
 
-v0.2.13 中宣布的引导阶段已完成。从链纪元 278 开始，MiniMaxAI/MiniMax-M2.7 与 Qwen3-235B 和 Kimi K2.6 一同成为活跃模型组，MiniMax 组中获得的 PoC 权重现在正以校准系数 0.3024 转换为共识权重。
+v0.2.13 中宣布的引导阶段已完成。自链纪元 278 起，MiniMaxAI/MiniMax-M2.7 正式加入 Qwen3-235B 和 Kimi K2.6，成为活跃模型组，且在 MiniMax 组中获得的 PoC 权重现正以校准系数 0.3024 转换为共识权重。
 
-针对 MiniMax 的按模型参与执行机制现已生效。已为 MiniMax 选择 DIRECT、DELEGATE 或 REFUSE 的主机无需进行其他操作——现有设置将继续生效。尚未做出选择的主机应尽快做出选择，以避免按纪元处罚（[https://gonka.ai/docs/host/quickstart/#optional-poc-delegation-and-refusal](https://gonka.ai/docs/host/quickstart/#optional-poc-delegation-and-refusal)）。
+MiniMax 的按模型参与执行机制现已生效。已为 MiniMax 选择 DIRECT、DELEGATE 或 REFUSE 的主机无需进一步操作——原有设置将继续生效。尚未做出选择的主机应尽快完成选择，以避免遭受每纪元惩罚（[https://gonka.ai/docs/host/quickstart/#optional-poc-delegation-and-refusal](https://gonka.ai/docs/host/quickstart/#optional-poc-delegation-and-refusal)）。
 
 ## 2026年5月26日
 
 **升级已执行：v0.2.13 现已在主网上线**
 
-关于升级提案 v0.2.13（提案编号 54）的链上治理投票已结束。该提案已获批准，并于区块 `4267300` 在主网上成功执行。
+针对升级提案 v0.2.13（提案编号 54）的链上治理投票已结束。
+该提案已获批准，升级已于区块 `4267300` 在主网上成功执行。
 
-## 2026年5月25日
+## 2026年5月25日 
 
-**升级 v0.2.13：预先下载二进制文件和 MiniMax-M2.7 权重**
+**升级 v0.2.13：预下载二进制文件和 MiniMax-M2.7 权重**
 
-v0.2.13 升级提案（提案编号 (https://github.com/gonka-ai/gonka/pull/1143)54）已通过链上治理，升级现已安排。
+v0.2.13 升级提案（提案编号 (https://github.com/gonka-ai/gonka/pull/1143)54）已通过链上治理，升级现已确定时间。
 
 • 升级高度：4267300
 • 预计升级时间：2026年5月26日 14:42 UTC（07:42 PDT）
@@ -159,33 +160,33 @@ echo "e52b86c4f64a47f0ea9bdb3327feb321b8a4208a76b35d52a7e9ddd1b9d6eed5 .inferenc
 
 ## 2026年5月22日
 
-**v0.2.13 投票已结束——准备在高度 4267300 进行升级**
+**v0.2.13 投票已结束——准备在高度 4267300 进行升级** 
 
-链上治理投票 [升级提案 v0.2.13](https://github.com/gonka-ai/gonka/pull/1143)（提案编号 `54`）已结束。该提案已**通过**。
+链上治理投票 [升级提案 v0.2.13](https://github.com/gonka-ai/gonka/pull/1143)（提案 ID `54`）已经结束。该提案已**通过**。
 
-升级将在主网上 **区块高度 4267300**（≈ **2026年5月26日 星期二 14:42 UTC** / **07:42 PDT**）自动执行。
+升级将在主网上**区块高度 4267300**（≈ **2026年5月26日 星期二 14:42 UTC** / **07:42 PDT**）自动执行。
 
 **提醒事项**
 
-1. 请确保您的桥接容器已更新并同步。以太坊主网桥接合约（`0x972a7a92d92796a98801a8818bcf91f1648f2f68`）、USDC/USDT 代币元数据以及 CW20 `wrapped_token` 的代码 ID `105` 将通过升级处理器本身注册，因此桥接功能将在升级高度时在主网上激活。验证说明：[https://gonka.ai/docs/network-updates/#may-7-2026](https://gonka.ai/docs/network-updates/#may-7-2026)。
-2. 如果您计划提供服务 `MiniMaxAI/MiniMax-M2.7`，请立即预先下载约 230 GB 的 FP8 权重。在引导窗口期间，Hugging Face 的速率限制和带宽饱和可能导致错过首次资格检查。
-3. 升级完成后，每个节点都需要为**每一个**经治理批准的模型——`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、`moonshotai/Kimi-K2.6` 和 `MiniMaxAI/MiniMax-M2.7`——声明参与模式。即使只运行其中一个或两个模型的节点，也必须对其他模型选择 DELEGATE 或 REFUSE。MiniMax 的截止时间是**链纪元 `278`**。未采取行动的节点将从第 278 纪元起，对其全部权重每纪元收取 15% 的惩罚。
-4. 请计划在升级窗口期间保持在线，以便及时执行后续步骤或缓解指令。请确保 `.inference/data` 有足够的空闲空间用于 cosmovisor 状态备份；如果 `application.db` 较大，建议在升级前应用 [清理技术](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)（参见 cosmovisor 备份指南）。
-5. v0.2.13 的校准将 Kimi K2.6 `WeightScaleFactor` 从 `1.26` 调整为 `0.78`，以反映 vLLM-0.20.1 发布后 Qwen-on-B200 基准的吞吐量。此调整**仅适用于您共识权重中的 Kimi 相关部分**；您的 Qwen 相关权重以及 Kimi 内部 PoC 分配保持不变。在 B200/B300 上，Kimi 仍是收益最高的选项；在 H100/H200 上，MiniMax-M2.7 成为与 Qwen 相当、高于 Kimi 的选项。
+1. 请确保您的桥接容器已更新并同步。以太坊主网桥接合约（`0x972a7a92d92796a98801a8818bcf91f1648f2f68`）、USDC/USDT 代币元数据以及 CW20 `wrapped_token` 代码 ID `105` 将通过升级处理器本身注册，因此桥接功能将在升级高度时在主网上激活。验证说明：[https://gonka.ai/docs/network-updates/#may-7-2026](https://gonka.ai/docs/network-updates/#may-7-2026)。
+2. 如果您计划提供 `MiniMaxAI/MiniMax-M2.7`，请立即预先下载约 230 GB 的 FP8 权重。Hugging Face 的速率限制和引导窗口期间的带宽饱和可能导致错过首次资格检查。
+3. 升级完成后，每个节点都需要为**每个**经治理批准的模型——`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、`moonshotai/Kimi-K2.6` 和 `MiniMaxAI/MiniMax-M2.7`——声明参与模式。即使只运行其中一个或两个模型的节点，也必须对其他模型选择 DELEGATE 或 REFUSE。MiniMax 的截止时间是**链纪元 `278`**。未采取行动的节点将从第 278 纪元起，对其全部权重每纪元被处以 15% 的惩罚。
+4. 请计划在升级窗口期间保持在线，以便及时应用任何后续步骤或缓解指令。请确保 `.inference/data` 有足够的空闲空间用于 cosmovisor 状态备份；如果 `application.db` 较大，请考虑在升级前应用 [清理技术](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 来遵循 cosmovisor 备份指南。
+5. v0.2.13 的校准将 Kimi K2.6 `WeightScaleFactor` 从 `1.26` 调整为 `0.78`，以反映 vLLM-0.20.1 发布后 Qwen-on-B200 参考基准的吞吐量。此调整**仅适用于您共识权重中来自 Kimi 的部分**；您的 Qwen 相关权重以及 Kimi 内部 PoC 分配保持不变。在 B200/B300 上，Kimi 仍是收益最高的选项；在 H100/H200 上，MiniMax-M2.7 成为与 Qwen 相当、高于 Kimi 的选项。
 
-- 提案地址：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+- 提案：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
 - 迁移逻辑：[`upgrades.go`](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.13/inference-chain/app/upgrades/v0_2_13/upgrades.go)
 
 ## 2026年5月20日
 
 **v0.2.13 升级提案进入治理阶段**
 
-[v0.2.13 提案](https://github.com/gonka-ai/gonka/pull/1143) 已重新上链并开放投票。这是对早前发布但未通过的提案的重新投票，现已更新多个内容后重新提交。
+[v0.2.13 提案](https://github.com/gonka-ai/gonka/pull/1143) 已重新上链并开放投票。这是对之前发布但未通过的提案的重新投票，现经多项更新后重新提交。
 
 - 包含内容：Kimi（`0.78`）权重重新校准、新增模型 `MiniMaxAI/MiniMax-M2.7`、验证阈值更新、devshard 存储重构，以及多项 PoC/奖励修复。
-- 在主网上激活以太坊桥接（详见下方专项说明）。
+- 在主网上激活以太坊桥接（见下文专项说明）。
 - 该提案将升级后的宽限期延长至 3000 个区块，以便在新快照逻辑稳定期间节点不会受到惩罚。
-- 治理方面：将创世守护者投票权降至约 25%，并将全链法定人数设为 0.25。如果守护者弃权，非守护者需在剩余 75% 中约有 ⅓ 的参与率才能满足法定人数（参见 inference-chain 部分）。
+- 治理机制：将创世守护者投票权降至约 25%，并将全链法定人数设为 0.25。若守护者弃权，非守护者需在剩余 75% 中约有 1/3 的参与率才能满足法定人数（见 inference-chain 部分）。
 - 所需准备：桥接容器检查、MiniMax 决策、仪表板更新、投票。
 - 除非提案获得批准，否则链上不会发生任何变化。
 
@@ -193,12 +194,12 @@ PR 地址：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gon
 
 **主要变更****模型**
 
-- 新增 `MiniMaxAI/MiniMax-M2.7` 作为治理批准的模型和 PoC 模型。
+- 新增 `MiniMaxAI/MiniMax-M2.7` 作为经治理批准的模型和 PoC 模型。
 - 更新推理验证阈值：
     - Qwen 235B：`0.940`
     - Kimi K2.6：`0.900`
     - MiniMax-M2.7：`0.922`
-- 在 vLLM 0.20.1 发布后，基于 Qwen-on-B200 基准重新校准 `WeightScaleFactor` 数值：
+- 根据 vLLM 0.20.1 发布后 Qwen-on-B200 的参考基准重新校准 `WeightScaleFactor` 值：
     - Qwen 235B：`0.359`（保持不变）
     - Kimi K2.6：`0.78`（从 1.26 下调，相同 PoC 权重下 Kimi 每纪元共识权重约减少 38%）
     - MiniMax-M2.7：`0.3024`
@@ -207,21 +208,21 @@ PR 地址：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gon
 
 **inference-chain**
 
-- 将 devshard nonce 上限从 `20_000` 提高到 `1_000_000`。
+- 将 devshard 随机数限制从 `20_000` 提高到 `1_000_000`。
 - 将每纪元最大 devshard 数量从 `100` 提高到 `500_000`。
 - 修复新模型引导期间确认 PoC 奖励的记账问题。
 - 在升级纪元的剩余时间内禁用确认 PoC，以便新快照逻辑从下一纪元干净启动。
 - 当参与者重新激活时重置 `ConsecutiveInvalidInferences`。
-- 回填在 v0.2.12 之前加入的 DAPIs 缺失的 `MsgRespondDealerComplaints` authz 授权。
+- 回填在 v0.2.12 之前加入的 DAPI 的缺失 `MsgRespondDealerComplaints` authz 授权。
 - 修复了可能导致桥接和流动性池合约调用中出现间歇性权限错误的接线问题。
 - 将创世守护者调整后的投票权减少至约 25%，并将全链治理法定人数设置为 `0.25`。在守护者不投票的情况下，这使得剩余 75% 投票权中实际的法定人数为 1/3（`0.25 / 0.75 = 0.334`）。
-- 向 `allowed_creator_addresses` 添加 4 个早期主机和经纪商。
+- 将 4 个早期主机和经纪商添加到 `allowed_creator_addresses`。
 
 **以太坊桥主网激活**
 
 - 通过升级处理器激活以太坊主网桥接设置。
-- 注册以太坊桥合约地址 `0x972a7a92d92796a98801a8818bcf91f1648f2f68`、USDC 和 USDT 代币元数据、桥交易授权以及 CW20 `wrapped_token` 代码 ID `105`。
-- 激活后，桥接将启用 Gonka 主网与以太坊之间的跨链转账（包括在以太坊上封装 GNK 以及桥接 USDC/USDT）。封装/解封装脚本和操作员工作流程将另行记录。
+- 注册以太坊桥合约地址 `0x972a7a92d92796a98801a8818bcf91f1648f2f68`、USDC 和 USDT 代币元数据、桥交易批准以及 CW20 `wrapped_token` 代码 ID `105`。
+- 激活后，桥接将启用 Gonka 主网与以太坊之间的跨链转账（包括在以太坊上封装 GNK 以及桥接 USDC/USDT）。封装/解封脚本和操作员工作流程将另行记录。
 
 **decentralized-api 和 devshard**
 
@@ -230,28 +231,28 @@ PR 地址：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gon
 - 为 SQLite 和 Postgres devshard 数据库添加修剪功能。
 - 添加状态快照以实现更快的 devshard 启动和恢复。
 - 修复 OpenAI 兼容的 API 响应解析。
-- 修复长时间启动行为和 devshard 失效流程的边界情况。
+- 修复长时间启动行为及 devshard 失效流程的边界情况。
 
 **升级计划**
 
-如果提案获得批准，二进制版本将通过链上升级提案进行更新。有关升级流程的更多信息，请参阅 [/docs/upgrades.md。](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.13/docs/upgrades.md)
+如果提案获得批准，将通过链上升级提案更新二进制版本。有关升级流程的更多信息，请参阅 [/docs/upgrades.md。](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.13/docs/upgrades.md)
 
 **升级前所需的准备工作**
 
 如果提案获得批准，建议进行以下准备。
 
-**在第 278 个纪元前完成 `MiniMaxAI/MiniMax-M2.7` 参与选择（之后开始处罚）**
+**在第 278 轮之前做出 `MiniMaxAI/MiniMax-M2.7` 参与选择（届时开始处罚）**
 
-对于每个经治理批准的模型，多模型 PoC 要求每个主机明确选择参与方式（DIRECT / DELEGATE / REFUSE）。在模型的 `PenaltyStartEpoch` 之后不采取任何操作将导致处罚。在此阶段，您应提前决定首选选项，以便在提案通过且主网成功应用升级时能够迅速行动。
+对于每个经治理批准的模型，多模型 PoC 要求每个主机明确选择参与方式（DIRECT / DELEGATE / REFUSE）。在模型的 `PenaltyStartEpoch` 之后不采取任何行动将导致处罚。在此阶段，您应提前决定首选选项，以便在提案通过且主网上成功应用升级时能够迅速行动。
 
-**桥接容器更新/验证**
+**桥接容器更新 / 验证**
 
 要求所有主机验证其桥接容器已部署、运行最新版本并正确同步。部分主机可能已部署桥接容器。在此情况下，请先检查是否正在运行当前版本，再采取进一步操作。
 请遵循说明：[https://gonka.ai/docs/network-updates/#may-7-2026](https://gonka.ai/docs/network-updates/#may-7-2026)
 
-**仪表板/浏览器更新（升级前后均可）**
+**仪表板 / 区块浏览器更新（升级前后均可）**
 
-要求主机更新仪表板/浏览器。请从 `gonka/deploy/join` 目录运行以下命令。如果您本地未克隆 `gonka` 仓库，请先参考加入网络指南。此仪表板更新仅为容器拉取，可在投票结束前后安全运行，无论结果如何。
+要求主机更新仪表板/区块浏览器。请从 `gonka/deploy/join` 目录运行以下命令。如果您尚未在本地克隆 `gonka` 仓库，请先参考加入网络指南。此仪表板更新仅需拉取容器，可在投票结束前后安全执行，无论结果如何。
 ```
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
@@ -259,14 +260,14 @@ docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
 
 **如何投票**
 
-如果您无法直接访问持有投票权的密钥，或希望由其他密钥代为投票，请参阅[指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf)，了解如何从冷密钥向热密钥授予治理投票权限。
-提案详情和投票可通过 `inferenced` 查看。任何活跃节点均可使用。可用节点包括：
+如果您无法直接访问持有投票权的密钥，或希望由其他密钥代为投票，请参考[指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf)，了解如何从冷密钥向热密钥授予治理投票权限。
+提案详情和投票可通过 `inferenced` 查看。任何活动节点均可使用。可用节点包括：
 
 - http://node1.gonka.ai:8000
 - http://node2.gonka.ai:8000
 - https://node3.gonka.ai
 
-投票（`yes`, `no`, `abstain`, `no_with_veto`）：`--unordered` 和 `--timeout-duration` 标志需要 v0.2.12 或更高版本的 `inferenced`。
+投出您的投票（`yes`, `no`, `abstain`, `no_with_veto`）：`--unordered` 和 `--timeout-duration` 标志需要来自 v0.2.12 或更高版本的 `inferenced`。
 
 ```
 export NODE_URL=https://node3.gonka.ai/
@@ -279,7 +280,7 @@ export NODE_URL=https://node3.gonka.ai/
 --chain-id gonka-mainnet \
 --yes
 ```
-检查投票状态：
+查看投票状态：
 ```
 export NODE_URL=https://node3.gonka.ai/
 ./inferenced query gov votes 54 -o json --node $NODE_URL/chain-rpc/
@@ -288,22 +289,22 @@ export NODE_URL=https://node3.gonka.ai/
 **截止时间**
 
 - 投票结束时间：2026 年 5 月 22 日 22:12:25 UTC
-- 提议升级高度：4267300
+- 提议的升级高度：4267300
 - 预计升级时间：2026 年 5 月 26 日 14:42:02 UTC
-- 操作员时间表：投票于 5 月 22 日 22:12 UTC 结束 → 升级高度 ~5 月 26 日 14:42 UTC → 升级纪元其余部分运行时跳过确认 PoC（≤ 10000 个区块宽限期）→ MiniMax 引导快照在 start_poc − 500 区块时开始（约提前 43 分钟）→ 首个 MiniMax PoC 阶段在升级后的下一个纪元边界开始 → MiniMax 处罚在链纪元 278 开始执行。
+- 操作员时间线：投票于 5 月 22 日 22:12 UTC 结束 → 升级高度 ~5 月 26 日 14:42 UTC → 升级轮次其余部分运行时跳过确认 PoC（≤ 10000 个区块宽限期）→ 在 start_poc − 500 区块时生成 MiniMax 引导快照（约提前 43 分钟）→ 升级后下一个轮次边界开始第一阶段 MiniMax PoC → 在链轮次 278 开始执行 MiniMax 处罚。
 
 **注意**
 
-- 请计划在升级期间保持在线，以便能够及时执行任何后续步骤或缓解指令。
-- 升级期间，Cosmovisor 会在 `.inference/data` 目录中创建完整的状态备份；请确保有足够的磁盘空间（主网上 `application.db` 的 Cosmovisor 备份通常为几十 GB，因此请提前确认）。有关从 `.inference` 目录安全删除旧备份的指导，请参阅[文档。](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- 请计划在升级期间保持在线，以便及时应用任何后续步骤或缓解指令。
+- 升级期间，Cosmovisor 会在 `.inference/data` 目录中创建完整状态备份；请确保有足够的磁盘空间（主网上 `application.db` 的 Cosmovisor 备份通常为几十 GB，因此请提前确认）。有关从 `.inference` 目录安全删除旧备份的指导，请参阅[文档。](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
 - 如果 `application.db` 占用了大量磁盘空间，可以应用 cosmovisor 备份[指南](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)中描述的清理技术。
-- 该提案将有意在升级高度到升级周期结束期间（10000个区块的宽限期）跳过确认PoC。如果提案获得通过，此跳过属于预期行为，并非故障；新的快照逻辑将从下一个周期开始。
-- 如果提案通过，升级后devshard存储可选择由共享的Postgres实例支持（与payload存储使用相同的环境变量）。本地SQLite仍为默认选项，并会自动清理（保留最近3个周期）。
-- 如果提案失败（未达到法定人数，或 `no_with_veto` 超过⅓），链上不会发生任何变更，升级 simply 不会发生。操作员可能会看到 `PROPOSAL_FAILED` 状态；这是预期的，无需采取行动。
+- 该提案将有意在升级高度到升级周期结束（10000个区块宽限期）期间跳过确认PoC。如果提案获得批准，此跳过属于预期行为而非故障；新的快照逻辑将从下一个周期开始。
+- 如果提案获得批准，升级后devshard存储可选择由共享的Postgres实例支持（与payload存储使用相同的环境变量）。本地SQLite仍为默认选项，并会自动清理（保留最近3个周期）。
+- 如果提案失败（未达到法定人数，或 `no_with_veto` 超过⅓），链上不会发生任何变更，升级 simply 不会发生。运营商可能会看到 `PROPOSAL_FAILED` 状态；这是预期的，无需采取行动。
 
 ## 2026年5月18日
 
-代理容器可能会全局限制与devshard的并行连接数量，而不是按客户端限制
+代理容器可能会全局限制到devshard的并行连接数，而不是按客户端限制
 
 包含修复的PR：[https://github.com/gonka-ai/gonka/pull/1183](https://github.com/gonka-ai/gonka/pull/1183)
 
@@ -323,80 +324,80 @@ export NODE_URL=https://node3.gonka.ai/
 source config.env && docker compose up -d proxy --force-recreate --no-deps
 ```
 
-在 PoC/确认 PoC 阶段之外更新容器更安全。要检查是否存在确认 PoC：
+在PoC/确认PoC阶段之外更新容器更为安全。要检查是否存在确认PoC：
 ```
 curl "https://node3.gonka.ai/v1/epochs/latest" | jq '.is_confirmation_poc_active'
 ```
 
 ## 2026年5月17日
 
-**第267轮：PoC 验证已恢复**
+**第267轮：PoC验证已恢复**
 
-PoC 验证在第267轮中成功完成，受影响的主机已能够重新加入活跃集合。
+第267轮PoC验证成功完成，受影响的主机已能够重新加入活跃集合。
 
-第266轮的问题是由影响运行 Kimi 模型主机的攻击引起的。网络继续运行，但该攻击结合若干相关条件，导致许多参与者无法进入第266轮。
+第266轮的问题是由影响运行Kimi模型主机的攻击引起的。网络继续运行，但该攻击结合若干相关条件，导致许多参与者无法进入第266轮。
 
-在应用额外保护措施期间，推理服务可能会暂时不可用。访问将逐步恢复，首先通过若干社区代理和经纪端点提供。
+在应用额外保护措施期间，推理功能可能会暂时不可用。访问将逐步恢复，首先通过几个社区代理和经纪端点。
 
 **发生了什么**
 
-在第266轮中，网络的活跃权重显著下降。
+在第266轮，网络的活跃权重显著下降。
 
-该问题已追溯到具有非标准语义的推理请求。此攻击向量影响了运行 Kimi 模型的主机，并扰乱了其中许多主机的 PoC 参与。
+该问题已被追溯到具有非标准语义的推理请求。此攻击向量影响了运行Kimi模型的主机，并扰乱了其中许多主机的PoC参与。
 
-在第267轮中，主机已能够返回，PoC 验证成功完成。
+在第267轮，主机已能够返回，PoC验证成功完成。
 
 **推理可用性**
 
 网络不应再接受使用受影响的非标准语义的请求。
 
-在相关保护措施部署期间，推理服务可能暂时不可用。访问预计将逐步恢复，首先通过若干社区代理和经纪端点提供。
+在相关保护措施实施期间，推理可能暂时不可用。预计访问将逐步恢复，首先通过几个社区代理和经纪端点。
 
-**第267轮中 Kimi 的权重**
+**第267轮Kimi的权重**
 
-Kimi 在第267轮的活跃权重较低，原因是一项现有协议规则：单个模型的总权重不得超过上一轮所有模型总权重的75%。
+Kimi在第267轮的活跃权重较低，原因是现有协议规则：单个模型的总权重不得超过上一轮所有模型总权重的75%。
 
-由于第266轮的总活跃权重显著降低，该规则也限制了 Kimi 在第267轮的权重。
+由于第266轮的总活跃权重显著降低，此规则也限制了Kimi在第267轮的权重。
 
-随着未来几轮正常 PoC 参与的持续，权重可能需要数天时间才能稳定下来。
+随着未来几轮正常PoC参与的持续，权重可能需要数天时间才能稳定下来。
 
 **主机所需操作**
 
-1. 尽可能保持您的 API 节点在线且可访问。这有助于维护主机参与的可见性，并支持任何后续审查。
-2. 监控接下来几轮中的 PoC 参与情况。确保您的节点按预期进入 PoC，且活跃权重正确反映。
+1. 尽可能保持您的API节点在线且可访问。这有助于维护对主机参与情况的可见性，并支持任何后续审查。
+2. 监控接下来几轮的PoC参与情况。确保您的节点按预期进入PoC，并且活跃权重正确反映。
 3. 仅使用支持的推理请求格式。不要发送或路由具有非标准请求语义的推理流量。
-4. 预期推理服务将出现暂时中断。访问可能不会立即在所有地方恢复，预计将通过社区代理和经纪端点逐步恢复。
-5. 在社区频道或本帖中分享相关日志或观察结果。如果您的主机在第266轮中受到影响或在后续轮次中表现异常，这一点尤其重要。
+4. 预期推理服务将暂时中断。访问可能不会立即在所有地方恢复，预计将通过社区代理和经纪端点逐步恢复。
+5. 在社区频道或本帖中分享相关日志或观察结果。如果您的主机在第266轮受到影响或在后续几轮中表现异常，这一点尤为重要。
 
 ## 2026年5月16日
 
-**第266轮：PoC 权重下降调查**
+**第266轮：PoC权重下降调查**
 
 在当前轮次（#266）期间，网络的活跃权重显著下降。
-似乎 PoC 投票未能收集到本轮所需的投票数。确切原因尚未确认，社区正在积极调查情况。
+似乎PoC投票未能为本轮收集到所需的票数。确切原因尚未确认，社区正在积极调查情况。
 
 **对受影响参与者**
 
-如果您的节点未进入本轮，请尽可能保持您的 API 节点在线且可访问。
-这可能有助于赔偿委员会收集 PoC 参与证据，并更准确地核算受影响的贡献。
+如果您的节点未进入本轮，请尽可能保持您的API节点在线且可访问。
+这可能有助于赔偿委员会收集PoC参与的证据，并更准确地核算受影响的贡献。
 
 **调查进行中**
 
 社区成员目前正在审查第266轮期间发生的情况。一旦根本原因更加明确，将分享更新。
-如果您有相关观察、日志、假设或其他可能有助于调查的技术背景，请在此分享。
+如果您有相关的观察、日志、假设或其他有助于调查的技术背景，请在此分享。
 
 ## 2026年5月15日
 
-**v0.2.13 升级提案进入治理流程**
+**v0.2.13升级提案进入治理流程**
 
-[v0.2.13 提案](https://github.com/gonka-ai/gonka/pull/1143) 现已在链上并开放投票。
+[v0.2.13提案](https://github.com/gonka-ai/gonka/pull/1143)现已上链并开放投票。
 
-- 包括：Kimi 的重新校准权重（`0.78`）、新模型 `MiniMaxAI/MiniMax-M2.7`、验证阈值更新、devshard 存储重构，以及多项 PoC/奖励修复、以太坊桥主网激活。
+- 包含：Kimi的重新校准权重（`0.78`）、新模型`MiniMaxAI/MiniMax-M2.7`、验证阈值更新、devshard存储重构，以及多个PoC/奖励修复，以太坊桥主网上线。
 - 提案增加了升级后的宽限期，确保在升级发生后3000个区块内不会惩罚主机。
-- 所需准备：桥接容器检查、MiniMax 决策、仪表板更新、投票。
-- 除非提案获得批准，否则链上不会有任何变更。
+- 所需准备：桥接容器检查、MiniMax决策、仪表板更新、投票。
+- 在提案获批之前，链上不会有任何变更。
 
-该 PR：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
+该PR：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
 
 **主要变更****模型**
 
@@ -468,7 +469,7 @@ docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
 - http://node2.gonka.ai:8000
 - https://node3.gonka.ai
 
-投出你的投票（`yes`, `no`, `abstain`, `no_with_veto`）：
+投票（`yes`, `no`, `abstain`, `no_with_veto`）:
 ```
 export NODE_URL=https://node3.gonka.ai/
 ./inferenced tx gov vote 52 yes \
@@ -494,25 +495,25 @@ export NODE_URL=https://node3.gonka.ai/
 
 **注意**
 
-- 请计划在升级窗口期间保持在线，以便及时执行任何后续步骤或缓解指令。
-- 升级期间，Cosmovisor 会在 `.inference/data` 目录中创建完整的状态备份；请确保有足够的磁盘空间。有关从 `.inference` 目录安全删除旧备份的指导，请参阅[文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
-- 如果 `application.db` 占用了大量磁盘空间，可以应用 cosmovisor 备份[指南](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)中描述的清理技术。
-- 该提案将有意在升级高度到升级周期结束（3000个区块宽限期）期间跳过 Confirmation PoC。如果提案通过，此跳过行为属于预期情况，并非故障；新的快照逻辑将从下一个周期开始。
-- 如果提案通过，升级后 devshard 存储可选择由共享的 Postgres 实例支持（与 payload 存储使用相同的环境变量）。本地 SQLite 将保持为默认设置，并会自动清理（保留最近3个周期）。
+- 请计划在升级期间保持在线，以便及时执行任何后续步骤或缓解指令。
+- 升级期间，Cosmovisor 会在 `.inference/data` 目录中创建完整的状态备份；请确保有足够的磁盘空间。有关安全删除 `.inference` 目录中旧备份的指导，请参阅[文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
+- 如果 `application.db` 占用大量磁盘空间，可以应用 cosmovisor 备份[指南](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)中描述的清理技术。
+- 该提案将有意在升级高度到升级周期结束（3000个区块宽限期）期间跳过确认PoC。如果提案通过，此跳过属于预期行为，并非故障；新的快照逻辑将从下一个周期开始。
+- 如果提案通过，升级后devshard存储可选择由共享的Postgres实例支持（与payload存储使用相同的环境变量）。本地SQLite仍为默认选项，并会自动清理（保留最近3个周期）。
 
 ## 2026年5月7日
 
 **需要更新/验证桥接容器**
 
-作为即将发布的 v0.2.13 版本升级准备工作的一部分，可能包含以太坊侧合约激活，所有主机需确认其桥接容器已部署、运行最新版本并正确同步。
+为即将发布的v0.2.13版本升级做准备（可能包括以太坊侧合约激活），要求所有主机验证其桥接容器已部署、运行最新版本并正确同步。
 
-部分主机可能已部署桥接容器。在此情况下，请先检查是否正在运行当前版本，再执行任何进一步操作。
+部分主机可能已部署桥接容器。在此情况下，请先检查是否正在运行当前版本，再执行任何其他操作。
 
 最新桥接镜像：
 ```
 ghcr.io/product-science/bridge:0.2.5-post5@sha256:8d2f217115c65b27fcb6fe1497471c30891534f18685bd3007d168aa7f1a9371
 ```
-检查你的桥接容器是否已在运行正确版本：
+检查您的桥接容器是否已运行正确版本：
 ```
 docker inspect --format='{{.Image}}' bridge \
     | xargs docker inspect --format='{{range .RepoDigests}}{{.}}{{end}}' \
@@ -523,7 +524,7 @@ docker inspect --format='{{.Image}}' bridge \
 ```
 BRIDGE v0.2.5-post5 is running
 ```
-则你的桥接容器正在运行预期的镜像。
+则您的桥接容器正在运行预期的镜像。
 
 请同时验证桥接是否已同步：
 ```
@@ -555,45 +556,45 @@ source config.env && docker compose up bridge -d --force-recreate --no-deps
 
 ## 2026年5月6日
 
-**v0.2.13版本升级的PR审查**
+**v0.2.13升级的PR评审**
 
-[该拉取请求](https://github.com/gonka-ai/gonka/pull/1143)用于下一次链上软件升级v0.2.13，现开放审查。
+[该拉取请求](https://github.com/gonka-ai/gonka/pull/1143)用于下一次链上软件升级v0.2.13，现开放评审。
 
-请直接审查PR代码，并对发现的问题、疑问、改进建议、边界情况或漏洞留下评论。
+请直接审查PR代码，并就您发现的任何问题、疑问、改进建议、边界情况或漏洞留下评论。
 
-有意义的审查贡献，包括重要评论、发现的缺陷和安全问题，在下一轮升级周期中可能有资格获得社区赏金。
+有意义的评审贡献，包括重要评论、漏洞发现和安全问题，在下一次升级周期中可能有资格获得社区赏金。
 
-本次仅为拉取请求的审查呼吁，不启动正式投票。治理投票流程将在审查期结束后开始，很可能在明天。
+本次仅为拉取请求的评审呼吁，不启动正式投票。治理投票流程将在评审期结束后开始，很可能在明天。
 
 **主要变更****inference-chain**
 
-- 确认PoC使用了不同的模型集来计算测量权重、保留权重和奖励重缩放。在新模型引导期间，这可能会惩罚同时服务了合格模型和尚未合格模型的诚实矿工。修复方案是存储一个确认模型和权重缩放因子的纪元快照，并在所有确认和奖励权重计算中使用该快照。
-- 当参与者再次变为ACTIVE状态时，`ConsecutiveInvalidInferences`未被重置。一次新的错误推理可能立即再次使其失效。现在在重新激活和即将晋升时会重置计数器。
-- 在v0.2.12之前加入的DAPI在其冷启动到热授权中没有`MsgRespondDealerComplaints`权限。升级将回填该权限，以便它们能够响应经销商投诉。
+- 确认PoC使用了不同的模型集来测量权重、保留权重和奖励重缩放。在新模型引导期间，这可能会惩罚同时服务了合格模型和尚未合格模型的诚实矿工。修复方案是存储一个可确认模型和权重缩放因子的纪元快照，并在所有确认和奖励权重计算中使用该快照。
+- 当参与者再次变为ACTIVE状态时，`ConsecutiveInvalidInferences`未被重置。一次新的错误推理可能立即再次使其失效。现在在重新激活和即将晋升时重置计数器。
+- 在v0.2.12之前加入的DAPI在其冷启动到热启动的授权中没有`MsgRespondDealerComplaints`权限。升级将回填该权限，以便它们可以响应经销商投诉。
 - Devshard结算使用了硬编码的`20_000`随机数限制。该限制现在为`DevshardEscrowParams.MaxNonce`，v0.2.13升级将其设置为`1_000_000`。升级还将`MaxEscrowsPerEpoch`提升至`500_000`。
-- 升级会在当前纪元安装一个带有扩展`UpgradeProtectionWindow`（3000个区块）的宽限期条目。从升级高度到升级纪元结束期间，确认PoC触发器将被跳过，因此新的快照逻辑仅从下一个纪元开始运行。重用了v0.2.10的宽限期原语。
+- 升级会为当前纪元安装一个带有扩展`UpgradeProtectionWindow`（3000个区块）的宽限期条目。从升级高度到升级纪元结束期间，跳过确认PoC触发器，因此新的快照逻辑仅从下一个纪元开始运行。重用了v0.2.10的宽限期原语。
 - Wasm keeper访问在应用布线后解析，因此桥接器和流动性池操作的合约权限检查可以正常工作。
 
 **decentralized-api**
 
-- 某些兼容OpenAI的上游返回数值型`stop_reason`值。`Choice.StopReason`现在接受任何JSON类型，因此这些响应不再因反序列化失败。
+- 一些兼容OpenAI的上游返回数字类型的`stop_reason`值。现在`Choice.StopReason`接受任何JSON类型，因此这些响应不再因反序列化失败。
 - 内部devshard存储迁移不再阻塞dapi启动。devshard路由在迁移和恢复完成前保持不可用。
 
 **devshard**
 
 - 由于旧的托管数据保留在一个SQLite存储中，devshard存储可能无限增长。现在存储按纪元划分，并在后台自动清理旧纪元，仅保留最新的3个纪元。
-- devshard需要一个共享存储选项以支持更大规模的部署。现在可以使用Postgres作为主存储，SQLite仍作为本地备用。
+- devshard需要一个共享存储选项以支持更大规模的部署。现在它可以使用Postgres作为主存储，SQLite仍作为本地备用。
 - Postgres数据按`epoch_id`对会话、差异和签名进行分区，因此清理可以干净地删除旧纪元数据。
-- 状态快照减少了长期运行会话的恢复工作量。
+- 状态快照减少了长时间运行会话的恢复工作量。
 - 有效载荷查找固定到托管纪元，并对纪元边界和旧版纪元0请求提供回退支持。
-- 当前纪元分片统计信息暴露随机数、版本、组和每主机计数器。
+- 当前纪元的分片统计信息暴露了随机数、版本、组和每主机计数器。
 
 **bridge**
 
-- 桥接工具处理Sepolia标志，并将以太坊合约期望的Gonka BLS密钥/签名转换为EIP-2537格式。
+- 桥接工具处理Sepolia标志，并将Gonka BLS密钥/签名转换为以太坊合约期望的EIP-2537格式。
 - 添加了GNK和封装代币桥接操作的脚本。
 
-审查人员可在此处找到完整的升级提案、迁移详情、测试摘要和建议流程：
+评审人员可在此处查看完整的升级提案、迁移详情、测试摘要和建议流程：
 
 - [https://github.com/gonka-ai/gonka/blob/347d947596aba754e453e58d5f82ae6054233a9a/proposals/governance-artifacts/update-v0.2.13/README.md ](https://github.com/gonka-ai/gonka/blob/347d947596aba754e453e58d5f82ae6054233a9a/proposals/governance-artifacts/update-v0.2.13/README.md )
 
@@ -601,17 +602,17 @@ source config.env && docker compose up bridge -d --force-recreate --no-deps
 
 ## 2026年5月6日
 
-api容器版本v0.2.11、v0.2.12和v0.2.12-api-post2中存在潜在问题。容器重启后，9100、9200和9400端口上的服务器可能会延迟很长时间才启动。这延迟了api激活，一些矿工因此跳过了确认PoC
+在api容器版本v0.2.11、v0.2.12和v0.2.12-api-post2中存在潜在问题。容器重启后，9100、9200和9400端口上的服务器可能会长时间延迟启动。这延迟了api激活，一些矿工因此跳过了确认PoC
 
 修复通过并行加载devshards并从快照恢复现有devshard会话来消除该阻塞问题。
 
 [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
 
-请更新api容器的二进制文件。每个PoC开始前都有一个500区块的无CPoC窗口（`confirmation_poc_safety_window`），因此这可能是最安全的部署版本。
+请更新api容器的二进制文件。每次PoC开始前都有一个500区块的无CPoC（`confirmation_poc_safety_window`）窗口，因此这可能是部署最安全的版本。
 
 更新前，请确保没有CPoC或PoC正在运行。
 
-部署步骤（为降低风险，请逐台机器进行）：
+部署步骤（为降低风险，请逐台机器部署）：
 ```
 sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.12-api-post3/ .dapi/data/upgrade-info.json
 sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.12-api-post3/bin/
@@ -638,11 +639,11 @@ curl http://localhost:9100/versions # may not be bound to localhost
 
 ## 2026年5月6日
 
-在上一个epoch期间，发现了解析Kimi-K2.6某些响应时存在一个次要bug。
+在上一个epoch期间，发现了解析Kimi-K2.6某些响应时存在一个轻微bug。
 
 修复：[https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8](https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8)
 
-我们建议替换api容器的二进制文件。除了修复外，新版本还为devshard数据库启用了剪枝功能，并为devshard状态添加了Postgres支持。
+我们建议替换api容器的二进制文件。除了修复之外，新版本还为devshard数据库启用了修剪功能，并为devshard状态添加了Postgres支持。
 
 部署方法：
 ```
@@ -660,7 +661,7 @@ sudo ln -sf upgrades/v0.2.12-api-post2 .dapi/cosmovisor/current && \
 echo "9882b36ac6e5546fc18e3dd34da293cd5255f311f19e14ace74d3b9190c8ca1d .dapi/cosmovisor/current/bin/decentralized-api" && \
 docker start api
 ```
-此外，如果您有托管Kimi-K2.6的MLNode，请在部署参数中添加部署参数"--enable-auto-tool-choice"。为此，您可以重复执行该命令（以B200为例）：
+此外，如果您有托管Kimi-K2.6的MLNode，请在部署参数中添加部署参数 "--enable-auto-tool-choice"。为此，您可以重复执行该命令（以B200为例）：
 ```
 curl -X POST http://localhost:9200/admin/v1/nodes \
      -H "Content-Type: application/json" \
@@ -693,11 +694,11 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 然后使用docker restart join-mlnode-308-1重启MLNode容器。
 
-当PoC/确认PoC未通过时，应执行这些操作。
+当PoC / 确认PoC未正常进行时，应执行这些操作。
 
 ## 2026年5月5日
 
-在Kimi-K2.6启动过程中，主机观察到30%的最低直接参与阈值在实践中难以达到。为避免Kimi-K2.6在未来epoch中失去资格，并进一步简化其他模型的接入，提议将阈值降低至10%。
+在Kimi-K2.6引导过程中，主机观察到30%的最低直接参与阈值在实践中难以达到。为避免Kimi-K2.6在未来epoch中失去资格，并进一步简化其他模型的接入，提议将阈值降低至10%。
 
 安全模型保持不变：PoC验证本身未改变，仍然需要绝大多数验证算力来接受结果。
 
@@ -728,11 +729,11 @@ export NODE_URL=https://node3.gonka.ai/
 
 **Kimi K2.6现已在Gonka网络上激活**
 
-`moonshotai/Kimi-K2.6`已通过启动阶段，并加入Gonka网络的PoC参与。
+`moonshotai/Kimi-K2.6`已通过引导并加入Gonka网络的PoC参与。
 
-该过程由全网主机协调完成：基础设施已准备就绪，意向已提交，委托和拒绝设置已完成，部署已测试。
+该过程由全网主机协调完成：基础设施已准备就绪，已提交意向，设置了委托和拒绝，并测试了部署。
 
-对于多模型PoC，这意味着Kimi现在作为活跃模型组拥有独立的参与和奖励追踪机制。
+对于多模型PoC，这意味着Kimi现在作为活跃模型组拥有自己的参与和奖励跟踪机制。
 
 运行Kimi的主机应继续像往常一样监控其MLNode和PoC参与情况。
 
@@ -740,45 +741,45 @@ export NODE_URL=https://node3.gonka.ai/
 
 **已提交PoCIntent的主机需采取行动：部署`Kimi K2.6`**
 
-今日对`moonshotai/Kimi-K2.6`的预评估检查已通过。
+今日针对`moonshotai/Kimi-K2.6`的预评估检查已通过。
 
-已提交PoCIntent的主机现在应在PoC于区块`3874496`开始之前，将至少一个MLNode从`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`切换到`moonshotai/Kimi-K2.6`。
+已提交PoCIntent的主机现在应在PoC于区块`3874496`开始之前，将至少一个MLNode从`moonshotai/Kimi-K2.6`切换到`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。
 
-预评估与PoC开始之间有500个区块的时间窗口。在此期间没有CPoC任务，因此已声明意向的主机可以安全地将其模型节点切换至`Kimi K2.6`。
+预评估和PoC开始之间有500个区块的时间窗口。在此期间没有CPoC任务，因此已声明意向的主机可以安全地将其模型节点切换到`Kimi K2.6`。
 
-请遵循指南并完成所需的部署步骤：[https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
+请遵循指南并完成必要的部署步骤：[https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
 
 ## 2026年5月4日
 
-中转代理`node1`、`node2`和`node3`已被禁用。所有主网推理现在都通过`node4`路由，后者采用基于新`devshard`的计费方式。
+传输代理`node1`、`node2`和`node3`已被禁用。所有主网推理现在都通过`node4`路由，其采用基于新`devshard`的计费方式。
 
-这标志着网络的一个里程碑：`devshard`已上线并具备生产就绪能力。未来推荐使用的公共网关是`node4`。
+这标志着网络的一个里程碑：`devshard`已上线并具备生产就绪能力。未来推荐的公共网关为`node4`。
 
-**需要采取的行动**：将您的端点更新为`node4`。
+**需要采取行动**：将您的端点更新为`node4`。
 
 ## 2026年5月2日
 
-今日的预资格验证未通过，对于`PoCIntent`低于30%的主机，其权重较低。请保持您的MLNode运行`Qwen235B`，并在明天提交下一epoch的意向。
+今日的预资格验证未通过，对于`PoCIntent`低于30%的主机，其权重最低。请保持您的MLNode运行`Qwen235B`，并在明天提交下一epoch的意向。
 
 ## 2026年4月30日
 
 **升级已执行：v0.2.12现已在主网上线**
 
-针对升级提案v0.2.12的链上治理投票已结束。该提案已获得批准，升级已在主网上成功执行。
+链上治理投票关于升级提案v0.2.12已结束。该提案已获得批准，升级已在主网上成功执行。
 
-**当前生效的主要变更**
+**当前生效的关键变更**
 
-- **多模型PoC（最大变更）** ([#1039](https://github.com/gonka-ai/gonka/pull/1039))。将计算证明（Proof of Compute）从单一固定模型转变为按模型划分的PoC组。每个经治理批准的模型生成自己的本地PoC权重，然后通过特定于模型的系数聚合为总共识权重。每个主机必须参与每个模型组（可通过直接参与或委托PoC投票权重实现）。
+- **多模型PoC（最大变更）** ([#1039](https://github.com/gonka-ai/gonka/pull/1039))。将计算证明（Proof of Compute）从单一固定模型过渡到按模型划分的PoC组。每个经治理批准的模型生成自己的本地PoC权重，然后通过特定模型系数聚合为总共识权重。每个主机必须参与每个模型组（可通过直接参与或委托PoC投票权重实现）。
 - **引入`moonshotai/Kimi-K2.6`作为第二个模型**：该模型组将在升级后两个epoch激活。该模型的系数是Qwen235B系数的3.51倍，基于相同硬件（8xH200，8xB200）上模型的计算复杂度。
-- **Devshard独立运行时** ([#1045](https://github.com/gonka-ai/gonka/pull/1045))。将devshard版本发布与DAPI/主网发布周期解耦。
-- **Certik审计修复** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789))。已解决审计发现的问题。
-- **协议强化**。保留节点（`POC_SLOT=true`）在单次PoC/CPoC期间被随机抽样。其他更新包括将`mlnode`版本传播到链上`HardwareNode`、修复DKG经销商共识、将旧版验证者惩罚机制与所需抵押品语义对齐、确保devshard托管资金的原子性，以及在`inference_finished`事件解析中添加零时间戳容错。
+- **Devshard独立运行时** ([#1045](https://github.com/gonka-ai/gonka/pull/1045))。将devshard版本与DAPI / 主网发布周期解耦。
+- **Certik 审计修复** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789))。已处理审计发现的问题。
+- **协议强化**。保留节点（`POC_SLOT=true`）在单次 PoC / CPoC 时间内随机抽样。其他更新包括将 `mlnode` 版本传播到链上 `HardwareNode`，修复 DKG 经销商共识，将旧版验证者惩罚机制与所需抵押品语义对齐，确保 devshard 托管资金的原子性，并在 `inference_finished` 事件解析中添加零时间戳容差。
 
-**对Host的指导**
+**对 Host 的指引**
 
-- 部署、委托或明确拒绝新的经治理批准的模型（包含的模型将在升级后2个epoch激活）。请参考[指南](https://gonka.ai/docs/host/multi_model_poc/)。
+- 部署、委托或明确拒绝新治理批准的模型（包含的模型将在升级后 2 个 epoch 激活）。请参考[指南](https://gonka.ai/docs/host/multi_model_poc/)。
 
-- 要求Host更新仪表板/浏览器。请在`gonka/deploy/join`目录下运行以下命令：
+- 要求 Host 更新仪表板/浏览器。请在 `gonka/deploy/join` 目录下运行以下命令：
 
 ```
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
@@ -838,28 +839,28 @@ echo "642eb9858cd77d182f3e1c4d44553f5379d615983430e1fd8e85f09632af4271 .inferenc
 
 **升级 v0.2.12：升级前模型清理**
 
-v0.2.12 升级提案目前已完成链上投票周期的一半。
+v0.2.12 升级提案现已完成链上投票期的一半。
 
 - 投票截止时间：2026年4月30日 00:12 UTC
 - 升级高度：3834200
 - 预计升级时间：2026年4月30日 上午6:00 UTC
 
-建议节点运营方在 [GitHub](https://github.com/gonka-ai/gonka/pull/948) 上查看提案并投票。
+建议节点运营方查看 [GitHub](https://github.com/gonka-ai/gonka/pull/948) 上的提案并进行投票。
 
 **升级前需采取行动**
 
-随着网络接近升级窗口，若提案通过，节点运营方应提前准备节点。
+随着网络接近升级窗口，若提案通过，节点运营方应提前准备其节点。
 
 此清理过程 **必须在升级发生前完成**。如果在升级时，您的节点配置中包含不支持的模型，**该节点将被拒绝并下线。**
 
-版本 0.2.12 将移除所有不在升级后批准列表中的治理模型。在主网上，仅之前强制执行的模型和 Kimi 将保留。
-每个 DAPI 在本地持久化其 MLNode 配置。启动时，它会将每个配置的模型与链上治理列表进行校验。如果配置中包含至少一个不支持的模型，整个节点将被拒绝，主机将下线。
+版本 0.2.12 将移除所有不在升级后批准列表中的治理模型。在主网上，只有先前强制执行的模型和 Kimi 将被保留。
+每个 DAPI 在本地持久化其 MLNode 配置。启动时，它会将每个配置的模型与链上治理列表进行验证。如果配置中包含至少一个不支持的模型，整个节点将被拒绝，主机将下线。
 
-版本 0.2.11 通过将运行时视图裁剪为强制模型来掩盖此问题，因此 `/admin/v1/nodes` 看起来是干净的，即使持久化配置中仍包含额外模型。版本 0.2.12 停止了此裁剪行为，意味着持久化配置将被直接加载。
+版本 0.2.11 通过将运行时视图裁剪为强制模型来掩盖此问题，因此 `/admin/v1/nodes` 看起来是干净的，即使持久化配置中仍包含额外模型。版本 0.2.12 停止此裁剪行为，意味着持久化配置将被直接加载。
 
-为解决此问题，以下脚本会查找 `/admin/v1/config` 中包含额外模型的每个节点，并向 `/admin/v1/nodes/<id>` 发送 `PUT` 请求以提交清理后的配置。这些更改将在60秒内持久化。保留模型的参数、硬件和端口将完全保留。未列出强制模型的节点将被跳过，需手动修复。
+为解决此问题，以下脚本会查找 `/admin/v1/config` 中包含额外模型的每个节点，并向 `/admin/v1/nodes/<id>` 发送一个带有清理后配置的 `PUT` 请求。这些更改将在60秒内持久化。保留模型的参数、硬件和端口将完全保留。未列出强制模型的节点将被跳过，需手动修复。
 
-将以下脚本粘贴到主机的 shell 中。默认情况下，它将应用更改。如需预览更改而不实际应用，请设置 `APPLY=dry`（或任何非 `--apply` 的值）。
+将以下脚本粘贴到主机的 shell 中。默认情况下，它将应用更改。如需预览更改而不实际应用，请将 `APPLY=dry` 设置为 （或任何非 `--apply` 的值）。
 
 仓库中的脚本：
 
@@ -915,27 +916,27 @@ curl -sS http://127.0.0.1:9200/admin/v1/config \
 
 **v0.2.12 升级提案进入治理流程**
 
-[升级提案](https://github.com/gonka-ai/gonka/pull/948) 现已在链上发布，下一版本软件 v0.2.12 开放投票。
+[升级提案](https://github.com/gonka-ai/gonka/pull/948) 已在链上发布，针对下一个链上软件版本 v0.2.12，现开放投票。
 
 **主要变更**
 
-- **多模型 PoC（最大变更）** ([#1039](https://github.com/gonka-ai/gonka/pull/1039))。将计算证明（PoC）从单一固定模型转变为每个模型独立的 PoC 组。每个经治理批准的模型生成其自身的本地 PoC 权重，然后通过模型特定系数聚合为总共识权重。每个节点必须参与每个模型组（直接参与或委托 PoC 投票权重）。
-- **`moonshotai/Kimi-K2.6` 作为第二个模型引入**：该模型组将在升级后两个 epoch 激活。该模型的系数为 Qwen235B 系数的 3.51 倍，基于相同硬件（8xH200, 8xB200）上模型的计算复杂度。
+- **多模型 PoC（最大变更）** ([#1039](https://github.com/gonka-ai/gonka/pull/1039))。将计算证明（PoC）从单一固定模型过渡到每个模型的 PoC 组。每个经治理批准的模型生成其自身的本地 PoC 权重，然后通过特定模型的系数聚合为总共识权重。每个节点必须参与每个模型组（可直接参与或委托 PoC 投票权重）。
+- **`moonshotai/Kimi-K2.6` 被引入作为第二个模型**：该模型组将在升级后两个 epoch 激活。该模型的系数为 Qwen235B 系数的 3.51 倍，基于相同硬件（8xH200, 8xB200）上模型的计算复杂度。
 - **Devshard 独立运行时** ([#1045](https://github.com/gonka-ai/gonka/pull/1045))。将 devshard 发布与 DAPI / 主网发布周期解耦。
 - **Certik 审计修复** ([#1020](https://github.com/gonka-ai/gonka/pull/1020), [#1021](https://github.com/gonka-ai/gonka/pull/1021), [#1022](https://github.com/gonka-ai/gonka/pull/1022), [#987](https://github.com/gonka-ai/gonka/pull/987), [#949](https://github.com/gonka-ai/gonka/pull/949), [#988](https://github.com/gonka-ai/gonka/pull/988), [#825](https://github.com/gonka-ai/gonka/pull/825), [#1011](https://github.com/gonka-ai/gonka/pull/1011), [#1029](https://github.com/gonka-ai/gonka/pull/1029), [#789](https://github.com/gonka-ai/gonka/pull/789))。已解决审计发现的问题。
-- **协议强化**。保留节点（`POC_SLOT=true`）将被随机抽样用于单次 PoC / CPoC 时间。其他更新包括将 `mlnode` 版本传播到链上 `HardwareNode`，修复 DKG 经销商共识，使旧版验证者惩罚机制与所需抵押语义保持一致，确保 devshard 托管资金的原子性，并在 `inference_finished` 事件解析中添加零时间戳容错。
+- **协议强化**。保留节点（`POC_SLOT=true`）将被随机抽样用于单次 PoC / CPoC 时间。其他更新包括将 `mlnode` 版本传播到链上 `HardwareNode`，修复 DKG 经销商共识，使旧版验证者惩罚机制与所需抵押语义保持一致，确保 devshard 托管资金的原子性，并在 `inference_finished` 事件解析中添加零时间戳容差。
 
 **升级计划**
 
 二进制版本将通过链上升级提案进行更新。有关升级流程的更多信息，请参阅 [/docs/upgrades.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)。
 
-**需要执行的操作****升级前**
+**必要操作****升级前**
 
-从 `docker-compose.yml` 部署 `versiond` 和 `proxy` 服务的最新版本（使用仓库标签 release/v0.2.12）：
+从 `versiond` 部署 `proxy` 和 `docker-compose.yml` 服务的最新版本（使用仓库标签 release/v0.2.12）：
 ```
 git checkout release/v0.2.12
 ```
-部署（重要：必须使用 `--no-deps`）：
+部署（重要：需使用 `--no-deps`）：
 ```
 source config.env && \
 docker compose -f docker-compose.yml up versiond proxy -d --no-deps
@@ -944,11 +945,11 @@ docker compose -f docker-compose.yml up versiond proxy -d --no-deps
 
 **升级后**
 
-部署、委托或明确拒绝新的经治理批准的模型（包含的模型将在升级后两个 epoch 激活）。请参阅[指南](https://gonka.ai/docs/host/multi_model_poc/)。
+部署、委托或明确拒绝新的治理批准的模型（包含的模型将在升级后两个 epoch 激活）。请参阅[指南](https://gonka.ai/docs/host/multi_model_poc/)。
 
 **升级前或升级后**
 
-要求节点运行者更新仪表板/浏览器。请在 `gonka/deploy/join` 目录下运行以下命令：
+要求节点主机更新仪表板/浏览器。请在 `gonka/deploy/join` 目录下运行以下命令：
 ```
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
@@ -956,7 +957,7 @@ docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
 
 **如何投票**
 
-如果您没有直接访问具有投票权的密钥，或希望由另一个密钥代为投票，请参阅[指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf)，了解如何从冷密钥授予治理投票权限给热密钥。
+如果您没有直接访问具有投票权的密钥，或希望由另一个密钥代表您投票，请参阅[指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf)，了解如何从冷密钥授予暖密钥治理投票权限。
 
 提案详情和投票可通过 `inferenced` 进行。任何活跃节点均可使用。可用节点包括：
 
@@ -1157,7 +1158,7 @@ docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
 
 **如何投票**
 
-如果您无法直接访问持有投票权的密钥，或希望由另一个密钥代表您投票，请参考[指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf)，了解如何将冷密钥的治理投票权限授予温密钥。
+如果您无法直接访问持有投票权的密钥，或希望由其他密钥代为投票，请参考[指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf)，了解如何将冷密钥的治理投票权限授予温密钥。
 
 提案详情和投票可通过 `inferenced` 进行。任何活跃节点均可使用。可用节点包括：
 
@@ -1193,18 +1194,18 @@ export NODE_URL=https://node3.gonka.ai/
 
 **注意**
 
-- 请计划在升级期间保持在线，以便及时执行任何后续步骤或缓解指令。
-- 升级期间，Cosmovisor 会在 `.inference/data` 目录中创建完整的状态备份；请确保有足够的磁盘空间。有关安全删除 `.inference` 目录中旧备份的指导，请参阅[文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
-- 如果 `application.db` 占用了大量磁盘空间，可应用[此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)所述的清理技术。
+- 请计划在升级期间保持在线，以便及时执行后续步骤或缓解指令。
+- 升级期间，Cosmovisor 会在 `.inference/data` 目录中创建完整的状态备份；请确保有足够的磁盘空间。有关从 `.inference` 目录安全删除旧备份的指导，请参阅[文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
+- 如果 `application.db` 占用大量磁盘空间，可应用[此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)描述的清理技术。
 - 升级后，Postgres 可作为本地负载存储的选项。
 
 ## 2026年3月17日
 
-**v0.2.11 升级的 PR 审查**
+**v0.2.11 版本升级的 PR 审查**
 
 下一次链上软件升级 v0.2.11 的[拉取请求](https://github.com/gonka-ai/gonka/pull/813)现已开放审查。欢迎提供反馈和改进建议。
 
-对本次 PR 审查做出有意义贡献的人，可能在下次升级中获得奖励。
+对本次 PR 审查做出有意义贡献的人，可能在下次升级中获得赏金。
 
 此次仅为 PR 审查呼吁，并非正式投票开始。治理投票流程将在审查期结束后启动。
 
@@ -1212,39 +1213,39 @@ export NODE_URL=https://node3.gonka.ai/
 
 [初始扩展架构：基于 `devshards` 的推理会话](https://github.com/gonka-ai/gonka/pull/877)
 
-本次升级引入了基于 `devshards` 的推理会话的初始版本，旨在提高推理的可扩展性。
+本次升级引入了基于 `devshards` 的推理会话的初始版本，旨在提升推理可扩展性。
 
 目前，通过每次推理的链上交易处理推理会话限制了吞吐量。该设计将推理执行和验证移至指定的链下子组，而链仅处理会话创建和最终结算。
 
-这是有意推出的早期且受限版本。之所以提交主网审查和有限生产测试，不是因为它已完备，而是因为此类系统需要尽早暴露在真实网络条件下。某些类型的问题仅靠本地测试难以发现。当前实现设计上避免对矿工奖励产生负面影响。
+这是有意推出的早期且受限版本。之所以将其提交主网审查并进行有限生产测试，并非因其已完成，而是因为此类系统需要尽早暴露于真实网络条件下。某些问题仅通过本地测试难以发现。当前实现设计上避免对矿工奖励产生负面影响。
 
-[`StartInference` 和 `FinishInference` 性能改进](https://github.com/gonka-ai/gonka/pull/812)
+[`StartInference` 和 `FinishInference` 性能优化](https://github.com/gonka-ai/gonka/pull/812)
 
 - 减少 `MsgStartInference` 和 `MsgFinishInference` 的不必要的状态写入和查询开销。
 - 简化统计处理，减少推理生命周期中的工作量，以提高区块执行稳定性。
 
-在类似主网的条件下，这也使得每区块可容纳的推理数量最多增加100倍，具体取决于工作负载和网络状况。
+在类似主网的条件下，这也使得每个区块可容纳的推理数量最多增加100倍，具体取决于工作负载和网络状况。
 
 **升级前建议操作****`application.db` 数据修剪**
 
-强烈建议节点运营方在升级前按照提供的说明对 `application.db` 进行修剪。
-提前执行此操作非常重要。如果许多节点将修剪推迟到升级后，网络上的修剪活动可能大致同时开始，造成可避免的运维压力。
-修剪说明文档见[此处](https://gonka.ai/FAQ/#__tabbed_7_4)。
+强烈建议节点运营者在升级前按照提供的说明对 `application.db` 进行修剪。
+提前执行此操作非常重要。如果许多节点将修剪推迟到升级后，网络中的修剪活动可能大致同时开始，造成可避免的运维压力。
+修剪说明已记录在[此处](https://gonka.ai/FAQ/#__tabbed_7_4)。
 
-**Explorer 更新**
+**浏览器更新**
 
-要求节点运营方更新仪表板/Explorer。请在 `gonka/deploy/join` 目录中运行以下命令：
+请节点运营者更新仪表板/浏览器。请在 `gonka/deploy/join` 目录下运行以下命令：
 ```
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
 ```
-评审人员可在此处[链接](https://github.com/gonka-ai/gonka/pull/813)查看完整的升级提案、迁移详情、测试摘要和建议流程。
+审查人员可在此处[链接](https://github.com/gonka-ai/gonka/pull/813)查看完整的升级提案、迁移细节、测试摘要和建议流程。
 
 ## 2026年3月16日
 
 **API 二进制文件 `v0.2.10-post7` 已可用**
 
-已在 `v0.2.10` 中发现一个潜在漏洞。为降低当前预升级期间的风险，建议在下一次 PoC 开始前将 API 二进制文件升级至 `v0.2.10-post7`。
+已在 `v0.2.10` 中发现潜在漏洞。为降低当前预升级期间的风险，建议在下一次 PoC 开始前将 api 二进制文件升级至 `v0.2.10-post7`。
 
 完整变更：[https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7](https://github.com/gonka-ai/gonka/compare/main…release/v0.2.10-post7)
 
@@ -1533,13 +1534,13 @@ source config.env && docker compose up api --no-deps --force-recreate -d
 
 ## 2026年2月20日
 
-**建议（可选）：使用 vLLM / mlnode 构建版本，在 PoC 开始时中断正在进行的请求**
+**建议（可选）：使用 vLLM / mlnode 构建版本以在 PoC 开始时中断正在进行的请求**
 
-新的 vLLM / mlnode 构建版本可在 PoC 开始时中断正在进行的推理请求，以降低因请求在 PoC 开始时仍处于活动状态而导致权重下降的风险。
+现已提供新的 vLLM / mlnode 构建版本，可在 PoC 开始时中断正在进行的推理请求，以降低因 PoC 开始时仍处于活动状态的请求可能导致的权重下降风险。
 
 来源：[https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm](https://github.com/gonka-ai/vllm/tree/release/v0.9.1-pocv2-post5/vllm)
 
-**推荐尝试的镜像：**
+**建议尝试的镜像：**
 
 - docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5
 - docker pull ghcr.io/gonka-ai/mlnode:3.0.12-post5-blackwell
@@ -1547,30 +1548,30 @@ source config.env && docker compose up api --no-deps --force-recreate -d
 
 **注意事项：**
 
-- 此构建版本旨在与之前的版本向后兼容。
+- 此构建版本旨在与先前版本保持向后兼容。
 - 它已在少量节点上启用，但仍建议在部署前审查变更内容。
 
 ## 2026年2月19日
 
 **抵押参数更新提案 — 投票结果**
 
-抵押参数更新提案已结束，但未达到法定人数。根据当前治理规则，该提案被否决。因此，更新的参数将不会生效。
+抵押参数更新提案已结束，但未达到法定人数。根据当前治理规则，该提案被否决。因此，更新后的参数将不会生效。
 
 如前所述，Epoch 180 的抵押激活与此投票无关。
 
-由于该提案未通过，Genesis 中定义的抵押参数将在 Epoch 180 自动生效。
+由于该提案未通过，创世时定义的抵押参数将在 Epoch 180 自动生效。
 
 参与者应：
 
-- 审查 Genesis 中定义的抵押参数。
-- 在 Epoch 180 之前准备并存入所需的 GNK。
-- 确保正确设置[抵押](https://gonka.ai/host/collateral/)，否则从 Epoch 180 开始，PoC 衍生的奖励将减少 5 倍。
+- 审查创世文件中定义的抵押参数。
+- 在 Epoch 180 之前准备并存入所需 GNK。
+- 确保正确设置[抵押](https://gonka.ai/host/collateral/)，否则从 Epoch 180 开始，PoC 衍生奖励将减少 5 倍。
 
 抵押激活是协议从宽限期过渡到完全抵押 PoC 权重模型的一部分。治理仍是调整参数的机制，但如果未批准替代方案，则适用默认规则。
 
 !!! note "重要提示：存入时请留有余量"
 
-    强烈建议参与者**不要**恰好存入最低金额。由于归一化效应和网络级调整，PoC 权重在各 Epoch 之间可能会波动。较小的权重可能经历相对更大的波动。为避免在 Epoch 边界出现临时抵押不足的情况，建议存入高达计算出的最低要求 2 倍的金额，尤其是在抵押水平仍然较低的情况下。这可提供操作安全性，并防止因微小参数变化而导致意外的权重降低。协议不会自动补充抵押。
+    强烈建议参与者**不要**仅存入最低精确金额。由于归一化效应和网络级调整，PoC 权重可能在各 epoch 之间波动。较小的权重可能经历相对更大的波动。为避免在 epoch 边界出现临时抵押不足的情况，建议存入高达计算出的最低要求 2 倍的金额，尤其是在抵押水平仍相对较低时。这可提供操作安全性，并防止因微小参数变化而导致意外的权重降低。协议不会自动补充抵押。
 
     如果社区希望再次修改参数，可能会提出新的提案。
 
@@ -1579,9 +1580,9 @@ source config.env && docker compose up api --no-deps --force-recreate -d
 **PoC 权重归一化更新**
 
 最近升级后，由于 PoC 持续时间归一化，节点权重已进行调整。
-为将 PoC 权重与实际区块生成时间归一化，校准参数基于观察到的区块间隔进行选择。实际实施中，有效的 PoC 参考窗口比之前的名义假设长约 5 个区块。
+为将 PoC 权重与实际区块生成时间归一化，校准参数基于观察到的区块间隔选定。实际实施中，有效的 PoC 参考窗口比之前的名义假设长约 5 个区块。
 
-结果如下：
+因此：
 
 - 节点平均权重下降（归一化效应）
 - 显示的总 H100 等效容量相应降低
@@ -1589,16 +1590,16 @@ source config.env && docker compose up api --no-deps --force-recreate -d
 
 **原因说明**
 
-此前，PoC 权重计算依赖于名义上的 Epoch 持续时间假设。引入实时归一化后：
+此前，PoC 权重计算依赖于名义上的 epoch 持续时间假设。引入实时归一化后：
 
-- PoC 持续时间与实际区块生成时间对齐
+- PoC 持续时间与实际出块时间对齐
 - 权重更准确地反映实际计算时间
 
-由于有效归一化窗口比之前的名义模型长约 5 个区块，因此每个 Epoch 重新计算的权重相应降低。
+由于有效归一化窗口比之前的名义模型长约 ~5 个区块，重新计算的每 epoch 权重相应更低。
 
 **观察到的 GPU 权重变化（Epoch 175 → 176）**
 
-| GPU 类型 | 纪元 175 | 纪元 176 | 变化 |
+| GPU 类型 | 第175轮 | 第176轮 | 变化 |
 | --- | --- | --- | --- |
 | A100-PCIE-40GB | 11.8 |  |  |
 | A100-SXM4-80GB |  |  |  |
@@ -1608,15 +1609,15 @@ source config.env && docker compose up api --no-deps --force-recreate -d
 
 **追踪器（仪表盘）维护人员操作提示**
 
-由于PoC时长归一化已生效，且实际参考窗口现在比之前的名义假设长约5个区块，从纪元176开始的权重值反映了更新后的计算模型。
-从PoC权重推导H100等效容量或奖励预测的追踪器和仪表盘应从纪元176起验证其转换系数。
+由于PoC时长归一化已生效，且实际参考窗口现在比之前的名义假设长约5个区块，从第176轮开始的权重值已反映更新后的计算模型。
+从PoC权重推导H100等效容量或奖励预测的追踪器和仪表盘，应从第176轮起核对其转换系数。
 如果仍使用归一化前的假设，显示的硬件等效值和预测奖励可能会被高估。
 
 ## 2026年2月18日
 
 **升级已执行：v0.2.10 现已在主网上线**
 
-主网上的链上治理投票已结束，升级提案v0.2.10已获得批准，并成功在主网上执行。此次升级对PoC验证进行了重要优化，并实现了实时权重归一化，以提高网络的公平性和可扩展性。
+针对升级提案v0.2.10的链上治理投票已经结束。该提案已获得批准，升级已在主网上成功执行。此次升级对PoC验证进行了重要优化，并实现了实时权重归一化，以提升网络的公平性和可扩展性。
 
 **注意**
 
@@ -1716,20 +1717,20 @@ export NODE_URL=https://node3.gonka.ai/
 
 **按实际时间进行PoC权重归一化**
 
-此次升级通过实际PoC耗时对PoC参与者权重进行归一化处理，以减少区块时间漂移的影响，并使权重结果与实际执行时长保持一致。
+此次升级通过实际的PoC经过时间对PoC参与者权重进行归一化，以减少区块时间漂移的影响，并使权重结果与实际执行持续时间保持一致。
 
-**启用Qwen235B的工具功能**
+**启用Qwen235B的工具**
 
-此次升级为`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`添加了工具调用参数（`--enable-auto-tool-choice`，`--tool-call-parser hermes`），并设置了验证阈值`0.958`。
-要启用工具功能，必须重启MLNode容器内的vLLM。升级后将引入一个3000个区块的宽限期，在此期间无需进行确认PoC，并且在升级所在周期内，对未命中率和无效率的限制将更为宽松。
+此次升级为`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`添加了工具调用参数（`--enable-auto-tool-choice`, `--tool-call-parser hermes`），并设置了验证阈值`0.958`。
+要启用工具，必须重启MLNode容器内的vLLM。升级引入了一个3000个区块的宽限期，在此期间无需确认PoC，并且在升级所在周期内，对未命中率和失效率的阈值要求更宽松。
 
 **附加协议更新**
 
 - 修复PoC和CPoC交集的bug（PR #752）
-- IBC协议栈升级至v8.7.0版本。
+- 将IBC栈升级至v8.7.0。
 - 惩罚阈值现在由链上数据推导得出（PR #688）
-- 支持带有活跃解锁计划的流式释放转账（PR #641）
-- MLNode容器的更可靠版本 `ghcr.io/product-science/mlnode:3.0.12-post4` / `ghcr.io/product-science/mlnode:3.0.12-post4-blackwell`。
+- 支持带有活跃释放期的streamvesting转账（PR #641）
+- 更可靠的MLNode容器版本 `ghcr.io/product-science/mlnode:3.0.12-post4` / `ghcr.io/product-science/mlnode:3.0.12-post4-blackwell`。
 
 有关这些及其他变更的更多详细信息，请参见治理文档 [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md ](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10/README.md)
 
@@ -1769,16 +1770,16 @@ export NODE_URL=https://node3.gonka.ai/
 ```
 **截止时间**
 
-- 投票截止时间：2026年2月18日 09:26:26 UTC
+- 投票结束时间：2026年2月18日 09:26:26 UTC
 - 升级高度：2712600
 - 预计升级时间：2026年2月18日 15:30:00 UTC
 
 **注意**
 
-- 请检查任何解析`inferenced` CLI输出的脚本。由于IBC栈升级至v8.7.0，枚举和int64/uint64值现在以字符串形式编码。
-- 请计划在升级期间保持在线，以便及时应用任何后续步骤或缓解指令。
-- 升级期间，Cosmovisor会在`.inference/data`目录中创建完整的状态备份；请确保有足够的磁盘空间。有关安全删除`.inference`目录中旧备份的指导，请参见[文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
-- 如果`application.db`占用了大量磁盘空间，可应用[此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)描述的清理技术。
+- 请检查任何解析 `inferenced` CLI输出的脚本。由于IBC栈升级到v8.7.0，枚举和int64/uint64值现在以字符串形式编码。
+- 请计划在升级期间保持在线，以便及时应用后续步骤或缓解指令。
+- 在升级期间，Cosmovisor会在 `.inference/data` 目录中创建完整的状态备份；请确保有足够的磁盘空间。有关安全删除 `.inference` 目录中旧备份的指导，请参见[文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
+- 如果 `application.db` 占用了大量磁盘空间，可以应用[此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)描述的清理技术。
 - 升级后，Postgres可作为本地负载存储的选项。
 
 ## 2026年2月16日
@@ -1789,50 +1790,50 @@ export NODE_URL=https://node3.gonka.ai/
 
 如AMA期间讨论以及社区成员提出的论点所述，提议以较小的抵押要求和最低惩罚开始。
 
-提交社区投票的参数如下：
+将提交社区投票的参数：
 
 - 每1单位算力需0.032 GNK（约每H100需10 GNK）
-- 因未命中率或被监禁而受到0.01%的惩罚
-- 因无效推理而受到0.5%的惩罚
+- 对未命中率或被监禁处以0.01%的惩罚
+- 对无效推理处以0.5%的惩罚
 
-这意味着在一个周期内，即使受到惩罚，矿工最多也不会损失其抵押品的0.5%。而所需抵押品仅占日收益的约24%。
+这意味着在一个周期内，即使受到惩罚，矿工最多也不会损失其抵押品的0.5%。所需抵押品仅占日收益的约24%。
 
 一旦提案提交投票，将发布单独公告。
 
-警告：无论提案投票结果如何，抵押机制都将会生效。如果该提案未通过，Genesis中定义的抵押参数将在第180个纪元自动激活，而非上文列出的参数。
+警告：无论提案投票结果如何，抵押机制都将生效。如果该提案未通过，Genesis 中定义的抵押参数将在第 180 个纪元自动激活，而非上文列出的参数。
 
-未来任何抵押金额的增加都将通过单独的投票来提出。目标是观察网络稳定性，并确保不合理的惩罚极为罕见，且仅在有效情况下执行。如果能够证明网络稳定，将逐步增加抵押金额至代币经济白皮书中描述的水平（例如，每台H100约100 GNK），以支持网络的长期成功。
+未来任何抵押增加都将通过单独的投票提出。目标是观察网络稳定性，并确保不当惩罚很少发生，且仅在有效理由下应用。如果稳定性得到验证，将逐步增加抵押至代币经济白皮书所述水平（例如，每 H100 约 100 GNK），以支持网络的长期成功。
 
 ## 2026年2月13日
 
-**即将进行的v0.2.10版本升级投票与执行时间表**
+**即将进行的 v0.2.10 升级投票与执行时间表**
 
-即将进行的软件升级v0.2.10的链上投票预计将于周日晚上（洛杉矶时间）/ 周一上午（UTC）开始。
+即将进行的软件升级 v0.2.10 的链上投票预计将于周日晚间（洛杉矶时间）/ 周一上午（UTC）开始。
 如果该提案通过治理批准，升级计划将于周二执行。
 
 **大致时间线：**
 
-- 周日晚上（洛杉矶时间）— 投票期开始
+- 周日晚间（洛杉矶时间）— 投票期开始
 - 周一（UTC上午）— 投票进行中
 - 周二 — 升级执行（如获批准）
 
-请查看GitHub上的v0.2.10升级PR并留下您的反馈。下一次升级可能会为有意义的审查贡献提供赏金。
+请查看 GitHub 上的 v0.2.10 升级 PR 并留下您的反馈。对于有意义的审查贡献，可能会在下一次升级中提供赏金。
 
 [https://github.com/gonka-ai/gonka/pull/695](https://github.com/gonka-ai/gonka/pull/695)
 
 ## 2026年2月13日
 
-如果您的节点未能及时应用最新升级，可能会在区块2628371处因共识失败而停止。这是因为节点运行的二进制文件已过时，不再与网络兼容。要恢复，请遵循此指南 [https://gonka.ai/FAQ/#recovery-guide-consensus-failure-after-missing-patch](https://gonka.ai/FAQ/#recovery-guide-consensus-failure-after-missing-patch)
+如果您的节点未能及时应用最新升级，可能在区块 2628371 处因共识失败而停止。这是因为节点运行的二进制文件已过时，不再与网络兼容。要恢复，请遵循此指南 [https://gonka.ai/FAQ/#recovery-guide-consensus-failure-after-missing-patch](https://gonka.ai/FAQ/#recovery-guide-consensus-failure-after-missing-patch)
 
 ## 2026年2月12日
 
-**网络更新：补丁已可用（PoC / cPoC重叠问题）**
+**网络更新：补丁已发布（PoC / cPoC 重叠）**
 
 现已提供补丁以解决当前纪元（169/170）中观察到的事件。
 
 **需要采取的行动**
 
-要求主机尽快应用此补丁，以确保PoC验证行为正确，并安全恢复区块生产。
+要求主机尽快应用此补丁，以确保 PoC 验证行为正确，并安全恢复区块生产。
 ```
 # Download Binary
 sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post3/ .inference/data/upgrade-info.json
@@ -1857,23 +1858,23 @@ source config.env && docker compose up node --no-deps --force-recreate -d
 
 ## 2026年2月12日
 
-**网络事件：PoC / cPoC重叠（区块生产暂停）**
+**网络事件：PoC / cPoC 重叠（区块生产暂停）**
 
-在当前纪元中观察到cPoC（确认PoC）与PoC之间存在重叠。在该纪元最后一个区块之前，`is_confirmation_poc_active`被观察为`true`。
+在当前纪元中观察到 cPoC（确认 PoC）与 PoC 之间存在重叠。在该纪元最后一个区块之前，`is_confirmation_poc_active` 被观察为 `true`。
 
-目前正在评估此重叠的影响。初步观察表明，没有任何节点记录PoC提交，导致该纪元累积权重为零。
+目前正评估此重叠的影响。初步观察表明，没有节点记录 PoC 提交，导致该纪元累积权重为零。
 
 作为预防措施，矿工通过协调行动暂时停止了区块生产。
 
 问题正在定位中。
 
-请保持待命状态，以防需要立即应用补丁。准备就绪后将分享更多细节和补丁说明。
+请保持待命状态，以防需要立即应用补丁。准备就绪后将分享更多详细信息和补丁说明。
 
 ## 2026年2月12日
 
 **推理功能现已可用**
 
-链上推理访问现已开放，且不限于开发者。推理请求可通过上一次更新中引入的Allowed Transfer Agents发送。当前白名单可在链上查询：
+链上推理访问现已开放，且不限于开发者。推理请求可通过上一次更新中引入的允许传输代理（Allowed Transfer Agents）发送。当前白名单可链上查询：
 ```
 curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params" | jq '.params.transfer_agent_access_params.allowed_transfer_addresses'
 ```
@@ -1893,81 +1894,81 @@ curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/pa
 
 ## 2026年2月10日 
 
-**v0.2.10 升级的 PR 审查**
+**升级v0.2.10的PR评审**
 
-[此拉取请求](https://github.com/gonka-ai/gonka/pull/695) 针对即将进行的链上软件升级 v0.2.10，现开放审查。欢迎提供反馈和改进建议。目前计划将审查窗口保持约2天。
+[拉取请求](https://github.com/gonka-ai/gonka/pull/695) 针对下一次链上软件升级v0.2.10，现开放评审。欢迎提供反馈和改进建议。目前计划将评审窗口开放约2天。
 
-对于对此 PR 审查做出有意义贡献的用户，可能会在下一次升级中提出悬赏。
+对于对此PR评审做出有意义贡献的人员，可能在下次升级中提出奖励方案。 
 
-本次仅为对拉取请求的审查呼吁，并非正式投票的开始。治理投票流程将在审查期结束后启动。
+此次仅为对拉取请求的评审呼吁，并非正式投票的开始。治理投票流程将在评审期结束后启动。
 
-**主要变更****[PR #710](https://github.com/gonka-ai/gonka/pull/710) PoC 验证采样优化**
+**主要变更****[PR #710](https://github.com/gonka-ai/gonka/pull/710) PoC验证采样优化**
 
-本次升级引入了一种新的 PoC 验证机制，通过为每个参与者分配一组固定的采样验证者，将复杂度从 O(N^2) 降低至 O(N x N_SLOTS)。参考设计与分析：[https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/poc/optimize.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/poc/optimize.md)  
+本次升级引入了一种新的PoC验证机制，通过为每个参与者分配一组固定的抽样验证者，将复杂度从O(N^2)降低到O(N x N_SLOTS)。参考设计与分析：[https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/poc/optimize.md](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/proposals/poc/optimize.md)  
 
-**[PR #725](https://github.com/gonka-ai/gonka/pull/725) 根据实际 PoC 时间进行 PoC 权重归一化**
+**[PR #725](https://github.com/gonka-ai/gonka/pull/725) 根据实际PoC时间进行PoC权重归一化**
 
-本次升级通过实际 PoC 经过的时间对 PoC 参与者权重进行归一化，以减少区块时间漂移的影响，并使权重结果与实际执行持续时间保持一致。
+本次升级根据实际PoC经过的时间对PoC参与者权重进行归一化，以减少区块时间漂移的影响，并使权重结果与实际执行持续时间保持一致。
 
 **其他主要变更：**
 
-- **[PR #708](https://github.com/gonka-ai/gonka/pull/708)** IBC 升级至 v8.7.0
+- **[PR #708](https://github.com/gonka-ai/gonka/pull/708)** IBC升级至v8.7.0
 - **[PR #723](https://github.com/gonka-ai/gonka/pull/723)** 测试网桥接设置脚本
-- **[PR #666](https://github.com/gonka-ai/gonka/pull/666)** 优化构件存储吞吐量
+- **[PR #666](https://github.com/gonka-ai/gonka/pull/666)** 优化制品存储吞吐量
 - **[PR #688](https://github.com/gonka-ai/gonka/pull/688)** 从链上数据获取惩罚统计
-- **[PR #697](https://github.com/gonka-ai/gonka/pull/697)** 为 macOS 测试构建提供便携式 BLST 构建
-- **[PR #712](https://github.com/gonka-ai/gonka/pull/712)** 要求 proto-go 生成代码与已提交代码一致
-- **[PR #711](https://github.com/gonka-ai/gonka/pull/711)** 从链状态获取 PoC 测试参数
+- **[PR #697](https://github.com/gonka-ai/gonka/pull/697)** 为macOS测试构建提供便携式BLST构建
+- **[PR #712](https://github.com/gonka-ai/gonka/pull/712)** 要求proto-go生成代码与已提交代码一致
+- **[PR #711](https://github.com/gonka-ai/gonka/pull/711)** 从链状态获取PoC测试参数
 - **[PR #641](https://github.com/gonka-ai/gonka/pull/641)** 带有归属的流式释放转账
 - **[PR #659](https://github.com/gonka-ai/gonka/pull/659)** 模型分配检查前一周期的奖励。
-- **[PR #716](https://github.com/gonka-ai/gonka/pull/716)** 重命名 PoC 权重函数以提高清晰度和正确性。
+- **[PR #716](https://github.com/gonka-ai/gonka/pull/716)** 为提高清晰度和正确性重命名PoC权重函数。
 
-**API 加固和可靠性修复：**
+**API加固和可靠性修复：**
 
-- **[PR #634](https://github.com/gonka-ai/gonka/pull/634)**：添加请求体大小限制以降低 DoS 风险。
-- **[PR #727](https://github.com/gonka-ai/gonka/pull/727)**：#634 的后续，将响应写入器传递给 `http.MaxBytesReader` 并对齐测试。
+- **[PR #634](https://github.com/gonka-ai/gonka/pull/634)**：添加请求体大小限制以降低DoS风险。
+- **[PR #727](https://github.com/gonka-ai/gonka/pull/727)**：#634的后续，将响应写入器传递给`http.MaxBytesReader`并对齐测试。
 - **[PR #638](https://github.com/gonka-ai/gonka/pull/638)**：修复请求处理中的不安全类型断言。
 - **[PR #644](https://github.com/gonka-ai/gonka/pull/644)**：避免每次启动时重写静态配置。
-- **[PR #661](https://github.com/gonka-ai/gonka/pull/661)**：防止短时网络中断导致 API 崩溃。
+- **[PR #661](https://github.com/gonka-ai/gonka/pull/661)**：防止短时网络中断导致API崩溃。
 - **[PR #640](https://github.com/gonka-ai/gonka/pull/640)**：为节点版本端点行为添加单元测试。
-- **[PR #622](https://github.com/gonka-ai/gonka/pull/622)**：在 `InvalidateInference` 中传播退款错误。
-- **[PR #639](https://github.com/gonka-ai/gonka/pull/639)**：在任务申领路径中添加错误后的缺失返回。
-- **[PR #643](https://github.com/gonka-ai/gonka/pull/643)**：在执行者选择中清理 nil 参与者。
-- **[PR #545](https://github.com/gonka-ai/gonka/pull/545)**：修复 API 流程中的次要错误。
+- **[PR #622](https://github.com/gonka-ai/gonka/pull/622)**：在`InvalidateInference`中传播退款错误。
+- **[PR #639](https://github.com/gonka-ai/gonka/pull/639)**：在任务认领路径中添加错误后的缺失返回。
+- **[PR #643](https://github.com/gonka-ai/gonka/pull/643)**：在执行者选择中清理空参与者。
+- **[PR #545](https://github.com/gonka-ai/gonka/pull/545)**：修复API流程中的次要错误。
 
 **升级计划**
 
 二进制版本预计将通过链上升级提案进行更新。有关升级流程的更多信息，请参阅 [https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.10/docs/upgrades.md.)
 
-现有主机无需升级其 `api` 和 `node` 容器。更新后的容器版本适用于链上升级完成后加入的新主机。
+现有主机无需升级其`api`和`node`容器。更新后的容器版本适用于链上升级完成后加入的新主机。
 
 **建议流程**
 
-1. 活跃主机在 GitHub 上审查此提案并留下反馈。
+1. 活跃主机在GitHub上审阅此提案并留下反馈。
 2. PR 经社区审核后，预计会从该分支创建 v0.2.10 版本发布，并可提交此版本的链上升级提案，启动正式的治理投票流程。
 3. 如果链上提案通过，预计在链上执行升级后合并此 PR。
 
-从 [upgrade-v0.2.10](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10) 分支（而非 `main`）创建发布，可最大限度减少 `/deploy/join/` 目录在 `main` 分支上包含与链上二进制版本不匹配的容器版本的时间，确保新主机更顺畅的接入体验。
+从 [upgrade-v0.2.10](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10) 分支（而非 `main`）创建发布版本，可以最大限度地减少 `/deploy/join/` 目录在 `main` 分支上包含与链上二进制版本不匹配的容器版本的时间，确保新主机更顺畅的接入体验。
 
-**测试与迁移**
+**测试和迁移**
 
-v0.2.10 的测试指南和迁移详情记录在[此处](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10)。请仔细查阅。
+v0.2.10 的测试指南和迁移详情记录在[此处](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.10/proposals/governance-artifacts/update-v0.2.10)。请仔细审阅。
 
 **兼容性说明**
 
-如果您有任何解析 `inferenced` CLI JSON 输出的脚本，请在此升级后重新检查。由于 ibc-go 升级至 v8.7.0，枚举现在以字符串形式编码而非数字，int64/uint64 值现在也以字符串形式编码。
+如果您有任何解析 `inferenced` CLI JSON 输出的脚本，请在此升级后重新检查。由于 ibc-go 升级到 v8.7.0，枚举现在以字符串形式编码而非数字，int64/uint64 值现在也以字符串形式编码。
 
 ## 2026年2月4日
 
 **CLI 更新提醒**
 
-对于在 v0.2.9 升级后创建的暖键授予权限，应使用 [CLI 版本 v0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.9)。
+对于在 v0.2.9 升级后创建的热密钥授予权限，应使用 [CLI 版本 v0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.9)。
 
 ## 2026年2月3日
 
 **PoC v2 基于推理的权重调整**
 
-随着 PoC v2 启用，权重分配现在基于当前模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 上测得的推理性能。因此，GPU 的中位权重以及不同类型 GPU 之间的相对权重比均已调整。
+随着 PoC v2 启用，权重分配现在基于当前模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 上测得的推理性能。因此，中位 GPU 权重以及不同 GPU 类型之间的相对权重比率均已调整。
 
 **观察到的 GPU 权重变化（Epoch 158 → 159）**
 
@@ -2025,11 +2026,11 @@ source config.env && docker compose up node --no-deps --force-recreate -d
 
 **区块验证已作为预防措施暂停**
 
-由于当前PoC周期内可能存在无法满足验证阈值的高风险，各节点已通过集体行动暂停了区块验证。根据目前评估，用于处理此情况的机制可能无法按预期运行。为防止在不确定或不安全条件下完成验证者最终确定，网络在验证者选择之前已被暂停。
+由于当前PoC周期内可能存在无法满足验证阈值的高风险，各节点已通过集体行动暂停了区块验证。根据目前评估，用于处理此情况的机制可能无法按预期运行。为防止在不确定或不安全的情况下完成验证者最终确定，网络在验证者选择之前已被暂停。
 
 **下一步**
 
-目前正在执行以下操作：
+目前正在采取以下行动：
 
 - 验证是否没有任何验证者集合能够达到所需的验证阈值
 - 确认验证者最终确定前的网络状态
@@ -2041,68 +2042,68 @@ source config.env && docker compose up node --no-deps --force-recreate -d
 
 ## 2026年2月1日
 
-**升级已执行：v0.2.9现已在主网上线**
+**升级已执行：v0.2.9 现已在主网上线**
 
-链上治理投票关于升级提案v0.2.9已结束。该提案已获批准，并于区块2451000成功在主网上执行。此次升级实现了PoC v2的权重分配机制，并完成了从旧版PoC机制的过渡。
+链上治理投票关于升级提案 v0.2.9 已经结束。该提案已获得批准，并于区块高度 2451000 成功在主网上执行。此次升级实现了 PoC v2 的权重分配机制，并完成了从旧版 PoC 机制的过渡。
 
 **注意**
 
-- 下一个PoC周期（从第158纪元过渡到第159纪元）至关重要。请计划保持在线，以便在需要时能及时执行后续步骤或缓解指令。
-- 只有提供`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`服务的ML节点才有资格进入下一个（159）纪元并参与PoC v2的权重分配。运行其他模型的ML节点将不会被纳入即将到来的纪元的参与者集合中。
+- 下一个 PoC 周期（从 epoch 158 过渡到 159）至关重要。请计划保持在线，以便在需要时能够及时执行后续步骤或缓解指令。
+- 只有提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 服务的 ML 节点才有资格进入下一个（159）epoch 并参与 PoC v2 的权重分配。运行其他模型的 ML 节点将不会被包含在即将到来的 epoch 的参与者集合中。
 
 **节点准备**
 
-建议各节点确认所有ML节点：
+建议各节点验证所有 ML 节点：
 
-- 仅配置为提供支持的模型`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
-- 镜像已更新至兼容PoC v2的版本
+- 仅配置为提供支持的模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- 镜像已更新至支持 PoC v2 的版本
 
-有关将ML节点切换至`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、升级ML节点镜像以及移除其他模型的指导，请参见[常见问题解答](https://gonka.ai/FAQ/#how-to-switch-to-qwenqwen3-235b-a22b-instruct-2507-fp8-upgrade-ml-nodes-and-remove-other-models)。
+有关将 ML 节点切换至 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、升级 ML 节点镜像以及移除其他模型的指导，请参见[常见问题解答](https://gonka.ai/FAQ/#how-to-switch-to-qwenqwen3-235b-a22b-instruct-2507-fp8-upgrade-ml-nodes-and-remove-other-models)。
 
-**当前生效的关键变更****PoC v2激活**
+**当前生效的关键变更****PoC v2 激活**
 
-- PoC v2被用作权重分配的现行机制
-- 确认PoC（V2跟踪）被用作结果的权威来源
-- 旧版PoC逻辑不再用于权重计算
+- PoC v2 现作为权重分配的主动机制
+- 确认 PoC（V2 跟踪）被用作结果的权威来源
+- 旧版 PoC 逻辑不再用于权重计算
 
 **模型配置**
 
 - 网络以单模型配置运行
-- 用于PoC v2和权重分配的模型是`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
-- 提供其他模型服务的ML节点不会被包含在PoC v2权重分配中。在支持的情况下，可能会自动切换至`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- 用于 PoC v2 和权重分配的模型为 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- 提供其他模型服务的 ML 节点不会被包含在 PoC v2 权重分配中。在支持的情况下，可能会自动切换至 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
 
 **资格标准**
 
-ML节点要具备PoC v2权重分配资格，必须同时满足以下两个条件：
+ML 节点要符合 PoC v2 权重分配资格，必须同时满足以下两个条件：
 
-- 节点提供`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`服务
-- 节点运行兼容PoC v2的镜像：
+- 节点提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 服务
+- 节点运行 PoC v2 兼容的镜像：
     - ghcr.io/product-science/mlnode:3.0.12-post1
     - ghcr.io/product-science/mlnode:3.0.12-post1-blackwell
 
-**cPoC情况下的奖励流动修正**
+**针对 cPoC 情况的奖励流修正**
 
-在因cPoC处罚导致奖励减少或排除的情况下，未计入的部分将转入社区资金池。此前，此类奖励会在其他参与者之间重新分配。
+在因 cPoC 惩罚而导致奖励减少或被排除的情况下，未计入的部分将转移至社区资金池。此前，此类奖励会重新分配给其他参与者。
 
 **其他协议更新**
 
-- Transfer Agent 角色在初始阶段仅限于[定义](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist)的`allowlist`
-- 在忽略 PoC 验证的情况下参与 PoC 生成的节点已从[参与者](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal)的`allowlist`中移除
-- 当 PoC v2 验证投票阈值未达到时，[Guardian 权重](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)将作为确定性备选方案应用
+- 转账代理角色在初始阶段仅限于[定义的列表](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist) `allowlist`
+- 在忽略PoC验证的情况下参与PoC生成的节点已从[参与者列表](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal) `allowlist` 中移除
+- 当PoC v2验证投票阈值未达到时，[守护者权重](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)将作为确定性备用机制应用
 
-有关这些变更的更多详细信息，请参阅治理文档：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 ](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 )
+有关这些变更的更多详细信息，请参见治理文档：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 ](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 )
 
 ## 2026年2月1日
 
-v0.2.9 升级提案的链上治理流程即将结束。
+v0.2.9升级提案的链上治理流程即将结束。
 
 - 投票截止时间：2026年2月1日 22:02:58 UTC
 - 升级高度：2451000。
 - 预计升级时间：2026年2月2日 05:10:00 UTC
 
-建议节点运营方在[GitHub](https://github.com/gonka-ai/gonka/pull/668)上查看提案并参与投票。
+建议主机方在[GitHub](https://github.com/gonka-ai/gonka/pull/668)上审阅提案并参与投票。
 
-提前预下载二进制文件有助于避免在升级期间依赖 GitHub 的可用性。
+提前预下载二进制文件有助于避免在升级期间依赖GitHub的可用性。
 ```
 # 1. Create Directories
 sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.9/bin \
@@ -2134,49 +2135,49 @@ echo "ae20517e4bb38293202f7f5d52439d5315cb32c8f3c34a02fa65feaefadd6193 .inferenc
 
 ## 2026年1月31日
 
-**v0.2.9 升级提案进入治理流程**
+**v0.2.9升级提案进入治理流程**
 
-下一版本链上软件 v0.2.9 的升级提案现已发布上链，进入投票阶段。若提案通过，将启用 PoC v2 进行权重分配，并通过链上治理完成从旧版 PoC 机制的过渡。
+下一版本链上软件v0.2.9的升级提案现已发布上链，进入投票阶段。若提案通过，将启用PoC v2进行权重分配，并通过链上治理完成从旧版PoC机制的过渡。
 
-**主要变更****PoC v2 激活**
+**主要变更****PoC v2激活**
 
-- PoC v2 将作为权重分配的主动机制
-- 确认 PoC（V2 跟踪）将作为结果的权威来源
-- 旧版 PoC 逻辑不再用于权重计算
+- PoC v2将作为权重分配的主动机制
+- 确认PoC（V2跟踪）将作为结果的权威来源
+- 旧版PoC逻辑不再用于权重计算
 
 **模型配置**
 
 - 网络将以单模型配置运行
-- 用于 PoC v2 和权重分配的模型为 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
-- 提供其他模型的 ML 节点不会被纳入 PoC v2 的权重分配。在支持的情况下，可能会自动切换至模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- 用于PoC v2和权重分配的模型为 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- 提供其他模型的ML节点不会被纳入PoC v2的权重分配。在支持的情况下，可能会自动切换至模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
 
 **资格标准**
 
-ML 节点要具备 PoC v2 权重分配资格，必须同时满足以下两个条件：
+ML节点要具备PoC v2权重分配资格，必须同时满足以下两个条件：
 
-- 节点提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 模型
-- 节点运行 PoC v2 兼容镜像：
+- 节点提供模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
+- 节点运行PoC v2兼容的镜像：
     - ghcr.io/product-science/mlnode:3.0.12-post1
     - ghcr.io/product-science/mlnode:3.0.12-post1-blackwell
 
-**cPoC 情况下的奖励流向修正**
+**cPoC情况下的奖励流修正**
 
-在因 cPoC 惩罚导致奖励减少或被排除的情况下，未分配的部分将转入社区资金池。此前，此类奖励会重新分配给其他参与者。
+在因cPoC惩罚导致奖励减少或排除的情况下，未分配的部分将转入社区池。此前，此类奖励会重新分配给其他参与者。
 
 **其他协议更新**
 
-- Transfer Agent 角色在初始阶段仅限于[定义](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist)的`allowlist`
-- 在参与 PoC 生成的同时忽略 PoC 验证的节点已从[参与者](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal)的`allowlist`中移除
-- 当 PoC v2 验证投票阈值未达到时，[Guardian 权重](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)将作为确定性备选方案应用
+- 转账代理角色在初始阶段仅限于[定义的列表](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist) `allowlist`
+- 在忽略PoC验证的情况下参与PoC生成的节点已从[参与者列表](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal) `allowlist` 中移除
+- 当PoC v2验证投票阈值未达到时，[守护者权重](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)将作为确定性备用机制应用
 
-有关这些变更的更多详细信息，请参阅治理文档：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9)
+有关这些变更的更多详细信息，请参见治理文档：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9)
 
-**节点运营方准备事项**
+**主机准备事项**
 
-建议节点运营方确认所有 ML 节点：
+建议主机方确认所有ML节点：
 
 - 仅配置为提供支持的模型 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
-- 镜像已更新至 PoC v2 兼容版本
+- 镜像已更新至PoC v2兼容版本
 
 有关将机器学习节点切换到`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、升级机器学习节点镜像以及删除其他模型的指导，请参见[常见问题解答](https://gonka.ai/FAQ/#how-to-switch-to-qwenqwen3-235b-a22b-instruct-2507-fp8-upgrade-ml-nodes-and-remove-other-models)。
 
@@ -2274,17 +2275,17 @@ export NODE_URL=https://node4.gonka.ai/
 
     **维护与运营**
 
-- Cosmovisor：节点和API二进制文件的更新将自动处理，现有主机无需对正在运行的容器执行手动更新。
+- Cosmovisor：节点和API二进制更新将自动处理，现有主机无需对正在运行的容器执行手动更新。
 - 磁盘空间：Cosmovisor会在`.inference/data`目录中创建完整的状态备份，请确保有250GB以上的可用空间。
-- Postgres：升级后可通过Postgres配置本地有效载荷存储。
+- Postgres：升级后可通过Postgres配置本地负载存储。
 
-建议在升级后的窗口期内监控节点状态并通过Discord沟通，以确保系统稳定。
+建议在升级后的窗口期内监控节点状态并通过Discord沟通，以确保稳定性。
 
 ## 2026年1月28日
 
 **如何切换到`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`、升级ML节点并移除其他模型？**
 
-本指南说明了主机应如何更新其ML节点，以响应v0.2.8版本中模型可用性的变化以及即将到来的PoC v2更新。从第155纪元开始，将检查ML节点配置是否符合PoC v2要求。建议主机在此之前审查并准备其ML节点配置。迁移至PoC v2可在第155纪元后安排。迁移阶段结束后，不符合配置要求的ML节点的权重可能不会被计入。
+本指南说明了主机应如何更新其ML节点，以应对v0.2.8版本中模型可用性的变化以及即将到来的PoC v2更新。从第155纪元开始，将检查ML节点配置是否符合PoC v2要求。建议主机在此之前审查并准备其ML节点配置。迁移至PoC v2可在第155纪元之后安排。迁移阶段结束后，不符合配置要求的ML节点的权重可能不会被计入。
 
 **1. 背景：模型可用性变更（升级v0.2.8）**
 
@@ -2297,31 +2298,31 @@ export NODE_URL=https://node4.gonka.ai/
 - `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
 - `Qwen/Qwen3-32B-FP8`
 
-`Qwen/Qwen3-32B-FP8`在迁移期间仍受支持，但不参与PoC v2就绪性评估或权重分配。参与PoC v2需要提供`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。
+`Qwen/Qwen3-32B-FP8`在迁移期间仍受支持，但不参与PoC v2就绪性或权重分配。参与PoC v2需要提供`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。
 
 **已移除的模型**
 
-所有先前支持的模型均已从活动集合中移除，不得再提供服务。
+所有先前支持的模型均已从活动集合中移除，不得再提供。
 
 **3. PoC v2就绪性标准（重要）**
 
-成功参与PoC v2过渡需满足以下两个条件：
+成功参与PoC v2过渡需要同时满足以下两点：
 
-- 您所有的ML节点均提供Qwen/Qwen3-235B-A22B-Instruct-2507-FP8。这是唯一对PoC v2权重有贡献的模型。
-- 您所有的ML节点均已升级至支持PoC v2的镜像：
+- 您的所有ML节点均提供Qwen/Qwen3-235B-A22B-Instruct-2507-FP8。这是唯一对PoC v2权重有贡献的模型。
+- 您的所有ML节点均已升级至支持PoC v2的镜像：
     - ghcr.io/product-science/mlnode:3.0.12
     - ghcr.io/product-science/mlnode:3.0.12-blackwell
 
 !!! note "重要"
 
-    - 仅提供正确的模型但未升级ML节点是不够的。
+    - 仅提供正确模型但未升级ML节点是不够的。
     - 不满足这两个条件的节点在网络切换为单模型配置后将不具备资格。
-    - ML节点的升级必须在迁移完成前完成，并在v0.2.8升级后通过单独的治理提案激活PoC v2。
+    - 必须在迁移完成前完成ML节点升级，并在v0.2.8升级后通过单独的治理提案激活PoC v2。
     - v0.2.8升级本身不会启用PoC v2。
 
 **3. 检查ML节点分配状态（推荐的安全步骤）**
 
-在更改模型之前，应检查当前ML节点的分配状态。查询您的网络节点管理API：
+在更改模型之前，您应检查当前ML节点的分配状态。查询您的网络节点管理API：
 ```
 curl http://127.0.0.1:9200/admin/v1/nodes
 ```
@@ -2334,23 +2335,23 @@ curl http://127.0.0.1:9200/admin/v1/nodes
 ```
 解释：
 
-- 第一个布尔值：节点是否在当前纪元中提供推理服务
+- 第一个布尔值：节点是否在当前纪元提供推理服务
 - 第二个布尔值：节点是否计划在下一个PoC中提供推理服务
 
 **推荐操作**
 
 - 建议仅在第二个值为`false`的节点上更改模型
-- 这可以在观察PoC v2行为时降低风险
+- 这可以在观察PoC v2行为期间降低风险
 - 鼓励跨多个纪元逐步 rollout
 
-**4. 更新ML节点模型：仅保留受支持的模型**
+**4. 更新ML节点模型：仅保留支持的模型**
 
-预下载模型权重（推荐）。为避免启动延迟，请将权重预下载到`HF_HOME`：
+预下载模型权重（推荐）。为避免启动延迟，请将权重预下载到`HF_HOME`目录中：
 ```
 mkdir -p $HF_HOME
 huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
 ```
-使用ML节点管理API将ML节点切换至受支持的模型（`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`）。
+使用ML节点管理API将ML节点切换至支持的模型（`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`）。
 
 例如：
 ```
@@ -2492,49 +2493,49 @@ echo "308c63c7bda4fb668632ac3e13f3f6cccacf54c563c8e9fd473bcb48c7389fe0 .inferenc
 
 **v0.2.8 升级提案进入治理阶段**
 
-下一次链上软件版本 v0.2.8 的升级提案现已发布上链，开始开放投票！
-您的审查和投票对于确保网络的稳定性及未来能力至关重要。
+下一次链上软件版本 v0.2.8 的升级提案现已发布到链上，开始开放投票！
+您的审查和投票对于确保网络的稳定性和未来能力至关重要。
 
-**v0.2.8 中的主要变更****PoC v2（核心升级）**
+**v0.2.8 中的关键变更****PoC v2（核心升级）**
 
 - 将 PoC 直接集成到 vLLM 中，能够在推理和 PoC 之间立即切换，无需卸载模型或加载单独的 PoC 模型。
-- 使用 MMR（Merkle Mountain Range）承诺将产物存储迁移至链下——仅在链上记录 root_hash 和 count。
-- 包含双模式迁移策略：V1 用于常规 PoC，V2 跟踪用于上线期间的确认 PoC。
+- 使用 MMR（Merkle Mountain Range）承诺将工件存储迁移到链下——仅在链上记录 root_hash 和 count。
+- 包含双模式迁移策略：V1 用于常规 PoC，V2 跟踪用于上线期间的 Confirmation PoC。
 
 **模型可用性变更**
 
-作为 v0.2.8 升级的一部分，支持的模型集合将更新。所有先前支持的模型都将从活动集合中移除，仅保留：
+作为 v0.2.8 升级的一部分，受支持模型的集合将被更新。所有先前支持的模型都将从活动集合中移除，仅保留：
 
 - `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`
 - `Qwen/Qwen3-32B-FP8`
 
-使用 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 成功参与 PoC v2，并配合所需的 ML 节点版本，将用于评估向 PoC v2 迁移的准备情况。一旦观察到足够水平的采用率（约50%）在活跃 Host 中达成，可能会提交单独的治理提案以批准并激活 PoC v2 用于分配权重。此阈值仅为观测性质，不会触发任何自动的网络变更。
+使用 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 成功参与 PoC v2，并配合所需的 ML 节点版本，将用于评估向 PoC v2 过渡的准备情况。一旦观察到足够水平的采用率（约50%）在活跃主机中达成，可能会提交单独的治理提案以批准并激活 PoC v2 用于分配权重。此阈值为观察性质，不会触发任何自动网络变更。
 
-在下一个网络步骤通过治理批准后，网络将暂时仅支持 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。
+在下一次网络步骤通过治理批准后，网络将暂时仅支持 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。
 
 **安全性、正确性和可靠性改进**
 
-- SSRF 和 DoS：验证 InferenceUrl 以拒绝内网 IP，并添加超时机制以防止请求挂起。
-- 投票翻转：通过拒绝重复项来防止 PoC 验证被覆盖。
-- PoC 排除：修复 getInferenceServingNodeIds 以正确排除参与推理服务的节点。
-- 认证绕过和重放攻击：将 epochId 绑定到签名，并针对正确的 epoch 验证授权。
+- SSRF 和 DoS：验证 InferenceUrl 以拒绝内部 IP，并添加超时机制以防止请求挂起。
+- 投票翻转：通过拒绝重复项防止覆盖 PoC 验证。
+- PoC 排除：修复 getInferenceServingNodeIds 以正确排除推理服务节点。
+- 认证绕过和重放：将 epochId 绑定到签名，并针对正确 epoch 验证授权。
 
-由于变更内容较多，此处仅列出部分重点项。更多更新和修复的完整列表请参见 [GitHub pull request](https://github.com/gonka-ai/gonka/pull/539)。
+由于变更内容较多，此处仅突出部分重点项。更多更新和修复的完整列表请参见 [GitHub pull request](https://github.com/gonka-ai/gonka/pull/539)。
 
-**Host 需采取的行动**
+**主机需采取的行动**
 
-为参与 PoC v2 迁移，Host 必须完成以下两个步骤：
+为了参与 PoC v2 过渡，主机必须完成以下两个步骤：
 
 - 确认您的 ML 节点已配置为提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 服务
-- 将 ML 节点升级至支持 PoC v2 的版本：
+- 将 ML 节点升级到支持 PoC v2 的版本：
     - ghcr.io/product-science/mlnode:3.0.12
     - ghcr.io/product-science/mlnode:3.0.12-blackwell
 
-仅提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 服务但未升级 ML 节点不足以参与 PoC v2。未能满足这两个条件的节点，在网络切换至单模型配置后将不被视为有资格参与 PoC v2。ML 节点升级必须在 PoC v2 通过治理完全启用之前完成。
+仅提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 服务但未升级 ML 节点不足以参与 PoC v2。不满足这两个条件的节点在网络切换至单模型配置后将被视为不具备参与 PoC v2 的资格。ML 节点升级必须在 PoC v2 通过治理完全启用之前完成。
 
 **如何投票**
 
-您可以使用 `inferenced` 命令获取提案详情并提交投票。请注意，任何活跃节点均可用于查询或投票。当前可用的节点包括：
+您可以使用 `inferenced` 命令获取提案详情并提交投票。请注意，任何活跃节点均可用于查询或提交投票。当前可用节点包括：
 
 - [http://node1.gonka.ai:8000/](http://node1.gonka.ai:8000/)
 - [http://node2.gonka.ai:8000/](http://node2.gonka.ai:8000/)
@@ -2563,32 +2564,32 @@ export NODE_URL=https://node4.gonka.ai/
 **截止时间**
 
 - 投票截止于 2026 年 1 月 29 日 03:02:20 UTC。
-- 升级计划在区块 2387000 执行。该区块的预计时间为 2026 年 1 月 29 日 06:30:00 UTC。
+- 提议在区块 2387000 进行升级。该区块的预计时间为 2026 年 1 月 29 日 06:30:00 UTC。
 
-如果您是 Host，请查看并投票。
+如果您是主机，请查看并投票。
 
-**注意 1：** 请计划在升级窗口期间保持在线，以便在需要时能及时执行后续步骤或缓解措施。
+**注意 1：** 请计划在升级窗口期间保持在线，以便在需要时能够及时执行后续步骤或缓解措施。
 
-**注意 2：** 升级期间，Cosmovisor 会在 `.inference/data directory` 中创建完整的状态备份。请确保有足够的磁盘空间。有关从 `.inference` 目录安全删除旧备份的说明，请参见[此处](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。如果 `application.db` 占用了大量磁盘空间，可使用[此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)所述的清理技术。
+**注意 2：** 升级期间，Cosmovisor 会在 `.inference/data directory` 中创建完整的状态备份。请确保有足够的磁盘空间。有关如何从 `.inference` 目录安全删除旧备份的说明，请参见[此处](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。如果 `application.db` 占用了大量磁盘空间，可以使用[此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)描述的清理技术。
 
-**注意：** 升级后，Postgres 可配置为本地负载的存储。
+**注意：** 升级后，Postgres 可以配置为本地负载的存储。
 
 ## 2026年1月19日
 
 **提案更新：稳定期延长已批准**
 
-关于延长稳定期的最近一次治理投票已成功通过。现在正式延长稳定期，以进行额外测试和网络升级。
+关于延长稳定期的最近一次治理投票已成功通过。稳定期现已正式延长，以允许进行额外测试和网络升级。
 
 **主机行动项**
 
 随着延期确认，请利用这段时间为新的 PoC 要求准备您的设置。
 
 - 模型更新：请将您的 ML 节点切换到 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 模型。
-- 逐步 rollout：如果您运行多个 ML 节点，建议在多个 epoch 中逐步执行这些更新。
+- 逐步 rollout：如果您运行多个 ML 节点，建议您在多个 epoch 中逐步完成这些更新。
 
 **如何更新**
 
-有关更新现有 ML 节点的说明，请参见此处：[https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)
+更新现有 ML 节点的说明可在此处找到：[https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)
 
 ## 2026年1月16日
 
@@ -2596,43 +2597,43 @@ export NODE_URL=https://node4.gonka.ai/
 
 一项新的治理投票当前正在进行中。
 
-该提案将当前稳定期延长约两周。延长期间旨在为即将到来的 PoC 变更及相关网络升级进行额外测试。有关新 PoC 开发进展的更多详情，请参见此处：[https://github.com/gonka-ai/gonka/blob/gm/poc-status/proposals/governance-artifacts/poc-update-status.md](https://github.com/gonka-ai/gonka/blob/gm/poc-status/proposals/governance-artifacts/poc-update-status.md)。
+该提案将当前稳定期延长约两周。延长期间旨在为即将到来的 PoC 变更及相关网络升级提供额外测试时间。有关新 PoC 开发进展的更多详情，请参见此处：[https://github.com/gonka-ai/gonka/blob/gm/poc-status/proposals/governance-artifacts/poc-update-status.md](https://github.com/gonka-ai/gonka/blob/gm/poc-status/proposals/governance-artifacts/poc-update-status.md)。
 
-此次延期还为主机提供了时间为新 PoC 要求准备其设置，包括将 ML 节点切换到 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 模型。更新现有 ML 节点的说明请参见此处：[https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)。对于运行多个 ML 节点的主机，建议在多个 epoch 中逐步完成更新。
+此次延期还为主机提供了准备时间，以适应新的 PoC 要求，包括将 ML 节点切换到 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 模型。更新现有 ML 节点的说明可在此处获取：[https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode](https://gonka.ai/host/mlnode-management/#updating-an-existing-mlnode)。对于运行多个 ML 节点的主机，建议在多个 epoch 中逐步完成更新。
 
 **投票范围**
 
-如果提案获得批准，网络将暂时继续在现有的 `allowlist` 下运行（包括未表现出非标准硬件行为的主机）。
+如果提案获得批准，网络将在现有 `allowlist` 下继续临时运行（包括未表现出非标准硬件行为的主机）。
 
-开发者 `allowlist` 也将相应延长，持续生效至区块 2459375。
+开发者 `allowlist` 将同步延长相同的时间偏移，并持续生效至区块 2459375。
 
-未包含在 `allowlist` 中的主机在延长的稳定期内仍无法参与 PoC，该稳定期将在区块 2443558 结束。
+未包含在 `allowlist` 中的主机在延长的稳定期内仍无法参与 PoC，该延长稳定期将在区块 2443558 结束。
 
 **可复现性与方法论**
 
-`allowlist` 是：
+`allowlist` 具有以下特点：
 
-- 可在[此处](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)获取
-- 基于链上公开可观察数据，使用预定义的一组硬件配置模式推导得出。这些模式通过开源脚本进行评估，脚本位于：[https://github.com/product-science/filter](https://github.com/product-science/filter)
+- 可在以下位置获取：[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
+- 基于链上公开可观察数据，使用预定义的一组硬件配置模式生成。这些模式通过开源脚本进行评估，脚本位于：[https://github.com/product-science/filter](https://github.com/product-science/filter)
 
 **执行特性**
 
 - 如果提案获得批准，`allowlist` 将自动延长。
 - 无需软件升级。
-- 如需进一步调整，仍需通过治理决定。
+- 如需进一步调整，仍需通过治理流程决定。
 
 **稳定期结束后**
 
 `allowlist` 具有固定到期时间，不会超过延长的稳定期。一旦 `allowlist` 在区块 2443558 失效：
 
-- 网络将恢复到稳定期之前生效的标准参与规则，或
+- 网络将恢复到稳定期之前的标准参与规则，或
 - 任何替代配置必须通过单独的治理决策来定义。
 
 **如何投票**
 
 您可以使用 `inferenced` 命令获取提案详情并投票。
 
-请注意，任何活动节点均可用于查询或投票。当前可用节点包括：
+请注意，任何活跃节点均可用于查询或投票。当前可用的节点包括：
 
 - http://node1.gonka.ai:8000/ 
 - http://node2.gonka.ai:8000/
@@ -2783,20 +2784,20 @@ export NODE_URL=http://node1.gonka.ai:8000
 - 如果提案获得批准，`allowlist` 将自动生效。
 - 无需软件升级。
 - 在成功投票后的下一个PoC期间，`allowlist`将激活，预计在区块：2089140。
-- 从那时起，`allowlist`将持续生效，直至并包括区块 ​​2222222。
-- 如需进一步调整，仍需通过治理决定。
+- 从那时起，`allowlist`将一直有效，直至并包括区块​​2222222。
+- 如有进一步调整，仍需通过治理决定。
 
-**稳定期结束后**
+**稳定窗口期之后**
 
-`allowlist`已设定固定过期时间，不会在稳定期后继续生效。一旦`allowlist`在区块2222222过期：
+`allowlist`设定了固定的过期时间，不会超过稳定窗口期。一旦`allowlist`在区块2222222过期：
 
-- 网络将恢复至稳定期之前生效的标准参与规则，或
+- 网络将恢复到稳定期之前生效的标准参与规则，或
 - 任何其他配置必须通过单独的治理决策来定义。
 
 **如何投票**
 
 您可以使用`inferenced`命令获取提案详情并进行投票。
-请注意，任何活跃节点均可用于查询或投票。当前可用的节点包括：
+请注意，任何活动节点均可用于查询或投票。当前可用的节点包括：
 
 - http://node1.gonka.ai:8000/
 - http://node2.gonka.ai:8000/
@@ -2824,23 +2825,23 @@ export NODE_URL=http://node1.gonka.ai:8000
 
 此过程完全通过治理机制处理，无需软件升级。
 
-**时间线和截止日期**
+**时间表和截止日期**
 
-- 投票截止时间：2026年1月10日 06:46:52 UTC。
-- `Allowlist`激活时间：在区块2089140的下一次PoC执行后。
-- `Allowlist`过期时间：在区块2222222自动过期。
+- 投票结束时间：2026年1月10日 06:46:52 UTC。
+- `Allowlist`激活时间：下一个PoC执行后，区块2089140。
+- `Allowlist`过期时间：区块2222222时自动过期。
 
-如果您是主机，请查看并投票。
-
-## 2026年1月8日
-
-**网络更新——共识已恢复**
-
-在部署补丁后，网络共识已稳定，并恢复正常运行参数。
+请查看并在您是主机时参与投票。
 
 ## 2026年1月8日
 
-**网络更新——补丁已准备就绪，可部署**
+**网络更新 — 共识已恢复**
+
+在部署补丁后，网络共识已稳定，目前运行在正常参数范围内。
+
+## 2026年1月8日
+
+**网络更新 — 补丁已准备就绪**
 
 用于解决PoC期间出现的最近共识故障的补丁现已可用。
 
@@ -2855,87 +2856,87 @@ export NODE_URL=http://node1.gonka.ai:8000
 
 ## 2026年1月8日
 
-**网络更新——后续跟进**
+**网络更新 — 后续跟进**
 
-用于解决最近共识问题的补丁已准备就绪，详细说明将很快发布。
-每个活跃主机的参与对网络向前推进并恢复正常运行至关重要。请保持在线，并在说明发布后准备应用更新。
+解决最近共识问题的补丁已准备就绪，详细说明将很快发布。
+每个活跃主机的参与对网络向前发展并恢复正常运行至关重要。请保持在线，并在说明发布后准备应用更新。
 
 ## 2026年1月8日
 
-**网络更新——PoC期间出现共识故障**
+**网络更新 — PoC期间共识故障**
 
 在计算证明（PoC）期间，网络上观察到共识故障。
 问题已被识别，目前正在准备补丁以解决根本原因。技术细节和进一步说明将很快发布。
-建议主机保持在线并关注更新，因为在补丁发布后可能需要采取后续行动。
+建议主机保持在线并关注更新，因为补丁发布后可能需要采取后续行动。
 
 ## 2026年1月8日
 
 **v0.2.7升级提案：主网上线的创世验证器增强功能**
 
-链上治理投票已结束，v0.2.7升级提案：创世验证者增强已获得批准，并成功部署至主网。
+链上治理投票关于v0.2.7升级提案：创世验证者增强已结束；该提案已获得批准并成功部署至主网。
 
 **现已生效的关键变更：****创世验证者增强（临时）**
 
-- 临时重新启用创世验证者增强机制——此前使用过的限时防御机制，现提议重新激活。
+- 临时重新激活创世验证者增强机制——此前使用过的限时防御机制，现提议重新启用。
 - 在网络增长期间提供共识保护。在之前运行期间：
-    - 三位Guardian验证者共同持有约34%的共识投票权
-    - 未向Guardian验证者提供额外奖励
+    - 三位守护者验证者共同持有约34%的共识投票权
+    - 未向守护者验证者发放额外奖励
     - 该配置有助于防止极端情况下的共识停滞
-- 当满足以下两个条件时，创世验证者增强机制将自动停用：
-    - 网络总算力达到15.000.000
+- 当同时满足以下两个条件时，创世验证者增强机制将自动停用：
+    - 全网总算力达到15.000.000
     - 达到第3.000.000个区块
 
 **协议稳定性修复（全网范围）**
 
 此次升级正式纳入了此前通过手动API更新分发且已在网络中使用的重大修复。这些修复包括：
 
-- 修正了失败推理请求的错误记账问题（包括处理了不支持格式的请求但未标记为完成的情况）
-- 提升处理失败推理请求时的韧性
+- 修正了失败推理请求的错误记账问题（包括以不支持格式处理但未标记为完成的请求）
+- 提升处理失败推理的弹性
 - 为`PoCBatch`和`PoCValidation`交易引入批量处理机制。
 
-通过将这些内容纳入升级，相关行为将成为全网一致执行的协议级规则。
+通过将这些内容纳入协议，其行为将成为全网一致遵循的协议级规则。
 
 **临时参与与执行限制**
 
-- 主机层级注册：新主机的注册将在第2.222.222个区块前暂停（约两周后）。该措施旨在稳定网络并为后续增长做好准备。
-- 开发者地址注册：在稳定期内，新开发者地址的注册将被暂停。立即生效一组预定义的`allowlist`开发者地址白名单。在此期间，列入白名单的开发者地址可执行推理任务。所有适用于开发者地址的限制（包括开发者层级注册和推理执行）将持续有效，直至第2.294.222个区块（约19天后）。
+- 主机注册限制：新主机的注册将在第2.222.222个区块前暂停（约两周后）。该措施旨在稳定网络并为后续增长做准备。
+- 开发者地址注册限制：在稳定期间暂停新开发者地址的注册。一个预定义的`allowlist`开发者地址白名单立即生效。列入白名单的开发者地址在此期间可执行推理任务。所有适用于开发者地址的限制，包括开发者层级注册和推理执行，将持续有效至第2.294.222个区块（约19天后）。
 
 **治理控制机制**
 
-本次升级包含的预备性变更，将使未来能够通过治理控制参与者准入和推理执行，而无需额外的软件升级。本次提案不启用任何此类由治理激活的约束，需经后续治理投票决定。
+本次升级包含的预备性变更，将使未来可通过治理机制控制参与者准入和推理执行，而无需再次进行软件升级。本次提案不启用任何此类由治理激活的约束，需经后续治理投票决定。
 
-**第117纪元奖励分发**
+**第117纪元奖励发放**
 
-本提案涉及两次与链暂停相关的奖励分发（第117纪元）：
+本提案涉及与链暂停相关的两次奖励发放（第117纪元）：
 
-- 在第117纪元期间活跃但未收到纪元奖励的节点，将补发该纪元错过的奖励。
-- 所有在第117纪元期间活跃的节点将获得额外支付，金额等于第117纪元奖励的1.083倍，统一应用于所有符合条件的节点，包括已收到原始奖励的节点。
+- 在第117纪元期间活跃但未收到纪元奖励的节点，将补发该纪元的奖励。
+- 所有在第117纪元期间活跃的节点将额外获得相当于第117纪元奖励1.083倍的支付，统一适用于所有符合条件的节点，包括已收到原始奖励的节点。
 
-**关于持续时间与执行的说明**
+**关于持续时间和执行的说明**
 
-本次升级重新启用或引入的所有保护措施均为临时性，无需手动治理干预即可移除。
+本次升级重新激活或引入的所有保护机制均为临时性，无需手动治理干预即可移除。
 
 **后续步骤：**
 
-- 主机无需采取进一步操作。
-- Cosmovisor每次执行更新时，都会在`.inference`状态文件夹中创建完整备份。为安全执行更新，建议保留250GB以上的可用磁盘空间。[点击此处](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)了解如何从`.inference`目录安全删除旧备份。
+- 主机无需采取进一步行动。
+- Cosmovisor每次执行更新时，会在`.inference`状态文件夹中创建完整备份。为安全执行更新，建议预留250+ GB的磁盘空间。[点击此处](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)了解如何从`.inference`目录安全删除旧备份。
 
 **备注：**
 
-- 创世验证者增强机制的完整技术细节详见：
+- 创世验证者增强机制的完整技术细节请参见：
 [https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection](https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection)
 - 完整技术审查（GitHub PR）：[https://github.com/gonka-ai/gonka/pull/503](https://github.com/gonka-ai/gonka/pull/503)
 
 ## 2026年1月7日
 
-版本**v0.2.7**的升级提案已通过链上治理批准。
+关于版本**v0.2.7**的升级提案已通过链上治理批准。
 
 **升级详情**
 
 - 升级高度：第2.054.000个区块
 - 预计时间：2026年1月8日 08:10:00 UTC
 
-预先提前下载二进制文件有助于避免在升级期间依赖 GitHub 的可用性。
+预先下载二进制文件有助于在升级期间避免依赖 GitHub 的可用性。
 
 ```
 # 1. Create Directories
@@ -2965,7 +2966,7 @@ sudo ls -l .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced && \
 echo "d07e97c946ba00194dfabeaf0098219031664dace999416658c57b760b470a74 .dapi/cosmovisor/upgrades/v0.2.7/bin/decentralized-api" | sudo sha256sum --check && \
 echo "09c0e06f7971be87ab00fb08fc10e21ff86f9dff6fc80d82529991aa631cd0a9 .inference/cosmovisor/upgrades/v0.2.7/bin/inferenced" | sudo sha256sum --check
 ```
-当所有命令都成功执行且显示确认消息后，即可认为二进制文件已成功安装。
+当所有命令均无错误完成并显示确认消息时，可认为二进制文件已成功安装。
 ```
 Inference Installed and Verified
 --- Final Verification ---
@@ -2977,73 +2978,73 @@ Inference Installed and Verified
 
 **注意**
 
-- 请在升级时间段内保持在线，以便在出现问题时遵循相关说明。
-- Cosmovisor 在升级期间会对 `.inference/data` 目录创建完整备份。请确保有足够的磁盘空间。如果磁盘使用率较高，可以安全删除 `.inference` 中的旧备份。[了解更多](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
-- 较大的 `application.db` 文件可以通过[这些方法](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)进行缩减。
+- 请在升级窗口期间保持在线，以便在出现问题时遵循相关说明。
+- Cosmovisor 在升级期间会对 `.inference/data` 目录创建完整备份。请确保有足够的磁盘空间。如果磁盘使用率较高，可以安全删除 `.inference` 中的旧备份。[可以安全删除。](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- 较大的 `application.db` 文件可以通过[这些技术](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)进行缩减。
 
 **可选：跳过 Cosmovisor 备份**
 
 Cosmovisor 支持通过为 `node` 容器设置环境变量 `UNSAFE_SKIP_BACKUP=true` 来跳过升级期间的自动状态备份。
 
-这可能会减少磁盘使用量和升级时间。但如果升级失败，则将没有备份可用于恢复先前状态。
+这可能会减少磁盘使用量和升级时间。但是，如果升级失败，则无法恢复到之前的备份状态。
 
 ## 2026年1月7日
 
-**致主机的重要提示**
+**对 Host 的重要提示**
 
-可通过为 `node` 容器设置环境变量 `UNSAFE_SKIP_BACKUP=true` 来跳过 Cosmovisor 升级期间的自动备份。
-此选项存在风险——如果升级失败，您将没有可用于恢复状态的备份。
+可以通过为 `node` 容器设置环境变量 `UNSAFE_SKIP_BACKUP=true` 来跳过 Cosmovisor 升级期间的自动备份。
+此选项存在风险——如果升级失败，您将没有可用的备份来恢复状态。
 
 ## 2026年1月6日
 
 **v0.2.7 升级提案：创世验证者增强机制进入治理阶段**
 
-一项与创世验证者增强相关的链上治理提案已发布，现开放投票。
+一项与创世验证者增强机制相关的链上治理提案已发布，现开放投票。
 
-近期网络增长引发了一些挑战。在过去几天中，网络经历了多次问题，其中部分问题似乎是由于故意破坏或压力测试系统所致。本提案旨在通过一系列临时措施，增强网络在高负载和不利条件下的韧性。
+近期网络增长引发了一些挑战。过去几天中，网络经历了多次问题，其中部分似乎是由蓄意破坏或压力测试所导致。本提案旨在通过一系列临时措施，增强网络在高负载和不利条件下的弹性。
 
-创世验证者增强机制最初在网络早期作为临时防御机制引入，并在前两个月运行期间启用。当前治理提案旨在根据当前网络状况，临时重新激活该现有机制，并启用一些额外保护措施。
+创世验证者增强机制最初在网络早期作为临时防御机制引入，并在前两个月运行期间启用。当前治理提案旨在根据现有网络状况，临时重新激活该现有机制，并启用一些额外的保护措施。
 
 **主要变更****创世验证者增强机制（临时）**
 
-- 临时重新启用创世验证者增强机制——一种此前使用过的限时防御机制，现提议重新激活。
+- 临时重新启用创世验证者增强机制——一种此前使用过的、有时间限制的防御机制，现提议重新激活。
 - 在网络增长期间提供共识保护。在之前运行期间：
-    - 三个守护者验证者共同持有约34%的共识投票权
-    - 守护者验证者未获得额外奖励
+    - 三个 Guardian 验证者共同持有约 34% 的共识投票权
+    - 未向 Guardian 验证者授予额外奖励
     - 该配置有助于防止极端情况下的共识停滞
 - 当同时满足以下两个条件时，创世验证者增强机制将自动停用：
-    - 网络总权重达到15,000,000
-    - 达到区块3,000,000
+    - 全网总权重达到 15.000.000
+    - 区块高度达到 3.000.000
 
 **协议稳定性修复（全网范围）**
 
-本次升级将此前通过手动API更新分发且已在网络中使用的重大修复正式纳入协议。这些修复包括：
+本次升级将此前通过手动 API 更新分发且已在网络中使用的若干关键修复正式纳入协议。这些修复包括：
 
-- 修正失败推理请求的会计错误（包括处理了不支持格式的请求但未标记为完成的情况）
-- 提升失败推理处理的韧性
-- 为 `PoCBatch` 和 `PoCValidation` 交易引入批量处理功能
+- 修正失败推理请求的错误记账问题（包括处理了不支持格式的请求但未标记为完成的情况）
+- 提升失败推理处理的弹性
+- 为 `PoCBatch` 和 `PoCValidation` 交易引入批量处理机制
 
 通过将其纳入协议，这些行为将成为全网一致执行的协议级规则
 
 **临时参与和执行限制**
 
-- 主机层级注册：新主机注册将暂停，直至区块2,222,222（约两周后）。该措施旨在稳定网络并为后续增长做准备。
-- 开发者层级注册：在稳定期间暂停新开发者地址注册。一个预定义的 `allowlist` 开发者地址名单立即生效。列入白名单的开发者地址在此期间可执行推理任务。所有适用于开发者地址的限制，包括开发者层级注册和推理执行，将持续有效至区块2,294,222（约19天后）
+- Host 层级注册：新 Host 的注册将在区块 2.222.222 之前暂停（约两周后）。该措施旨在稳定网络并为后续增长做好准备。
+- 开发者层级注册：在稳定期间暂停新开发者地址注册。一个预定义的 `allowlist` 开发者地址白名单立即生效。在此期间，列入白名单的开发者地址可执行推理任务。所有适用于开发者地址的限制，包括开发者层级注册和推理执行，将持续有效至区块 2.294.222（约19天后）
 
-**治理控制机制**
+**由治理控制的机制**
 
 本次升级包含的预备性变更，将使未来能够通过治理控制参与者准入和推理执行，而无需额外的软件升级。本提案不启用任何此类由治理激活的约束，需经后续治理投票决定。
 
-**第117轮奖励发放**
+**第117纪元奖励发放**
 
-本提案涵盖与链暂停（第117轮）相关的两次奖励发放：
+本提案涵盖与链暂停相关的两次奖励发放（第117纪元）：
 
-- 在第117轮活跃但未收到该轮奖励的节点将补发遗漏的奖励。
-- 所有在第117轮活跃的节点将额外获得相当于第117轮奖励1.083倍的支付，统一应用于所有符合条件的节点，包括已收到原始奖励的节点。
+- 在第117纪元期间活跃但未收到该纪元奖励的节点，将补发该纪元错过的奖励。
+- 所有在第117纪元期间活跃的节点将额外获得相当于第117纪元奖励1.083倍的支付，该支付将统一应用于所有符合条件的节点，包括已收到原始奖励的节点。
 
 **关于持续时间和执行的说明**
 
-本次升级重新激活或引入的所有保护措施均为临时性，无需手动治理干预即可移除。
+本次升级重新激活或引入的所有保护措施均为临时性，无需通过手动治理干预即可移除。
 
 **如何投票**
 
@@ -3055,7 +3056,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 ./inferenced query gov votes 19 -o json --node $NODE_URL/chain-rpc/
 ```
 
-投票（`yes`、`no`、`abstain`、`no_with_veto`）：
+投票（`yes`，`no`，`abstain`，`no_with_veto`）：
 ```
 export NODE_URL=http://node1.gonka.ai:8000
 ./inferenced tx gov vote 19 yes \
@@ -3071,43 +3072,43 @@ export NODE_URL=http://node1.gonka.ai:8000
 **时间线和截止日期**
 
 - 投票结束时间：2026年1月8日 04:23:14 UTC。
-- 提案升级区块高度：2.054.000。
+- 升级提案所在区块：2.054.000。
 - 预计升级时间：2026年1月8日 08:10:00 UTC。
 
 **主机注意****注意1**
 
-请查看提案内容，若您是主机，请参与投票。
-请在升级时间段保持在线，以便在出现问题时遵循相关指引。
+请主机用户审阅提案并在在线时进行投票。
+在升级时间段保持在线，以便在出现问题时及时遵循相关指示。
 
 **注意2**
 
-Cosmovisor 每次执行更新时都会在 `.inference/data` 状态文件夹中创建完整备份，请确保磁盘有足够的空间。请阅读[此处](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)了解如何安全地从 `.inference` 目录中删除旧备份。
-如果您的 `application.db` 占用大量空间，可使用[此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)的技术进行清理。
+Cosmovisor 在执行更新时会在 `.inference/data` 状态文件夹中创建完整备份，请确保磁盘有足够的空间。请阅读[此处](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)了解如何从 `.inference` 目录安全地删除旧备份。
+如果您的 `application.db` 占用大量空间，可以使用[此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it)的技术来清理它。
 
 **参考**
 
-创世验证者增强的完整技术细节请参见：
+创世验证者增强功能的完整技术细节请参见：
 [https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection](https://github.com/gonka-ai/gonka/tree/main/proposals/early-network-protection)
 
 完整技术评审（GitHub PR）：[https://github.com/gonka-ai/gonka/pull/503](https://github.com/gonka-ai/gonka/pull/503)  
 
 ## 2026年1月5日
-当前网络上观察到高于正常水平的推理遗漏率。
-在许多情况下，这是由于一个漏洞导致：以不支持格式的推理请求未被标记为完成，即使请求本身已被处理。以下更新解决了此问题。
+目前网络上观察到高于平常的推理遗漏率。
+在许多情况下，这是由于一个错误导致：即使请求本身已被处理，不支持格式的推理请求仍未被标记为完成。以下更新解决了此行为。
 
-参考链接：[https://github.com/gonka-ai/gonka/pull/517](https://github.com/gonka-ai/gonka/pull/517) 
+参考：[https://github.com/gonka-ai/gonka/pull/517](https://github.com/gonka-ai/gonka/pull/517) 
 
-此 `API` 版本改进了失败推理处理的弹性，减少了推理遗漏计数问题。同时引入了 PoCBatch 和 PoCValidation 交易的批处理功能。
+此 `API` 版本改进了失败推理处理的弹性，并减少了遗漏推理计数问题。同时引入了 PoCBatch 和 PoCValidation 交易的批量处理。
 
-**升级时机**
+**升级时间**
 
-当确认 PoC 未激活时，应用此更新是安全的。
+当确认 PoC 未激活时，应用更新是安全的。
 
-验证当前状态：
+要验证当前状态：
 ```
 curl "http://136.243.34.19:8000/v1/epochs/latest" | jq '.is_confirmation_poc_active'
 ```
-在确认 PoC 未激活时，此命令应返回 `false` 。
+在确认 PoC 之外，此值应返回 `false` 。
 
 **安装**
 

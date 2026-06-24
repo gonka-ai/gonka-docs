@@ -170,9 +170,9 @@
         === "Cosmostation 浏览器扩展"
 
             !!! note “桥接兼容性”
-                此选项通过**助记词（种子）短语**创建您的账户，因此该账户与以太坊桥兼容，但桥会将代币发送到与您的钱包显示地址不同的 `gonka1…` 地址。这是因为以太坊和 Gonka 使用不同的 BIP-44 派生路径（币种类型 `60` 与 `118`）。您仍然控制该地址，并可通过额外的派生步骤访问它。为了获得最简单的桥接体验，建议改用 `inferenced` CLI 工具或 Keplr 的“使用 Google 登录”流程创建您的 Gonka 账户。详情请参阅[地址与密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
+                此选项通过**助记词（种子）短语**创建您的账户，因此该账户与以太坊桥兼容，但桥会将代币发送到一个与您钱包显示地址不同的 `gonka1…` 地址。这是因为以太坊和 Gonka 使用不同的 BIP-44 派生路径（币种类型 `60` 与 `118`）。您仍然可以控制该地址，并可通过额外的派生步骤访问它。为获得最简单的桥接体验，建议改用 `inferenced` CLI 工具或 Keplr 的“使用 Google 登录”流程创建您的 Gonka 账户。详见 [地址与密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
-            获取[Cosmostation 钱包浏览器扩展](https://cosmostation.io/products/application)。 
+            获取 [Cosmostation 钱包浏览器扩展](https://cosmostation.io/products/application)。
 
             <a href="/images/1_cosmostation.png" target="_blank"><img src="/images/1_cosmostation.png" style="width:500px; height:auto;"></a>
 
@@ -184,11 +184,11 @@
 
             <a href="/images/5_cosmostation_create_a_new_wallet.png" target="_blank"><img src="/images/5_cosmostation_create_a_new_wallet.png" style="width:auto; height:337.5px;"></a>
 
-            记下您的助记词。切勿将恢复短语分享给任何人。任何人拥有您的恢复短语即可完全控制您的资产。请时刻警惕钓鱼攻击。安全备份该短语。
+            记下您的助记词。切勿与任何人分享您的恢复短语，任何人拥有该短语即可完全控制您的资产。请始终警惕钓鱼攻击。安全备份该短语。
 
             <a href="/images/6_cosmostation_mnemonic.png" target="_blank"><img src="/images/6_cosmostation_mnemonic.png" style="width:auto; height:337.5px;"></a>
 
-            按顺序完成测验。核对已备份的助记词，并为每个编号按顺序选择正确的短语。
+            按顺序完成测验。核对已备份的助记词，并为每个数字按顺序选择正确的短语。
 
             <a href="/images/7_cosmostation_quiz.png" target="_blank"><img src="/images/7_cosmostation_quiz.png" style="width:auto; height:337.5px;"></a>
 
@@ -200,75 +200,75 @@
 
             <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
 
-                完成！您的Gonka账户已成功创建。要复制您的地址（可与他人分享以接收付款），请点击余额上方的地址。该地址通常以`gonka...`开头。
+                完成！您的Gonka账户已成功创建。要复制您可分享以接收付款的地址，请点击余额上方的地址。该地址通常以`gonka...`开头。
 
-            <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/11_cosmostation_gonka_created.png" target="_blank"><img src="/images/11_cosmostation_gonka_created.png" style="width:auto; height:337.5px;"></a>
 
-            点击顶部的钱包名称。点击右上角的“管理”，然后点击钱包名称。
+                点击顶部的钱包名称。点击右上角的“管理”，然后点击钱包名称。
 
-            <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/12_cosmostation_click_name.png" target="_blank"><img src="/images/12_cosmostation_click_name.png" style="width:auto; height:337.5px;"></a>
 
-            点击“查看私钥”。
+                点击“查看私钥”。
 
-            <a href="/images/13_cosmostation_view_private_key.png" target="_blank"><img src="/images/13_cosmostation_view_private_key.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/13_cosmostation_view_private_key.png" target="_blank"><img src="/images/13_cosmostation_view_private_key.png" style="width:auto; height:337.5px;"></a>
 
-            验证您的密码。
+                验证您的密码。
 
-            <a href="/images/14_cosmostation_verify_password.png" target="_blank"><img src="/images/14_cosmostation_verify_password.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/14_cosmostation_verify_password.png" target="_blank"><img src="/images/14_cosmostation_verify_password.png" style="width:auto; height:337.5px;"></a>
 
-            从列表中选择“Gonka”。
+                从列表中选择“Gonka”。
 
-            <a href="/images/15_cosmostation.png" target="_blank"><img src="/images/15_cosmostation.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/15_cosmostation.png" target="_blank"><img src="/images/15_cosmostation.png" style="width:auto; height:337.5px;"></a>
 
-            点击“Gonka”以查看私钥。复制您的私钥或助记词并妥善保存（建议保存纸质副本）。
+                点击“Gonka”以查看私钥。复制您的私钥或助记词并安全保存（建议使用纸质备份）。
 
-            <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
+                <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
 
     === "我已有外部钱包"
 
         === "Keplr手机应用"
 
             !!! note "桥接兼容性"
-                如果您的Keplr钱包是通过**助记词（种子短语）**创建的，则该账户仍然兼容以太坊桥，但桥接会将代币发送到与您钱包显示地址不同的`gonka1…`地址。这是因为以太坊和Gonka使用不同的BIP-44派生路径（币种类型`60`与`118`）。您仍然可以控制这些资金，并可通过额外的派生步骤访问。为了获得最简单的桥接体验，建议使用`inferenced` CLI工具或Keplr的“通过Google连接”流程创建您的Gonka账户。详情请参阅[地址与密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
+                如果您的Keplr钱包是通过**助记词（种子短语）**创建的，该账户仍然与以太坊桥接兼容，但桥接会将代币发送到与您钱包显示地址不同的`gonka1…`地址。这是因为以太坊和Gonka使用不同的BIP-44派生路径（币种类型`60`与`118`）。您仍然可以控制这些资金，并通过额外的派生步骤访问它们。为了获得最简单的桥接体验，建议使用`inferenced` CLI工具或Keplr的“使用Google登录”流程创建您的Gonka账户。详见[地址与密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
 
             打开Keplr手机应用并登录您的钱包。点击左上角的菜单。
 
-            <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
-            点击“添加/移除链”。
+            点击“添加/移除”链。
 
-            <a href="/images/keplr_mobile_add_remove_chain.PNG" target="_blank"><img src="/images/keplr_mobile_add_remove_chain.PNG" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_add_remove_chain.PNG" target="_blank"><img src="/images/keplr_mobile_add_remove_chain.PNG" style="width:auto; height:337.5px;"></a>
 
-            在搜索栏中输入“Gonka”，然后选择Gonka链。
+            在搜索栏中输入“Gonka”并选择Gonka链。
 
-            <a href="/images/keplr_mobile_add_remove_chain_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_add_remove_chain_gonka.PNG" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_add_remove_chain_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_add_remove_chain_gonka.PNG" style="width:auto; height:337.5px;"></a>
 
             在主屏幕上，向下滚动到Gonka链并点击它。
 
-            <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
             在余额上方，您将看到您的Gonka账户地址。点击复制图标以复制完整的Gonka账户地址。
 
-            <a href="/images/keplr_mobile_copy_address_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_copy_address_gonka.PNG" style="width:auto; height:337.5px;"></a>
+                <a href="/images/keplr_mobile_copy_address_gonka.PNG" target="_blank"><img src="/images/keplr_mobile_copy_address_gonka.PNG" style="width:auto; height:337.5px;"></a>
 
-            您已复制Gonka账户地址。您可以与任何人分享该地址以接收付款。分享是安全的。
+            您已复制了您的Gonka账户地址。您可以将其分享给任何向您付款的人。分享是安全的。
 
         === "Keplr浏览器扩展"
 
             !!! note "桥接兼容性"
-                如果您的Keplr钱包是通过**助记词（种子短语）**创建的，则该账户仍然兼容以太坊桥，但桥接会将代币发送到与您钱包显示地址不同的`gonka1…`地址。这是因为以太坊和Gonka使用不同的BIP-44派生路径（币种类型`60`与`118`）。您仍然可以控制这些资金，并可通过额外的派生步骤访问。为了获得最简单的桥接体验，建议使用`inferenced` CLI工具或Keplr的“通过Google连接”流程创建您的Gonka账户。详情请参阅[地址与密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
+                如果您的Keplr钱包是通过**助记词（种子短语）**创建的，该账户仍然与以太坊桥接兼容，但桥接会将代币发送到与您钱包显示地址不同的`gonka1…`地址。这是因为以太坊和Gonka使用不同的BIP-44派生路径（币种类型`60`与`118`）。您仍然可以控制这些资金，并通过额外的派生步骤访问它们。为了获得最简单的桥接体验，建议使用`inferenced` CLI工具或Keplr的“使用Google登录”流程创建您的Gonka账户。详见[地址与密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
 
-            为您的浏览器安装扩展程序（如果已安装扩展程序，请跳转至步骤[“将Gonka网络添加到您的Keplr钱包”](#add-gonka-network-to-your-keplr-wallet)）。
+            为您的浏览器安装扩展程序（如果您已安装扩展程序，请跳转到步骤[“将Gonka网络添加到您的Keplr钱包”](#add-gonka-network-to-your-keplr-wallet)）。
 
             前往[Keplr官方网站](https://www.keplr.app/){target=_blank}并点击“获取Keplr钱包”。
 
-            <a href="/images/dashboard_keplr_step_2_1.png" target="_blank"><img src="/images/dashboard_keplr_step_2_1.png" style="width:500px; height:auto;"></a>
+                <a href="/images/dashboard_keplr_step_2_1.png" target="_blank"><img src="/images/dashboard_keplr_step_2_1.png" style="width:500px; height:auto;"></a>
 
             为您的浏览器选择一个扩展程序。
 
-            <a href="/images/dashboard_keplr_step_2_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_2.png" style="width:500px; height:auto;"></a>
+                <a href="/images/dashboard_keplr_step_2_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_2.png" style="width:500px; height:auto;"></a>
 
             将所选扩展程序添加到您的浏览器中。
 
@@ -284,8 +284,8 @@
 
             <a href="/images/keplr_extension.png" target="_blank"><img src="/images/keplr_extension.png" style="width:500px; height:auto;"></a>
 
-            此时扩展程序已安装，但尚未连接到您的钱包。
-            接下来，请打开扩展程序并登录您的钱包。登录后，请按照以下步骤继续完成设置过程。
+            此时，扩展程序已安装，但尚未连接到您的钱包。
+            接下来，打开扩展程序并登录您的钱包。登录后，请按照以下步骤继续完成设置过程。
 
             #### 将Gonka网络添加到您的Keplr钱包
 
@@ -311,14 +311,14 @@
             <a href="/images/keplr_web_copy_gonka_address_2.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address_2.png" style="width:auto; height:337.5px;"></a>
 
             您已复制了Gonka账户地址。您可以将其分享给任何要向您付款的人。分享是安全的。
-            要在移动设备上访问您的钱包，请下载Keplr应用，并使用注册时相同的方式登录。您的Gonka网络账户将自动出现在移动钱包应用中。
+            要在移动设备上访问您的钱包，请下载Keplr应用，并使用注册时相同的方式登录。您的Gonka Network账户将自动出现在移动钱包应用中。
 
-        === "Cosmostation浏览器扩展程序"
+        === "Cosmostation浏览器扩展"
 
-            !!! note “跨链桥兼容性”
-                此选项会通过**助记词（种子短语）**创建您的账户，因此该账户与以太坊桥兼容，但桥会将代币发送到一个与钱包显示地址不同的`gonka1…`地址。这是因为以太坊和Gonka使用不同的BIP-44派生路径（币种类型分别为`60`和`118`）。您仍然可以控制该地址，并通过额外的派生步骤访问它。为了获得最简单的桥接体验，建议使用`inferenced` CLI工具或Keplr的“使用Google登录”流程来创建您的Gonka账户。详情请参阅[地址与密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
+            !!! note “桥接兼容性”
+                此选项通过**助记词（种子短语）**创建您的账户，因此账户与以太坊桥兼容，但桥会将代币发送到与您钱包显示地址不同的`gonka1…`地址。这是因为以太坊和Gonka使用不同的BIP-44派生路径（币种类型分别为`60`和`118`）。您仍然可以控制该地址，并通过额外的派生步骤访问它。为了获得最简单的桥接体验，建议使用`inferenced` CLI工具或Keplr的“使用Google登录”流程来创建您的Gonka账户。详情请参阅[地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
-            如果尚未安装，请先安装[Cosmostation钱包浏览器扩展程序](https://cosmostation.io/products/application)（如果已安装扩展程序，请跳转至步骤[“将Gonka网络添加到您的Cosmostation钱包”](#add-gonka-network-to-your-cosmostation-wallet)）。
+            如果尚未安装[Cosmostation钱包浏览器扩展](https://cosmostation.io/products/application)，请先安装（如果已安装，请跳转至步骤[“将Gonka网络添加到您的Cosmostation钱包”](#add-gonka-network-to-your-cosmostation-wallet)）。
 
             <a href="/images/1_cosmostation.png" target="_blank"><img src="/images/1_cosmostation.png" style="width:500px; height:auto;"></a>
 
@@ -326,11 +326,11 @@
 
             <a href="/images/2_cosmostation_add_extention.png" target="_blank"><img src="/images/2_cosmostation_add_extention.png" style="width:500px; height:auto;"></a>
 
-            打开Cosmostation扩展程序并登录您现有的钱包。
+            打开Cosmostation扩展程序并登录您的现有钱包。
 
             #### 将Gonka网络添加到您的Cosmostation钱包
 
-            在右上角点击“所有网络”，然后选择Gonka链以将其添加到您的钱包中。
+            在右上角，点击“所有网络”，然后选择Gonka链以将其添加到您的钱包。
 
             <a href="/images/10_cosmostation_select_gonka_network.png" target="_blank"><img src="/images/10_cosmostation_select_gonka_network.png" style="width:auto; height:337.5px;"></a>
 
@@ -358,16 +358,16 @@
 
             <a href="/images/15_cosmostation.png" target="_blank"><img src="/images/15_cosmostation.png" style="width:auto; height:337.5px;"></a>
 
-            点击“Gonka”以查看私钥。复制您的私钥或恢复短语并安全保存（建议保存纸质副本）。
+            点击“Gonka”以查看私钥。复制您的私钥或恢复短语并安全保存（建议使用纸质备份）。
 
             <a href="/images/16_cosmostation_copy_private_key.png" target="_blank"><img src="/images/16_cosmostation_copy_private_key.png" style="width:auto; height:337.5px;"></a>
 
 === "通过 `inferenced` CLI 工具"
 
-    本指南介绍如何使用 inferenced CLI 工具创建 Gonka 网络账户。下载 `inferenced` CLI 工具（适用于您系统的最新 `inferenced` 二进制文件位于[此处](https://github.com/gonka-ai/gonka/releases)）
+    本指南介绍了如何使用推断 CLI 工具创建 Gonka 网络账户。下载 `inferenced` CLI 工具（适用于您系统的最新 `inferenced` 二进制文件位于[此处](https://github.com/gonka-ai/gonka/releases)）
 
-    !!! note "什么是 inferenced CLI 工具？"
-        `inferenced` CLI 工具是一种命令行接口工具，用于与 Gonka 网络进行交互。它是一个独立的可执行二进制文件，允许用户创建和管理 Gonka 账户、执行推理任务、上传模型以及通过脚本命令自动化各种操作。
+    !!! note "什么是推断 CLI 工具？"
+        `inferenced` CLI 工具是一种命令行界面实用程序，用于与 Gonka 网络进行交互。它是一个独立的可执行二进制文件，允许用户创建和管理 Gonka 账户、执行推理任务、上传模型，并通过脚本命令自动化各种操作。
 
     在创建账户之前，请设置所需的环境变量：
 
@@ -376,23 +376,23 @@
     export NODE_URL=<http://random-node-url>
     ```
 
-    - 将 `<your-desired-account-name>` 替换为你选择的账户名称。
+    - 将 `<your-desired-account-name>` 替换为您选择的账户名称。
 
     ??? note "关于账户名称的注意事项"
-        此名称不会记录在链上——它仅存在于你的本地密钥存储中。
-        名称唯一性是本地的：创建两个相同名称的密钥会覆盖已存在的那个（CLI 会发出警告）。如果你继续操作，原始密钥将永久丢失。强烈建议在执行此操作前备份你的公钥和私钥。
+        此名称不会记录在链上——它仅存在于您的本地密钥存储中。
+        名称唯一性是本地的：使用相同名称创建两个密钥将覆盖现有密钥（CLI 会发出警告）。如果您继续操作，原始密钥将永久丢失。强烈建议在执行此操作前备份您的公钥和私钥。
 
-    - 将 `<http://random-node-url>` 替换为一个随机的节点 URL。你可以选择：
+    - 将 `<http://random-node-url>` 替换为一个随机的节点 URL。您可以选择：
         - 使用下面列表中的一个 **创世节点**。
         - 获取 **当前活跃参与者的列表** 并选择一个随机节点。
 
-    别忘了记下来，下一步需要用到。
+    别忘了记下它，您在下一步会用到。
 
-    ??? note "为什么需要随机节点？"
-        为了避免过度依赖创世节点并促进去中心化，Gonka 推荐从当前纪元中选择一个随机的活跃节点。这有助于改善网络负载分布，并增强对节点故障的弹性。
+    ??? note "为什么要使用随机节点？"
+        为了避免过度依赖创世节点并促进去中心化，Gonka 建议从当前纪元中选择一个随机的活跃节点。这有助于改善网络负载分布，并增强对节点故障的弹性。
 
     ??? note "如何选择节点 URL？"
-        你可以随机选择任意节点——你 **不需要** 考虑它运行的是哪个模型。此时，节点仅用作获取网络状态和广播交易的网关。所有节点都暴露相同的公共 API。
+        您可以随机选择任何节点——您**不需要**考虑它运行的是哪个模型。此时，节点仅用作获取网络状态和广播交易的网关。所有节点都暴露相同的公共 API。
 
     === "创世节点"
         将 `NODE_URL` 设置为以下创世节点之一：
@@ -406,7 +406,7 @@
         ```
 
     === "当前活跃参与者列表"
-        或者，你可以从当前纪元中选择一个随机的活跃参与者。打开链接或运行以下命令以获取活跃参与者列表以及用于验证的加密证明：
+        或者，您可以从当前纪元中选择一个随机的活跃参与者。打开链接或运行以下命令以获取活跃参与者列表以及用于验证的加密证明：
         === "链接"
             [https://node2.gonka.ai:8443/v1/epochs/current/participants](https://node2.gonka.ai:8443/v1/epochs/current/participants)
 
@@ -415,10 +415,10 @@
             curl https://node2.gonka.ai:8443/v1/epochs/current/participants
             ```
 
-    下载 `inferenced` CLI 工具（适用于你系统的最新 `inferenced` 二进制文件位于 [这里](https://github.com/gonka-ai/gonka/releases)）。
+    下载 `inferenced` CLI 工具（适用于您系统的最新 `inferenced` 二进制文件位于[此处](https://github.com/gonka-ai/gonka/releases)）。
 
     ??? note "在 Mac OS 上启用执行权限"
-        在 macOS 上，下载 `inferenced` 二进制文件后，你可能需要手动启用执行权限。请按照以下步骤操作：
+        在 macOS 上，下载 `inferenced` 二进制文件后，您可能需要手动启用执行权限。请按照以下步骤操作：
 
         1.	打开终端并导航到二进制文件所在的目录。
 
@@ -428,22 +428,22 @@
         ```
         3.	尝试运行 `./inferenced --help` 以确保其正常工作。
 
-        4.	如果尝试运行 `inferenced` 时看到安全警告，请前往系统设置 → 隐私与安全性。
+        4.	如果运行 `inferenced` 时看到安全警告，请前往系统设置 → 隐私与安全性。
 
         5.	向下滚动到关于 `inferenced` 的警告，然后点击“仍然允许”。
 
-    你可以使用以下命令创建账户：
+    您可以使用以下命令创建账户：
     ```bash
     ./inferenced keys add "$ACCOUNT_NAME"
     ```
 
-    请务必安全保存你的密码——将来访问时会需要它。
+    请务必安全保存您的密码——您将来访问时会需要它。
 
     此命令将：
 
     - 生成一个密钥对
     - 将其保存到 `~/.inference`
-    - 返回你的账户地址、公钥和助记词（也请安全地以纸质形式保存！）
+    - 返回您的账户地址、公钥和助记词（请也安全地以纸质形式保存！）
 
     ```bash
     - address: <your-account-address>
@@ -452,15 +452,15 @@
       type: local
     ```
 
-    你将使用此账户地址接收付款。这是你的公开地址，可以安全地分享。
+    您将使用此账户地址接收付款。这是您的公开地址，可以安全分享。
 
-    要访问你的 Gonka 私钥，请导出私钥并安全存储。以下命令将输出明文私钥。私钥是一个秘密代码，拥有它即可完全访问你的钱包及其资金。它用于确认（签名）交易，证明你是钱包的所有者。
+    要访问您的 Gonka 私钥，请导出私钥并安全存储。以下命令将输出明文私钥。私钥是一段秘密代码，拥有它即可完全访问您的钱包及其内部资金。它用于确认（签名）交易并证明您是钱包的所有者。
 
     - 谁拥有私钥，谁就控制钱包。
-    - 如果你丢失了它，你将失去访问权限。
-    - 如果其他人获得了它，他们可以拿走你的资金。
+    - 如果您丢失了它，您将失去访问权限。
+    - 如果其他人获得了它，他们可以取走您的资金。
 
-    因此，私钥必须始终安全存储，且绝不能与任何人共享。
+    因此，私钥必须始终安全存储，并且绝不能与任何人共享。
 
     ```bash
     ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
@@ -471,4 +471,4 @@
      inferenced keys list [--keyring-backend test]
     ```
 
-    现在你可以通过导入导出的私钥将你的 Gonka 账户添加到 Keplr。如果你需要 Keplr 显示与 `inferenced` CLI 创建的相同 Gonka 地址，请不要导入助记词。根据钱包使用的派生路径不同，导入助记词可能会生成不同的 Gonka 地址。
+    现在，您可以通过导入导出的私钥将您的 Gonka 账户添加到 Keplr。如果您需要 Keplr 显示与 `inferenced` CLI 创建的相同的 Gonka 地址，请不要导入助记词。根据钱包使用的派生路径不同，导入助记词可能会生成不同的 Gonka 地址。

@@ -57,9 +57,9 @@ landing: true
     </section>
   </main>
 
-<!-- 页脚 - 4个普通列 -->
+<!-- 页脚 – 4个普通列 -->
 <footer class="gonka-footer">
-  <!-- 内页脚上的水平动画轮播行 -->
+  <!-- 内部页脚上的水平动画轮播行 -->
   <div class="gonka-carousel">
     <div class="carousel-track">
       <div class="partner-card">
@@ -85,7 +85,7 @@ landing: true
         </div>
       </div>
       <div class="partner-card">
-        <span class="partner-label">精选托管方</span>
+        <span class="partner-label">精选主机</span>
         <div class="partner-logos">
           <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
             <img src="images/logos/gcore.svg" alt="Gcore" />
@@ -182,13 +182,13 @@ landing: true
         <h4>协议</h4>
         <ul>
           <li><a href="/whitepaper.pdf">白皮书</a></li>
-          <li><a href="/pow-security-analysis.pdf">基于Transformer的工作量证明</a></li>
+          <li><a href="/pow-security-analysis.pdf">基于Transformer的挖矿证明</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>GNK</h4>
         <ul>
-          <li><a href="/tokenomics.pdf">Gonka代币经济模型</a></li>
+          <li><a href="/tokenomics.pdf">Gonka代币经济</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -208,7 +208,7 @@ landing: true
 
 
 <script>
-  // 确保在进入页面时尽早遵守暗色模式属性，而不添加持久类
+  // 确保在进入页面时尊重暗色模式属性，而无需添加持久类
   (function() {
     var palette = localStorage.getItem('/.__palette');
     if (palette) {
@@ -223,7 +223,7 @@ landing: true
 </script>
 
 <script>
-// 确保从登陆页面进入时MkDocs导航正常工作
+// 确保从着陆页进入时MkDocs导航正常工作
 document.addEventListener('DOMContentLoaded', function() {
   const docLink = document.querySelector('.gonka-docs-link');
   if (docLink) {
@@ -260,10 +260,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let raf = null;
     let offset = 0;   // 当前滚动偏移量 [0, period)
     let period = 0;   // 一组完整宽度 (A → A')
-    const speed = 72; // 像素每秒（可按需调整）
+    const speed = 72; // 像素每秒 (可按需调整)
     let lastTs = null;
 
-    // 确保有足够的副本 (A, A', A'', ...) 覆盖视口 + 一个周期
+    // 确保有足够的副本 (A, A', A'', ...) 以覆盖视口 + 一个周期
     function ensureCopies(minCopies) {
       const have = Math.floor(carouselTrack.children.length / originals.length);
       const need = Math.max(2, minCopies | 0);
@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ensureCopies(minCopies0);
     period = measurePeriod();
 
-    // 在调整大小/字体加载时重新计算，同时保留进度以防止视觉跳动
+    // 在调整大小/字体加载时重新计算，同时保留进度以防止视觉跳跃
     function recompute() {
       const progress = period > 0 ? (offset % period) / period : 0;
       stop();

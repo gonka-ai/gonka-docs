@@ -7,26 +7,26 @@
 - 通过`inferenced` CLI工具
 
 !!! note "桥接兼容性和助记词（种子短语）"
-    如果您使用**助记词（种子短语）**创建Gonka账户——Cosmostation和Fox Wallet默认如此——该账户**是兼容**以太坊桥的，但桥会将代币发送到与您的钱包显示地址不同的`gonka1…`地址。这是因为以太坊和Gonka使用不同的BIP-44派生路径（币种类型`60`与`118`），因此相同的种子短语在每条链上生成不同的私钥。您仍然可以控制这些资金，但需要额外的派生步骤才能访问。详见[地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)以获得完整说明。
+    如果您使用**助记词（种子短语）**创建Gonka账户——Cosmostation和Fox Wallet默认如此——该账户**与以太坊桥接兼容**，但桥接会将代币发送到与您的钱包显示地址不同的`gonka1…`地址。这是因为以太坊和Gonka使用不同的BIP-44派生路径（币种类型`60`与`118`），因此相同的种子短语在每条链上生成不同的私钥。您仍然可以控制这些资金，并可通过额外的派生步骤访问。详见[地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)的完整说明。
 
-    为了获得最简单的桥接体验——即您的钱包自动显示桥所使用的地址，且无需额外派生步骤——请通过以下方式之一创建您的Gonka账户：
+    为了获得最简单的桥接体验——即您的钱包自动显示桥接所使用的地址，且无需额外的派生步骤——请通过以下方式之一创建您的Gonka账户：
 
     - 使用`inferenced` CLI工具
     - 在Keplr中使用“通过Google登录”流程
 
-下面提供了**Keplr**和**Cosmostation**的分步说明。相同的过程——安装钱包或扩展程序、登录、启用Gonka链并复制您的地址——也适用于[Fox Wallet](https://foxwallet.com/){target=_blank}。
+以下是**Keplr**和**Cosmostation**的分步说明。相同的过程——安装钱包或扩展程序、登录、启用Gonka链并复制您的地址——也适用于[Fox Wallet](https://foxwallet.com/){target=_blank}。
 
 === "外部钱包"
 
     === "我没有外部钱包"
 
-        === "Keplr手机应用"
+        === "Keplr移动应用"
 
             前往[Keplr官方网站](https://www.keplr.app/){target=_blank}并点击“获取Keplr钱包”。
 
             <a href="/images/keplr_mobile_website_main.PNG" target="_blank"><img src="/images/keplr_mobile_website_main.PNG" style="width:auto; height:337.5px;"></a>
 
-            向下滚动到手机应用部分，选择您的操作系统并下载应用。
+            向下滚动至移动应用部分，选择您的操作系统并下载应用。
 
             <a href="/images/keplr_mobile_website_mobileos.PNG" target="_blank"><img src="/images/keplr_mobile_website_mobileos.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -37,16 +37,16 @@
             点击“通过Google登录”，按照指示通过Gmail登录。
 
             !!! note "桥接兼容性"
-                使用Keplr“通过Google登录”流程创建的账户是基于密钥而非助记词的，因此完全兼容以太坊桥——桥会将代币发送到与您的钱包显示相同的`gonka1…`地址，无需额外派生步骤。详见[地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)了解详情。
+                使用Keplr“通过Google登录”流程创建的账户基于密钥而非助记词，因此与以太坊桥接完全兼容——桥接将代币发送到与您的钱包显示相同的`gonka1…`地址，无需额外派生步骤。详情请参阅[地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
 
             <a href="/images/keplr_mobile_recovery_phrase.PNG" target="_blank"><img src="/images/keplr_mobile_recovery_phrase.PNG" style="width:auto; height:337.5px;"></a>
 
-            安全备份您的私钥。任何人获得您的私钥都可以访问您的资产。如果您丢失了Gmail账户的访问权限，恢复钱包的唯一方法就是使用您的私钥。请将私钥存储在安全的地方，切勿与任何人共享。
+            安全备份您的私钥。任何人获得您的私钥都可以访问您的资产。如果您丢失了Gmail账户的访问权限，恢复钱包的唯一方法是使用您的私钥。请将私钥存储在安全的地方，切勿与他人分享。
 
             <a href="/images/keplr_mobile_google_private_key_2.PNG" target="_blank"><img src="/images/keplr_mobile_google_private_key_2.PNG" style="width:auto; height:337.5px;"></a>
 
-            在搜索栏中输入“Gonka”，选择Gonka链以将其添加到您的钱包。
+            在搜索栏中输入“Gonka”并选择Gonka链，将其添加到您的钱包中。
 
             <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -54,7 +54,7 @@
 
             <a href="/images/keplr_mobile_all_set.PNG" target="_blank"><img src="/images/keplr_mobile_all_set.PNG" style="width:auto; height:337.5px;"></a>
 
-            在主屏幕上，向下滚动找到Gonka链并点击它。
+            在主屏幕上，向下滚动至Gonka链并点击它。
 
             <a href="/images/keplr_mobile_start_screen.PNG" target="_blank"><img src="/images/keplr_mobile_start_screen.PNG" style="width:auto; height:337.5px;"></a>
 
@@ -62,7 +62,7 @@
 
             <a href="/images/keplr_mobile_address.PNG" target="_blank"><img src="/images/keplr_mobile_address.PNG" style="width:auto; height:337.5px;"></a>
 
-            您已复制了Gonka账户地址。您可以将其分享给任何要向您付款的人。分享是安全的。
+            您已复制了Gonka账户地址。您可以将其分享给任何要向您付款的人。分享地址是安全的。
 
         === "Keplr浏览器扩展"
 
@@ -74,7 +74,7 @@
 
             <a href="/images/dashboard_keplr_step_2_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_2.png" style="width:500px; height:auto;"></a>
 
-            将所选扩展程序添加到您的浏览器。
+            将所选扩展程序添加到您的浏览器中。
 
             === "Firefox"
 
@@ -84,51 +84,52 @@
 
                 <a href="/images/dashboard_keplr_step_2_3_2.png" target="_blank"><img src="/images/dashboard_keplr_step_2_3_2.png" style="width:500px; height:auto;"></a>
 
-            扩展程序安装完成后，您应该能在浏览器的右上角面板中看到它。
+            安装扩展程序后，您应该能在浏览器的右上角面板中看到它。
 
             <a href="/images/keplr_extension.png" target="_blank"><img src="/images/keplr_extension.png" style="width:500px; height:auto;"></a>
 
-            此时扩展程序已安装，但您的钱包和Gonka账户尚未创建。请继续下一步进行设置。
+            此时扩展程序已安装，但您的钱包和 Gonka 账户尚未创建。请继续下一步进行设置。
 
-            打开Keplr浏览器扩展程序，点击“创建新钱包”。
+            打开 Keplr 浏览器扩展程序。点击“创建新钱包”。
 
             <a href="/images/dashboard_keplr_step_2_4.png" target="_blank"><img src="/images/dashboard_keplr_step_2_4.png" style="width:500px; height:auto;"></a>
 
-            点击“使用Google登录”，然后按照提示通过Gmail登录。
+            点击“使用 Google 登录”。按照说明通过 Gmail 登录。
 
             !!! note "桥接兼容性"
-                使用Keplr的“使用Google登录”流程创建的账户是基于密钥而非助记词的，因此完全兼容以太坊桥接——桥接会将代币发送到您的钱包显示的同一个`gonka1…`地址，无需额外推导步骤。详情请参阅[地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
+                使用 Keplr “使用 Google 登录”流程创建的账户是基于密钥而非助记词的，因此完全兼容以太坊桥接——桥接会将代币直接发送到您的钱包显示的 `gonka1…` 地址，无需额外的派生步骤。详见[地址与密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
 
             <a href="/images/keplr_welcome_to_keplr.png" target="_blank"><img src="/images/keplr_welcome_to_keplr.png" style="width:500px; height:auto;"></a>
 
-            设置您的钱包。请将密码安全地保存。
+            设置您的钱包。将密码保存在安全可靠的地方。
 
             <a href="/images/keplr_set_up_your_wallet.png" target="_blank"><img src="/images/keplr_set_up_your_wallet.png" style="width:500px; height:auto;"></a>
 
-            安全地备份您的私钥。任何人获得您的私钥都可以访问您的资产。如果您失去了对Gmail账户的访问权限，恢复钱包的唯一方法就是使用您的私钥。请将私钥安全保存，切勿与任何人分享。
+            安全备份您的私钥。任何人获得您的私钥都可以访问您的资产。如果您丢失了 Gmail 账户的访问权限，恢复钱包的唯一方法是使用您的私钥。请将私钥保存在安全可靠的地方。切勿与任何人分享您的私钥。
 
             <a href="/images/keplr_back_up_private_key.png" target="_blank"><img src="/images/keplr_back_up_private_key.png" style="width:500px; height:auto;"></a>
 
-            在搜索栏中输入“Gonka”，然后选择Gonka链以将其添加到您的钱包中。
+            在搜索栏中输入“Gonka”，选择 Gonka 链以将其添加到您的钱包中。
 
             <a href="/images/keplr_deselect_chains.PNG" target="_blank"><img src="/images/keplr_deselect_chains.PNG" style="width:500px; height:auto;"></a>
 
-            您已在Keplr中创建了钱包。现在，请按照以下说明查找您的账户地址。
+            您已在 Keplr 中创建了钱包。现在，请按照以下说明查找您的账户地址。
 
             <a href="/images/dashboard_keplr_step_2_8.png" target="_blank"><img src="/images/dashboard_keplr_step_2_8.png" style="width:500px; height:auto;"></a>
 
-            打开Keplr，导航并点击钱包中的“复制地址”。
+            打开 Keplr，导航并点击钱包中的“复制地址”。
 
             <a href="/images/keplr_copy_address_2.png" target="_blank"><img src="/images/keplr_copy_address_2.png" style="width:auto; height:337.5px;"></a>
 
-            点击Gonka链旁边的复制按钮。
+            点击 Gonka 链旁边的复制按钮。
 
             <a href="/images/keplr_web_copy_gonka_address_2.png" target="_blank"><img src="/images/keplr_web_copy_gonka_address_2.png" style="width:auto; height:337.5px;"></a>
 
-            您已成功复制Gonka账户地址。您可以将其分享给任何要向您付款的人。分享是安全的。要通过移动设备访问您的钱包，请下载Keplr应用，并使用注册时相同的方法登录，您的Gonka Network账户将自动出现在移动钱包应用中。
+            您已复制了 Gonka 账户地址。您可以将其分享给任何要向您付款的人。分享是安全的。
+            要在移动设备上访问您的钱包，请下载 Keplr 应用并使用注册时相同的方式登录。您的 Gonka Network 账户将自动出现在移动钱包应用中。
 
-            ??? note "可选：如何在Keplr钱包中添加额外的Gonka账户——点击查看步骤"
+            ??? note "可选：如何在 Keplr 钱包中添加额外的 Gonka 账户——点击查看步骤"
 
                 打开扩展程序，点击扩展窗口右上角的账户图标。
 
@@ -149,12 +150,12 @@
                 粘贴您的私钥。
 
                 !!! note "桥接兼容性"
-                    如果您的Keplr钱包是通过**助记词（种子）短语**创建的，则该账户仍兼容以太坊桥接，但桥接会将代币发送到与您的钱包显示地址不同的`gonka1…`地址。这是因为以太坊和Gonka使用不同的BIP-44推导路径（币种类型`60`与`118`）。您仍然可以控制这些资金，但需要额外的推导步骤才能访问。为了获得最简单的桥接体验，请使用`inferenced` CLI工具或Keplr的“使用Google登录”流程创建您的Gonka账户。详情请参阅[地址和密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
+                    如果您的 Keplr 钱包是通过**助记词（种子）短语**创建的，则该账户仍兼容以太坊桥接，但桥接会将代币发送到与您的钱包显示地址不同的 `gonka1…` 地址。这是因为以太坊和 Gonka 使用不同的 BIP-44 派生路径（币种类型 `60` 与 `118`）。您仍然可以控制这些资金，并可通过额外的派生步骤访问。为了获得最简单的桥接体验，请使用 `inferenced` CLI 工具或 Keplr 的“使用 Google 登录”流程创建您的 Gonka 账户。详见[地址与密钥](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md)。
 
 
                 <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
 
-                为您的钱包设置一个名称以便于识别。
+                为您的钱包命名以便于识别。
 
                 <a href="/images/dashboard_ping_pub_3_5_5.png" target="_blank"><img src="/images/dashboard_ping_pub_3_5_5.png" style="width:450px; height:auto;"></a>
 
@@ -379,19 +380,19 @@
 
     ??? note "关于账户名称的注意事项"
         此名称不会记录在链上——它仅存在于你的本地密钥存储中。
-        名称唯一性是本地的：创建两个相同名称的密钥会覆盖已存在的密钥（CLI会发出警告）。如果你继续操作，原始密钥将永久丢失。强烈建议在执行此操作前备份你的公钥和私钥。
+        名称唯一性是本地的：创建两个相同名称的密钥会覆盖已存在的那个（CLI 会发出警告）。如果你继续操作，原始密钥将永久丢失。强烈建议在执行此操作前备份你的公钥和私钥。
 
-    - 将 `<http://random-node-url>` 替换为一个随机的节点URL。你可以选择：
-        - 使用下面列表中的一个**创世节点**。
-        - 获取**当前活跃参与者的列表**并选择一个随机节点。
+    - 将 `<http://random-node-url>` 替换为一个随机的节点 URL。你可以选择：
+        - 使用下面列表中的一个 **创世节点**。
+        - 获取 **当前活跃参与者的列表** 并选择一个随机节点。
 
-    别忘了记下它，下一步你会用到。
+    别忘了记下来，下一步需要用到。
 
-    ??? note "为什么要选择随机节点？"
-        为了避免对创世节点的过度依赖并促进去中心化，Gonka建议从当前纪元中选择一个随机的活跃节点。这有助于改善网络负载分布，并增强对节点故障的抵御能力。
+    ??? note "为什么需要随机节点？"
+        为了避免过度依赖创世节点并促进去中心化，Gonka 推荐从当前纪元中选择一个随机的活跃节点。这有助于改善网络负载分布，并增强对节点故障的弹性。
 
-    ??? note "如何选择节点URL？"
-        你可以随机选择任意节点——你**不需要**考虑它运行的是哪个模型。此时，节点仅用作获取网络状态和广播交易的网关。所有节点都暴露相同的公共API。
+    ??? note "如何选择节点 URL？"
+        你可以随机选择任意节点——你 **不需要** 考虑它运行的是哪个模型。此时，节点仅用作获取网络状态和广播交易的网关。所有节点都暴露相同的公共 API。
 
     === "创世节点"
         将 `NODE_URL` 设置为以下创世节点之一：
@@ -414,10 +415,10 @@
             curl https://node2.gonka.ai:8443/v1/epochs/current/participants
             ```
 
-    下载 `inferenced` CLI工具（适用于你系统的最新 `inferenced` 二进制文件位于[此处](https://github.com/gonka-ai/gonka/releases)）。
+    下载 `inferenced` CLI 工具（适用于你系统的最新 `inferenced` 二进制文件位于 [这里](https://github.com/gonka-ai/gonka/releases)）。
 
-    ??? note "在Mac OS上启用执行权限"
-        在macOS上，下载 `inferenced` 二进制文件后，你可能需要手动启用执行权限。请按照以下步骤操作：
+    ??? note "在 Mac OS 上启用执行权限"
+        在 macOS 上，下载 `inferenced` 二进制文件后，你可能需要手动启用执行权限。请按照以下步骤操作：
 
         1.	打开终端并导航到二进制文件所在的目录。
 
@@ -427,9 +428,9 @@
         ```
         3.	尝试运行 `./inferenced --help` 以确保其正常工作。
 
-        4.	如果运行 `inferenced` 时看到安全警告，请前往系统设置 → 隐私与安全性。
+        4.	如果尝试运行 `inferenced` 时看到安全警告，请前往系统设置 → 隐私与安全性。
 
-        5.	向下滚动到关于 `inferenced` 的警告，然后点击"允许 anyway"。
+        5.	向下滚动到关于 `inferenced` 的警告，然后点击“仍然允许”。
 
     你可以使用以下命令创建账户：
     ```bash
@@ -451,15 +452,15 @@
       type: local
     ```
 
-    你将使用此账户地址接收付款。这是你的公开地址，可以安全分享。
+    你将使用此账户地址接收付款。这是你的公开地址，可以安全地分享。
 
-    要访问你的Gonka私钥，请导出私钥并妥善保存。以下命令将输出明文私钥。私钥是一段秘密代码，拥有它即可完全控制你的钱包及其内部资金。它用于确认（签名）交易并证明你是钱包的所有者。
+    要访问你的 Gonka 私钥，请导出私钥并安全存储。以下命令将输出明文私钥。私钥是一个秘密代码，拥有它即可完全访问你的钱包及其资金。它用于确认（签名）交易，证明你是钱包的所有者。
 
     - 谁拥有私钥，谁就控制钱包。
     - 如果你丢失了它，你将失去访问权限。
-    - 如果别人得到了它，他们可以拿走你的资金。
+    - 如果其他人获得了它，他们可以拿走你的资金。
 
-    因此，私钥必须始终安全存储，并且绝不能与任何人共享。
+    因此，私钥必须始终安全存储，且绝不能与任何人共享。
 
     ```bash
     ./inferenced keys export $ACCOUNT_NAME --unarmored-hex --unsafe
@@ -470,4 +471,4 @@
      inferenced keys list [--keyring-backend test]
     ```
 
-    现在你可以通过导入导出的私钥将你的Gonka账户添加到Keplr中。如果你需要Keplr显示与 `inferenced` CLI创建的相同的Gonka地址，请不要导入助记词。根据钱包使用的派生路径不同，导入助记词可能会生成不同的Gonka地址。
+    现在你可以通过导入导出的私钥将你的 Gonka 账户添加到 Keplr。如果你需要 Keplr 显示与 `inferenced` CLI 创建的相同 Gonka 地址，请不要导入助记词。根据钱包使用的派生路径不同，导入助记词可能会生成不同的 Gonka 地址。

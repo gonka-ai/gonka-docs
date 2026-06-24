@@ -12,13 +12,13 @@ title: 免责声明
         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M22.0779 0.000895182C22.2017 6.07859 22.4682 12.1564 22.8218 18.234C23.2874 26.2385 26.7009 34.2436 29.0827 42.2481C29.1354 42.4251 29.185 42.6029 29.2367 42.7799C26.9701 43.5691 24.5355 44 22 44C19.4649 44 17.0305 43.5698 14.7642 42.7808C14.816 42.6034 14.8663 42.4255 14.9191 42.2481C17.3009 34.2436 20.7144 26.2385 21.18 18.234C21.5336 12.1564 21.7992 6.07859 21.923 0.000895182C21.9487 0.000807303 21.9743 0 22 0C22.026 0 22.0519 0.000805247 22.0779 0.000895182Z" fill="#2A2A2A"/>
           <path d="M20.7262 21.2364C19.4639 28.1647 15.6505 35.0935 12.8718 42.0216C12.0526 41.6475 11.2603 41.2248 10.4987 40.7568C14.3095 34.2502 19.1923 27.7431 20.7262 21.2364Z" fill="#2A2A2A"/>
-          <path d="M23.2747 21.2364C24.8085 27.7426 29.6898 34.2498 33.5004 40.7559C32.739 41.2237 31.9472 41.6467 31.1282 42.0208C28.3495 35.093 24.5369 28.1642 23.2747 21.2364Z" fill="#2A2A2A"/>
+          <path d="M23.2747 21.2364C24.8085 27.7426 29.6898 34.2498 33.5004 40.7559C32.7390 41.2237 31.9472 41.6467 31.1282 42.0208C28.3495 35.0930 24.5369 28.1642 23.2747 21.2364Z" fill="#2A2A2A"/>
           <path d="M20.6062 0.0447591C20.5973 6.14511 20.5901 12.2455 20.5641 18.3459C20.5354 25.059 13.5075 31.7743 7.43628 38.4875C2.87637 34.4566 0 28.5647 0 22C0 10.3179 9.10536 0.763813 20.6062 0.0447591Z" fill="#2A2A2A"/>
           <path d="M23.3938 0.0447591C34.8946 0.763813 44 10.3179 44 22C44 28.5649 41.123 34.4565 36.5628 38.4875C30.4919 31.7747 23.4655 25.0585 23.4368 18.3459C23.4108 12.2455 23.4027 6.14511 23.3938 0.0447591Z" fill="#2A2A2A"/>
         </svg>
     </a>
-    <a href="/docs/zh/" class="gonka-docs-link">
-      <span>文档</span>
+    <a href="/docs/" class="gonka-docs-link">
+      <span>Documentation</span>
       <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.5 13.5L10.5 6.5" stroke="black" stroke-width="1.5"/>
         <path d="M3.83398 6.5H10.5007V13.1667" stroke="black" stroke-width="1.5"/>
@@ -31,7 +31,7 @@ title: 免责声明
     <section class="gonka-doc-section">
       <div class="gonka-doc-content">
         <h1>免责声明</h1>
-        <p>此处提供的信息仅供一般信息和教育目的，不应被视为财务、投资或交易建议。加密货币市场具有高度波动性和投机性。在做出任何投资决定之前，请务必自行研究（DYOR）并咨询具有相应资质的财务顾问。对于因依赖本信息而造成的任何损失或损害，作者和发布者概不负责。</p>
+        <p>此处提供的信息仅用于一般性信息和教育目的，不应被视为财务、投资或交易建议。加密货币市场具有高度波动性和投机性。在做出任何投资决策之前，请务必自行研究（DYOR）并咨询合格的财务顾问。作者和发布者不对因依赖此信息而导致的任何损失或损害负责。</p>
       </div>
     </section>
   </main>
@@ -40,7 +40,7 @@ title: 免责声明
 <footer class="gonka-footer">
   <div class="footer-inner">
 
-    <!-- Brand row --------------------------------------------------->
+    <!-- 品牌行 --------------------------------------------------->
     <div class="brand">
       <a class="brand-logo" href="/">
         <svg width="34" height="33" viewBox="0 0 42 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,13 +80,13 @@ title: 免责声明
       </div>
     </div>
 
-    <!-- 4 columns ---------------------------------------------------->
+    <!-- 4列 ---------------------------------------------------->
     <div class="footer-cols">
       <div class="footer-col">
         <h4>社区</h4>
         <ul>
           <li><a href="https://github.com/gonka-ai/gonka/">GitHub</a></li>
-          <li><a href="https://discord.gg/W73zX4sNx6">活动</a></li>
+          <li><a href="https://discord.com/invite/RADwCT2U6R">活动</a></li>
           <li><a href="https://what-is-gonka.hashnode.dev">博客</a></li>
         </ul>
       </div>
@@ -95,23 +95,23 @@ title: 免责声明
         <h4>协议</h4>
         <ul>
           <li><a href="/whitepaper.pdf">白皮书</a></li>
-          <li><a href="/pow-security-analysis.pdf">基于 Transformer 的 PoW</a></li>
+          <li><a href="/pow-security-analysis.pdf">基于Transformer的PoW</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>GNK</h4>
         <ul>
-          <li><a href="/tokenomics.pdf">Gonka 代币经济学</a></li>
+          <li><a href="/tokenomics.pdf">Gonka代币经济模型</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>法律</h4>
         <ul>
-          <li><a href="/protocol-license.pdf">Gonka 协议许可证</a></li>
+          <li><a href="/protocol-license.pdf">Gonka协议许可证</a></li>
           <li><a href="#">专利</a></li>
-          <li><a href="/zh/disclaimer/">免责声明</a></li>
+          <li><a href="/disclaimer/">免责声明</a></li>
         </ul>
       </div>
     </div>
@@ -124,7 +124,7 @@ title: 免责声明
 <!-- prettier-ignore:end -->
 
 <script>
-  // Ensure dark mode attribute is respected early without adding persistent classes
+  // 确保早期遵守暗色模式属性，而不添加持久类
   (function() {
     var palette = localStorage.getItem('/.__palette');
     if (palette) {
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Mobile header shadow on scroll
+  // 移动端头部滚动阴影
   const header = document.querySelector('.gonka-header');
   if (header) {
     function handleScroll() {

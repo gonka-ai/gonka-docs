@@ -35,6 +35,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 
 ### 1.1 Pick a broker
 
+- [https://gonka24.com/](https://gonka24.com/)
 - [https://proxy.gonka.gg/](https://proxy.gonka.gg/) · [▶ demo](https://drive.google.com/file/d/1-Zk__4cY_ENi0Q8gw-JHgEBz6XZWXKAj/view?pli=1)
 - [https://gonkagate.com/](https://gonkagate.com/)
 - [https://gate.joingonka.ai/](https://gate.joingonka.ai/)

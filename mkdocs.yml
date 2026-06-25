@@ -74,6 +74,7 @@ nav:
     - Network updates: network-updates.md
     - FAQ: FAQ.md
     - Get help: help.md
+    - Report a Vulnerability: report-vulnerability.md
 
 # Visual
 theme:
@@ -232,6 +233,7 @@ plugins:
             Network updates: 网络更新
             FAQ: 常见问题
             "Get help": 获取支持
+            "Report a Vulnerability": 报告漏洞
 
 strict: true
 

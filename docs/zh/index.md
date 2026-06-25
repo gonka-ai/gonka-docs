@@ -36,8 +36,12 @@ landing: true
       <span class="nowrap">Kimi K2.6 和 MiniMax M2.7 现已上线。 </span>
 =======
       <span class="nowrap">主网上线了。 </span>
+<<<<<<< HEAD
       <span class="nowrap">Kimi K2.6 与 MiniMax M2.7 现已上线。 </span>
 >>>>>>> 6addb31 (transfers)
+=======
+      <span class="nowrap">Kimi K2.6 和 MiniMax M2.7 现已上线。 </span>
+>>>>>>> 0e8687b (chore(zh): update translations for 183f0d24)
       <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">加入 Discord。</a>
     </p>
     <!-- Hero -->
@@ -45,10 +49,14 @@ landing: true
       <div class="gonka-inner">
         <h1>Gonka</h1>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <p class="tagline">AI 算力就是新货币</p>
 =======
         <p class="tagline">AI 算力是新货币</p>
 >>>>>>> 7832026 (transfers)
+=======
+        <p class="tagline">AI 算力就是新货币</p>
+>>>>>>> 0e8687b (chore(zh): update translations for 183f0d24)
         <p class="gonka-cta">
           <span class="gonka-cta__label">在</span>
           <a class="gonka-cta__uniswap" href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68" target="_blank" rel="noopener noreferrer">
@@ -220,26 +228,34 @@ landing: true
         <ul>
           <li><a href="/whitepaper.pdf">白皮书</a></li>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <li><a href="/pow-security-analysis.pdf">基于Transformer的挖矿证明</a></li>
 =======
           <li><a href="/pow-security-analysis.pdf">基于Transformer的PoW</a></li>
 >>>>>>> 7832026 (transfers)
+=======
+          <li><a href="/pow-security-analysis.pdf">基于Transformer的工作量证明</a></li>
+>>>>>>> 0e8687b (chore(zh): update translations for 183f0d24)
         </ul>
       </div>
       <div class="footer-col">
         <h4>GNK</h4>
         <ul>
-          <li><a href="/tokenomics.pdf">Gonka代币经济</a></li>
+          <li><a href="/tokenomics.pdf">Gonka代币经济模型</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>法律</h4>
         <ul>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <li><a href="/protocol-license.pdf">Gonka协议许可</a></li>
 =======
           <li><a href="/protocol-license.pdf">Gonka协议许可证</a></li>
 >>>>>>> 7832026 (transfers)
+=======
+          <li><a href="/protocol-license.pdf">Gonka协议许可</a></li>
+>>>>>>> 0e8687b (chore(zh): update translations for 183f0d24)
           <li><a href="#">专利</a></li>
           <li><a href="/disclaimer/">免责声明</a></li>
         </ul>
@@ -255,6 +271,7 @@ landing: true
 <script>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   // 确保在进入页面时尊重暗色模式属性，而无需添加持久类
 =======
   // 确保在进入页面时遵守暗色模式属性，而无需添加持久类
@@ -262,6 +279,9 @@ landing: true
 =======
   // 确保在进入页面时尊重暗色模式属性，而不添加持久性类
 >>>>>>> 6addb31 (transfers)
+=======
+  // 确保在进入页面时尽早遵守暗色模式属性，而不添加持久类
+>>>>>>> 0e8687b (chore(zh): update translations for 183f0d24)
   (function() {
     var palette = localStorage.getItem('/.__palette');
     if (palette) {
@@ -277,10 +297,14 @@ landing: true
 
 <script>
 <<<<<<< HEAD
+<<<<<<< HEAD
 // 确保从着陆页进入时MkDocs导航正常工作
 =======
 // 确保从登录页面进入时MkDocs导航正常工作
 >>>>>>> 7832026 (transfers)
+=======
+// 确保从登陆页面进入时MkDocs导航正常工作
+>>>>>>> 0e8687b (chore(zh): update translations for 183f0d24)
 document.addEventListener('DOMContentLoaded', function() {
   const docLink = document.querySelector('.gonka-docs-link');
   if (docLink) {
@@ -316,6 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const originals = Array.from(carouselTrack.querySelectorAll('.partner-card'));
     let raf = null;
 <<<<<<< HEAD
+<<<<<<< HEAD
     let offset = 0;   // 当前滚动偏移量 [0, period)
 <<<<<<< HEAD
     let period = 0;   // 一组完整宽度 (A → A')
@@ -338,6 +363,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 确保有足够的副本 (A, A', A'', ...) 以覆盖视口+一个周期
 >>>>>>> 6addb31 (transfers)
+=======
+    let offset = 0;   // 当前滚动偏移量 [0, period)
+    let period = 0;   // 一组完整宽度 (A → A')
+    const speed = 72; // 像素每秒（可按需调整）
+    let lastTs = null;
+
+    // 确保有足够的副本 (A, A', A'', ...) 覆盖视口 + 一个周期
+>>>>>>> 0e8687b (chore(zh): update translations for 183f0d24)
     function ensureCopies(minCopies) {
       const have = Math.floor(carouselTrack.children.length / originals.length);
       const need = Math.max(2, minCopies | 0);
@@ -367,6 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       // 按时间推进，而非按帧，然后使用模运算避免任何超出跳跃
 =======
       // 按时间推进，而非按帧，然后使用模运算避免任何超调跳跃
@@ -374,9 +408,12 @@ document.addEventListener('DOMContentLoaded', function() {
 =======
       // 按时间推进，而非按帧，然后用模运算避免任何超调跳跃
 >>>>>>> 6addb31 (transfers)
+=======
+      // 按时间推进，而非按帧，然后使用模运算避免任何超出跳跃
+>>>>>>> 0e8687b (chore(zh): update translations for 183f0d24)
       offset += speed * dt;
       if (period > 0) {
-        offset = offset % period; // 保持在 [0, 周期)
+        offset = offset % period; // 保持在 [0, period)
         carouselTrack.style.transform = `translate3d(${-offset}px, 0, 0)`;
       }
       raf = requestAnimationFrame(frame);
@@ -406,6 +443,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // 在调整大小/字体加载时重新计算，同时保留进度以防止视觉跳跃
 =======
     // 在调整大小/字体加载时重新计算，同时保留进度以防止视觉跳动
@@ -413,6 +451,9 @@ document.addEventListener('DOMContentLoaded', function() {
 =======
     // 在调整大小/字体加载时重新计算，同时保持进度以防止视觉跳动
 >>>>>>> 6addb31 (transfers)
+=======
+    // 在调整大小/字体加载时重新计算，同时保留进度以防止视觉跳动
+>>>>>>> 0e8687b (chore(zh): update translations for 183f0d24)
     function recompute() {
       const progress = period > 0 ? (offset % period) / period : 0;
       stop();

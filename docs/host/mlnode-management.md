@@ -54,7 +54,7 @@ Example ML Node configuration:
   "poc_port": 8080,
   "max_concurrent": 500,
   "models": {
-    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+    "MiniMaxAI/MiniMax-M2.7": {
       "args": [
         "--tensor-parallel-size",
         "4"
@@ -65,7 +65,7 @@ Example ML Node configuration:
 ```
 
 !!! note "Supported model and vLLM arguments"
-    The network currently supports `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only (subject to governance decisions). See the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
+    The network currently supports `MiniMaxAI/MiniMax-M2.7` as the active PoC model (subject to governance decisions). See the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
 
 ---
 
@@ -97,25 +97,25 @@ Use this operation to register a **single** new ML Node with your Network Node.
 
 - `POST /admin/v1/nodes`
 
-!!! note "Adding a 235B node on 8xH100 or 8xH200"
-    Example request for `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` on `8xH100` or `8xH200`:
+!!! note "Adding a MiniMax node on 4xH100"
+    Example request for `MiniMaxAI/MiniMax-M2.7` on `4xH100`:
 
     ```bash
     curl -X POST "$ADMIN_API_URL/admin/v1/nodes" \
       -H "Content-Type: application/json" \
       -d '{
-        "id": "node-235b",
+        "id": "node-minimax",
         "host": "10.0.0.22",
         "inference_port": 5050,
         "poc_port": 8080,
         "max_concurrent": 500,
         "models": {
-          "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+          "MiniMaxAI/MiniMax-M2.7": {
             "args": [
               "--tensor-parallel-size",
               "4",
               "--max-model-len",
-              "240000"
+              "180000"
             ]
           }
         }
@@ -149,12 +149,12 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
       "poc_port": 8080,
       "max_concurrent": 500,
       "models": {
-        "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+        "MiniMaxAI/MiniMax-M2.7": {
           "args": [
             "--tensor-parallel-size",
             "4",
             "--max-model-len",
-            "240000"
+            "180000"
           ]
         }
       }
@@ -166,12 +166,12 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
       "poc_port": 8080,
       "max_concurrent": 500,
       "models": {
-        "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+        "MiniMaxAI/MiniMax-M2.7": {
           "args": [
             "--tensor-parallel-size",
             "4",
             "--max-model-len",
-            "240000"
+            "180000"
           ]
         }
       }
@@ -217,12 +217,12 @@ curl -X PUT "$ADMIN_API_URL/admin/v1/nodes/node1" \
     "poc_port": 8080,
     "max_concurrent": 800,
     "models": {
-      "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+      "MiniMaxAI/MiniMax-M2.7": {
         "args": [
           "--tensor-parallel-size",
           "4",
           "--max-model-len",
-          "240000"
+          "180000"
         ]
       }
     }

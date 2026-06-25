@@ -54,7 +54,7 @@ ML 节点配置示例：
   "poc_port": 8080,
   "max_concurrent": 500,
   "models": {
-    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+    "MiniMaxAI/MiniMax-M2.7": {
       "args": [
         "--tensor-parallel-size",
         "4"
@@ -65,7 +65,7 @@ ML 节点配置示例：
 ```
 
 !!! note "支持的模型与 vLLM 参数"
-    当前网络仅支持 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`（以治理决策为准）。详见 [为 LLM 选择最优部署配置的基准测试指南](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
+    当前网络以 `MiniMaxAI/MiniMax-M2.7` 作为活跃的 PoC 模型（以治理决策为准）。详见 [为 LLM 选择最优部署配置的基准测试指南](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
 ---
 
@@ -97,25 +97,25 @@ curl -X GET "$ADMIN_API_URL/admin/v1/nodes" | jq
 
 - `POST /admin/v1/nodes`
 
-!!! note "在 8xH100 或 8xH200 上添加 235B 节点"
-    在 `8xH100` 或 `8xH200` 上添加 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 的示例请求：
+!!! note "在 4xH100 上添加 MiniMax 节点"
+    在 `4xH100` 上添加 `MiniMaxAI/MiniMax-M2.7` 的示例请求：
 
     ```bash
     curl -X POST "$ADMIN_API_URL/admin/v1/nodes" \
       -H "Content-Type: application/json" \
       -d '{
-        "id": "node-235b",
+        "id": "node-minimax",
         "host": "10.0.0.22",
         "inference_port": 5050,
         "poc_port": 8080,
         "max_concurrent": 500,
         "models": {
-          "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+          "MiniMaxAI/MiniMax-M2.7": {
             "args": [
               "--tensor-parallel-size",
               "4",
               "--max-model-len",
-              "240000"
+              "180000"
             ]
           }
         }
@@ -149,12 +149,12 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
       "poc_port": 8080,
       "max_concurrent": 500,
       "models": {
-        "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+        "MiniMaxAI/MiniMax-M2.7": {
           "args": [
             "--tensor-parallel-size",
             "4",
             "--max-model-len",
-            "240000"
+            "180000"
           ]
         }
       }
@@ -166,12 +166,12 @@ curl -X POST "$ADMIN_API_URL/admin/v1/nodes/batch" \
       "poc_port": 8080,
       "max_concurrent": 500,
       "models": {
-        "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+        "MiniMaxAI/MiniMax-M2.7": {
           "args": [
             "--tensor-parallel-size",
             "4",
             "--max-model-len",
-            "240000"
+            "180000"
           ]
         }
       }
@@ -217,12 +217,12 @@ curl -X PUT "$ADMIN_API_URL/admin/v1/nodes/node1" \
     "poc_port": 8080,
     "max_concurrent": 800,
     "models": {
-      "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+      "MiniMaxAI/MiniMax-M2.7": {
         "args": [
           "--tensor-parallel-size",
           "4",
           "--max-model-len",
-          "240000"
+          "180000"
         ]
       }
     }

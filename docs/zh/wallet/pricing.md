@@ -82,7 +82,7 @@ curl http://node2.gonka.ai:8000/v1/governance/pricing | jq
   "unit_of_compute_price": 100,
   "models": [
     {
-      "id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "id": "MiniMaxAI/MiniMax-M2.7",
       "units_of_compute_per_token": 10000,
       "price_per_token": 1
     }

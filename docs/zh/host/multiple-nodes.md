@@ -98,10 +98,10 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 
 创建可写目录（如 `~/hf-cache`），并按需预加载模型。
-当前网络仅支持 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。
+当前网络以 `MiniMaxAI/MiniMax-M2.7` 作为活跃的 PoC 模型。
 
 ```
-huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+huggingface-cli download MiniMaxAI/MiniMax-M2.7
 ```
 
 **1.3. 供网络节点连接的开放端口**
@@ -155,16 +155,16 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `poc_port`       | 用于 **ML 节点管理** 的端口   | `8080`（映射到 ML 节点 `nginx` 的 `8080`）                                                   |
 | `max_concurrent` | 该节点可处理的**最大并发推理请求数**   | `500`                                                     |
 | `models`         | 推理节点可处理的**支持的模型**集合                              | （见下）    |
-| `model_name`         | 模型名称                              | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`    |
+| `model_name`         | 模型名称                              | `MiniMaxAI/MiniMax-M2.7`    |
 | `model_args`         | 该模型的 vLLM 推理参数                              | `"--tensor-parallel-size","4"`    |
 
-当前网络仅支持 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。
+当前网络以 `MiniMaxAI/MiniMax-M2.7` 作为活跃的 PoC 模型。
 
 为确保配置正确且性能最优，请使用与您的模型和 GPU 布局最匹配的参数。
 
 | 模型与 GPU 布局                    | vLLM 参数                                                                           |
 |-----------------------------------------|---------------------------------------------------------------------------------------|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 在 8xH100 或 8xH200 上           | `"--tensor-parallel-size","4"`                                      |
+| `MiniMaxAI/MiniMax-M2.7` 在 4xH100 上           | `"--tensor-parallel-size","4"`                                      |
 
 如需根据 GPU 硬件选择最优部署配置与 vLLM 参数的详细说明，请参阅 [为 LLM 选择最优部署配置的基准测试指南](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 

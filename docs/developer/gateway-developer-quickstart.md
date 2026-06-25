@@ -35,7 +35,7 @@ On a **gateway-only** server you run only the gateway container (`devshardctl`).
 | Item                     | Value                                                           |
 | ------------------------ | --------------------------------------------------------------- |
 | Chain ID                 | `gonka-mainnet`                                                 |
-| Model (example)          | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`                        |
+| Model (example)          | `MiniMaxAI/MiniMax-M2.7`                        |
 | Escrow deposit (example) | `5000000000` ngonka (~5 GONKA); must be ≥ on-chain `min_amount` |
 | Public node (example)    | `https://node3.gonka.ai`                                        |
 | CometBFT RPC (example)   | `https://node3.gonka.ai/chain-rpc/`                             |
@@ -136,7 +136,7 @@ export DEVSHARD_PUBLIC_API=https://node3.gonka.ai
 export DEVSHARD_PORT=8080
 export DEVSHARD_STORAGE_DIR=/root/.devshardctl
 export DEVSHARD_STORAGE_HOST_DIR=.devshardctl
-export DEVSHARD_MODEL=Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+export DEVSHARD_MODEL=MiniMaxAI/MiniMax-M2.7
 export GATEWAY_MAX_CONCURRENT_REQUESTS=512
 export GATEWAY_MAX_INPUT_TOKENS_IN_FLIGHT=0
 export GATEWAY_DEFAULT_MAX_TOKENS=3072
@@ -357,7 +357,7 @@ CREATE_JSON=$(curl -sS -X POST http://127.0.0.1:18080/v1/admin/escrows \
   -H "Content-Type: application/json" \
   -d "{
     \"amount\": 5000000000,
-    \"model_id\": \"Qwen/Qwen3-235B-A22B-Instruct-2507-FP8\",
+    \"model_id\": \"MiniMaxAI/MiniMax-M2.7\",
     \"private_key\": \"$DEVSHARD_PRIVATE_KEY\",
     \"chain_id\": \"$CHAIN_ID\",
     \"register\": true
@@ -382,7 +382,7 @@ curl -sS -X POST http://127.0.0.1:18080/v1/admin/settings \
     "default_request_max_tokens": 3072,
     "request_max_tokens_cap": 4096,
     "model_limits": [{
-      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "model_id": "MiniMaxAI/MiniMax-M2.7",
       "access_mode": "api_key"
     }]
   }'
@@ -454,7 +454,7 @@ curl -sS -X POST http://127.0.0.1:18080/v1/admin/settings \
       "enabled": true,
       "pre_poc_blocks": 300,
       "models": [{
-        "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+        "model_id": "MiniMaxAI/MiniMax-M2.7",
         "temp_count": 1,
         "target_count": 1,
         "amount": 5000000000,
@@ -502,7 +502,7 @@ curl -sS http://127.0.0.1:18080/v1/chat/completions \
   -H "Authorization: Bearer $DEVSHARD_API_KEYS" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+    "model": "MiniMaxAI/MiniMax-M2.7",
     "messages": [{"role": "user", "content": "How long do hamsters live?"}],
     "max_tokens": 32
   }' | jq '{id, content: .choices[0].message.content}'

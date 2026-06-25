@@ -79,7 +79,7 @@ name: index.md
 | --- | --- |
 | API Base URL / Endpoint | 您的经纪商 URL 加上附加的 `/v1`，例如 `https://<broker-url>/v1`。如果应用要求输入“OpenAI Base URL”或“Custom Endpoint”，即为此项。 |
 | API Key / Auth Token | 您生成的密钥。即使应用提示“输入 OpenAI API 密钥”，此处仍使用您的经纪商密钥。 |
-| Model / Custom Model | 您的经纪商所支持的确切模型 ID。模型 ID 区分大小写——请准确复制，例如 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。 |
+| Model / Custom Model | 您的经纪商所支持的确切模型 ID。模型 ID 区分大小写——请准确复制，例如 `MiniMaxAI/MiniMax-M2.7`。 |
 
 以下确切的菜单名称可能因应用版本而异——请查找对应的设置项。
 
@@ -110,7 +110,7 @@ name: index.md
 ```bash
 export GONKA_BROKER_URL=<broker-base-url>     # e.g. https://api.example-broker.com/v1
 export GONKA_BROKER_API_KEY=<your-api-key>
-export GONKA_MODEL=Qwen/Qwen3-235B-A22B-Instruct-2507-FP8   # or any model your broker supports
+export GONKA_MODEL=MiniMaxAI/MiniMax-M2.7   # or any model your broker supports
 ```
 
 Gonka 经纪商端点与 OpenAI 兼容，因此您可以直接使用官方 OpenAI SDK——无需使用特定于 Gonka 的客户端。

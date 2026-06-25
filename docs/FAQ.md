@@ -751,6 +751,10 @@ When creating or updating a node (for example, via `POST http://localhost:9200/a
 In practice, many hosts run a proxy ML Node behind which multiple servers operate; auto-detection only sees one of these servers, which is a fully valid setup. Regardless of configuration, all weight distribution and rewards rely solely on the Host total weight, and the internal split across ML Nodes or the reported hardware types never affect on-chain validation.
 
 ### How to switch to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, upgrade ML Nodes, and remove other models?
+
+!!! warning "Historical — v0.2.8 / PoC v2 migration"
+    This entry documents the **v0.2.8 / PoC v2 migration (Epoch 155)**, when `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` was the single enforced model. It is kept for historical reference only. **As of epoch 308, Qwen3-235B has been retired by governance (proposal 78) and `MiniMaxAI/MiniMax-M2.7` is the base/active PoC model.** For current setup, follow the [Host Quickstart](./host/quickstart.md) and [Multi-Model PoC — Host Operations Guide](./host/multi_model_poc.md).
+
 This guide explains how Hosts should update their ML Nodes in response to changes in v0.2.8 model availability and the upcoming PoC v2 update. ML Node configuration compliance with PoC v2 is observed starting Epoch 155. Hosts are encouraged to review and prepare their ML Node configuration before that point. Migration to PoC v2 can be scheduled after epoch 155. After the migration phase, weights from ML Nodes that do not meet the configuration requirements may not be counted. 
 
 **1. Background: model availability changes (upgrade v0.2.8)**

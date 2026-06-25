@@ -8,6 +8,76 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## June 25, 2026
+
+**Expedited governance vote (proposal 78): MiniMax-M2.7 becomes the sole PoC model; Kimi K2.6 removed for a fast re-bootstrap; Qwen3-235B retired**
+
+`moonshotai/Kimi-K2.6` currently does not have sufficient votes for PoC validation. As a result, the participants serving Kimi were knocked out of the group, and Kimi cannot enter the next epoch. Removing Kimi from the active set now and re-bootstrapping it is the fastest way to bring it back with minimal downtime.
+
+An expedited proposal is now on-chain so these changes can take effect before the next epoch starts.
+On-chain, the proposal does the following in a single vote:
+1. Sets the delegation `initial_model_id` to `MiniMaxAI/MiniMax-M2.7`, making MiniMax the base model.
+2. Keeps only `MiniMaxAI/MiniMax-M2.7` in PoC params.
+3. Removes `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `moonshotai/Kimi-K2.6` from PoC params.
+4. Deletes `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `moonshotai/Kimi-K2.6` from governance models.
+
+**What each change is for**
+
+* **Kimi K2.6 — removed to restore it quickly.** Because Kimi does not have sufficient votes for PoC validation, taking it out and re-bootstrapping it is the fastest path back with minimal downtime. A vote to restore Kimi follows in the next epoch.
+* **Qwen3-235B — retired (separate, unrelated change).** Retiring the older Qwen3-235B is an independent, previously-requested lineup change. It is not related to the Kimi situation and is included here only because it is also a PoC lineup change.
+* **MiniMax-M2.7 — promoted to the base model.**
+
+The changes are bundled into one expedited vote because the reset must conclude before epoch 307 ends. At ~22.9h per epoch, the standard 48h voting period does not fit inside one epoch; the 12h expedited period does. Genesis guardians are expected to support the proposal.
+
+**Effect if approved**
+
+Starting at epoch 308 (~June 25, 17:25 UTC), `MiniMaxAI/MiniMax-M2.7` is the only active PoC model. Qwen3-235B and Kimi K2.6 are no longer active. Restoring Kimi is handled in a follow-up vote in the next epoch.
+
+**Required actions for hosts**
+
+1. **Switch your MLNode to `MiniMaxAI/MiniMax-M2.7` before PoC 308 starts.** Every host — including hosts currently on Qwen or Kimi — must switch their MLNode to MiniMax. There is a ~500-block window before PoC starts in which it is safe to switch, as there is no cPoC. Pre-download the FP8 weights now if they are not already staged, to avoid Hugging Face rate limits at the epoch boundary.
+2. **Vote on proposal 78 before the deadline.** The expedited window is short.
+3. Hosts that plan to serve Kimi again should still switch their MLNode to MiniMax now, but be ready to switch it back at PoC 309 — a vote to restore Kimi follows in epoch 308.
+
+
+**Coming next**
+
+* **Restore Kimi K2.6** — a follow-up vote in epoch 308 to re-add Kimi and restart its bootstrap.
+* **GLM-5.2** — a follow-up proposal will add GLM-5.2 **without a non-participation penalty**, so hosts can opt in and demand for the model can be tested in advance, with no penalty for hosts that choose not to serve it.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, refer to the [guide](https://gonka.ai/docs/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key. Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+* http://node1.gonka.ai:8000
+* http://node2.gonka.ai:8000
+* https://node3.gonka.ai
+
+Cast a vote (`yes`, `no`, `abstain`, `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 78 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 78 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+* Proposal 78 voting ends: **June 25, 2026, 15:39:53 UTC** (expedited).
+* Epoch 308 forms shortly after: PoC start ~16:50 UTC, effective ~17:25 UTC.
+* Expedited proposals require a 0.667 yes-threshold; turnout matters, vote promptly.
+
 ## June 22, 2026
 
 **The v0.2.13-devshard-v2 runtime upgrade proposal has passed governance**

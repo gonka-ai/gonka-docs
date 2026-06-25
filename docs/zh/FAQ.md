@@ -412,7 +412,11 @@ Base Weight +
 - `VOTE_OPTION_NO`
 - `VOTE_OPTION_NO_WITH_VETO`
 
+<<<<<<< HEAD
 4) 撤销授权（需使用授权账户的密钥运行）
+=======
+4) 撤销授权（需使用授权账户密钥运行）
+>>>>>>> 7832026 (transfers)
 === "命令"
 
     ```
@@ -454,6 +458,7 @@ Base Weight +
 
 改进提案 → 由活跃参与者控制的链下提案。用于规划长期路线图、讨论新想法以及协调重大的战略变更。
 
+<<<<<<< HEAD
 - 以 Markdown 文件形式管理，存放在 [/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals) 目录中
 - 通过 GitHub Pull Request 进行审查和讨论
 - 批准的提案将被合并到代码仓库中
@@ -476,6 +481,30 @@ Base Weight +
 
 - 您可以先以改进提案的形式提出集成新模型的想法。
 - 在社区达成一致后，再创建链上治理提案，以更新参数或触发软件升级。
+=======
+- 以 Markdown 文件形式管理，存放于 [/proposals](https://github.com/gonka-ai/gonka/tree/main/proposals) 目录
+- 通过 GitHub Pull Request 进行评审和讨论
+- 批准的提案将合并到仓库中
+
+### 改进提案如何评审和批准？
+社区提案评审的目标是收集社区验证：包括反应、评论和具体反馈，以增强最终获得治理批准的可能性。这一点尤其重要，如果提案的实施需要大量工作、长期承诺、协调或对协议进行重大修改。
+
+- 请先阅读推荐指南：[https://github.com/gonka-ai/gonka/discussions/795](https://github.com/gonka-ai/gonka/discussions/795)。该指南解释了哪些内容适合提交为改进提案，以及如何撰写结构清晰、内容有力的提案。
+- 在 [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions) 中发布并讨论改进提案（首选方式）；此前这些提案以 Markdown 文件形式存放在 `/proposals` 目录中。
+- 为了帮助社区评估您的提案（并提高其未来在治理流程中通过的可能性），提案人有责任并应主动收集早期反馈和支持信号（如反应、评论、具体意见）。
+	- 将 Discussion 链接分享至 Discord 的 #improvements-proposals 频道以扩大影响力，并通过您可用的其他渠道（包括直接联系 Hosts/矿工）进一步推广，以获取实际意见和支持。
+	- 在提案讨论帖中分享您的背景和专业知识。如果您代表某个团队或公司，请注明并附上相关工作链接，以帮助社区评估可信度，更高效地评审提案。
+- 社区评审：
+	- 活跃贡献者和维护者将在 [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions) 中讨论提案。讨论可以在任何平台进行，但请将关键内容汇总回 [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions)：这能确保完整的历史记录集中保存，便于搜索，并且更易于长期维护。GitHub 是唯一可信来源。
+	- 请提出问题、提供反馈、建议、优化意见，并为相关提案点赞。每个人对此过程的关注和参与，对于链的可持续发展至关重要。
+- 强烈的正面反馈和大量点赞表明了真实的社区需求，使团队可以将广受好评的提案视为社区驱动路线图的一部分，并有信心启动实施，同时确保社区共识和未来的治理批准。请注意，来自主机（hosts）的反馈至关重要——它有助于将项目分解为多个里程碑，解锁部分赏金支付，甚至从社区资金池中获得资助。但最终，所有链上更新和付款均需经过治理批准。
+
+### 改进提案能否转化为治理提案？
+可以。通常，改进提案用于在起草治理提案前探索想法并达成共识。例如：
+
+- 您可能首先以改进提案的形式提议集成一个新模型。
+- 在社区达成一致后，再创建一个链上治理提案，用于更新参数或触发软件升级。
+>>>>>>> 7832026 (transfers)
 
 ## 投票 
 
@@ -591,7 +620,11 @@ curl http://<inference_url>/v1/epochs/current/participants
 如果您的节点无法连接到默认种子节点，只需通过更新 `config.env` 中的三个变量，将其指向另一个种子节点即可。
 
 1. `SEED_API_URL` - 种子节点的 HTTP 端点（用于 API 通信）。
+<<<<<<< HEAD
     从下面的列表中选择任意一个 URL，并直接赋值给 `SEED_API_URL`。
+=======
+    从以下列表中选择任意一个 URL，并直接赋值给 `SEED_API_URL`。
+>>>>>>> 7832026 (transfers)
     ```
     export SEED_API_URL=<chosen_http_url>
     ```
@@ -608,7 +641,11 @@ curl http://<inference_url>/v1/epochs/current/participants
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
     ```
+<<<<<<< HEAD
 2. `SEED_NODE_RPC_URL` - 公共 Tendermint RPC 访问必须经过种子节点的 HTTP(S) 代理路径 `/<chain-rpc>`。
+=======
+2. `SEED_NODE_RPC_URL` - 公共 Tendermint RPC 访问必须通过种子节点的 HTTP(S) 代理路径 `/<chain-rpc>`。
+>>>>>>> 7832026 (transfers)
 使用与 `SEED_API_URL` 中相同的协议（http 或 https）、主机和端口，并附加 `/chain-rpc`。
     ```
     export SEED_NODE_RPC_URL=http://<host>/chain-rpc
@@ -656,14 +693,24 @@ curl http://<inference_url>/v1/epochs/current/participants
 
 ### 如何更改种子节点？
 
+<<<<<<< HEAD
 根据节点是否已完成初始化，有两种不同的方式来更新种子节点。
+=======
+有两种不同的方式来更新种子节点，具体取决于节点是否已经初始化。
+>>>>>>> 7832026 (transfers)
 
 === "选项 1. 手动编辑种子节点（初始化后）"
 
     一旦文件 `.node_initialized` 被创建，系统将不再自动更新种子节点。
+<<<<<<< HEAD
     从那时起：
 
     - 种子列表将被直接使用
+=======
+    此后：
+
+    - 种子列表将被原样使用
+>>>>>>> 7832026 (transfers)
     - 任何更改都必须手动完成
     - 您可以添加任意数量的种子节点
 
@@ -671,7 +718,11 @@ curl http://<inference_url>/v1/epochs/current/participants
     ```
     seeds = "<node1_id>@<node1_ip>:<node1_p2p_port>,<node2_id>@<node2_ip>:<node2_p2p_port>"
     ```
+<<<<<<< HEAD
     要查看任何运行中节点已知的对等节点，请使用链的 RPC：
+=======
+    要查看任意运行中节点已知的对等节点，请使用链的 RPC：
+>>>>>>> 7832026 (transfers)
     ```
     curl http://47.236.26.199:8000/chain-rpc/net_info | jq
     ```
@@ -722,7 +773,7 @@ curl http://<inference_url>/v1/epochs/current/participants
 
 === "选项 2. 重新初始化节点（从环境变量自动应用种子节点）"
 
-    如果您希望节点重新生成其配置并自动应用 `config.env` 中定义的种子节点，请使用此方法。
+    如果您希望节点重新生成其配置并自动应用在 `config.env` 中定义的种子节点，请使用此方法。
     ```
     source config.env
     docker compose down node
@@ -740,11 +791,19 @@ curl http://<inference_url>/v1/epochs/current/participants
     seeds = [...]
     ```
 
+<<<<<<< HEAD
 ### 硬件、节点权重和 ML 节点配置是如何实际验证的？
 
 该链 **不会** 验证真实硬件。它仅验证参与者的总权重，这也是用于权重分配和奖励计算的唯一值。
 
 此权重在 ML 节点之间的任何分配，以及任何“硬件类型”或其他描述性字段，纯粹是信息性的，可由主机自由修改。
+=======
+### 硬件、节点权重和 ML 节点配置是如何验证的？
+
+链 **不会** 验证实际硬件。它仅验证参与者的总权重，这也是用于权重分配和奖励计算的唯一值。
+
+此权重在 ML 节点之间的任何分配，以及任何“硬件类型”或其他描述性字段，都仅仅是信息性的，主机可以自由修改。
+>>>>>>> 7832026 (transfers)
 
 在创建或更新节点时（例如，通过`POST http://localhost:9200/admin/v1/nodes`，如处理器代码中所示，参见 [https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62](https://github.com/gonka-ai/gonka/blob/aa85699ab203f8c7fa83eb1111a2647241c30fc4/decentralized-api/internal/server/admin/node_handlers.go#L62)），可以显式指定 hardware 字段。如果省略该字段，API 服务将尝试从 ML 节点自动检测硬件信息。
 
@@ -1163,9 +1222,15 @@ watch -n 5 'docker exec node wget -qO- http://localhost:26657/status | jq -r ".r
 ```
 
 ### Cosmovisor 更新需要多少可用磁盘空间？如何安全地从 `.inference` 目录中删除旧备份？
+<<<<<<< HEAD
 每当 Cosmovisor 执行更新时，会在 `.inference` 状态文件夹中创建一个完整备份。例如，你可以看到一个类似 `data-backup-<some_date>` 的文件夹。
 截至2025年11月20日，数据目录的大小约为150 GB，因此每次备份将占用大约相同的空间。
 为了安全地运行更新，建议拥有250 GB以上的可用磁盘空间。
+=======
+Cosmovisor 在每次执行更新时都会在 `.inference` 状态文件夹中创建一个完整备份。例如，你可以看到类似 `data-backup-<some_date>` 的文件夹。
+截至2025年11月20日，数据目录的大小约为150 GB，因此每次备份将占用大约相同的空间。
+为了安全地运行更新，建议至少有250 GB以上的可用磁盘空间。
+>>>>>>> 7832026 (transfers)
 你可以删除旧的备份以释放空间，但在某些情况下这可能仍然不足，你可能需要扩展服务器磁盘。
 要删除旧的备份目录，可以使用：
 ```
@@ -1175,6 +1240,7 @@ ls -la   # view the list of folders. There will be folders like data-backup... D
 rm -rf <data-backup...>
 ```
 
+<<<<<<< HEAD
 ### 如何防止 NATS 中内存无限制增长？
 
 目前 NATS 被配置为无限期存储所有消息，这会导致内存使用量持续增长。
@@ -1185,6 +1251,18 @@ rm -rf <data-backup...>
    go install github.com/nats-io/natscli/nats@latest
    ```
 2. 如果你已经安装了 NATS CLI，请运行：
+=======
+### 如何防止NATS内存无限制增长？
+
+目前NATS被配置为无限期存储所有消息，这会导致内存使用量持续增长。
+推荐的解决方案是为两个NATS流中的消息配置24小时的生存时间（TTL）
+
+1. 安装NATS CLI。通过以下链接中的说明安装Golang：[https://go.dev/doc/install](https://go.dev/doc/install)。然后安装NATS CLI：
+   ```
+   go install github.com/nats-io/natscli/nats@latest
+   ```
+2. 如果你已经安装了NATS CLI，请运行：
+>>>>>>> 7832026 (transfers)
     ```
     nats stream info txs_to_send --server localhost:<your_nats_server_port>
     nats stream info txs_to_observe --server localhost:<your_nats_server_port>
@@ -1198,7 +1276,11 @@ rm -rf <data-backup...>
 - 你重新配置了HTTPS/反向代理；
 - 你正在迁移基础设施，并希望将Host条目指向新的端点。
 
+<<<<<<< HEAD
 此操作不需要重新注册、重新部署或密钥重新生成。更新 `inference_url` 使用与初始注册相同的交易（即 `submit-new-participant msg`）完成。
+=======
+此操作不需要重新注册、重新部署或密钥重新生成。更新你的 `inference_url` 是通过与初始注册相同的交易完成的（即 `submit-new-participant msg`）
+>>>>>>> 7832026 (transfers)
 
 链逻辑会检查你的Host（参与者）是否已存在：
 
@@ -1211,7 +1293,11 @@ rm -rf <data-backup...>
 
 !!! note 
 
+<<<<<<< HEAD
     当节点更新其执行URL时，新URL会立即对来自其他节点的推理请求生效。然而，记录在 `ActiveParticipants` 中的URL直到下一个epoch才会更新，因为提前修改会破坏与参与者集合相关的加密证明。为避免服务中断，建议在下一个epoch完成之前同时保持旧URL和新URL正常运行。
+=======
+    当节点更新其执行URL时，新URL会立即对来自其他节点的推理请求生效。然而，记录在 `ActiveParticipants` 中的URL直到下一个epoch才会更新，因为更早修改它会使得与参与者集合相关的加密证明失效。为避免服务中断，建议在下一个epoch完成之前同时保持旧URL和新URL的运行。
+>>>>>>> 7832026 (transfers)
 
     [本地] 使用你的冷密钥在本地执行更新：
     ```
@@ -1225,6 +1311,7 @@ rm -rf <data-backup...>
         --node http://<node-url>/chain-rpc/ \
         --chain-id gonka-mainnet
     ```
+<<<<<<< HEAD
 通过访问以下链接并将结尾替换为你的节点地址来验证更新 [http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve](http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve)
 
 ### 为什么我的 `application.db` 增长得如此之大，以及如何修复？
@@ -1232,6 +1319,15 @@ rm -rf <data-backup...>
 一些节点存在 `application.db` 大小不断增长的问题。
 
 `.inference/data/application.db` 存储链的状态历史（而非区块），默认保留362880个状态。
+=======
+通过访问以下链接并用你的节点地址替换结尾部分来验证更新 [http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve](http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/participant/gonka1qqqc2vc7fn9jyrtal25l3yn6hkk74fq2c54qve)
+
+### 为什么我的 `application.db` 增长得如此之大，以及如何修复？
+
+一些节点存在 `application.db` 尺寸不断增长的问题。
+
+`.inference/data/application.db` 存储链的状态历史（而非区块），默认为362880个状态。
+>>>>>>> 7832026 (transfers)
 
 状态历史包含每个状态的完整Merkle树，将其保留更短的时间是安全的。例如，仅保留1000个区块。
 
@@ -1244,7 +1340,11 @@ pruning-keep-recent = "1000"
 pruning-interval    = "100"
 ```
 
+<<<<<<< HEAD
 新配置将在 `node` 容器重启后生效。但存在一个问题——即使启用了修剪，数据库清理也非常缓慢。
+=======
+新配置将在 `node` 容器重启后生效。但存在一个问题——即使启用了修剪，数据库清理也非常慢。
+>>>>>>> 7832026 (transfers)
 
 有几种方法可以重置 `application.db`：
 
@@ -1268,11 +1368,19 @@ pruning-interval    = "100"
 
     此方法可能需要一些时间，在此期间节点将无法记录交易。
 
+<<<<<<< HEAD
 请使用可用的受信节点下载快照。
 
 === "选项2：从本地快照重新同步"
 
     快照默认启用并存储在 `.inference/data/snapshots` 中
+=======
+请使用可用的可信节点下载快照。
+
+=== "选项2：从本地快照重新同步"
+
+快照默认启用并存储在 `.inference/data/snapshots` 中
+>>>>>>> 7832026 (transfers)
 
     1) 准备新的 `application.db`（`node` 容器仍在运行）
 
@@ -1295,12 +1403,20 @@ pruning-interval    = "100"
 
     复制最新快照的高度。
 
+<<<<<<< HEAD
     1.4) 开始从快照恢复（`node`容器仍在运行） 
+=======
+    1.4) 从快照开始恢复（`node`容器仍在运行） 
+>>>>>>> 7832026 (transfers)
         ```
         inferenced snapshots restore <INSERT_HEIGHT> 3  --home .inference/temp
         ```
 
+<<<<<<< HEAD
     这可能需要一些时间。完成后，您将在`.inference/temp/data/application.db`中获得新的`application.db`
+=======
+    这可能需要一些时间。完成后，你将在`.inference/temp/data/application.db`中获得新的`application.db`
+>>>>>>> 7832026 (transfers)
 
     2) 用新的替换`application.db`
 
@@ -1325,6 +1441,7 @@ pruning-interval    = "100"
         ```
         docker start node
         ```
+<<<<<<< HEAD
 
     3) 等待`node`容器同步完成并删除`.inference/temp/`
 
@@ -1345,6 +1462,28 @@ pruning-interval    = "100"
 
 	现已提供修复，解决长期以来`application.db`在多种修剪配置下持续增长的问题。
 	此改进由[Lelouch33](https://github.com/Lelouch33)贡献，并包含在发布版本[`0.2.10-post6`](https://github.com/gonka-ai/gonka/compare/main...release/v0.2.10-post6)中。通过更新后的逻辑和以下设置，`application.db`可保持在约100 GB左右：
+=======
+
+    3) 等待`node`容器同步完成并删除`.inference/temp/`
+
+    如果你有多个节点，建议逐个清理。
+
+=== "选项3：实验性"
+
+    另一种选择是在单独的CPU专用机器上启动一个独立的`node`容器实例，并设置为严格验证器模式：
+
+    - 保留非常短的历史记录
+    - 仅允许`api`容器访问RPC和API
+
+    一旦运行起来，将现有的`tmkms`卷移动到新节点（先在现有节点上禁用区块签名）
+
+    这是该方法的基本思路。如果你决定尝试并有任何问题，请随时通过[Discord](https://discord.com/invite/RADwCT2U6R)联系我们。
+
+=== "选项4：升级以修复修剪问题"
+
+	现在已提供一个修复，用于解决长期存在的问题，即在许多修剪配置下`application.db`仍持续增长。
+	此改进由[Lelouch33](https://github.com/Lelouch33)贡献，并包含在发布版本[`0.2.10-post6`](https://github.com/gonka-ai/gonka/compare/main...release/v0.2.10-post6)中。使用更新后的逻辑和以下设置，`application.db`可保持在约100 GB左右：
+>>>>>>> 7832026 (transfers)
 
 	- `SNAPSHOT_INTERVAL=1000`
 	- `SNAPSHOT_KEEP_RECENT=2`
@@ -1356,9 +1495,15 @@ pruning-interval    = "100"
 	- [https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369](https://github.com/gonka-ai/gonka/issues/819#issuecomment-3996332369)
 	- [https://github.com/gonka-ai/gonka/pull/867](https://github.com/gonka-ai/gonka/pull/867)
 
+<<<<<<< HEAD
 	升级到此二进制文件后，将在下一个快照区块之后开始修剪。此过程相对较重，在删除旧状态历史时可能会暂时减慢`node`容器的速度。
 
 	为了减少运行影响，建议逐个节点应用更新，并使用较高的`pruning-interval`，例如`512`，以避免过于频繁地进行修剪。
+=======
+	升级到此二进制文件后，将在下一个快照区块后开始修剪。此过程相对较重，可能会在删除旧状态历史时暂时减慢`node`容器的速度。
+
+	为了减少操作影响，建议逐个节点应用更新，并使用较高的`pruning-interval`，例如`512`，以避免过于频繁地进行修剪。
+>>>>>>> 7832026 (transfers)
 
 	如果节点在修剪期间显著变慢，重启节点容器可能有助于其追上进度。
 
@@ -1392,13 +1537,21 @@ pruning-interval    = "100"
 
 ### 自动`ClaimReward`未成功执行，我该怎么办？
 
+<<<<<<< HEAD
 如果您有未领取的奖励，请执行：
+=======
+如果你有未领取的奖励，请执行：
+>>>>>>> 7832026 (transfers)
 ```
 curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
     -H "Content-Type: application/json" \
     -d '{"force_claim": true, "epoch_index": 106}'
 ```
+<<<<<<< HEAD
 要检查是否有未领取的奖励，您可以使用：
+=======
+要检查是否有未领取的奖励，可以使用：
+>>>>>>> 7832026 (transfers)
 ```
 curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epoch_performance_summary/106/<ACCOUNT_ADDRESS> | jq
 ```
@@ -1408,7 +1561,11 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 ### 升级v0.2.12：升级前模型清理
 
 !!! note "重要"
+<<<<<<< HEAD
 	此清理过程**必须在升级之前完成**。如果您在清理模型之前升级，您的节点将被拒绝并离线。
+=======
+	此清理过程**必须在升级发生之前完成**。如果你在清理模型之前升级，你的节点将被拒绝并下线。
+>>>>>>> 7832026 (transfers)
 
 	版本 0.2.12 移除了所有不在升级后批准列表中的治理模型。在主网上，仅保留之前强制执行的模型和 Kimi。
 
@@ -1572,12 +1729,21 @@ Risk = Impact × Likelihood
 2025/08/28 08:37:08 ERROR No epoch models available for this node subsystem=Nodes node_id=node1
 2025/08/28 08:37:08 INFO Finalizing state transition for node subsystem=Nodes node_id=node1 from_status=FAILED to_status=FAILED from_poc_status="" to_poc_status="" succeeded=false blockHeight=92476
 ```
+<<<<<<< HEAD
 这实际上不是错误。它只是表示你的节点尚未被分配模型。很可能是因为你的节点尚未参与Sprint、未获得投票权，因此还没有被分配模型。
 如果你的节点已经通过PoC，你应该不会再看到此日志。如果没有，PoC大约每24小时进行一次。
 
 ### 从状态同步快照启动时如何修复`err="no validator signing info found"`？
 
 如果在从状态同步快照启动期间周期性地遇到`err="no validator signing info found"`，通常与Cosmos SDK的`iavl-fastnode`行为有关。一个安全的解决方法是在初始启动时禁用`fastnode`，然后在节点完全同步后（可选）重新启用它。
+=======
+这实际上不是错误。它只是表示你的节点尚未被分配模型。很可能是因为你的节点还没有参与过Sprint，没有获得投票权，因此还没有被分配模型。
+如果你的节点已经通过了PoC，你应该不会再看到此日志。如果没有，PoC大约每24小时进行一次。
+
+### 从状态同步快照启动时如何修复`err="no validator signing info found"`？
+
+如果在从状态同步快照启动期间周期性地遇到`err="no validator signing info found"`，通常与Cosmos SDK的`iavl-fastnode`行为有关。一个安全的解决方法是在初次启动时禁用`fastnode`，然后在节点完全同步后（可选）重新启用它。
+>>>>>>> 7832026 (transfers)
 
 **修复方法（Docker）：**
 
@@ -1596,7 +1762,11 @@ docker start node
 重启后，该问题不应再次出现。
 
 !!! note 
+<<<<<<< HEAD
 	`main`包含v0.2.10-post6。从该版本开始的节点会自动应用此设置，因此通常无需手动更改。
+=======
+	`main`包含v0.2.10-post6。从该版本开始的节点会自动应用此设置，因此通常不需要手动更改。
+>>>>>>> 7832026 (transfers)
 
 ## 推理 
 
@@ -1606,11 +1776,19 @@ docker start node
 
 - 你看到`content=null`和`finish_reason=length`。
 - 模型“沉默”——使用情况显示有token，但没有文本输出。
+<<<<<<< HEAD
 - 带有`max_tokens=100`的探测请求返回空内容。
 
 **优先修复：Kimi-K2.6的有效配置**
 
 如果你没有时间深入排查——可以复制此负载作为起点。截至2026-05-28，它在两个公共broker上有效；使用前请与你的broker运营商确认其是否仍然适用。
+=======
+- 一个带有`max_tokens=100`的探测请求返回空内容。
+
+**优先修复：Kimi-K2.6的有效配置**
+
+如果你没有时间深入排查——可以复制此payload作为起点。截至2026-05-28，它在两个公共broker上有效；使用前请与你的broker运营商确认是否仍然适用。
+>>>>>>> 7832026 (transfers)
 
 ```json
 {
@@ -1627,12 +1805,21 @@ docker start node
 
 为什么是这些特定字段：
 
+<<<<<<< HEAD
 - `max_tokens: 4096` — 给模型分配全部可用的输出配额。目前broker的实际上限是3,072（见Q3）——设置更高无意义。最小为256，否则网关可能强制将`thinking_token_budget`设为零。
 - `thinking: {"type": "disabled"}` — 通过聊天模板提示禁用隐藏思考。
 - `thinking_token_budget: 0` — 双重保险：在生成参数级别显式将配额设为零（见Q2）。
 - **模型ID区分大小写：** `moonshotai/Kimi-K2.6`（大写K）在`gonka-api.org`上，`moonshotai/kimi-k2.6`（小写k）在`gonkagate.com`上。遇到404——请切换大小写。请与`GET /v1/models`响应进行核对。
 
 现成可用的curl命令（替换`<broker>`和模型ID大小写）：
+=======
+- `max_tokens: 4096` — 给模型分配全部可用的输出预算。目前broker的实际上限是3,072（见Q3）——设置更高无意义。最低256，否则网关可能会将`thinking_token_budget`强制设为零。
+- `thinking: {"type": "disabled"}` — 通过聊天模板提示禁用隐藏思考。
+- `thinking_token_budget: 0` — 双重保险：在生成参数级别显式将预算设为零（见Q2）。
+- **模型ID区分大小写：** `moonshotai/Kimi-K2.6`（大写K）在`gonka-api.org`上，`moonshotai/kimi-k2.6`（小写k）在`gonkagate.com`上。遇到404——请切换大小写。请与`GET /v1/models`的响应进行核对。
+
+可直接使用的curl命令（替换`<broker>`和模型ID的大小写）：
+>>>>>>> 7832026 (transfers)
 
 ```bash
 curl -sS https://<broker>/v1/chat/completions \
@@ -1641,7 +1828,11 @@ curl -sS https://<broker>/v1/chat/completions \
   -d @payload.json
 ```
 
+<<<<<<< HEAD
 如果返回了有意义的文本——问题出在你原始的负载中；逐个字段对比。如果`content=null`——捕获响应中的`id`并发送给broker支持团队。
+=======
+如果返回了有意义的文本——问题出在你原始的payload中；请逐个字段比对。如果`content=null`——请捕获响应中的`id`并发送给broker的技术支持。
+>>>>>>> 7832026 (transfers)
 
 **首先检查你的broker上规则是否已激活**
 
@@ -1661,11 +1852,19 @@ curl https://<your-broker>/v1/chat/completions \
 | 网关版本 | 预期结果 |
 | --- | --- |
 | `devshard ≥ 0.2.13`（force-zero-below-256已激活） | `finish_reason="length"`, ~0–10推理token |
+<<<<<<< HEAD
 | 较旧版本 | `finish_reason="length"`, ~40–60推理token（默认`max_tokens / 2`） |
 
 以下规则描述了最近的网关代码（`devshard ≥ 0.2.13`）。你的broker可能尚未更新。不确定版本？——运行上面的优先修复。如果能返回有意义的文本，则网关足够新。如果不行——将`response.id`发送给broker支持团队并询问更新事宜。
 
 **模型和网关侧发生的情况****Kimi-K2.6特有情况。** 模型会输出`<think>…</think>`块。**两个部分（`<think>`和可见内容）均等消耗`max_tokens`。** 当`max_tokens`较小时，模型会在`<think>`内部耗尽全部配额，仅返回`</think>`，而vLLM会将其作为特殊token剥离 → `content=null`, `finish_reason=length`。从客户端看——“0个token”。
+=======
+| 较早版本 | `finish_reason="length"`, ~40–60推理token（默认`max_tokens / 2`） |
+
+以下规则描述了最新的网关代码（`devshard ≥ 0.2.13`）。你的broker可能尚未更新。不确定版本？——运行上面的优先修复方法。如果能返回有意义的文本，说明网关足够新。如果不能——请将`response.id`发送给broker的技术支持并询问更新事宜。
+
+**模型和网关侧的具体情况****Kimi-K2.6的特性。** 模型会输出`<think>…</think>`块。**两个部分（`<think>`和可见内容）均等消耗`max_tokens`。** 当`max_tokens`较小时，模型会在`<think>`内部耗尽全部预算，仅返回`</think>`，而vLLM会将其作为特殊token剥离 → `content=null`, `finish_reason=length`。从客户端看——“0个token”。
+>>>>>>> 7832026 (transfers)
 
 **网关对`thinking_token_budget`的规则（PR #1202, devshard 0.2.13+）：**
 
@@ -1779,15 +1978,24 @@ ModelArgs: ["--max-model-len","240000",
 VRam: 720 (GB)
 ```
 
+<<<<<<< HEAD
 模型卡声明了256K的原生上下文。网关不会单独限制输入，除了通用的请求体大小（10 MiB）和消息数量（≤ 2,048）——见`docs/chat-api/README.md`（计划中的文档）中的“请求限制”部分。
 
 **重要警告（开放问题）**
 
 即使代理同意提高输出上限，个别节点可能仍以较小的`--max-model-len`启动。网关路由层未考虑每主机的上下文容量（[issue #818](https://github.com/gonka-ai/gonka/issues/818)）。对于大负载（>50k），落在“小”节点上是系统性行为，而非暂时的随机性。
+=======
+模型卡片声明了256K的原生上下文。网关不会单独限制输入，除了通用的请求体大小限制（10 MiB）和消息数量限制（≤ 2,048）——见`docs/chat-api/README.md`中的“请求限制”部分（计划中的文档）。
+
+**重要警告（开放问题）**
+
+即使代理同意提高输出上限，单个节点可能仍以较小的`--max-model-len`启动。网关路由层未考虑每主机的上下文容量（[issue #818](https://github.com/gonka-ai/gonka/issues/818)）。对于大负载（>50k），落在“小”节点上是系统性行为，而非临时随机现象。
+>>>>>>> 7832026 (transfers)
 
 **对推理用户：**
 
 - 实际输出上限由代理决定——向他们查询每个模型的`request_max_tokens_cap`值。
+<<<<<<< HEAD
 - 遇到较小的输入限制——这几乎肯定是特定节点上的`--max-model-len`，而非全局限制。路由层未考虑每主机上下文（issue #818）；对于大负载（>50k）这是一个系统性问题。解决方法：重试或将请求拆分为多个API调用。
 - 达到输出上限——请代理提高上限。全网范围提升（超过4,096）需要代码更改；通过`gonka-ai/gonka`上的GitHub Discussion提出提升请求。
 
@@ -1818,16 +2026,54 @@ Kimi模型在模型和网关层面支持30k+输入，但稳定性取决于路由
 
 1. 逐一移除字段`tags`, `enforced_tokens`, `plugins`, `strict`, `guided_json`, `guided_regex`, `guided_grammar`, `guided_choice`。每次移除后重新发送相同请求。
 2. 如果移除均无效——检查`tools[].function.parameters`中的模式深度（≤ 16）和总节点数（≤ 256），见Q9。
+=======
+- 遇到较小的输入限制——这几乎肯定是特定节点上的`--max-model-len`，而非全局限制。路由层未考虑每主机上下文（issue #818）；对于大负载（>50k）这是系统性问题。解决方法：重试或将请求拆分为多个API调用。
+- 遇到输出上限——请代理提高上限。全网范围提升（超过4,096）需要代码更改；通过`gonka-ai/gonka`上的GitHub Discussion提出。
+
+**对代理：**
+
+- 按模型提高上限可通过一次管理员调用`POST /v1/admin/settings`并使用`model_limits[].request_max_tokens_cap`完成，无需代码更改。这会增加每请求的托管风险及触及每主机`--max-model-len`的风险（个别节点出现5xx）。在验证所有托管节点上的`--max-model-len`后，针对有明确需求的特定模型提高上限。
+- 全网范围提升（超过4,096）需要向网关代码提交PR并发布新版本。若对大输出有稳定需求——请发起Discussion。
+
+### 为何使用30k+系统提示的Hermes、OpenClaw等代理在Kimi上失败？
+
+**简要说明**
+
+Kimi模型在模型和网关层面支持30k+输入，但稳定性取决于路由。原生窗口为256K，主网部署使用`--max-model-len 240000`，网关接受最多10 MiB的请求体。实测显示，约69,000提示词（≈800条消息 × 80词）的单次请求在5.5秒内完成。但在持续/重复的长请求（>50k）上会遇到不稳定性（issue #818）——对于大负载（215k），多次尝试可能以503失败。
+
+**验证来源（均在`gonka-ai/gonka`中）**
+
+- 原生上下文256K——见`docs/chat-api/`中的模型卡片（确切文件名将作为chat-api文档集的一部分计划发布）。
+- 主网部署参数（链上）——`inference-chain/app/upgrades/v0_2_12/upgrades.go:kimiGovernanceModel()`。
+- 请求体/消息限制（10 MiB，≤ 2,048条消息）——`docs/chat-api/README.md`（计划中），“请求限制”部分。
+
+**30k输入失败的两个典型原因****1. 代理负载中单个字段被拒绝。** 网关维护严格的白名单。若代理发送了任何一个非标准字段（`tags`, `enforced_tokens`, `plugins`, `guided_json`）——整个请求将以HTTP 400被截断。Hermes特定的`tags`拒绝——见计划中的`docs/chat-api/troubleshooting.md`中的锚点`#reject-tags`。实测：有效69k负载 + `tags:["session:abc"]` → 2秒内返回HTTP 400。
+
+**2. 路由到具有较小`--max-model-len`的节点。** 网关路由层在路由时未考虑主机的实际上下文大小（[issue #818](https://github.com/gonka-ai/gonka/issues/818)；另见计划中的`known-issues.md` §3）。对于非常长的负载（>50k，尤其是>200k），落在“小”节点上是网络层面的**系统性行为**，而非客户端错误：我们的测量显示5次215k请求全部失败（0/5）。请求将在vLLM侧失败。
+
+相关构建者请求：[issue #1229](https://github.com/gonka-ai/gonka/issues/1229)（2026年5月提出），阻碍代理场景的问题——长推理链、工具调用兼容性、超出输出限制后的继续。
+
+**快速自检清单**
+
+1. 逐一移除字段`tags`, `enforced_tokens`, `plugins`, `strict`, `guided_json`, `guided_regex`, `guided_grammar`, `guided_choice`。每次移除后重新发送相同请求。
+2. 若移除均无效——检查`tools[].function.parameters`中的模式深度（≤ 16）和总节点数（≤ 256），见Q9。
+>>>>>>> 7832026 (transfers)
 3. 负载已清理但仍失败——这是网络层面问题（issue #818）。解决方法：重试或拆分请求。
 
 **对推理用户：**
 
+<<<<<<< HEAD
 - 首先根据`docs/chat-api/README.md`（计划中）的白名单检查负载。大多数Hermes / OpenClaw的400错误是由于单个字段或模式引起。
 - 像“上游模型提供商拒绝”这类通用代理消息具有误导性：一些代理将具体的网关400错误合并为通用消息，一些则传递原始消息（`"Chat completions parameter \"tags\" is currently rejected by the Gonka network..."`附带文档链接）。代理对比——见`comparison-brokers.md`（计划中）。**如果一个代理显示通用错误——尝试另一个以获得可读消息并理解根本原因。**
+=======
+- 首先根据`docs/chat-api/README.md`（计划中）中的白名单检查负载。大多数Hermes / OpenClaw的400错误是由于单个字段或模式问题。
+- **类似“上游模型提供者拒绝”的通用代理消息具有误导性：** 一些代理将具体的网关400错误合并为通用消息，一些则传递原始消息（`"Chat completions parameter \"tags\" is currently rejected by the Gonka network..."`附带文档链接）。代理对比——见`comparison-brokers.md`（计划中）。**若一个代理显示通用错误——尝试另一个以获得可读消息并理解根本原因。**
+>>>>>>> 7832026 (transfers)
 - 负载已清理但仍失败——网络层面问题（issue #818）。解决方法：重试或拆分；对于持续>50k的负载，单次重试通常不够——需拆分。
 
 **对代理：**
 
+<<<<<<< HEAD
 - (1) 在落地页、通过`/v1/models`端点或文档中展示每个模型的原生上下文窗口，并明确说明由于主机异构性，实际每请求容量可能更低（issue #818）。一些代理有意省略此信息以避免过度承诺——这是一种可辩护的选择。(2) 在实现主机级容量通告前——考虑客户端过滤或“首选主机”列表。
 - **用户体验：** 网关返回带有字段名和消息的具体400错误（`"Chat completions parameter \"tags\" is currently rejected by the Gonka network..."` + 文档链接）。建议在生产环境中向客户端传递详细消息——这能加快诊断速度。**安全提示：** 详细消息可能暴露内部字段名、主机路径和验证器ID，有助于枚举或提示注入探测。保守的遮蔽是一种可辩护的默认做法。若出于安全考虑将其包装为通用的`"upstream provider rejected"`——建议采用混合方式：在异步日志/错误跟踪中保留完整细节，向客户端返回带追踪ID的通用消息。智能体兼容性地图——`docs/chat-api/agents.md`（计划中）。
 
@@ -1846,6 +2092,26 @@ Kimi模型在模型和网关层面支持30k+输入，但稳定性取决于路由
 **(c) Hermes工具解析器在多个工具块时出现JSONDecodeError**
 
 `[vLLM #17790 — awaiting upstream fix]`。不同解析器，不同问题：当模型在一次响应中输出多个工具调用块时出现`JSONDecodeError`——[vLLM #17790](https://github.com/vllm-project/vllm/issues/17790)。相关：`<tool_call>`内部的`<think>`破坏hermes解析——[vLLM #42021](https://github.com/vllm-project/vllm/issues/42021)。这些问题不依赖Gonka——等待上游修复。
+=======
+- (1) 在落地页、通过`/v1/models`端点或文档中显示每个模型的原生上下文窗口，并明确说明由于主机异构性，实际每请求容量可能更低（issue #818）。一些代理有意省略此信息以避免过度承诺——这是可辩护的选择。(2) 在实现主机级容量广告前——考虑客户端过滤或“首选主机”列表。
+- **用户体验：** 网关返回带字段名和消息的具体400错误（`"Chat completions parameter \"tags\" is currently rejected by the Gonka network..."` + 文档链接）。建议在生产环境中向客户端传递详细消息——这能加快诊断。**安全提示：** 详细消息可能暴露内部字段名、主机路径和验证器ID，有助于枚举或提示注入探测。保守的掩码是可辩护的默认设置。若出于安全考虑将其包装为通用的`"upstream provider rejected"`——采用混合方式：异步日志/错误跟踪中保留完整细节，向客户端返回带追踪ID的通用消息。代理兼容性地图——`docs/chat-api/agents.md`（计划中）。
+
+### 为何Kimi在输出超过4k–8k token时生成格式错误的JSON工具调用？
+
+既非带宽也非Gonka侧限制。三个重叠原因。
+
+**(a) `max_tokens`截断**
+
+测试代理上的有效输出上限为3,072 token；网关网络上限为4,096。当助手在`arguments`中输出包含大JSON块的工具调用及可见内容时，可能触及代理的实际上限并导致JSON被截断。每代理覆盖详情——见Q3。
+
+**(b) Kimi-K2.6工具解析器重复ID冲突**
+
+`[vLLM PR #21259 — UNVERIFIED]`。使用`n > 1`时，`kimi_k2`解析器在每个选择循环内重新计算`history_tool_call_cnt`——两个分支都得到`id = functions.<name>:0`。网关在vLLM响应中看到重复ID并以HTTP 400拒绝（符合OpenAI规范）。见计划中的`docs/chat-api/troubleshooting.md`中的锚点`#reject-duplicate-tool-call-id`。上游修复——[vLLM PR #21259](https://github.com/vllm-project/vllm/pull/21259)（合并状态未独立确认）。
+
+**(c) Hermes工具解析器在多个工具块时出现JSONDecodeError**
+
+`[vLLM #17790 — awaiting upstream fix]`。不同解析器，不同问题：当模型在一次响应中输出多个工具调用块时出现`JSONDecodeError`——[vLLM #17790](https://github.com/vllm-project/vllm/issues/17790)。相关：`<tool_call>`内部的`<think>`破坏hermes解析——[vLLM #42021](https://github.com/vllm-project/vllm/issues/42021)。这些不依赖Gonka——等待上游修复。
+>>>>>>> 7832026 (transfers)
 
 **对于推理用户：**
 
@@ -1899,6 +2165,7 @@ Kimi模型在模型和网关层面支持30k+输入，但稳定性取决于路由
 
 **3. 网络层面的验证窗口（链级）**
 
+<<<<<<< HEAD
 在 PoC / 确认-PoC 事件期间（cPoC —— 在一个epoch内确认验证节点工作的阶段），部分节点会暂时不可用。在epoch边界处，已知存在快照保留节点的问题，网关返回 `attempts: []`（路由上无可用主机）—— 从客户端看即为超时。代理服务的具有该模型的节点越少，此效应越明显；在提供者数量较少的模型上更为显著。
 
 **“推理速度比可见的更快” —— 并非优先级问题，而是输出结构问题**
@@ -1906,6 +2173,15 @@ Kimi模型在模型和网关层面支持30k+输入，但稳定性取决于路由
 网关上不存在推理token的特殊快速通道。在devshard代码中，`delta.reasoning`、`delta.content`、`delta.reasoning_content`、`delta.tool_calls` 都通过 `sseChunkHasContent` 以相同方式检测。每个token的生成速度是相同的。
 
 启用思考功能的Kimi首先生成一个庞大的 `reasoning_content`（数百到数千个token），然后生成一个简短的可见答案（数十到数百个token）。不显示推理字段的客户端会看到“先沉默，然后突然 burst 式输出答案”。实际上模型一直在生成，只是结果被隐藏了。
+=======
+在 PoC / 确认-PoC 事件（cPoC — 在一个epoch内确认验证节点工作的阶段）期间，某些节点会暂时不可用。在epoch边界处，已知存在快照保留节点的问题，网关返回 `attempts: []`（路由上无可用主机）—— 从客户端看即为超时。代理服务的具有该模型的节点越少，此效应越明显；在提供者数量较少的模型上更为显著。
+
+**“推理速度比可见更快” —— 并非优先级问题，而是输出结构问题**
+
+网关上不存在推理token的特殊快速通道。在devshard代码中，`delta.reasoning`、`delta.content`、`delta.reasoning_content`、`delta.tool_calls` 均通过 `sseChunkHasContent` 以相同方式检测。每个token的生成速度是相同的。
+
+启用思考功能的Kimi首先生成一个庞大的 `reasoning_content`（数百到数千个token），然后生成一个简短的可见答案（数十到数百个token）。不显示推理字段的客户端会看到“静默，然后突然爆发式输出答案”。实际上模型一直在生成，只是结果被隐藏了。
+>>>>>>> 7832026 (transfers)
 
 **对于推理用户：**
 
@@ -1957,7 +2233,11 @@ Kimi模型在模型和网关层面支持30k+输入，但稳定性取决于路由
 
 **2. 静默强制转换/删除——请求不会失败，但行为发生变化**
 
+<<<<<<< HEAD
 | 触发条件 | 网关的行为 | 备注 |
+=======
+| 触发条件 | 网关的行为 | 说明 |
+>>>>>>> 7832026 (transfers)
 | --- | --- | --- |
 | `tool_choice: "required"` | `"auto"` |  |
 | `tools[].function.strict: true` |  |  |
@@ -1966,6 +2246,7 @@ Kimi模型在模型和网关层面支持30k+输入，但稳定性取决于路由
 
 **对于推理用户：**
 
+<<<<<<< HEAD
 - **使用 Kilo Code 生成的相同 curl 命令复现问题**（通过客户端的调试日志或中间代理）。在 400 响应体中，网关通常会说明被拒绝字段的名称；代理可能会将消息掩盖为通用的“上游拒绝”——但具体的问题字段通常只有一个。
 - **对照 `agents.md` 和 `troubleshooting.md` 中的列表进行交叉检查**（计划中）——大多数 400 错误属于已记录的拒绝锚点（`#reject-tags`, `#reject-enforced_tokens`, `#reject-structured_outputs-kimi`）。
 - **如果错误信息不明确，快速检查清单：** 检查字段 `tags`, `enforced_tokens`, `plugins`, `strict`, `guided_*`；逐一移除并重新发送请求。若无帮助——检查模式深度（≤ 16）和节点数（≤ 256）。
@@ -1992,6 +2273,34 @@ Kimi模型在模型和网关层面支持30k+输入，但稳定性取决于路由
 
 - **对于 Kimi 这是强制要求：** `"thinking": {"type": "disabled"}` + `"max_tokens": 4096`（或显式设置 `thinking_token_budget: 0`，见 Q2 的双重保险策略）。这将释放整个限额用于以工具为主的输出。实证表明：Kimi 可在约 4 秒内单次响应中发出 5 个并行工具调用。
 - **在客户端控制 tool_call.id** —— 将其重写为规范格式 `functions.<name>:<global_idx>`（见 Q5），以避免网关因重复 ID 拒绝请求。
+=======
+- **使用 Kilo Code 生成的相同 curl 命令复现问题**（通过客户端的调试日志或中间代理）。在 400 响应体中，网关通常会说明被拒绝字段的名称；代理可能会将其掩盖为通用的“上游拒绝”——但具体的问题字段通常就是其中之一。
+- **对照 `agents.md` 和 `troubleshooting.md` 中的列表进行交叉检查**（计划中）——大多数 400 错误都属于已记录的拒绝锚点（`#reject-tags`, `#reject-enforced_tokens`, `#reject-structured_outputs-kimi`）。
+- **如果错误信息不明确，快速检查清单：** 检查字段 `tags`, `enforced_tokens`, `plugins`, `strict`, `guided_*`；逐个移除并重新发送请求。无帮助——检查模式深度（≤ 16）和节点数（≤ 256）。
+- **被拒绝的字段未被记录**——在 [gonka-ai/gonka](https://github.com/gonka-ai/gonka) 上提交问题并附上捕获的请求。
+
+**对于代理：**
+
+- 仪表板上缺少指向 `agents.md` 的链接——这是一个低成本且容易实现的改进。
+- 有能力就 `gonka-ai/gonka` 中的非标准字段提交问题——这有助于生态系统中的每个代理。
+
+### 像 Hermes 和 OpenClaw 这样的代理在 Kimi 上无法完成工具任务。为什么？
+
+**由三个因素共同导致**
+
+原始 FAQ 版本提到了第四个因素——特殊令牌清理器——但这与安全/提示注入有关，而非工具调用失败；PR 修复已被推迟，因为 Kimi 能正确处理特殊令牌（经验上）。
+
+1. **网关默认将 `max_tokens` 的一半分配给推理**（见 Q1/Q2）。在默认 `thinking_token_budget = max_tokens / 2` 下，工具调用尚未开始模型输出就已经达到 `<think>`。对于以工具为主的代理流程，预算在产生有用输出前就已耗尽。缓解措施——显式设置 `thinking_token_budget: 0`（见 Q2）。这是网关策略，而非模型限制。
+2. **3,072（实际）/ 4,096（网络上限）的输出限制对于以工具为主的输出来说太紧**（见 Q3）。大型 `arguments` 数据块 + 可见内容很容易达到上限。
+3. **上游 vLLM 工具解析器错误**（见 Q5）：重复的 `tool_calls[].id` 与 `n>1` 冲突（[vLLM PR #21259 — 未验证](https://github.com/vllm-project/vllm/pull/21259)），以及 Hermes 解析器 `JSONDecodeError` 在多个工具块上的问题（[vLLM #17790](https://github.com/vllm-project/vllm/issues/17790)）。
+
+构建者的痛点链接：[issue #1229](https://github.com/gonka-ai/gonka/issues/1229) —— 长推理链、工具调用兼容性、超出输出限制后的继续执行被列为代理编码工作流的阻碍因素。
+
+**对于推理用户：**
+
+- **对于 Kimi 这是强制性的：** `"thinking": {"type": "disabled"}` + `"max_tokens": 4096`（或显式设置 `thinking_token_budget: 0`，见 Q2 的双重保险策略）。这将释放整个限制以支持以工具为主的输出。经验上：Kimi 可以在约 4 秒内一次响应中发出 5 个并行工具调用。
+- **在客户端控制 tool_call.id** —— 将其重写为标准格式 `functions.<name>:<global_idx>`（见 Q5），以避免网关因重复 ID 拒绝。
+>>>>>>> 7832026 (transfers)
 - **控制模式** —— 保持深度 ≤ 16 且节点数 ≤ 256（见 Q9）。具有大型输入模式的 MCP 工具可能无法通过。
 
 **对于Broker：**
@@ -2036,6 +2345,7 @@ HfCommit: d494266a4affc0d2995ba1fa35c8481cbd84294b
 
 **MiniMax 与 Kimi/Qwen 的重要区别：**
 
+<<<<<<< HEAD
 - **`<think>` 块位于 `delta.content` 中**（不像 Kimi 位于 `reasoning_content` 中）——这是 `minimax_m2_append_think` 解析器的行为。如果你不需要这些标签出现在最终文本中，请在客户端解析它们。
 - **工具调用 ID `chatcmpl-tool-<hash>`** —— 其结构本身已具备唯一性，因此 Q5 中关于规范化 ID 重写的建议不适用。
 
@@ -2068,6 +2378,40 @@ HfCommit: d494266a4affc0d2995ba1fa35c8481cbd84294b
 与“Kimi 的输入 token 上限为 4k，输出上限为 8,192。何时提高这些限制？”中的障碍相同。输出上限（实际为 3,072 / 网络上限 4,096）对于“工具结果体 + 单次响应中的摘要”来说较紧。已启用思考 —— 一半的 token 用于此（见 Q1/Q2）。
 
 **摘要用例的现成载荷：**
+=======
+- **`<think>` 块位于 `delta.content` 中**（不像 Kimi 那样在 `reasoning_content` 中）——这是 `minimax_m2_append_think` 解析器的行为。如果你不需要这些标签出现在最终文本中，请在客户端解析它们。
+- **工具调用 ID `chatcmpl-tool-<hash>`** —— 其结构本身已具备唯一性，因此 Q5 中关于规范 ID 重写的建议不适用。
+
+相关成果：PR #1163 权重缩放（已于 2026-05-13 合并，使经济模型与 Kimi 对齐）；PR [#1226](https://github.com/gonka-ai/gonka/pull/1226)（开放中，未合并）——基于已部署模型的网关侧重构，非阻塞性问题。
+
+**对推理用户而言：** MiniMax-M2.7 现在即可使用（在 gonka-api.org 上的 ID 为 `MiniMaxAI/MiniMax-M2.7`，在 gonkagate.com 上为 `minimaxai/minimax-m2.7` —— 参见大小写敏感性 Q1）。根据工作负载选择：Kimi 适用于推理+工具，Qwen3 适用于大上下文 + 结构化输出，MiniMax-M2.7 是 Kimi 的工具友好型替代方案，具有更高的吞吐量。
+
+**对 Broker 而言：** 部署是通过 v0.2.13 升级由网络完成的。若未提供 MiniMax 服务，请检查 mlnode-image 是否支持上述部署参数且主机已更新。PR #1226（开放中）将改善用户体验（按模型调度、工具消息结构），但不会造成阻塞。
+
+### 为什么没有可用的网页搜索功能？
+
+**设计如此 —— Gonka 是一个推理网络**，而非代理框架。插件/网页执行应由客户端代理层或提供增值服务的 Broker 处理，不应属于推理路径。
+
+**具体来说：** 在 2026-05-25，我们通过两个 Broker 测试了相同的 `plugins` 负载。`gonka-api.org` 静默剥离该字段（HTTP 200，锚点 `#strip-plugins` 在 `docs/chat-api/troubleshooting.md` 中（计划中））；`gonkagate.com` 以 HTTP 400 `"Plugin config is invalid"` 拒绝。两者都是网关合约的有效解释：一个倾向于宽松解析（静默剥离），另一个倾向于严格验证（拒绝未知字段）。在这两种情况下，`plugins` **均未执行**：vLLM 没有插件执行路径，而静默传递此字段会暗示后端具备实际上不存在的能力。在 Broker 之间迁移时，请注意这种差异（详情见 `comparison-brokers.md`（计划中））。
+
+**对推理用户而言：** 在你自己的代理层（LangChain、LlamaIndex 或自定义封装）中运行搜索，并在调用 `messages[].content` 前将结果注入 `/v1/chat/completions`。这是所有兼容 OpenAI 的端点的标准模式。
+
+**对 Broker 而言：** 这是一个差异化机会 —— Broker 层面的增值服务（“我们执行搜索并将结果注入消息”）是合理的产品。完全基于 Gonka 实现，无需协议更改。**安全提示：** 剥离 `plugins` 可能反映的是防滥用策略（而非用户体验失败）—— 若你计划将插件执行作为产品提供，请仔细考虑这一点。若希望将其作为标准功能提供 —— 请在 [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/discussions) 中发起生态系统讨论。
+
+### 何时会支持可靠的网页获取？
+
+**按设计，这不在 Gonka 路线图中。** 正确的位置是在边车（side-car）或 Broker 层的增值服务中。
+
+**对推理用户而言：** 构建/购买获取服务（Tavily、Exa、Perplexity API 用于搜索；trafilatura/Readability 用于解析），归一化为文本，再通过兼容 OpenAI 的调用发送。已有大量现成解决方案。
+
+**对 Broker 而言：** 若希望作为服务层级提供 —— 请在 [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/discussions) 中发起生态系统讨论，以便社区就通用规范达成一致（例如，一个大家一致部署的边车服务）。
+
+### Context7 文档研究 —— 摘要失败。这是输出 token 限制导致的吗？
+
+与“Kimi 的输入 token 上限为 4k，输出上限为 8,192。何时会提高这些限制？”中的问题相同。输出上限（实际为 3,072 / 网络上限为 4,096）对于“工具结果体 + 单次响应中的摘要”来说太紧。已启用思考 —— 一半 token 用于此（Q1/Q2）。
+
+**摘要用例的现成负载：**
+>>>>>>> 7832026 (transfers)
 
 ```json
 {
@@ -2100,6 +2444,7 @@ HfCommit: d494266a4affc0d2995ba1fa35c8481cbd84294b
 
 **对推理用户而言：**
 
+<<<<<<< HEAD
 - 以上述载荷为模板。`response_format` 将输出压缩为所需格式，节省预算。
 - 如果文档较长并触及上限（`finish_reason=length`）—— 拆分为 N+1 次调用：一次获取+规划，其余为各部分摘要；在客户端拼接结果。
 - 不要将 `response_format` 与 `structured_outputs` 信封结合使用 —— 否则将返回 HTTP 400（见 Q6）。
@@ -2112,16 +2457,36 @@ HfCommit: d494266a4affc0d2995ba1fa35c8481cbd84294b
 **简短回答：目前无预计时间。** 在 Gonka 网关侧一切就绪 —— 阻塞点在上游 vLLM 侧，问题 [#33264](https://github.com/vllm-project/vllm/issues/33264) 已开放 4 个多月且无合并的 PR。在该问题关闭前，请求中的 `prompt_cache_key` 字段将**被静默忽略** —— 不要包含它，以免依赖不存在的行为。
 
 vLLM 前缀 KV 缓存在每个 ML 节点上工作。网关级别的 `prompt_cache_key` / `cache_key` 当前被静默剥离 —— 此限制受一个未合并的上游 vLLM PR 阻塞。
+=======
+- 以上述负载作为模板。`response_format` 将输出压缩为所需格式，节省预算。
+- 如果文档过长并达到上限（`finish_reason=length`）—— 将其拆分为 N+1 次调用：一次获取+规划，其余为各部分摘要；在客户端拼接结果。
+- 不要将 `response_format` 与 `structured_outputs` 封套结合使用 —— 否则返回 HTTP 400（Q6）。
+- Schema：深度 ≤ 16，节点数 ≤ 256（Q9）。
+
+**对 Broker 而言：** `response_format` 是最简单且最可移植的缓解措施，无论你的上限提升策略如何。一旦按模型的 `request_max_tokens_cap` 进入你的管理配置，可考虑提供按客户调整上限的选项。
+
+### Gonka 没有 KV 缓存。何时会添加缓存？
+
+**简短回答：目前无预计时间。** 在 Gonka 网关侧一切就绪 —— 阻塞点在上游 vLLM 侧，问题 [#33264](https://github.com/vllm-project/vllm/issues/33264) 已开放 4 个月以上且无合并的 PR。在该问题关闭前，你请求中的 `prompt_cache_key` 字段将被**静默忽略** —— 不要包含它，以免依赖尚未存在的行为。
+
+vLLM 的前缀 KV 缓存在每个 ML 节点上工作。网关级别的 `prompt_cache_key` / `cache_key` 目前被静默剥离 —— 此限制由未合并的上游 vLLM PR 阻塞。
+>>>>>>> 7832026 (transfers)
 
 **当前现状**
 
 - **网关行为：** `prompt_cache_key`（OpenAI 标准）和 `cache_key`（Moonshot Kimi 规范）被静默剥离 —— 两者均未到达 vLLM。锚点：`docs/chat-api/troubleshooting.md#strip-prompt_cache_key` 和 `#strip-cache_key`（计划中）。
+<<<<<<< HEAD
 - **上游阻塞：** vLLM 使用 `cache_salt` 字段进行提示缓存隔离（RFC #16016，PR #17045）。将 `prompt_cache_key` → `cache_salt` 别名化的操作自 2026 年 1 月起在 [vLLM #33264](https://github.com/vllm-project/vllm/issues/33264) 中开放，至今无合并的 PR。
 - **安全理由：** 简单地转发 `cache_key` 而不进行隔离是不安全的 —— 已有[公开的提示缓存计时侧信道攻击（arxiv 2502.07776 PROMPTPEEK）](https://arxiv.org/abs/2502.07776)。网关无法实现虚假的缓存隔离保证。
+=======
+- **上游阻塞：** vLLM 使用 `cache_salt` 字段进行提示缓存隔离（RFC #16016，PR #17045）。将 `prompt_cache_key` → `cache_salt` 别名化的操作自 2026 年 1 月起在 [vLLM #33264](https://github.com/vllm-project/vllm/issues/33264) 中开放，尚无合并的 PR。
+- **安全理由：** 简单转发 `cache_key` 而不进行隔离是不安全的 —— 已有[公开的提示缓存计时侧信道攻击（arxiv 2502.07776 PROMPTPEEK）](https://arxiv.org/abs/2502.07776)。网关无法实现虚假的缓存隔离保证。
+>>>>>>> 7832026 (transfers)
 - **80–90% 的命中率并非 Gonka 的声明。** 这要么是对某些营销材料的误解，要么是与 OpenAI / Anthropic 原生缓存（保证单个提供商内粘性路由）的混淆。
 
 **重要的架构注意事项**
 
+<<<<<<< HEAD
 即使 vLLM #33264 合并且网关添加了 hash → `cache_salt` 桥接，缓存仍为 **每个 vLLM 实例独有**。Gonka 的多主机路由意味着两个具有相同 `cache_key` 的请求可能落在不同主机上，拥有不同的前缀缓存。在没有粘性路由（目前不存在）的情况下，保证 OpenAI 风格的约 80% 命中率在架构上是困难的。三个阻塞点（上游 vLLM PR、网关桥接、粘性路由）目前均未实现。
 
 **对推理用户而言：** 目前无事可做 —— `prompt_cache_key` 和 `cache_key` 为无操作。不要依赖这些字段进行成本优化。
@@ -2135,6 +2500,21 @@ vLLM 前缀 KV 缓存在每个 ML 节点上工作。网关级别的 `prompt_cach
 **正在进行中，计划已制定并分为多个阶段。** 计划文档 `multimodal-inference-plan.md` 位于 `gonka-ai/gonka` 中（约 466 行，6 个阶段 —— ML Node、Host↔ML Node、Broker/DAPI、Devshard 协议等）。在发布前，通过以下问题/PR 跟踪更方便。
 
 **当前硬性阻塞点**
+=======
+即使 vLLM #33264 合并且网关添加了 hash → `cache_salt` 桥接，缓存仍为**每个 vLLM 实例独有**。Gonka 的多主机路由意味着具有相同 `cache_key` 的两个请求可能落在具有不同前缀缓存的不同主机上。在没有粘性路由（目前不存在）的情况下，保证 OpenAI 风格的约 80% 命中率在架构上非常困难。三个阻塞点（上游 vLLM PR、网关桥接、粘性路由）目前均未实现。
+
+**对推理用户而言：** 目前无需任何操作 —— `prompt_cache_key` 和 `cache_key` 均为无效操作。不要依赖这些字段进行成本优化。
+
+**对 Broker 而言：** 在 vLLM #33264 合并前，无需网关侧变更。若想加快进度 —— 请在该上游问题中评论或贡献。合并后，Gonka 网关将添加一个桥接，同时启用两个字段。
+
+### 何时会在 Gonka 网关上为 Kimi 启用图像输入？
+
+**目前不可用。** 预计时间 —— v0.2.14 或更高版本（当前为 0.2.13），无固定日期。多模态负载（`messages[].content` 包含 `type: "image_url"` 或 `"video_url"`）目前在两个公共 Broker 上均返回 **HTTP 400**。
+
+**正在进行中，计划已制定并分为多个阶段。** 计划文档 `multimodal-inference-plan.md` 位于 `gonka-ai/gonka` 中（约 466 行，6 个阶段 —— ML 节点、主机↔ML 节点、Broker/DAPI、Devshard 协议等）。在发布前，通过以下问题/PR 跟踪更为方便。
+
+**当前的硬性阻塞点**
+>>>>>>> 7832026 (transfers)
 
 1. **一种多模态专用的特殊令牌清理器。** Kimi-K2.6 聊天模板接受 `image_url` / `video_url` 内容部分，但网关目前仅验证文本。多模态载荷（图像 URL、替代文本、元数据）提供了额外的注入面，必须进行验证。安全审查已将其标记为第二阶段阻塞项。**目前尚无此特定多模态威胁的公开 CVE；内部跟踪正在进行中。**
 

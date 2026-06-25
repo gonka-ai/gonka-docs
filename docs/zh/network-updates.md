@@ -8,6 +8,76 @@
 
     本页面不保证信息详尽。如需获取最新信息（包括治理投票的启动及其当前状态），请参考链上数据或查看可用的浏览器和仪表板。
 
+## 2026年6月25日
+
+**加急治理投票（提案 78）：MiniMax-M2.7 成为唯一的 PoC 模型；移除 Kimi K2.6 以便快速重新引导；Qwen3-235B 退役**
+
+`moonshotai/Kimi-K2.6` 当前没有足够的票数通过 PoC 验证。因此，提供 Kimi 服务的参与者被踢出该组，Kimi 无法进入下一个纪元。现在将 Kimi 从活跃集合中移除并重新引导，是以最短停机时间使其恢复的最快方式。
+
+目前已有一项加急提案上链，以便这些变更能在下一个纪元开始之前生效。
+在链上，该提案通过单次投票完成以下操作：
+1. 将委托的 `initial_model_id` 设置为 `MiniMaxAI/MiniMax-M2.7`，使 MiniMax 成为基础模型。
+2. 在 PoC 参数中仅保留 `MiniMaxAI/MiniMax-M2.7`。
+3. 从 PoC 参数中移除 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 和 `moonshotai/Kimi-K2.6`。
+4. 从治理模型中删除 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 和 `moonshotai/Kimi-K2.6`。
+
+**每项变更的目的**
+
+* **Kimi K2.6 — 为了快速恢复而移除。** 由于 Kimi 没有足够的票数通过 PoC 验证，将其移除并重新引导是以最短停机时间使其恢复的最快途径。恢复 Kimi 的投票将在下一个纪元进行。
+* **Qwen3-235B — 退役（独立、无关的变更）。** 让较旧的 Qwen3-235B 退役是一项独立的、此前已请求的阵容变更。它与 Kimi 的情况无关，仅因为同样是 PoC 阵容变更才一并纳入此处。
+* **MiniMax-M2.7 — 提升为基础模型。**
+
+这些变更被打包进一次加急投票，因为本次重置必须在纪元 307 结束之前完成。按每个纪元约 22.9 小时计算，标准的 48 小时投票期无法在一个纪元内完成；而 12 小时的加急投票期可以。预计创世守护者将支持该提案。
+
+**若获批准的影响**
+
+自纪元 308（约 6 月 25 日 17:25 UTC）起，`MiniMaxAI/MiniMax-M2.7` 将成为唯一的活跃 PoC 模型。Qwen3-235B 和 Kimi K2.6 将不再活跃。恢复 Kimi 将通过下一个纪元的后续投票处理。
+
+**主机需采取的操作**
+
+1. **在 PoC 308 开始之前将您的 MLNode 切换到 `MiniMaxAI/MiniMax-M2.7`。** 每一台主机——包括当前运行 Qwen 或 Kimi 的主机——都必须将其 MLNode 切换到 MiniMax。在 PoC 开始之前有大约 500 个区块的窗口，由于此时没有 cPoC，因此可以安全地进行切换。如果 FP8 权重尚未准备就绪，请现在预先下载，以避免在纪元边界时遭遇 Hugging Face 的速率限制。
+2. **在截止时间之前对提案 78 进行投票。** 加急窗口很短。
+3. 计划再次提供 Kimi 服务的主机现在仍应将其 MLNode 切换到 MiniMax，但要准备好在 PoC 309 时切换回去——恢复 Kimi 的投票将在纪元 308 进行。
+
+
+**接下来的计划**
+
+* **恢复 Kimi K2.6** — 在纪元 308 进行后续投票，以重新添加 Kimi 并重启其引导。
+* **GLM-5.2** — 后续提案将添加 GLM-5.2，且**不设非参与惩罚**，以便主机可以选择加入并提前测试该模型的需求，对选择不提供该模型的主机不施加惩罚。
+
+**如何投票**
+
+如果您无法直接访问持有投票权的密钥，或希望另一个密钥代为投票，请参阅[指南](https://gonka.ai/docs/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf)了解如何从冷密钥向热密钥授予治理投票权限。提案详情和投票可通过 `inferenced` 查看。任何活跃节点均可使用：
+
+* http://node1.gonka.ai:8000
+* http://node2.gonka.ai:8000
+* https://node3.gonka.ai
+
+投票（`yes`、`no`、`abstain`、`no_with_veto`）：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 78 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+查看投票状态：
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 78 -o json --node $NODE_URL/chain-rpc/
+```
+
+**截止时间**
+
+* 提案 78 投票截止：**2026年6月25日 15:39:53 UTC**（加急）。
+* 纪元 308 随后不久形成：PoC 开始约 16:50 UTC，生效约 17:25 UTC。
+* 加急提案需要 0.667 的赞成阈值；投票率很重要，请尽快投票。
+
 ## 2026年6月22日
 
 **v0.2.13-devshard-v2 运行时升级提案已通过治理**

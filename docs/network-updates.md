@@ -10,25 +10,6 @@
 
 ## June 26, 2026
 
-**Proposal 79 passed: `moonshotai/Kimi-K2.6` is back in the network**
-
-The expedited vote on proposal 79 has passed. Kimi has completed its re-bootstrap and is active again from epoch 309.
-
-**What is now in effect**
-
-* `moonshotai/Kimi-K2.6` is an active PoC model again, serving inference from epoch 309.
-* `MiniMaxAI/MiniMax-M2.7` remains the base model.
-
-Kimi entered through the standard bootstrap flow: hosts declared intent right after the vote, provisioned their MLNodes during the deploy window, and submitted PoC at the epoch boundary. The model met its eligibility conditions and formed its group for epoch 309.
-
-**For hosts**
-
-* Hosts already serving `moonshotai/Kimi-K2.6` need no further action — keep the MLNode running.
-* Hosts that want to start serving Kimi can switch their MLNode at an upcoming PoC boundary. There is a ~500-block safety window before PoC starts in which it is safe to switch, as there is no cPoC during that window.
-* Hosts staying on `MiniMaxAI/MiniMax-M2.7` do not need to do anything.
-
-## June 26, 2026
-
 **Expedited governance vote 79: restore `moonshotai/Kimi-K2.6` and add `GLM-5.2`**
 
 **Key changes**

@@ -71,7 +71,7 @@ The proposal must conclude before epoch 308 ends so both models can bootstrap in
 
 **How to vote**
 
-If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, refer to the guide on granting governance voting permission from a cold key to a warm key. Proposal details and voting are available via `inferenced`. Any active node can be used:
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, refer to [the guide](https://gonka.ai/docs/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key. Proposal details and voting are available via `inferenced`. Any active node can be used:
 
 * http://node1.gonka.ai:8000
 * http://node2.gonka.ai:8000

@@ -10,6 +10,33 @@
 
 ## June 25, 2026
 
+**Proposal 78 passed: `MiniMaxAI/MiniMax-M2.7` is now the sole PoC model; Kimi K2.6 and Qwen3-235B removed**
+
+The expedited vote on proposal 78 has passed. The changes are live from epoch 308 (effective ~June 25, 17:09 UTC).
+
+**What is now in effect**
+
+1. The delegation `initial_model_id` is set to `MiniMaxAI/MiniMax-M2.7` — MiniMax is the base model.
+2. `MiniMaxAI/MiniMax-M2.7` is the only model in PoC params.
+3. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `moonshotai/Kimi-K2.6` are removed from PoC params.
+4. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` and `moonshotai/Kimi-K2.6` are deleted from governance models.
+
+As of epoch 308, `MiniMaxAI/MiniMax-M2.7` is the only active PoC model. Qwen3-235B and Kimi K2.6 are no longer active.
+
+**Required actions for hosts**
+
+* Make sure your MLNode is serving `MiniMaxAI/MiniMax-M2.7`. Any host still on Qwen or Kimi will not receive cPoC for this epoch until it switches.
+* Hosts that intend to serve Kimi again should keep their Kimi setup staged and be ready to switch the MLNode back at PoC 309 — a vote to restore Kimi follows during epoch 308.
+
+**Coming next**
+
+A single expedited vote during epoch 308 will bundle two changes, both taking effect at epoch 309 (PoC start ~June 26, 15:25 UTC):
+
+* **Restore Kimi K2.6** — re-add Kimi and restart its bootstrap.
+* **Add GLM-5.2** — add GLM-5.2 **without a non-participation penalty**, so hosts can opt in and demand for the model can be measured in advance, with no penalty for hosts that choose not to serve it.
+
+## June 25, 2026
+
 **Expedited governance vote (proposal 78): MiniMax-M2.7 becomes the sole PoC model; Kimi K2.6 removed for a fast re-bootstrap; Qwen3-235B retired**
 
 `moonshotai/Kimi-K2.6` currently does not have sufficient votes for PoC validation. As a result, the participants serving Kimi were knocked out of the group, and Kimi cannot enter the next epoch. Removing Kimi from the active set now and re-bootstrapping it is the fastest way to bring it back with minimal downtime.

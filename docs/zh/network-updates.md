@@ -10,6 +10,33 @@
 
 ## 2026年6月25日
 
+**提案 78 已通过：`MiniMaxAI/MiniMax-M2.7` 现为唯一的 PoC 模型；Kimi K2.6 与 Qwen3-235B 已移除**
+
+提案 78 的加急投票已通过。相关变更自纪元 308 起生效。
+
+**当前已生效的内容**
+
+1. 委托的 `initial_model_id` 设置为 `MiniMaxAI/MiniMax-M2.7` —— MiniMax 成为基础模型。
+2. PoC 参数中仅保留 `MiniMaxAI/MiniMax-M2.7` 这一个模型。
+3. 从 PoC 参数中移除 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 与 `moonshotai/Kimi-K2.6`。
+4. 从治理模型中删除 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 与 `moonshotai/Kimi-K2.6`。
+
+自纪元 308 起，`MiniMaxAI/MiniMax-M2.7` 是唯一活跃的 PoC 模型。Qwen3-235B 与 Kimi K2.6 不再活跃。
+
+**主机所需的操作**
+
+* 请确保您的 MLNode 正在提供 `MiniMaxAI/MiniMax-M2.7`。任何仍在运行 Qwen 或 Kimi 的主机，在切换之前本纪元将不会获得 cPoC。
+* 打算再次提供 Kimi 服务的主机，应保持其 Kimi 配置就绪，并准备在 PoC 309 时将 MLNode 切换回去 —— 恢复 Kimi 的投票将在纪元 308 期间进行。
+
+**接下来**
+
+纪元 308 期间将通过一次加急投票打包两项变更，二者均在纪元 309 生效（PoC 约于 6 月 26 日 15:25 UTC 开始）：
+
+* **恢复 Kimi K2.6** —— 重新加入 Kimi 并重启其引导流程。
+* **新增 GLM-5.2** —— 在**不设非参与惩罚**的前提下新增 GLM-5.2，使主机可以自愿加入，并可提前衡量该模型的需求，对选择不提供该模型的主机不施加惩罚。
+
+## 2026年6月25日
+
 **加急治理投票（提案 78）：MiniMax-M2.7 成为唯一的 PoC 模型；移除 Kimi K2.6 以便快速重新引导；Qwen3-235B 退役**
 
 `moonshotai/Kimi-K2.6` 当前没有足够的票数通过 PoC 验证。因此，提供 Kimi 服务的参与者被踢出该组，Kimi 无法进入下一个纪元。现在将 Kimi 从活跃集合中移除并重新引导，是以最短停机时间使其恢复的最快方式。

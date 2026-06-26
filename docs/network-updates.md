@@ -12,7 +12,7 @@
 
 **Proposal 78 passed: `MiniMaxAI/MiniMax-M2.7` is now the sole PoC model; Kimi K2.6 and Qwen3-235B removed**
 
-The expedited vote on proposal 78 has passed. The changes are live from epoch 308 (effective ~June 25, 17:09 UTC).
+The expedited vote on proposal 78 has passed. The changes are live from epoch 308.
 
 **What is now in effect**
 

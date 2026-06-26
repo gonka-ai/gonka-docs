@@ -8,6 +8,97 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## June 26, 2026
+
+**Expedited governance vote 79: restore `moonshotai/Kimi-K2.6` and add `GLM-5.2`**
+
+**Key changes**
+
+**1. Get back `Kimi-K2.6`**
+
+`Kimi-K2.6` is added back with `weight_scale_factor=0.9`.This factor is chosen so that on an 8xB300 Kimi gives about the same consensus weight as the primary model MiniMax. It is not meant to favor any hardware — the same weight is already available on MiniMax. There is a  ~1% gain for 8xB300 hosts that run Kimi instead of MiniMax.
+This approach makes Kimi a good fit for 8xB200 and 8xB300 servers.
+
+Estimated consensus weight by hardware type: 
+[https://docs.google.com/spreadsheets/d/1yQ-8UHnHC5pvqd6uDB1dRPzHJ2qfJoQrXssXIGi8QMg/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1yQ-8UHnHC5pvqd6uDB1dRPzHJ2qfJoQrXssXIGi8QMg/edit?usp=sharing)
+
+The usual bootstrap procedure starts from epoch 309. As the vote concludes ~1 hour before PoC,  submit `MsgDeclarePoCIntent` right after the voting ends.
+More about bootstrap: https://gonka.ai/docs/host/kimi-bootstrap/
+
+**2. Add `GLM-5.2`**
+
+`GLM-5.2` is added with `weight_scale_factor=2.47` and `penalty_start_epoch=500` (this effectively turns off the non-participation penalty for this model). The factor is chosen so that on an 8xB300 GLM-5.2 gives about the same consensus weight as MiniMax. It is not meant to favor any hardware. There is a ~2% gain for 8xB300 hosts that run GLM-5.2 instead of MiniMax.
+This approach makes it a good fit for 8xB300 servers.
+
+Estimated consensus weight by hardware type: 
+[https://docs.google.com/spreadsheets/d/1yQ-8UHnHC5pvqd6uDB1dRPzHJ2qfJoQrXssXIGi8QMg/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1yQ-8UHnHC5pvqd6uDB1dRPzHJ2qfJoQrXssXIGi8QMg/edit?usp=sharing)
+
+The MLNode version and instructions will be posted after the voting ends.
+
+**How the bootstrap works**
+
+Both models enter through the standard bootstrap flow, so hosts can see their viability before committing hardware:
+
+1. **Declare intent.** Hosts that plan to serve Kimi or GLM-5.2 submit `MsgDeclarePoCIntent` for that model before the bootstrap snapshot at `start_poc - deploy_window`.
+   
+2. **Pre-eligibility snapshot.** At `start_poc - deploy_window`, the chain snapshots intents and delegations, and emits advisory pre-eligibility events (governance approval, weight threshold `W_threshold`, minimum members `V_min`, and >2/3 reachability). This lets operators confirm that a model looks viable before provisioning.
+   
+3. **Deploy window.** Hosts that declared intent provision their MLNode for the model during the deploy window.
+   
+4. **PoC start.** Membership is determined by who actually submits a PoC store commit at PoC start - not by who declared intent. A model becomes active only if it meets the eligibility conditions.
+
+**Effect if approved**
+
+From epoch 309 (PoC start ~June 26, 15:25 UTC; effective ~16:00 UTC), subject to each model meeting bootstrap eligibility:
+
+* `moonshotai/Kimi-K2.6` is an active PoC model again.
+* `zai-org/GLM-5.2-FP8` is available as an optional PoC model with no non-participation penalty.
+* `MiniMaxAI/MiniMax-M2.7` remains the base model.
+
+**Why expedited**
+
+The proposal must conclude before epoch 308 ends so both models can bootstrap into epoch 309. At ~22.8h per epoch, the standard 48h voting period does not fit within a single epoch; the 12h expedited period does. Genesis guardians are expected to support the proposal.
+
+**Required actions for hosts**
+
+1. **To serve Kimi:** Declare intent for `moonshotai/Kimi-K2.6` right **after the end of voting**. Then, switch your MLNode to it for PoC 309. There is a ~500-block safety window before PoC starts, during which it is safe to switch, as there is no cPoC during that window.
+
+2. **To serve GLM-5.2:** Declare intent for `zai-org/GLM-5.2-FP8` and provision your MLNode during the deploy window. Serving it is voluntary - hosts that do not opt in incur no penalty.
+
+3. **To stay on MiniMax:** Keep serving `MiniMaxAI/MiniMax-M2.7` - no action needed.
+
+4. **Vote on proposal 79 before the deadline.** The expedited window is short.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, refer to the guide on granting governance voting permission from a cold key to a warm key. Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+* http://node1.gonka.ai:8000
+* http://node2.gonka.ai:8000
+* https://node3.gonka.ai
+
+Cast a vote (`yes`, `no`, `abstain`, `no_with_veto`):
+```
+    export NODE_URL=https://node3.gonka.ai/
+    ./inferenced tx gov vote 79 yes \
+    --from <cold_key_name> \
+    --keyring-backend file \
+    --unordered \
+    --timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+    --node $NODE_URL/chain-rpc/ \
+    --chain-id gonka-mainnet \
+    --yes
+```
+To check voting status:
+```
+    export NODE_URL=https://node3.gonka.ai/
+    ./inferenced query gov votes 79 -o json --node $NODE_URL/chain-rpc/
+```
+**Deadlines**
+
+* Proposal 79 voting ends: *June 26th, 2026, at 14:18:58 UTC* (expedited).
+* Expedited proposals require a 0.667 yes-threshold; turnout matters, so please vote promptly.
+
 ## June 25, 2026
 
 **Proposal 78 passed: `MiniMaxAI/MiniMax-M2.7` is now the sole PoC model; Kimi K2.6 and Qwen3-235B removed**

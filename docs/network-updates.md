@@ -8,6 +8,35 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## June 27, 2026
+
+**Kimi-K2.6 bootstrap: next attempt at epoch 311**
+
+`moonshotai/Kimi-K2.6` runs another bootstrap attempt at epoch 311. Hosts that want to serve Kimi need to declare their intent during epoch 310 and get their node ready before the new epoch starts. A guardian node will also run Kimi, so hosts that prefer not to run it can delegate to it instead.
+
+**Hosts that will run Kimi**
+
+1. Declare PoC intent during epoch 310, before block **4,797,456** (around June 28, ~12:00 UTC):
+```
+./inferenced tx inference declare-poc-intent moonshotai/Kimi-K2.6
+```
+2. If enough hosts declare intent, switch your node to Kimi in the ~500-block window before epoch 311 starts (PoC start around June 28, ~12:47 UTC).
+
+**Hosts that will not run Kimi**
+
+Delegate your weight to a host that runs Kimi (or send a refusal):
+```
+./inferenced tx inference set-poc-delegation moonshotai/Kimi-K2.6 <DELEGATEE>
+```
+The guardian node `gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5` will run Kimi and can be used as the delegation target.
+
+**Key timings**
+
+* Intent deadline (epoch 310): block **4,797,456** — around June 28, ~12:00 UTC.
+* Epoch 311 starts: block **4,797,956** — around June 28, ~12:47 UTC.
+
+More on how the bootstrap works: [https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
+
 ## June 26, 2026
 
 **Expedited governance vote 79: restore `moonshotai/Kimi-K2.6` and add `GLM-5.2`**

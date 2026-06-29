@@ -124,11 +124,7 @@ title: 免责声明
 <!-- prettier-ignore:end -->
 
 <script>
-<<<<<<< HEAD
-  // 确保早期遵守暗色模式属性，而不添加持久类
-=======
   // 确保尽早遵守暗色模式属性，而不添加持久性类
->>>>>>> 183f0d2 (chore(zh): update translations for c3677db3)
   (function() {
     var palette = localStorage.getItem('/.__palette');
     if (palette) {

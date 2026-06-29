@@ -10,13 +10,13 @@ landing: true
         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M22.0779 0.000895182C22.2017 6.07859 22.4682 12.1564 22.8218 18.234C23.2874 26.2385 26.7009 34.2436 29.0827 42.2481C29.1354 42.4251 29.185 42.6029 29.2367 42.7799C26.9701 43.5691 24.5355 44 22 44C19.4649 44 17.0305 43.5698 14.7642 42.7808C14.816 42.6034 14.8663 42.4255 14.9191 42.2481C17.3009 34.2436 20.7144 26.2385 21.18 18.234C21.5336 12.1564 21.7992 6.07859 21.923 0.000895182C21.9487 0.000807303 21.9743 0 22 0C22.026 0 22.0519 0.000805247 22.0779 0.000895182Z" fill="#2A2A2A"/>
           <path d="M20.7262 21.2364C19.4639 28.1647 15.6505 35.0935 12.8718 42.0216C12.0526 41.6475 11.2603 41.2248 10.4987 40.7568C14.3095 34.2502 19.1923 27.7431 20.7262 21.2364Z" fill="#2A2A2A"/>
-          <path d="M23.2747 21.2364C24.8085 27.7426 29.6898 34.2498 33.5004 40.7559C32.7390 41.2237 31.9472 41.6467 31.1282 42.0208C28.3495 35.093 24.5369 28.1642 23.2747 21.2364Z" fill="#2A2A2A"/>
+          <path d="M23.2747 21.2364C24.8085 27.7426 29.6898 34.2498 33.5004 40.7559C32.739 41.2237 31.9472 41.6467 31.1282 42.0208C28.3495 35.093 24.5369 28.1642 23.2747 21.2364Z" fill="#2A2A2A"/>
           <path d="M20.6062 0.0447591C20.5973 6.14511 20.5901 12.2455 20.5641 18.3459C20.5354 25.059 13.5075 31.7743 7.43628 38.4875C2.87637 34.4566 0 28.5647 0 22C0 10.3179 9.10536 0.763813 20.6062 0.0447591Z" fill="#2A2A2A"/>
           <path d="M23.3938 0.0447591C34.8946 0.763813 44 10.3179 44 22C44 28.5649 41.123 34.4565 36.5628 38.4875C30.4919 31.7747 23.4655 25.0585 23.4368 18.3459C23.4108 12.2455 23.4027 6.14511 23.3938 0.0447591Z" fill="#2A2A2A"/>
         </svg>
     </a>
     <a href="/docs/" class="gonka-docs-link">
-      <span>文档</span> 
+      <span>Documentation</span> 
       <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.5 13.5L10.5 6.5" stroke="black" stroke-width="1.5"/>
         <path d="M3.83398 6.5H10.5007V13.1667" stroke="black" stroke-width="1.5"/>
@@ -27,15 +27,15 @@ landing: true
   <main class="gonka-main">      
     <!-- Banner -->
     <p class="gonka-banner">
-      <span class="nowrap">主网上线了。 </span>
-      <span class="nowrap">Kimi K2.6 和 MiniMax M2.7 现已上线。 </span>
+      <span class="nowrap">主网已上线。 </span>
+      <span class="nowrap">Kimi K2.6 和 MiniMax M2.7 现已可用。 </span>
       <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">加入 Discord。</a>
     </p>
     <!-- Hero -->
     <section class="gonka-hero">
       <div class="gonka-inner">
         <h1>Gonka</h1>
-        <p class="tagline">AI 算力就是新货币</p>
+        <p class="tagline">AI 算力即新货币</p>
         <p class="gonka-cta">
           <span class="gonka-cta__label">在</span>
           <a class="gonka-cta__uniswap" href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68" target="_blank" rel="noopener noreferrer">
@@ -57,13 +57,13 @@ landing: true
     </section>
   </main>
 
-<!-- 页脚 – 4个普通列 -->
+<!-- Footer – 4 plain columns -->
 <footer class="gonka-footer">
-  <!-- 内部页脚上的水平动画轮播行 -->
+  <!-- Horizontal Animated Carousel row over inner footer -->
   <div class="gonka-carousel">
     <div class="carousel-track">
       <div class="partner-card">
-        <span class="partner-label">审计方</span>
+        <span class="partner-label">Auditor</span>
         <div class="partner-logos">
           <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
             <img src="images/logos/certik.svg" alt="CertiK" />
@@ -71,7 +71,7 @@ landing: true
         </div>
       </div>
       <div class="partner-card">
-        <span class="partner-label">社区合作伙伴</span>
+        <span class="partner-label">Community Partners</span>
         <div class="partner-logos">
           <a href="https://web3.com/" target="_blank" rel="noopener noreferrer">
             <img src="images/logos/web3.svg" alt="Web3.com Ventures" />
@@ -85,7 +85,7 @@ landing: true
         </div>
       </div>
       <div class="partner-card">
-        <span class="partner-label">精选主机</span>
+        <span class="partner-label">Select Hosts</span>
         <div class="partner-logos">
           <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
             <img src="images/logos/gcore.svg" alt="Gcore" />
@@ -99,7 +99,7 @@ landing: true
         </div>
       </div>
       <div class="partner-card">
-        <span class="partner-label">精选AI开发者</span>
+        <span class="partner-label">Select AI Developers</span>
         <div class="partner-logos">
           <a href="https://aidenai.io/" target="_blank" rel="noopener noreferrer">
             <img src="images/logos/aiden.svg" alt="Aiden" />
@@ -107,12 +107,12 @@ landing: true
         </div>
       </div>
       <div class="partner-card">
-        <span class="partner-label">协议创建者</span>
+        <span class="partner-label">Protocol Creator</span>
         <div class="partner-logos">
           <a href="https://productscience.ai/" target="_blank" rel="noopener noreferrer">
             <img src="images/logos/productscience.svg" alt="Product Science" />
           </a>
-          <span class="partner-label">支持方</span>
+          <span class="partner-label">backed by</span>
           <a href="https://www.coatue.com/" target="_blank" rel="noopener noreferrer">
             <img src="images/logos/coatue.svg" alt="Coatue" />
           </a>
@@ -182,19 +182,19 @@ landing: true
         <h4>协议</h4>
         <ul>
           <li><a href="/whitepaper.pdf">白皮书</a></li>
-          <li><a href="/pow-security-analysis.pdf">基于Transformer的挖矿证明</a></li>
+          <li><a href="/pow-security-analysis.pdf">基于Transformer的工作量证明</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>GNK</h4>
         <ul>
-          <li><a href="/tokenomics.pdf">Gonka代币经济</a></li>
+          <li><a href="/tokenomics.pdf">Gonka 代币经济</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>法律</h4>
         <ul>
-          <li><a href="/protocol-license.pdf">Gonka协议许可</a></li>
+          <li><a href="/protocol-license.pdf">Gonka 协议许可</a></li>
           <li><a href="#">专利</a></li>
           <li><a href="/disclaimer/">免责声明</a></li>
         </ul>
@@ -208,7 +208,7 @@ landing: true
 
 
 <script>
-  // 确保在进入页面时尊重暗色模式属性，而无需添加持久类
+  // Ensure dark mode attribute is respected early on landing without adding persistent classes
   (function() {
     var palette = localStorage.getItem('/.__palette');
     if (palette) {
@@ -223,18 +223,18 @@ landing: true
 </script>
 
 <script>
-// 确保从着陆页进入时MkDocs导航正常工作
+// Ensure MkDocs navigation works when coming from landing page
 document.addEventListener('DOMContentLoaded', function() {
   const docLink = document.querySelector('.gonka-docs-link');
   if (docLink) {
     docLink.addEventListener('click', function(e) {
       e.preventDefault();
-      // 强制完全页面重载以确保MkDocs正确初始化
+      // Force a full page reload to ensure MkDocs initializes properly
       window.location.href = this.href + '?from=landing';
     });
   }
 
-  // 移动端头部滚动阴影
+  // Mobile header shadow on scroll
   const header = document.querySelector('.gonka-header');
   if (header) {
     function handleScroll() {
@@ -245,25 +245,25 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // 添加滚动事件监听器
+    // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
 
-    // 检查初始滚动位置
+    // Check initial scroll position
     handleScroll();
   }
 
-  // 平滑无限轮播
+  // Smooth infinite carousel
   const carouselTrack = document.querySelector('.gonka-carousel .carousel-track');
   if (carouselTrack) {
-    // 在克隆前捕获第一组卡片
+    // Capture the first set of cards before cloning
     const originals = Array.from(carouselTrack.querySelectorAll('.partner-card'));
     let raf = null;
-    let offset = 0;   // 当前滚动偏移量 [0, period)
-    let period = 0;   // 一组完整宽度 (A → A')
-    const speed = 72; // 像素每秒 (可按需调整)
+    let offset = 0;   // current scroll offset in [0, period)
+    let period = 0;   // width of one full set (A → A')
+    const speed = 72; // px per second (tweak as desired)
     let lastTs = null;
 
-    // 确保有足够的副本 (A, A', A'', ...) 以覆盖视口 + 一个周期
+    // Ensure we have enough copies (A, A', A'', ...) to cover viewport + one period
     function ensureCopies(minCopies) {
       const have = Math.floor(carouselTrack.children.length / originals.length);
       const need = Math.max(2, minCopies | 0);
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // 使用DOM位置测量重复周期：从第一个原始元素到第一个克隆元素的距离
+    // Measure repeat period using DOM positions: distance from first original to first clone
     function measurePeriod() {
       const first = originals[0];
       const firstClone = carouselTrack.children[originals.length];
@@ -288,13 +288,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function frame(ts) {
       if (lastTs == null) lastTs = ts;
-      const dt = (ts - lastTs) / 1000; // 秒
+      const dt = (ts - lastTs) / 1000; // seconds
       lastTs = ts;
 
-      // 按时间推进，而非按帧，然后使用模运算避免任何超出跳跃
+      // Advance by time, not by frames, then wrap with modulo to avoid any overshoot jump
       offset += speed * dt;
       if (period > 0) {
-        offset = offset % period; // 保持在 [0, period)
+        offset = offset % period; // keep in [0, period)
         carouselTrack.style.transform = `translate3d(${-offset}px, 0, 0)`;
       }
       raf = requestAnimationFrame(frame);
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // 初始克隆和测量
+    // Initial clones and measurements
     ensureCopies(2);
     period = measurePeriod();
     const vpW0 = carouselTrack.parentElement.getBoundingClientRect().width;
@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ensureCopies(minCopies0);
     period = measurePeriod();
 
-    // 在调整大小/字体加载时重新计算，同时保留进度以防止视觉跳跃
+    // Recalculate on resize/font load while preserving progress to prevent visual snap
     function recompute() {
       const progress = period > 0 ? (offset % period) / period : 0;
       stop();
@@ -345,12 +345,12 @@ document.addEventListener('DOMContentLoaded', function() {
       document.fonts.ready.then(recompute);
     }
 
-    // GPU提示 & 悬停时暂停
+    // GPU hint & pause on hover
     carouselTrack.style.willChange = 'transform';
     carouselTrack.parentElement.addEventListener('mouseenter', stop);
     carouselTrack.parentElement.addEventListener('mouseleave', start);
 
-    // 启动动画
+    // Start animation
     start();
   }
 });

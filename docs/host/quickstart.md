@@ -31,9 +31,8 @@ The protocol supports **governance-approved** models for inference and Proof of 
 
 | Model ID | Role |
 |----------|------|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | Original enforced model; still supported |
-| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — active in PoC on the network (passed bootstrap; participates alongside Qwen) |
-| `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — newly approved model added with MLNode 3.0.14; participates alongside Qwen and Kimi |
+| `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — base model and the active PoC model on the network |
+| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — being re-bootstrapped; participates alongside MiniMax once restored |
 
 !!! tip "Authoritative model list (governance API)"
     Approved models can change between releases or epochs. **Before you edit `node-config.json`,** call the governance API and use each returned object’s `"id"` as the key under `"models"`:
@@ -42,12 +41,11 @@ The protocol supports **governance-approved** models for inference and Proof of 
     ```
     To list only model ids, pipe the response: `jq -r '.models[].id'`. If `node2.gonka.ai` is unreachable, use another participant’s public API base URL (scheme, host, and port). The response also includes network parameters such as `model_args`; the `node-config.json` examples later show typical `args` for common hardware—adjust for your GPUs and benchmarks.
 
-You typically run **one model per ML Node** in `node-config.json`. Hosts may operate separate ML Nodes (or fleets) for Qwen, Kimi, and MiniMax.
+You typically run **one model per ML Node** in `node-config.json`. Hosts may operate separate ML Nodes (or fleets) for MiniMax and Kimi.
 
 !!! tip "Reference deploy configs in the repo"
     The `deploy/join/` folder ships ready-to-use `node-config-*.json` files for every approved model and the most common GPU classes. Copy the one that matches your hardware to `node-config.json` instead of writing one from scratch:
 
-    - **Qwen3-235B** — `deploy/join/node-config-qwen235B-B200.json`
     - **Kimi K2.6** — `deploy/join/node-config-kimik26-H200.json`, `deploy/join/node-config-kimik26-B200.json`
     - **MiniMax M2.7** — `deploy/join/node-config-minimax-A100.json`, `deploy/join/node-config-minimax-H100.json`, `deploy/join/node-config-minimax-H200.json`, `deploy/join/node-config-minimax-B200.json`
 
@@ -66,7 +64,6 @@ To run a valid node, you need machines with [supported GPU(s)](/host/hardware-sp
 
 | **Model Name**                          | **ML Nodes (min)** | **Example Hardware**                            | **Minimum VRAM per ML Node** |
 |------------------------------------------|-------------------|-------------------------------------------------|----------------|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | ≥ 2               | 8× H200 per MLNode                              | 640 GB         |
 | `moonshotai/Kimi-K2.6`                  | ≥ 2               | 8× H200 or 8× B200 per MLNode (reference class) | 640 GB         |
 | `MiniMaxAI/MiniMax-M2.7`                | ≥ 2               | 4× A100 / 4× H100 / 2× H200 / 2× B200 per MLNode | ~320 GB        |
 
@@ -520,55 +517,7 @@ source config.env
 ### [Server] Edit Inference Node Description for the Server
 
 !!! note
-    The network currently supports the Qwen/Qwen3-235B-A22B-Instruct-2507-FP8 only. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
-
-=== "Qwen — 4xH100 (same works for 8xH200 or 8xH100)"
-
-    !!! note "edit node-config.json"
-        ```
-        [
-            {
-                "id": "node1",
-                "host": "inference",
-                "inference_port": 5000,
-                "poc_port": 8080,
-                "max_concurrent": 500,
-                "models": {
-                    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
-                        "args": [
-                            "--tensor-parallel-size", "4"
-                        ]
-                    }
-                }
-            }
-        ]
-        ```
-
-=== "Qwen — 8×B200"
-
-    Reference deploy config in the repo: `deploy/join/node-config-qwen235B-B200.json`.
-
-    !!! note "edit node-config.json"
-        ```
-        [
-            {
-                "id": "node1",
-                "host": "inference",
-                "inference_port": 5000,
-                "poc_port": 8080,
-                "max_concurrent": 500,
-                "models": {
-                    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
-                        "args": [
-                            "--tensor-parallel-size", "2",
-                            "--max-model-len", "240000",
-                            "--gpu-memory-utilization", "0.88"
-                        ]
-                    }
-                }
-            }
-        ]
-        ```
+    The network currently supports `MiniMaxAI/MiniMax-M2.7` as the active PoC model. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
 
 === "Kimi — 4×B200 / 8×B200 (and 8×H200 reference class)"
 
@@ -784,13 +733,6 @@ For more details on the optimal deployment configuration, please refer to [this 
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
 To make sure the model weights are ready for inference, you should download them before deployment.
-
-=== "Qwen — 8xH100, 8xH200 or other GPUs"
-
-    ```bash
-    mkdir -p $HF_HOME
-    huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
-    ```
 
 === "Kimi K2.6"
 
@@ -1239,23 +1181,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   -y
 ```
 
-Example for Qwen (e.g. you run Kimi only on your GPUs):
-
-```bash
-MODEL="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
-DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
-  --from "$KEY" \
-  --node "$NODE" \
-  --chain-id "$CHAIN_ID" \
-  --keyring-backend "$KEYRING_BACKEND" \
-  --gas auto \
-  --gas-adjustment 1.3 \
-  -y
-```
-
-Example for MiniMax (e.g. you run Qwen and Kimi only on your GPUs):
+Example for MiniMax (e.g. you run Kimi only on your GPUs):
 
 ```bash
 MODEL="MiniMaxAI/MiniMax-M2.7"

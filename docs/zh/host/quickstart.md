@@ -33,8 +33,8 @@
 
 | 模型 ID | 说明 |
 |----------|------|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | 原先强制使用的模型；继续支持 |
-| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — 已在网络上参与 PoC（已过 bootstrap，与 Qwen 并行） |
+| `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — 基础模型，网络上活跃的 PoC 模型 |
+| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — 正在重新 bootstrap；恢复后将与 MiniMax 并行参与 |
 
 !!! tip "权威模型列表（治理 API）"
     经批准的模型可能随版本或 epoch 变化。**在编辑 `node-config.json` 前，**请先调用治理接口，将返回中每个对象的 `"id"` 用作 `"models"` 下的键名：
@@ -43,7 +43,7 @@
     ```
     若仅需列出模型 id，可对响应使用：`jq -r '.models[].id'`。若无法访问 `node2.gonka.ai`，可换用其他已参与节点的公网 API 基址（协议、主机、端口）。响应中还包含 `model_args` 等网络参数；下文 `node-config.json` 示例为常见硬件的典型 `args`，请根据 GPU 与压测结果再调整。
 
-通常在 `node-config.json` 中**每个 ML 节点只服务一个模型**（`models` 下的一项）。若需同时覆盖 Qwen 与 Kimi，请使用多个 ML 节点（或多台机器）。
+通常在 `node-config.json` 中**每个 ML 节点只服务一个模型**（`models` 下的一项）。若需同时覆盖 MiniMax 与 Kimi，请使用多个 ML 节点（或多台机器）。
 
 !!! note "若无法在本机运行全部获批模型"
     多模型 PoC **按模型**统计参与。若硬件无法覆盖每一位治理批准的模型，需要通过链上**委托**或**拒绝**，使共识权重在各模型上被正确计入。这与「先把节点跑起来」**无关**——仍使用**账户（冷）密钥**（与 **步骤 3.3「向 ML 运营密钥授予权限」** 相同 keyring），在注册并**验证节点**之后再执行。完整命令见文末 [可选：PoC 委托与拒绝](#optional-poc-delegation-and-refusal)。策略与惩罚说明见 [多模型 PoC — 主机操作指南](/host/multi_model_poc/)。
@@ -59,7 +59,7 @@
 
 | **模型名称**                          | **ML 节点（最少）** | **示例硬件**                            | **每 ML 节点最小显存** |
 |------------------------------------------|-------------------|-------------------------------------------------|----------------|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | ≥ 2               | 每 ML 节点 8× H200                              | 640 GB         |
+| `MiniMaxAI/MiniMax-M2.7`                | ≥ 2               | 每 ML 节点 4× A100 / 4× H100 / 2× H200 / 2× B200 | ~320 GB        |
 | `moonshotai/Kimi-K2.6`                  | ≥ 2               | 每 ML 节点 8× H200 或 8× B200（参考档位）       | 640 GB         |
 
 此为参考架构。您可调整节点数量或硬件分配，但建议遵循核心原则：每个节点应在各模型层级支持多个 ML 节点。
@@ -517,7 +517,9 @@ source config.env
 
 编辑 `node-config.json`，使每个 ML 节点在 `"models"` 中声明其运行的**单个模型**。**务必**用 `/v1/governance/models` 核对模型 id（见上文 [支持的模型](#支持的模型)）—下文示例反映常见硬件布局，其中的模型 id 仅为撰写时的示例。批准列表由治理决定；详见 [交易与治理指南](https://gonka.ai/transactions-and-governance/)。
 
-=== "Qwen — 4xH100（同样适用于 8xH200 或 8xH100）"
+=== "MiniMax — 4×H100"
+
+    适用于 **4×H100** 上的 **MiniMax M2.7**，使用 `FLASHINFER` attention 后端与 FP8 kv-cache。
 
     !!! note "编辑 node-config.json"
         ```
@@ -529,15 +531,25 @@ source config.env
                 "poc_port": 8080,
                 "max_concurrent": 500,
                 "models": {
-                    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8": {
+                    "MiniMaxAI/MiniMax-M2.7": {
                         "args": [
-                            "--tensor-parallel-size", "4"
+                            "--tensor-parallel-size", "4",
+                            "--attention-backend", "FLASHINFER",
+                            "--gpu-memory-utilization", "0.92",
+                            "--max-num-seqs", "128",
+                            "--enable-auto-tool-choice",
+                            "--max-model-len", "180000",
+                            "--kv-cache-dtype", "fp8",
+                            "--tool-call-parser", "minimax_m2",
+                            "--reasoning-parser", "minimax_m2_append_think"
                         ]
                     }
                 }
             }
         ]
         ```
+
+    MiniMax M2.7 需要 **MLNode 3.0.14 或更新版本**。在 A100 硬件上还需为 `mlnode-308` 服务设置环境变量 `VLLM_USE_FLASHINFER_MOE_FP8=0`。
 
 === "Kimi — 4×B200 / 8×B200（及 8×H200 参考档位）"
 
@@ -584,12 +596,14 @@ source config.env
 
 推理节点从 Hugging Face 下载模型权重。为确保推理前权重已就绪，应在部署前下载。
 
-=== "Qwen — 8xH100、8xH200 或其他 GPU"
+=== "MiniMax M2.7"
 
     ```bash
     mkdir -p $HF_HOME
-    huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+    huggingface-cli download MiniMaxAI/MiniMax-M2.7
     ```
+
+    许可证见 [Model licenses](/model-licenses/)。MiniMax M2.7 需要 **MLNode 3.0.14 或更新版本**。
 
 === "Kimi K2.6"
 
@@ -1012,10 +1026,10 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   -y
 ```
 
-Qwen 示例（例如你只在 GPU 上运行 Kimi）：
+MiniMax 示例（例如你只在 GPU 上运行 Kimi）：
 
 ```bash
-MODEL="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+MODEL="MiniMaxAI/MiniMax-M2.7"
 DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \

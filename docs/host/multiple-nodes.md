@@ -97,10 +97,10 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 
 Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired.
-Right now, the network supports `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only.
+Right now, the network supports `MiniMaxAI/MiniMax-M2.7` as the active PoC model.
 
 ```
-huggingface-cli download Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+huggingface-cli download MiniMaxAI/MiniMax-M2.7
 ```
 
 **1.3. Ports open for network node connections**
@@ -153,16 +153,16 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `poc_port`       | The port which is used for **MLNode management**.   | `8080` (port mapped to `8080` of MLNode's `nginx`)                                                   |
 | `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500`                                                     |
 | `models`         | A **supported models** that the inference node can process.                              | (see below)    |
-| `model_name`         | The name of the model.                              | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`    |
+| `model_name`         | The name of the model.                              | `MiniMaxAI/MiniMax-M2.7`    |
 | `model_args`         | vLLM arguments for the inference of the model.                              | `"--tensor-parallel-size","4"`    |
 
-Right now, the network supports `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` only.
+Right now, the network supports `MiniMaxAI/MiniMax-M2.7` as the active PoC model.
 
 To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout.
 
 | Model and GPU layout                    | vLLM arguments                                                                           |
 |-----------------------------------------|---------------------------------------------------------------------------------------|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` on 8xH100 or 8xH200           | `"--tensor-parallel-size","4"`                                      |
+| `MiniMaxAI/MiniMax-M2.7` on 4xH100           | `"--tensor-parallel-size","4"`                                      |
 
 For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
 

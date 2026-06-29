@@ -6,13 +6,12 @@
 
 在 v0.2.12 之前，网络仅运行一个强制模型：`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`。v0.2.12 引入了第二个由治理批准的模型 `moonshotai/Kimi-K2.6`，并实现了按模型的参与、委托和惩罚计时机制。v0.2.13 则重新校准了模型系数，并新增 `MiniMaxAI/MiniMax-M2.7` 作为第三个由治理批准的模型。
 
-截至 2026 年 6 月 3 日（主网纪元 `285`），主网上的 `poc_params.models` 包含以下内容：
+截至纪元 `308`，`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 已由治理（提案 78）退役，`MiniMaxAI/MiniMax-M2.7` 成为基础模型与活跃的 PoC 模型。主网上的 `poc_params.models` 包含以下内容：
 
 | `model_id` | 当前主网状态 | `weight_scale_factor` | `penalty_start_epoch` |
 |---|---|---:|---:|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | 活跃 | `0.3593` | `0` |
-| `moonshotai/Kimi-K2.6` | 活跃 | `0.78` | `251` |
 | `MiniMaxAI/MiniMax-M2.7` | 活跃 | `0.3024` | `278` |
+| `moonshotai/Kimi-K2.6` | 重新 bootstrap 中（通过后续投票恢复） | `0.78` | `251` |
 
 这些值由治理机制控制，可能会发生变化。在执行任何操作前，请务必通过你所使用的链上的实时 `params` 查询来验证这些参数。
 

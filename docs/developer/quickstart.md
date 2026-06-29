@@ -35,6 +35,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 
 ### 1.1 Pick a broker
 
+- [https://gonka24.com/](https://gonka24.com/)
 - [https://proxy.gonka.gg/](https://proxy.gonka.gg/) · [▶ demo](https://drive.google.com/file/d/1-Zk__4cY_ENi0Q8gw-JHgEBz6XZWXKAj/view?pli=1)
 - [https://gonkagate.com/](https://gonkagate.com/)
 - [https://gate.joingonka.ai/](https://gate.joingonka.ai/)
@@ -79,7 +80,7 @@ In most apps the mapping is:
 |---|---|
 | API Base URL / Endpoint | Your broker URL with `/v1` appended, e.g. `https://<broker-url>/v1`. If the app asks for an "OpenAI Base URL" or "Custom Endpoint", this is it. |
 | API Key / Auth Token | The key you generated. Even if the app says "Enter OpenAI API Key", use your broker key here. |
-| Model / Custom Model | The exact Model ID your broker supports. Model IDs are case-sensitive — copy them exactly, e.g. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. |
+| Model / Custom Model | The exact Model ID your broker supports. Model IDs are case-sensitive — copy them exactly, e.g. `MiniMaxAI/MiniMax-M2.7`. |
 
 The exact menu names below may differ between app versions — look for the equivalent settings.
 
@@ -110,7 +111,7 @@ Set environment variables:
 ```bash
 export GONKA_BROKER_URL=<broker-base-url>     # e.g. https://api.example-broker.com/v1
 export GONKA_BROKER_API_KEY=<your-api-key>
-export GONKA_MODEL=Qwen/Qwen3-235B-A22B-Instruct-2507-FP8   # or any model your broker supports
+export GONKA_MODEL=MiniMaxAI/MiniMax-M2.7   # or any model your broker supports
 ```
 
 The Gonka broker endpoint is OpenAI-compatible, so you can use the official OpenAI SDK directly — no Gonka-specific client is required.

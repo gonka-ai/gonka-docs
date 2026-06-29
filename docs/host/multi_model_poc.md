@@ -6,13 +6,12 @@ Multi-model Proof-of-Compute (PoC) arrived in v0.2.12 and expanded again in v0.2
 
 Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. v0.2.12 added `moonshotai/Kimi-K2.6` as the second governance-approved model and introduced per-model participation, delegation, and penalty timing. v0.2.13 recalibrated model coefficients and added `MiniMaxAI/MiniMax-M2.7` as the third governance-approved model.
 
-As of June 3, 2026 (mainnet epoch `285`), `poc_params.models` on mainnet contains:
+As of epoch `308`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` has been retired by governance (proposal 78) and `MiniMaxAI/MiniMax-M2.7` is the base model and active PoC model. `poc_params.models` on mainnet contains:
 
 | `model_id` | Current mainnet status | `weight_scale_factor` | `penalty_start_epoch` |
 |---|---|---:|---:|
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` | Active | `0.3593` | `0` |
-| `moonshotai/Kimi-K2.6` | Active | `0.78` | `251` |
 | `MiniMaxAI/MiniMax-M2.7` | Active | `0.3024` | `278` |
+| `moonshotai/Kimi-K2.6` | Re-bootstrapping (restored via follow-up vote) | `0.78` | `251` |
 
 These values are governance-controlled and can change. Before acting, always verify them with a live `params` query on the chain you use.
 

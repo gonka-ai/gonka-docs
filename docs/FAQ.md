@@ -33,8 +33,17 @@ There are, however, two legitimate ways to obtain GNK today:
 - **Mine as a Host.** Contribute computational resources to the network and earn GNK directly. See [mine as a Host](https://gonka.ai/host/quickstart/).
 - **Buy WGNK on Ethereum and bridge it back to GNK.** GNK can be bridged to Ethereum as **WGNK** (wrapped GNK), which is a standard ERC-20 that trades on DEXs such as Uniswap. You can buy WGNK there and then [bridge it back to native GNK](cross-chain-transfers/ethereum-bridge/withdraw-gnk.md). See the [Ethereum bridge overview](cross-chain-transfers/ethereum-bridge/overview.md).
 
-!!! note "Important — verify the contract address"
-	The **only** official Ethereum representation of GNK is **WGNK** at `0x972a7a92d92796a98801a8818bcf91f1648f2f68` — this address is both the bridge contract and the WGNK ERC-20 token. Always verify this exact address before trading, e.g. on [Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68) or [CoinMarketCap](https://coinmarketcap.com/currencies/gonka/). Fake GNK listings and pages still exist on other trackers and networks: any coin claiming to be GNK on Solana, or on any contract other than the WGNK address above, is **not** an official GNK asset. Always verify information through official channels.
+!!! info "Track WGNK price and market data"
+	You can follow WGNK (wrapped GNK) price, market cap, and trading volume on:
+
+	- **CoinGecko** — [Wrapped Gonka](https://www.coingecko.com/en/coins/wrapped-gonka)
+	- **CoinMarketCap** — [Gonka](https://coinmarketcap.com/currencies/gonka/)
+	- **Uniswap** — [WGNK token](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68)
+
+!!! warning "Verify the contract address before trading"
+	The **only** official Ethereum representation of GNK is **WGNK** at `0x972a7a92d92796a98801a8818bcf91f1648f2f68` — this address is both the bridge contract and the WGNK ERC-20 token. Always confirm any listing or trade resolves to this exact address.
+
+	Fake GNK listings and pages still exist on other trackers and networks: any coin claiming to be GNK on Solana, or on any contract other than the WGNK address above, is **not** an official GNK asset. Always verify information through official channels.
 
 ### What makes the protocol efficient?
 What differentiates Gonka from the "big players" is its pricing and the fact that, despite the Host's size, the inference is distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).

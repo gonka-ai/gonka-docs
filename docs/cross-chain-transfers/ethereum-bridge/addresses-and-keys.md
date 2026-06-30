@@ -44,7 +44,7 @@ Most users never see their raw private key — they only have a **seed phrase** 
 A seed phrase does not map to a single key. Wallets derive keys from it using **BIP-44 derivation paths**, and each blockchain uses a **different path**:
 
 * Ethereum wallets use coin type **60** → path `m/44'/60'/0'/0/0`
-* Cosmos/Gonka wallets use coin type **118** → path `m/44'/118'/0'/0/0`
+* Cosmos/Gonka wallets use coin type **1200** → path `m/44'/1200'/0'/0/0`
 
 Because the paths differ, the **same seed phrase produces two completely different private keys** for Ethereum and Gonka — and therefore two unrelated addresses. If you deposit from a seed-derived Ethereum account and then look at the seed-derived Gonka account in your wallet, **they are not the same key**, so the bridged tokens will land on a `gonka1…` address your wallet is not currently showing you. You still control that address (you can derive the Ethereum key from the same mnemonic using coin type `60` and use it on Gonka), but your wallet won't display it without a manual derivation step.
 

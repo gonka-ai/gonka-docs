@@ -36,9 +36,9 @@ There are, however, two legitimate ways to obtain GNK today:
 !!! info "Track WGNK price and market data"
 	You can follow WGNK (wrapped GNK) price, market cap, and trading volume on:
 
-	- **CoinGecko** — [Wrapped Gonka](https://www.coingecko.com/en/coins/wrapped-gonka)
-	- **CoinMarketCap** — [Gonka](https://coinmarketcap.com/currencies/gonka/)
-	- **Uniswap** — [WGNK token](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68)
+	- [CoinGecko](https://www.coingecko.com/en/coins/wrapped-gonka)
+	- [CoinMarketCap](https://coinmarketcap.com/currencies/gonka/)
+	- [Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68)
 
 !!! warning "Verify the contract address before trading"
 	The **only** official Ethereum representation of GNK is **WGNK** at `0x972a7a92d92796a98801a8818bcf91f1648f2f68` — this address is both the bridge contract and the WGNK ERC-20 token. Always confirm any listing or trade resolves to this exact address.

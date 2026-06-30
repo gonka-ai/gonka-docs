@@ -36,9 +36,9 @@ GNK是Gonka网络的原生代币。它用于激励参与者、为资源定价，
 !!! info "查询WGNK价格和市场数据"
 	您可以在以下平台查询WGNK（封装版GNK）的价格、市值和交易量：
 
-	- **CoinGecko** —— [Wrapped Gonka](https://www.coingecko.com/en/coins/wrapped-gonka)
-	- **CoinMarketCap** —— [Gonka](https://coinmarketcap.com/currencies/gonka/)
-	- **Uniswap** —— [WGNK代币](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68)
+	- [CoinGecko](https://www.coingecko.com/en/coins/wrapped-gonka)
+	- [CoinMarketCap](https://coinmarketcap.com/currencies/gonka/)
+	- [Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68)
 
 !!! warning "交易前请验证合约地址"
 	GNK在以太坊上的**唯一**官方表示是位于`0x972a7a92d92796a98801a8818bcf91f1648f2f68`的**WGNK**——该地址既是桥接合约也是WGNK ERC-20代币。交易前请务必确认任何列表或交易都对应此确切地址。

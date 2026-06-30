@@ -33,8 +33,17 @@ GNK是Gonka网络的原生代币。它用于激励参与者、为资源定价，
 - **作为Host进行挖矿。** 向网络贡献计算资源并直接赚取GNK。参见[作为Host挖矿](https://gonka.ai/host/quickstart/)。
 - **在以太坊上购买WGNK并将其桥接回GNK。** GNK可以通过桥接方式在以太坊上表示为**WGNK**（封装版GNK），这是一种可在Uniswap等去中心化交易所（DEX）交易的标准ERC-20代币。您可以在那里购买WGNK，然后[将其桥接回原生GNK](cross-chain-transfers/ethereum-bridge/withdraw-gnk.md)。参见[Ethereum桥接概述](cross-chain-transfers/ethereum-bridge/overview.md)。
 
-!!! note "重要——请验证合约地址"
-	GNK在以太坊上的**唯一**官方表示是位于`0x972a7a92d92796a98801a8818bcf91f1648f2f68`的**WGNK**——该地址既是桥接合约也是WGNK ERC-20代币。交易前请务必验证此确切地址，例如在[Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68)或[CoinMarketCap](https://coinmarketcap.com/currencies/gonka/)上。其他追踪器和网络上仍存在假冒的GNK列表和页面：任何声称是GNK但在Solana上，或使用上述WGNK地址以外的其他合约的代币，均**不是**官方GNK资产。请始终通过官方渠道核实信息。
+!!! info "查询WGNK价格和市场数据"
+	您可以在以下平台查询WGNK（封装版GNK）的价格、市值和交易量：
+
+	- **CoinGecko** —— [Wrapped Gonka](https://www.coingecko.com/en/coins/wrapped-gonka)
+	- **CoinMarketCap** —— [Gonka](https://coinmarketcap.com/currencies/gonka/)
+	- **Uniswap** —— [WGNK代币](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68)
+
+!!! warning "交易前请验证合约地址"
+	GNK在以太坊上的**唯一**官方表示是位于`0x972a7a92d92796a98801a8818bcf91f1648f2f68`的**WGNK**——该地址既是桥接合约也是WGNK ERC-20代币。交易前请务必确认任何列表或交易都对应此确切地址。
+
+	其他追踪器和网络上仍存在假冒的GNK列表和页面：任何声称是GNK但在Solana上，或使用上述WGNK地址以外的其他合约的代币，均**不是**官方GNK资产。请始终通过官方渠道核实信息。
 
 ### 该协议为何高效？
 Gonka与“大型厂商”的区别在于其定价机制，以及尽管Host规模不同，推理任务仍能被平等分配的事实。欲了解更多信息，请查阅[白皮书](https://gonka.ai/whitepaper.pdf)。

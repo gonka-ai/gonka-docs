@@ -1,36 +1,36 @@
-  name: Create Translation PR
+name: Create Translation PR
 
-  on:
-    push:
-      branches:
-        - "Carol-6block-patch-*"
+on:
+  push:
+    branches:
+      - "Carol-6block-patch-*"
 
-  permissions:
-    contents: read
-    pull-requests: write
+permissions:
+  contents: read
+  pull-requests: write
 
-  jobs:
-    create-pr:
-      runs-on: ubuntu-latest
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-        - name: Create pull request
-          env:
-            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            BRANCH: ${{ github.ref_name }}
-          run: |
-            gh pr view "$BRANCH" --base main >/dev/null 2>&1 && {
-              echo "Pull request already exists for $BRANCH"
-              exit 0
-            }
+      - name: Create pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          gh pr view "$BRANCH" --base main >/dev/null 2>&1 && {
+            echo "Pull request already exists for $BRANCH"
+            exit 0
+          }
 
-            gh pr create \
-              --base main \
-              --head "$BRANCH" \
-              --title "Update Chinese translations" \
-              --body "Automated Chinese translation update from $BRANCH."
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "Update Chinese translations" \
+            --body "Automated Chinese translation update from $BRANCH."

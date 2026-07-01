@@ -1,46 +1,36 @@
-name: Auto Merge Translation Branch
+  name: Create Translation PR
 
-on:
-  push:
-    branches:
-      - "Carol-6block-patch-*"
+  on:
+    push:
+      branches:
+        - "Carol-6block-patch-*"
 
-permissions:
-  contents: write
+  permissions:
+    contents: read
+    pull-requests: write
 
-jobs:
-  merge-to-main:
-    runs-on: ubuntu-latest
+  jobs:
+    create-pr:
+      runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
 
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        - name: Create pull request
+          env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            BRANCH: ${{ github.ref_name }}
+          run: |
+            gh pr view "$BRANCH" --base main >/dev/null 2>&1 && {
+              echo "Pull request already exists for $BRANCH"
+              exit 0
+            }
 
-      - name: Fetch all branches
-        run: |
-          git fetch origin
-
-      - name: Merge current branch into main
-        run: |
-          BRANCH="${GITHUB_REF_NAME}"
-
-          echo "Current branch: $BRANCH"
-
-          git checkout main
-
-          git pull origin main
-
-          git merge origin/$BRANCH --no-edit
-
-          git push origin main
-
-      - name: Delete merged branch
-        run: |
-          git push origin --delete "${GITHUB_REF_NAME}"
+            gh pr create \
+              --base main \
+              --head "$BRANCH" \
+              --title "Update Chinese translations" \
+              --body "Automated Chinese translation update from $BRANCH."

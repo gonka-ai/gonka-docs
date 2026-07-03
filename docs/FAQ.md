@@ -1420,6 +1420,53 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
+### Upgrade v0.2.14: Pre-upgrade API and Bridge Update
+
+To make sure the Ethereum bridge to be stable during mainnet upgrade, it's important to update `api` binaries before next mainnet upgrade. If you have multiple network nodes, please update them one by one.
+Check that you make this step outside of PoC or cPoC.
+
+Run all commands from **deploy/join** (where `docker-compose.yml` and `.dapi/` are).
+
+**1. Download api binary and restart:**
+
+```bash
+API_IMG='ghcr.io/product-science/api:0.2.13-post6@sha256:2b6691f7fcb9fce7b970679fc438cae1119ed46091ff43e2c0073ddfe0596b6d'
+API_BIN='.dapi/cosmovisor/upgrades/v0.2.13-post6/bin/decentralized-api'
+
+sudo rm -rf .dapi/cosmovisor/upgrades/v0.2.13-post6/ .dapi/data/upgrade-info.json
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.13-post6/bin/
+
+docker pull "$API_IMG"
+test "$(docker inspect --format='{{.Id}}' "$API_IMG")" = 'sha256:2b6691f7fcb9fce7b970679fc438cae1119ed46091ff43e2c0073ddfe0596b6d' && echo "Image digest OK"
+
+docker run --rm "$API_IMG" cat /usr/bin/decentralized-api \
+  | sudo tee "$API_BIN" > /dev/null
+sudo chmod +x "$API_BIN"
+echo "9a927916c29654c12826bb18d5b7c801a66dcb032992b766535e07ee4edb1302  $API_BIN" | sha256sum --check && \
+echo "API Installed and Verified"
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.13-post6 .dapi/cosmovisor/current && \
+docker start api
+```
+
+Verification uses two pins: **image digest** (`@sha256:2b6691…`) confirms the container you pulled, **binary sha256** (`9a927916…`) confirms the extracted `decentralized-api` file.
+
+**2. Update bridge image to 0.2.14**
+
+```yaml
+  bridge:
+    container_name: bridge
+    image: ghcr.io/product-science/bridge:0.2.14@sha256:e089082c43bf45222f9e1bfee14b837e2eaa5cdb765650e0c10a61517e7d101e
+```
+
+**3. Restart bridge container**
+
+```bash
+source config.env && docker compose up --force-recreate bridge
+```
+
 ### Upgrade v0.2.12: Pre-Upgrade Model Cleanup
 
 !!! note "Important"

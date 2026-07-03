@@ -1430,19 +1430,19 @@ Run all commands from **deploy/join** (where `docker-compose.yml` and `.dapi/` a
 **1. Download api binary and restart:**
 
 ```bash
-API_IMG='ghcr.io/product-science/api:0.2.13-post6@sha256:2b6691f7fcb9fce7b970679fc438cae1119ed46091ff43e2c0073ddfe0596b6d'
+API_IMG='ghcr.io/product-science/api:0.2.13-post6@sha256:7a3b6d594688bd9d6a89810146027137565c316116e81b9a997e434ca6b4bf7d'
 API_BIN='.dapi/cosmovisor/upgrades/v0.2.13-post6/bin/decentralized-api'
 
 sudo rm -rf .dapi/cosmovisor/upgrades/v0.2.13-post6/ .dapi/data/upgrade-info.json
 sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.13-post6/bin/
 
 docker pull "$API_IMG"
-test "$(docker inspect --format='{{.Id}}' "$API_IMG")" = 'sha256:2b6691f7fcb9fce7b970679fc438cae1119ed46091ff43e2c0073ddfe0596b6d' && echo "Image digest OK"
+test "$(docker inspect --format='{{.Id}}' "$API_IMG")" = 'sha256:7a3b6d594688bd9d6a89810146027137565c316116e81b9a997e434ca6b4bf7d' && echo "Image digest OK"
 
 docker run --rm "$API_IMG" cat /usr/bin/decentralized-api \
   | sudo tee "$API_BIN" > /dev/null
 sudo chmod +x "$API_BIN"
-echo "9a927916c29654c12826bb18d5b7c801a66dcb032992b766535e07ee4edb1302  $API_BIN" | sha256sum --check && \
+echo "8790225ad7ec65b31a3fc085776a1d120303f74d7d128ba9900ad13254434a90  $API_BIN" | sha256sum --check && \
 echo "API Installed and Verified"
 
 docker stop api && \
@@ -1451,7 +1451,7 @@ sudo ln -sf upgrades/v0.2.13-post6 .dapi/cosmovisor/current && \
 docker start api
 ```
 
-Verification uses two pins: **image digest** (`@sha256:2b6691…`) confirms the container you pulled, **binary sha256** (`9a927916…`) confirms the extracted `decentralized-api` file.
+Verification uses two pins: **image digest** (`@sha256:7a3b6d594688bd9d6a89810146027137565c316116e81b9a997e434ca6b4bf7d`) confirms the container you pulled, **binary sha256** (`8790225ad7ec65b31a3fc085776a1d120303f74d7d128ba9900ad13254434a90`) confirms the extracted `decentralized-api` file.
 
 **2. Update bridge image to 0.2.14**
 

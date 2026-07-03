@@ -1415,6 +1415,53 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## 升级
 
+### 升级 v0.2.14：升级前 API 和 Bridge 更新
+
+为确保主网升级期间 Ethereum bridge 稳定运行，在下一次主网升级之前更新 `api` 二进制文件非常重要。如果你有多个网络节点，请逐个更新。
+请确保在 PoC 或 cPoC 之外执行此步骤。
+
+所有命令均从 **deploy/join** 目录运行（该目录包含 `docker-compose.yml` 和 `.dapi/`）。
+
+**1. 下载 api 二进制文件并重启：**
+
+```bash
+API_IMG='ghcr.io/product-science/api:0.2.13-post6@sha256:7a3b6d594688bd9d6a89810146027137565c316116e81b9a997e434ca6b4bf7d'
+API_BIN='.dapi/cosmovisor/upgrades/v0.2.13-post6/bin/decentralized-api'
+
+sudo rm -rf .dapi/cosmovisor/upgrades/v0.2.13-post6/ .dapi/data/upgrade-info.json
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.13-post6/bin/
+
+docker pull "$API_IMG"
+test "$(docker inspect --format='{{.Id}}' "$API_IMG")" = 'sha256:7a3b6d594688bd9d6a89810146027137565c316116e81b9a997e434ca6b4bf7d' && echo "Image digest OK"
+
+docker run --rm "$API_IMG" cat /usr/bin/decentralized-api \
+  | sudo tee "$API_BIN" > /dev/null
+sudo chmod +x "$API_BIN"
+echo "8790225ad7ec65b31a3fc085776a1d120303f74d7d128ba9900ad13254434a90  $API_BIN" | sha256sum --check && \
+echo "API Installed and Verified"
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.13-post6 .dapi/cosmovisor/current && \
+docker start api
+```
+
+验证使用两个固定值：**镜像摘要** (`@sha256:7a3b6d…`) 确认你拉取的容器，**二进制 sha256** (`8790225…`) 确认提取的 `decentralized-api` 文件。
+
+**2. 将 bridge 镜像更新至 0.2.14**
+
+```yaml
+  bridge:
+    container_name: bridge
+    image: ghcr.io/product-science/bridge:0.2.14@sha256:e089082c43bf45222f9e1bfee14b837e2eaa5cdb765650e0c10a61517e7d101e
+```
+
+**3. 重启 bridge 容器**
+
+```bash
+source config.env && docker compose up --force-recreate bridge
+```
+
 ### 升级v0.2.12：升级前模型清理
 
 !!! note "重要"

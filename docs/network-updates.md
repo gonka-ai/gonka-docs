@@ -8,6 +8,38 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## July 6, 2026
+
+**Security update: PoC-v2 weight validation hardening — update your API container**
+
+Last week, a vulnerability was reported on HackerOne in the PoC-v2 weight path. A participant could inflate its compute weight, which drives block rewards, consensus voting power, and governance voting power.
+
+Based on historical data, this attack had not been observed previously. However, in the current epoch, its use by the host `gonka1w7s4pharl5qs2lupxkuw2c0gzcls8chehwafg3` was detected.
+
+A fix has already been prepared for the upcoming v0.2.14 chain upgrade, which will permanently close this issue. Since the attack is already in use, an API-only hotfix is available ahead of the upgrade — it can be deployed asynchronously and blocks the attack by strengthening PoC-v2 validation so replicated compute can no longer pass the sampling check. 
+
+Please update your API container. 
+
+Make sure to perform this step outside of PoC or cPoC.
+
+To deploy (one machine at a time to reduce risk):
+
+```
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.13-post7/ .dapi/data/upgrade-info.json
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.13-post7/bin/
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.13-post7/decentralized-api-amd64.zip' && \
+echo "55de4023119d103683cdbfa41c204274d3189636e4119ea3a2d8afdfa0a6fa47  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.13-post7/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.13-post7/bin/decentralized-api && \
+echo "API Installed and Verified"  && \
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.13-post7 .dapi/cosmovisor/current && \
+echo "e97d89cfaca98547b5966a87bd99ec6faab9df9eda1782f584a36d49237c01e6 .dapi/cosmovisor/current/bin/decentralized-api" && \
+docker start api
+```
+
 ## June 27, 2026
 
 **Kimi-K2.6 bootstrap: next attempt at epoch 311**

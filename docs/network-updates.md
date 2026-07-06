@@ -19,11 +19,8 @@ Based on historical data, this attack had not been observed previously. However,
 A fix has already been prepared for the upcoming v0.2.14 chain upgrade, which will permanently close this issue. Since the attack is already in use, an API-only hotfix is available ahead of the upgrade — it can be deployed asynchronously and blocks the attack by strengthening PoC-v2 validation so replicated compute can no longer pass the sampling check. 
 
 Please update your API container. 
-
 Make sure to perform this step outside of PoC or cPoC.
-
 To deploy (one machine at a time to reduce risk):
-
 ```
 sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.13-post7/ .dapi/data/upgrade-info.json
 sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.13-post7/bin/
@@ -36,7 +33,7 @@ echo "API Installed and Verified"  && \
 docker stop api && \
 sudo rm -rf .dapi/cosmovisor/current && \
 sudo ln -sf upgrades/v0.2.13-post7 .dapi/cosmovisor/current && \
-echo "e97d89cfaca98547b5966a87bd99ec6faab9df9eda1782f584a36d49237c01e6 .dapi/cosmovisor/current/bin/decentralized-api" && \
+echo "e97d89cfaca98547b5966a87bd99ec6faab9df9eda1782f584a36d49237c01e6  .dapi/cosmovisor/current/bin/decentralized-api" | sha256sum --check && \
 docker start api
 ```
 

@@ -1422,8 +1422,12 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ### Upgrade v0.2.14: Pre-upgrade API and Bridge Update
 
-To make sure the Ethereum bridge to be stable during mainnet upgrade, it's important to update `api` binaries before next mainnet upgrade. If you have multiple network nodes, please update them one by one.
-Check that you make this step outside of PoC or cPoC.
+To help keep the Ethereum bridge stable during the mainnet upgrade, it is important to update the `api` binaries before the next mainnet upgrade. You also need to update the bridge image to `0.2.14`.
+
+If your `api` binary has already been updated, you only need to update the bridge image and restart the bridge container.
+
+If you have multiple network nodes, please update them one by one.
+Please make sure to perform this step outside of PoC or cPoC.
 
 Run all commands from **deploy/join** (where `docker-compose.yml` and `.dapi/` are).
 
@@ -1453,6 +1457,8 @@ docker start api
 Verification uses two pins: **zip sha256** (`9a55cd5a90e56336db2d7c4901b275f9dfc95fa7635fdc1649d2f900fcc71b13`) confirms the downloaded archive, **binary sha256** (`60070669c870a3ee7c6e44bb2b1e63e3bc0e843cb86b3785ada98f3a4a06a5d3`) confirms the extracted `decentralized-api` file.
 
 **2. Update bridge image to 0.2.14**
+
+If your `api` binary has already been updated, start from this step.
 
 ```yaml
   bridge:

@@ -1425,28 +1425,27 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 **1. 下载 api 二进制文件并重启：**
 
 ```bash
-API_IMG='ghcr.io/product-science/api:0.2.13-post6@sha256:7a3b6d594688bd9d6a89810146027137565c316116e81b9a997e434ca6b4bf7d'
-API_BIN='.dapi/cosmovisor/upgrades/v0.2.13-post6/bin/decentralized-api'
+TAG='v0.2.13-post8'
+API_BIN=".dapi/cosmovisor/upgrades/$TAG/bin/decentralized-api"
 
-sudo rm -rf .dapi/cosmovisor/upgrades/v0.2.13-post6/ .dapi/data/upgrade-info.json
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.13-post6/bin/
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/$TAG/ .dapi/data/upgrade-info.json
+sudo mkdir -p .dapi/cosmovisor/upgrades/$TAG/bin/
 
-docker pull "$API_IMG"
-test "$(docker inspect --format='{{.Id}}' "$API_IMG")" = 'sha256:7a3b6d594688bd9d6a89810146027137565c316116e81b9a997e434ca6b4bf7d' && echo "Image digest OK"
-
-docker run --rm "$API_IMG" cat /usr/bin/decentralized-api \
-  | sudo tee "$API_BIN" > /dev/null
+wget -q -O decentralized-api.zip \
+  'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.13-post8/decentralized-api-amd64.zip'
+echo "9a55cd5a90e56336db2d7c4901b275f9dfc95fa7635fdc1649d2f900fcc71b13  decentralized-api.zip" | sha256sum --check
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/$TAG/bin/
 sudo chmod +x "$API_BIN"
-echo "8790225ad7ec65b31a3fc085776a1d120303f74d7d128ba9900ad13254434a90  $API_BIN" | sha256sum --check && \
+echo "60070669c870a3ee7c6e44bb2b1e63e3bc0e843cb86b3785ada98f3a4a06a5d3  $API_BIN" | sha256sum --check && \
 echo "API Installed and Verified"
 
 docker stop api && \
 sudo rm -rf .dapi/cosmovisor/current && \
-sudo ln -sf upgrades/v0.2.13-post6 .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/$TAG .dapi/cosmovisor/current && \
 docker start api
 ```
 
-验证使用两个固定值：**镜像摘要** (`@sha256:7a3b6d…`) 确认你拉取的容器，**二进制 sha256** (`8790225…`) 确认提取的 `decentralized-api` 文件。
+验证使用两个固定值：**zip sha256** (`9a55cd5a…`) 确认下载的压缩包，**二进制 sha256** (`60070669…`) 确认提取的 `decentralized-api` 文件。
 
 **2. 将 bridge 镜像更新至 0.2.14**
 

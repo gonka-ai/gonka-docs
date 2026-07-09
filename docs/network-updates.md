@@ -91,13 +91,13 @@ This is a call for review of the Pull Request only, and it does not initiate for
 
 **Devshard v3 governance vote**
 
-Governance voting for the devshard v3 runtime release begins shortly, at approximately 6:30 PM PDT on July 8, 2026 (01:30 UTC, July 9, 2026). The devshard v3 release is proposed and rolled out ahead of the mainnet chain upgrade so brokers can move inference traffic to `/devshard/v3` before the upgrade runs. Voting details will follow when the proposal enters governance.
+The devshard v3 release is proposed and rolled out ahead of the mainnet chain upgrade so brokers can move inference traffic to `/devshard/v3` before the upgrade runs.  
 
 **Action items for Hosts**
 
-1. Now — review the PR. Read [PR #1267 on GitHub](https://github.com/gonka-ai/gonka/pull/PR) and leave comments on any findings, questions, suggested improvements, edge cases, or vulnerabilities.
-2. Now / before the mainnet upgrade — update your API and bridge. To keep the Ethereum bridge stable during the mainnet upgrade, update the `ap`i binary and the bridge image to 0.2.14 ahead of time, following [the guide.](https://gonka.ai/docs/FAQ/#upgrade-v0214-pre-upgrade-api-and-bridge-update) If your `api` binary is already updated, you only need to update the bridge image and restart the bridge container. If you have already completed both steps, you do not need to repeat them. If you have multiple nodes, update them one by one, and perform this step outside of PoC or cPoC.
-3. ~6:30 PM PDT July 8 / 01:30 UTC July 9 — vote on devshard v3. Governance voting for the devshard v3 runtime opens. Cast your vote once the proposal is live; voting details will follow when it enters governance.
+1. Now — review the PR. Read PR #1267 on GitHub and leave comments on any findings, questions, suggested improvements, edge cases, or vulnerabilities.
+2. Now / before the mainnet upgrade — update your API and bridge. To keep the Ethereum bridge stable during the mainnet upgrade, update the `ap`i binary and the bridge image to 0.2.14 ahead of time, following the guide. If your `api` binary is already updated, you only need to update the bridge image and restart the bridge container. If you have already completed both steps, you do not need to repeat them. If you have multiple nodes, update them one by one, and perform this step outside of PoC or cPoC.
+3. Vote on devshard v3.
 4. Brokers — switch inference traffic to `/devshard/v3`. Once the devshard v3 release is rolled out, move inference traffic to `/devshard/v3` so you can keep serving inference during the chain upgrade.
 5. Dashboard maintainers — be ready to adjust how metrics are counted. Detailed instructions will be published later, after the `devshard v3` vote has launched and is successfully approaching its conclusion.
 

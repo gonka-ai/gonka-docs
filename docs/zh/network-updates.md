@@ -8,6 +8,33 @@
 
     本页面的内容不保证完整。如需获取最新信息，包括治理投票的发布及其当前状态，请参考链上数据或查看可用的浏览器和仪表板。
 
+## 2026年7月11日
+
+**v0.2.13-devshard-v3 运行时升级提案已通过治理**
+
+devshard v3 运行时已通过链上批准并添加至 `DevshardEscrowParams.approved_versions`。
+
+本提案涵盖 [devshard v3 发布。](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.14/proposals/governance-artifacts/update-v0.2.13-devshard-v3)
+
+这是一个仅针对 devshard 的运行时升级。它独立于完整链软件升级运行，无需链二进制升级。
+
+提案通过后，v3 现在与现有的 devshard 运行时并行运行。新进程在 `/devshard/v3` 前缀下提供服务，而现有的 devshard 流量可以继续使用早期运行时前缀，直到代理将流量切换到 v3。
+
+该发布将 `devshardd` 二进制文件作为 Gonka 发布工件发布。`versiond` 会自动下载二进制文件，验证 sha256 哈希值，并在现有 `versiond` 容器内启动额外的 `devshardd` 进程。
+
+对于此类仅 devshard 的运行时升级，无需重启主网或手动执行主机步骤。
+
+**代理的行动事项**
+
+代理应在主网 v0.2.14 链升级之前将推理流量切换到 `/devshard/v3`。这样他们就能在链升级运行期间继续提供推理服务，而无需依赖已弃用的经典 API 路径。
+
+**关键变更**
+
+1) 使代理能够在 v0.2.14 链升级期间继续提供推理服务，而无需依赖已弃用的经典 API 路径。
+2) 改进了 RAM 利用率。
+3) 修复了网关运行时行为。
+4) 支持在 SQLite 和 Postgres 存储之间安全切换。
+
 ## 2026年7月8日
 
 **v0.2.13-devshard-v3 运行时升级提案已进入治理阶段**

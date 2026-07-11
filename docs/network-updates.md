@@ -30,10 +30,10 @@ Brokers should switch inference traffic to `/devshard/v3` before the mainnet v0.
 
 **Key Changes**
 
-1) Prepared brokers to keep serving inference during the v0.2.14 chain upgrade without depending on the deprecated classic API path.
-2) Improved RAM utilization.
-3) Fixed gateway runtime behavior.
-4) Enabled safe switching between SQLite and Postgres storage.
+- Prepared brokers to keep serving inference during the v0.2.14 chain upgrade without depending on the deprecated classic API path.
+- Improved RAM utilization.
+- Fixed gateway runtime behavior.
+- Enabled safe switching between SQLite and Postgres storage.
 
 ## July 8, 2026
 

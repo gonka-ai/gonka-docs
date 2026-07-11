@@ -8,6 +8,33 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## July 11, 2026
+
+**The v0.2.13-devshard-v3 runtime upgrade proposal has passed governance**
+
+The devshard v3 runtime has been approved on-chain and added to `DevshardEscrowParams.approved_versions`.
+
+This proposal covered [the devshard v3 release.](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.14/proposals/governance-artifacts/update-v0.2.13-devshard-v3)
+
+This is a devshard-only runtime upgrade. It operates independently of full-chain software upgrades and does not require a chain binary upgrade.
+
+With the proposal approved, v3 now runs in parallel with the existing devshard runtimes. The new process is served under the `/devshard/v3` prefix, while existing devshard traffic can continue on earlier runtime prefixes until brokers switch traffic to v3.
+
+The release publishes the `devshardd` binary as a Gonka release artifact. `versiond` automatically downloads the binary, verifies the sha256 hash, and starts an additional `devshardd` process inside the existing `versiond` container.
+
+No mainnet restart or manual host steps are expected for this type of devshard-only runtime upgrade.
+
+**Action items for Brokers**
+
+Brokers should switch inference traffic to `/devshard/v3` before the mainnet v0.2.14 chain upgrade. This lets them keep serving inference while the chain upgrade runs, without depending on the deprecated classic API path.
+
+**Key Changes**
+
+1) Prepared brokers to keep serving inference during the v0.2.14 chain upgrade without depending on the deprecated classic API path.
+2) Improved RAM utilization.
+3) Fixed gateway runtime behavior.
+4) Enabled safe switching between SQLite and Postgres storage.
+
 ## July 8, 2026
 
 **The v0.2.13-devshard-v3 runtime upgrade proposal has entered governance**

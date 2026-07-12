@@ -14,66 +14,60 @@ landing: true
           <path d="M20.6062 0.0447591C20.5973 6.14511 20.5901 12.2455 20.5641 18.3459C20.5354 25.059 13.5075 31.7743 7.43628 38.4875C2.87637 34.4566 0 28.5647 0 22C0 10.3179 9.10536 0.763813 20.6062 0.0447591Z" fill="#2A2A2A"/>
           <path d="M23.3938 0.0447591C34.8946 0.763813 44 10.3179 44 22C44 28.5649 41.123 34.4565 36.5628 38.4875C30.4919 31.7747 23.4655 25.0585 23.4368 18.3459C23.4108 12.2455 23.4027 6.14511 23.3938 0.0447591Z" fill="#2A2A2A"/>
         </svg>
-      </a>
-      <nav class="header-nav" aria-label="Primary">
-        <div class="nav-group">
-          <a href="/whitepaper.pdf">
-            <span class="footer-link-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3.5h8l4 4V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20V3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.5 3.5V8h4.5M8.5 12h7M8.5 15h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <span>白皮书</span>
-          </a>
-          <a href="/tokenomics.pdf">
-            <span class="footer-link-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.25" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 14.5c0 1.1 1.1 2 2.5 2s2.5-.9 2.5-2-1.1-1.6-2.5-2-2.5-.9-2.5-2 1.1-2 2.5-2 2.5.9 2.5 2M12 6v1.5M12 16.5V18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            </span>
-            <span>代币经济学</span>
-          </a>
-          <a href="/docs/zh/" class="gonka-docs-link">
-            <span class="footer-link-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3.5h8l4 4V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20V3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.5 3.5V8h4.5M8.5 12h7M8.5 15h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <span>文档</span>
-          </a>
-        </div>
-        <div class="nav-group">
-          <a href="https://github.com/gonka-ai/gonka/" class="nav-social">
-            <span class="footer-link-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0083 2.16663C6.47396 2.16663 2 6.67357 2 12.2493C2 16.7062 4.86662 20.4789 8.84338 21.8142C9.34058 21.9146 9.5227 21.5973 9.5227 21.3303C9.5227 21.0966 9.50631 20.2954 9.50631 19.4606C6.72225 20.0616 6.14249 18.2587 6.14249 18.2587C5.69508 17.0901 5.03215 16.7898 5.03215 16.7898C4.12092 16.1721 5.09852 16.1721 5.09852 16.1721C6.1093 16.2389 6.63969 17.2071 6.63969 17.2071C7.53432 18.7427 8.97592 18.3088 9.55588 18.0417C9.63865 17.3907 9.90394 16.94 10.1856 16.6896C7.96514 16.4559 5.62891 15.5879 5.62891 11.715C5.62891 10.6132 6.02634 9.71186 6.65608 9.01082C6.55672 8.76048 6.20866 7.72532 6.75564 6.33985C6.75564 6.33985 7.60069 6.07271 9.5061 7.3748C10.3219 7.1541 11.1632 7.04183 12.0083 7.04088C12.8533 7.04088 13.7148 7.15786 14.5102 7.3748C16.4159 6.07271 17.2609 6.33985 17.2609 6.33985C17.8079 7.72532 17.4596 8.76048 17.3603 9.01082C18.0066 9.71186 18.3876 10.6132 18.3876 11.715C18.3876 15.5879 16.0514 16.4391 13.8143 16.6896C14.179 17.0067 14.4936 17.6076 14.4936 18.5592C14.4936 19.9113 14.4773 20.9964 14.4773 21.3301C14.4773 21.5973 14.6596 21.9146 15.1566 21.8144C19.1333 20.4787 22 16.7062 22 12.2493C22.0163 6.67357 17.526 2.16663 12.0083 2.16663Z" fill="currentColor"/></svg>
-            </span>
-            <span>GitHub</span>
-          </a>
-          <a href="https://x.com/gonka_ai" class="nav-social">
-            <span class="footer-link-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.1761 3.8468H19.9362L13.9061 10.6242L21 19.8468H15.4456L11.0951 14.2534L6.11723 19.8468H3.35544L9.80517 12.5976L3 3.8468H8.69545L12.6279 8.95942L17.1761 3.8468ZM16.2073 18.2222H17.7368L7.86441 5.38608H6.2232L16.2073 18.2222Z" fill="currentColor"/></svg>
-            </span>
-            <span>X</span>
-          </a>
-          <a href="https://discord.com/invite/RADwCT2U6R" class="nav-social">
-            <span class="footer-link-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.9308 5.64149C17.6561 5.05658 16.2892 4.62565 14.8599 4.37884C14.8339 4.37408 14.8079 4.38598 14.7945 4.40979C14.6187 4.72247 14.4239 5.13039 14.2876 5.45101C12.7503 5.22087 11.221 5.22087 9.71527 5.45101C9.57887 5.12326 9.37707 4.72247 9.20048 4.40979C9.18707 4.38678 9.16107 4.37487 9.13504 4.37884C7.70659 4.62487 6.33963 5.0558 5.06411 5.64149C5.05307 5.64625 5.04361 5.65419 5.03732 5.6645C2.44449 9.53813 1.73421 13.3166 2.08265 17.0481C2.08423 17.0664 2.09447 17.0839 2.10867 17.095C3.81934 18.3512 5.47642 19.1139 7.10273 19.6194C7.12876 19.6274 7.15634 19.6179 7.1729 19.5964C7.55761 19.0711 7.90054 18.5171 8.19456 17.9346C8.21192 17.9005 8.19535 17.86 8.15989 17.8465C7.61594 17.6402 7.098 17.3886 6.59977 17.1029C6.56037 17.0799 6.55721 17.0235 6.59347 16.9965C6.69831 16.918 6.80318 16.8362 6.9033 16.7537C6.92141 16.7386 6.94665 16.7354 6.96794 16.745C10.2411 18.2393 13.7846 18.2393 17.0191 16.745C17.0404 16.7346 17.0657 16.7378 17.0846 16.7529C17.1847 16.8354 17.2895 16.918 17.3952 16.9965C17.4314 17.0235 17.4291 17.0799 17.3897 17.1029C16.8914 17.3941 16.3735 17.6402 15.8288 17.8457C15.7933 17.8592 15.7775 17.9005 15.7949 17.9346C16.0952 18.5163 16.4381 19.0702 16.8157 19.5956C16.8315 19.6179 16.8599 19.6274 16.8859 19.6194C18.5201 19.1139 20.1772 18.3512 21.8879 17.095C21.9028 17.0839 21.9123 17.0672 21.9139 17.0489C22.3309 12.7348 21.2154 8.98737 18.9568 5.66529C18.9513 5.65419 18.9419 5.64625 18.9308 5.64149ZM8.68335 14.776C7.69792 14.776 6.88594 13.8713 6.88594 12.7602C6.88594 11.6491 7.68217 10.7444 8.68335 10.7444C9.69239 10.7444 10.4965 11.6571 10.4807 12.7602C10.4807 13.8713 9.68451 14.776 8.68335 14.776ZM15.329 14.776C14.3435 14.776 13.5316 13.8713 13.5316 12.7602C13.5316 11.6491 14.3278 10.7444 15.329 10.7444C16.338 10.7444 17.1421 11.6571 17.1264 12.7602C17.1264 13.8713 16.338 14.776 15.329 14.776Z" fill="currentColor"/></svg>
-            </span>
-            <span>Discord</span>
-          </a>
-        </div>
-      </nav>
+    </a>
+    <nav class="header-nav" aria-label="Primary">
+      <div class="nav-group">
+        <a href="/whitepaper.pdf">
+          <span class="footer-link-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3.5h8l4 4V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20V3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.5 3.5V8h4.5M8.5 12h7M8.5 15h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span>白皮书</span>
+        </a>
+        <a href="/tokenomics.pdf">
+          <span class="footer-link-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.25" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 14.5c0 1.1 1.1 2 2.5 2s2.5-.9 2.5-2-1.1-1.6-2.5-2-2.5-.9-2.5-2 1.1-2 2.5-2 2.5.9 2.5 2M12 6v1.5M12 16.5V18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <span>代币经济</span>
+        </a>
+        <a href="/docs/" class="gonka-docs-link">
+          <span class="footer-link-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3.5h8l4 4V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20V3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.5 3.5V8h4.5M8.5 12h7M8.5 15h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span>文档</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <a href="https://github.com/gonka-ai/gonka/" class="nav-social">
+          <span class="footer-link-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0083 2.16663C6.47396 2.16663 2 6.67357 2 12.2493C2 16.7062 4.86662 20.4789 8.84338 21.8142C9.34058 21.9146 9.5227 21.5973 9.5227 21.3303C9.5227 21.0966 9.50631 20.2954 9.50631 19.4606C6.72225 20.0616 6.14249 18.2587 6.14249 18.2587C5.69508 17.0901 5.03215 16.7898 5.03215 16.7898C4.12092 16.1721 5.09852 16.1721 5.09852 16.1721C6.1093 16.2389 6.63969 17.2071 6.63969 17.2071C7.53432 18.7427 8.97592 18.3088 9.55588 18.0417C9.63865 17.3907 9.90394 16.94 10.1856 16.6896C7.96514 16.4559 5.62891 15.5879 5.62891 11.715C5.62891 10.6132 6.02634 9.71186 6.65608 9.01082C6.55672 8.76048 6.20866 7.72532 6.75564 6.33985C6.75564 6.33985 7.60069 6.07271 9.5061 7.3748C10.3219 7.1541 11.1632 7.04183 12.0083 7.04088C12.8533 7.04088 13.7148 7.15786 14.5102 7.3748C16.4159 6.07271 17.2609 6.33985 17.2609 6.33985C17.8079 7.72532 17.4596 8.76048 17.3603 9.01082C18.0066 9.71186 18.3876 10.6132 18.3876 11.715C18.3876 15.5879 16.0514 16.4391 13.8143 16.6896C14.179 17.0067 14.4936 17.6076 14.4936 18.5592C14.4936 19.9113 14.4773 20.9964 14.4773 21.3301C14.4773 21.5973 14.6596 21.9146 15.1566 21.8144C19.1333 20.4787 22 16.7062 22 12.2493C22.0163 6.67357 17.526 2.16663 12.0083 2.16663Z" fill="currentColor"/></svg>
+          </span>
+          <span>GitHub</span>
+        </a>
+        <a href="https://x.com/gonka_ai" class="nav-social">
+          <span class="footer-link-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.1761 3.8468H19.9362L13.9061 10.6242L21 19.8468H15.4456L11.0951 14.2534L6.11723 19.8468H3.35544L9.80517 12.5976L3 3.8468H8.69545L12.6279 8.95942L17.1761 3.8468ZM16.2073 18.2222H17.7368L7.86441 5.38608H6.2232L16.2073 18.2222Z" fill="currentColor"/></svg>
+          </span>
+          <span>X</span>
+        </a>
+        <a href="https://discord.com/invite/RADwCT2U6R" class="nav-social">
+          <span class="footer-link-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.9308 5.64149C17.6561 5.05658 16.2892 4.62565 14.8599 4.37884C14.8339 4.37408 14.8079 4.38598 14.7945 4.40979C14.6187 4.72247 14.4239 5.13039 14.2876 5.45101C12.7503 5.22087 11.221 5.22087 9.71527 5.45101C9.57887 5.12326 9.37707 4.72247 9.20048 4.40979C9.18707 4.38678 9.16107 4.37487 9.13504 4.37884C7.70659 4.62487 6.33963 5.0558 5.06411 5.64149C5.05307 5.64625 5.04361 5.65419 5.03732 5.6645C2.44449 9.53813 1.73421 13.3166 2.08265 17.0481C2.08423 17.0664 2.09447 17.0839 2.10867 17.095C3.81934 18.3512 5.47642 19.1139 7.10273 19.6194C7.12876 19.6274 7.15634 19.6179 7.1729 19.5964C7.55761 19.0711 7.90054 18.5171 8.19456 17.9346C8.21192 17.9005 8.19535 17.86 8.15989 17.8465C7.61594 17.6402 7.098 17.3886 6.59977 17.1029C6.56037 17.0799 6.55721 17.0235 6.59347 16.9965C6.69831 16.918 6.80318 16.8362 6.9033 16.7537C6.92141 16.7386 6.94665 16.7354 6.96794 16.745C10.2411 18.2393 13.7846 18.2393 17.0191 16.745C17.0404 16.7346 17.0657 16.7378 17.0846 16.7529C17.1847 16.8354 17.2895 16.918 17.3952 16.9965C17.4314 17.0235 17.4291 17.0799 17.3897 17.1029C16.8914 17.3941 16.3735 17.6402 15.8288 17.8457C15.7933 17.8592 15.7775 17.9005 15.7949 17.9346C16.0952 18.5163 16.4381 19.0702 16.8157 19.5956C16.8315 19.6179 16.8599 19.6274 16.8859 19.6194C18.5201 19.1139 20.1772 18.3512 21.8879 17.095C21.9028 17.0839 21.9123 17.0672 21.9139 17.0489C22.3309 12.7348 21.2154 8.98737 18.9568 5.66529C18.9513 5.65419 18.9419 5.64625 18.9308 5.64149ZM8.68335 14.776C7.69792 14.776 6.88594 13.8713 6.88594 12.7602C6.88594 11.6491 7.68217 10.7444 8.68335 10.7444C9.69239 10.7444 10.4965 11.6571 10.4807 12.7602C10.4807 13.8713 9.68451 14.776 8.68335 14.776ZM15.329 14.776C14.3435 14.776 13.5316 13.8713 13.5316 12.7602C13.5316 11.6491 14.3278 10.7444 15.329 10.7444C16.338 10.7444 17.1421 11.6571 17.1264 12.7602C17.1264 13.8713 16.338 14.776 15.329 14.776Z" fill="currentColor"/></svg>
+          </span>
+          <span>Discord</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
-  <main class="gonka-main">      
-    <!-- Banner -->
-    <p class="gonka-banner">
-      <span class="nowrap">主网已上线。 </span>
-      <span class="nowrap">Kimi K2.6 和 MiniMax M2.7 现已可用。 </span>
-      <a class="nowrap" href="https://discord.com/invite/RADwCT2U6R">加入 Discord。</a>
-    </p>
+  <main class="gonka-main">
     <!-- Hero -->
     <section class="gonka-hero">
       <div class="gonka-inner">
         <h1>Gonka</h1>
-        <p class="tagline">AI 算力是新型“货币”</p>
+        <p class="tagline">AI计算已成为新货币</p>
         <p class="hero-uniswap">
           <a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">
-            <span>购买或出售 GNK，在</span>
+            <span>在</span>
             <svg class="uni-logo" width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6.84368 1.74872C6.53373 1.70049 6.52066 1.69483 6.66652 1.67236C6.94603 1.62924 7.60606 1.688 8.06088 1.79647C9.1227 2.04961 10.0889 2.69807 11.1202 3.84975L11.3942 4.15572L11.7862 4.09252C13.4375 3.82638 15.1174 4.03789 16.5224 4.68888C16.9089 4.86797 17.5184 5.22447 17.5945 5.31608C17.6187 5.34529 17.6633 5.53322 17.6935 5.73377C17.7978 6.4276 17.7455 6.95943 17.534 7.35664C17.4189 7.5728 17.4125 7.6413 17.4899 7.82629C17.5516 7.97391 17.7239 8.08317 17.8945 8.08293C18.2437 8.08246 18.6195 7.51636 18.7936 6.72869L18.8628 6.41581L18.9998 6.57148C19.7515 7.42554 20.3417 8.59027 20.4432 9.41932L20.4696 9.63548L20.3433 9.43897C20.1258 9.10083 19.9074 8.87064 19.6276 8.68498C19.1233 8.35033 18.5901 8.23644 17.178 8.16181C15.9026 8.0944 15.1808 7.98514 14.4651 7.75107C13.2473 7.35286 12.6334 6.82253 11.1869 4.91911C10.5444 4.07366 10.1473 3.60589 9.75229 3.22919C8.85468 2.37325 7.97269 1.92435 6.84368 1.74872Z" fill="#FF37C7"/>
               <path d="M17.8821 3.63639C17.9142 3.06986 17.9908 2.69619 18.1449 2.35494C18.2058 2.21986 18.2629 2.10931 18.2717 2.10931C18.2806 2.10931 18.2541 2.20901 18.2128 2.33084C18.1009 2.66203 18.0825 3.11502 18.1596 3.64205C18.2575 4.31076 18.3132 4.40725 19.0179 5.1296C19.3485 5.46841 19.7329 5.89573 19.8723 6.07919L20.1257 6.41278L19.8723 6.17438C19.5624 5.88284 18.8497 5.31428 18.6922 5.233C18.5866 5.17849 18.571 5.17943 18.5058 5.24443C18.4459 5.30433 18.4332 5.39433 18.4248 5.81981C18.4119 6.48293 18.3218 6.90857 18.1043 7.33416C17.9866 7.56435 17.9681 7.51522 18.0745 7.2554C18.1541 7.06141 18.1621 6.97613 18.1616 6.33418C18.1603 5.04435 18.0076 4.73426 17.1122 4.20308C16.8855 4.0685 16.5117 3.87444 16.2818 3.77179C16.0518 3.66913 15.8692 3.57972 15.8757 3.57304C15.9012 3.54773 16.7744 3.80334 17.1258 3.93893C17.6486 4.14063 17.7348 4.16676 17.7984 4.14243C17.8409 4.12613 17.8615 4.00181 17.8821 3.63639Z" fill="#FF37C7"/>
@@ -91,14 +85,13 @@ landing: true
       </div>
     </section>
 
-    <!-- Carousel -->
-    <div class="gonka-carousel">
+<div class="gonka-carousel">
       <div class="carousel-track">
         <div class="partner-card">
-          <span class="partner-label">审计方</span>
+          <span class="partner-label">审计</span>
           <div class="partner-logos">
             <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/certik.svg" alt="CertiK" />
+              <img src="images/logos/certik.svg" alt="CertiK" />
             </a>
           </div>
         </div>
@@ -106,35 +99,35 @@ landing: true
           <span class="partner-label">社区合作伙伴</span>
           <div class="partner-logos">
             <a href="https://web3.com/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/web3.svg" alt="Web3" />
+              <img src="images/logos/web3.svg" alt="Web3.com Ventures" />
             </a>
             <a href="https://www.hardyaka.com/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/hardyaka.svg" alt="Hard Yaka" />
+              <img src="images/logos/hardyaka.svg" alt="HardYaka" />
             </a>
             <a href="https://bitfury.com/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/bitfury.svg" alt="Bitfury" />
+              <img src="images/logos/bitfury.svg" alt="Bitfury" />
             </a>
           </div>
         </div>
         <div class="partner-card">
-          <span class="partner-label">优选主机</span>
+          <span class="partner-label">精选主机</span>
           <div class="partner-logos">
             <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/gcore.svg" alt="Gcore" />
+              <img src="images/logos/gcore.svg" alt="Gcore" />
             </a>
             <a href="https://hyperfusion.io/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/hyperfusion.svg" alt="Hyperfusion" />
+              <img src="images/logos/hyperfusion.svg" alt="Hyperfusion" />
             </a>
             <a href="https://6block.com/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/6block.svg" alt="6block" />
+              <img src="images/logos/6block.svg" alt="6blocks" />
             </a>
           </div>
         </div>
         <div class="partner-card">
-          <span class="partner-label">优选 AI 开发者</span>
+          <span class="partner-label">精选AI开发者</span>
           <div class="partner-logos">
             <a href="https://aidenai.io/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/aiden.svg" alt="Aiden" />
+              <img src="images/logos/aiden.svg" alt="Aiden" />
             </a>
           </div>
         </div>
@@ -142,36 +135,35 @@ landing: true
           <span class="partner-label">协议创建者</span>
           <div class="partner-logos">
             <a href="https://productscience.ai/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/productscience.svg" alt="Product Science" />
+              <img src="images/logos/productscience.svg" alt="Product Science" />
             </a>
-            <span class="partner-label">支持方</span>
+            <span class="partner-label">由</span>
             <a href="https://www.coatue.com/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/coatue.svg" alt="Coatue" />
+              <img src="images/logos/coatue.svg" alt="Coatue" />
             </a>
             <a href="https://slow.co/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/slow.svg" alt="Slow" />
+              <img src="images/logos/slow.svg" alt="Slow Ventures" />
             </a>
             <a href="https://www.mantisvc.com/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/mantis.svg" alt="Mantis" />
+              <img src="images/logos/mantis.svg" alt="Mantis" />
             </a>
             <a href="https://k5ventures.com/" target="_blank" rel="noopener noreferrer">
-              <img src="../images/logos/k5.svg" alt="K5" />
+              <img src="images/logos/k5.svg" alt="K5" />
             </a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Role grid / fork section -->
-    <section class="gonka-fork" aria-labelledby="get-started">
+<section class="gonka-fork" aria-labelledby="get-started">
       <div class="gonka-inner">
         <p class="gonka-eyebrow" id="get-started">开始使用</p>
         <div class="role-grid">
 
-          <!-- Card A: Developer (featured) -->
+<!-- Card A: Developer (featured) -->
           <div class="role-card role-card--featured">
             <h2 class="role-title">我是开发者</h2>
-            <p class="role-value">通过与 OpenAI 兼容的 API 运行推理。用 GNK 支付。</p>
+            <p class="role-value">通过OpenAI兼容的API运行推理。使用GNK支付。</p>
             <a class="role-cta gonka-doc-cta" href="/docs/developer/quickstart/">开始构建 <span aria-hidden="true">&rarr;</span></a>
             <ul class="role-links">
               <li>
@@ -179,7 +171,7 @@ landing: true
                   <span class="role-link-icon" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3.5h8l4 4V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20V3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.5 3.5V8h4.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
                   </span>
-                  <span>快速入门和 API 文档</span>
+                  <span>快速入门与API文档</span>
                 </a>
               </li>
               <li>
@@ -187,7 +179,7 @@ landing: true
                   <span class="role-link-icon" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.25" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 14.5c0 1.1 1.1 2 2.5 2s2.5-.9 2.5-2-1.1-1.6-2.5-2-2.5-.9-2.5-2 1.1-2 2.5-2 2.5.9 2.5 2M12 6v1.5M12 16.5V18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
                   </span>
-                  <span>可用模型与价格</span>
+                  <span>可用模型与定价</span>
                 </a>
               </li>
               <li>
@@ -195,7 +187,7 @@ landing: true
                   <span class="role-link-icon" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="13" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h.01M7 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                   </span>
-                  <span>SDK 与代理设置</span>
+                  <span>SDK与经纪人设置</span>
                 </a>
               </li>
             </ul>
@@ -203,8 +195,8 @@ landing: true
 
           <!-- Card B: GPU provider -->
           <div class="role-card">
-            <h2 class="role-title">我是 GPU 提供商</h2>
-            <p class="role-value">托管模型、提供推理服务并赚取 GNK。</p>
+            <h2 class="role-title">我是GPU提供方</h2>
+            <p class="role-value">托管模型、提供推理服务并赚取GNK。</p>
             <a class="role-cta gonka-doc-cta" href="/docs/host/quickstart/">成为主机 <span aria-hidden="true">&rarr;</span></a>
             <ul class="role-links">
               <li>
@@ -228,89 +220,19 @@ landing: true
                   <span class="role-link-icon" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="13" r="6" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 4.5 12 7l2.5-2.5M12 11v4M10.5 12.5h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </span>
-                  <span>奖励与代币经济学</span>
+                  <span>奖励与代币经济</span>
                 </a>
               </li>
             </ul>
           </div>
 
-        </div>
+</div>
       </div>
     </section>
   </main>
 
-<!-- Footer – 4 plain columns -->
+<!-- Footer -->
 <footer class="gonka-footer">
-  <!-- Horizontal Animated Carousel row over inner footer -->
-  <div class="gonka-carousel">
-    <div class="carousel-track">
-      <div class="partner-card">
-        <span class="partner-label">Auditor</span>
-        <div class="partner-logos">
-          <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/certik.svg" alt="CertiK" />
-          </a>
-        </div>
-      </div>
-      <div class="partner-card">
-        <span class="partner-label">Community Partners</span>
-        <div class="partner-logos">
-          <a href="https://web3.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/web3.svg" alt="Web3.com Ventures" />
-          </a>
-          <a href="https://www.hardyaka.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/hardyaka.svg" alt="HardYaka" />
-          </a>
-          <a href="https://bitfury.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/bitfury.svg" alt="Bitfury" />
-          </a>
-        </div>
-      </div>
-      <div class="partner-card">
-        <span class="partner-label">Select Hosts</span>
-        <div class="partner-logos">
-          <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/gcore.svg" alt="Gcore" />
-          </a>
-          <a href="https://hyperfusion.io/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/hyperfusion.svg" alt="Hyperfusion" />
-          </a>
-          <a href="https://6block.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/6block.svg" alt="6blocks" />
-          </a>
-        </div>
-      </div>
-      <div class="partner-card">
-        <span class="partner-label">Select AI Developers</span>
-        <div class="partner-logos">
-          <a href="https://aidenai.io/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/aiden.svg" alt="Aiden" />
-          </a>
-        </div>
-      </div>
-      <div class="partner-card">
-        <span class="partner-label">Protocol Creator</span>
-        <div class="partner-logos">
-          <a href="https://productscience.ai/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/productscience.svg" alt="Product Science" />
-          </a>
-          <span class="partner-label">backed by</span>
-          <a href="https://www.coatue.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/coatue.svg" alt="Coatue" />
-          </a>
-          <a href="https://slow.co/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/slow.svg" alt="Slow Ventures" />
-          </a>
-          <a href="https://www.mantisvc.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/mantis.svg" alt="Mantis" />
-          </a>
-          <a href="https://k5ventures.com/" target="_blank" rel="noopener noreferrer">
-            <img src="images/logos/k5.svg" alt="K5" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="footer-inner">
     <div class="brand">
       <a class="brand-logo" href="/">
@@ -370,14 +292,14 @@ landing: true
       <div class="footer-col">
         <h4>GNK</h4>
         <ul>
-          <li><a href="/tokenomics.pdf">Gonka 代币经济学</a></li>
-          <li><a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">Gonka 在 Uniswap</a></li>
+          <li><a href="/tokenomics.pdf">Gonka代币经济</a></li>
+          <li><a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">Gonka在Uniswap上</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>法律</h4>
         <ul>
-          <li><a href="/protocol-license.pdf">Gonka 协议许可</a></li>
+          <li><a href="/protocol-license.pdf">Gonka协议许可</a></li>
           <li><a href="#">专利</a></li>
           <li><a href="/disclaimer/">免责声明</a></li>
         </ul>
@@ -416,8 +338,8 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = this.href + '?from=landing';
     });
   });
-  
-  // Mobile header shadow on scroll
+
+// Mobile header shadow on scroll
   const header = document.querySelector('.gonka-header');
   if (header) {
     function handleScroll() {
@@ -428,14 +350,14 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // Add scroll event listener
+// Add scroll event listener
     window.addEventListener('scroll', handleScroll);
 
-    // Check initial scroll position
+// Check initial scroll position
     handleScroll();
   }
-  
-  // Smooth infinite carousel
+
+// Smooth infinite carousel
   const carouselTrack = document.querySelector('.gonka-carousel .carousel-track');
   if (carouselTrack) {
     // Capture the first set of cards before cloning
@@ -443,10 +365,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let raf = null;
     let offset = 0;   // current scroll offset in [0, period)
     let period = 0;   // width of one full set (A → A')
-    const speed = 72; // px per second
+    const speed = 72; // px per second (tweak as desired)
     let lastTs = null;
 
-    // Ensure we have enough copies (A, A', A'', ...) to cover viewport + one period
+// Ensure we have enough copies (A, A', A'', ...) to cover viewport + one period
     function ensureCopies(minCopies) {
       const have = Math.floor(carouselTrack.children.length / originals.length);
       const need = Math.max(2, minCopies | 0);
@@ -455,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // Measure repeat period using DOM positions: distance from first original to first clone
+// Measure repeat period using DOM positions: distance from first original to first clone
     function measurePeriod() {
       const first = originals[0];
       const firstClone = carouselTrack.children[originals.length];
@@ -469,12 +391,12 @@ document.addEventListener('DOMContentLoaded', function() {
       return p;
     }
 
-    function frame(ts) {
+function frame(ts) {
       if (lastTs == null) lastTs = ts;
       const dt = (ts - lastTs) / 1000; // seconds
       lastTs = ts;
 
-      // Advance by time, not by frames, then wrap with modulo to avoid any overshoot jump
+// Advance by time, not by frames, then wrap with modulo to avoid any overshoot jump
       offset += speed * dt;
       if (period > 0) {
         offset = offset % period; // keep in [0, period)
@@ -483,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
       raf = requestAnimationFrame(frame);
     }
 
-    function start() {
+function start() {
       if (raf == null) {
         lastTs = null;
         raf = requestAnimationFrame(frame);
@@ -497,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    // Initial clones and measurements
+// Initial clones and measurements
     ensureCopies(2);
     period = measurePeriod();
     const vpW0 = carouselTrack.parentElement.getBoundingClientRect().width;
@@ -505,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ensureCopies(minCopies0);
     period = measurePeriod();
 
-    // Recalculate on resize/font load while preserving progress to prevent visual snap
+// Recalculate on resize/font load while preserving progress to prevent visual snap
     function recompute() {
       const progress = period > 0 ? (offset % period) / period : 0;
       stop();
@@ -523,20 +445,79 @@ document.addEventListener('DOMContentLoaded', function() {
       start();
     }
 
-    window.addEventListener('resize', recompute);
+window.addEventListener('resize', recompute);
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(recompute);
     }
 
-    // GPU hint & pause on hover
+// GPU hint & pause on hover
     carouselTrack.style.willChange = 'transform';
     carouselTrack.parentElement.addEventListener('mouseenter', stop);
     carouselTrack.parentElement.addEventListener('mouseleave', start);
 
-    // Start animation
+// Start animation
     start();
   }
 });
 </script>
+
+<script>
+// Live on-chain pricing for the "Live on the network" table.
+// The governance endpoint exposes a single price_per_token (in ngonka) per
+// model; we convert to GNK per 1M tokens. On any failure we keep the seed rows
+// and show a cached/unavailable indicator rather than an empty table.
+document.addEventListener('DOMContentLoaded', function() {
+  const tbody = document.getElementById('live-pricing-rows');
+  const updated = document.getElementById('live-pricing-updated');
+  if (!tbody) return;
+
+// Must be HTTPS to avoid mixed-content blocking on the https site.
+  // TODO: point at an HTTPS, CORS-enabled pricing endpoint / aggregator.
+  const ENDPOINT = 'https://node2.gonka.ai:8000/v1/governance/pricing';
+  const NGONKA_PER_GONKA = 1e9;
+  const TOKENS = 1e6; // price shown per 1M tokens
+  const MAX_ROWS = 6;
+
+function displayName(id) {
+    if (!id) return '';
+    const last = id.indexOf('/') >= 0 ? id.slice(id.indexOf('/') + 1) : id;
+    return last;
+  }
+
+function gnkPer1M(pricePerToken) {
+    return (Number(pricePerToken) * TOKENS) / NGONKA_PER_GONKA;
+  }
+
+function stamp() {
+    try {
+      return new Date().toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' });
+    } catch (e) { return new Date().toUTCString(); }
+  }
+
+fetch(ENDPOINT, { headers: { 'Accept': 'application/json' } })
+    .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(data) {
+      const models = (data && Array.isArray(data.models)) ? data.models : [];
+      if (!models.length) throw new Error('no models');
+      const rows = models.slice(0, MAX_ROWS).map(function(m) {
+        const price = gnkPer1M(m.price_per_token).toFixed(2);
+        const tr = document.createElement('tr');
+        const tdName = document.createElement('td');
+        tdName.textContent = displayName(m.id);
+        const tdPrice = document.createElement('td');
+        tdPrice.className = 'num';
+        tdPrice.textContent = price + ' GNK';
+        tr.appendChild(tdName);
+        tr.appendChild(tdPrice);
+        return tr;
+      });
+      tbody.replaceChildren.apply(tbody, rows);
+      if (updated) updated.textContent = 'last updated: ' + stamp();
+    })
+    .catch(function() {
+      // Keep seed rows; signal that live data is unavailable.
+      if (updated) updated.textContent = 'last updated: live feed unavailable';
+    });
+});
 </script>
 </div>

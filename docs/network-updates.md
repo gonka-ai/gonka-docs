@@ -24,7 +24,7 @@ The release publishes the `devshardd` binary as a Gonka release artifact. `versi
 
 No mainnet restart or manual host steps are expected for this type of devshard-only runtime upgrade.
 
-**Action items for Brokers**
+**Action items**
 
 Whitelisted devshard creators should switch inference traffic to `/devshard/v3` before the mainnet v0.2.14 chain upgrade. This lets them keep serving inference while the chain upgrade runs, without depending on the deprecated classic API path.
 

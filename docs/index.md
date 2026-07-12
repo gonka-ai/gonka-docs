@@ -217,36 +217,6 @@ landing: true
       </div>
     </section>
 
-    <!-- Live on the network: on-chain pricing -->
-    <section class="gonka-live" aria-labelledby="live-network">
-      <div class="gonka-inner">
-        <div class="live-card">
-          <div class="live-head">
-            <span class="live-title" id="live-network">
-              Live on the network
-            </span>
-            <span class="live-caption">on-chain pricing &middot; per 1M tokens</span>
-          </div>
-          <table class="live-table">
-            <thead>
-              <tr>
-                <th scope="col">Model</th>
-                <th scope="col" class="num">Price (GNK)</th>
-              </tr>
-            </thead>
-            <tbody id="live-pricing-rows">
-              <!-- Seed rows (illustrative placeholders); replaced by live data when available -->
-              <tr><td>Kimi K2.6</td><td class="num">&mdash; GNK</td></tr>
-              <tr><td>MiniMax M2.7</td><td class="num">&mdash; GNK</td></tr>
-              <tr><td>Qwen3-235B</td><td class="num">&mdash; GNK</td></tr>
-            </tbody>
-          </table>
-          <div class="live-foot">
-            <a class="live-viewall gonka-doc-cta" href="/docs/wallet/pricing/">View all models &amp; pricing <span aria-hidden="true">&rarr;</span></a>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
 <!-- Footer -->

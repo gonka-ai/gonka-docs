@@ -26,7 +26,7 @@ No mainnet restart or manual host steps are expected for this type of devshard-o
 
 **Action items for Brokers**
 
-Brokers should switch inference traffic to `/devshard/v3` before the mainnet v0.2.14 chain upgrade. This lets them keep serving inference while the chain upgrade runs, without depending on the deprecated classic API path.
+Whitelisted devshard creators should switch inference traffic to `/devshard/v3` before the mainnet v0.2.14 chain upgrade. This lets them keep serving inference while the chain upgrade runs, without depending on the deprecated classic API path.
 
 **Key Changes**
 

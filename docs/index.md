@@ -319,6 +319,7 @@ landing: true
         <ul>
           <li><a href="/protocol-license.pdf">Gonka Protocol License</a></li>
           <li><a href="#">Patents</a></li>
+          <li><a href="/disclaimer/">Disclaimer</a></li>
         </ul>
       </div>
     </div>

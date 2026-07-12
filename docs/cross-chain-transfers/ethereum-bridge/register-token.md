@@ -71,7 +71,7 @@ Create a file named `register_token_proposal.json`. This proposal will include t
     }
   ],
   "metadata": "ipfs://CID",
-  "deposit": "10000000ngonka",
+  "deposit": "500000000000ngonka",
   "title": "Register Wrapped SYMBOL Token Metadata",
   "summary": "This proposal registers the metadata for the SYMBOL ERC-20 token bridged from Ethereum on the Gonka chain."
 }
@@ -112,7 +112,7 @@ inferenced query gov proposals --node $SEED_URL/chain-rpc/
 If your initial deposit was below the minimum required to enter the voting period, top it up:
 
 ```bash
-inferenced tx gov deposit <proposal_id> 10000000ngonka \
+inferenced tx gov deposit <proposal_id> 500000000000ngonka \
   --from <cold-key-name> \
   --keyring-backend file \
   --unordered --timeout-duration=60s \
@@ -142,7 +142,7 @@ After the voting period ends and the proposal passes, you can verify that the me
 Query the token metadata using the chain API or CLI:
 
 ```bash
-curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/token_metadata/ethereum/0xTokenContractAddressOnEthereum"
+curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/token_metadata/ethereum/0xTokenContractAddressOnEthereum"
 ```
 
 ##### 2. Verify Wrapped Token Balances
@@ -150,7 +150,7 @@ curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/t
 Once a user bridges their tokens to the bridge contract on Ethereum, the Gonka consensus will automatically instantiate a wrapped CW-20 contract for the token and assign the minted balance to the user's derived address. You can query the balance:
 
 ```bash
-curl "https://node2.gonka.ai:8433/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
+curl "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/wrapped_token_balances/{gonkaAddress}"
 ```
 
 ##### 3. One wrapped contract per token

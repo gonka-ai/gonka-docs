@@ -272,10 +272,6 @@ body:has(.gonka-landing) .gonka-header{padding-left:calc(max((100vw - 1440px)/2,
   .gonka-hero{min-height:28vh;padding:96px 0 24px;}
 }
 
-@media (prefers-reduced-motion: reduce){
-  .card,.role-card,.role-cta,.role-link-icon,.gonka-doc-cta{transition:none !important;}
-}
-
 /* Dark mode hero background */
 [data-md-color-scheme="slate"] .gonka-hero::before{
   background:url("../images/landing-dark.png") center/cover no-repeat;
@@ -291,6 +287,13 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
 }
 [data-md-color-scheme="slate"] .tagline {
   color: #bbb;
+}
+[data-md-color-scheme="slate"] .gonka-cta__label {
+  color: #fff;
+}
+/* Keep the Uniswap brand colour; don't invert it like the mono logos. */
+[data-md-color-scheme="slate"] .gonka-uniswap-icon {
+  filter: none !important;
 }
 
 [data-md-color-scheme="slate"] .footer-col h4,
@@ -742,6 +745,60 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
    dark landing background. */
 [data-md-color-scheme="slate"] .gonka-landing .partner-logos img{filter:grayscale(1) invert(1);opacity:0.6;}
 [data-md-color-scheme="slate"] .gonka-landing .partner-logos a:hover img{filter:grayscale(1) invert(1) brightness(1.6);opacity:1;}
+
+/* == 6b. Standalone content page (Gonka, e.g. /disclaimer/) ===== */
+/* Reuses .gonka-landing chrome (hidden Material header/sidebar, full-width
+   grid) but lays content out from the top with the footer pinned at the
+   bottom, instead of vertically centering a hero. */
+.gonka-landing--doc{justify-content:flex-start;}
+
+/* The landing variant forces the content wrapper to exactly 100vh so the
+   hero can center; for a flowing document we want it to grow with content. */
+body:has(.gonka-landing--doc) .md-content__inner,
+body:has(.gonka-landing--doc) .md-content__inner > div{
+  height:auto !important;
+  min-height:100vh !important;
+}
+
+.gonka-landing--doc .gonka-main{
+  justify-content:flex-start;
+  align-items:stretch;
+}
+
+.gonka-doc-section{
+  width:100%;
+  padding:156px 20px 80px;
+}
+@media (max-width:500px){
+  .gonka-doc-section{padding:96px 16px 64px;}
+}
+
+/* Centered 800px column with left-aligned text, matching the Figma design. */
+.gonka-doc-content{
+  width:100%;
+  max-width:800px;
+  margin:0 auto;
+}
+.gonka-doc-section h1{
+  font-size:24px;
+  line-height:1.1;
+  letter-spacing:-0.04em;
+  font-weight:500;
+  color:#2a2a2a;
+  margin:0 0 40px;
+}
+.gonka-doc-section p{
+  font-size:15px;
+  font-weight:400;
+  line-height:1.2;
+  letter-spacing:-0.01em;
+  color:#2a2a2a;
+  margin:0;
+}
+
+/* Dark mode */
+[data-md-color-scheme="slate"] .gonka-doc-section h1{color:#fff;}
+[data-md-color-scheme="slate"] .gonka-doc-section p{color:#e0e0e0;}
 
 /* == 7. Helper buttons (site‑wide) ============================== */
 .header-button{margin-left:15px;padding:8px 16px;font-weight:bold;color:#fff;text-decoration:none;border-radius:5px;transition:background-color .3s;}

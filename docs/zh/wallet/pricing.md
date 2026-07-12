@@ -1,85 +1,88 @@
 # 定价
 
-网络对推理费用采用自动动态定价机制。
-每个模型都有实时的 AI token 价格，基于实际需求与利用率指标在每个区块重新计算。
+网络采用自动动态定价机制来计算推理成本。
+每个模型都有一个实时AI代币价格，该价格基于实际需求和利用率指标在每个区块中重新计算。
+
+!!! note "这是网络价格，而非您支付给经纪人的价格"
+    此处描述的机制设定了**协议层的链上每推理单位价格**。如果您通过[社区经纪人](../developer/quickstart.md#11-pick-a-broker)访问Gonka，该经纪人是独立的转售方，会在该价格基础上自行设定零售价格、支付方式和速率限制，并可能覆盖其自身成本。因此，您实际支付的价格因经纪人而异，请查阅每个经纪人的条款，选择最适合您的方案。
 
 ## 定价机制
 
-- 系统按区块监控每个模型的使用情况。
+- 系统以区块为单位监控每个模型的使用情况。
 - 对于每个模型：
-    - 若利用率高于目标 → 价格上调。
-    - 若利用率低于目标 → 价格下调。
-- 为保持稳定性，单区块的涨跌幅有上限。
-- 价格直接以币值计价。
+    - 如果利用率高于目标 → 价格上升。
+    - 如果利用率低于目标 → 价格下降。
+- 调整幅度受每区块最大增减速率限制，以维持稳定性。
+- 价格直接以代币表示。
 
 ## 价格调整算法
-动态定价的核心是“稳定区间模型”，在可接受的利用率范围内保持价格稳定，超出范围则自动调整价格，使网络利用率保持在最优区间。系统实现了基于区块的调整机制，具有明确的稳定区间与最大调整幅度限制。
+动态定价系统的核心是一个稳定性区域模型，该模型自动调整价格，以在可接受的利用率范围内维持最优网络利用率和价格稳定。系统采用基于区块的调整机制，定义了稳定性区域和最大变更限制。
 
-### 稳定区间模型
-系统将 40%–60% 定义为利用率“稳定区间”，在此区间内价格不变。超出该区间时，价格会调整以引导利用率回归最优范围。计算流程如下：
+### 稳定性区域模型
+系统为网络利用率定义了一个40%至60%的稳定性区域，在此范围内价格保持不变。超出该区域时，价格将调整以促使利用率回归最优范围。计算过程如下：
 
-1. 当前利用率计算：在每个区块结束时，根据当前区块与近期区块处理的推理请求量相对估算网络容量计算最近利用率。
-2. 稳定区间检查：若利用率在 40%–60% 之间，则不调整价格，维持正常网络运行时的价格稳定。
-3. 价格调整：利用率低于 40% 时，下调价格以鼓励更多使用；高于 60% 时，上调价格以抑制需求。
-4. 线性价格调整：价格变动与偏离稳定区间的幅度成正比；弹性系数决定在极端利用率（0% 或 100%）下的单区块最大变动。
+1. **当前利用率计算**：在每个区块结束时，系统根据当前区块和近期区块历史中的推理请求数量与预估网络容量，计算近期利用率。
+2. **稳定性区域检查**：如果利用率为40%至60%，则不进行价格调整，以在正常网络运行期间保持价格稳定。
+3. **价格调整**：如果利用率低于40%，价格降低以鼓励更多使用；如果利用率高于60%，价格提高以抑制需求。
+4. **线性价格调整**：价格变化与利用率偏离稳定性区域的程度成正比，弹性参数决定在极端利用率（0%或100%）时的最大变化幅度。
 
 ??? note "价格调整公式"
-    定价计算参考以太坊 EIP-1559 的思路，但对每个模型独立计算：
-    
+    价格计算遵循以下公式，类似于以太坊的EIP-1559，但每个模型独立计算：
+
     ```
-    // 逐模型计算利用率与价格
+    // Calculate per-model utilization and pricing
     for each_model in active_epoch_models:
-        model_capacity = get_cached_capacity(model_id)  // 从 capacity/{model_id} KV 读取
+        model_capacity = get_cached_capacity(model_id)  // from capacity/{model_id} KV store
         model_utilization = model_tokens_processed_in_recent_blocks[model_id] / model_capacity
     
         if model_utilization >= 0.40 and model_utilization <= 0.60:
-            // 稳定区间 - 不调整
+            // Stability zone - no price change
             new_model_price[model_id] = previous_model_price[model_id]
         else if model_utilization < 0.40:
-            // 低于稳定区间 - 降价
+            // Below stability zone - decrease price
             utilization_deficit = 0.40 - model_utilization
             adjustment_factor = 1.0 - (utilization_deficit * price_elasticity)
             new_model_price[model_id] = previous_model_price[model_id] * adjustment_factor
         else:
-            // 高于稳定区间 - 涨价
+            // Above stability zone - increase price
             utilization_excess = model_utilization - 0.60
             adjustment_factor = 1.0 + (utilization_excess * price_elasticity)
             new_model_price[model_id] = previous_model_price[model_id] * adjustment_factor
     
-        // 保底：单 token 不低于 1 nicoin
+        // Ensure price never goes below 1 nicoin per token
         new_model_price[model_id] = max(new_model_price[model_id], min_per_token_price)
     ```
-    
-    在默认弹性 0.05 下，表示对每个模型：
-    
-    - 最大价格变动：单区块 2%/模型（在 0% 或 100% 利用率极端情况下）
-    - 20% 利用率：该模型单区块降价 1%
-    - 80% 利用率：该模型单区块涨价 1%
-    - 价格下限：不低于 1 nicoin，避免零价并维持网络经济性
-    - 独立定价：各模型价格根据自身供需与容量独立调整
-      
-    1 nicoin 的最低价格兼具技术与经济保障：
-    
-    - 避免零价格带来的计算问题
+
+    在默认弹性为0.05的情况下，每个模型独立计算如下：
+
+    - 最大价格变动：每个区块每模型最多2%（当模型利用率达到0%或100%时）
+    - 在20%模型利用率时：该模型每个区块价格下降1%
+    - 在80%模型利用率时：该模型每个区块价格上涨1%
+    - 价格下限：永不跌破1 nicoin，以防止零成本场景并维持网络经济性
+    - 独立定价：每个模型的价格根据其自身需求和容量独立调整
+
+    最低价格1 nicoin是一种技术和经济保障：
+
+    - 防止零定价引发的计算问题
     - 确保参与者始终获得最低补偿
-    - 即使在极低需求期，也保持网络激励结构
-    - 使用最小计价单位，既几乎可忽略，又能有效避免边界问题
+    - 即使在极低需求下仍维持网络激励结构
+    - 使用最小单位，使其在实际中可忽略，同时避免边缘情况
 
 ## 查询当前定价
-当前网络的定价配置可以从任意活跃节点进行查询。
+当前网络定价配置可从任何活跃节点查询。
 ```
 curl http://node2.gonka.ai:8000/v1/governance/pricing | jq
 ```
-示例返回：
+示例响应：
 ```
-  % 总计    % 接收 % 传输  平均速度   时间    时间     时间  当前
-                                 下载  上传   总计   已用    剩余  速度
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
 100   175  100   175    0     0    315      0 --:--:-- --:--:-- --:--:--   314
 {
   "unit_of_compute_price": 100,
   "models": [
     {
-      "id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "id": "MiniMaxAI/MiniMax-M2.7",
       "units_of_compute_per_token": 10000,
       "price_per_token": 1
     }
@@ -88,37 +91,37 @@ curl http://node2.gonka.ai:8000/v1/governance/pricing | jq
 }
 ```
 
-## 支持的计价单位
+## 支持的面额
 
-在链上，唯一有效的计量单位是 `ngonka`。所有余额、手续费和交易必须全部使用 `ngonka`。  
-Cosmos SDK 虽然允许定义额外的计量单位，但这些单位并不具有实际效用 —— SDK **不会**在它们之间执行任何自动换算。  
-`gonka` 仅作为链下、面向用户的显示单位使用。它代表 10 亿（1,000,000,000）`ngonka`，并不存在于链上。
+链上唯一有效的面额是 `ngonka`。所有余额、费用和交易必须 exclusively 使用 `ngonka`。
+Cosmos SDK 允许定义其他面额，但这些面额无效 — SDK 不会在它们之间自动转换。
+`gonka` 仅用作链下、面向用户的显示单位。它代表10亿 `ngonka`，本身并不存在于链上。
 
-**有效单位（Effective Units）**
+**有效单位**
 
-| Unit     | 用途（Purpose）               | 链上可用？（On-chain?） | 比例（Ratio）                                |
-|----------|-------------------------------|--------------------------|-----------------------------------------------|
-| `ngonka` | 网络中的基础单位               | 是（Yes）               | 1                                             |
-| `gonka`  | 便于阅读的显示单位（链下）     | 否（No）                | 1 `gonka` = 1,000,000,000 `ngonka`            |
+| 单位 | 用途 | 链上？ | 比率 |
+|--------|----------------------------------|-----------|--------------------------------------|
+| `ngonka` | 网络使用的基准单位 | 是 | 1 |
+| `gonka` | 人类可读的显示单位 | 否 | 1 `gonka` = 1,000,000,000 `ngonka` |
 
-## 经济效益与影响
+## 收益与经济影响
 
-动态定价带来多方面的经济与运营益处：
+动态定价系统提供了若干经济和运营优势：
 
-- 模型级市场效率：按模型自动发现价格，使推理费用真实反映该模型的供需与计算要求，提升资源分配效率并实现公平定价。
-- 面向模型的网络稳定性：按模型目标利用率调节，既避免热门模型拥堵，也减少小众模型闲置，保证整体服务质量一致。
-- 更强的参与者激励：动态定价鼓励参与者：
-    - 维护多样化模型组合以捕捉不同定价机会
-    - 针对重算力模型维持高性能节点
-    - 根据需求模式优化模型间资源分配
-    - 在所支持模型的峰值时段保持在线
-- 友好的开发者体验：可预期的逐模型定价叠加宽限期，为开发者提供：
-    - 更好的特定模型成本预测
-    - 清晰的需求与资源信号
-    - 针对用例选择最优模型的灵活性
-    - 所有模型在早期阶段的“零成本”尝试机会
+- **每模型市场效率**。为每个AI模型自动发现价格，确保推理成本反映特定模型的真实供需状况，从而实现更高效的资源分配和公平定价，兼顾不同的计算需求和流行程度。
+- **模型特定的网络稳定性**。通过针对每个模型优化利用率，系统既防止了热门模型的网络拥塞，也避免了专业模型的资源闲置，保障整个模型组合的服务质量一致。
+- **增强的参与者激励**。动态定价为参与者创造了更强的经济激励：
+    - 支持多样化的模型组合以捕捉不同的定价机会
+    - 为资源密集型模型维护高性能节点
+    - 根据需求模式优化其跨模型的资源分配
+    - 在支持的模型需求高峰期间保持在线
+- **模型感知的开发者体验**。可预测的每模型定价算法结合宽限期，为开发者提供：
+    - 更精准的特定模型成本预测能力
+    - 清晰的经济信号，反映模型需求和资源要求
+    - 根据使用场景灵活选择最优模型
+    - 在所有模型上无成本障碍地获得早期开发机会
 
-## 参考
+## 参考资料
 
-- [Tokenomics V2 Proposal: Dynamic Pricing](https://github.com/gonka-ai/gonka/blob/dl/tokenomics-v2/proposals/tokenomics-v2/dynamic-pricing.md)
-- [Dynamic Pricing Task Plan](https://github.com/gonka-ai/gonka/blob/dl/tokenomics-v2/proposals/tokenomics-v2/dynamic-pricing-todo.md)
+- [Tokenomics V2 提案：动态定价](https://github.com/gonka-ai/gonka/blob/dl/tokenomics-v2/proposals/tokenomics-v2/dynamic-pricing.md)
+- [动态定价任务计划](https://github.com/gonka-ai/gonka/blob/dl/tokenomics-v2/proposals/tokenomics-v2/dynamic-pricing-todo.md)

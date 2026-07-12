@@ -41,6 +41,28 @@ Proposers are encouraged to discuss significant changes off-chain first (for exa
     - [Voting on Proposals](/governance/voting-on-proposals/)
     - [Voting Power, Eligibility, Delegation](/governance/voting-power-eligibility/)
 
+## Check Live Governance Parameters
+
+Governance parameters can be changed by successful proposals. Always query the chain for current values before preparing a proposal, publishing voting instructions, or explaining whether a proposal is likely to pass.
+
+```bash
+inferenced query gov params -o json --node <NODE_URL>/chain-rpc/ \
+  | jq '.params | {
+      min_deposit,
+      expedited_min_deposit,
+      max_deposit_period,
+      voting_period,
+      expedited_voting_period,
+      quorum,
+      threshold,
+      expedited_threshold,
+      veto_threshold,
+      burn_vote_veto
+    }'
+```
+
+At the time of writing, mainnet uses a 48-hour regular voting period, 12-hour expedited voting period, 25% quorum, >50% regular Yes threshold, >66.7% expedited Yes threshold, >33.4% veto threshold, 500 GNK minimum deposit for regular proposals, and 1000 GNK minimum deposit for expedited proposals.
+
 ## Track Proposal Status
 
 ```bash
@@ -52,6 +74,8 @@ inferenced query gov tally <VOTE_PROPOSAL_ID> -o json --node <NODE_URL>/chain-rp
 inferenced query gov proposals -o json --node <NODE_URL>/chain-rpc/
 ```
 ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/build/modules/gov/README))
+
+For the full quorum, threshold, veto, and `abstain` formulas, see [Voting on Proposals](/governance/voting-on-proposals/#how-the-result-is-counted).
 
 **You can also monitor governance via dashboards:**
 

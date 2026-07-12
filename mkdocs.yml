@@ -43,20 +43,21 @@ nav:
     - Dashboard: wallet/dashboard.md
     - Pricing: wallet/pricing.md
     - Cross-chain transfers:
+      - Bridge via dashboard (UI guide): cross-chain-transfers/ethereum-bridge/dashboard.md
       - Ethereum bridge:
         - Overview: cross-chain-transfers/ethereum-bridge/overview.md
         - Addresses and keys: cross-chain-transfers/ethereum-bridge/addresses-and-keys.md
-        - Bridge via dashboard (UI guide): cross-chain-transfers/ethereum-bridge/dashboard.md
         - Bridge epoch update: cross-chain-transfers/ethereum-bridge/bridge-epoch-update.md
         - Register a token: cross-chain-transfers/ethereum-bridge/register-token.md
         - Deposit USDT (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/deposit-usdt.md
         - Withdraw USDT (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/withdraw-usdt.md
         - Deposit GNK (Gonka → Ethereum): cross-chain-transfers/ethereum-bridge/deposit-gnk.md
         - Withdraw GNK (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/withdraw-gnk.md
-        - Dashboard & tracker integration: cross-chain-transfers/ethereum-bridge/tracker-integration.md
       - IBC:
         - Withdraw USDT via Kava (Gonka → Ethereum): cross-chain-transfers/ibc/withdraw-usdt-via-kava.md
-      - Widget integration: cross-chain-transfers/widget-integration.md
+      - Developer integration:
+        - Widget integration: cross-chain-transfers/widget-integration.md
+        - Dashboard & tracker integration: cross-chain-transfers/ethereum-bridge/tracker-integration.md
 
   - Governance:
     - Transactions & Governance: governance/transactions-and-governance.md
@@ -65,7 +66,6 @@ nav:
     - Voting Power, Eligibility, Delegation: governance/voting-power-eligibility.md
 
   - Reference:
-    - Software upgrades: software-upgrades.md
     - Model licenses: model-licenses.md
     - Dashboard maintainer memo v0.2.13: dashboard-maintainer-memo-v0.2.13.md
     - Errors: Errors.md
@@ -74,6 +74,7 @@ nav:
     - Network updates: network-updates.md
     - FAQ: FAQ.md
     - Get help: help.md
+    - Report a Vulnerability: report-vulnerability.md
 
 # Visual
 theme:
@@ -202,7 +203,9 @@ plugins:
             Dashboard: 仪表盘
             Pricing: 价格
             Cross-chain transfers: 跨链转账
+            Developer integration: 开发者集成
             Widget integration: 组件集成
+            Dashboard & tracker integration: 仪表盘与跟踪器集成
             IBC: IBC
             "Withdraw USDT via Kava (Gonka → Ethereum)": "通过 Kava 提取 USDT（Gonka → 以太坊）"
             Overview: 概述
@@ -223,7 +226,6 @@ plugins:
             Voting Power,Eligibilty,Delegation: 投票权、资格与委托
             Reference: 参考
             Transactions & governance: 交易与治理
-            Software upgrades: 软件升级
             "Model licenses": 模型许可
             Dashboard maintainer memo v0.2.13: 仪表盘维护者备忘录 v0.2.13
             Errors: 错误
@@ -231,6 +233,7 @@ plugins:
             Network updates: 网络更新
             FAQ: 常见问题
             "Get help": 获取支持
+            "Report a Vulnerability": 报告漏洞
 
 strict: true
 

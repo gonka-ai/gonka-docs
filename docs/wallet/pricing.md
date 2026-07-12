@@ -3,6 +3,9 @@
 The network uses an automatic dynamic pricing mechanism for inference costs.
 Each model has a real-time AI token price that is recalculated every block based on actual demand and utilization metrics.
 
+!!! note "This is the network price, not the price you pay a broker"
+    The mechanism described here sets the **protocol-level, on-chain price per inference unit**. If you access Gonka through a [community broker](../developer/quickstart.md#11-pick-a-broker), the broker is an independent reseller that sets its own retail prices, payment methods, and rate limits on top of this, and may cover its own costs as well. The price you actually pay therefore differs from broker to broker, so check each broker's terms and find what works for you.
+
 ## Pricing Mechanism
 
 - The system monitors usage of every model on a per-block basis.
@@ -79,7 +82,7 @@ Example response:
   "unit_of_compute_price": 100,
   "models": [
     {
-      "id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "id": "MiniMaxAI/MiniMax-M2.7",
       "units_of_compute_per_token": 10000,
       "price_per_token": 1
     }

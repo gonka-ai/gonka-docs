@@ -145,7 +145,7 @@ inferenced tx gov draft-proposal
     }
   ],
   "metadata": "ipfs://CID",  // 托管在 IPFS 上的元数据文件路径
-  "deposit": "10000000ngonka",               // 满足 min_deposit
+  "deposit": "500000000000ngonka",               // 满足 min_deposit
   "title": "调整 epoch 长度",
   "summary": "将 epoch 长度增加到 1000"
 }

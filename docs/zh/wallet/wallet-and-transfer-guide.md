@@ -70,21 +70,24 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
 
 ---
 
-## Send Coins
+## 发送代币
 
 在 Cosmos 中，资金转账指的是在 Cosmos 生态的区块链上，从一个账户（钱包地址）向另一个账户发送代币。
 这些转账可用于支付服务费用，或在用户之间简单地传递价值。
 
 === "CLI"
 
-    你可以使用 Cosmos SDK 的命令行工具 — 具体来说是 `inferenced` CLI — 来执行转账操作。
-每笔转账都会记录在区块链上，并且需要有效的发送方、接收方、金额和代币单位。
+    你可以使用 Cosmos SDK 的命令行工具 — 具体来说是 `inferenced` CLI — 来执行转账操作。每笔转账都会记录在区块链上，并且需要有效的发送方、接收方、金额和代币单位。
     
     在你确认余额并获取接收方的地址后，就可以发送代币了。
     
     ```bash
     inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
     ```
+
+    !!! note
+    
+        `<sender-key-name>` 是你密钥环中的**本地密钥名称**——即你创建密钥时选择的标签。使用 `inferenced keys list` 可以查看本机上的密钥名称。
 
     **示例:**
 
@@ -191,6 +194,8 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
     等待显示交易成功的确认页面。你不会在 Activity（活动）标签页看到该交易，因为 Gonka 是非原生链。
     
     <a href="/images/keplr_mobile_sender_6.PNG" target="_blank"><img src="/images/keplr_mobile_sender_6.PNG" style="width:250px; height:auto;"></a>
+
+
 
 ---
 

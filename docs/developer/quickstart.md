@@ -4,15 +4,13 @@ name: index.md
 
 # Developer Quickstart
 
-This guide explains how to send an inference request to Gonka through a community broker. It is the fastest way to start using the network today.
+This guide explains how to send an inference request to Gonka through a community broker. It is the fastest way to start using the network today. If you would like to [run your own gateway](#2-run-your-own-gateway-advanced) instead of going through a broker, see Run your own gateway at the bottom of this page.
 
-!!! note "How developers connect to Gonka now"
+!!! note "How to connect to Gonka"
 
     Gonka inference is now organized around **devshards** — short-lived sessions that hold a small on-chain deposit (an escrow) and settle per-request billing off-chain. The role of opening a devshard, signing requests, rotating the session, and submitting settlement to the chain is performed by a piece of software called a **gateway**.
 
     For most developers, the simplest way to use Gonka is to call a **community broker** — a third party that provides inference access through a gateway and exposes a standard OpenAI-compatible API. You just need an API key from the broker.
-
-    If you would like to run your own gateway instead of going through a broker, see [Run your own gateway](#2-run-your-own-gateway-advanced) at the bottom of this page.
 
 ??? note "How Gonka differs from traditional AI APIs"
 
@@ -23,7 +21,7 @@ This guide explains how to send an inference request to Gonka through a communit
     | **Model provenance and verifiable output** | Models are hosted and versioned by the provider, but users cannot independently verify which model produced a given output. | Inference can be linked to protocol-defined model metadata and network execution records, enabling verifiable provenance. |
     | **Censorship resistance** | Access is controlled centrally by the provider. | Access is moving into transparent, protocol-governed mechanisms. Current production access is guarded while protocol-level request validation is being completed. |
     | **Auditability and transparency** | Logging, billing, and usage tracking are controlled by the API provider. | Requests, billing, and settlement are designed to be signed, timestamped, and auditable. |
-    | **Transparent tokenomics** | Pricing and resource allocation are provider-defined. | Pricing and settlement are protocol-defined or on-chain, making inference economics more inspectable. |
+    | **Transparent tokenomics** | Pricing and resource allocation are provider-defined. | The network's per-inference price and settlement are protocol-defined and on-chain, making the underlying inference economics inspectable. |
 
 ---
 
@@ -37,14 +35,16 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 
 ### 1.1 Pick a broker
 
-- [https://proxy.gonka.gg/](https://proxy.gonka.gg/)
+- [https://gonka24.com/](https://gonka24.com/)
+- [https://proxy.gonka.gg/](https://proxy.gonka.gg/) · [▶ demo](https://drive.google.com/file/d/1-Zk__4cY_ENi0Q8gw-JHgEBz6XZWXKAj/view?pli=1)
 - [https://gonkagate.com/](https://gonkagate.com/)
-- [https://gate.joingonka.ai/](https://gate.joingonka.ai/)
+- [https://gate.joingonka.ai/](https://gate.joingonka.ai/) · [▶ demo](https://www.youtube.com/watch?v=_761q6UEluc)
 - [https://router.gonkascan.com/](https://router.gonkascan.com/) · [▶ demo](https://youtu.be/1uWmLGPoBCM)
-- [https://gonka-api.org/](https://gonka-api.org/)
+- [https://gonka-api.org/](https://gonka-api.org/) · [▶ demo](https://youtu.be/JgY2ikjcP9M)
 - [https://gonkabroker.com/](https://gonkabroker.com/)
-- [https://gonka-gateway.mingles.ai/](https://gonka-gateway.mingles.ai/)
-- [https://console.hyperfusion.io/](https://console.hyperfusion.io/) 
+- [https://router.mingles.ai/](https://router.mingles.ai/) · [▶ demo](https://youtu.be/gegiRnNMavY)
+- [https://console.hyperfusion.io/](https://console.hyperfusion.io/)
+- [https://inference.dahl.global](https://inference.dahl.global)
 
 ??? note "About this list"
     This is a curated directory of community brokers that route inference through a public Gonka gateway and have agreed to be publicly listed. It is not exhaustive and does not endorse any operator. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits. This directory reflects an early bootstrap set. New operators who want to serve inference independently should see [Interested in operating a gateway?](#3-interested-in-operating-a-gateway). Some brokers provide a **▶ demo** link to a short onboarding screencast — style and length may vary.
@@ -68,14 +68,50 @@ Follow the onboarding instructions on the broker's site. Typically, you will:
 2. Generate an API key in the broker's dashboard.
 3. Note the broker's `base_url` (for example `https://api.<broker-domain>/v1`) and the list of supported models.
 
-### 1.3 Send your first request
+### 1.3 Connect a no-code app or AI coding assistant
+
+Plug your API key into almost any AI software, chat interface, or agent framework that supports OpenAI-compatible providers.
+
+You need three things from your broker (see [§1.2](#12-get-an-api-key)): the **Base URL**, your **API key**, and a **Model ID**.
+
+In most apps the mapping is:
+
+| Field in your app | What to enter |
+|---|---|
+| API Base URL / Endpoint | Your broker URL with `/v1` appended, e.g. `https://<broker-url>/v1`. If the app asks for an "OpenAI Base URL" or "Custom Endpoint", this is it. |
+| API Key / Auth Token | The key you generated. Even if the app says "Enter OpenAI API Key", use your broker key here. |
+| Model / Custom Model | The exact Model ID your broker supports. Model IDs are case-sensitive — copy them exactly, e.g. `MiniMaxAI/MiniMax-M2.7`. |
+
+The exact menu names below may differ between app versions — look for the equivalent settings.
+
+=== "Chat interfaces"
+
+    Examples: Open WebUI, LibreChat, LobeChat.
+
+    Go to **Settings → AI Providers / Connections**, choose the **OpenAI** provider, replace the default OpenAI URL with your broker URL plus `/v1`, insert your key, and add the Model ID to the allowed models list.
+
+=== "AI IDEs and coding agents"
+
+    Examples: Cursor, Cline, Windsurf.
+
+    Go to **Settings → Models**, enable the **OpenAI-compatible** provider (or **Add Custom Model**), override the Base URL with your broker URL plus `/v1`, and paste your broker API key.
+
+=== "No-code automations"
+
+    Examples: Make.com, n8n, Flowise.
+
+    Use the standard **OpenAI** module, then look for advanced settings to override the **Base Path / Base URL** with your broker's URL.
+
+Prefer to write code instead? Continue to [§1.4 Send your first request on Gonka](#14-send-your-first-request-on-gonka).
+
+### 1.4 Send your first request on Gonka
 
 Set environment variables:
 
 ```bash
 export GONKA_BROKER_URL=<broker-base-url>     # e.g. https://api.example-broker.com/v1
 export GONKA_BROKER_API_KEY=<your-api-key>
-export GONKA_MODEL=Qwen/Qwen3-235B-A22B-Instruct-2507-FP8   # or any model your broker supports
+export GONKA_MODEL=MiniMaxAI/MiniMax-M2.7   # or any model your broker supports
 ```
 
 The Gonka broker endpoint is OpenAI-compatible, so you can use the official OpenAI SDK directly — no Gonka-specific client is required.
@@ -176,7 +212,7 @@ The Gonka broker endpoint is OpenAI-compatible, so you can use the official Open
 
 In a few moments, you should see the inference response in your terminal.
 
-### 1.4 Tool calling
+### 1.5 Tool calling
 
 Tool calling is supported through the same OpenAI-compatible endpoint. Only `type: "function"` is supported — Gonka uses vLLM under the hood, which implements the OpenAI chat completions spec, not the Assistants API (`code_interpreter`, `file_search` are unavailable).
 

@@ -26,13 +26,24 @@ GNK is the native coin of the Gonka network. It is used to incentivize participa
 
 ### Can I buy GNK coin?
 
-No, you can not buy GNK on exchanges right now because the coin has not been listed yet.
-Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
+Native GNK is **not listed on any centralized exchange (CEX)** yet, so you cannot buy it on a CEX. Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
 
-At the moment, the main legitimate way to obtain GNK before any listing is to [mine as a Host](https://gonka.ai/host/quickstart/) (GNK can already be earned by contributing computational resources to the network).
+There are, however, two legitimate ways to obtain GNK today:
 
-!!! note "Important"
-	Be aware that fake GNK listings and pages currently exist, including on CoinGecko. These pages do not represent the official GNK coin and are not affiliated with the project in any way. GNK is not tradable on any exchange at this time. Any coin claiming to be GNK, whether on Solana or other networks, is not an official GNK asset. Always verify information through official channels.
+- **Mine as a Host.** Contribute computational resources to the network and earn GNK directly. See [mine as a Host](https://gonka.ai/host/quickstart/).
+- **Buy WGNK on Ethereum and bridge it back to GNK.** GNK can be bridged to Ethereum as **WGNK** (wrapped GNK), which is a standard ERC-20 that trades on DEXs such as Uniswap. You can buy WGNK there and then [bridge it back to native GNK](cross-chain-transfers/ethereum-bridge/withdraw-gnk.md). See the [Ethereum bridge overview](cross-chain-transfers/ethereum-bridge/overview.md).
+
+!!! info "Track WGNK price and market data"
+	You can follow WGNK (wrapped GNK) price, market cap, and trading volume on:
+
+	- [CoinGecko](https://www.coingecko.com/en/coins/wrapped-gonka)
+	- [CoinMarketCap](https://coinmarketcap.com/currencies/gonka/)
+	- [Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68)
+
+!!! warning "Verify the contract address before trading"
+	The **only** official Ethereum representation of GNK is **WGNK** at `0x972a7a92d92796a98801a8818bcf91f1648f2f68` — this address is both the bridge contract and the WGNK ERC-20 token. Always confirm any listing or trade resolves to this exact address.
+
+	Fake GNK listings and pages still exist on other trackers and networks: any coin claiming to be GNK on Solana, or on any contract other than the WGNK address above, is **not** an official GNK asset. Always verify information through official channels.
 
 ### What makes the protocol efficient?
 What differentiates Gonka from the "big players" is its pricing and the fact that, despite the Host's size, the inference is distributed equally. To learn more, please review the [Whitepaper](https://gonka.ai/whitepaper.pdf).
@@ -749,6 +760,10 @@ When creating or updating a node (for example, via `POST http://localhost:9200/a
 In practice, many hosts run a proxy ML Node behind which multiple servers operate; auto-detection only sees one of these servers, which is a fully valid setup. Regardless of configuration, all weight distribution and rewards rely solely on the Host total weight, and the internal split across ML Nodes or the reported hardware types never affect on-chain validation.
 
 ### How to switch to `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`, upgrade ML Nodes, and remove other models?
+
+!!! warning "Historical — v0.2.8 / PoC v2 migration"
+    This entry documents the **v0.2.8 / PoC v2 migration (Epoch 155)**, when `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` was the single enforced model. It is kept for historical reference only. **As of epoch 308, Qwen3-235B has been retired by governance (proposal 78) and `MiniMaxAI/MiniMax-M2.7` is the base/active PoC model.** For current setup, follow the [Host Quickstart](./host/quickstart.md) and [Multi-Model PoC — Host Operations Guide](./host/multi_model_poc.md).
+
 This guide explains how Hosts should update their ML Nodes in response to changes in v0.2.8 model availability and the upcoming PoC v2 update. ML Node configuration compliance with PoC v2 is observed starting Epoch 155. Hosts are encouraged to review and prepare their ML Node configuration before that point. Migration to PoC v2 can be scheduled after epoch 155. After the migration phase, weights from ML Nodes that do not meet the configuration requirements may not be counted. 
 
 **1. Background: model availability changes (upgrade v0.2.8)**
@@ -1404,6 +1419,58 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 ```
 
 ## Upgrades
+
+### Upgrade v0.2.14: Pre-upgrade API and Bridge Update
+
+To help keep the Ethereum bridge stable during the mainnet upgrade, it is important to update the `api` binaries before the next mainnet upgrade. You also need to update the bridge image to `0.2.14`.
+
+If your `api` binary has already been updated, you only need to update the bridge image and restart the bridge container.
+
+If you have multiple network nodes, please update them one by one.
+Please make sure to perform this step outside of PoC or cPoC.
+
+Run all commands from **deploy/join** (where `docker-compose.yml` and `.dapi/` are).
+
+**1. Download api binary and restart:**
+
+```bash
+TAG='v0.2.13-post8'
+API_BIN=".dapi/cosmovisor/upgrades/$TAG/bin/decentralized-api"
+
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/$TAG/ .dapi/data/upgrade-info.json
+sudo mkdir -p .dapi/cosmovisor/upgrades/$TAG/bin/
+
+wget -q -O decentralized-api.zip \
+  'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.13-post8/decentralized-api-amd64.zip'
+echo "9a55cd5a90e56336db2d7c4901b275f9dfc95fa7635fdc1649d2f900fcc71b13  decentralized-api.zip" | sha256sum --check
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/$TAG/bin/
+sudo chmod +x "$API_BIN"
+echo "60070669c870a3ee7c6e44bb2b1e63e3bc0e843cb86b3785ada98f3a4a06a5d3  $API_BIN" | sha256sum --check && \
+echo "API Installed and Verified"
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/$TAG .dapi/cosmovisor/current && \
+docker start api
+```
+
+Verification uses two pins: **zip sha256** (`9a55cd5a90e56336db2d7c4901b275f9dfc95fa7635fdc1649d2f900fcc71b13`) confirms the downloaded archive, **binary sha256** (`60070669c870a3ee7c6e44bb2b1e63e3bc0e843cb86b3785ada98f3a4a06a5d3`) confirms the extracted `decentralized-api` file.
+
+**2. Update bridge image to 0.2.14**
+
+If your `api` binary has already been updated, start from this step.
+
+```yaml
+  bridge:
+    container_name: bridge
+    image: ghcr.io/product-science/bridge:0.2.14@sha256:e089082c43bf45222f9e1bfee14b837e2eaa5cdb765650e0c10a61517e7d101e
+```
+
+**3. Restart bridge container**
+
+```bash
+source config.env && docker compose up --force-recreate bridge
+```
 
 ### Upgrade v0.2.12: Pre-Upgrade Model Cleanup
 

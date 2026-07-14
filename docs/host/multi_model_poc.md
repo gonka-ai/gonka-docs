@@ -11,7 +11,8 @@ As of epoch `308`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` has been retired by 
 | `model_id` | Current mainnet status | `weight_scale_factor` | `penalty_start_epoch` |
 |---|---|---:|---:|
 | `MiniMaxAI/MiniMax-M2.7` | Active | `0.3024` | `278` |
-| `moonshotai/Kimi-K2.6` | Re-bootstrapping (restored via follow-up vote) | `0.78` | `251` |
+| `moonshotai/Kimi-K2.6` | Re-bootstrapping (restored via follow-up vote) | `0.90` | `310` |
+| `zai-org/GLM-5.2-FP8` | Optional (no non-participation penalty) | `2.47` | `500` |
 
 These values are governance-controlled and can change. Before acting, always verify them with a live `params` query on the chain you use.
 

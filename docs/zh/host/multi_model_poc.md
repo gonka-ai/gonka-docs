@@ -11,7 +11,8 @@
 | `model_id` | 当前主网状态 | `weight_scale_factor` | `penalty_start_epoch` |
 |---|---|---:|---:|
 | `MiniMaxAI/MiniMax-M2.7` | 活跃 | `0.3024` | `278` |
-| `moonshotai/Kimi-K2.6` | 重新 bootstrap 中（通过后续投票恢复） | `0.78` | `251` |
+| `moonshotai/Kimi-K2.6` | 重新 bootstrap 中（通过后续投票恢复） | `0.90` | `310` |
+| `zai-org/GLM-5.2-FP8` | 可选（无未参与惩罚） | `2.47` | `500` |
 
 这些值由治理机制控制，可能会发生变化。在执行任何操作前，请务必通过你所使用的链上的实时 `params` 查询来验证这些参数。
 

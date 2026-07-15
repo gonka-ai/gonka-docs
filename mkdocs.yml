@@ -83,7 +83,8 @@ theme:
   logo: images/logos/gonka.svg
   custom_dir: overrides
   font:
-    text: Manrope
+    text: Inter
+    code: Inter
   palette:
     # Light mode
     # media: "(prefers-color-scheme: light)"

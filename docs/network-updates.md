@@ -8,6 +8,126 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## July 11, 2026
+
+**The v0.2.13-devshard-v3 runtime upgrade proposal has passed governance**
+
+The devshard v3 runtime has been approved on-chain and added to `DevshardEscrowParams.approved_versions`.
+
+This proposal covered [the devshard v3 release.](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.14/proposals/governance-artifacts/update-v0.2.13-devshard-v3)
+
+This is a devshard-only runtime upgrade. It operates independently of full-chain software upgrades and does not require a chain binary upgrade.
+
+With the proposal approved, v3 now runs in parallel with the existing devshard runtimes. The new process is served under the `/devshard/v3` prefix, while existing devshard traffic can continue on earlier runtime prefixes until brokers switch traffic to v3.
+
+The release publishes the `devshardd` binary as a Gonka release artifact. `versiond` automatically downloads the binary, verifies the sha256 hash, and starts an additional `devshardd` process inside the existing `versiond` container.
+
+No mainnet restart or manual host steps are expected for this type of devshard-only runtime upgrade.
+
+**Action items**
+
+Whitelisted devshard creators should switch inference traffic to `/devshard/v3` before the mainnet v0.2.14 chain upgrade. This lets them keep serving inference while the chain upgrade runs, without depending on the deprecated classic API path.
+
+**Key Changes**
+
+- Prepared brokers to keep serving inference during the v0.2.14 chain upgrade without depending on the deprecated classic API path.
+- Improved RAM utilization.
+- Fixed gateway runtime behavior.
+- Enabled safe switching between SQLite and Postgres storage.
+
+## July 8, 2026
+
+**The v0.2.13-devshard-v3 runtime upgrade proposal has entered governance**
+
+This proposal covers [the devshard v3 release.](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.14/proposals/governance-artifacts/update-v0.2.13-devshard-v3)
+
+This is a devshard-only upgrade. It operates independently of full chain software upgrades. Once approved, v3 runs in parallel with the existing devshard runtimes.
+
+The v3 runtime prepares brokers to keep serving inference during the v0.2.14 chain upgrade without depending on the deprecated classic API path. It also improves RAM utilization, fixes gateway runtime behavior, and enables safe switching between SQLite and Postgres storage.
+
+**Upgrade Plan**
+
+The devshard runtime is upgraded through an on-chain params proposal, not a full chain software upgrade.
+
+The proposal registers a new entry in `DevshardEscrowParams.approved_versions`:
+
+- `name`: `v3`
+- `binary`: `https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.13-devshard-v3.0.0/devshardd.zip`
+- `sha256`: `ca1294fc8db3f0907a01f362eb4b13665f66d0fd12cfc6f01468b1e27f0bab63`
+  
+The release publishes the `devshardd` binary as a Gonka release artifact. If the on-chain proposal is approved, `versiond` automatically downloads the binary, verifies the sha256 hash, and starts an additional `devshardd` process inside the existing `versiond` container.
+The new process is served under the `/devshard/v3` prefix. Existing devshard traffic can continue using earlier runtime prefixes until brokers switch traffic to v3. No mainnet restart or manual host steps are expected during this type of upgrade.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+  
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.13 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 83 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 83 -o json --node $NODE_URL/chain-rpc/
+```
+**Deadlines**
+
+Voting ends: July 11th, 2026, at 06:41:34 UTC
+
+## July 8, 2026
+
+**PR Review for Upgrade v0.2.14**
+
+[The pull request](https://github.com/gonka-ai/gonka/pull/PR) for the next on-chain software upgrade, v0.2.14, is open for review.
+
+The mainnet chain/API work focuses on PoC duplicate-artifact protection, early share detection, classic inference API deprecation (disabling `/v1/chat/completions` billing on mainnet and removing embedded `/v1/devshard` from the API binary), reward recipient routing, and upgrade-time safety fixes.
+
+The devshard part prepares the v3 runtime so brokers can serve inference during the chain upgrade without depending on the deprecated classic API path, improving RAM utilization and enabling safe switching between SQLite and Postgres storage.
+
+**Upgrade Plan**
+
+The node binary is upgraded through an on-chain software upgrade proposal. Existing hosts are not required to manually update their `api` or `node` containers as part of the upgrade.
+A separate devshard v3 release from this branch will be proposed and rolled out before the mainnet chain upgrade. Brokers who switch inference traffic to `/devshard/v3` ahead of time can keep serving inference while the chain upgrade runs.
+
+**Proposed Process**
+
+1. Active hosts review this proposal on [GitHub.](https://github.com/gonka-ai/gonka/pull/PR)
+2. The devshard v3 release is proposed and rolled out before the mainnet chain upgrade.
+3. Brokers switch inference traffic to `/devshard/v3`.
+4. If the on-chain proposal is approved, this PR will be merged immediately after the upgrade is executed on-chain.
+5. Please review the PR code directly and leave comments regarding any findings, questions, suggested improvements, edge cases, or vulnerabilities you identify.
+
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties during the next upgrade cycle.
+
+This is a call for review of the Pull Request only, and it does not initiate formal voting. The governance voting process will begin after the review period concludes.
+
+**Devshard v3 governance vote**
+
+The devshard v3 release is proposed and rolled out ahead of the mainnet chain upgrade so brokers can move inference traffic to `/devshard/v3` before the upgrade runs.  
+
+**Action items for Hosts**
+
+1. Now — review the PR. Read PR #1267 on GitHub and leave comments on any findings, questions, suggested improvements, edge cases, or vulnerabilities.
+2. Now / before the mainnet upgrade — update your API and bridge. To keep the Ethereum bridge stable during the mainnet upgrade, update the `ap`i binary and the bridge image to 0.2.14 ahead of time, following the guide. If your `api` binary is already updated, you only need to update the bridge image and restart the bridge container. If you have already completed both steps, you do not need to repeat them. If you have multiple nodes, update them one by one, and perform this step outside of PoC or cPoC.
+3. Vote on devshard v3.
+4. Brokers — switch inference traffic to `/devshard/v3`. Once the devshard v3 release is rolled out, move inference traffic to `/devshard/v3` so you can keep serving inference during the chain upgrade.
+5. Dashboard maintainers — be ready to adjust how metrics are counted. Detailed instructions will be published later, after the `devshard v3` vote has launched and is successfully approaching its conclusion.
+
 ## July 6, 2026
 
 **Security update: PoC-v2 weight validation hardening — update your API container**

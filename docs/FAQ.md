@@ -1422,8 +1422,12 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ### Upgrade v0.2.14: Pre-upgrade API and Bridge Update
 
-To make sure the Ethereum bridge to be stable during mainnet upgrade, it's important to update `api` binaries before next mainnet upgrade. If you have multiple network nodes, please update them one by one.
-Check that you make this step outside of PoC or cPoC.
+To help keep the Ethereum bridge stable during the mainnet upgrade, it is important to update the `api` binaries before the next mainnet upgrade. You also need to update the bridge image to `0.2.14`.
+
+If your `api` binary has already been updated, you only need to update the bridge image and restart the bridge container.
+
+If you have multiple network nodes, please update them one by one.
+Please make sure to perform this step outside of PoC or cPoC.
 
 Run all commands from **deploy/join** (where `docker-compose.yml` and `.dapi/` are).
 
@@ -1453,6 +1457,8 @@ docker start api
 Verification uses two pins: **zip sha256** (`9a55cd5a90e56336db2d7c4901b275f9dfc95fa7635fdc1649d2f900fcc71b13`) confirms the downloaded archive, **binary sha256** (`60070669c870a3ee7c6e44bb2b1e63e3bc0e843cb86b3785ada98f3a4a06a5d3`) confirms the extracted `decentralized-api` file.
 
 **2. Update bridge image to 0.2.14**
+
+If your `api` binary has already been updated, start from this step.
 
 ```yaml
   bridge:
@@ -1568,13 +1574,26 @@ echo "642eb9858cd77d182f3e1c4d44553f5379d615983430e1fd8e85f09632af4271 .inferenc
 
 ### What is the bounty program? Who can participate? How are rewards paid?
 
-It’s not necessary to be a Host to participate: many bounties go to contributors who submit fixes, implement improvements, or contribute to broader Gonka infrastructure. 
+It’s not necessary to be a Host to participate: anyone can report a security vulnerability or contribute fixes, improvements, and new features to the broader Gonka infrastructure.
 
-Awards are paid from the community pool after governance approval. Vulnerability reports are especially valued, and responsible disclosures that help prevent exploits and improve network safety are eligible for bounties as well. 
+There are two complementary tracks:
 
-Final bounty decisions, amounts, and categories are always up to community governance.
+- **Security vulnerabilities** are handled through Gonka’s official program on **[HackerOne](https://hackerone.com/)**. See [How do I report a security vulnerability?](#how-do-i-report-a-security-vulnerability) below.
+- **Protocol contributions** (fixes, improvements, and new features) are proposed, reviewed, and validated by the community on GitHub, and rewards are paid out through a network upgrade in a stablecoin. See [How do I contribute to protocol development?](#how-do-i-contribute-to-protocol-development) below.
 
-### What is the vulnerability bounty pricing model  
+### How do I report a security vulnerability?
+
+Gonka runs its security program on **HackerOne**. Submit all vulnerability reports through the official form at **[gonka.ai/docs/report-vulnerability](https://gonka.ai/docs/report-vulnerability/)** rather than disclosing them in public issues, pull requests, or chats.
+
+How rewards work on HackerOne:
+
+- **Payment is made right after your report is triaged** on HackerOne — it does **not** require you to also submit a fix.
+- **Fixing the issue is rewarded separately**, in addition to the report itself.
+- The authoritative severity model, reward amounts, categories, scope, and eligibility rules are all defined by the program on HackerOne. **Always read the full program terms on HackerOne before submitting**, as they take precedence over any summary here.
+
+### What is the vulnerability severity model?
+
+The final severity classification and payout are determined by the Gonka program on HackerOne. The table below is provided only as a general guide to how severity is reasoned about.
 
 A common way to think about severity is: 
 ```
@@ -1606,22 +1625,28 @@ Impact is evaluated from a network perspective (a network-wide effect is require
 | Medium              | High     | Medium   | Low           |
 | Low                 | Medium   | Low      | Informational |
 
-### How to get started in the bounty program?
+### How do I contribute to protocol development?
 
-- A new GitHub issue/discussion can be created to propose an improvement and get community feedback on whether it’s worth implementing.
-- Or pick an[ existing issue labeled up-for-grabs](https://github.com/gonka-ai/gonka/issues?q=is%3Aissue%20state%3Aopen%20label%3Aup-for-grabs). Before starting, leave a quick comment that work has started and include an approximate ETA, so others have visibility and avoid duplicate effort.
+If you want to help develop the protocol (not report a security issue), the workflow is community-driven on GitHub:
 
-### What is the suggested vulnerability reporting process?
+1. **Find or create work.** Look for [existing issues labeled `up-for-grabs`](https://github.com/gonka-ai/gonka/issues?q=is%3Aissue%20state%3Aopen%20label%3Aup-for-grabs), or create your own issue and seek validation from the community that the work is worth doing. Before starting an existing issue, leave a quick comment that work has started and include an approximate ETA, so others have visibility and avoid duplicate effort.
+2. **Open a pull request.** Ship a solid fix or implementation and open a PR against [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/).
+3. **Gather community validation.** Share the PR in the relevant developer channels and seek validation from the community so the change can be reviewed and included in a network upgrade.
 
-- If an issue is not high or critical severity (limited impact, no network-wide effect) and the fix is low effort, opening a PR right away is usually fine.
-- If an issue is high or critical severity, please report it privately to trusted community members (long-term Gonka repository contributors), either as a report or together with a fix in a private fork.
-- If an issue looks like part of a broader class and a systematic review would likely uncover more issues of the same category, leave a note that a review is planned. This helps avoid duplicate reviews running in parallel.
+**How contribution rewards are paid:** rewards for accepted contributions are paid out through a network upgrade in a **stablecoin**. As with all on-chain actions, the upgrade and its payments are subject to governance approval.
 
-To contribute, pick an issue, ship a solid fix, and share the link in the relevant dev channels to get feedback. 
+### Where do I propose and discuss ideas for the protocol?
+
+- Publish your ideas as **[GitHub Discussions](https://github.com/gonka-ai/gonka/discussions)**. Start with the welcome guide at **[Welcome to Proposals #795](https://github.com/gonka-ai/gonka/discussions/795)**, which explains what belongs there and how to write a strong, structured proposal.
+- Gather feedback from the community across the channels where it is active — Telegram groups, other community groups, and the [Gonka Discord](https://discord.com/invite/RADwCT2U6R). Please consolidate the key context back into GitHub Discussions so the full history stays searchable and in one place.
+
+### Where can I see the current protocol priorities?
+
+The community-aligned **[Gonka Network Development Roadmap](https://github.com/gonka-ai/gonka/blob/main/proposals/gonka-network-development-roadmap.md)** describes the strategic horizons, roadmap tracks, and current priorities for protocol development. Use it to understand what matters most right now and to align your contributions and proposals with the network’s direction.
 
 ### Where can I see who was paid bounties, for what, and when?
 
-The most reliable sources are on-chain records and [GitHub](https://github.com/gonka-ai/gonka/). Use them as the main source of truth for who was paid, what the bounty was for, and when it was executed.
+For security bounties, the record lives in the Gonka program on **HackerOne**. For protocol contributions, the most reliable sources are on-chain records and [GitHub](https://github.com/gonka-ai/gonka/). Use them as the main source of truth for who was paid, what the reward was for, and when it was executed.
 
 ## Errors
 

@@ -177,7 +177,9 @@ Delegate your weight to a host that runs Kimi (or send a refusal):
 ```
 ./inferenced tx inference set-poc-delegation moonshotai/Kimi-K2.6 <DELEGATEE>
 ```
-The guardian node `gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5` will run Kimi and can be used as the delegation target.
+~~The guardian node `gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5` will run Kimi and can be used as the delegation target.~~
+
+> **Update (July 15, 2026): this recommendation is withdrawn — do not delegate to guardian nodes.** Guardians are the fallback mechanism for PoC validation and must stay independent from delegations. Pick a non-guardian host that runs the model, and avoid hosts that are already major delegation targets. See the [Multi-Model PoC guide](https://gonka.ai/docs/host/multi_model_poc/) for updated delegation guidance.
 
 **Key timings**
 

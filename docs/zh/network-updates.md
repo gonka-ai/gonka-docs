@@ -177,7 +177,9 @@ docker start api
 ```
 ./inferenced tx inference set-poc-delegation moonshotai/Kimi-K2.6 <DELEGATEE>
 ```
-守护节点 `gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5` 将运行 Kimi，并可作为委托目标。
+~~守护节点 `gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5` 将运行 Kimi，并可作为委托目标。~~
+
+> **更新（2026年7月15日）：该建议已撤回 — 请勿委托给守护节点（guardian）。** 守护节点是 PoC 验证的后备机制，必须与委托保持独立。请选择运行该模型的非守护节点主机，并避免选择已经集中了大量委托的主机。更新后的委托指南请参阅 [Multi-Model PoC 指南](https://gonka.ai/docs/host/multi_model_poc/)。
 
 **关键时间点*** 意向截止时间（第310轮）：区块 **4,797,456** — 大约6月28日，12:00 UTC。
 * 第311轮开始：区块 **4,797,956** — 大约6月28日，12:47 UTC。

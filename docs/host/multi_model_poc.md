@@ -2,18 +2,40 @@
 
 Multi-model Proof-of-Compute (PoC) arrived in v0.2.12 and expanded again in v0.2.13.
 
+!!! warning "Delegation guidance update (July 2026)"
+
+    After the epoch 328–329 incident, two rules apply when choosing a delegate:
+
+    - **Do not delegate to guardian nodes.** Guardians are the fallback mechanism
+      for PoC validation. Concentrating delegations on them ties the primary
+      voting mechanism and the fallback to the same hardware, so both fail
+      together. Earlier guidance that suggested a guardian node as a delegation
+      target is withdrawn. A protocol-level restriction is planned for v0.2.14.
+    - **Avoid concentrating delegations on any single host.** A delegation only
+      counts if the delegate submits a PoC store commit that epoch. If one heavily
+      delegated host goes down, all weight delegated to it vanishes at once and
+      the model group can lose its validation majority. If you operate several
+      accounts, point them at different delegates. Percentage-based delegation to
+      multiple hosts from one account is not supported yet.
+
 ## What changed in v0.2.12 and v0.2.13
 
 Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. v0.2.12 added `moonshotai/Kimi-K2.6` as the second governance-approved model and introduced per-model participation, delegation, and penalty timing. v0.2.13 recalibrated model coefficients and added `MiniMaxAI/MiniMax-M2.7` as the third governance-approved model.
 
 As of epoch `308`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` has been retired by governance (proposal 78) and `MiniMaxAI/MiniMax-M2.7` is the base model and active PoC model. `poc_params.models` on mainnet contains:
 
-| `model_id` | Current mainnet status | `weight_scale_factor` | `penalty_start_epoch` |
-|---|---|---:|---:|
-| `MiniMaxAI/MiniMax-M2.7` | Active | `0.3024` | `278` |
-| `moonshotai/Kimi-K2.6` | Re-bootstrapping (restored via follow-up vote) | `0.78` | `251` |
+| `model_id` | Current mainnet status |
+|---|---|
+| `MiniMaxAI/MiniMax-M2.7` | Base model, active |
+| `moonshotai/Kimi-K2.6` | Re-bootstrapping after the epoch 328–329 incident |
 
-These values are governance-controlled and can change. Before acting, always verify them with a live `params` query on the chain you use.
+Per-model `weight_scale_factor` and `penalty_start_epoch` change through governance too often to list here reliably. Always read them from a live `params` query on the chain you use:
+
+```
+./inferenced query inference params --node "$NODE" -o json
+```
+
+Look inside `poc_params` → `models`.
 
 ??? note "Why multi-model PoC works this way"
 
@@ -70,6 +92,8 @@ Do you run the model?
    │     │
    │     │  ├─ YES
    │     │  │  └─ Delegate to that host (share 5% of weight)
+   │     │  │     Never a guardian node; prefer a host that is
+   │     │  │     not already a top delegation target
    │     │
    │     │  └─ NO
    │     │     └─ Refuse delegation (~10% penalty)
@@ -88,7 +112,14 @@ In most cases:
 If you are not running a given model:
 
 - If you operate multiple nodes and at least one runs that model: delegate to your own node for that model
-- If you do not run that model at all: delegate to a host you trust
+- If you do not run that model at all: delegate to a host you trust. When picking one:
+    - it must **not** be a guardian node;
+    - it should have served that model **stably across recent epochs** (a delegation
+      counts only if the delegate submits a PoC store commit that epoch);
+    - it should have had **non-zero consensus weight in the previous epoch**;
+    - prefer hosts that are **not already major delegation targets** — if
+      `max_model_voting_power_percentage` is set, weight delegated above the cap
+      is burned, and concentration makes the whole group fragile.
 - If you do not trust any delegate: use `refuse-poc-delegation` for that model
 
 Once `penalty_start_epoch` is reached for a model, not participating in that model directly or via valid delegation may reduce your consensus weight, depending on governance-configured parameters.
@@ -174,6 +205,15 @@ Whether you **actually ran PoC** for a model is not taken from those stored rows
 - the delegate had **non-zero consensus weight in the previous epoch**.
 
 Otherwise your delegation is ignored for that model for that epoch (same practical outcome as if you had not delegated), and penalty rules may still apply once they are enabled.
+
+!!! warning "If your delegate goes down, you may be penalized"
+
+    If the delegate fails to submit a PoC store commit for that model in the
+    epoch, your delegation is ignored and you are treated as **not participating**
+    for that model — the `no_participation_penalty` may apply to you even though
+    you delegated in good faith. Re-check your delegate's participation regularly
+    (for example, after any network incident) and switch delegates if they became
+    unreliable.
 
 When a delegation **does** count, your **full** weight is counted toward that host's influence on validating that model's PoC. Separately, **`delegation_share`** in `params` can move part of your **original** consensus weight to them when weights are finalized — that is a different knob from the refusal / no-participation percentages; read `params` for the exact values.
 
@@ -331,6 +371,8 @@ If **`refusal_penalty`**, **`no_participation_penalty`**, and **`delegation_shar
 5. Check whether `refusal_penalty`, `no_participation_penalty`, and `delegation_share` are non-zero.
 6. For each model, decide whether you want to run it, delegate, refuse, or do nothing.
 7. If you run the model yourself, make sure your PoC stack submits valid PoC v2 store commits for that model.
-8. If you delegate, verify the result with `poc-delegation`.
+8. If you delegate, verify the result with `poc-delegation`, and confirm the delegate actually committed PoC for that model in the current epoch.
 9. For new models, watch `bootstrap_model_preeligibility` events and send `declare-poc-intent` before the capture height if you plan to participate.
 10. After any config change, restart, or new host onboarding, make sure no unsupported models are present in the persisted DAPI configuration.
+11. Never set a guardian node as your delegation target.
+12. After any network incident, re-verify that your delegate is still serving the model; delegations are snapshotted at validation start and cannot be re-routed mid-epoch.

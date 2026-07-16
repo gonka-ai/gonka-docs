@@ -8,6 +8,53 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## July 15, 2026
+
+**Kimi-K2.6 incident (epochs 328–329): what happened, recovery plan, and a change in delegation guidance**
+
+In epoch 328, `moonshotai/Kimi-K2.6` lost its PoC validation majority. Hosts serving Kimi were knocked out of the group at the start of epoch 329. The rest of the network kept operating normally.
+
+**What happened**
+
+Two guardian-operated servers running Kimi failed at the same time:
+
+* On one server, the MLNode running Kimi died due to a provider-side issue. A large share of Kimi delegations was concentrated on this host, so its failure removed those votes at once.
+* The second server lost its network node to an out-of-memory condition.
+
+Kimi's validation votes had been close to the 2/3 threshold the whole time, so this was enough to drop the group below the majority. The guardian tiebreaker did not engage: guardians without per-model voting weight are currently filtered out of the tiebreaker. This is a known issue, fixed in the upcoming v0.2.14 upgrade.
+
+This situation is similar to the epoch 306–307 incident. Exact details of the votes at the start of epoch 329 are still being confirmed; minor corrections to this summary are possible.
+
+**Recovery plan**
+
+The safest way to restore Kimi is to re-add it through a fresh bootstrap (~1.5 epochs):
+
+1. [Today] An expedited proposal removes Kimi before the next PoC and re-adds it immediately after. A separate announcement with the proposal ID, voting commands, and deadlines follows.
+2. [Tomorrow] Kimi goes through the standard bootstrap flow again: declare intent, deploy window, PoC store commit. Instructions will be published before the intent deadline.
+
+**Change in delegation guidance — please read**
+
+Earlier guidance (including the June 27, 2026, bootstrap announcement) suggested the guardian node as a delegation target. This recommendation is now withdrawn:
+
+* **Do not delegate to guardian nodes.** Guardians are the fallback mechanism for PoC validation. Concentrating delegations on them ties the main mechanism and the fallback to the same hardware — this incident is exactly that failure mode. A protocol-level restriction is under discussion.
+* **Avoid concentrating delegations on any single host.** Until percentage-based multi-host delegation is supported, spread delegations across several independent hosts that run the model. If you operate multiple nodes, delegate to your own node running the model.
+* **If you can run Kimi directly — this is the biggest help.** More direct hosts means more validation weight and no single point of failure.
+
+**Fixes already in the pipeline**
+
+* Guardian voting in PoC validation (guardians can always vote) — v0.2.14.
+* Self-delegation issue — v0.2.14.
+* Nonce duplicates — v0.2.14 (currently handled by the earlier API update).
+* RAM growth on network nodes — fixed in devshard v3; requires migration off v1/v2. After full migration, v1/v2 will be removed and `/v1/devshard` closed. Set separate memory limits for the `api` and `versiond` containers.
+
+**Required actions for hosts**
+
+1. Vote on the expedited Kimi proposal once it is on-chain (announcement follows).
+2. If you plan to serve Kimi: watch for the bootstrap instructions and be ready to declare intent.
+3. If you delegate for Kimi: pick a non-guardian delegate; spread weight across independent hosts where possible.
+4. Brokers: migrate devshard traffic to `/devshard/v3` now. This fixes the RAM growth issue and is required before v1/v2 removal.
+5. Check RAM on network nodes and set container memory limits (`api`, `versiond`).
+
 ## July 11, 2026
 
 **The v0.2.13-devshard-v3 runtime upgrade proposal has passed governance**

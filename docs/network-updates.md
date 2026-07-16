@@ -10,6 +10,52 @@
 
 ## July 15, 2026
 
+**Expedited governance vote (proposal 87): remove Kimi-K2.6 for a fast re-bootstrap**
+
+`moonshotai/Kimi-K2.6` lost its PoC validation majority in epochs 328–329 (see the incident [details here](https://gonka.ai/docs/network-updates/#july-15-2026)). Removing Kimi from the active set now and re-bootstrapping it is the fastest way to bring it back with minimal downtime — the same recovery path as proposal 78 in June.
+
+The proposal removes `moonshotai/Kimi-K2.6` from PoC params before the next PoC; a re-add follows immediately after, and Kimi goes through the standard bootstrap starting at epoch 331.
+
+**Required actions for hosts**
+
+1. Vote on proposal 87 before the deadline — the expedited window is short.
+2. Hosts serving Kimi: keep your Kimi setup staged and be ready to switch your MLNode back at the bootstrap PoC.
+3. When delegating for the bootstrap: do not delegate to guardian nodes; spread delegations across independent Kimi hosts.
+
+**How to vote**
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+  
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.13 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 87 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 87 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+* Voting Time: 2026-07-15 17:01 ~ 2026-07-16 05:01 (PDT) / 2026-07-16 00:01 ~ 2026-07-16 12:01 UTC (expedited, 0.667 yes-threshold; turnout matters, vote promptly).
+* Bootstrap intent deadline and epoch timings follow in the bootstrap instructions.
+
+## July 15, 2026
+
 **Kimi-K2.6 incident (epochs 328–329): what happened, recovery plan, and a change in delegation guidance**
 
 In epoch 328, `moonshotai/Kimi-K2.6` lost its PoC validation majority. Hosts serving Kimi were knocked out of the group at the start of epoch 329. The rest of the network kept operating normally.

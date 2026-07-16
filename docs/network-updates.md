@@ -23,6 +23,7 @@ The proposal removes `moonshotai/Kimi-K2.6` from PoC params before the next PoC;
 3. When delegating for the bootstrap: do not delegate to guardian nodes; spread delegations across independent Kimi hosts.
 
 **How to vote**
+
 If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
 
 Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:

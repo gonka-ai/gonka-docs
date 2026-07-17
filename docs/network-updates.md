@@ -10,6 +10,27 @@
 
 ## July 16, 2026
 
+**Proposal 88 has passed: Kimi-K2.6 re-registered, devshard v1/v2 removed**
+
+The expedited proposal 88 was approved on-chain.
+
+**Kimi-K2.6 bootstrap (epoch 331)**
+
+`moonshotai/Kimi-K2.6` is back in the governance model list and enters the standard bootstrap flow.
+
+* Declare intent before block **5,105,276** (July 17, ~12:05 UTC):
+```
+./inferenced tx inference declare-poc-intent moonshotai/Kimi-K2.6
+```
+* Switch your MLNode to Kimi in the ~500-block window before epoch 331 PoC starts (block **5,105,776** — July 17, 12:50:53 UTC / 05:50 PDT).
+* Delegating hosts: pick non-guardian Kimi hosts and spread weight across independent targets —  see the [Multi-Model PoC guide](https://gonka.ai/docs/host/multi_model_poc/).
+
+**Devshard v1/v2 removed**
+
+`versiond` has stopped the v1 and v2 `devshardd` processes. All gateway traffic must use `/devshard/v3`. If your gateway stopped serving inference after this change, you are still routing through a removed path — follow the v3 migration guide. 
+
+## July 16, 2026
+
 **Expedited governance vote (proposal 88): re-register Kimi-K2.6 and remove devshard v1/v2 runtimes**
 
 This is the second step of the Kimi recovery plan announced on July 15. Proposal 87 removed `moonshotai/Kimi-K2.6` from the active set; proposal 88 re-registers it in the governance model list so it goes through the standard bootstrap starting at epoch 331.

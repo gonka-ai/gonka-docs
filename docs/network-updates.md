@@ -751,8 +751,8 @@ The proposal was APPROVED, and the upgrade was successfully executed on the main
 
 The v0.2.13 upgrade proposal (proposal id [54](https://github.com/gonka-ai/gonka/pull/1143)) has passed on-chain governance and the upgrade is now scheduled.
 
-• Upgrade height: 4267300
-• Estimated upgrade time: May 26, 2026, 14:42 UTC (07:42 PDT)
+- Upgrade height: 4267300
+- Estimated upgrade time: May 26, 2026, 14:42 UTC (07:42 PDT)
 
 Pre-downloading binaries and weights in advance helps avoid relying on GitHub / Hugging Face availability during the upgrade window.
 ```

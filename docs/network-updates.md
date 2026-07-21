@@ -10,6 +10,71 @@
 
 ## July 20, 2026
 
+**v0.2.14 Upgrade Proposal Enters Governance**
+
+[The v0.2.14 proposal](https://github.com/gonka-ai/gonka/pull/1267) is now on-chain and open for voting.
+
+The mainnet chain/API work focuses on PoC duplicate-artifact protection, early share detection, classic inference API deprecation (disabling `/v1/chat/completions` billing on mainnet and removing embedded `/v1/devshard` from the API binary), reward recipient routing, and upgrade-time safety fixes.
+
+The devshard part prepares the v3 runtime so brokers can serve inference during the chain upgrade without depending on the deprecated classic API path, improving RAM utilization and enabling safe switching between SQLite and Postgres storage.
+
+For more details, please see the pull request: [https://github.com/gonka-ai/gonka/pull/1267](https://github.com/gonka-ai/gonka/pull/1267)
+
+**Upgrade Plan**
+
+The node binary is upgraded through an on-chain software upgrade proposal. Existing hosts are not required to manually update their `api` or `node` containers as part of the upgrade.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+  
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.12 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 89 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 89 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Required actions in preparation for the upgrade**
+
+In case the proposal is approved, the following preparation is recommended.
+
+- Now / before the mainnet upgrade — update your API and bridge. To keep the Ethereum bridge stable during the mainnet upgrade, update the `api` binary and the bridge image to 0.2.14 ahead of time, following [the guide](https://gonka.ai/docs/FAQ/#upgrade-v0214-pre-upgrade-api-and-bridge-update). If your `api` binary is already updated, you only need to update the bridge image and restart the bridge container. If you have already completed both steps, you do not need to repeat them. If you have multiple nodes, update them one by one, and perform this step outside of PoC or cPoC.
+
+- Dashboard maintainers — no existing query endpoint was removed or reshaped in this upgrade. If your dashboard reads values from the chain and displays them, it keeps working. There is one semantic change you need to understand (delegation), and three small notes (read the full guide: [https://gonka.ai/docs/dashboard-maintainer-memo-v0.2.14/](https://gonka.ai/docs/dashboard-maintainer-memo-v0.2.14/))
+  
+**Deadlines**
+
+- Voting ends: July 23, 2026 at 00:02 UTC / July 22, 2026 at 17:02 PDT
+- Proposed upgrade height: 5195700 
+- Estimated upgrade time: July 23, 2026 at 03:45 AM UTC / July 22, 2026 at 8:45 PM PDT 
+
+**Attention**
+
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available (the Cosmovisor backup of `application.db` on mainnet is typically tens of GB, so verify in advance). Guidance on safely removing old backups from the `.inference` directory is available in [the documentation.](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described in the cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- If approved, devshard storage could optionally be backed by a shared Postgres instance after the upgrade (same env vars as payload storage). Local SQLite would remain the default and would prune automatically (last 3 epochs retained).
+
+## July 20, 2026
+
 **[The PR for the devshard-only](https://github.com/gonka-ai/gonka/pull/1482) upgrade is now open for review**
 
 Devshard upgrades update the devshard runtime independently from the main blockchain. They do not require a coordinated full-node upgrade through Cosmovisor, do not affect mainnet behavior, and are not expected to cause downtime for inference serving. If approved through the governance process, the new devshard version will run in parallel with the existing v3 runtime.

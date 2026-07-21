@@ -1420,45 +1420,15 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ## Upgrades
 
-### Upgrade v0.2.14: Pre-upgrade API and Bridge Update
+### Upgrade v0.2.14: Pre-upgrade Bridge Update
 
-To help keep the Ethereum bridge stable during the mainnet upgrade, it is important to update the `api` binaries before the next mainnet upgrade. You also need to update the bridge image to `0.2.14-post3`.
-
-If your `api` binary has already been updated, you only need to update the bridge image and restart the bridge container.
-
+To help keep the Ethereum bridge stable during the mainnet upgrade, update the bridge image to `0.2.14-post3` in advance.
 If you have multiple network nodes, please update them one by one.
 Please make sure to perform this step outside of PoC or cPoC.
 
 Run all commands from **deploy/join** (where `docker-compose.yml` and `.dapi/` are).
 
-**1. Download api binary and restart:**
-
-```bash
-TAG='v0.2.13-post8'
-API_BIN=".dapi/cosmovisor/upgrades/$TAG/bin/decentralized-api"
-
-sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/$TAG/ .dapi/data/upgrade-info.json
-sudo mkdir -p .dapi/cosmovisor/upgrades/$TAG/bin/
-
-wget -q -O decentralized-api.zip \
-  'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.13-post8/decentralized-api-amd64.zip'
-echo "9a55cd5a90e56336db2d7c4901b275f9dfc95fa7635fdc1649d2f900fcc71b13  decentralized-api.zip" | sha256sum --check
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/$TAG/bin/
-sudo chmod +x "$API_BIN"
-echo "60070669c870a3ee7c6e44bb2b1e63e3bc0e843cb86b3785ada98f3a4a06a5d3  $API_BIN" | sha256sum --check && \
-echo "API Installed and Verified"
-
-docker stop api && \
-sudo rm -rf .dapi/cosmovisor/current && \
-sudo ln -sf upgrades/$TAG .dapi/cosmovisor/current && \
-docker start api
-```
-
-Verification uses two pins: **zip sha256** (`9a55cd5a90e56336db2d7c4901b275f9dfc95fa7635fdc1649d2f900fcc71b13`) confirms the downloaded archive, **binary sha256** (`60070669c870a3ee7c6e44bb2b1e63e3bc0e843cb86b3785ada98f3a4a06a5d3`) confirms the extracted `decentralized-api` file.
-
-**2. Update bridge image to 0.2.14-post3**
-
-If your `api` binary has already been updated, start from this step.
+**Update bridge image to 0.2.14-post3**
 
 ```yaml
   bridge:
@@ -1466,7 +1436,7 @@ If your `api` binary has already been updated, start from this step.
     image: ghcr.io/product-science/bridge:0.2.14-post3
 ```
 
-**3. Restart bridge container**
+**Restart bridge container**
 
 ```bash
 source config.env && docker compose up --force-recreate bridge

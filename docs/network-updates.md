@@ -8,6 +8,26 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## July 20, 2026
+
+**[The PR for the devshard-only](https://github.com/gonka-ai/gonka/pull/1482) upgrade is now open for review**
+
+Devshard upgrades update the devshard runtime independently from the main blockchain. They do not require a coordinated full-node upgrade through Cosmovisor, do not affect mainnet behavior, and are not expected to cause downtime for inference serving. If approved through the governance process, the new devshard version will run in parallel with the existing v3 runtime.
+
+**Key changes**
+
+- The main intent of v4 is high availability of devshard hosts on host failures and upgrades. It can keep serving new requests if one machine is down or restarting, and on version upgrades multiple machines replace versions one by one. This is the first update in a series of devshard and network-node changes that refactor the monolith toward a high-availability, fault-tolerant, scalable architecture.
+- v4 is the first version intended for multi-instance HA: N versiond / devshardd replicas behind versiond-router on shared Postgres, with sticky session routing and validation-lease exclusivity. The gateway talks to the chain over gRPC only. Public observability is versionless (/devshard/sessions|stats|metrics); only the escrow owner binds via signed chat. When governance publishes a new binary under the same version name (name unchanged, only sha256 changes), versiond can blue/green swap with drain so in-flight work (including SSE) finishes on the old generation.
+- v4 also lands bug and security fixes.
+  
+**Action items**
+
+Please review the PR [https://github.com/gonka-ai/gonka/pull/1482](https://github.com/gonka-ai/gonka/pull/1482) and leave comments on any findings, questions, suggested improvements, edge cases, or potential vulnerabilities.
+
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties in the next upgrade cycle.
+
+This is a call for PR review only. It does not start formal voting. 
+
 ## July 16, 2026
 
 **Proposal 88 has passed: Kimi-K2.6 re-registered, devshard v1/v2 removed**

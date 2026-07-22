@@ -8,6 +8,48 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## July 22, 2026
+
+**Upgrade v0.2.14: Pre-download binaries**
+
+The on-chain governance process for the v0.2.14 upgrade proposal is nearing its conclusion.
+
+- Voting ends: July 23rd, 2026, at 00:02 UTC
+- Upgrade height: 5195700
+- Estimated upgrade time: July 23rd, 2026, at ~03:45 UTC
+
+Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka-ai/gonka/pull/1267) and participate in the vote.
+
+Pre-downloading binaries in advance may help avoid relying on GitHub availability during the upgrade window.
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.14/bin \
+              .inference/cosmovisor/upgrades/v0.2.14/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.14/decentralized-api-amd64.zip" && \
+echo "4326a27913a05435e37cd5fa9e3d0cf5271351799f8b01b842e049a733976c87 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.14/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.14/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.14/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.14/inferenced-amd64.zip" && \
+echo "ce857ef90deb899c03d78dee01493e544bf8b7ddf8b452e75b3b010b80a8b046 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.14/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.14/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.14/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.14/bin/inferenced && \
+echo "9f41f08d865041c9d1b43e28334528d8d542751af40841f9ddc34d64787e5286 .dapi/cosmovisor/upgrades/v0.2.14/bin/decentralized-api" | sudo sha256sum --check && \
+echo "526755f37a0660e9ad9a38f01f99ac87920c7cee12554dc613b274e5e9e3d784 .inference/cosmovisor/upgrades/v0.2.14/bin/inferenced" | sudo sha256sum --check
+```
+
 ## July 20, 2026
 
 **v0.2.14 Upgrade Proposal Enters Governance**

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://gonka.ai/</loc>
+        <lastmod>2026-07-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/zh/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/disclaimer/</loc>
+        <lastmod>2026-07-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/disclaimer/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/zh/disclaimer/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/zh/</loc>
+        <lastmod>2026-07-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/zh/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/"/>
+    </url>
+    <url>
+        <loc>https://gonka.ai/zh/disclaimer/</loc>
+        <lastmod>2026-07-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://gonka.ai/zh/disclaimer/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://gonka.ai/disclaimer/"/>
+    </url>
+</urlset>

@@ -1,0 +1,3675 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/docs/cross-chain-transfers/ethereum-bridge/dashboard/">
+      
+      
+        <link rel="prev" href="../../../wallet/pricing/">
+      
+      
+        <link rel="next" href="../overview/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../../zh/cross-chain-transfers/ethereum-bridge/dashboard/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Bridge via dashboard (UI guide) - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CInter:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Inter"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - Bridge via dashboard (UI guide)">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/docs/cross-chain-transfers/ethereum-bridge/dashboard/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bridge-via-dashboard-ui-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://gonka.ai/" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bridge via dashboard (UI guide)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../zh/cross-chain-transfers/ethereum-bridge/dashboard/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://gonka.ai/" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer/gateway-developer-quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run your own gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Host
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Get started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collateral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genesis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operate
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Node management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/mlnode-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validate ML Node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple nodes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Edit public host info
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Node API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models & benchmarks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Models & benchmarks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/multi_model_poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Model PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/kimi-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kimi K2.6 bootstrap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/minimax-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MiniMax-M2.7 bootstrap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment benchmark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Wallet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wallet/create-account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Create a Gonka account
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wallet & transfer guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pricing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross-chain transfers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cross-chain transfers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bridge via dashboard (UI guide)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bridge via dashboard (UI guide)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-dashboard-does-for-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the dashboard does for you
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-flows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported flows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported flows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processing-time-fees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processing time &amp; fees
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deposit-tokens-to-gonka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deposit tokens to Gonka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deposit tokens to Gonka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-eth-gnk-bridge-deposits-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How ETH / GNK bridge deposits work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-ibc-deposits-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How IBC deposits work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-open-the-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Open the dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-connect-your-keplr-wallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Connect your Keplr wallet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-choose-token-and-amount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Choose token and amount
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-confirm-the-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Confirm the transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-deposit-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Deposit complete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-verify-your-deposit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Verify your deposit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-wrapped-tokens-to-keplr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add wrapped tokens to Keplr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#withdraw-tokens-from-gonka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Withdraw tokens from Gonka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Withdraw tokens from Gonka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-eth-gnk-bridge-withdrawals-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How ETH / GNK bridge withdrawals work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-ibc-withdrawals-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How IBC withdrawals work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-open-the-dashboard_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Open the dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-connect-your-keplr-wallet_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Connect your Keplr wallet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-choose-token-and-amount_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Choose token and amount
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-confirm-the-transaction-on-gonka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Confirm the transaction on Gonka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-confirm-the-release-transaction-on-ethereum-eth-gnk-bridge-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Confirm the release transaction on Ethereum (ETH / GNK bridge only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-withdrawal-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Withdrawal complete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-verify-your-withdrawal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Verify your withdrawal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_2" id="__nav_5_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ethereum bridge
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ethereum bridge
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../addresses-and-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Addresses and keys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bridge-epoch-update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bridge epoch update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../register-token/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Register a token
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deposit-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deposit USDT (Ethereum → Gonka)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../withdraw-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Withdraw USDT (Gonka → Ethereum)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deposit-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deposit GNK (Gonka → Ethereum)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../withdraw-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Withdraw GNK (Ethereum → Gonka)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_3" id="__nav_5_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IBC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ibc/withdraw-usdt-via-kava/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Withdraw USDT via Kava (Gonka → Ethereum)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_4" id="__nav_5_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer integration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer integration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widget-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Widget integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracker-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard & tracker integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Governance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../governance/transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactions & Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../governance/voting-on-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting on Proposals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../governance/creating-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Proposals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../governance/voting-power-eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting Power, Eligibility, Delegation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model licenses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dashboard-maintainer-memo-v0.2.14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dashboard-maintainer-memo-v0.2.13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../network-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../report-vulnerability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Report a Vulnerability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-dashboard-does-for-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the dashboard does for you
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-flows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported flows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported flows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processing-time-fees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processing time &amp; fees
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deposit-tokens-to-gonka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deposit tokens to Gonka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deposit tokens to Gonka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-eth-gnk-bridge-deposits-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How ETH / GNK bridge deposits work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-ibc-deposits-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How IBC deposits work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-open-the-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Open the dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-connect-your-keplr-wallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Connect your Keplr wallet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-choose-token-and-amount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Choose token and amount
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-confirm-the-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Confirm the transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-deposit-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Deposit complete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-verify-your-deposit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Verify your deposit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-wrapped-tokens-to-keplr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add wrapped tokens to Keplr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#withdraw-tokens-from-gonka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Withdraw tokens from Gonka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Withdraw tokens from Gonka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-eth-gnk-bridge-withdrawals-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How ETH / GNK bridge withdrawals work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-ibc-withdrawals-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How IBC withdrawals work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-open-the-dashboard_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Open the dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-connect-your-keplr-wallet_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Connect your Keplr wallet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-choose-token-and-amount_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Choose token and amount
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-confirm-the-transaction-on-gonka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Confirm the transaction on Gonka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-confirm-the-release-transaction-on-ethereum-eth-gnk-bridge-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Confirm the release transaction on Ethereum (ETH / GNK bridge only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-withdrawal-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Withdrawal complete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-verify-your-withdrawal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Verify your withdrawal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Always start with a small test transaction. Bridge transfers are irreversible, so before moving large amounts, send a small amount first and confirm it arrives as expected.</p>
+</div>
+<p>The dedicated Bridge smart contract, controlled by the Gonka consensus, is active on Ethereum at the address:</p>
+<div class="highlight"><pre><span></span><code>0x972a7a92d92796a98801a8818bcf91f1648f2f68
+</code></pre></div>
+<hr>
+<h1 id="bridge-via-dashboard-ui-guide">Bridge via dashboard (UI guide)</h1>
+<p>The dashboard is the easiest way to bridge. It handles the key derivation for you (see <a href="../addresses-and-keys/">Addresses and keys</a>), so you don't need to import private keys or compute addresses by hand.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Prefer the dashboard if you are not comfortable with the CLI or with handling raw private keys. The step-by-step CLI flows are documented in <a href="../deposit-usdt/">Deposit USDT</a>, <a href="../withdraw-usdt/">Withdraw USDT</a>, <a href="../deposit-gnk/">Deposit GNK</a>, and <a href="../withdraw-gnk/">Withdraw GNK</a> if you prefer to do it manually.</p>
+</div>
+<h2 id="what-the-dashboard-does-for-you">What the dashboard does for you</h2>
+<ul>
+<li><strong>Derives the correct addresses.</strong> Connect the Ethereum wallet you bridge with, and the dashboard shows the matching <code>gonka1…</code> address the bridge will deliver tokens to — so you always know where your wrapped tokens will land.</li>
+<li><strong>Warns about seed-phrase accounts.</strong> If you are using a wallet whose Ethereum and Gonka keys come from the same <strong>mnemonic</strong>, the dashboard detects this and warns you, because seed-derived accounts use different keys on each chain — so your Gonka wallet won't show the bridged tokens by default. You still control the receiving address (you can derive the matching key from the same mnemonic), but it requires an extra manual step. Read <a href="../addresses-and-keys/">Addresses and keys</a> for the full explanation.</li>
+<li><strong>Shows your bridged balances</strong> in a Bridge Assets section, so you can confirm a deposit arrived.</li>
+<li><strong>Reports chain status</strong>, so you can see if the chain is degraded before initiating a transfer.</li>
+<li><strong>Prompts for bridge epoch updates</strong> when the Ethereum bridge is behind the Gonka chain. If you see <strong>A Bridge needs epoch update</strong>, click <strong>Update bridge</strong> to submit the missing epoch key. This is a normal Ethereum transaction, so the connected wallet pays gas. See <a href="../bridge-epoch-update/">Bridge epoch update</a>.</li>
+</ul>
+<h2 id="supported-flows">Supported flows</h2>
+<p>The dashboard supports the full set of transfers without using the CLI:</p>
+<ul>
+<li><strong>ETH Bridge</strong> — deposit any ERC-20 (USDT, USDC, WETH, …) from Ethereum to Gonka, or withdraw back to Ethereum.</li>
+<li><strong>GNK Bridge</strong> — bridge native GNK to Ethereum as WGNK and back.</li>
+<li><strong>IBC Bridge</strong> — transfer IBC-native tokens (e.g. USDT) between Gonka and connected Cosmos chains (Kava).</li>
+</ul>
+<h3 id="processing-time-fees">Processing time &amp; fees</h3>
+<table>
+<thead>
+<tr>
+<th>Bridge type</th>
+<th>Direction</th>
+<th>Processing time</th>
+<th>Gas paid in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ETH Bridge (ERC-20)</td>
+<td>Ethereum → Gonka</td>
+<td>~15–20 min (waits for Ethereum finalization)</td>
+<td>ETH</td>
+</tr>
+<tr>
+<td>ETH Bridge (ERC-20)</td>
+<td>Gonka → Ethereum</td>
+<td>~1–5 min</td>
+<td>ETH</td>
+</tr>
+<tr>
+<td>GNK Bridge</td>
+<td>Gonka → Ethereum (mint WGNK)</td>
+<td>~1–5 min</td>
+<td>ETH</td>
+</tr>
+<tr>
+<td>GNK Bridge</td>
+<td>Ethereum → Gonka (burn WGNK)</td>
+<td>~15–20 min</td>
+<td>ETH</td>
+</tr>
+<tr>
+<td>IBC</td>
+<td>Kava → Gonka</td>
+<td>~1–3 min</td>
+<td>KAVA</td>
+</tr>
+<tr>
+<td>IBC</td>
+<td>Gonka → Kava</td>
+<td>~1–3 min</td>
+<td>GNK (0 fee)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="deposit-tokens-to-gonka">Deposit tokens to Gonka</h2>
+<p>This section walks you through depositing tokens to Gonka using the bridge widget. Select the token from the <strong>Token</strong> dropdown — the widget detects the bridge type automatically:</p>
+<ul>
+<li><strong>ERC-20 tokens</strong> (USDC, USDT, WETH, …) and <strong>GNK</strong> (as WGNK) go through the <strong>Ethereum bridge</strong>.</li>
+<li><strong>IBC tokens</strong> (USDT <span class="md-tag">IBC</span>, …) go through <strong>IBC</strong> to a connected Cosmos chain.</li>
+</ul>
+<h3 id="how-eth-gnk-bridge-deposits-work">How ETH / GNK bridge deposits work</h3>
+<ol>
+<li><strong>Lock tokens on Ethereum</strong> — your tokens are sent to the bridge contract and locked.</li>
+<li><strong>Validator signatures</strong> — Gonka validators observe the finalized Ethereum deposit and collect BLS signatures.</li>
+<li><strong>Mint on Gonka</strong> — the wrapped tokens are minted on Gonka and delivered to your derived <code>gonka1…</code> address.</li>
+</ol>
+<h3 id="how-ibc-deposits-work">How IBC deposits work</h3>
+<ol>
+<li><strong>Approve transfer in wallet</strong> — you sign an IBC transfer from the source chain (e.g. Kava).</li>
+<li><strong>IBC packet relay</strong> — the packet is relayed to Gonka.</li>
+<li><strong>Tokens arrive on Gonka</strong> — IBC tokens appear in your Gonka wallet.</li>
+</ol>
+<h3 id="1-open-the-dashboard">1. Open the dashboard</h3>
+<p>Open one of the genesis nodes in your browser:</p>
+<ul>
+<li><a href="https://node1.gonka.ai:8443">https://node1.gonka.ai:8443</a></li>
+<li><a href="https://node2.gonka.ai:8443">https://node2.gonka.ai:8443</a></li>
+</ul>
+<p>Navigate to the <strong>Developers</strong> section in the left sidebar. You will see the bridge widget at the bottom of the page with <strong>WITHDRAW</strong> / <strong>DEPOSIT</strong> toggles.</p>
+<p><a href="/images/bridge_widget_2.png" target="_blank"><img src="/images/bridge_widget_2.png" style="width:500px; height:auto;"></a></p>
+<h3 id="2-connect-your-keplr-wallet">2. Connect your Keplr wallet</h3>
+<p>Make sure the <strong>DEPOSIT</strong> toggle is selected. Click <strong>CONNECT WALLET</strong>.</p>
+<p>A dialog will appear with the available wallet options. Select <strong>KEPLR</strong>.</p>
+<p><a href="/images/bridge_widget_3.png" target="_blank"><img src="/images/bridge_widget_3.png" style="width:500px; height:auto;"></a></p>
+<div class="admonition note">
+<p class="admonition-title">Keplr shows "Not Installed"?</p>
+<p>If you see a "Not Installed" message, you need to install the Keplr browser extension first. Follow the instructions in <a href="../../../wallet/create-account/">Create a Gonka account → Keplr browser extension</a> to set it up, then return here.</p>
+</div>
+<p>Enter your Keplr password if prompted. Once connected, the widget will show <strong>Keplr Connected</strong> with your shortened Gonka address and your GNK balance. Click <strong>CONTINUE</strong> to proceed.</p>
+<p><a href="/images/bridge_widget_4.png" target="_blank"><img src="/images/bridge_widget_4.png" style="width:500px; height:auto;"></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Seed-phrase (mnemonic) accounts</p>
+<p>If your Gonka account was created from a <strong>seed phrase</strong> (mnemonic) rather than a raw private key, the bridge widget will detect the address mismatch and warn you. This happens because Ethereum and Gonka derive <strong>different keys</strong> from the same seed phrase, so tokens will be delivered to a different <code>gonka1…</code> address than your wallet currently shows. The funds are not lost — you can derive the matching key from the same mnemonic — but it requires a manual derivation step. If you see this warning, stop and read <a href="../addresses-and-keys/">Addresses and keys</a> before proceeding.</p>
+</div>
+<h3 id="3-choose-token-and-amount">3. Choose token and amount</h3>
+<p>On Step 2, select the token you want to deposit from the <strong>Token</strong> dropdown and enter the <strong>Amount</strong>. The widget displays your current balance and the <strong>Receiving address on Gonka</strong> is auto-filled from your connected wallet.</p>
+<p>The widget shows the estimated <strong>processing time</strong> and <strong>approximate fee</strong> (the fee currency depends on the bridge type — see the table above).</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">ERC-20 (USDC)</label><label for="__tabbed_1_2">GNK</label><label for="__tabbed_1_3">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="/images/bridge_widget_5.png" target="_blank"><img src="/images/bridge_widget_5.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="/images/bridge_widget_20.png" target="_blank"><img src="/images/bridge_widget_20.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="/images/bridge_ibc_deposit_1.png" target="_blank"><img src="/images/bridge_ibc_deposit_1.png" style="width:500px; height:auto;"></a></p>
+</div>
+</div>
+</div>
+<p>Click <strong>REVIEW &amp; BRIDGE</strong>.</p>
+<h3 id="4-confirm-the-transaction">4. Confirm the transaction</h3>
+<p>Your wallet will open a <strong>Confirm Transaction</strong> screen. Review the details carefully before approving:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">ERC-20 (USDC)</label><label for="__tabbed_2_2">GNK</label><label for="__tabbed_2_3">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><strong>Token and amount</strong> — verify the correct token and amount.</li>
+<li><strong>From</strong> — your Ethereum address (the sender).</li>
+<li><strong>To</strong> — the bridge contract address (<code>0x972a7A92…648f2F68</code>). This is expected — you are sending tokens to the bridge, which will then mint wrapped tokens on Gonka.</li>
+<li><strong>Tx Fee</strong> — the Ethereum gas fee you will pay.</li>
+</ul>
+<p><a href="/images/bridge_widget_6.png" target="_blank"><img src="/images/bridge_widget_6.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<ul>
+<li><strong>Token and amount</strong> — verify the correct token and amount.</li>
+<li><strong>To</strong> — the bridge contract address.</li>
+<li><strong>Tx Fee</strong> — the Ethereum gas fee.</li>
+</ul>
+<p><a href="/images/bridge_widget_21.png" target="_blank"><img src="/images/bridge_widget_21.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<ul>
+<li><strong>Message type</strong> — <code>IBC Transfer</code>.</li>
+<li><strong>Amount and destination</strong> — e.g. "Send 0.1 USDt to gonka1… via channel-161".</li>
+<li><strong>Tx Fee</strong> — paid in KAVA (e.g. 0.05 KAVA).</li>
+</ul>
+<p><a href="/images/bridge_ibc_deposit_2.png" target="_blank"><img src="/images/bridge_ibc_deposit_2.png" style="width:500px; height:auto;"></a></p>
+</div>
+</div>
+</div>
+<p>Click <strong>Approve</strong> to submit the transaction.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Double-check the details before confirming. Bridge transfers are <strong>irreversible</strong>. If anything looks wrong, click <strong>✕</strong> to cancel and start over.</p>
+</div>
+<h3 id="5-deposit-complete">5. Deposit complete</h3>
+<p>The widget will show a <strong>Deposit complete</strong> screen with a summary of the operation.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><input id="__tabbed_3_3" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">ERC-20 (USDC)</label><label for="__tabbed_3_2">GNK</label><label for="__tabbed_3_3">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="/images/bridge_widget_7.png" target="_blank"><img src="/images/bridge_widget_7.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="/images/bridge_widget_22.png" target="_blank"><img src="/images/bridge_widget_22.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<p>The progress tracker shows:</p>
+<ul>
+<li><strong>Approve transfer in wallet</strong> — done</li>
+<li><strong>IBC packet relay transfer</strong> — done</li>
+</ul>
+<p><a href="/images/bridge_ibc_deposit_3.png" target="_blank"><img src="/images/bridge_ibc_deposit_3.png" style="width:500px; height:auto;"></a></p>
+</div>
+</div>
+</div>
+<p>From this screen you can:</p>
+<ul>
+<li>Click <strong>VIEW ON EXPLORER</strong> to see the transaction details.</li>
+<li>Click <strong>TRANSFER MORE TOKENS</strong> to make another deposit.</li>
+<li>Click <strong>DISCONNECT</strong> to disconnect your wallet.</li>
+</ul>
+<h3 id="6-verify-your-deposit">6. Verify your deposit</h3>
+<p>You can confirm your wrapped tokens arrived in several ways:</p>
+<ul>
+<li><strong>In the dashboard</strong>: open <code>https://node2.gonka.ai:8443/dashboard/gonka/account/&lt;your_gonka_address&gt;</code> and check your balances.</li>
+<li><strong>Via the transaction link</strong> shown on the Deposit complete screen.</li>
+<li><strong>In Keplr</strong>: wrapped tokens (CW-20) do not appear in Keplr automatically — follow the steps below to add them manually.</li>
+</ul>
+<hr>
+<h3 id="add-wrapped-tokens-to-keplr">Add wrapped tokens to Keplr</h3>
+<p>Wrapped ERC-20 tokens (such as wUSDC and wUSDT) are CW-20 tokens on the Gonka chain. Keplr does not detect CW-20 tokens automatically, so you need to add them as custom tokens.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>IBC tokens (transferred via IBC, not the Ethereum bridge) appear in Keplr automatically. The manual steps below are only needed for bridge-wrapped CW-20 tokens.</p>
+</div>
+<p><strong>Step 1.</strong> Open your Keplr wallet, click the menu icon (three horizontal lines) in the top-right corner, and select <strong>Manage Asset List</strong>.</p>
+<p><a href="/images/bridge_widget_12.png" target="_blank"><img src="/images/bridge_widget_12.png" style="width:auto; height:337.5px;"></a></p>
+<p><strong>Step 2.</strong> Click the <strong>+</strong> button in the top-right corner to add a custom token.</p>
+<p><a href="/images/bridge_widget_13.png" target="_blank"><img src="/images/bridge_widget_13.png" style="width:auto; height:337.5px;"></a></p>
+<p><strong>Step 3.</strong> On the <strong>Add Custom Token</strong> page, select <strong>Gonka</strong> from the chain dropdown. Paste the CW-20 contract address into the <strong>Contract Address</strong> field. The token metadata (name, symbol, decimals) will be filled in automatically. Click <strong>Confirm</strong>.</p>
+<p>Known contract addresses:</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>CW-20 contract address on Gonka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USDC</td>
+<td><code>gonka1fa83z7np903k9vh63guy82qthtv373d7vjeq0y7xeqh50rzn8vtssffkre</code></td>
+</tr>
+<tr>
+<td>USDT</td>
+<td><code>gonka15ggwj9un6qrmu4nj5ev6l7kpdcr00td03ff2mmj4cyhl8u8vjd2qnl3hgk</code></td>
+</tr>
+</tbody>
+</table>
+<p><a href="/images/bridge_widget_14.png" target="_blank"><img src="/images/bridge_widget_14.png" style="width:auto; height:337.5px;"></a></p>
+<p><strong>Step 4.</strong> Done — the token now appears in your Keplr wallet as a <strong>Gonka CW20</strong> token.</p>
+<p><a href="/images/bridge_widget_15.png" target="_blank"><img src="/images/bridge_widget_15.png" style="width:auto; height:337.5px;"></a></p>
+<hr>
+<h2 id="withdraw-tokens-from-gonka">Withdraw tokens from Gonka</h2>
+<p>This section walks you through withdrawing tokens from Gonka using the bridge widget. Select the token from the <strong>Token</strong> dropdown — the widget detects the bridge type automatically:</p>
+<ul>
+<li><strong>ERC-20 tokens</strong> and <strong>GNK</strong> go through the <strong>Ethereum bridge</strong>.</li>
+<li><strong>IBC tokens</strong> (USDT <span class="md-tag">IBC</span>, …) go through <strong>IBC</strong> to a connected Cosmos chain.</li>
+</ul>
+<h3 id="how-eth-gnk-bridge-withdrawals-work">How ETH / GNK bridge withdrawals work</h3>
+<ol>
+<li><strong>Burn tokens on Gonka</strong> — the wrapped token is burned (or native GNK is locked) on the Gonka chain.</li>
+<li><strong>Validator signatures</strong> — Gonka validators produce a BLS aggregate signature authorizing the release.</li>
+<li><strong>Release on Ethereum</strong> — the original token is released from the bridge contract on Ethereum (or WGNK is minted).</li>
+</ol>
+<h3 id="how-ibc-withdrawals-work">How IBC withdrawals work</h3>
+<ol>
+<li><strong>Approve transfer in wallet</strong> — you sign an IBC transfer on Gonka.</li>
+<li><strong>IBC packet relay</strong> — the packet is relayed to the destination chain.</li>
+<li><strong>Tokens arrive</strong> — IBC tokens appear in your wallet on the destination chain (e.g. Kava).</li>
+</ol>
+<h3 id="1-open-the-dashboard_1">1. Open the dashboard</h3>
+<p>Open one of the genesis nodes in your browser:</p>
+<ul>
+<li><a href="https://node1.gonka.ai:8443">https://node1.gonka.ai:8443</a></li>
+<li><a href="https://node2.gonka.ai:8443">https://node2.gonka.ai:8443</a></li>
+</ul>
+<p>Navigate to the <strong>Developers</strong> section in the left sidebar. Select the <strong>WITHDRAW</strong> toggle in the bridge widget.</p>
+<p><a href="/images/bridge_withdraw_1.png" target="_blank"><img src="/images/bridge_withdraw_1.png" style="width:500px; height:auto;"></a></p>
+<h3 id="2-connect-your-keplr-wallet_1">2. Connect your Keplr wallet</h3>
+<p>Make sure the <strong>WITHDRAW</strong> toggle is selected. Click <strong>CONNECT WALLET</strong>.</p>
+<p>A dialog will appear with the available wallet options. Select <strong>KEPLR</strong>.</p>
+<p><a href="/images/bridge_withdraw_2.png" target="_blank"><img src="/images/bridge_withdraw_2.png" style="width:500px; height:auto;"></a></p>
+<div class="admonition note">
+<p class="admonition-title">Keplr shows "Not Installed"?</p>
+<p>If you see a "Not Installed" message, you need to install the Keplr browser extension first. Follow the instructions in <a href="../../../wallet/create-account/">Create a Gonka account → Keplr browser extension</a> to set it up, then return here.</p>
+</div>
+<p>Enter your Keplr password if prompted. Once connected, the widget will show <strong>Keplr Connected</strong> with your shortened Gonka address and your GNK balance. Click <strong>CONTINUE</strong> to proceed.</p>
+<p><a href="/images/bridge_withdraw_3.png" target="_blank"><img src="/images/bridge_withdraw_3.png" style="width:500px; height:auto;"></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Seed-phrase (mnemonic) accounts</p>
+<p>If your Gonka account was created from a <strong>seed phrase</strong> (mnemonic) rather than a raw private key, the bridge widget will detect the address mismatch and warn you. This happens because Ethereum and Gonka derive <strong>different keys</strong> from the same seed phrase, so tokens will be released to a different Ethereum address than your wallet currently shows. The funds are not lost — you can derive the matching key from the same mnemonic — but it requires a manual derivation step. If you see this warning, stop and read <a href="../addresses-and-keys/">Addresses and keys</a> before proceeding.</p>
+</div>
+<h3 id="3-choose-token-and-amount_1">3. Choose token and amount</h3>
+<p>On Step 2, select the token you want to withdraw from the <strong>Token</strong> dropdown and enter the <strong>Amount</strong>. The widget displays your current balance of that token on Gonka. The <strong>Destination Address</strong> is auto-filled from your connected wallet.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Unlike deposits, you can edit the destination field to withdraw to a different address. Make sure it's an address you control and that it's entered correctly.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"><input id="__tabbed_4_3" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">GNK</label><label for="__tabbed_4_2">ERC-20 (USDC)</label><label for="__tabbed_4_3">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="/images/bridge_withdraw_4.png" target="_blank"><img src="/images/bridge_withdraw_4.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="/images/bridge_withdraw_8.png" target="_blank"><img src="/images/bridge_withdraw_8.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<p>The destination address is a <code>kava1…</code> address on the Kava chain. Processing time is ~1–3 minutes.</p>
+<p><a href="/images/bridge_ibc_withdraw_1.png" target="_blank"><img src="/images/bridge_ibc_withdraw_1.png" style="width:500px; height:auto;"></a></p>
+</div>
+</div>
+</div>
+<p>Click <strong>REVIEW &amp; BRIDGE</strong>.</p>
+<h3 id="4-confirm-the-transaction-on-gonka">4. Confirm the transaction on Gonka</h3>
+<p>Keplr will open a <strong>Confirm Transaction</strong> popup for the Gonka chain. Review the details and click <strong>Approve</strong>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked id="__tabbed_5_1" name="__tabbed_5" type="radio"><input id="__tabbed_5_2" name="__tabbed_5" type="radio"><input id="__tabbed_5_3" name="__tabbed_5" type="radio"><div class="tabbed-labels"><label for="__tabbed_5_1">GNK</label><label for="__tabbed_5_2">ERC-20 (USDC)</label><label for="__tabbed_5_3">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><strong>Message type</strong> — <code>MsgRequestBridgeMint</code>, which locks your GNK on Gonka and requests minting of WGNK on Ethereum.</li>
+<li><strong>Tx Fee</strong> — 0 GNK.</li>
+</ul>
+<p><a href="/images/bridge_withdraw_5.png" target="_blank"><img src="/images/bridge_withdraw_5.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<ul>
+<li><strong>Message type</strong> — <code>Execute Wasm Contract</code> call to the wrapped token's CW-20 contract with a <code>withdraw</code> payload.</li>
+<li><strong>Tx Fee</strong> — 0 GNK.</li>
+</ul>
+<p><a href="/images/bridge_withdraw_9.png" target="_blank"><img src="/images/bridge_withdraw_9.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<ul>
+<li><strong>Message type</strong> — <code>IBC Transfer</code>.</li>
+<li><strong>Amount and destination</strong> — e.g. "Send 0.1 USDt (Kava/channel-5) to kava1… via channel-5".</li>
+<li><strong>Tx Fee</strong> — 0 GNK.</li>
+</ul>
+<p><a href="/images/bridge_ibc_withdraw_2.png" target="_blank"><img src="/images/bridge_ibc_withdraw_2.png" style="width:500px; height:auto;"></a></p>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Double-check the details before confirming. Bridge transfers are <strong>irreversible</strong>. If anything looks wrong, click <strong>✕</strong> to cancel and start over.</p>
+</div>
+<p>For <strong>ETH / GNK bridge</strong>: after you approve, the progress tracker marks <strong>Burn tokens on Gonka</strong> as complete. The Gonka validators then automatically collect and aggregate their BLS signatures (<strong>Validator signatures</strong> step) — no action is required from you during this stage.</p>
+<h3 id="5-confirm-the-release-transaction-on-ethereum-eth-gnk-bridge-only">5. Confirm the release transaction on Ethereum (ETH / GNK bridge only)</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step applies only to <strong>ETH bridge</strong> and <strong>GNK bridge</strong> withdrawals. For <strong>IBC</strong> withdrawals, the transfer completes automatically after Step 4 — skip to Step 6.</p>
+</div>
+<p>Once the validators have produced the BLS aggregate signature (<strong>Validator signatures</strong> — done), Keplr opens a second popup — this time for the <strong>Ethereum chain</strong>. This transaction executes the bridge contract (<code>0x972a7a92…648f2f68</code>) to release the tokens on Ethereum.</p>
+<ul>
+<li><strong>To</strong> — the bridge contract address on Ethereum.</li>
+<li><strong>Tx Fee</strong> — the Ethereum gas fee (paid in ETH). The exact amount depends on current gas prices.</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked id="__tabbed_6_1" name="__tabbed_6" type="radio"><input id="__tabbed_6_2" name="__tabbed_6" type="radio"><div class="tabbed-labels"><label for="__tabbed_6_1">GNK</label><label for="__tabbed_6_2">ERC-20 (USDC)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="/images/bridge_withdraw_6.png" target="_blank"><img src="/images/bridge_withdraw_6.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="/images/bridge_withdraw_10.png" target="_blank"><img src="/images/bridge_withdraw_10.png" style="width:500px; height:auto;"></a></p>
+</div>
+</div>
+</div>
+<p>Click <strong>Approve</strong> to submit the release transaction.</p>
+<h3 id="6-withdrawal-complete">6. Withdrawal complete</h3>
+<p>The widget shows a <strong>Withdrawal complete</strong> screen with all stages marked as done.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:3"><input checked id="__tabbed_7_1" name="__tabbed_7" type="radio"><input id="__tabbed_7_2" name="__tabbed_7" type="radio"><input id="__tabbed_7_3" name="__tabbed_7" type="radio"><div class="tabbed-labels"><label for="__tabbed_7_1">GNK</label><label for="__tabbed_7_2">ERC-20 (USDC)</label><label for="__tabbed_7_3">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="/images/bridge_withdraw_7.png" target="_blank"><img src="/images/bridge_withdraw_7.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<p><a href="/images/bridge_withdraw_11.png" target="_blank"><img src="/images/bridge_withdraw_11.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="tabbed-block">
+<p>The progress tracker shows:</p>
+<ul>
+<li><strong>Approve transfer in wallet</strong> — done</li>
+<li><strong>IBC packet relay transfer</strong> — done</li>
+</ul>
+<p><a href="/images/bridge_ibc_withdraw_3.png" target="_blank"><img src="/images/bridge_ibc_withdraw_3.png" style="width:500px; height:auto;"></a></p>
+</div>
+</div>
+</div>
+<p>From this screen you can:</p>
+<ul>
+<li>Click <strong>VIEW ON EXPLORER</strong> to see the transaction details.</li>
+<li>Click <strong>TRANSFER MORE TOKENS</strong> to make another withdrawal.</li>
+<li>Click <strong>DISCONNECT</strong> to disconnect your wallet.</li>
+</ul>
+<h3 id="7-verify-your-withdrawal">7. Verify your withdrawal</h3>
+<p>You can confirm your tokens arrived in several ways:</p>
+<ul>
+<li><strong>ETH bridge / GNK</strong>: check the released ERC-20 tokens or WGNK in your Ethereum wallet. WGNK appears in Keplr automatically.</li>
+<li><strong>IBC</strong>: check the token balance on the destination chain (e.g. USDT on Kava in Keplr).</li>
+<li><strong>Explorer link</strong>: use the <strong>VIEW ON EXPLORER</strong> link on the Withdrawal complete screen.</li>
+</ul>
+<p><a href="/images/bridge_withdraw_12.png" target="_blank"><img src="/images/bridge_withdraw_12.png" style="width:auto; height:337.5px;"></a></p></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

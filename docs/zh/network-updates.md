@@ -212,6 +212,21 @@ export NODE_URL=https://node3.gonka.ai/
 
 有关引导流程的更多信息：[https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
 
+## 2026 年 7 月 16 日
+
+**提案 86 已通过：Kimi-K2.6 与 GLM-5.2 的 weight_scale_factor 提高 5%**
+
+治理提案 86 已链上批准（投票于 7 月 16 日 17:53 UTC 结束）：
+
+* `moonshotai/Kimi-K2.6`：`weight_scale_factor` 从 `0.90` 提高至 `0.945`（+5%）。
+* `zai-org/GLM-5.2-FP8`：`weight_scale_factor` 从 `2.47` 提高至 `2.5935`（+5%）。
+
+其他所有模型和链参数保持不变。主机无需采取任何操作。当前值可随时通过实时 `params` 查询获取（`poc_params` → `models`）：
+
+```
+./inferenced query inference params --node "$NODE" -o json
+```
+
 ## 2026年7月15日
 
 **紧急治理投票（提案87）：移除Kimi-K2.6以快速重新引导**

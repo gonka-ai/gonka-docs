@@ -8,12 +8,19 @@
 
 截至纪元 `308`，`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 已由治理（提案 78）退役，`MiniMaxAI/MiniMax-M2.7` 成为基础模型与活跃的 PoC 模型。主网上的 `poc_params.models` 包含以下内容：
 
-| `model_id` | 当前主网状态 | `weight_scale_factor` | `penalty_start_epoch` |
-|---|---|---:|---:|
-| `MiniMaxAI/MiniMax-M2.7` | 活跃 | `0.3024` | `278` |
-| `moonshotai/Kimi-K2.6` | 重新 bootstrap 中（通过后续投票恢复） | `0.78` | `251` |
+| `model_id` | 当前主网状态 |
+|---|---|
+| `MiniMaxAI/MiniMax-M2.7` | 基础模型，活跃 |
+| `moonshotai/Kimi-K2.6` | 活跃（在第 328–329 轮事件后于第 331 轮重新引导） |
+| `zai-org/GLM-5.2-FP8` | 活跃（由提案 79 添加；未参与惩罚自第 500 轮起生效） |
 
-这些值由治理机制控制，可能会发生变化。在执行任何操作前，请务必通过你所使用的链上的实时 `params` 查询来验证这些参数。
+各模型的 `weight_scale_factor` 和 `penalty_start_epoch` 会通过治理频繁变更，无法在此可靠列出。请始终通过你所使用的链上的实时 `params` 查询读取这些参数：
+
+```
+./inferenced query inference params --node "$NODE" -o json
+```
+
+查看 `poc_params` → `models` 中的内容。
 
 ??? note "为何多模型 PoC 采用此设计"
 

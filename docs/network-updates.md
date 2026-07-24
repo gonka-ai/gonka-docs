@@ -212,6 +212,21 @@ export NODE_URL=https://node3.gonka.ai/
 
 More on how the bootstrap works: [https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
 
+## July 16, 2026
+
+**Proposal 86 has passed: weight_scale_factor raised by 5% for Kimi-K2.6 and GLM-5.2**
+
+Governance proposal 86 was approved on-chain (voting ended July 16, 17:53 UTC):
+
+* `moonshotai/Kimi-K2.6`: `weight_scale_factor` increased from `0.90` to `0.945` (+5%).
+* `zai-org/GLM-5.2-FP8`: `weight_scale_factor` increased from `2.47` to `2.5935` (+5%).
+
+All other model and chain parameters remain unchanged. No action is required from hosts. Current values can always be read from a live `params` query (`poc_params` → `models`):
+
+```
+./inferenced query inference params --node "$NODE" -o json
+```
+
 ## July 15, 2026
 
 **Expedited governance vote (proposal 87): remove Kimi-K2.6 for a fast re-bootstrap**

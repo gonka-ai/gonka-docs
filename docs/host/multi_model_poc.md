@@ -27,7 +27,8 @@ As of epoch `308`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` has been retired by 
 | `model_id` | Current mainnet status |
 |---|---|
 | `MiniMaxAI/MiniMax-M2.7` | Base model, active |
-| `moonshotai/Kimi-K2.6` | Re-bootstrapping after the epoch 328–329 incident |
+| `moonshotai/Kimi-K2.6` | Active (re-bootstrapped at epoch 331 after the epoch 328–329 incident) |
+| `zai-org/GLM-5.2-FP8` | Active (added by proposal 79; non-participation penalty starts at epoch 500) |
 
 Per-model `weight_scale_factor` and `penalty_start_epoch` change through governance too often to list here reliably. Always read them from a live `params` query on the chain you use:
 

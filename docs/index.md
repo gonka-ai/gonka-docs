@@ -216,7 +216,7 @@ landing: true
                 </a>
               </li>
               <li>
-                <a class="gonka-doc-cta" href="/docs/host/rewards/">
+                <a class="gonka-doc-cta" href="https://gonka.ai/tokenomics.pdf">
                   <span class="role-link-icon" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="13" r="6" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 4.5 12 7l2.5-2.5M12 11v4M10.5 12.5h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </span>

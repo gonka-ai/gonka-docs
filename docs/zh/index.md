@@ -64,7 +64,7 @@ landing: true
     <section class="gonka-hero">
       <div class="gonka-inner">
         <h1>Gonka</h1>
-        <p class="tagline">AI计算已成为新货币</p>
+        <p class="tagline">AI 计算已成为新的货币</p>
         <p class="hero-uniswap">
           <a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">
             <span>在</span>
@@ -88,7 +88,7 @@ landing: true
 <div class="gonka-carousel">
       <div class="carousel-track">
         <div class="partner-card">
-          <span class="partner-label">审计</span>
+          <span class="partner-label">审计方</span>
           <div class="partner-logos">
             <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/certik.svg" alt="CertiK" />
@@ -216,7 +216,7 @@ landing: true
                 </a>
               </li>
               <li>
-                <a class="gonka-doc-cta" href="/docs/host/rewards/">
+                <a class="gonka-doc-cta" href="https://gonka.ai/tokenomics.pdf">
                   <span class="role-link-icon" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="13" r="6" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 4.5 12 7l2.5-2.5M12 11v4M10.5 12.5h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   </span>

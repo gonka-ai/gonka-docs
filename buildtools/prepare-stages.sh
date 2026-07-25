@@ -14,7 +14,13 @@ SRC="$ROOT/docs"
 STAGE="$ROOT/_stage"
 
 # Derive mkdocs.docs.yml nav from the single source of truth in mkdocs.yml.
-python3 "$ROOT/buildtools/sync-docs-nav.py"
+if [ -x "$ROOT/venv/bin/python3" ]; then
+  "$ROOT/venv/bin/python3" "$ROOT/buildtools/sync-docs-nav.py"
+elif [ -x "$ROOT/.venv/bin/python3" ]; then
+  "$ROOT/.venv/bin/python3" "$ROOT/buildtools/sync-docs-nav.py"
+else
+  python3 "$ROOT/buildtools/sync-docs-nav.py"
+fi
 
 rm -rf "$STAGE"
 mkdir -p "$STAGE/home/zh"

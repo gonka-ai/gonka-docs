@@ -8,6 +8,424 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## July 22, 2026
+
+**Upgrade v0.2.14: Pre-download binaries**
+
+The on-chain governance process for the v0.2.14 upgrade proposal is nearing its conclusion.
+
+- Voting ends: July 23rd, 2026, at 00:02 UTC
+- Upgrade height: 5195700
+- Estimated upgrade time: July 23rd, 2026, at ~03:45 UTC
+
+Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka-ai/gonka/pull/1267) and participate in the vote.
+
+Pre-downloading binaries in advance may help avoid relying on GitHub availability during the upgrade window.
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.14/bin \
+              .inference/cosmovisor/upgrades/v0.2.14/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.14/decentralized-api-amd64.zip" && \
+echo "4326a27913a05435e37cd5fa9e3d0cf5271351799f8b01b842e049a733976c87 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.14/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.14/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.14/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.14/inferenced-amd64.zip" && \
+echo "ce857ef90deb899c03d78dee01493e544bf8b7ddf8b452e75b3b010b80a8b046 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.14/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.14/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.14/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.14/bin/inferenced && \
+echo "9f41f08d865041c9d1b43e28334528d8d542751af40841f9ddc34d64787e5286 .dapi/cosmovisor/upgrades/v0.2.14/bin/decentralized-api" | sudo sha256sum --check && \
+echo "526755f37a0660e9ad9a38f01f99ac87920c7cee12554dc613b274e5e9e3d784 .inference/cosmovisor/upgrades/v0.2.14/bin/inferenced" | sudo sha256sum --check
+```
+
+## July 20, 2026
+
+**v0.2.14 Upgrade Proposal Enters Governance**
+
+[The v0.2.14 proposal](https://github.com/gonka-ai/gonka/pull/1267) is now on-chain and open for voting.
+
+The mainnet chain/API work focuses on PoC duplicate-artifact protection, early share detection, classic inference API deprecation (disabling `/v1/chat/completions` billing on mainnet and removing embedded `/v1/devshard` from the API binary), reward recipient routing, and upgrade-time safety fixes.
+
+The devshard part prepares the v3 runtime so brokers can serve inference during the chain upgrade without depending on the deprecated classic API path, improving RAM utilization and enabling safe switching between SQLite and Postgres storage.
+
+For more details, please see the pull request: [https://github.com/gonka-ai/gonka/pull/1267](https://github.com/gonka-ai/gonka/pull/1267)
+
+**Upgrade Plan**
+
+The node binary is upgraded through an on-chain software upgrade proposal. Existing hosts are not required to manually update their `api` or `node` containers as part of the upgrade.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+  
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.12 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 89 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 89 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Required actions in preparation for the upgrade**
+
+In case the proposal is approved, the following preparation is recommended.
+
+- Now / before the mainnet upgrade — update your API and bridge. To keep the Ethereum bridge stable during the mainnet upgrade, update the `api` binary and the bridge image to 0.2.14-post3 ahead of time, following [the guide](https://gonka.ai/docs/FAQ/#upgrade-v0214-pre-upgrade-api-and-bridge-update). If your `api` binary is already updated, you only need to update the bridge image and restart the bridge container. If you have already completed both steps, you do not need to repeat them. If you have multiple nodes, update them one by one, and perform this step outside of PoC or cPoC.
+
+- Dashboard maintainers — no existing query endpoint was removed or reshaped in this upgrade. If your dashboard reads values from the chain and displays them, it keeps working. There is one semantic change you need to understand (delegation), and three small notes (read the full guide: [https://gonka.ai/docs/dashboard-maintainer-memo-v0.2.14/](https://gonka.ai/docs/dashboard-maintainer-memo-v0.2.14/))
+  
+**Deadlines**
+
+- Voting ends: July 23, 2026 at 00:02 UTC / July 22, 2026 at 17:02 PDT
+- Proposed upgrade height: 5195700 
+- Estimated upgrade time: July 23, 2026 at 03:45 AM UTC / July 22, 2026 at 8:45 PM PDT 
+
+**Attention**
+
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available (the Cosmovisor backup of `application.db` on mainnet is typically tens of GB, so verify in advance). Guidance on safely removing old backups from the `.inference` directory is available in [the documentation.](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described in the cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- If approved, devshard storage could optionally be backed by a shared Postgres instance after the upgrade (same env vars as payload storage). Local SQLite would remain the default and would prune automatically (last 3 epochs retained).
+
+## July 20, 2026
+
+**[The PR for the devshard-only](https://github.com/gonka-ai/gonka/pull/1482) upgrade is now open for review**
+
+Devshard upgrades update the devshard runtime independently from the main blockchain. They do not require a coordinated full-node upgrade through Cosmovisor, do not affect mainnet behavior, and are not expected to cause downtime for inference serving. If approved through the governance process, the new devshard version will run in parallel with the existing v3 runtime.
+
+**Key changes**
+
+- The main intent of v4 is high availability of devshard hosts on host failures and upgrades. It can keep serving new requests if one machine is down or restarting, and on version upgrades multiple machines replace versions one by one. This is the first update in a series of devshard and network-node changes that refactor the monolith toward a high-availability, fault-tolerant, scalable architecture.
+- v4 is the first version intended for multi-instance HA: N versiond / devshardd replicas behind versiond-router on shared Postgres, with sticky session routing and validation-lease exclusivity. The gateway talks to the chain over gRPC only. Public observability is versionless (/devshard/sessions|stats|metrics); only the escrow owner binds via signed chat. When governance publishes a new binary under the same version name (name unchanged, only sha256 changes), versiond can blue/green swap with drain so in-flight work (including SSE) finishes on the old generation.
+- v4 also lands bug and security fixes.
+  
+**Action items**
+
+Please review the PR [https://github.com/gonka-ai/gonka/pull/1482](https://github.com/gonka-ai/gonka/pull/1482) and leave comments on any findings, questions, suggested improvements, edge cases, or potential vulnerabilities.
+
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties in the next upgrade cycle.
+
+This is a call for PR review only. It does not start formal voting. 
+
+## July 16, 2026
+
+**Proposal 88 has passed: Kimi-K2.6 re-registered, devshard v1/v2 removed**
+
+The expedited proposal 88 was approved on-chain.
+
+**Kimi-K2.6 bootstrap (epoch 331)**
+
+`moonshotai/Kimi-K2.6` is back in the governance model list and enters the standard bootstrap flow.
+
+* Declare intent before block **5,105,276** (July 17, ~12:05 UTC):
+```
+./inferenced tx inference declare-poc-intent moonshotai/Kimi-K2.6
+```
+* Switch your MLNode to Kimi in the ~500-block window before epoch 331 PoC starts (block **5,105,776** — July 17, 12:50:53 UTC / 05:50 PDT).
+* Delegating hosts: pick non-guardian Kimi hosts and spread weight across independent targets —  see the [Multi-Model PoC guide](https://gonka.ai/docs/host/multi_model_poc/).
+
+**Devshard v1/v2 removed**
+
+`versiond` has stopped the v1 and v2 `devshardd` processes. All gateway traffic must use `/devshard/v3`. If your gateway stopped serving inference after this change, you are still routing through a removed path — follow the v3 migration guide. 
+
+## July 16, 2026
+
+**Expedited governance vote (proposal 88): re-register Kimi-K2.6 and remove devshard v1/v2 runtimes**
+
+This is the second step of the Kimi recovery plan announced on July 15. Proposal 87 removed `moonshotai/Kimi-K2.6` from the active set; proposal 88 re-registers it in the governance model list so it goes through the standard bootstrap starting at epoch 331.
+
+The same proposal removes `approved_versions` v1 and v2 from `devshard_escrow_params`. Once approved, `versiond` stops the v1 and v2 `devshardd` processes and only the v3 runtime (`/devshard/v3`) keeps running. This removes the long-running RAM growth of the older runtime containers — the issue behind the network node OOM in the July 15 incident.
+
+**This makes the v3 switch final.** Gateways still routing through v1/v2 prefixes or the classic `/v1/devshard` path will stop serving inference after the proposal passes.
+
+**Required actions for hosts**
+
+1. Vote on proposal 88 before the deadline — the expedited window is short.
+2. Hosts serving Kimi: declare intent for `moonshotai/Kimi-K2.6` right **after the end of voting** and before block **5,105,276** (July 17, ~12:05 UTC), then switch your MLNode back in the ~500-block window before epoch 331 PoC starts (block **5,105,776**, July 17, ~12:50 UTC):
+```
+./inferenced tx inference declare-poc-intent moonshotai/Kimi-K2.6
+```
+3. When delegating for the bootstrap: **do not delegate to guardian nodes**; spread delegations across independent Kimi hosts. See the  [Multi-Model PoC guide](https://gonka.ai/docs/host/multi_model_poc/) for updated delegation guidance.
+4. Brokers / devshard creators: if any of your gateway traffic is still on v1/v2 or `/v1/devshard` — switch to `/devshard/v3` before the voting ends.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.13 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 88 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 88 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+- Voting Time: 2026-07-16 11:09 ~ 2026-07-16 23:09 (PDT) / 2026-07-16 18:09 ~ 2026-07-17 06:09 UTC (expedited, 0.667 yes-threshold; turnout matters, vote promptly).
+- Intent deadline (epoch 330): block **5,105,276** — July 17, ~12:05 UTC (~05:05 PDT).
+- Epoch 331 PoC starts: block **5,105,776** — July 17, 12:50 UTC (05:50 PDT).
+
+More on how the bootstrap works: [https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
+
+## July 15, 2026
+
+**Expedited governance vote (proposal 87): remove Kimi-K2.6 for a fast re-bootstrap**
+
+`moonshotai/Kimi-K2.6` lost its PoC validation majority in epochs 328–329 (see the incident [details here](https://gonka.ai/docs/network-updates/#july-15-2026)). Removing Kimi from the active set now and re-bootstrapping it is the fastest way to bring it back with minimal downtime — the same recovery path as proposal 78 in June.
+
+The proposal removes `moonshotai/Kimi-K2.6` from PoC params before the next PoC; a re-add follows immediately after, and Kimi goes through the standard bootstrap starting at epoch 331.
+
+**Required actions for hosts**
+
+1. Vote on proposal 87 before the deadline — the expedited window is short.
+2. Hosts serving Kimi: keep your Kimi setup staged and be ready to switch your MLNode back at the bootstrap PoC.
+3. When delegating for the bootstrap: do not delegate to guardian nodes; spread delegations across independent Kimi hosts.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+  
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.13 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 87 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 87 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+* Voting Time: 2026-07-15 17:01 ~ 2026-07-16 05:01 (PDT) / 2026-07-16 00:01 ~ 2026-07-16 12:01 UTC (expedited, 0.667 yes-threshold; turnout matters, vote promptly).
+* Bootstrap intent deadline and epoch timings follow in the bootstrap instructions.
+
+## July 15, 2026
+
+**Kimi-K2.6 incident (epochs 328–329): what happened, recovery plan, and a change in delegation guidance**
+
+In epoch 328, `moonshotai/Kimi-K2.6` lost its PoC validation majority. Hosts serving Kimi were knocked out of the group at the start of epoch 329. The rest of the network kept operating normally.
+
+**What happened**
+
+Two guardian-operated servers running Kimi failed at the same time:
+
+* On one server, the MLNode running Kimi died due to a provider-side issue. A large share of Kimi delegations was concentrated on this host, so its failure removed those votes at once.
+* The second server lost its network node to an out-of-memory condition.
+
+Kimi's validation votes had been close to the 2/3 threshold the whole time, so this was enough to drop the group below the majority. The guardian tiebreaker did not engage: guardians without per-model voting weight are currently filtered out of the tiebreaker. This is a known issue, fixed in the upcoming v0.2.14 upgrade.
+
+This situation is similar to the epoch 306–307 incident. Exact details of the votes at the start of epoch 329 are still being confirmed; minor corrections to this summary are possible.
+
+**Recovery plan**
+
+The safest way to restore Kimi is to re-add it through a fresh bootstrap (~1.5 epochs):
+
+1. [Today] An expedited proposal removes Kimi before the next PoC and re-adds it immediately after. A separate announcement with the proposal ID, voting commands, and deadlines follows.
+2. [Tomorrow] Kimi goes through the standard bootstrap flow again: declare intent, deploy window, PoC store commit. Instructions will be published before the intent deadline.
+
+**Change in delegation guidance — please read**
+
+Earlier guidance (including the June 27, 2026, bootstrap announcement) suggested the guardian node as a delegation target. This recommendation is now withdrawn:
+
+* **Do not delegate to guardian nodes.** Guardians are the fallback mechanism for PoC validation. Concentrating delegations on them ties the main mechanism and the fallback to the same hardware — this incident is exactly that failure mode. A protocol-level restriction is under discussion.
+* **Avoid concentrating delegations on any single host.** Until percentage-based multi-host delegation is supported, spread delegations across several independent hosts that run the model. If you operate multiple nodes, delegate to your own node running the model.
+* **If you can run Kimi directly — this is the biggest help.** More direct hosts means more validation weight and no single point of failure.
+
+**Fixes already in the pipeline**
+
+* Guardian voting in PoC validation (guardians can always vote) — v0.2.14.
+* Self-delegation issue — v0.2.14.
+* Nonce duplicates — v0.2.14 (currently handled by the earlier API update).
+* RAM growth on network nodes — fixed in devshard v3; requires migration off v1/v2. After full migration, v1/v2 will be removed and `/v1/devshard` closed. Set separate memory limits for the `api` and `versiond` containers.
+
+**Required actions for hosts**
+
+1. Vote on the expedited Kimi proposal once it is on-chain (announcement follows).
+2. If you plan to serve Kimi: watch for the bootstrap instructions and be ready to declare intent.
+3. If you delegate for Kimi: pick a non-guardian delegate; spread weight across independent hosts where possible.
+4. Brokers: migrate devshard traffic to `/devshard/v3` now. This fixes the RAM growth issue and is required before v1/v2 removal.
+5. Check RAM on network nodes and set container memory limits (`api`, `versiond`).
+
+## July 11, 2026
+
+**The v0.2.13-devshard-v3 runtime upgrade proposal has passed governance**
+
+The devshard v3 runtime has been approved on-chain and added to `DevshardEscrowParams.approved_versions`.
+
+This proposal covered [the devshard v3 release.](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.14/proposals/governance-artifacts/update-v0.2.13-devshard-v3)
+
+This is a devshard-only runtime upgrade. It operates independently of full-chain software upgrades and does not require a chain binary upgrade.
+
+With the proposal approved, v3 now runs in parallel with the existing devshard runtimes. The new process is served under the `/devshard/v3` prefix, while existing devshard traffic can continue on earlier runtime prefixes until brokers switch traffic to v3.
+
+The release publishes the `devshardd` binary as a Gonka release artifact. `versiond` automatically downloads the binary, verifies the sha256 hash, and starts an additional `devshardd` process inside the existing `versiond` container.
+
+No mainnet restart or manual host steps are expected for this type of devshard-only runtime upgrade.
+
+**Action items**
+
+Whitelisted devshard creators should switch inference traffic to `/devshard/v3` before the mainnet v0.2.14 chain upgrade. This lets them keep serving inference while the chain upgrade runs, without depending on the deprecated classic API path.
+
+**Key Changes**
+
+- Prepared brokers to keep serving inference during the v0.2.14 chain upgrade without depending on the deprecated classic API path.
+- Improved RAM utilization.
+- Fixed gateway runtime behavior.
+- Enabled safe switching between SQLite and Postgres storage.
+
+## July 8, 2026
+
+**The v0.2.13-devshard-v3 runtime upgrade proposal has entered governance**
+
+This proposal covers [the devshard v3 release.](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.14/proposals/governance-artifacts/update-v0.2.13-devshard-v3)
+
+This is a devshard-only upgrade. It operates independently of full chain software upgrades. Once approved, v3 runs in parallel with the existing devshard runtimes.
+
+The v3 runtime prepares brokers to keep serving inference during the v0.2.14 chain upgrade without depending on the deprecated classic API path. It also improves RAM utilization, fixes gateway runtime behavior, and enables safe switching between SQLite and Postgres storage.
+
+**Upgrade Plan**
+
+The devshard runtime is upgraded through an on-chain params proposal, not a full chain software upgrade.
+
+The proposal registers a new entry in `DevshardEscrowParams.approved_versions`:
+
+- `name`: `v3`
+- `binary`: `https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.13-devshard-v3.0.0/devshardd.zip`
+- `sha256`: `ca1294fc8db3f0907a01f362eb4b13665f66d0fd12cfc6f01468b1e27f0bab63`
+  
+The release publishes the `devshardd` binary as a Gonka release artifact. If the on-chain proposal is approved, `versiond` automatically downloads the binary, verifies the sha256 hash, and starts an additional `devshardd` process inside the existing `versiond` container.
+The new process is served under the `/devshard/v3` prefix. Existing devshard traffic can continue using earlier runtime prefixes until brokers switch traffic to v3. No mainnet restart or manual host steps are expected during this type of upgrade.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+  
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.13 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 83 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 83 -o json --node $NODE_URL/chain-rpc/
+```
+**Deadlines**
+
+Voting ends: July 11th, 2026, at 06:41:34 UTC
+
+## July 8, 2026
+
+**PR Review for Upgrade v0.2.14**
+
+[The pull request](https://github.com/gonka-ai/gonka/pull/PR) for the next on-chain software upgrade, v0.2.14, is open for review.
+
+The mainnet chain/API work focuses on PoC duplicate-artifact protection, early share detection, classic inference API deprecation (disabling `/v1/chat/completions` billing on mainnet and removing embedded `/v1/devshard` from the API binary), reward recipient routing, and upgrade-time safety fixes.
+
+The devshard part prepares the v3 runtime so brokers can serve inference during the chain upgrade without depending on the deprecated classic API path, improving RAM utilization and enabling safe switching between SQLite and Postgres storage.
+
+**Upgrade Plan**
+
+The node binary is upgraded through an on-chain software upgrade proposal. Existing hosts are not required to manually update their `api` or `node` containers as part of the upgrade.
+A separate devshard v3 release from this branch will be proposed and rolled out before the mainnet chain upgrade. Brokers who switch inference traffic to `/devshard/v3` ahead of time can keep serving inference while the chain upgrade runs.
+
+**Proposed Process**
+
+1. Active hosts review this proposal on [GitHub.](https://github.com/gonka-ai/gonka/pull/PR)
+2. The devshard v3 release is proposed and rolled out before the mainnet chain upgrade.
+3. Brokers switch inference traffic to `/devshard/v3`.
+4. If the on-chain proposal is approved, this PR will be merged immediately after the upgrade is executed on-chain.
+5. Please review the PR code directly and leave comments regarding any findings, questions, suggested improvements, edge cases, or vulnerabilities you identify.
+
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties during the next upgrade cycle.
+
+This is a call for review of the Pull Request only, and it does not initiate formal voting. The governance voting process will begin after the review period concludes.
+
+**Devshard v3 governance vote**
+
+The devshard v3 release is proposed and rolled out ahead of the mainnet chain upgrade so brokers can move inference traffic to `/devshard/v3` before the upgrade runs.  
+
+**Action items for Hosts**
+
+1. Now — review the PR. Read PR #1267 on GitHub and leave comments on any findings, questions, suggested improvements, edge cases, or vulnerabilities.
+2. Now / before the mainnet upgrade — update your API and bridge. To keep the Ethereum bridge stable during the mainnet upgrade, update the `ap`i binary and the bridge image to 0.2.14 ahead of time, following the guide. If your `api` binary is already updated, you only need to update the bridge image and restart the bridge container. If you have already completed both steps, you do not need to repeat them. If you have multiple nodes, update them one by one, and perform this step outside of PoC or cPoC.
+3. Vote on devshard v3.
+4. Brokers — switch inference traffic to `/devshard/v3`. Once the devshard v3 release is rolled out, move inference traffic to `/devshard/v3` so you can keep serving inference during the chain upgrade.
+5. Dashboard maintainers — be ready to adjust how metrics are counted. Detailed instructions will be published later, after the `devshard v3` vote has launched and is successfully approaching its conclusion.
+
 ## July 6, 2026
 
 **Security update: PoC-v2 weight validation hardening — update your API container**
@@ -57,7 +475,9 @@ Delegate your weight to a host that runs Kimi (or send a refusal):
 ```
 ./inferenced tx inference set-poc-delegation moonshotai/Kimi-K2.6 <DELEGATEE>
 ```
-The guardian node `gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5` will run Kimi and can be used as the delegation target.
+~~The guardian node `gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5` will run Kimi and can be used as the delegation target.~~
+
+> **Update (July 15, 2026): this recommendation is withdrawn — do not delegate to guardian nodes.** Guardians are the fallback mechanism for PoC validation and must stay independent from delegations. Pick a non-guardian host that runs the model, and avoid hosts that are already major delegation targets. See the [Multi-Model PoC guide](https://gonka.ai/docs/host/multi_model_poc/) for updated delegation guidance.
 
 **Key timings**
 
@@ -371,10 +791,10 @@ The proposal was APPROVED, and the upgrade was successfully executed on the main
 
 **Upgrade v0.2.13: pre-download binaries and MiniMax-M2.7 weights**
 
-The v0.2.13 upgrade proposal (proposal id  (https://github.com/gonka-ai/gonka/pull/1143)54) has passed on-chain governance and the upgrade is now scheduled.
+The v0.2.13 upgrade proposal (proposal id [54](https://github.com/gonka-ai/gonka/pull/1143)) has passed on-chain governance and the upgrade is now scheduled.
 
-• Upgrade height: 4267300
-• Estimated upgrade time: May 26, 2026, 14:42 UTC (07:42 PDT)
+- Upgrade height: 4267300
+- Estimated upgrade time: May 26, 2026, 14:42 UTC (07:42 PDT)
 
 Pre-downloading binaries and weights in advance helps avoid relying on GitHub / Hugging Face availability during the upgrade window.
 ```

@@ -67,6 +67,7 @@ nav:
 
   - Reference:
     - Model licenses: model-licenses.md
+    - Dashboard maintainer memo v0.2.14: dashboard-maintainer-memo-v0.2.14.md
     - Dashboard maintainer memo v0.2.13: dashboard-maintainer-memo-v0.2.13.md
     - Errors: Errors.md
 
@@ -83,7 +84,8 @@ theme:
   logo: images/logos/gonka.svg
   custom_dir: overrides
   font:
-    text: Manrope
+    text: Inter
+    code: Inter
   palette:
     # Light mode
     # media: "(prefers-color-scheme: light)"

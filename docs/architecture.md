@@ -35,7 +35,7 @@ Note that the diagram shows inference flow on a high-level and does not show ful
 ## Proof of Compute (PoC) timeline
 
 Proof or Compute is a novel consensus mechanism which retains all the benefits of traditional Proof of Work in terms of aligning weight, workload and rewards with computational power (unlike Proof of Stake which aligns weight with the staked coins). Unlike Proof of Work, Proof of Compute concentrates the proving part (Sprint) in a short limited time window, freeing the rest of the time for the useful work (in our case LLM inference). 
-Gonka operates in epochs, each epoch lasts 17280 blocks (approximately 24 hours). 
+Gonka operates in epochs, each epoch lasts 15391 blocks (approximately 23 hours). 
 
 Each epoch follows a strict sequence that ties Sprint execution, Hosts activity, and reward settlement into a cohesive flow. 
 

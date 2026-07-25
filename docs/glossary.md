@@ -10,7 +10,7 @@
 
 **Consensus** is the protocol by which the network agrees on a single, verifiable state of the blockchain, ensuring that all participants maintain a consistent and tamper-proof ledger. In Gonka, consensus is achieved through PoC.
 
-**Epoch** is the core operational cycle of the chain. During an Epoch, Hosts perform meaningful AI work, participate in validation, and accumulate rewards. An Epoch lasts 17280 blocks (~24 hours) and ends with the completion of a Sprint by determining Host weights for the next epoch. 
+**Epoch** is the core operational cycle of the chain. During an Epoch, Hosts perform meaningful AI work, participate in validation, and accumulate rewards. An Epoch lasts 15391 blocks (~23 hours) and ends with the completion of a Sprint by determining Host weights for the next epoch. 
 
 **Gonka Blockchain** is the foundational ledger and coordination layer (L1) of the decentralized AI network. It records balances, transactions and cryptographic artifacts that prove Hosts have correctly performed AI work, while all actual computations (such as inference and training) happen off-chain. 
 

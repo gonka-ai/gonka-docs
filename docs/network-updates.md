@@ -8,6 +8,150 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## July 29, 2026
+
+**Upgrade v0.2.15 and devshard v4: Pre-download binaries**
+
+The on-chain governance process for the **devshard v4 and v0.2.15** upgrade proposal is nearing its conclusion.
+
+- Voting ends: July 30, 2026 at 07:08 AM UTC / July 30, 2026 at 12:08 AM PDT
+- Proposed upgrade height: 5316315
+- Estimated upgrade time:  July 30, 2026 at 03:28 PM UTC / July 30, 2026 at 8:28 AM PDT
+
+Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka-ai/gonka/pull/1497) and participate in the vote.
+
+Pre-downloading binaries in advance may help avoid relying on GitHub availability during the upgrade window.
+
+```
+#1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.15/bin \
+              .inference/cosmovisor/upgrades/v0.2.15/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.15/decentralized-api-amd64.zip" && \
+echo "c9cf1bfa2c994beca8a528d0ee3ad7197a582144769711600ec9df41faf4c9f7 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.15/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.15/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.15/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.15/inferenced-amd64.zip" && \
+echo "91af67df9ef5c576a1695e5e85c8ee344f9f1a69d941bfc28fb339d9fd33617e inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.15/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.15/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.15/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.15/bin/inferenced && \
+echo "aeddf6391f24f99963c3e9ed854779087700161f520e73fd9e9b52f394f7ba6d .dapi/cosmovisor/upgrades/v0.2.15/bin/decentralized-api" | sudo sha256sum --check && \
+echo "2da687d5a2511c00891ea29b16face87ef7998f49d5b626d09f810db38deb046 .inference/cosmovisor/upgrades/v0.2.15/bin/inferenced" | sudo sha256sum --check
+```
+
+
+
+## July 28, 2026
+
+**Devshard v4 and v0.2.15 Mainnet Upgrade Proposal Enters Governance**
+
+The combined **devshard v4 and v0.2.15 mainnet upgrade proposal** is now on-chain and open for voting.
+
+This proposal includes two parts:
+1. The approval and registration of the new **devshard v4 runtime**.
+2. A **v0.2.15 mainnet software upgrade** that removes a substantial amount of outdated code, legacy transaction-processing paths, and related components that are no longer required by the current architecture.
+
+Although both changes are submitted for consideration in a single vote, they remain operationally separate:
+
+- The **devshard v4 runtime** is distributed and started by `versiond` through the devshard version-management mechanism.
+- The **mainnet v0.2.15 binary** is activated through the standard on-chain software upgrade process and Cosmovisor.
+
+**Devshard v4 changes**
+
+The main intent of v4 is high availability of devshard hosts on host failures and upgrades. It can keep serving new requests if one machine is down or restarting, and on version upgrades multiple machines replace versions one by one. This is the first update in a series of devshard and network-node changes that refactor the monolith toward a high-availability, fault-tolerant, scalable architecture.
+
+v4 is the first version intended for multi-instance HA: N versiond / devshardd replicas behind versiond-router on shared Postgres, with sticky session routing and validation-lease exclusivity. The gateway talks to the chain over gRPC only. Public observability is versionless (/devshard/sessions|stats|metrics); only the escrow owner binds via signed chat. When governance publishes a new binary under the same version name (name unchanged, only sha256 changes), versiond can blue/green swap with drain so in-flight work (including SSE) finishes on the old generation.
+
+v4 also lands bug and security fixes.
+
+**Mainnet v0.2.15 changes**
+
+The mainnet portion of the upgrade removes a substantial amount of outdated code, including legacy transaction-processing paths and related components that are no longer required by the current architecture.
+This cleanup simplifies the codebase, reduces unnecessary complexity, and improves the overall stability and maintainability of the system. It also makes future development and upgrades easier by removing obsolete behavior and consolidating transaction processing around the currently supported architecture.
+
+
+For more details, please review the pull request: [https://github.com/gonka-ai/gonka/pull/1497 ](https://github.com/gonka-ai/gonka/pull/1497 )
+
+**Upgrade Plan**
+
+**Mainnet v0.2.15**
+
+If approved, the binary versions would be updated via the on-chain upgrade proposal. For more information on the upgrade process, refer to [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.15/docs/upgrades.md).
+
+**Devshard v4**
+
+The same proposal also registers devshard v4 in `DevshardEscrowParams.approved_versions`.
+
+The registered entry will contain:
+- name: `v4`
+- binary: `https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.15/devshardd.zip`
+- sha256: `bdc7ee5d08f0090711c60950c7f3ffdd0c7aef5a5badf6f19c2b075b08264ddf`
+
+The release publishes the `devshardd` binary as a Gonka release artifact.
+
+After the proposal is approved, `versiond` can automatically:
+1. Download the approved binary.
+2. Verify its SHA-256 hash against the value stored on-chain.
+3. Start the v4 `devshardd` runtime.
+4. Serve the runtime through the corresponding devshard routing configuration.
+
+Devshard v4 will run alongside the existing v3 runtime. Existing v3 traffic can continue operating while brokers and host operators prepare and validate their v4 deployments.
+
+The approval of v4 does not by itself require all traffic to switch immediately. Migration can be performed progressively after the runtime has been started and verified.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. 
+Available nodes include:
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.12 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 92 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 92 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+- Voting ends: July 30, 2026 at 07:08 AM UTC / July 30, 2026 at 12:08 AM PDT
+- Proposed upgrade height: 5316315
+- Estimated upgrade time:  July 30, 2026 at 03:28 PM UTC / July 30, 2026 at 8:28 AM PDT
+
+**Attention**
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available (the Cosmovisor backup of `application.db` on mainnet is typically tens of GB, so verify in advance). Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described in the cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+- If approved, devshard storage could optionally be backed by a shared Postgres instance after the upgrade (same env vars as payload storage). Local SQLite would remain the default and would prune automatically (last 3 epochs retained).
+
+
 ## July 22, 2026
 
 **Upgrade v0.2.14: Pre-download binaries**

@@ -2190,7 +2190,7 @@ Even when vLLM #33264 merges and the gateway adds a hash → `cache_salt` bridge
 
 ### When will image input be enabled for Kimi on the Gonka gateway?
 
-**Not available today.** ETA — release v0.2.14 or later (current is 0.2.13), no fixed date. Multimodal payloads (`messages[].content` with `type: "image_url"` or `"video_url"`) currently return **HTTP 400** on both public brokers.
+**Not available today.** ETA — release v0.2.14 or later (current is 0.2.15), no fixed date. Multimodal payloads (`messages[].content` with `type: "image_url"` or `"video_url"`) currently return **HTTP 400** on both public brokers.
 
 **Active work, the plan is written and broken into phases.** The planned document `multimodal-inference-plan.md` in `gonka-ai/gonka` (≈466 lines, 6 phases — ML Node, Host↔ML Node, Broker/DAPI, Devshard Protocol, etc.). Until it's published, it's easier to track via the issues / PRs below.
 

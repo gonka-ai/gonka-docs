@@ -2183,7 +2183,7 @@ vLLM 前缀 KV 缓存工作在每个 ML 节点上。网关级 `prompt_cache_key`
 
 ### Kimi 在 Gonka 网关上何时启用图像输入？
 
-**目前不可用。** 预计发布时间为 v0.2.14 或更高版本（当前为 0.2.13），无固定日期。多模态负载（`messages[].content` 包含 `type: "image_url"` 或 `"video_url"`）目前在两个公共经纪人上均返回 **HTTP 400**。
+**目前不可用。** 预计发布时间为 v0.2.14 或更高版本（当前为 0.2.15），无固定日期。多模态负载（`messages[].content` 包含 `type: "image_url"` 或 `"video_url"`）目前在两个公共经纪人上均返回 **HTTP 400**。
 
 **正在进行中，计划已撰写并分为多个阶段。** 计划文档 `multimodal-inference-plan.md` 在 `gonka-ai/gonka` 中（约 466 行，6 个阶段——ML 节点、Host↔ML 节点、经纪人/DAPI、Devshard 协议等）。在发布前，通过下方问题/PR 跟踪更方便。
 

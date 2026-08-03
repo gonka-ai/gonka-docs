@@ -60,6 +60,7 @@ echo "2da687d5a2511c00891ea29b16face87ef7998f49d5b626d09f810db38deb046 .inferenc
 The combined **devshard v4 and v0.2.15 mainnet upgrade proposal** is now on-chain and open for voting.
 
 This proposal includes two parts:
+
 1. The approval and registration of the new **devshard v4 runtime**.
 2. A **v0.2.15 mainnet software upgrade** that removes a substantial amount of outdated code, legacy transaction-processing paths, and related components that are no longer required by the current architecture.
 
@@ -95,6 +96,7 @@ If approved, the binary versions would be updated via the on-chain upgrade propo
 The same proposal also registers devshard v4 in `DevshardEscrowParams.approved_versions`.
 
 The registered entry will contain:
+
 - name: `v4`
 - binary: `https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.15/devshardd.zip`
 - sha256: `bdc7ee5d08f0090711c60950c7f3ffdd0c7aef5a5badf6f19c2b075b08264ddf`
@@ -102,6 +104,7 @@ The registered entry will contain:
 The release publishes the `devshardd` binary as a Gonka release artifact.
 
 After the proposal is approved, `versiond` can automatically:
+
 1. Download the approved binary.
 2. Verify its SHA-256 hash against the value stored on-chain.
 3. Start the v4 `devshardd` runtime.
@@ -117,6 +120,7 @@ If you do not have direct access to the key that holds voting power, or want ano
 
 Proposal details and voting are available via `inferenced`. Any active node can be used. 
 Available nodes include:
+
 - http://node1.gonka.ai:8000
 - http://node2.gonka.ai:8000
 - https://node3.gonka.ai
@@ -141,11 +145,13 @@ export NODE_URL=https://node3.gonka.ai/
 ```
 
 **Deadlines**
+
 - Voting ends: July 30, 2026 at 07:08 AM UTC / July 30, 2026 at 12:08 AM PDT
 - Proposed upgrade height: 5316315
 - Estimated upgrade time:  July 30, 2026 at 03:28 PM UTC / July 30, 2026 at 8:28 AM PDT
 
 **Attention**
+
 - Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
 - During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available (the Cosmovisor backup of `application.db` on mainnet is typically tens of GB, so verify in advance). Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
 - If `application.db` occupies a significant amount of disk space, the cleanup techniques described in the cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.

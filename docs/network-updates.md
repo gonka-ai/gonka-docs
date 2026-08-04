@@ -8,6 +8,54 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## August 3, 2026
+
+**API Binary Update: `v0.2.15-post3`**
+
+A new API binary, `v0.2.15-post3`, is available.
+
+This release improves PoC seed reliability and includes several API and deployment fixes.
+
+**What changed**
+
+**PoC Seed Stability**
+
+Recover missed seed submissions after epoch-boundary lag and retry local seed restoration after transient failures (such as signer unavailability) to prevent validators from getting zeroed.
+
+**API**
+
+- `/v1/versions` now returns enriched DAPI version information, including ML node details 
+- The default Node Manager gRPC port is now 9400, ensuring compatibility with custom configurations 
+
+**Deployments**
+
+The default join stack configuration has been updated to use the latest `v0.2.15-post2` API image 
+
+Full pull request: [https://github.com/gonka-ai/gonka/pull/1528](https://github.com/gonka-ai/gonka/pull/1528)
+
+**Update instructions**
+
+Please update the binary used by the api container.
+Before starting the update, make sure that neither CPoC nor PoC is currently running.
+There is a 500-block window without CPoC before each PoC starts. Use this window for the update whenever possible.
+Deploy the update on one machine at a time to reduce operational risk.
+
+```
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.15-post3/ .dapi/data/upgrade-info.json
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.15-post3/bin/
+wget -q -O  decentralized-api.zip 'https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.15-post3/decentralized-api-amd64.zip' && \
+echo "8cfa7345f5b7f968d5a1b765837b8319084c02d3dd2691b698c368774e20b55e  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.15-post3/bin/ && \
+sudo chmod 755 .dapi/cosmovisor/upgrades/v0.2.15-post3/bin/decentralized-api .dapi/cosmovisor/upgrades/v0.2.15-post3/bin/inferenced && \
+echo "e3ceb97d7bbe6f6703e56a3052ea85ad20d4a49113baedded405e908c19f5d11  .dapi/cosmovisor/upgrades/v0.2.15-post3/bin/decentralized-api" | sudo sha256sum --check && \
+echo "API Installed and Verified"  && \
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.15-post3 .dapi/cosmovisor/current && \
+docker start api
+```
+
 ## July 29, 2026
 
 **Upgrade v0.2.15 and devshard v4: Pre-download binaries**
@@ -571,7 +619,7 @@ The devshard v3 release is proposed and rolled out ahead of the mainnet chain up
 **Action items for Hosts**
 
 1. Now — review the PR. Read PR #1267 on GitHub and leave comments on any findings, questions, suggested improvements, edge cases, or vulnerabilities.
-2. Now / before the mainnet upgrade — update your API and bridge. To keep the Ethereum bridge stable during the mainnet upgrade, update the `ap`i binary and the bridge image to 0.2.14 ahead of time, following the guide. If your `api` binary is already updated, you only need to update the bridge image and restart the bridge container. If you have already completed both steps, you do not need to repeat them. If you have multiple nodes, update them one by one, and perform this step outside of PoC or cPoC.
+2. Now / before the mainnet upgrade — update your API and bridge. To keep the Ethereum bridge stable during the mainnet upgrade, update the `api` binary and the bridge image to 0.2.14 ahead of time, following the guide. If your `api` binary is already updated, you only need to update the bridge image and restart the bridge container. If you have already completed both steps, you do not need to repeat them. If you have multiple nodes, update them one by one, and perform this step outside of PoC or cPoC.
 3. Vote on devshard v3.
 4. Brokers — switch inference traffic to `/devshard/v3`. Once the devshard v3 release is rolled out, move inference traffic to `/devshard/v3` so you can keep serving inference during the chain upgrade.
 5. Dashboard maintainers — be ready to adjust how metrics are counted. Detailed instructions will be published later, after the `devshard v3` vote has launched and is successfully approaching its conclusion.
@@ -842,11 +890,11 @@ No node container restart or manual host steps are expected for this type of dev
 
 **Key Changes**
 
-1) Removed the seed reveal round, sealed completed inference stats, and pruned payloads so long-running sessions do not keep all served inferences in RAM or state.
-2) Added internal devshard traces and metrics through OpenTelemetry and Prometheus.
-3) Added join-stack observability with Grafana, Jaeger, Prometheus, Loki, Promtail, and cAdvisor.
-4) Moved per-inference validation counters outside the state root into SQLite/Postgres and exposed per-slot totals through devshard stats endpoints after inference pruning.
-5) Pruned old epoch storage on epoch changes, moved SQLite/Postgres schema setup out of hot paths, and enforced selection of exactly one storage backend per process.
+- Removed the seed reveal round, sealed completed inference stats, and pruned payloads so long-running sessions do not keep all served inferences in RAM or state.
+- Added internal devshard traces and metrics through OpenTelemetry and Prometheus.
+- Added join-stack observability with Grafana, Jaeger, Prometheus, Loki, Promtail, and cAdvisor.
+- Moved per-inference validation counters outside the state root into SQLite/Postgres and exposed per-slot totals through devshard stats endpoints after inference pruning.
+- Pruned old epoch storage on epoch changes, moved SQLite/Postgres schema setup out of hot paths, and enforced selection of exactly one storage backend per process.
 
 ## June 15, 2026
 

@@ -18,18 +18,11 @@ This release improves PoC seed reliability and includes several API and deployme
 
 **What changed**
 
-**PoC Seed Stability**
-
-Recover missed seed submissions after epoch-boundary lag and retry local seed restoration after transient failures (such as signer unavailability) to prevent validators from getting zeroed.
-
-**API**
-
-- `/v1/versions` now returns enriched DAPI version information, including ML node details 
-- The default Node Manager gRPC port is now 9400, ensuring compatibility with custom configurations 
-
-**Deployments**
-
-The default join stack configuration has been updated to use the latest `v0.2.15-post2` API image 
+- PoC Seed Stability. Recover missed seed submissions after epoch-boundary lag and retry local seed restoration after transient failures (such as signer unavailability) to prevent validators from getting zeroed.
+- API.
+    - `/v1/versions` now returns enriched DAPI version information, including ML node details 
+    - The default Node Manager gRPC port is now 9400, ensuring compatibility with custom configurations
+- Deployments. The default join stack configuration has been updated to use the latest `v0.2.15-post2` API image 
 
 Full pull request: [https://github.com/gonka-ai/gonka/pull/1528](https://github.com/gonka-ai/gonka/pull/1528)
 

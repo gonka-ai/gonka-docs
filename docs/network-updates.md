@@ -48,6 +48,56 @@ sudo rm -rf .dapi/cosmovisor/current && \
 sudo ln -sf upgrades/v0.2.15-post3 .dapi/cosmovisor/current && \
 docker start api
 ```
+## August 1, 2026
+
+**The `v0.2.15-devshard-v4.0.1` runtime upgrade proposal has entered governance**
+
+This is a non-critical, devshard-only upgrade that runs independently of full chain software upgrades. It replaces the existing devshard v4 runtime with v4.0.1.
+
+It's a performance and resource-management patch, nothing more. Protocol, inference, validation, and economic behavior stay untouched. The changes: epoch tracking moves from per-block chain queries to event-driven updates, and in-memory cleanup for host sessions and validation workers now lines up with epoch pruning.
+
+**Upgrade Plan**
+
+The devshard runtime is upgraded through an on-chain params proposal, not a full chain software upgrade. If approved, `versiond` automatically downloads and verifies the replacement binary. No mainnet restart or manual host action is required.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 93 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 93 -o json --node $NODE_URL/chain-rpc/
+```
+
+## July 30, 2026
+
+**UPGRADE EXECUTED: v0.2.15 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.15 (proposal id 92) has concluded.
+
+The proposal was APPROVED, and the upgrade was successfully executed on the mainnet at block 5316315.
 
 ## July 29, 2026
 

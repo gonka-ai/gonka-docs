@@ -247,7 +247,14 @@ export NODE_URL=https://node3.gonka.ai/
 - During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available (the Cosmovisor backup of `application.db` on mainnet is typically tens of GB, so verify in advance). Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
 - If `application.db` occupies a significant amount of disk space, the cleanup techniques described in the cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
 - If approved, devshard storage could optionally be backed by a shared Postgres instance after the upgrade (same env vars as payload storage). Local SQLite would remain the default and would prune automatically (last 3 epochs retained).
+  
+## July 23, 2026
 
+**UPGRADE EXECUTED: v0.2.14 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.14 (proposal id 89) has concluded.
+
+The proposal was APPROVED, and the upgrade was successfully executed on the mainnet at block 5195700.
 
 ## July 22, 2026
 

@@ -10,6 +10,12 @@
 
 ## August 3, 2026
 
+**UPGRADE EXECUTED: devshard runtime v4.0.1 is now live**
+
+The on-chain governance vote for the `v0.2.15-devshard-v4.0.1` runtime upgrade proposal (proposal id 93) has concluded.
+
+The proposal was APPROVED, and the devshard v4 runtime was upgraded to v4.0.1. `versiond` automatically downloaded and verified the replacement binary — no mainnet restart or manual host action was required.
+
 **API Binary Update: `v0.2.15-post3`**
 
 A new API binary, `v0.2.15-post3`, is available.
@@ -97,7 +103,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 The on-chain governance vote for Upgrade Proposal v0.2.15 (proposal id 92) has concluded.
 
-The proposal was APPROVED, and the upgrade was successfully executed on the mainnet at block 5316315.
+The proposal was APPROVED, and the upgrade was successfully executed on the mainnet at block 5316315. The same proposal also approved the devshard v4 runtime, which now runs alongside the existing v3 runtime.
 
 ## July 29, 2026
 

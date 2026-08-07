@@ -41,7 +41,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 - [https://gate.joingonka.ai/](https://gate.joingonka.ai/) · [▶ demo](https://www.youtube.com/watch?v=_761q6UEluc)
 - [https://router.gonkascan.com/](https://router.gonkascan.com/) · [▶ demo](https://youtu.be/1uWmLGPoBCM)
 - [https://gonka-api.org/](https://gonka-api.org/) · [▶ demo](https://youtu.be/JgY2ikjcP9M)
-- [https://gonkabroker.com/](https://gonkabroker.com/)
+- [https://gonkabroker.com/](https://gonkabroker.com/) · [▶ demo](https://youtu.be/3xuAOf8YZ1M?is=KHQKBa1X8WH_lxC8)
 - [https://router.mingles.ai/](https://router.mingles.ai/) · [▶ demo](https://youtu.be/gegiRnNMavY)
 - [https://console.hyperfusion.io/](https://console.hyperfusion.io/)
 - [https://inference.dahl.global](https://inference.dahl.global)

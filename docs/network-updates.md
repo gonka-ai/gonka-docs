@@ -10,6 +10,12 @@
 
 ## August 3, 2026
 
+**UPGRADE EXECUTED: devshard runtime v4.0.1 is now live**
+
+The on-chain governance vote for the `v0.2.15-devshard-v4.0.1` runtime upgrade proposal (proposal id 93) has concluded.
+
+The proposal was APPROVED, and the devshard v4 runtime was upgraded to v4.0.1. `versiond` automatically downloaded and verified the replacement binary — no mainnet restart or manual host action was required.
+
 **API Binary Update: `v0.2.15-post3`**
 
 A new API binary, `v0.2.15-post3`, is available.
@@ -48,6 +54,56 @@ sudo rm -rf .dapi/cosmovisor/current && \
 sudo ln -sf upgrades/v0.2.15-post3 .dapi/cosmovisor/current && \
 docker start api
 ```
+## August 1, 2026
+
+**The `v0.2.15-devshard-v4.0.1` runtime upgrade proposal has entered governance**
+
+This is a non-critical, devshard-only upgrade that runs independently of full chain software upgrades. It replaces the existing devshard v4 runtime with v4.0.1.
+
+It's a performance and resource-management patch, nothing more. Protocol, inference, validation, and economic behavior stay untouched. The changes: epoch tracking moves from per-block chain queries to event-driven updates, and in-memory cleanup for host sessions and validation workers now lines up with epoch pruning.
+
+**Upgrade Plan**
+
+The devshard runtime is upgraded through an on-chain params proposal, not a full chain software upgrade. If approved, `versiond` automatically downloads and verifies the replacement binary. No mainnet restart or manual host action is required.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 93 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 93 -o json --node $NODE_URL/chain-rpc/
+```
+
+## July 30, 2026
+
+**UPGRADE EXECUTED: v0.2.15 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.15 (proposal id 92) has concluded.
+
+The proposal was APPROVED, and the upgrade was successfully executed on the mainnet at block 5316315. The same proposal also approved the devshard v4 runtime, which now runs alongside the existing v3 runtime.
 
 ## July 29, 2026
 
@@ -197,7 +253,14 @@ export NODE_URL=https://node3.gonka.ai/
 - During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available (the Cosmovisor backup of `application.db` on mainnet is typically tens of GB, so verify in advance). Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
 - If `application.db` occupies a significant amount of disk space, the cleanup techniques described in the cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
 - If approved, devshard storage could optionally be backed by a shared Postgres instance after the upgrade (same env vars as payload storage). Local SQLite would remain the default and would prune automatically (last 3 epochs retained).
+  
+## July 23, 2026
 
+**UPGRADE EXECUTED: v0.2.14 is now live on mainnet**
+
+The on-chain governance vote for Upgrade Proposal v0.2.14 (proposal id 89) has concluded.
+
+The proposal was APPROVED, and the upgrade was successfully executed on the mainnet at block 5195700.
 
 ## July 22, 2026
 

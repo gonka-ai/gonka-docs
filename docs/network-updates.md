@@ -7,6 +7,91 @@
     To publish an announcement, for example, about a governance vote you started, please open a pull request in the gonka-docs repository: [https://github.com/gonka-ai/gonka-docs](https://github.com/gonka-ai/gonka-docs)
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
+    
+## August 10, 2026
+
+**Governance vote (proposal 94): add DeepSeek V4 Flash**
+
+The proposal to add `deepseek-ai/DeepSeek-V4-Flash-0731` to the PoC model lineup is now on-chain and open for voting.
+
+**What the proposal does**
+
+This proposal adds DeepSeek V4 Flash as a new PoC model on the network. No existing parameter or model is modified; the only change is the new model entry.
+
+Details:
+
+- Model: `deepseek-ai/DeepSeek-V4-Flash-0731` (pinned revision `7872f01b1d1fe23eabc4c98b48bffcef5a386062`)
+- Requires an MLNode on vLLM 0.25.1 with the release-candidate node configuration (`node-config-release-candidate-*.json` for B300 / B200 / H200 / H100)
+- Candidate chain parameters: PoC `weight_scale_factor = 0.21`, inference `validation_threshold = 0.90` (processed logprobs)
+
+The 0.21 coefficient for DeepSeek gives a slight advantage to hosting DeepSeek on B300s. For the rest of the hardware, the models yielding the highest PoC weight remain unchanged.
+
+Compared to an 8xH100 cluster running MiniMax M2.7:
+
+- 8xH200 optimally yields 1.46x weight running MiniMax M2.7
+- 8xB200 optimally yields 2.96x weight running Kimi K2.6
+- 8xB300 optimally yields 3.37x weight running DeepSeek V4 Flash
+
+Based on model usage, the community can later decide to gradually substitute Kimi or MiniMax with DeepSeek (for example, raising coefficients to incentivise moving all B-series GPUs to DeepSeek).
+
+Full table with coefficients: [Google Sheet](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
+
+**How the bootstrap works**
+
+The model enters through the standard bootstrap flow, so hosts can see its viability before committing hardware:
+
+1. Declare intent: submit `MsgDeclarePoCIntent` before the snapshot at `start_poc - deploy_window`.
+2. Pre-eligibility snapshot: the chain snapshots intents/delegations and emits advisory pre-eligibility events.
+3. Deploy window: hosts that declared intent provision their MLNode.
+4. PoC start: membership is set by who submits a PoC store commit at PoC start, not by who declared intent.
+
+The final MLNode version and setup instructions will be posted after voting ends.
+
+**Effect if approved**
+
+Subject to bootstrap eligibility, from epoch 359 (PoC start ~August 13, 2026 at 03:24 UTC / August 12 at 20:24 PDT) `deepseek-ai/DeepSeek-V4-Flash-0731` becomes an available PoC model. Existing models remain unchanged.
+
+**Required actions for hosts**
+
+1. To serve it: declare intent after voting ends, then provision your MLNode (vLLM 0.25.1 + release-candidate config):
+```
+./inferenced tx inference declare-poc-intent deepseek-ai/DeepSeek-V4-Flash-0731
+```
+2. To keep your current model: no action needed.
+3. Vote on proposal 94 before the deadline.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/docs/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 94 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 94 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadline**
+
+Voting runs for 48 hours; voting ends August 12, 2026 at 16:05 UTC / August 12 at 09:05 PDT.
 
 ## August 3, 2026
 

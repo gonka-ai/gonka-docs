@@ -7,6 +7,9 @@
 !!! note
     引导过程可能持续多个纪元，具体取决于准备就绪的参与者数量。在配置的惩罚纪元之前，只要参与者明确提交了选择，并且计划部署的主机提交了 `PoCIntent`，就不会发生权重减少。继续提供 MiniMax 或 Kimi、且不选择加入 DeepSeek 的主机，在到达 `penalty_start_epoch` 后仍需明确提交 `PoCDelegation` / `PoCRefusal`。
 
+!!! note
+    请注意，在 Blackwell GPU 上，为了获得最佳性能，可以使用重新打包为 **FP8 + NVFP4** 的模型，而不是 **FP8 + FP4**。例如：`MJPansa/DeepSeek-V4-Flash-0731-NVFP4`。 模型精度保持不变。为了部署此类模型，我们会发布更新后的 API 二进制文件，并在 bootstrap 之前提供给大家。
+
 
 ## 治理背景（提案 94）
 

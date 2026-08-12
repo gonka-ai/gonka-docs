@@ -22,9 +22,9 @@ Details:
 
 - Model: `deepseek-ai/DeepSeek-V4-Flash-0731` (pinned revision `7872f01b1d1fe23eabc4c98b48bffcef5a386062`)
 - Requires an MLNode on vLLM 0.25.1 with the release-candidate node configuration (`node-config-release-candidate-*.json` for B300 / B200 / H200 / H100)
-- Candidate chain parameters: PoC `weight_scale_factor = 0.21`, inference `validation_threshold = 0.90` (processed logprobs)
+- Candidate chain parameters: PoC `weight_scale_factor = 0.214`, inference `validation_threshold = 0.90` (processed logprobs), `penalty_start_epoch = 360`
 
-The 0.21 coefficient for DeepSeek gives a slight advantage to hosting DeepSeek on B300s. For the rest of the hardware, the models yielding the highest PoC weight remain unchanged.
+The 0.214 coefficient for DeepSeek gives a slight advantage to hosting DeepSeek on B300s. For the rest of the hardware, the models yielding the highest PoC weight remain unchanged.
 
 Compared to an 8xH100 cluster running MiniMax M2.7:
 
@@ -47,9 +47,11 @@ The model enters through the standard bootstrap flow, so hosts can see its viabi
 
 The final MLNode version and setup instructions will be posted after voting ends.
 
+More on how the bootstrap works: [https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)
+
 **Effect if approved**
 
-Subject to bootstrap eligibility, from epoch 359 (PoC start ~August 13, 2026 at 03:24 UTC / August 12 at 20:24 PDT) `deepseek-ai/DeepSeek-V4-Flash-0731` becomes an available PoC model. Existing models remain unchanged.
+Subject to bootstrap eligibility, from epoch 359 (PoC start ~August 13, 2026 at 03:24 UTC / August 12 at 20:24 PDT) `deepseek-ai/DeepSeek-V4-Flash-0731` becomes an available PoC model. Existing models remain unchanged. Non-participation penalty for DeepSeek starts at epoch `360` (`penalty_start_epoch = 360`).
 
 **Required actions for hosts**
 
@@ -57,7 +59,7 @@ Subject to bootstrap eligibility, from epoch 359 (PoC start ~August 13, 2026 at 
 ```
 ./inferenced tx inference declare-poc-intent deepseek-ai/DeepSeek-V4-Flash-0731
 ```
-2. To keep your current model: no action needed.
+2. To keep your current model: no action needed before epoch 360; from epoch 360 onwards, submit `PoCDelegation` or `PoCRefusal` for DeepSeek if you are not serving it.
 3. Vote on proposal 94 before the deadline.
 
 **How to vote**

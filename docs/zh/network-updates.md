@@ -22,9 +22,9 @@
 
 - 模型：`deepseek-ai/DeepSeek-V4-Flash-0731`（固定版本 `7872f01b1d1fe23eabc4c98b48bffcef5a386062`）
 - 需要在 vLLM 0.25.1 上运行的 MLNode，并使用发布候选节点配置（`node-config-release-candidate-*.json` 适用于 B300 / B200 / H200 / H100）
-- 候选链参数：PoC `weight_scale_factor = 0.21`，推理 `validation_threshold = 0.90`（处理过的 logprobs）
+- 候选链参数：PoC `weight_scale_factor = 0.214`，推理 `validation_threshold = 0.90`（处理过的 logprobs），`penalty_start_epoch = 360`
 
-DeepSeek 的 0.21 系数为在 B300 上托管 DeepSeek 提供了轻微优势。对于其他硬件，产生最高 PoC 权重的模型保持不变。
+DeepSeek 的 0.214 系数为在 B300 上托管 DeepSeek 提供了轻微优势。对于其他硬件，产生最高 PoC 权重的模型保持不变。
 
 与运行 MiniMax M2.7 的 8xH100 集群相比：
 
@@ -47,9 +47,11 @@ DeepSeek 的 0.21 系数为在 B300 上托管 DeepSeek 提供了轻微优势。�
 
 最终 MLNode 版本和设置说明将在投票结束后发布。
 
+更多引导流程说明：[https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)
+
 **若获批准的效果**
 
-在符合引导资格的前提下，从第 359 个周期（PoC 启动时间约为 2026 年 8 月 13 日 03:24 UTC / 8 月 12 日 20:24 PDT）起，`deepseek-ai/DeepSeek-V4-Flash-0731` 成为可用的 PoC 模型。现有模型保持不变。
+在符合引导资格的前提下，从第 359 个周期（PoC 启动时间约为 2026 年 8 月 13 日 03:24 UTC / 8 月 12 日 20:24 PDT）起，`deepseek-ai/DeepSeek-V4-Flash-0731` 成为可用的 PoC 模型。现有模型保持不变。DeepSeek 的不参与惩罚从纪元 `360` 开始（`penalty_start_epoch = 360`）。
 
 **托管者所需操作**
 
@@ -57,7 +59,7 @@ DeepSeek 的 0.21 系数为在 B300 上托管 DeepSeek 提供了轻微优势。�
 ```
 ./inferenced tx inference declare-poc-intent deepseek-ai/DeepSeek-V4-Flash-0731
 ```
-2. 若要保留当前模型：无需操作。
+2. 若要保留当前模型：在纪元 360 之前无需操作；从纪元 360 起，若不提供 DeepSeek，请为其提交 `PoCDelegation` 或 `PoCRefusal`。
 3. 请在截止日期前对提案 94 投票。
 
 **如何投票**

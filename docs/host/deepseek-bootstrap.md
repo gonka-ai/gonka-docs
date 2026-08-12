@@ -7,6 +7,8 @@ For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./mult
 !!! note
     The bootstrap can take multiple epochs, depending on how many participants are ready. Before the configured punishment epoch, no weight reduction happens if participants submit their choice explicitly and hosts who are going to deploy submit `PoCIntent`. Hosts that keep serving MiniMax or Kimi and do not opt into DeepSeek still need an explicit `PoCDelegation` / `PoCRefusal` once `penalty_start_epoch` is reached.
 
+!!! note
+    Note that on Blackwell GPUs, to achieve the best performance, you can use the model repacked as fp8 + nvfp4 instead of fp8 + fp4. e.g., `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`. The model's precision is the same. To deploy such a model, an updated API binary will be released and shared prior to the bootstrap.
 
 ## Governance context (proposal 94)
 

@@ -8,6 +8,72 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+    ## August 13, 2026
+
+**Testing DeepSeek V4 Flash**
+
+DeepSeek is through the vote and into bootstrap — if you're planning to serve it, validate your setup and submit your intent now.
+
+Everything you need is on the [`vllm-0.25.1-upgrade` branch](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join).
+
+**1) MLNode (vLLM 0.25.1)**
+
+Take the MLNode stack from that branch — the default image is pinned in the [compose file](https://github.com/gonka-ai/gonka/blob/vllm-0.25.1-upgrade/deploy/join/docker-compose.mlnode.yml).
+
+**2) Ready-made node configs**
+
+Same folder — pick your GPU class:
+
+- `node-config-deepseekv4flash0731-H100.json`
+- `node-config-deepseekv4flash0731-H200.json`
+- `node-config-deepseekv4flash0731-B200.json`
+- `node-config-deepseekv4flash0731-B300.json`
+
+For optimal performance on B* cards, you can use the model repackaged from fp8 + fp4 to fp8 + nvfp4:
+
+- `node-config-deepseekv4flash0731-B200-nvfp4.json`
+- `node-config-deepseekv4flash0731-B300-nvfp4.json`
+
+Running the model in that format requires a new API version, v0.2.15-post5. To install it:
+```bash
+sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.15-post5/ .dapi/data/upgrade-info.json
+sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.15-post5/bin/
+wget -q -O  decentralized-api.zip 'https://github.com/product-science/race-releases/releases/download/release%2Fv0.2.15-post5/decentralized-api-amd64.zip' && \
+echo "f2b880371f782ff531510bf294b91b1f2945ee366780ef6f7583b91b3bc34ee7  decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j  decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.15-post5/bin/ && \
+sudo chmod 755 .dapi/cosmovisor/upgrades/v0.2.15-post5/bin/decentralized-api .dapi/cosmovisor/upgrades/v0.2.15-post5/bin/inferenced && \
+echo "4546ddab1078931079932e5cd7eb56d22bc3d963fbc6f5f7955d3a37e1a15a6a  .dapi/cosmovisor/upgrades/v0.2.15-post5/bin/decentralized-api" | sudo sha256sum --check && \
+echo "API Installed and Verified"  && \
+
+docker stop api && \
+sudo rm -rf .dapi/cosmovisor/current && \
+sudo ln -sf upgrades/v0.2.15-post5 .dapi/cosmovisor/current && \
+docker start api
+```
+Then use the new `model_override` field:
+```json
+        "model_override": {
+          "hf_repo": "MJPansa/DeepSeek-V4-Flash-0731-NVFP4",
+          "hf_commit": "64d64cd89bc63a66aa46506da89d7821f7491c62"
+        },
+```
+[Full example](https://github.com/gonka-ai/gonka/blob/aaaa5854c1853696e59406d4d6546b6d6d526587/deploy/join/node-config-deepseekv4flash0731-B300-nvfp4.json#L10).
+
+It is recommended to switch nodes to the new API gradually rather than the whole fleet at once.
+
+**3) Validate with mlnode-validate**
+
+The skill now covers DeepSeek. It lives in a standalone `./skills` folder, so it works without any agent-specific setup — symlink it into `.claude/skills` and run the [`mlnode-validate` skill](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/skills/mlnode-validate):
+```
+/mlnode-validate how to use
+/mlnode-validate <your-node-ip:port> @deploy/join/node-config-deepseekv4flash0731-B300.json
+```
+The skill deploys the model, measures PoC throughput, and checks your output vectors against the golden reference (`deepseek-ai-deepseek-v4-flash-0731.json`). If it passes, you're good.
+
+If you want to serve DeepSeek, set it up using the steps above. If not, don't forget to delegate so you avoid the non-participation penalty.
+
+Heads-up: another MLNode build with better logs lands tomorrow, so expect a short follow-up.
+
 ## August 12, 2026
 
 **DeepSeek V4 Flash bootstrap (epoch 359)**

@@ -1,37 +1,36 @@
-# DeepSeek V4 Flash 引导流程
+# DeepSeek V4 Flash Bootstrap
 
-`deepseek-ai/DeepSeek-V4-Flash-0731` 通过[提案 94](../network-updates.md#august-10-2026)作为新的经治理批准的 PoC 模型加入。本文档说明如何在引导阶段尽量减少权重减少的风险，无论该模型在首次尝试时是否获得足够多的参与者。
+`deepseek-ai/DeepSeek-V4-Flash-0731` 作为由[提案94](../network-updates.md#august-10-2026)批准的新治理PoC模型被添加。本文档解释了如何在引导过程中最大限度地减少权重降低的可能性，无论该模型在首次尝试中是否获得足够参与者。
 
-有关多模型 PoC 机制的更广泛背景，请参阅[多模型 PoC](./multi_model_poc.md)。先前模型的引导及其机制记录在 [Kimi K2.6 引导流程](./kimi-bootstrap.md) 与 [MiniMax-M2.7 引导流程](./minimax-bootstrap.md) 中。
+有关多模型PoC机制的更广泛背景，请参阅[多模型PoC](./multi_model_poc.md)。先前模型的引导及其机制记录在[Kimi K2.6引导](./kimi-bootstrap.md)和[MiniMax-M2.7引导](./minimax-bootstrap.md)中。
 
-!!! note
-    引导过程可能持续多个纪元，具体取决于准备就绪的参与者数量。在配置的惩罚纪元之前，只要参与者明确提交了选择，并且计划部署的主机提交了 `PoCIntent`，就不会发生权重减少。继续提供 MiniMax 或 Kimi、且不选择加入 DeepSeek 的主机，在到达 `penalty_start_epoch` 后仍需明确提交 `PoCDelegation` / `PoCRefusal`。
+!!! note 
+    引导可能需要多个周期，具体取决于有多少参与者准备就绪。在配置的惩罚周期之前，如果参与者明确提交其选择，并且计划部署的主机提交 `PoCIntent`，则不会发生权重降低。继续提供MiniMax或Kimi但未选择DeepSeek的主机，在 `penalty_start_epoch` 达到后仍需明确提交 `PoCDelegation` / `PoCRefusal`。
 
-!!! note
-    请注意，在 Blackwell GPU 上，为了获得最佳性能，可以使用重新打包为 **FP8 + NVFP4** 的模型，而不是 **FP8 + FP4**。例如：`MJPansa/DeepSeek-V4-Flash-0731-NVFP4`。 模型精度保持不变。为了部署此类模型，我们会发布更新后的 API 二进制文件，并在 bootstrap 之前提供给大家。
+!!! note 
+    注意：在Blackwell GPU上，为实现最佳性能，您可以使用重新打包为fp8 + nvfp4而非fp8 + fp4的模型，例如 `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`。模型的精度相同。要部署此类模型，将在引导前发布并共享更新的API二进制文件。
 
+## 治理背景（提案94）
 
-## 治理背景（提案 94）
+提案94将DeepSeek V4 Flash注册为新的PoC模型。未修改任何现有参数或模型；唯一的变化是新增模型条目。
 
-提案 94 将 DeepSeek V4 Flash 注册为新的 PoC 模型。不修改任何现有参数或模型；唯一的变化是新增该模型条目。
-
-提案 / 公告中的细节：
+提案/公告的详细信息：
 
 - 模型：`deepseek-ai/DeepSeek-V4-Flash-0731`（固定版本 `7872f01b1d1fe23eabc4c98b48bffcef5a386062`）
-- 需要在 **vLLM 0.25.1** 上运行的 MLNode，并使用发布候选节点配置（`node-config-release-candidate-*.json` 适用于 B300 / B200 / H200 / H100）
-- 链上 PoC `weight_scale_factor = 0.214`，推理 `validation_threshold = 0.90`（处理过的 logprobs）
+- 需要在 **vLLM 0.25.1** 上运行的MLNode，并使用发布候选节点配置（`node-config-release-candidate-*.json` 适用于 B300 / B200 / H200 / H100）
+- 链上PoC `weight_scale_factor = 0.214`，推理 `validation_threshold = 0.90`（处理后的logprobs）
 - `penalty_start_epoch = 360`
-- 投票截止：**2026 年 8 月 12 日 16:05 UTC** / 8 月 12 日 09:05 PDT
-- 在符合引导资格的前提下，首次尝试从 **第 359 个纪元**开始（PoC 启动时间约为 2026 年 8 月 13 日 03:24 UTC / 8 月 12 日 20:24 PDT）
+- 投票截止时间为 **2026年8月12日16:05 UTC** / 8月12日09:05 PDT
+- 在符合引导资格的前提下，首次尝试从 **周期359** 开始（PoC开始时间约为2026年8月13日03:24 UTC / 8月12日20:24 PDT）
 
-请在**投票结束后**、且在第 359 纪元快照 `start_poc − deploy_window` 之前提交 `PoCIntent`。最终 MLNode 镜像说明与额外设置步骤将在投票结束后发布；在此之前请使用发布候选配置。
+在投票结束后、周期359快照前 `start_poc − deploy_window` 之前声明 `PoCIntent`。最终MLNode镜像说明和任何额外设置步骤将在投票结束后发布；在此之前请使用发布候选配置。
 
 
 ## 时间线
 
-对未参与 DeepSeek V4 Flash 的惩罚从 **纪元 `360`** 开始。从提案生效后的每个纪元起，链都会尝试引导该模型：在该纪元 PoC 阶段前 500 个区块（即 `delegation_params.deploy_window` 中的 `DeployWindow`）内生成一个 `BootstrapDelegationSnapshot`，根据 `V_min = 3` 个直接提交者以及占全网总权重 `W_threshold` 比例且通过 INTENT + DELEGATE 实现 `>2/3` 可达性的条件进行预资格评估；若满足预资格，则在该纪元启动 DeepSeek 的 PoC。
+缺少DeepSeek V4 Flash的惩罚从 **周期 `360`** 开始。从提案激活起的每个周期，链都会尝试引导该模型：在该周期的PoC阶段前捕获 `BootstrapDelegationSnapshot` 500个区块（来自 `delegation_params.deploy_window` 的 `DeployWindow`），根据 `V_min = 3` 直接提交者和总网络权重的 `W_threshold` 比例（通过INTENT + DELEGATE实现 `>2/3` 可达性）评估预资格，并（若预合格）在该周期启动DeepSeek的PoC。
 
-提案 94 保持当前委托门槛：`w_threshold = 0.1`，`v_min = 3`，`no_participation_penalty = 0.15`，`refusal_penalty = 0.1`。执行后仍请从链上读取实时值：
+提案94保留当前的委托阈值：`w_threshold = 0.1`、`v_min = 3`、`no_participation_penalty = 0.15`、`refusal_penalty = 0.1`。执行后仍需从链上读取实时值：
 
 ```bash
 curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \
@@ -39,14 +38,14 @@ curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/par
 # Decimal fields use {value, exponent}: e.g. {"value":"1","exponent":-1} → 0.1 (10%).
 ```
 
-提案执行后，请确认链上的 DeepSeek 条目（包括 `penalty_start_epoch` 与 `weight_scale_factor`）：
+提案执行后确认实时DeepSeek条目（包括 `penalty_start_epoch` 和 `weight_scale_factor`）：
 
 ```bash
 curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \
   | jq '.params.poc_params.models[] | select(.model_id=="deepseek-ai/DeepSeek-V4-Flash-0731")'
 ```
 
-要计算任意给定评估周期的确切区块编号，应以链的当前周期为锚点进行向前推算。`epoch_shift` 参数不能锚定到创世块（由于过去周期长度的变化，该值会过时），因此在主网上使用 `epoch_shift + N * epoch_length` 是错误的——始终应以当前实时的 PoC_start 为锚点：
+要计算任何给定评估周期的确切区块编号，请以链上当前周期为锚点进行前推。`epoch_shift` 参数不锚定创世块（在过去的周期长度变化中会过时），因此 `epoch_shift + N * epoch_length` 在主网上是错误的——始终以实时当前PoC_start为锚点：
 
 ```bash
 NODE=https://node3.gonka.ai
@@ -65,54 +64,54 @@ SNAPSHOT_BLOCK=$(( POC_START - 500 ))
 echo "Epoch $EPOCH (current $CURRENT_EPOCH): snapshot at block $SNAPSHOT_BLOCK, PoC starts at block $POC_START"
 ```
 
-当参与的节点及其委托满足门槛要求时，DeepSeek 将在最早的 epoch 获得预资格。提案参数中现有模型条目（`MiniMaxAI/MiniMax-M2.7`、`moonshotai/Kimi-K2.6`、`zai-org/GLM-5.2-FP8`）保持不变。
+当参与主机加上委托覆盖阈值时，DeepSeek最早成为预合格。提案参数中保留现有模型条目（`MiniMaxAI/MiniMax-M2.7`、`moonshotai/Kimi-K2.6`、`zai-org/GLM-5.2-FP8`）不变。
 
 
-### 可能出现的情况
+### 可能的情形
 
-DeepSeek V4 Flash 的启动可能遵循以下主要场景：
+DeepSeek V4 Flash的引导可能遵循以下主要情形：
 
-1. **DeepSeek 在某个 epoch 的快照中未通过预评估**（并在 PoC 阶段仍不具备资格）：
+1. **在某个周期的快照中，DeepSeek未通过预评估**（且在PoC中仍不合格）：
 
-    - 所有提交了 `PoCIntent` 的参与者保留其全部权重（不受惩罚）
-    - 所有提交了 `PoCDelegation` 的参与者保留其全部权重（不受惩罚）
-    - **在 epoch `360` 之前**：未进行任何操作的参与者，以及提交了 `PoCRefusal` 的参与者，也保留其全部权重（宽限期期间不执行惩罚）
-    - **从 epoch `360` 开始**：未进行任何操作的参与者每错过一个模型，每个 epoch 将损失 **15%** 的权重（`no_participation_penalty`）；`PoCRefusal` 可避免 15% 的漏参与惩罚，但在惩罚纪元生效后仍会适用 `refusal_penalty`（**10%**）
+    - 所有提交 `PoCIntent` 的人保持其全部权重（无惩罚）
+    - 所有提交 `PoCDelegation` 的人保持其全部权重（无惩罚）
+    - **在周期 `360` 之前**：所有未提交者以及提交 `PoCRefusal` 者均保持其全部权重（在宽限期期间惩罚被抑制）
+    - **从周期 `360` 起**：所有未提交者每个周期每遗漏一个模型损失 **15%** 权重（`no_participation_penalty`）；提交 `PoCRefusal` 可避免15%的遗漏，但在惩罚周期激活后仍会应用 `refusal_penalty`（**10%**）
 
-    => 因此，**在 epoch `360` 之前**明确发送交易以表明您的意图至关重要
+=> 在周期 `360` 之前明确发送表明您意图的交易非常重要
 
-2. **DeepSeek 通过预评估但在 PoC 阶段未获得资格**（例如，某个 INTENT 节点未能及时部署）：
+2. **DeepSeek通过预评估但未在PoC中合格**（例如，INTENT主机未能及时部署）：
 
-    - 在该 epoch 实际部署了 DeepSeek 并提交了 DeepSeek PoC 提交记录的节点，保留其现有模型组的全部权重（不受惩罚）
-    - 所有提交了 `PoCDelegation` 的参与者保留其全部权重（不受惩罚）
-    - **从 epoch `360` 开始**：未进行任何操作的参与者损失 15% 的权重；提交了 DeepSeek `PoCIntent` 但未部署且未提交 DeepSeek PoC 提交记录的参与者也同样损失 15% 的权重（按 `IntentMissed` 处理）；`PoCRefusal` 则按 10% 的 `refusal_penalty` 处理，而非 15% 的漏参与惩罚
+    - 实际部署了DeepSeek并在该周期提交了DeepSeek PoC提交的主机，保持其来自现有模型组的全部权重（无惩罚）
+    - 所有提交 `PoCDelegation` 的人保持其全部权重（无惩罚）
+    - **从周期 `360` 起**：所有未提交者损失15%权重；所有提交 `PoCIntent` 但未部署且未提交DeepSeek PoC提交者也损失15%（`IntentMissed` 解决）；`PoCRefusal` 采用10%的`refusal_penalty` 而非15%的遗漏
 
-如果 DeepSeek 通过了上述两项检查，惩罚机制将遵循 [多模型 PoC](./multi_model_poc.md) 中描述的常规情况。
+如果DeepSeek通过两项检查，惩罚将遵循[多模型PoC](./multi_model_poc.md)中描述的常规情形。
 
 
 ## 硬件与共识权重
 
-DeepSeek V4 Flash 注册时 `v_ram = 280`（每个实例大约需要 **280 GB 总 VRAM**），`weight_scale_factor = 0.214`。相对于运行 MiniMax M2.7 的 8×H100 集群，公告中的估算为：
+DeepSeek V4 Flash注册为 `v_ram = 280`（每个实例约 **280 GB总VRAM**）和 `weight_scale_factor = 0.214`。与运行MiniMax M2.7的8×H100集群相比，公告估计：
 
-- 8×H200 最优可产生 **1.46×** 权重（运行 MiniMax M2.7）
-- 8×B200 最优可产生 **2.96×** 权重（运行 Kimi K2.6）
-- 8×B300 最优可产生 **3.37×** 权重（运行 DeepSeek V4 Flash）
+- 8×H200最优可产生 **1.46×** 权重运行MiniMax M2.7
+- 8×B200最优可产生 **2.96×** 权重运行Kimi K2.6
+- 8×B300 在运行 DeepSeek V4 Flash 时最优产出为 **3.37×** 权重
 
-实际影响如下：
+实际影响：
 
-- **B300 拥有者**：在拟议系数下，DeepSeek 是权重最高的选项。请准备 vLLM 0.25.1 与 B300 发布候选配置。
-- **B200 拥有者**：在该档位上 Kimi K2.6 仍产生最高 PoC 权重；若希望选择加入，可通过 B200 发布候选配置运行 DeepSeek。
-- **H200 / H100 拥有者**：对这些档位而言 MiniMax M2.7 仍是权重最高的模型；DeepSeek 配置可用，但切换是可选的，并非追求最高权重所必需。
+- **B300 用户**：在提议的系数下，DeepSeek 是权重最高的选项。请为 vLLM 0.25.1 和 B300 发布候选配置做准备。
+- **B200 用户**：Kimi K2.6 在此类别中仍提供最高的 PoC 权重；如果您希望参与，可通过 B200 发布候选配置使用 DeepSeek。
+- **H200 / H100 用户**：MiniMax M2.7 仍是这些类别的最高权重模型；DeepSeek 配置存在，但切换是可选的，非获得最大权重所必需。
 - 完整系数表：[Google Sheet](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
 
-根据模型使用情况，治理之后可提高系数，以激励更多 B 系列 GPU 转向 DeepSeek。
+基于模型使用情况，治理可后续提高系数以激励将更多 B 系列 GPU 转向 DeepSeek。
 
 
-## 计划部署 DeepSeek V4 Flash 的节点操作指南
+## 准备部署 DeepSeek V4 Flash 的主机说明
 
-#### 1. 向链上发送 `PoCIntent`
+#### 向链发送 `PoCIntent`
 
-请在提案 94 投票结束后、目标纪元快照区块之前提交：
+在提案 94 投票结束后、目标纪元快照块前提交：
 
 ```bash
 export NODE=https://node3.gonka.ai/chain-rpc/
@@ -126,21 +125,21 @@ export NODE=https://node3.gonka.ai/chain-rpc/
   -y
 ```
 
-#### 2. 预下载权重并验证可部署性
+#### 预下载权重并验证可部署性
 
-使用提案中固定的 Hugging Face 版本：
+使用提案中锁定的 Hugging Face 版本：
 
-- `hf_repo`：`deepseek-ai/DeepSeek-V4-Flash-0731`
-- `hf_commit`：`7872f01b1d1fe23eabc4c98b48bffcef5a386062`
+- `hf_repo`: `deepseek-ai/DeepSeek-V4-Flash-0731`
+- `hf_commit`: `7872f01b1d1fe23eabc4c98b48bffcef5a386062`
 
-请参考指南 [预下载模型权重](https://gonka.ai/host/quickstart/#server-pre-download-model-weights-to-hugging-face-cache-hf_home)。请提前规划磁盘空间与带宽——首次尝试期间的 Hugging Face 限速可能导致错过资格。
+请遵循指南 [预下载模型权重](https://gonka.ai/host/quickstart/#server-pre-download-model-weights-to-hugging-face-cache-hf_home)。提前规划磁盘空间和带宽——首次尝试时 Hugging Face 的速率限制可能导致资格丧失。
 
-在引导快照区块之前，请先验证模型能否在您的硬件上成功加载。您需要：
+在引导快照块前验证模型能否在您的硬件上加载。您需要：
 
-- 运行 **vLLM 0.25.1** 的 MLNode
-- 与您的 GPU 档位相匹配的发布候选节点配置：`node-config-release-candidate-*.json`（B300 / B200 / H200 / H100）
+- MLNode 使用 **vLLM 0.25.1**
+- 发布候选节点配置：`node-config-release-candidate-*.json`（适用于您的 GPU 类别：B300 / B200 / H200 / H100）
 
-该链通过 `Model.ModelArgs` 注册 DeepSeek：
+链将 DeepSeek 注册为 `Model.ModelArgs`：
 
 ```
 --max-model-len 400000
@@ -152,11 +151,11 @@ export NODE=https://node3.gonka.ai/chain-rpc/
 --trust-remote-code
 ```
 
-部署侧参数（`--tensor-parallel-size`、`--enable-expert-parallel`、`--gpu-memory-utilization`、投机解码 / attention backend 等）来自对应硬件的发布候选 `node-config`——请勿仅根据链上 `ModelArgs` 自行拼凑。
+部署端标志（`--tensor-parallel-size`、`--enable-expert-parallel`、`--gpu-memory-utilization`、推测/注意力后端标志等）来源于您硬件的发布候选 `node-config`——请勿仅从链的 `ModelArgs` 自行推断。
 
-#### 3. 等待下一次评估周期并检查预资格
+#### 等待下一个评估纪元并检查预资格
 
-在每次评估周期的快照区块之后，链会发出一个 `bootstrap_model_preeligibility` 事件：
+每个评估纪元的快照块后，链会发出 `bootstrap_model_preeligibility` 事件：
 
 ```bash
 NODE=https://node3.gonka.ai
@@ -177,11 +176,11 @@ curl -s "$NODE/chain-rpc/block_results?height=$HEIGHT" \
       | $a'
 ```
 
-关键属性是 `pre_eligible`。若为 `true`，链将在该纪元运行 DeepSeek PoC，您应准备好部署。辅助字段显示三项检查中哪些已通过：`meets_v_min`（直接 intent 提交者 ≥ `V_min`）、`meets_weight_threshold`（intent 权重 ≥ 全网权重的 `W_threshold`）、以及 `meets_reachability`（intent + 委托的 `reachable_voting_power` 覆盖 `>2/3`）。`intent_host_count` 与 `intent_weight` 显示该纪元的直接 intent 覆盖情况。
+关键属性是 `pre_eligible`。若其为 `true`，则链将在本纪元运行 DeepSeek PoC，您应准备就绪。支持字段显示三项检查中哪些通过：`meets_v_min`（≥ `V_min` 直接意图提交者），`meets_weight_threshold`（意图权重 ≥ `W_threshold` 的 `total_network_weight`），以及 `meets_reachability`（意图 + 委托 `reachable_voting_power` 覆盖 `>2/3`）。`intent_host_count` 和 `intent_weight` 显示本纪元的直接意图覆盖情况。
 
-#### 4. 若获得预资格，则切换至 DeepSeek V4 Flash
+#### 若预合格，切换至 DeepSeek V4 Flash
 
-请使用与您的 GPU 档位相匹配的发布候选配置。Admin API 更新的示例结构如下（请用您的 `node-config-release-candidate-*.json` 中的参数替换 args）：
+使用与您 GPU 类别匹配的发布候选配置。Admin API 更新示例形状（用您的 `node-config-release-candidate-*.json` 内容替换参数）：
 
 ```bash
 curl -X POST http://localhost:9200/admin/v1/nodes \
@@ -208,18 +207,18 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
      }'
 ```
 
-请合并发布候选配置中的运维参数（tensor parallel、expert parallel、gpu memory utilization、投机解码以及任何硬件相关 backend）。PoC 开始时的成员资格由谁提交 PoC store commit 决定——仅声明 intent 不足够。
+合并发布候选配置中的操作符标志（张量并行大小、专家并行、GPU 内存利用率、推测解码及任何硬件特定后端）。PoC 开始时的成员资格由提交 PoC 存储提交者决定——仅声明意图不足。
 
-#### 5. 验证您的部署
+#### 验证您的部署
 
-投票结束后，请遵循已发布的 MLNode 设置说明以及任何已提交的 DeepSeek golden reference。[`gonka` 仓库](https://github.com/gonka-ai/gonka) 提供了代理技能 `mlnode-validate`，可用预计算的诚实 PoC 向量验证已部署的 ML Node。参见 [验证 ML 节点部署](./mlnode-validation.md) 与 [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md)。
+投票结束后，遵循发布的 MLNode 设置说明及任何已提交的 DeepSeek 黄金参考。[`gonka` 仓库](https://github.com/gonka-ai/gonka) 提供了一个代理技能 `mlnode-validate`，用于将已部署的 ML Node 与预计算的诚实 PoC 向量进行验证。参见 [验证 ML Node 部署](./mlnode-validation.md) 和 [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md)。
 
 
-## 不计划部署 DeepSeek V4 Flash 的节点操作指南
+## 不打算部署 DeepSeek V4 Flash 的主机说明
 
-继续运行 MiniMax 或 Kimi 没有问题——现有模型保持不变。在 **纪元 `360`** 之前，您可以不对 DeepSeek 做任何操作且不会被扣权重。从纪元 `360` 起，请提交**委托**（若信任某个 intent 主机，优先选择）或**拒绝**，以免被判定为错过该模型。拒绝可避免 15% 的漏参与惩罚，但仍会扣除 10% 的 `refusal_penalty`。
+保留 MiniMax 或 Kimi 即可——现有模型保持不变。在 **纪元 `360`** 之前，您可以不响应 DeepSeek 而不被扣减权重。从纪元 `360` 开始，请提交 **委托**（若您信任某意图主机，推荐）或 **拒绝**，以免被视为缺失模型。拒绝可避免 15% 的缺失惩罚，但仍需承担 10% 的 `refusal_penalty`。
 
-#### 1. 检查您是否信任任何计划部署 DeepSeek / 已发送 `PoCIntent` 的主机
+#### 检查您是否信任任何将部署 DeepSeek / 发送 `PoCIntent` 的主机
 
 ```python
 import time
@@ -315,9 +314,9 @@ if skipped:
         print(f"  {addr} (weight={w}): {err}")
 ```
 
-为引导进行委托时：**不要委托给 guardian 节点**；将权重分散到独立的 DeepSeek 主机。更新后的委托指引见 [多模型 PoC](./multi_model_poc.md)。
+在委托引导时：**不要委托给守护节点**；将权重分散到独立的 DeepSeek 主机上。有关最新的委托指南，请参阅 [Multi-Model PoC](./multi_model_poc.md)。
 
-#### 2. 发送委托或拒绝
+#### 发送委托或拒绝
 
 委托：
 

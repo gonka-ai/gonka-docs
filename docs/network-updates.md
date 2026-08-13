@@ -8,7 +8,7 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
-    ## August 13, 2026
+## August 13, 2026
 
 **Testing DeepSeek V4 Flash**
 

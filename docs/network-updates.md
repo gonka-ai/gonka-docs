@@ -7,6 +7,36 @@
     To publish an announcement, for example, about a governance vote you started, please open a pull request in the gonka-docs repository: [https://github.com/gonka-ai/gonka-docs](https://github.com/gonka-ai/gonka-docs)
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
+
+## August 12, 2026
+
+**DeepSeek V4 Flash bootstrap (epoch 359)**
+
+Proposal 94 has passed — DeepSeek V4 Flash is approved. Hosts that plan to serve it should declare intent now so the model can bootstrap at epoch 359.
+
+[Full table with coefficients](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
+
+**Effect**
+
+From epoch 359 (PoC start ~August 13, 2026 at 03:24 UTC / August 12 at 20:24 PDT), subject to the model meeting bootstrap eligibility:
+
+- `deepseek-ai/DeepSeek-V4-Flash-0731` becomes an available PoC model.
+- `MiniMaxAI/MiniMax-M2.7` remains the base model.
+- `moonshotai/Kimi-K2.6` remains available and unchanged.
+
+**Required actions for hosts**
+
+1. Declare intent. Now that proposal 94 has passed, and before the bootstrap snapshot at block 5,536,224 (~August 13, ~02:40 UTC / August 12 ~19:40 PDT), submit:
+```
+./inferenced tx inference declare-poc-intent deepseek-ai/DeepSeek-V4-Flash-0731
+```
+2. Switch your MLNode. Provision and switch your MLNode to DeepSeek V4 Flash (vLLM 0.25.1 + release-candidate config) in the ~500-block safety window before PoC 359 starts (block 5,536,724, ~August 13, ~03:24 UTC / August 12 ~20:24 PDT). It is safe to switch during this window, as there is no cPoC in it.
+
+   Note: on Blackwell GPUs, for best performance you can use the model repacked as fp8 + nvfp4 instead of fp8 + fp4, e.g. `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`. The model's precision is the same. To deploy it, an updated API binary will be released and shared prior to the bootstrap.
+3. If you delegate. Do not delegate to guardian nodes; spread delegations across independent DeepSeek hosts. See the [Multi-Model PoC guide](https://gonka.ai/docs/host/multi_model_poc/).
+4. To keep your current model. No action needed before epoch 360. From epoch 360, if you are not serving DeepSeek, submit `PoCDelegation` or `PoCRefusal` - otherwise the 15% non-participation penalty applies.
+
+Block heights are exact; the times are estimates and will firm up closer to the epoch. [More detail on the DeepSeek bootstrap](https://gonka.ai/docs/host/deepseek-bootstrap/).
     
 ## August 10, 2026
 
@@ -22,9 +52,9 @@ Details:
 
 - Model: `deepseek-ai/DeepSeek-V4-Flash-0731` (pinned revision `7872f01b1d1fe23eabc4c98b48bffcef5a386062`)
 - Requires an MLNode on vLLM 0.25.1 with the release-candidate node configuration (`node-config-release-candidate-*.json` for B300 / B200 / H200 / H100)
-- Candidate chain parameters: PoC `weight_scale_factor = 0.21`, inference `validation_threshold = 0.90` (processed logprobs)
+- Candidate chain parameters: PoC `weight_scale_factor = 0.214`, inference `validation_threshold = 0.90` (processed logprobs), `penalty_start_epoch = 360`
 
-The 0.21 coefficient for DeepSeek gives a slight advantage to hosting DeepSeek on B300s. For the rest of the hardware, the models yielding the highest PoC weight remain unchanged.
+The 0.214 coefficient for DeepSeek gives a slight advantage to hosting DeepSeek on B300s. For the rest of the hardware, the models yielding the highest PoC weight remain unchanged.
 
 Compared to an 8xH100 cluster running MiniMax M2.7:
 
@@ -47,9 +77,11 @@ The model enters through the standard bootstrap flow, so hosts can see its viabi
 
 The final MLNode version and setup instructions will be posted after voting ends.
 
+More on how the bootstrap works: [https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)
+
 **Effect if approved**
 
-Subject to bootstrap eligibility, from epoch 359 (PoC start ~August 13, 2026 at 03:24 UTC / August 12 at 20:24 PDT) `deepseek-ai/DeepSeek-V4-Flash-0731` becomes an available PoC model. Existing models remain unchanged.
+Subject to bootstrap eligibility, from epoch 359 (PoC start ~August 13, 2026 at 03:24 UTC / August 12 at 20:24 PDT) `deepseek-ai/DeepSeek-V4-Flash-0731` becomes an available PoC model. Existing models remain unchanged. Non-participation penalty for DeepSeek starts at epoch `360` (`penalty_start_epoch = 360`).
 
 **Required actions for hosts**
 
@@ -57,7 +89,7 @@ Subject to bootstrap eligibility, from epoch 359 (PoC start ~August 13, 2026 at 
 ```
 ./inferenced tx inference declare-poc-intent deepseek-ai/DeepSeek-V4-Flash-0731
 ```
-2. To keep your current model: no action needed.
+2. To keep your current model: no action needed before epoch 360; from epoch 360 onwards, submit `PoCDelegation` or `PoCRefusal` for DeepSeek if you are not serving it.
 3. Vote on proposal 94 before the deadline.
 
 **How to vote**

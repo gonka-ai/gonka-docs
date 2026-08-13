@@ -35,6 +35,7 @@ nav:
       - Multi-Model PoC: host/multi_model_poc.md
       - Kimi K2.6 bootstrap: host/kimi-bootstrap.md
       - MiniMax-M2.7 bootstrap: host/minimax-bootstrap.md
+      - DeepSeek V4 Flash bootstrap: host/deepseek-bootstrap.md
       - Deployment benchmark: host/benchmark-to-choose-optimal-deployment-config-for-llms.md
 
   - Wallet:
@@ -200,6 +201,7 @@ plugins:
             Multi-Model PoC: 多模型 PoC
             Kimi K2.6 bootstrap: Kimi K2.6 引导
             MiniMax-M2.7 bootstrap: MiniMax-M2.7 引导
+            DeepSeek V4 Flash bootstrap: DeepSeek V4 Flash 引导
             Deployment benchmark: 部署基准测试
             Wallet: 钱包
             Wallet & transfer guide: 钱包与转账指南

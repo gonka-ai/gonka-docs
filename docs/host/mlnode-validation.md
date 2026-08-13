@@ -116,4 +116,4 @@ Exit codes:
 - [Host Quickstart](./quickstart.md) — initial deploy and `node-config.json` examples for every supported model and GPU class.
 - [ML Node Management](./mlnode-management.md) — adding / updating / enabling / disabling ML Nodes via the Admin API.
 - [Benchmark to Choose Optimal Deployment Config for LLMs](./benchmark-to-choose-optimal-deployment-config-for-llms.md) — performance tuning (TP / PP) via `compressa-perf`.
-- [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) / [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md) — on-chain bootstrap timelines and `PoCIntent` / delegation transactions.
+- [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) / [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md) / [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) — on-chain bootstrap timelines and `PoCIntent` / delegation transactions.

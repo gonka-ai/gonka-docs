@@ -8,6 +8,22 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## August 14, 2026
+
+**MLNode 3.0.16 rollout**
+
+If all your nodes are already on the new build (3.0.16), you're all set, nothing to do here.
+
+If any are still on the old MLNode (the ones serving Kimi or MiniMax, since anything already on DeepSeek is on 3.0.16), please migrate those to 3.0.16 when you get a chance.
+
+One ask: roll it out gradually. Please don't switch all your nodes at once. Update a few first, confirm they're stable, then move the rest. Keeping the rest of your fleet serving while you validate the new build is the safest way.
+
+The MLNode image is pinned to 3.0.16 in [`docker-compose.mlnode.yml`](https://github.com/gonka-ai/gonka/blob/vllm-0.25.1-upgrade/deploy/join/docker-compose.mlnode.yml) on the `vllm-0.25.1-upgrade` branch.
+
+The default MLNode image (3.0.16) is built on CUDA 13.0. If your host is still on CUDA 12.9, use the `3.0.16-cu129` tag instead. It's the same MLNode 3.0.16, just built for CUDA 12.9. Both tags are in the same compose file.
+
+After updating, validate with `mlnode-validate`.
+
 ## August 13, 2026
 
 **Migrate community-sale and wrapped-token contracts**

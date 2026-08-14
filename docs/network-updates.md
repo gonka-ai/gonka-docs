@@ -10,6 +10,14 @@
 
 ## August 14, 2026
 
+**DeepSeek V4 Flash is now active on Gonka network**
+
+The bootstrap stage announced in [proposal 94](https://gonka.ai/docs/network-updates/#august-10-2026) is complete. As of chain epoch 360, `deepseek-ai/DeepSeek-V4-Flash-0731` joins MiniMax-M2.7 and Kimi K2.6 as an active model group, and PoC weight earned in the DeepSeek group is now being converted into consensus weight at the calibrated coefficient 0.214.
+
+Per-model participation enforcement for DeepSeek is now in effect. Hosts that have already chosen DIRECT, DELEGATE or REFUSE for DeepSeek do not need to do anything else — the same setup keeps working. Hosts that have not yet made a choice are encouraged to do so now to avoid the per-epoch penalty ([https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)).
+
+## August 14, 2026
+
 **MLNode 3.0.16 rollout**
 
 If all your nodes are already on the new build (3.0.16), you're all set, nothing to do here.

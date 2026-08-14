@@ -174,8 +174,7 @@ From epoch 359 (PoC start ~August 13, 2026 at 03:24 UTC / August 12 at 20:24 PDT
 ./inferenced tx inference declare-poc-intent deepseek-ai/DeepSeek-V4-Flash-0731
 ```
 2. Switch your MLNode. Provision and switch your MLNode to DeepSeek V4 Flash (vLLM 0.25.1 + release-candidate config) in the ~500-block safety window before PoC 359 starts (block 5,536,724, ~August 13, ~03:24 UTC / August 12 ~20:24 PDT). It is safe to switch during this window, as there is no cPoC in it.
-
-   Note: on Blackwell GPUs, for best performance you can use the model repacked as fp8 + nvfp4 instead of fp8 + fp4, e.g. `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`. The model's precision is the same. To deploy it, an updated API binary will be released and shared prior to the bootstrap.
+Note: on Blackwell GPUs, for best performance you can use the model repacked as fp8 + nvfp4 instead of fp8 + fp4, e.g. `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`. The model's precision is the same. To deploy it, an updated API binary will be released and shared prior to the bootstrap.
 3. If you delegate. Do not delegate to guardian nodes; spread delegations across independent DeepSeek hosts. See the [Multi-Model PoC guide](https://gonka.ai/docs/host/multi_model_poc/).
 4. To keep your current model. No action needed before epoch 360. From epoch 360, if you are not serving DeepSeek, submit `PoCDelegation` or `PoCRefusal` - otherwise the 15% non-participation penalty applies.
 

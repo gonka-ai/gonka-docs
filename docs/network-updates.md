@@ -44,8 +44,8 @@ export NODE_URL=https://node3.gonka.ai/
 
 **Deadlines**
 
-- Voting ends: August 18, 2026, 12:01 UTC 
-- Estimated migration time: August 18, 2026, 12:01 UTC
+- Voting ends: August 14, 2026, 12:01 UTC 
+- Estimated migration time: August 14, 2026, 12:01 UTC
 
 ## August 13, 2026
 

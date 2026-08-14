@@ -1,14 +1,14 @@
 # DeepSeek V4 Flash Bootstrap
 
-`deepseek-ai/DeepSeek-V4-Flash-0731` is added as a new governance-approved PoC model by [proposal 94](../network-updates.md#august-10-2026). This document explains how to minimize the chance of weight reductions during bootstrap, whether or not the model gets enough participants in its first attempt.
+`deepseek-ai/DeepSeek-V4-Flash-0731` has **passed bootstrap** and is **active** in Proof of Compute on Gonka mainnet as of chain epoch 360 ([proposal 94](../network-updates.md#august-10-2026)). The timeline and transaction examples below remain useful for understanding how activation worked and for operations such as delegation; for current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md).
 
 For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./multi_model_poc.md). Previous model bootstraps and their mechanics are documented in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) and [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md).
 
 !!! note
-    The bootstrap can take multiple epochs, depending on how many participants are ready. Before the configured punishment epoch, no weight reduction happens if participants submit their choice explicitly and hosts who are going to deploy submit `PoCIntent`. Hosts that keep serving MiniMax or Kimi and do not opt into DeepSeek still need an explicit `PoCDelegation` / `PoCRefusal` once `penalty_start_epoch` is reached.
+    The bootstrap can take multiple epochs, depending on how many participants are ready. Before the configured punishment epoch, no weight reduction happens if participants submit their choice explicitly and hosts who are going to deploy submit `PoCIntent`. Hosts that keep serving MiniMax or Kimi and do not opt into DeepSeek still need an explicit `PoCDelegation` / `PoCRefusal` once `penalty_start_epoch` is reached. Per-model participation enforcement for DeepSeek is now in effect (epoch 360).
 
 !!! note
-    Note that on Blackwell GPUs, to achieve the best performance, you can use the model repacked as fp8 + nvfp4 instead of fp8 + fp4. e.g., `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`. The model's precision is the same. To deploy such a model, an updated API binary will be released and shared prior to the bootstrap.
+    On Blackwell GPUs, for best performance you can use the model repacked as fp8 + nvfp4 instead of fp8 + fp4, e.g. `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`. The model's precision is the same. Use the `node-config-deepseekv4flash0731-B200-nvfp4.json` / `node-config-deepseekv4flash0731-B300-nvfp4.json` configs and API `v0.2.15-post5` — see the August 13 "Testing DeepSeek V4 Flash" note in [Network updates](../network-updates.md).
 
 ## Governance context (proposal 94)
 
@@ -17,13 +17,13 @@ Proposal 94 registers DeepSeek V4 Flash as a new PoC model. No existing paramete
 Details from the proposal / announcement:
 
 - Model: `deepseek-ai/DeepSeek-V4-Flash-0731` (pinned revision `7872f01b1d1fe23eabc4c98b48bffcef5a386062`)
-- Requires an MLNode on **vLLM 0.25.1** with the release-candidate node configuration (`node-config-release-candidate-*.json` for B300 / B200 / H200 / H100)
+- Requires an MLNode on **vLLM 0.25.1** (MLNode **3.0.16**) with the shipped node configuration (`node-config-deepseekv4flash0731-*.json` for B300 / B200 / H200 / H100)
 - On-chain PoC `weight_scale_factor = 0.214`, inference `validation_threshold = 0.90` (processed logprobs)
 - `penalty_start_epoch = 360`
-- Voting ends **August 12, 2026 at 16:05 UTC** / August 12 at 09:05 PDT
-- Subject to bootstrap eligibility, first attempt from **epoch 359** (PoC start ~August 13, 2026 at 03:24 UTC / August 12 at 20:24 PDT)
+- Voting ended **August 12, 2026 at 16:05 UTC** / August 12 at 09:05 PDT
+- First bootstrap attempt at **epoch 359**; the model group became active at **epoch 360**
 
-Declare `PoCIntent` **after voting ends** and before the epoch 359 snapshot at `start_poc − deploy_window`. The final MLNode image notes and any extra setup steps will be posted after voting ends; use the release-candidate configs until then.
+Declare `PoCIntent` **after voting ended** and before the epoch 359 snapshot at `start_poc − deploy_window`. The MLNode image is pinned to 3.0.16 in `deploy/join/docker-compose.mlnode.yml` on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) branch (`main` still pins 3.0.14-post2); use the shipped DeepSeek `node-config-*.json` files.
 
 
 ## Timeline
@@ -99,8 +99,8 @@ DeepSeek V4 Flash is registered with `v_ram = 280` (about **280 GB of total VRAM
 
 Practical implications:
 
-- **B300 owners**: DeepSeek is the highest-weight option under the proposed coefficient. Plan for vLLM 0.25.1 and the B300 release-candidate config.
-- **B200 owners**: Kimi K2.6 still yields the highest PoC weight on this class; DeepSeek is available via the B200 release-candidate config if you want to opt in.
+- **B300 owners**: DeepSeek is the highest-weight option under the proposed coefficient. Plan for vLLM 0.25.1 / MLNode 3.0.16 and the B300 node config.
+- **B200 owners**: Kimi K2.6 still yields the highest PoC weight on this class; DeepSeek is available via the B200 node config if you want to opt in.
 - **H200 / H100 owners**: MiniMax M2.7 remains the highest-weight model for these classes; DeepSeek configs exist, but switching is optional and not required for max weight.
 - Full coefficient table: [Google Sheet](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
 
@@ -131,13 +131,14 @@ Use the pinned Hugging Face revision from the proposal:
 
 - `hf_repo`: `deepseek-ai/DeepSeek-V4-Flash-0731`
 - `hf_commit`: `7872f01b1d1fe23eabc4c98b48bffcef5a386062`
+- License: **MIT** — see [Model licenses](../model-licenses.md) and the [upstream LICENSE](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/LICENSE). The Blackwell nvfp4 repack `MJPansa/DeepSeek-V4-Flash-0731-NVFP4` (commit `64d64cd89bc63a66aa46506da89d7821f7491c62`) is also MIT.
 
 Follow the guide to [pre-download model weights](https://gonka.ai/host/quickstart/#server-pre-download-model-weights-to-hugging-face-cache-hf_home). Plan disk space and bandwidth ahead of the bootstrap window — Hugging Face rate limits during the first attempt can cost eligibility.
 
 Verify the model loads on your hardware **before** the bootstrap snapshot block. You need:
 
-- MLNode on **vLLM 0.25.1**
-- Release-candidate node configuration: `node-config-release-candidate-*.json` for your GPU class (B300 / B200 / H200 / H100)
+- MLNode on **vLLM 0.25.1** (image **3.0.16**)
+- Shipped node configuration: `node-config-deepseekv4flash0731-*.json` for your GPU class (B300 / B200 / H200 / H100)
 
 The chain registers DeepSeek with `Model.ModelArgs`:
 
@@ -151,7 +152,7 @@ The chain registers DeepSeek with `Model.ModelArgs`:
 --trust-remote-code
 ```
 
-Deployment-side flags (`--tensor-parallel-size`, `--enable-expert-parallel`, `--gpu-memory-utilization`, speculative / attention backend flags, etc.) come from the release-candidate `node-config` for your hardware — do not invent them from the chain `ModelArgs` alone.
+Deployment-side flags (`--tensor-parallel-size`, `--enable-expert-parallel`, `--gpu-memory-utilization`, speculative / attention backend flags, etc.) come from the shipped `node-config` for your hardware — do not invent them from the chain `ModelArgs` alone.
 
 #### 3. Wait for the next evaluation epoch and check pre-eligibility
 
@@ -180,7 +181,7 @@ The key attribute is `pre_eligible`. If it is `true`, the chain will run DeepSee
 
 #### 4. Switch the model to DeepSeek V4 Flash if pre-eligible
 
-Use the matching release-candidate config for your GPU class. Example shape of an Admin API update (replace args with the contents of your `node-config-release-candidate-*.json`):
+Use the matching shipped config for your GPU class. Example shape of an Admin API update (replace args with the contents of your `node-config-deepseekv4flash0731-*.json`):
 
 ```bash
 curl -X POST http://localhost:9200/admin/v1/nodes \
@@ -207,16 +208,16 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
      }'
 ```
 
-Merge in the operator flags from the release-candidate config (tensor parallel size, expert parallel, gpu memory utilization, speculative decoding, and any hardware-specific backends). Membership at PoC start is set by who submits a PoC store commit — declaring intent alone is not enough.
+Merge in the operator flags from the shipped config (tensor parallel size, expert parallel, gpu memory utilization, speculative decoding, and any hardware-specific backends). Membership at PoC start is set by who submits a PoC store commit — declaring intent alone is not enough.
 
 #### 5. Validate your deployment
 
-After voting ends, follow the posted MLNode setup notes and any committed golden reference for DeepSeek. The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates a deployed ML Node against pre-computed honest PoC vectors. See [Validate ML Node Deployment](./mlnode-validation.md) and [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md).
+Follow the posted MLNode setup notes and the committed golden reference for DeepSeek (`deepseek-ai-deepseek-v4-flash-0731.json` on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts) branch). The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates a deployed ML Node against pre-computed honest PoC vectors. See [Validate ML Node Deployment](./mlnode-validation.md) and [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/vllm-0.25.1-upgrade/skills/mlnode-validate/SKILL.md).
 
 
 ## Instructions for hosts who are NOT going to deploy DeepSeek V4 Flash
 
-Keeping MiniMax or Kimi is fine — existing models are unchanged. Before **epoch `360`**, you can leave DeepSeek unanswered without a weight cut. From epoch `360` onwards, submit a **delegation** (preferred if you trust an intent host) or a **refusal** so you are not treated as missing the model. Refusal avoids the 15% miss penalty but still costs the 10% `refusal_penalty`.
+Keeping MiniMax or Kimi is fine — existing models are unchanged. Per-model participation enforcement for DeepSeek is now in effect (epoch **`360`**). If you are not serving DeepSeek, submit a **delegation** (preferred if you trust a DeepSeek host) or a **refusal** so you are not treated as missing the model. Refusal avoids the 15% miss penalty but still costs the 10% `refusal_penalty`. Hosts that already chose DIRECT, DELEGATE, or REFUSE do not need to resubmit.
 
 #### 1. Check if you trust any host who is going to deploy DeepSeek / sent `PoCIntent`
 

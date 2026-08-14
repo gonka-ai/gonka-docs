@@ -31,7 +31,7 @@ After the four phases, the script writes three files into `mlnode/packages/bench
 Per [SKILL.md → Required inputs](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md#required-inputs), the caller MUST supply both:
 
 - `MLNODE_URL` — base URL of the MLNode under test (e.g. `http://1.2.3.4:8080`). No default.
-- `MODEL` — target HuggingFace model id in full `org/repo` form (e.g. `MiniMaxAI/MiniMax-M2.7`, `moonshotai/Kimi-K2.6`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`). No default.
+- `MODEL` — target HuggingFace model id in full `org/repo` form (e.g. `MiniMaxAI/MiniMax-M2.7`, `moonshotai/Kimi-K2.6`, `deepseek-ai/DeepSeek-V4-Flash-0731`). No default.
 
 ## Deploy config: from the caller, not the golden
 
@@ -73,23 +73,29 @@ The "Recording context" column describes the server that generated the vectors (
 | `Qwen/Qwen3-0.6B` | `qwen-qwen3-0.6b.json` | 32 | local dev / single GPU |
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` (default lookup) | `qwen-qwen3-235b-a22b-instruct-2507-fp8.json` | 32 | tp=4, FlashInfer baseline. Quick smoke test. |
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` (extended) | `qwen-qwen3-235b-a22b-instruct-2507-fp8-deepgemm.json` | 2000 | tp=2, DeepGEMM MoE backend (`VLLM_USE_DEEP_GEMM=1`, `VLLM_MOE_USE_DEEP_GEMM=1`), recorded on 4xB200. Pass with `--reference`. |
-| `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` (pubkey-v2) | `qwen-qwen3-235b-a22b-instruct-2507-fp8-h200-pubkey-v2.json` | 200 | tp=4, recorded on 4xH200 with `public_key=test_pub_keys_v2`. Pass with `--reference`. |
-| `MiniMaxAI/MiniMax-M2.7` (default lookup) | `minimaxai-minimax-m2.7.json` | 200 | tp=2, FLASHINFER attention, fp8 kv-cache, max-model-len 180000, `--trust-remote-code`, minimax_m2 tool/reasoning parsers. Recorded on 2xH200. |
 | `moonshotai/Kimi-K2.6` (default lookup) | `moonshotai-kimi-k2.6.json` | 200 | tp=4 + expert-parallel, FLASHINFER_MLA attention, gpu-mem 0.95, max-model-len 240000, kimi_k2 tool/reasoning parsers, `--disable-custom-all-reduce`, `--trust-remote-code`. Recorded on 4xB200. |
+| `deepseek-ai/DeepSeek-V4-Flash-0731` (default lookup) | `deepseek-ai-deepseek-v4-flash-0731.json` | 1000 | tp=1, fp8 kv-cache, max-model-len 400000, `--tokenizer-mode deepseek_v4`, deepseek_v4 tool/reasoning parsers, `--trust-remote-code`. Recorded on 1xB300 (vLLM 0.25.1). On the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts) branch. |
 
-For Qwen3-235B the same model id has multiple references, exercising different code paths (tp-size, MoE backend, public_key) — see SKILL.md for the recommended multi-run pattern.
+For Qwen3-235B the same model id has multiple references, exercising different code paths (tp-size, MoE backend) — see SKILL.md for the recommended multi-run pattern.
 
 ## Ready-made deploy configs in `deploy/join/`
 
-The repo ships `node-config-*.json` files matching common GPU classes for each approved model:
+The repo ships `node-config-*.json` files matching common GPU classes. DeepSeek configs and MLNode 3.0.16 are on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) branch:
 
 - `deploy/join/node-config-qwen235B-B200.json`
 - `deploy/join/node-config-kimik26-B200.json`
 - `deploy/join/node-config-kimik26-H200.json`
-- `deploy/join/node-config-minimax-A100.json`
-- `deploy/join/node-config-minimax-H100.json`
-- `deploy/join/node-config-minimax-H200.json`
-- `deploy/join/node-config-minimax-B200.json`
+- `deploy/join/node-config-minimaxm27-A100.json`
+- `deploy/join/node-config-minimaxm27-H100.json`
+- `deploy/join/node-config-minimaxm27-H200.json`
+- `deploy/join/node-config-minimaxm27-B200.json`
+- `deploy/join/node-config-minimaxm27-B300.json`
+- `deploy/join/node-config-deepseekv4flash0731-H100.json`
+- `deploy/join/node-config-deepseekv4flash0731-H200.json`
+- `deploy/join/node-config-deepseekv4flash0731-B200.json`
+- `deploy/join/node-config-deepseekv4flash0731-B300.json`
+- `deploy/join/node-config-deepseekv4flash0731-B200-nvfp4.json`
+- `deploy/join/node-config-deepseekv4flash0731-B300-nvfp4.json`
 
 These configs are also reproduced inline in the [Host Quickstart](./quickstart.md).
 

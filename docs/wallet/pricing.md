@@ -6,6 +6,14 @@ Each model has a real-time AI token price that is recalculated every block based
 !!! note "This is the network price, not the price you pay a broker"
     The mechanism described here sets the **protocol-level, on-chain price per inference unit**. If you access Gonka through a [community broker](../developer/quickstart.md#11-pick-a-broker), the broker is an independent reseller that sets its own retail prices, payment methods, and rate limits on top of this, and may cover its own costs as well. The price you actually pay therefore differs from broker to broker, so check each broker's terms and find what works for you.
 
+## Current on-chain prices
+
+The table below is a per-epoch snapshot taken from the chain after each Proof-of-Compute Sprint completes. Because prices are recalculated every block, query the endpoint in the **Query current pricing** section below for live values.
+
+<!-- PRICES_START -->
+_The per-epoch price table is generated at build time._
+<!-- PRICES_END -->
+
 ## Pricing Mechanism
 
 - The system monitors usage of every model on a per-block basis.

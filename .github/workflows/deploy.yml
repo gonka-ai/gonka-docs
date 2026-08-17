@@ -4,10 +4,55 @@ on:
     branches:
       - master
       - main
+  # Per-epoch price refresh: poll often, but the `gate` job below only lets a
+  # scheduled run through when a new epoch's Proof-of-Compute has finished.
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 permissions:
   contents: write
+# Serialize deploys so a scheduled refresh and a push can't clobber gh-pages.
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: false
 jobs:
+  # Decide whether this run should build+publish. Push / manual runs always do.
+  # Scheduled runs only proceed once per epoch, after PoC (phase == "Inference")
+  # and once the chain epoch is newer than the epoch already published.
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.decide.outputs.should_deploy }}
+    steps:
+      - id: decide
+        name: Decide whether to deploy
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "Event ${{ github.event_name }}: deploying unconditionally."
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          latest=$(curl -sf --max-time 20 https://node3.gonka.ai/v1/epochs/latest) || {
+            echo "epochs/latest unreachable; skipping this scheduled run."
+            echo "should_deploy=false" >> "$GITHUB_OUTPUT"; exit 0; }
+          E=$(printf '%s' "$latest" | jq -r '.latest_epoch.index // empty')
+          phase=$(printf '%s' "$latest" | jq -r '.phase // empty')
+          P=$(curl -sf --max-time 20 https://gonka.ai/docs/wallet/price-epoch.txt 2>/dev/null || echo 0)
+          case "$P" in ''|*[!0-9]*) P=0 ;; esac
+          case "$E" in ''|*[!0-9]*) E=0 ;; esac
+          echo "chain epoch=$E phase=$phase, published epoch=$P"
+          if [ "$phase" = "Inference" ] && [ "$E" -gt "$P" ]; then
+            echo "New post-PoC epoch: deploying."
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No new post-PoC epoch: skipping."
+            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
+          fi
+
   deploy:
+    needs: gate
+    if: needs.gate.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,6 +73,13 @@ jobs:
       - run: ./buildtools/mkdocs-setup.sh
       - name: Stage split build inputs
         run: ./buildtools/prepare-stages.sh
+      # Inject the live per-epoch price table into the STAGED docs only (source
+      # on main is untouched -> no commit litter). On a scheduled run a fetch
+      # failure exits non-zero and aborts the deploy so the last-published table
+      # stays live; on push/dispatch it degrades to a "temporarily unavailable"
+      # note so routine doc deploys are never blocked.
+      - name: Inject on-chain price table
+        run: python3 ./buildtools/inject-pricing.py
       # IMPORTANT: build the landing first. mkdocs --clean (default) wipes its
       # entire site_dir; the home build's site_dir is _publish, so running it
       # after the docs build would delete _publish/docs. Running it first is

@@ -64,7 +64,7 @@ landing: true
     <section class="gonka-hero">
       <div class="gonka-inner">
         <h1>Gonka</h1>
-        <p class="tagline">AI 计算已成为新的货币</p>
+        <p class="tagline">AI计算已成为新货币</p>
         <p class="hero-uniswap">
           <a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">
             <span>在</span>
@@ -187,7 +187,7 @@ landing: true
                   <span class="role-link-icon" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="13" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h.01M7 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                   </span>
-                  <span>SDK与经纪人设置</span>
+                  <span>SDK与代理设置</span>
                 </a>
               </li>
             </ul>
@@ -293,7 +293,7 @@ landing: true
         <h4>GNK</h4>
         <ul>
           <li><a href="/tokenomics.pdf">Gonka代币经济</a></li>
-          <li><a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">Gonka在Uniswap上</a></li>
+          <li><a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">Uniswap上的Gonka</a></li>
         </ul>
       </div>
       <div class="footer-col">

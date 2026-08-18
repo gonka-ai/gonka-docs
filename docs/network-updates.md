@@ -25,11 +25,15 @@ The overscheduling and quarantine sections are intended to provide insights for 
 
 **Next steps:**
 
-1) Next 24 hours. Hosts should check their statistics and resolve any critical errors or misconfigurations. Contributors can help investigate issues if needed.
-2) In the first epoch after this 24-hour window. Manually controlled settlement will begin on the current gateway, starting with smaller models. The process will be closely monitored to minimize false positive records. Kimi will follow later because its data is currently less reliable under load.
-3) Following 1-3 days. Settlement results will be monitored
-4) Once this stage is stable. Other brokers can deploy the stabilized gateway version and begin settlement in a controlled mode.
-5) After successful validation across brokers. Settlement coverage will be progressively increased toward 100%.
+**1) Next 24 hours.** Hosts should check their statistics and resolve any critical errors or misconfigurations. Contributors can help investigate issues if needed.
+
+**2) In the first epoch after this 24-hour window.** Manually controlled settlement will begin on the current gateway, starting with smaller models. The process will be closely monitored to minimize false positive records. Kimi will follow later because its data is currently less reliable under load.
+
+**3) Following 1-3 days.** Settlement results will be monitored
+
+**4) Once this stage is stable.** Other brokers can deploy the stabilized gateway version and begin settlement in a controlled mode.
+
+**5) After successful validation across brokers.** Settlement coverage will be progressively increased toward 100%.
 
 The rollout is intentionally gradual so that any unexpected issues can be identified and addressed before settlement is expanded across the network.
 

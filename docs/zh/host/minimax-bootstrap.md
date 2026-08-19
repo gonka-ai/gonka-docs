@@ -1,21 +1,34 @@
 # MiniMax-M2.7 引导流程
 
-`MiniMaxAI/MiniMax-M2.7`（FP8）已在 `v0.2.13` 升级中作为第三个经治理批准的推理模型加入。本文档说明如何在引导阶段尽量减少权重减少的风险，无论该模型在首次尝试时是否获得足够多的参与者。
+`MiniMaxAI/MiniMax-M2.7`（FP8）已通过启动，并在链纪元 278（`v0.2.13`）时在 Gonka 主网的计算证明（PoC）中处于活跃状态。它是当前的基座模型（`delegation_params.initial_model_id`）。以下时间线和交易示例仍有助于理解激活机制以及委托等操作；有关当前部署默认设置（包括 `node-config.json`），请参阅[主机快速入门](./quickstart.md)。
 
-有关当前部署默认设置（包括 `node-config.json`），请参阅[主机快速入门](./quickstart.md)。有关多模型 PoC 机制的更广泛背景，请参阅[多模型 PoC](./multi_model_poc.md)。先前模型的引导及其机制记录在[Kimi K2.6 引导流程](./kimi-bootstrap.md)中。
+有关多模型 PoC 机制的更广泛背景，请参阅[多模型 PoC](./multi_model_poc.md)。其他模型的引导及其机制记录在[Kimi K2.6 引导流程](./kimi-bootstrap.md)和[DeepSeek V4 Flash 启动](./deepseek-bootstrap.md)中。
 
 !!! note
-    引导过程可能持续多个纪元，具体取决于准备就绪的参与者数量。在配置的惩罚纪元之前，只要参与者明确提交了选择，并且计划部署的主机提交了 `PoCIntent`，就不会发生权重减少。
+    引导过程可能持续多个纪元，具体取决于准备就绪的参与者数量。在配置的惩罚纪元之前，只要参与者明确提交了选择，并且计划部署的主机提交了 `PoCIntent`，就不会发生权重减少。MiniMax 的按模型参与强制执行现已生效（纪元 278）。
 
 ## 时间线
 
 对未参与 MiniMax-M2.7 的惩罚从 **纪元 `278`** 开始。从升级激活后的每个纪元起，链都会尝试引导该模型：在该纪元 PoC 阶段前 500 个区块（即 `DeployWindow`）内生成一个 `BootstrapDelegationSnapshot`，根据 `V_min = 3` 个直接提交者以及占全网总权重 `W_threshold` 比例且通过 INTENT + DELEGATE 实现 `>2/3` 可达性的条件进行预资格评估；若满足预资格，则在该纪元启动 MiniMax 的 PoC。
 
-当前 `W_threshold` 是一个治理参数——应从链上读取该值，而非硬编码（该值已由 GIP-48 从 `0.3` 降至 `0.1`，未来可能再次调整）：```bash
+当前 `W_threshold` 是一个治理参数——应从链上读取该值，而非硬编码（该值已由 GIP-48 从 `0.3` 降至 `0.1`，未来可能再次调整）：
+
+```bash
 curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \
   | jq '.params.delegation_params.w_threshold'
 # {value, exponent} encodes a decimal: e.g. {"value":"1","exponent":-1} → 0.1 (10%).
-```要计算任意给定评估周期的确切区块编号，应以链的当前周期为锚点进行向前推算。`epoch_shift` 参数不能锚定到创世块（由于过去周期长度的变化，该值会过时），因此在主网上使用 `epoch_shift + N * epoch_length` 是错误的——始终应以当前实时的 PoC_start 为锚点。```bash
+```
+
+从链上确认实时 MiniMax 条目（包括 `penalty_start_epoch` 和 `weight_scale_factor`）：
+
+```bash
+curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \
+  | jq '.params.poc_params.models[] | select(.model_id=="MiniMaxAI/MiniMax-M2.7")'
+```
+
+要计算任意给定评估周期的确切区块编号，应以链的当前周期为锚点进行向前推算。`epoch_shift` 参数不能锚定到创世块（由于过去周期长度的变化，该值会过时），因此在主网上使用 `epoch_shift + N * epoch_length` 是错误的——始终应以当前实时的 PoC_start 为锚点。
+
+```bash
 NODE=https://node3.gonka.ai
 
 PARAMS=$(curl -s "$NODE/chain-api/productscience/inference/inference/params")
@@ -30,7 +43,9 @@ POC_START=$(( CURRENT_POC_START + (EPOCH - CURRENT_EPOCH) * EPOCH_LENGTH ))
 SNAPSHOT_BLOCK=$(( POC_START - 500 ))
 
 echo "Epoch $EPOCH (current $CURRENT_EPOCH): snapshot at block $SNAPSHOT_BLOCK, PoC starts at block $POC_START"
-```当参与的节点及其委托满足门槛要求时，MiniMax 将在最早的 epoch 获得预资格。
+```
+
+当参与的节点及其委托满足门槛要求时，MiniMax 将在最早的 epoch 获得预资格。
 
 ### 可能出现的情况
 

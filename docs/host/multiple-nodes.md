@@ -88,6 +88,8 @@ Clone the repository with the base deploy scripts:
 git clone https://github.com/gonka-ai/gonka.git -b main
 ```
 
+To serve DeepSeek V4 Flash (MLNode 3.0.16 and the DeepSeek `node-config-*.json` files), clone [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) instead of `main`.
+
 **1.2. (Optional) Pre-download Model Weights to Hugging Face Cache (HF_HOME)**
 
 Inference nodes download model weights from Hugging Face. To ensure the model weights are ready for inference, we recommend downloading them before deployment. Choose one of the following options.
@@ -97,11 +99,15 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 
 Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired.
-Right now, the network supports `MiniMaxAI/MiniMax-M2.7` as the active PoC model.
+The network currently supports three active PoC models: `MiniMaxAI/MiniMax-M2.7` (base), `moonshotai/Kimi-K2.6`, and `deepseek-ai/DeepSeek-V4-Flash-0731`. Download the model you will serve:
 
 ```
 huggingface-cli download MiniMaxAI/MiniMax-M2.7
+huggingface-cli download moonshotai/Kimi-K2.6
+huggingface-cli download deepseek-ai/DeepSeek-V4-Flash-0731 --revision 7872f01b1d1fe23eabc4c98b48bffcef5a386062
 ```
+
+Model licenses: see [Model licenses](../model-licenses.md). DeepSeek V4 Flash is MIT.
 
 **1.3. Ports open for network node connections**
 ```
@@ -153,16 +159,17 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `poc_port`       | The port which is used for **MLNode management**.   | `8080` (port mapped to `8080` of MLNode's `nginx`)                                                   |
 | `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500`                                                     |
 | `models`         | A **supported models** that the inference node can process.                              | (see below)    |
-| `model_name`         | The name of the model.                              | `MiniMaxAI/MiniMax-M2.7`    |
+| `model_name`         | The name of the model.                              | `MiniMaxAI/MiniMax-M2.7`, `moonshotai/Kimi-K2.6`, `deepseek-ai/DeepSeek-V4-Flash-0731`    |
 | `model_args`         | vLLM arguments for the inference of the model.                              | `"--tensor-parallel-size","4"`    |
 
-Right now, the network supports `MiniMaxAI/MiniMax-M2.7` as the active PoC model.
+The network currently supports three active PoC models: `MiniMaxAI/MiniMax-M2.7` (base), `moonshotai/Kimi-K2.6`, and `deepseek-ai/DeepSeek-V4-Flash-0731`.
 
-To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout.
+To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout. Full `node-config.json` examples are in the [Host Quickstart](./quickstart.md).
 
 | Model and GPU layout                    | vLLM arguments                                                                           |
 |-----------------------------------------|---------------------------------------------------------------------------------------|
 | `MiniMaxAI/MiniMax-M2.7` on 4xH100           | `"--tensor-parallel-size","4"`                                      |
+| `deepseek-ai/DeepSeek-V4-Flash-0731` on 4xH100 | `"--tensor-parallel-size","4"` (full args in the [Host Quickstart](./quickstart.md)) |
 
 For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
 

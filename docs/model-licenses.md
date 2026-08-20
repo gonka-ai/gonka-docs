@@ -1,6 +1,7 @@
 # Model licenses
 - [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1/blob/main/LICENSE)
 - [DeepSeek-V3](https://github.com/deepseek-ai/DeepSeek-V3/blob/main/LICENSE-MODEL)
+- [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/LICENSE)
 - [Gemma-3-27B](https://ai.google.dev/gemma/terms)
 - [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b/blob/main/LICENSE)
 - [Kimi-k2.6](https://huggingface.co/moonshotai/Kimi-K2.6/blob/main/LICENSE)

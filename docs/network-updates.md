@@ -8,6 +8,43 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## August 18, 2026
+
+As a major milestone in protocol development, the chain is ready to gradually enable devshard settlement, raising network security and reliability.
+
+A stabilized gateway version is currently running on one gateway and will be used for the first settlement stage. Its statistics, representing a portion of total network traffic, are available here: [https://tracker.gonka.pro/?view=gateway&epoch=364](https://tracker.gonka.pro/?view=gateway&epoch=364)
+
+**How to read the dashboard**
+
+This dashboard shows the work each host performs from the gateway's perspective. The Misses and Invalid metrics will be used on-chain after settlement is enabled. Under current mainnet threshold configurations, error rates below 10% will not trigger any penalties or slashing for hosts, but they should be investigated as part of the protocol development process.
+
+Hosts with critical error rates should resolve them before settlement starts. Hosts without significant issues do not need to take action.
+
+The dashboard also shows internal gateway details, such as request failure reasons for specific hosts or invalid context lengths, which can help troubleshoot host-side issues. 
+The overscheduling and quarantine sections are intended to provide insights for gateway development and are not actionable for hosts.  
+
+**Next steps:**
+
+**1) Next 24 hours.** Hosts should check their statistics and resolve any critical errors or misconfigurations. Contributors can help investigate issues if needed.
+
+**2) In the first epoch after this 24-hour window.** Manually controlled settlement will begin on the current gateway, starting with smaller models. The process will be closely monitored to minimize false positive records. Kimi will follow later because its data is currently less reliable under load.
+
+**3) Following 1-3 days.** Settlement results will be monitored
+
+**4) Once this stage is stable.** Other brokers can deploy the stabilized gateway version and begin settlement in a controlled mode.
+
+**5) After successful validation across brokers.** Settlement coverage will be progressively increased toward 100%.
+
+The rollout is intentionally gradual so that any unexpected issues can be identified and addressed before settlement is expanded across the network.
+
+## August 14, 2026
+
+**DeepSeek V4 Flash is now active on Gonka network**
+
+The bootstrap stage announced in [proposal 94](https://gonka.ai/docs/network-updates/#august-10-2026) is complete. As of chain epoch 360, `deepseek-ai/DeepSeek-V4-Flash-0731` joins MiniMax-M2.7 and Kimi K2.6 as an active model group, and PoC weight earned in the DeepSeek group is now being converted into consensus weight at the calibrated coefficient 0.214.
+
+Per-model participation enforcement for DeepSeek is now in effect. Hosts that have already chosen DIRECT, DELEGATE or REFUSE for DeepSeek do not need to do anything else — the same setup keeps working. Hosts that have not yet made a choice are encouraged to do so now to avoid the per-epoch penalty ([https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)).
+
 ## August 14, 2026
 
 **MLNode 3.0.16 rollout**

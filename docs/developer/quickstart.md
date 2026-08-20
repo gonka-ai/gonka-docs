@@ -4,7 +4,7 @@ name: index.md
 
 # Developer Quickstart
 
-This guide explains how to send an inference request to Gonka through a community broker. It is the fastest way to start using the network today. If you would like to [run your own gateway](#2-run-your-own-gateway-advanced) instead of going through a broker, see Run your own gateway at the bottom of this page.
+This guide explains how to send an inference request to Gonka through a community broker. **[Open Broker](https://openbroker.gonka.gg) is the recommended starting point** for most developers. If you would like to [run your own gateway](#2-run-your-own-gateway-advanced) instead of going through a broker, see Run your own gateway at the bottom of this page.
 
 !!! note "How to connect to Gonka"
 
@@ -35,6 +35,17 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 
 ### 1.1 Pick a broker
 
+!!! tip "Recommended starting point — Open Broker"
+
+    For most developers, start with **[Open Broker](https://openbroker.gonka.gg)** ([openbroker.gonka.gg](https://openbroker.gonka.gg)) — a community broker created and operated by trusted community members. Sign up, create an API key, and use the OpenAI-compatible endpoint below. **No allow-listed wallet is required.**
+
+    - UI / signup: `https://openbroker.gonka.gg`
+    - API base URL: `https://api.openbroker.gonka.gg/v1`
+    - Docs: [openbroker.gonka.gg/docs](https://openbroker.gonka.gg/docs)
+
+Other community brokers (directory order is shuffled on each page load — not a ranking):
+
+- [https://openbroker.gonka.gg/](https://openbroker.gonka.gg/)
 - [https://gonka24.com/](https://gonka24.com/)
 - [https://proxy.gonka.gg/](https://proxy.gonka.gg/) · [▶ demo](https://drive.google.com/file/d/1-Zk__4cY_ENi0Q8gw-JHgEBz6XZWXKAj/view?pli=1)
 - [https://gonkagate.com/](https://gonkagate.com/)  · [▶ demo](https://www.youtube.com/watch?v=uqeN4J1TFV8)
@@ -47,7 +58,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
 - [https://inference.dahl.global](https://inference.dahl.global)
 
 ??? note "About this list"
-    This is a curated directory of community brokers that route inference through a public Gonka gateway and have agreed to be publicly listed. It is not exhaustive and does not endorse any operator. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits. This directory reflects an early bootstrap set. New operators who want to serve inference independently should see [Interested in operating a gateway?](#3-interested-in-operating-a-gateway). Some brokers provide a **▶ demo** link to a short onboarding screencast — style and length may vary.
+    This is a curated directory of community brokers that route inference through a public Gonka gateway and have agreed to be publicly listed. It is not exhaustive and does not endorse any operator. The list is displayed in a random order that is re-shuffled on every page load, so the position of each broker is not a ranking; please evaluate each operator on its own merits. **[Open Broker](https://openbroker.gonka.gg) is the recommended first stop** for new developers (see the tip above). Self-hosting a gateway or requesting on-chain allow-list access is an advanced path — see [Interested in operating a gateway?](#3-interested-in-operating-a-gateway). Some brokers provide a **▶ demo** link to a short onboarding screencast — style and length may vary.
 
 ??? tip "Compare brokers — community observability dashboards"
 
@@ -303,7 +314,13 @@ Tool calling is supported through the same OpenAI-compatible endpoint. Only `typ
 
 ## 2. Run your own gateway (advanced)
 
-If your application has high throughput or other requirements, you can run a Gonka gateway yourself instead of going through a broker. The gateway is a small program (shipped as a Docker container) that you run on your own machine or server — never on a Gonka host. It exposes the same OpenAI-compatible API as a broker, but you own the keys, and you pay GNK directly on-chain for the devshards it creates.
+If a community broker cannot meet your requirements (for example compliance constraints, direct on-chain GNK settlement, or custom routing), you can run a Gonka gateway yourself. The gateway is a small program (shipped as a Docker container) that you run on your own machine or server — never on a Gonka host. It exposes the same OpenAI-compatible API as a broker, but you own the keys, and you pay GNK directly on-chain for the devshards it creates.
+
+!!! tip "Prefer Open Broker unless you specifically need self-hosting"
+
+    Most teams should start with **[Open Broker](https://openbroker.gonka.gg)** ([§1.1](#11-pick-a-broker)) instead of self-hosting. Open Broker is a community broker created and operated by trusted community members; it provides production inference access without an allow-listed wallet.
+
+    Continue with this section only if Open Broker (or another broker in [§1.1](#11-pick-a-broker)) does not fit your use case.
 
 !!! warning "Self-hosted gateway requires an allow-listed address"
 
@@ -315,13 +332,19 @@ Full deployment instructions are in [Run your own gateway](gateway-developer-qui
 
 ## 3. Interested in operating a gateway?
 
-Inference reaches the network through a gateway. There are two ways to have one, and they are governed differently.
+Inference reaches the network through a gateway. Choose the path that matches your needs:
 
-**Use a public gateway (current brokers).** The brokers in [§1.1](#11-pick-a-broker) reach inference through a public Gonka gateway under access arrangements made during the early rollout. That was a bootstrap step, and the directory is not being actively expanded.
+1. **Recommended — use Open Broker.** For most new developers and operators who need inference access today, start with **[Open Broker](https://openbroker.gonka.gg)**. It is a community broker created and operated by trusted community members, exposes an OpenAI-compatible API, and does **not** require an on-chain allow-listed creator address. Sign up at [openbroker.gonka.gg](https://openbroker.gonka.gg) and follow [§1](#1-use-a-community-broker-recommended).
 
-**Run your own gateway.** Operate your own on-chain devshard gateway. This requires your address on the governance-controlled allow-list (`devshard_escrow_params.allowed_creator_addresses`), and it is the recommended path for new operators. Full instructions are in the [gateway guide](gateway-developer-quickstart.md).
+2. **Use another community broker.** See the directory in [§1.1](#11-pick-a-broker). Brokers are independent operators; compare pricing, models, and terms yourself.
 
-To request consideration for on-chain allow-listing, open a [GitHub issue](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request) including your operator name and contact, the `gonka1...` address you intend to use, and the models you plan to serve. Inclusion is an on-chain governance decision — no single operator or organization adds an address unilaterally — and expressing interest does not guarantee inclusion, review, or a timeline.
+3. **Run your own gateway (advanced).** Operate your own on-chain devshard gateway when a broker cannot meet your requirements. This requires your address on the governance-controlled allow-list (`devshard_escrow_params.allowed_creator_addresses`). Full instructions are in the [gateway guide](gateway-developer-quickstart.md).
+
+### Fallback: request on-chain allow-list consideration
+
+Open a [GitHub issue](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request) **only if** Open Broker (or another community broker) does not fit your use case, does not work for you, or cannot meet a specific requirement.
+
+Include your operator name and contact, the `gonka1...` address you intend to use, and the models you plan to serve. Inclusion is an on-chain governance decision — no single operator or organization adds an address unilaterally — and expressing interest does not guarantee inclusion, review, or a timeline.
 
 ---
 

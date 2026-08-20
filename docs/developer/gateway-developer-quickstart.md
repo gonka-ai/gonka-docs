@@ -2,7 +2,7 @@
 
 This guide explains how to run a Gonka devshard gateway on **gonka-mainnet** without installing a full chain node. You will deploy the gateway on your own Linux host, fund a dedicated escrow creator address, open an on-chain devshard escrow, send OpenAI-compatible inference requests, and settle the escrow when you are finished.
 
-If you want to **become a broker** without running your own allow-listed gateway, use **[Open Broker](https://openbroker.gonka.gg)** — that is the recommended path (see [Developer Quickstart §3](quickstart.md#3-interested-in-operating-a-gateway)). Continue with this guide only when you specifically need a self-hosted on-chain gateway.
+If you want to **become a broker** without running your own allow-listed gateway, use **[Open Broker](https://openbroker.gonka.gg)** - that is the recommended path (see [Developer Quickstart §3](quickstart.md#3-interested-in-operating-a-gateway)). Continue with this guide only when you specifically need a self-hosted on-chain gateway.
 
 ### Allowlisted creator address required
 
@@ -208,7 +208,7 @@ The name `devshard-create` is only a local label; on-chain transactions use `--f
 
 **Do not skip this step.** Escrow creation in [§4](#4-create-an-escrow-and-open-api-access) only succeeds when `$DEVSHARD_CREATOR` is on the chain allowlist.
 
-You do **not** need to run a validator to use a gateway; you only need your creator address on `devshard_escrow_params.allowed_creator_addresses`. If it is missing, stop here — become a broker via [Open Broker](https://openbroker.gonka.gg), or use the [GitHub allow-list fallback](quickstart.md#fallback--github-allow-list-request) only if Open Broker cannot meet your needs. Re-run this check after any governance vote before creating an escrow.
+You do **not** need to run a validator to use a gateway; you only need your creator address on `devshard_escrow_params.allowed_creator_addresses`. If it is missing, stop here - become a broker via [Open Broker](https://openbroker.gonka.gg), or use the [GitHub allow-list fallback](quickstart.md#fallback--github-allow-list-request) only if Open Broker cannot meet your needs. Re-run this check after any governance vote before creating an escrow.
 
 ```bash
 source config.devshard.env
@@ -670,6 +670,6 @@ Replacing the gateway **image** or recreating the main container would drop in-f
 
 ## Related
 
-- [Developer Quickstart](quickstart.md) — community brokers; [become a broker via Open Broker](quickstart.md#recommended--become-a-broker-with-open-broker); [GitHub allow-list fallback](quickstart.md#fallback--github-allow-list-request)
+- [Developer Quickstart](quickstart.md) - community brokers; [become a broker via Open Broker](quickstart.md#recommended--become-a-broker-with-open-broker); [GitHub allow-list fallback](quickstart.md#fallback--github-allow-list-request)
 
-**Need help?** See the [FAQ](https://gonka.ai/FAQ/), join [Discord](https://discord.com/invite/RADwCT2U6R), or — only if Open Broker does not fit — open a [gateway allowlist request](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request) on GitHub.
+**Need help?** See the [FAQ](https://gonka.ai/FAQ/), join [Discord](https://discord.com/invite/RADwCT2U6R), or - only if Open Broker does not fit - open a [gateway allowlist request](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request) on GitHub.

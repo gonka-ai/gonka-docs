@@ -8,6 +8,98 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## August 18, 2026
+
+As a major milestone in protocol development, the chain is ready to gradually enable devshard settlement, raising network security and reliability.
+
+A stabilized gateway version is currently running on one gateway and will be used for the first settlement stage. Its statistics, representing a portion of total network traffic, are available here: [https://tracker.gonka.pro/?view=gateway&epoch=364](https://tracker.gonka.pro/?view=gateway&epoch=364)
+
+**How to read the dashboard**
+
+This dashboard shows the work each host performs from the gateway's perspective. The Misses and Invalid metrics will be used on-chain after settlement is enabled. Under current mainnet threshold configurations, error rates below 10% will not trigger any penalties or slashing for hosts, but they should be investigated as part of the protocol development process.
+
+Hosts with critical error rates should resolve them before settlement starts. Hosts without significant issues do not need to take action.
+
+The dashboard also shows internal gateway details, such as request failure reasons for specific hosts or invalid context lengths, which can help troubleshoot host-side issues. 
+The overscheduling and quarantine sections are intended to provide insights for gateway development and are not actionable for hosts.  
+
+**Next steps:**
+
+**1) Next 24 hours.** Hosts should check their statistics and resolve any critical errors or misconfigurations. Contributors can help investigate issues if needed.
+
+**2) In the first epoch after this 24-hour window.** Manually controlled settlement will begin on the current gateway, starting with smaller models. The process will be closely monitored to minimize false positive records. Kimi will follow later because its data is currently less reliable under load.
+
+**3) Following 1-3 days.** Settlement results will be monitored
+
+**4) Once this stage is stable.** Other brokers can deploy the stabilized gateway version and begin settlement in a controlled mode.
+
+**5) After successful validation across brokers.** Settlement coverage will be progressively increased toward 100%.
+
+The rollout is intentionally gradual so that any unexpected issues can be identified and addressed before settlement is expanded across the network.
+
+## August 14, 2026
+
+**DeepSeek V4 Flash is now active on Gonka network**
+
+The bootstrap stage announced in [proposal 94](https://gonka.ai/docs/network-updates/#august-10-2026) is complete. As of chain epoch 360, `deepseek-ai/DeepSeek-V4-Flash-0731` joins MiniMax-M2.7 and Kimi K2.6 as an active model group, and PoC weight earned in the DeepSeek group is now being converted into consensus weight at the calibrated coefficient 0.214.
+
+Per-model participation enforcement for DeepSeek is now in effect. Hosts that have already chosen DIRECT, DELEGATE or REFUSE for DeepSeek do not need to do anything else — the same setup keeps working. Hosts that have not yet made a choice are encouraged to do so now to avoid the per-epoch penalty ([https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)).
+
+## August 14, 2026
+
+**MLNode 3.0.16 rollout**
+
+If all your nodes are already on the new build (3.0.16), you're all set, nothing to do here.
+
+If any are still on the old MLNode (the ones serving Kimi or MiniMax, since anything already on DeepSeek is on 3.0.16), please migrate those to 3.0.16 when you get a chance.
+
+One ask: roll it out gradually. Please don't switch all your nodes at once. Update a few first, confirm they're stable, then move the rest. Keeping the rest of your fleet serving while you validate the new build is the safest way.
+
+The MLNode image is pinned to 3.0.16 in [`docker-compose.mlnode.yml`](https://github.com/gonka-ai/gonka/blob/vllm-0.25.1-upgrade/deploy/join/docker-compose.mlnode.yml) on the `vllm-0.25.1-upgrade` branch.
+
+The default MLNode image (3.0.16) is built on CUDA 13.0. If your host is still on CUDA 12.9, use the `3.0.16-cu129` tag instead. It's the same MLNode 3.0.16, just built for CUDA 12.9. Both tags are in the same compose file.
+
+After updating, validate with `mlnode-validate`.
+
+## August 13, 2026
+
+**Migrate community-sale and wrapped-token contracts**
+
+Migrate the live community-sale contract and all wrapped-token instances to newly stored CosmWasm code, and register that wrapped-token code for future instantiations. Contract addresses and balances are unchanged. No chain binary upgrade. This mitigates a theoretical risk identified in a security report and is not expected to affect normal operation.
+Genesis guardians are expected to support the proposal.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+  
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.12 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 95 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 95 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+- Voting ends: August 14, 2026, 12:01 UTC 
+- Estimated migration time: August 14, 2026, 12:01 UTC
+
 ## August 13, 2026
 
 **DeepSeek V4 Flash bootstrap: intent threshold met — don’t forget to delegate before the epoch 360 snapshot**
@@ -135,8 +227,7 @@ From epoch 359 (PoC start ~August 13, 2026 at 03:24 UTC / August 12 at 20:24 PDT
 ./inferenced tx inference declare-poc-intent deepseek-ai/DeepSeek-V4-Flash-0731
 ```
 2. Switch your MLNode. Provision and switch your MLNode to DeepSeek V4 Flash (vLLM 0.25.1 + release-candidate config) in the ~500-block safety window before PoC 359 starts (block 5,536,724, ~August 13, ~03:24 UTC / August 12 ~20:24 PDT). It is safe to switch during this window, as there is no cPoC in it.
-
-   Note: on Blackwell GPUs, for best performance you can use the model repacked as fp8 + nvfp4 instead of fp8 + fp4, e.g. `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`. The model's precision is the same. To deploy it, an updated API binary will be released and shared prior to the bootstrap.
+Note: on Blackwell GPUs, for best performance you can use the model repacked as fp8 + nvfp4 instead of fp8 + fp4, e.g. `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`. The model's precision is the same. To deploy it, an updated API binary will be released and shared prior to the bootstrap.
 3. If you delegate. Do not delegate to guardian nodes; spread delegations across independent DeepSeek hosts. See the [Multi-Model PoC guide](https://gonka.ai/docs/host/multi_model_poc/).
 4. To keep your current model. No action needed before epoch 360. From epoch 360, if you are not serving DeepSeek, submit `PoCDelegation` or `PoCRefusal` - otherwise the 15% non-participation penalty applies.
 

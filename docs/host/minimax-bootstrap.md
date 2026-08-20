@@ -1,11 +1,11 @@
 # MiniMax-M2.7 Bootstrap
 
-`MiniMaxAI/MiniMax-M2.7` (FP8) is added as a third governance-approved inference model in the `v0.2.13` upgrade. This document explains how to minimize the chance of weight reductions during bootstrap, whether or not the model gets enough participants in its first attempt.
+`MiniMaxAI/MiniMax-M2.7` (FP8) has **passed bootstrap** and is **active** in Proof of Compute on Gonka mainnet as of chain epoch 278 (`v0.2.13`). It is the current base model (`delegation_params.initial_model_id`). The timeline and transaction examples below remain useful for understanding how activation worked and for operations such as delegation; for current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md).
 
-For current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md). For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./multi_model_poc.md). The previous model bootstrap and its mechanics are documented in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
+For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./multi_model_poc.md). Other model bootstraps and their mechanics are documented in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) and [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md).
 
 !!! note
-    The bootstrap can take multiple epochs, depending on how many participants are ready. Before the configured punishment epoch, no weight reduction happens if participants submit their choice explicitly and hosts who are going to deploy submit `PoCIntent`.
+    The bootstrap can take multiple epochs, depending on how many participants are ready. Before the configured punishment epoch, no weight reduction happens if participants submit their choice explicitly and hosts who are going to deploy submit `PoCIntent`. Per-model participation enforcement for MiniMax is now in effect (epoch 278).
 
 
 ## Timeline
@@ -18,6 +18,13 @@ The current `W_threshold` is a governance parameter — read it from the chain r
 curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \
   | jq '.params.delegation_params.w_threshold'
 # {value, exponent} encodes a decimal: e.g. {"value":"1","exponent":-1} → 0.1 (10%).
+```
+
+Confirm the live MiniMax entry (including `penalty_start_epoch` and `weight_scale_factor`) from the chain:
+
+```bash
+curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \
+  | jq '.params.poc_params.models[] | select(.model_id=="MiniMaxAI/MiniMax-M2.7")'
 ```
 
 To compute the exact block numbers for any given evaluation epoch, anchor on the chain's current epoch and forward-project. The `epoch_shift` parameter does not anchor to genesis (it gets stale across past epoch-length changes), so `epoch_shift + N * epoch_length` is wrong on mainnet — always anchor on the live current PoC_start instead:

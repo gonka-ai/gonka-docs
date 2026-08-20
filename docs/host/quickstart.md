@@ -31,8 +31,9 @@ The protocol supports **governance-approved** models for inference and Proof of 
 
 | Model ID | Role |
 |----------|------|
-| `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — base model and the active PoC model on the network |
-| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — being re-bootstrapped; participates alongside MiniMax once restored |
+| `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — base model and an active PoC model on the network |
+| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — active PoC model |
+| `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — active PoC model (epoch 360; coefficient 0.214) |
 
 !!! tip "Authoritative model list (governance API)"
     Approved models can change between releases or epochs. **Before you edit `node-config.json`,** call the governance API and use each returned object’s `"id"` as the key under `"models"`:
@@ -41,13 +42,14 @@ The protocol supports **governance-approved** models for inference and Proof of 
     ```
     To list only model ids, pipe the response: `jq -r '.models[].id'`. If `node2.gonka.ai` is unreachable, use another participant’s public API base URL (scheme, host, and port). The response also includes network parameters such as `model_args`; the `node-config.json` examples later show typical `args` for common hardware—adjust for your GPUs and benchmarks.
 
-You typically run **one model per ML Node** in `node-config.json`. Hosts may operate separate ML Nodes (or fleets) for MiniMax and Kimi.
+You typically run **one model per ML Node** in `node-config.json`. Hosts may operate separate ML Nodes (or fleets) for MiniMax, Kimi, and DeepSeek.
 
 !!! tip "Reference deploy configs in the repo"
-    The `deploy/join/` folder ships ready-to-use `node-config-*.json` files for every approved model and the most common GPU classes. Copy the one that matches your hardware to `node-config.json` instead of writing one from scratch:
+    DeepSeek V4 Flash configs, MiniMax `minimaxm27-*` configs, and MLNode **3.0.16** live on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) branch (not `main`). Copy the file that matches your hardware to `node-config.json` instead of writing one from scratch:
 
     - **Kimi K2.6** — `deploy/join/node-config-kimik26-H200.json`, `deploy/join/node-config-kimik26-B200.json`
-    - **MiniMax M2.7** — `deploy/join/node-config-minimax-A100.json`, `deploy/join/node-config-minimax-H100.json`, `deploy/join/node-config-minimax-H200.json`, `deploy/join/node-config-minimax-B200.json`
+    - **MiniMax M2.7** — `deploy/join/node-config-minimaxm27-A100.json`, `deploy/join/node-config-minimaxm27-H100.json`, `deploy/join/node-config-minimaxm27-H200.json`, `deploy/join/node-config-minimaxm27-B200.json`, `deploy/join/node-config-minimaxm27-B300.json`
+    - **DeepSeek V4 Flash** — `deploy/join/node-config-deepseekv4flash0731-H100.json`, `deploy/join/node-config-deepseekv4flash0731-H200.json`, `deploy/join/node-config-deepseekv4flash0731-B200.json`, `deploy/join/node-config-deepseekv4flash0731-B300.json`. On Blackwell, nvfp4 variants: `node-config-deepseekv4flash0731-B200-nvfp4.json`, `node-config-deepseekv4flash0731-B300-nvfp4.json`.
 
     The contents of these files are reproduced inline below for convenience.
 
@@ -64,12 +66,13 @@ To run a valid node, you need machines with [supported GPU(s)](/host/hardware-sp
 
 | **Model Name**                          | **ML Nodes (min)** | **Example Hardware**                            | **Minimum VRAM per ML Node** |
 |------------------------------------------|-------------------|-------------------------------------------------|----------------|
-| `moonshotai/Kimi-K2.6`                  | ≥ 2               | 8× H200 or 8× B200 per MLNode (reference class) | 640 GB         |
+| `moonshotai/Kimi-K2.6`                  | ≥ 2               | 8× H200 or 8× B200 per MLNode (reference class) | 720 GB         |
 | `MiniMaxAI/MiniMax-M2.7`                | ≥ 2               | 4× A100 / 4× H100 / 2× H200 / 2× B200 per MLNode | ~320 GB        |
+| `deepseek-ai/DeepSeek-V4-Flash-0731`    | ≥ 2               | 4× H100 / 2× H200 / 2× B200 / 1× B300 per MLNode | ~280 GB        |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple ML Nodes across all model tiers.
 
-For Kimi K2.6, the network uses a **weight coefficient** of approximately **3.51×** Qwen235B on the same reference hardware (8×H200, 8×B200). See [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md). Example vLLM arguments for B200-class hosts are in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) and in the `node-config.json` examples below.
+Per-model `weight_scale_factor` values are set by governance. DeepSeek V4 Flash currently uses **0.214**; on B300 this is the highest-weight option, while MiniMax remains highest-weight on H100/H200 and Kimi on B200. See [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) and the [coefficient table](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0). Example vLLM arguments are in the `node-config.json` examples below.
 
 More details about the optimal deployment configuration can be found [here](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
@@ -271,6 +274,16 @@ Clone the repository with the base deploy scripts:
 git clone https://github.com/gonka-ai/gonka.git -b main && \
 cd gonka/deploy/join
 ```
+
+!!! warning "DeepSeek V4 Flash and MLNode 3.0.16"
+    `main` still pins MLNode **3.0.14-post2** and does not ship DeepSeek `node-config-*.json` files. To serve `deepseek-ai/DeepSeek-V4-Flash-0731`, clone [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) instead:
+
+    ```bash
+    git clone https://github.com/gonka-ai/gonka.git -b vllm-0.25.1-upgrade && \
+    cd gonka/deploy/join
+    ```
+
+    That branch pins `ghcr.io/gonka-ai/mlnode:3.0.16` (use the `3.0.16-cu129` tag if the host is still on CUDA 12.9).
 
 And copy `config` file template:
 ```
@@ -517,7 +530,7 @@ source config.env
 ### [Server] Edit Inference Node Description for the Server
 
 !!! note
-    The network currently supports `MiniMaxAI/MiniMax-M2.7` as the active PoC model. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
+    The network currently supports three active PoC models: `MiniMaxAI/MiniMax-M2.7` (base), `moonshotai/Kimi-K2.6`, and `deepseek-ai/DeepSeek-V4-Flash-0731`. Pick the tab that matches the model and GPU class you will serve. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
 
 === "Kimi — 4×B200 / 8×B200 (and 8×H200 reference class)"
 
@@ -593,7 +606,7 @@ source config.env
 
     Use this vLLM argument set for **MiniMax M2.7** on **4×A100**. A100 cannot use the FP8 FlashInfer MoE path, so this config uses the `marlin` MoE backend. You also need to set the env var `VLLM_USE_FLASHINFER_MOE_FP8=0` for the `mlnode-308` service (this is already pre-set in `deploy/join/docker-compose.mlnode.yml` shipped with MLNode 3.0.14).
 
-    Reference deploy config in the repo: `deploy/join/node-config-minimax-A100.json`.
+    Reference deploy config in the repo: `deploy/join/node-config-minimaxm27-A100.json`.
 
     !!! note "edit node-config.json"
         ```
@@ -627,7 +640,7 @@ source config.env
 
     Use this vLLM argument set for **MiniMax M2.7** on **4×H100**. Uses the `FLASHINFER` attention backend with FP8 kv-cache.
 
-    Reference deploy config in the repo: `deploy/join/node-config-minimax-H100.json`.
+    Reference deploy config in the repo: `deploy/join/node-config-minimaxm27-H100.json`.
 
     !!! note "edit node-config.json"
         ```
@@ -661,7 +674,7 @@ source config.env
 
     Use this vLLM argument set for **MiniMax M2.7** on **2×H200** (Hopper reference class for MiniMax). Uses the `FLASHINFER` attention backend with FP8 kv-cache and `tensor_parallel_size=2`. The PoC golden vectors for MiniMax M2.7 were recorded on this exact configuration.
 
-    Reference deploy config in the repo: `deploy/join/node-config-minimax-H200.json`.
+    Reference deploy config in the repo: `deploy/join/node-config-minimaxm27-H200.json`.
 
     !!! note "edit node-config.json"
         ```
@@ -695,7 +708,7 @@ source config.env
 
     Use this vLLM argument set for **MiniMax M2.7** on **2×B200** (Blackwell reference class for MiniMax). Uses the `FLASHINFER_TRTLLM` MoE backend with FP8 kv-cache and `tensor_parallel_size=2`.
 
-    Reference deploy config in the repo: `deploy/join/node-config-minimax-B200.json`.
+    Reference deploy config in the repo: `deploy/join/node-config-minimaxm27-B200.json`.
 
     !!! note "edit node-config.json"
         ```
@@ -725,10 +738,154 @@ source config.env
         ]
         ```
 
+=== "DeepSeek — 4×H100"
+
+    Use this vLLM argument set for **DeepSeek V4 Flash** on **4×H100**. DeepSeek requires **MLNode 3.0.16** (vLLM 0.25.1).
+
+    Reference deploy config in the repo: `deploy/join/node-config-deepseekv4flash0731-H100.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "deepseek-ai/DeepSeek-V4-Flash-0731": {
+                        "args": [
+                            "--revision", "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+                            "--tensor-parallel-size", "4",
+                            "--gpu-memory-utilization", "0.85",
+                            "--max-model-len", "400000",
+                            "--max-num-batched-tokens", "32768",
+                            "--kv-cache-dtype", "fp8",
+                            "--tokenizer-mode", "deepseek_v4",
+                            "--enable-auto-tool-choice",
+                            "--tool-call-parser", "deepseek_v4",
+                            "--reasoning-parser", "deepseek_v4",
+                            "--trust-remote-code"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "DeepSeek — 2×H200"
+
+    Use this vLLM argument set for **DeepSeek V4 Flash** on **2×H200**. DeepSeek requires **MLNode 3.0.16** (vLLM 0.25.1).
+
+    Reference deploy config in the repo: `deploy/join/node-config-deepseekv4flash0731-H200.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "deepseek-ai/DeepSeek-V4-Flash-0731": {
+                        "args": [
+                            "--revision", "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+                            "--tensor-parallel-size", "2",
+                            "--gpu-memory-utilization", "0.90",
+                            "--max-model-len", "400000",
+                            "--max-num-batched-tokens", "32768",
+                            "--kv-cache-dtype", "fp8",
+                            "--tokenizer-mode", "deepseek_v4",
+                            "--enable-auto-tool-choice",
+                            "--tool-call-parser", "deepseek_v4",
+                            "--reasoning-parser", "deepseek_v4",
+                            "--trust-remote-code"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "DeepSeek — 2×B200"
+
+    Use this vLLM argument set for **DeepSeek V4 Flash** on **2×B200**. DeepSeek requires **MLNode 3.0.16** (vLLM 0.25.1). For better performance on Blackwell, use the nvfp4 variant `node-config-deepseekv4flash0731-B200-nvfp4.json` (`model_override` to `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`); that format needs API `v0.2.15-post5` — see [Network updates](../network-updates.md).
+
+    Reference deploy config in the repo: `deploy/join/node-config-deepseekv4flash0731-B200.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "deepseek-ai/DeepSeek-V4-Flash-0731": {
+                        "args": [
+                            "--revision", "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+                            "--tensor-parallel-size", "2",
+                            "--gpu-memory-utilization", "0.90",
+                            "--max-model-len", "400000",
+                            "--max-num-batched-tokens", "32768",
+                            "--kv-cache-dtype", "fp8",
+                            "--tokenizer-mode", "deepseek_v4",
+                            "--enable-auto-tool-choice",
+                            "--tool-call-parser", "deepseek_v4",
+                            "--reasoning-parser", "deepseek_v4",
+                            "--trust-remote-code"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "DeepSeek — 1×B300"
+
+    Use this vLLM argument set for **DeepSeek V4 Flash** on **1×B300**. DeepSeek requires **MLNode 3.0.16** (vLLM 0.25.1). On B300 this is the highest-weight PoC option under the current coefficient (0.214). For better performance, use the nvfp4 variant `node-config-deepseekv4flash0731-B300-nvfp4.json` (`model_override` to `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`); that format needs API `v0.2.15-post5` — see [Network updates](../network-updates.md).
+
+    Reference deploy config in the repo: `deploy/join/node-config-deepseekv4flash0731-B300.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "deepseek-ai/DeepSeek-V4-Flash-0731": {
+                        "args": [
+                            "--revision", "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+                            "--tensor-parallel-size", "1",
+                            "--gpu-memory-utilization", "0.90",
+                            "--max-model-len", "400000",
+                            "--max-num-batched-tokens", "32768",
+                            "--kv-cache-dtype", "fp8",
+                            "--tokenizer-mode", "deepseek_v4",
+                            "--enable-auto-tool-choice",
+                            "--tool-call-parser", "deepseek_v4",
+                            "--reasoning-parser", "deepseek_v4",
+                            "--trust-remote-code"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 !!! tip "Validate the deployment"
-    The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates an ML Node against pre-computed honest PoC vectors for a specific model. Committed golden references are available for Qwen3-0.6B, Qwen3-235B (default + DeepGEMM + pubkey-v2 variants), Kimi K2.6, and MiniMax M2.7. See [Validate ML Node Deployment](./mlnode-validation.md).
+    The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates an ML Node against pre-computed honest PoC vectors for a specific model. Committed golden references currently in the repo are Qwen3-0.6B, Qwen3-235B (default + DeepGEMM), Kimi K2.6, and DeepSeek V4 Flash (`deepseek-ai-deepseek-v4-flash-0731.json` on [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts)). See [Validate ML Node Deployment](./mlnode-validation.md).
 
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
@@ -751,6 +908,15 @@ To make sure the model weights are ready for inference, you should download them
     ```
 
     Model license: see [Model licenses](../model-licenses.md). MiniMax M2.7 requires **MLNode 3.0.14 or newer** (image `ghcr.io/gonka-ai/mlnode:3.0.14-cu129`, pinned in `deploy/join/docker-compose.mlnode.yml`). On A100 hardware also make sure the `VLLM_USE_FLASHINFER_MOE_FP8=0` environment variable is set for the `mlnode-308` service (pre-set in the shipped compose file).
+
+=== "DeepSeek V4 Flash"
+
+    ```bash
+    mkdir -p $HF_HOME
+    huggingface-cli download deepseek-ai/DeepSeek-V4-Flash-0731 --revision 7872f01b1d1fe23eabc4c98b48bffcef5a386062
+    ```
+
+    Model license: see [Model licenses](../model-licenses.md). DeepSeek V4 Flash requires **MLNode 3.0.16 or newer** (image `ghcr.io/gonka-ai/mlnode:3.0.16`, pinned in `deploy/join/docker-compose.mlnode.yml` on the `vllm-0.25.1-upgrade` branch; use the `3.0.16-cu129` tag if the host is still on CUDA 12.9). For operational notes and on-chain options (intent, delegation), see [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md). On Blackwell GPUs, the nvfp4 repack `MJPansa/DeepSeek-V4-Flash-0731-NVFP4` needs API `v0.2.15-post5` — see [Network updates](../network-updates.md).
 
 ## Launch Nodes
     
@@ -1197,6 +1363,22 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   -y
 ```
 
+Example for DeepSeek (e.g. you run MiniMax or Kimi only on your GPUs):
+
+```bash
+MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
+DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+./inferenced tx inference set-poc-delegation "$MODEL" "$DELEGATEE" \
+  --from "$KEY" \
+  --node "$NODE" \
+  --chain-id "$CHAIN_ID" \
+  --keyring-backend "$KEYRING_BACKEND" \
+  --gas auto \
+  --gas-adjustment 1.3 \
+  -y
+```
+
 **Clear** a delegation for one model:
 
 ```bash
@@ -1227,7 +1409,7 @@ MODEL="moonshotai/Kimi-K2.6"
   -y
 ```
 
-`declare-poc-intent` applies mainly to **new model bootstrap** windows; see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md). More commands and edge cases: [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md#copy-paste-setup-commands).
+`declare-poc-intent` applies mainly to **new model bootstrap** windows; see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) and [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md). More commands and edge cases: [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md#copy-paste-setup-commands).
 
 ## Stopping and Cleaning Up Your Node
 

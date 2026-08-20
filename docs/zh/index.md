@@ -64,7 +64,7 @@ landing: true
     <section class="gonka-hero">
       <div class="gonka-inner">
         <h1>Gonka</h1>
-        <p class="tagline">AI 计算已成为新的货币</p>
+        <p class="tagline">AI计算已成为新货币</p>
         <p class="hero-uniswap">
           <a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">
             <span>在</span>
@@ -187,7 +187,7 @@ landing: true
                   <span class="role-link-icon" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="13" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h.01M7 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                   </span>
-                  <span>SDK与经纪人设置</span>
+                  <span>SDK与代理设置</span>
                 </a>
               </li>
             </ul>
@@ -293,7 +293,7 @@ landing: true
         <h4>GNK</h4>
         <ul>
           <li><a href="/tokenomics.pdf">Gonka代币经济</a></li>
-          <li><a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">Gonka在Uniswap上</a></li>
+          <li><a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">Uniswap上的Gonka</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -461,63 +461,4 @@ window.addEventListener('resize', recompute);
 });
 </script>
 
-<script>
-// Live on-chain pricing for the "Live on the network" table.
-// The governance endpoint exposes a single price_per_token (in ngonka) per
-// model; we convert to GNK per 1M tokens. On any failure we keep the seed rows
-// and show a cached/unavailable indicator rather than an empty table.
-document.addEventListener('DOMContentLoaded', function() {
-  const tbody = document.getElementById('live-pricing-rows');
-  const updated = document.getElementById('live-pricing-updated');
-  if (!tbody) return;
-
-// Must be HTTPS to avoid mixed-content blocking on the https site.
-  // TODO: point at an HTTPS, CORS-enabled pricing endpoint / aggregator.
-  const ENDPOINT = 'https://node2.gonka.ai:8000/v1/governance/pricing';
-  const NGONKA_PER_GONKA = 1e9;
-  const TOKENS = 1e6; // price shown per 1M tokens
-  const MAX_ROWS = 6;
-
-function displayName(id) {
-    if (!id) return '';
-    const last = id.indexOf('/') >= 0 ? id.slice(id.indexOf('/') + 1) : id;
-    return last;
-  }
-
-function gnkPer1M(pricePerToken) {
-    return (Number(pricePerToken) * TOKENS) / NGONKA_PER_GONKA;
-  }
-
-function stamp() {
-    try {
-      return new Date().toLocaleString(undefined, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' });
-    } catch (e) { return new Date().toUTCString(); }
-  }
-
-fetch(ENDPOINT, { headers: { 'Accept': 'application/json' } })
-    .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(function(data) {
-      const models = (data && Array.isArray(data.models)) ? data.models : [];
-      if (!models.length) throw new Error('no models');
-      const rows = models.slice(0, MAX_ROWS).map(function(m) {
-        const price = gnkPer1M(m.price_per_token).toFixed(2);
-        const tr = document.createElement('tr');
-        const tdName = document.createElement('td');
-        tdName.textContent = displayName(m.id);
-        const tdPrice = document.createElement('td');
-        tdPrice.className = 'num';
-        tdPrice.textContent = price + ' GNK';
-        tr.appendChild(tdName);
-        tr.appendChild(tdPrice);
-        return tr;
-      });
-      tbody.replaceChildren.apply(tbody, rows);
-      if (updated) updated.textContent = 'last updated: ' + stamp();
-    })
-    .catch(function() {
-      // Keep seed rows; signal that live data is unavailable.
-      if (updated) updated.textContent = 'last updated: live feed unavailable';
-    });
-});
-</script>
 </div>

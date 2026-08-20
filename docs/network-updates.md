@@ -27,8 +27,6 @@ Early in an epoch there isn't enough data yet, so the invalid-inference check (S
 
 This is an expedited proposal, so voting ends **Aug 21, 06:04 UTC** (about 12 hours). Please vote if you can. If it does not clear the expedited threshold in time, it is not rejected: it converts to a regular proposal and voting continues for the normal, longer period. If it converts, you will need to recast your vote on the regular proposal.
 
-Track it: [https://tracker.gonka.vip/governance/96](https://tracker.gonka.vip/governance/96)
-
 Proposal details and voting are available via `inferenced`. Any active node can be used:
 
 - http://node1.gonka.ai:8000

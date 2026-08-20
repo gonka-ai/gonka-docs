@@ -8,6 +8,53 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## August 20, 2026
+
+**Proposal 96 is open for voting: Stabilize in-epoch invalid SPRT on small samples**
+
+A new on-chain governance proposal (proposal id 96) is open for voting.
+
+**What it does**
+
+Early in an epoch there isn't enough data yet, so the invalid-inference check (SPRT) can trip on just a few invalids before the sample is large enough. This proposal stabilizes it:
+
+- Raises `invalidation_h_threshold` to 40 and sets `bad_participant_invalidation_rate` to 0.18.
+- At large sample sizes the threshold sits near 10% invalid, so honest participants below that are not punished. Real offenders still trigger it (about 18% at ~360 samples, 12% at ~1650).
+- Small samples cannot trigger it: at least 32 flagged invalids are required, and at 500 samples the observed rate must exceed 16%.
+- The unused downtime SPRT is turned off. Epoch-end stats tests are unaffected.
+
+**Voting**
+
+This is an expedited proposal, so voting ends **Aug 21, 06:04 UTC** (about 12 hours). Please vote if you can. If it does not clear the expedited threshold in time, it is not rejected: it converts to a regular proposal and voting continues for the normal, longer period. If it converts, you will need to recast your vote on the regular proposal.
+
+Track it: [https://tracker.gonka.vip/governance/96](https://tracker.gonka.vip/governance/96)
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 96 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 96 -o json --node $NODE_URL/chain-rpc/
+```
 ## August 18, 2026
 
 As a major milestone in protocol development, the chain is ready to gradually enable devshard settlement, raising network security and reliability.

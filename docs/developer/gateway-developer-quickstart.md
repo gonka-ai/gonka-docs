@@ -8,7 +8,7 @@ If you want to **become a broker** without running your own allow-listed gateway
 
 > **Prerequisite:** The `gonka1…` address for your devshard escrow creator (`$DEVSHARD_CREATOR`, from `DEVSHARD_PRIVATE_KEY`) **must** appear on the chain allowlist `devshard_escrow_params.allowed_creator_addresses` **before** you can create an escrow.
 >
-> The allowlist is maintained on-chain through **governance**. You cannot add yourself via `config.devshard.env` or admin settings. **Do not open a GitHub allow-list issue as the first step** — become a broker via [Open Broker](https://openbroker.gonka.gg) first. Use the [GitHub allow-list fallback](quickstart.md#fallback--github-allow-list-request) only if Open Broker does not fit and you still need your own allow-listed creator address.
+> The allowlist is maintained on-chain through **governance**. You cannot add yourself via `config.devshard.env` or admin settings. Prefer becoming a broker via [Open Broker](https://openbroker.gonka.gg); use a [GitHub allow-list issue as a fallback](quickstart.md#fallback--github-allow-list-request) if Open Broker does not satisfy your needs and you still need your own allow-listed creator address.
 >
 > After you import your key in [§2.3](#23-import-the-creator-key), verify membership in [§2.4](#24-confirm-allowlist-membership). Do not fund the creator or deploy the gateway until that check passes (funding alone does not grant allowlist access).
 

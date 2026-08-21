@@ -8,6 +8,16 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## August 21, 2026
+
+**PROPOSAL PASSED: Stabilize in-epoch invalid SPRT on small samples**
+
+The on-chain governance vote for proposal id 96 has concluded.
+
+The proposal was APPROVED. It adjusts how the invalid-inference check behaves on small samples so it doesn't misfire early in an epoch before there's enough data. Nothing is required from hosts.
+
+Thanks to everyone who voted.
+
 ## August 20, 2026
 
 **Proposal 96 is open for voting: Stabilize in-epoch invalid SPRT on small samples**

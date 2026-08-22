@@ -1,0 +1,3619 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/docs/zh/host/multi_model_poc/">
+      
+      
+        <link rel="prev" href="../network-node-api/">
+      
+      
+        <link rel="next" href="../kimi-bootstrap/">
+      
+      
+        
+          <link rel="alternate" href="../../../host/multi_model_poc/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>多模型 PoC - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CInter:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Inter"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - 多模型 PoC">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/docs/zh/host/multi_model_poc/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="https://gonka.ai/" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              多模型 PoC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../host/multi_model_poc/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://gonka.ai/" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    了解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    了解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/gateway-developer-quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署自己的网关
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    硬件规格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    密钥管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    抵押
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 节点管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    验证 ML 节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编辑主机公开信息
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型与基准测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型与基准测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模型 PoC
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模型 PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v0212v0213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v0.2.12和v0.2.13中的变更
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        治理模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        范围和前提条件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        我该做什么？（快速决策指南）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        您的选项（每个模型）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="您的选项（每个模型）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        策略比较
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是PoC委托
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        您的链上选择何时冻结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="您的链上选择何时冻结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        您的委托是否真的有效？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        引导预资格事件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复制粘贴设置命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复制粘贴设置命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        会话变量（在本shell中仅设置一次）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参数和周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        查询委托状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        惩罚与参数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        主机检查清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kimi-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kimi K2.6 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minimax-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MiniMax-M2.7 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deepseek-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek V4 Flash 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/create-account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建 Gonka 账户
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包与转账指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链转账
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    跨链转账
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过看板桥接（UI 指南）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_2" id="__nav_5_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    以太坊跨链桥
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    以太坊跨链桥
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/addresses-and-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    地址和密钥
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/bridge-epoch-update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链桥 Epoch 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/register-token/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    注册代币
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 USDT（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 GNK（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 GNK（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_3" id="__nav_5_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IBC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ibc/withdraw-usdt-via-kava/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过 Kava 提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_4" id="__nav_5_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/widget-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组件集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/tracker-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘与跟踪器集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    治理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    治理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交易与治理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-on-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提案投票
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/creating-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建提案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-power-eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting Power, Eligibility, Delegation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘维护者备忘录 v0.2.13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../report-vulnerability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    报告漏洞
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v0212v0213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v0.2.12和v0.2.13中的变更
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        治理模型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        范围和前提条件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        我该做什么？（快速决策指南）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推荐操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        您的选项（每个模型）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="您的选项（每个模型）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        策略比较
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#poc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是PoC委托
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        您的链上选择何时冻结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="您的链上选择何时冻结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        您的委托是否真的有效？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        引导预资格事件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复制粘贴设置命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复制粘贴设置命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        会话变量（在本shell中仅设置一次）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参数和周期
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        查询委托状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        惩罚与参数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        主机检查清单
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="_1">多模型概念验证 — 主机操作指南</h1>
+<p>多模型计算验证（PoC）于 v0.2.12 版本引入，并在 v0.2.13 版本进一步扩展。</p>
+<div class="admonition warning">
+<p class="admonition-title">委托指南更新（2026年7月）</p>
+<p>在 epoch 328–329 事件之后，选择委托方时适用以下两条规则：</p>
+<ul>
+<li><strong>不要将委托授予守护节点。</strong> 守护节点是备用机制</li>
+</ul>
+</div>
+<p>用于PoC验证。将委托集中于它们会将主要投票机制和备用机制绑定到同一硬件上，因此两者会同时失效。此前建议将守护节点作为委托目标的指导已撤回。v0.2.14计划引入协议级限制。
+    - <strong>避免将委托集中于任何单个主机。</strong> 委托仅在委托方在该轮次提交PoC存储提交时才有效。如果一个被大量委托的主机宕机，所有委托给它的权重将立即消失，模型组可能失去验证多数票。如果您运营多个账户，请将它们指向不同的委托方。目前尚不支持从一个账户基于百分比向多个主机进行委托。
+在该轮次中提交PoC存储提交时才有效。如果一个被大量委托的主机宕机，所有委托给它的权重将立即消失，模型组可能失去验证多数票。如果您运营多个账户，请将它们指向不同的委托方。目前尚不支持从一个账户基于百分比向多个主机进行委托。</p>
+<h2 id="v0212v0213">v0.2.12和v0.2.13中的变更</h2>
+<p>在v0.2.12之前，网络仅运行一个强制模型：<code>Qwen/Qwen3-235B-A22B-Instruct-2507-FP8</code>。v0.2.12增加了<code>moonshotai/Kimi-K2.6</code>作为第二个治理批准的模型，并引入了按模型的参与、委托和惩罚计时。v0.2.13重新校准了模型系数，并增加了<code>MiniMaxAI/MiniMax-M2.7</code>作为第三个治理批准的模型。</p>
+<p>自纪元 <code>308</code> 起，<code>Qwen/Qwen3-235B-A22B-Instruct-2507-FP8</code> 已通过治理（提案 78）退役，<code>MiniMaxAI/MiniMax-M2.7</code> 为基线模型。自纪元 <code>360</code>（<a href="../../network-updates/#august-14-2026">提案 94</a>）起，<code>deepseek-ai/DeepSeek-V4-Flash-0731</code> 也成为活跃的 PoC 模型组。主网上 <code>poc_params.models</code> 包含：</p>
+<table>
+<thead>
+<tr>
+<th><code>model_id</code></th>
+<th>当前主网状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MiniMaxAI/MiniMax-M2.7</code></td>
+<td>基线模型，活跃</td>
+</tr>
+<tr>
+<td><code>moonshotai/Kimi-K2.6</code></td>
+<td>活跃</td>
+</tr>
+<tr>
+<td><code>deepseek-ai/DeepSeek-V4-Flash-0731</code></td>
+<td>活跃（纪元 360；<code>weight_scale_factor = 0.214</code>）</td>
+</tr>
+<tr>
+<td><code>zai-org/GLM-5.2-FP8</code></td>
+<td>已注册；未启动（<code>penalty_start_epoch = 500</code>）</td>
+</tr>
+</tbody>
+</table>
+<p>每个模型的 <code>weight_scale_factor</code> 和 <code>penalty_start_epoch</code> 通过治理变更过于频繁，无法在此可靠列出。请始终从您所用链上的实时 <code>params</code> 查询中读取：</p>
+<div class="highlight"><pre><span></span><code>./inferenced query inference params --node "$NODE" -o json
+</code></pre></div>
+<p>查看 <code>poc_params</code> → <code>models</code>。</p>
+<details class="note">
+<summary>为什么多模型 PoC 如此设计</summary>
+</details>
+<p>此设计的目标是在保持相同的安全模型（BFT 假设）的同时，允许网络支持多个模型，而无需每个主机运行所有模型。</p>
+<p>不通过委托：</p>
+<div class="highlight"><pre><span></span><code>- 降低新模型的验证阈值会使网络的一小部分积累不成比例的影响力。
+- 保持标准的 2/3 阈值会使新模型的激活变得非常困难，因为需要大多数主机首先部署它们。
+</code></pre></div>
+<p>委托解决此问题：</p>
+<div class="highlight"><pre><span></span><code>- 不运行模型的主机仍可将其权重贡献给验证
+- 新模型可以安全启动，而无需强制全网采用
+- 网络在保持安全保证的同时仍保持灵活性
+</code></pre></div>
+<h2 id="_2">治理模型</h2>
+<p>新模型通过治理添加：每个新模型都应有其独立的治理流程、参数和激活计划。对于每个获批的模型，主机可选择运行、委托、拒绝或不采取任何操作。</p>
+<h2 id="_3">范围和前提条件</h2>
+<p><strong>包含在内：</strong> 升级前的模型清理、按模型的参与选择、委托和意向交易、委托查询、PoC v2 提交诊断，以及影响您选择的链参数。</p>
+<p><strong>签名：</strong> 本指南中的所有内容均假设您使用您的<strong>冷</strong>主机密钥广播（<code>--from</code> 指向该账户）。<em>（但可授权使用热密钥执行委托。）</em><strong>开始前：</strong> 确认您的二进制文件和网络提供以下命令：</p>
+<div class="highlight"><pre><span></span><code>./inferenced query inference --help
+./inferenced tx inference --help
+</code></pre></div>
+<p><strong>进一步阅读（设计和费用）：</strong> <a href="https://github.com/gonka-ai/gonka/blob/67e205acc46da7cafe330e605b4b22e5d38f2dc7/proposals/multi-model-poc/README.md">多模型 PoC 提案 README</a>。</p>
+<hr>
+<h2 id="_4">我该做什么？（快速决策指南）</h2>
+<div class="highlight"><pre><span></span><code>Do you run the model?
+
+├─ YES
+│  └─ Do nothing → you are fully participating (no penalties)
+
+└─ NO
+   ├─ Do you have another node that runs this model?
+   │
+   │  ├─ YES
+   │  │  └─ Delegate to your own node
+   │
+   │  └─ NO
+   │     ├─ Do you trust another host?
+   │     │
+   │     │  ├─ YES
+   │     │  │  └─ Delegate to that host (share 5% of weight)
+   │     │  │     Never a guardian node; prefer a host that is
+   │     │  │     not already a top delegation target
+   │     │
+   │     │  └─ NO
+   │     │     └─ Refuse delegation (~10% penalty)
+   │
+   └─ If you do nothing
+      └─ Risk highest penalty (~15%)
+</code></pre></div>
+<p>在大多数情况下：</p>
+<ul>
+<li>如果您未运行该模型，委托是最安全的默认选择</li>
+<li>一旦惩罚启用，不采取任何操作是最差的选择</li>
+</ul>
+<h2 id="_5">推荐操作</h2>
+<p>如果您未运行某个模型：</p>
+<ul>
+<li>如果您运行多个节点，且至少有一个节点运行该模型：将该模型委托给您的节点</li>
+<li>如果您完全不运行该模型：委托给一个您信任的主机。选择时：<ul>
+<li>它<strong>不能</strong>是守护节点；</li>
+<li>它应该在最近的多个周期内<strong>稳定地提供该模型</strong>（委托
+仅在委托方在该周期内提交PoC存储提交时才有效）；</li>
+<li>它在上一个纪元中应具有<strong>非零共识权重</strong>；</li>
+<li>优先选择<strong>不是主要委托目标</strong>的主机——如果
+<code>max_model_voting_power_percentage</code> 被设置，超出上限的委托权重
+  将被销毁，集中度会使整个群体变得脆弱。</li>
+</ul>
+</li>
+<li>如果你不信任任何委托人：对该模型使用 <code>refuse-poc-delegation</code></li>
+</ul>
+<p>一旦某个模型达到 <code>penalty_start_epoch</code>，不直接或通过有效委托参与该模型可能会降低你的共识权重，具体取决于治理配置的参数。</p>
+<h2 id="_6">您的选项（每个模型）</h2>
+<blockquote>
+<p>要获取所有治理批准的 <code>model_id</code> 值列表，请运行：
+</p><div class="highlight"><pre><span></span><code>./inferenced query inference params --node "$NODE" -o json
+</code></pre></div>
+查看 <code>poc_params</code> → <code>models</code>。
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>您想要的内容</th>
+<th>命令</th>
+<th>主机选择它的原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自行运行此模型的PoC</td>
+<td>（无单独的链上“加入”操作；您的堆栈提交PoC v2存储提交）</td>
+<td>您将在该模型的整个纪元中保持在该组中。</td>
+</tr>
+<tr>
+<td>信任其他主机对该模型的验证投票</td>
+<td><code>set-poc-delegation</code></td>
+<td>如果验证时的规则得到满足，您的权重可以计入它们对该模型PoC检查的影响（参见<a href="#does-your-delegation-actually-count">您的委托是否有效？</a>）。</td>
+</tr>
+<tr>
+<td>明确选择不为该模型委托</td>
+<td><code>refuse-poc-delegation</code></td>
+<td>清除委托的"否"选项；在该模型的惩罚启用后，如果治理配置了相关规则，可能会适用拒绝类扣分。（参见<a href="#when-your-on-chain-choices-are-frozen">当您的链上选择被冻结时</a></td>
+</tr>
+<tr>
+<td>不进行额外操作</td>
+<td><em>(无交易)</em></td>
+<td>默认行为；启用后可能导致最高惩罚</td>
+</tr>
+<tr>
+<td>在新模型完全上线前发出计划信号</td>
+<td><code>declare-poc-intent</code></td>
+<td>仅用于<strong>引导报告</strong>；它<strong>不</strong>替代运行PoC。您仍需在PoC中提交存储承诺，才能算作自己提供该模型服务。参见<a href="#bootstrap-pre-eligibility-events">引导预资格事件</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">策略比较</h3>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运行模型</td>
+<td>全面参与，无惩罚</td>
+</tr>
+<tr>
+<td>委托</td>
+<td>轻微权重损失（约5%），避免惩罚</td>
+</tr>
+<tr>
+<td>拒绝</td>
+<td>约10%权重损失</td>
+</tr>
+<tr>
+<td>不操作</td>
+<td>如果形成法定人数而您未参与，最多损失约15%权重</td>
+</tr>
+</tbody>
+</table>
+<p><strong>每个模型仅存储一个选择</strong>：对于每个<code>model_id</code>和您的地址，链上最多仅保留一个委托/拒绝/意向。这三个中的任何新交易都会<strong>替换</strong>之前的选项。在链应用该纪元规则时，自己提供模型服务（在该纪元中拥有该模型的有效存储承诺）优先于上述三个选项。</p>
+<p>没有通用的默认建议。运行、委托、拒绝或不操作是每个主机和每个模型的策略性决策。</p>
+<div class="admonition note">
+<p class="admonition-title">当前主网参数（撰写时）</p>
+<ul>
+<li><code>refusal_penalty</code>: 您权重的约10%</li>
+<li><code>no_participation_penalty</code>: 约15%（如果共识形成时您未参与）</li>
+<li><code>delegation_share</code>: 您权重的约5%将转移给委托方</li>
+</ul>
+</div>
+<p>这些值由治理控制，可能会更改。请始终使用 <code>params</code> 进行验证。</p>
+<div class="admonition note">
+<p class="admonition-title">宽限期</p>
+<p>升级后，新引入模型的惩罚不会立即生效。</p>
+<p>主机通常有较短的时间窗口（约3天）来：</p>
+<ul>
+<li>部署模型</li>
+<li>配置委托</li>
+<li>或明确拒绝</li>
+</ul>
+</div>
+<p>请在 <code>params</code> 中检查 <code>penalty_start_epoch</code> 以获取确切时间。</p>
+<hr>
+<h2 id="poc">什么是PoC委托</h2>
+<p>每个<strong>已批准的模型</strong>都有其自己的PoC。您在<strong>上一个</strong>纪元的<strong>共识权重</strong>仍影响<strong>谁有权影响您未自行运行的模型的PoC验证</strong>。</p>
+<p><strong>委托</strong>意味着：对于给定的 <code>model_id</code>，您告诉链该权重在该模型的<strong>验证投票</strong>中应如何行为——您可以支持他人的投票、书面选择退出、仅表明对新模型的计划，或保持默认（无需额外交易）。</p>
+<p>如果您在纪元期间通过正常的PoC堆栈为该模型提交了有效的<strong>PoC v2存储提交</strong>，则您被视为<strong>自行运行该模型的PoC</strong>。这将<strong>覆盖</strong>您之前通过委托/拒绝/意向设置的参与方式。</p>
+<hr>
+<h2 id="_8">您的链上选择何时冻结</h2>
+<p>链在<strong>两个不同时间点</strong>读取您的设置——它们回答不同的问题并应用于不同的事项。</p>
+<p><strong>1. 纪元PoC验证开始时</strong>
+链记录您<strong>委托给谁</strong>以及<strong>是否拒绝</strong>。这适用于<strong>已正常运行</strong>的模型。此处不读取意向。</p>
+<p><strong>2. 下一个PoC开始前 <code>deploy_window</code> 个区块</strong> — 高度 <code>next_poc_start − deploy_window</code>
+链记录<strong>委托和意向</strong>，用于<strong>引导/预资格</strong>信号，针对<strong>尚未进入正常集合</strong>的模型。如果 <code>deploy_window</code> 为零或负数，则此第二次捕获不运行。</p>
+<p>您是否<strong>实际运行了PoC</strong>并非来自这些存储行：链使用您在纪元期间对该模型的<strong>PoC v2存储提交</strong>。</p>
+<h3 id="_9">您的委托是否真的有效？</h3>
+<p><code>set-poc-delegation</code> 可随时发送，但只有在<strong>验证开始时</strong>以下所有条件成立时，它才<strong>帮助</strong>委托方：</p>
+<ul>
+<li>委托方在该纪元中<strong>运行了PoC</strong>（以常规方式提交了相应工作），并且</li>
+<li>委托方在<strong>上一个纪元</strong>拥有<strong>非零共识权重</strong>。</li>
+</ul>
+<p>否则，您的委托在该纪元对该模型无效（与未委托的实际结果相同），且一旦启用，惩罚规则仍可能适用。</p>
+<div class="admonition warning">
+<p class="admonition-title">如果您的委托方宕机，您可能被惩罚</p>
+<p>如果委托方未能在该纪元中为该模型提交PoC存储提交，
+您的委托将被忽略，您将被视为<strong>未参与</strong>该模型——即使您善意委托，<code>no_participation_penalty</code> 仍可能适用于您。请定期重新检查委托方的参与情况
+（例如，任何网络事件后），并在其变得不可靠时更换委托方。</p>
+<p>当委托<strong>确实有效</strong>时，您的<strong>全部</strong>权重将计入该主机对该模型PoC验证的影响力。此外，<code>delegation_share</code> 在 <code>params</code> 中可将您<strong>原始</strong>共识权重的一部分转移给他们——这与拒绝/不参与百分比是不同的调节器；请阅读 <code>params</code> 以获取确切数值。</p>
+</div>
+<h3 id="_10">引导预资格事件</h3>
+<p>如果您计划为<strong>新</strong>模型配置硬件，请关注类型为 <strong><code>bootstrap_model_preeligibility</code></strong> 的链事件。典型属性包括：<code>model_id</code>、<code>pre_eligible</code>、<code>meets_weight_threshold</code>、<code>meets_v_min</code>、<code>meets_reachability</code>、<code>intent_host_count</code>、<code>intent_weight</code>、<code>reachable_voting_power</code>、<code>total_network_weight</code>、<code>snapshot_height</code>。</p>
+<p>利用它们决定<strong>何时</strong>声明意向以及<strong>何时</strong>必须使提交生效：</p>
+<ul>
+<li>如果 <code>pre_eligible = false</code> 且您计划提供此模型：检查 <code>meets_weight_threshold</code> 和 <code>meets_v_min</code>。如果两者均为假，您的质押可能不足。</li>
+<li>如果仅 <code>meets_reachability</code> 为假，请在下次捕获高度前确认您的节点可访问。</li>
+</ul>
+<hr>
+<h2 id="_11">复制粘贴设置命令</h2>
+<h3 id="shell">会话变量（在本shell中仅设置一次）</h3>
+<p>在使用以下命令前，在同一shell中运行一次。调整值后运行此代码块。<strong>以下所有示例</strong>均使用 <code>NODE</code>、<code>CHAIN_ID</code>、<code>KEY</code>（您的密钥环中的<strong>冷钱包</strong>密钥名称）和可选的 <code>KEYRING_BACKEND</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NODE</span><span class="o">=</span><span class="s2">"&lt;PUBLIC_URL&gt;"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CHAIN_ID</span><span class="o">=</span><span class="s2">"gonka-mainnet"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KEY</span><span class="o">=</span><span class="s2">"gonka-account-key"</span><span class="w">   </span><span class="c1"># cold key; see note at top on warm-key grants</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KEYRING_BACKEND</span><span class="o">=</span><span class="s2">"file"</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">MY_ADDR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>./inferenced<span class="w"> </span>keys<span class="w"> </span>show<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span>-a<span class="w"> </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span><span class="k">)</span><span class="s2">"</span>
+<span class="c1"># If keys show fails, set your address explicitly:</span>
+<span class="c1"># MY_ADDR="gonka1..."</span>
+</code></pre></div>
+<p>以下每个 <code>tx inference …</code> 示例都重复了相同的 <code>--from</code> / <code>--node</code> / <code>--chain-id</code> / <code>--keyring-backend</code> / gas 标志，因此您可以复制<strong>一个</strong>代码块而无需从其他地方合并行。如果您的密钥环已经是默认的，您可以省略 <code>--keyring-backend</code>。</p>
+<p><strong>可选——减少重复标志：</strong> 在此机器的 CLI 客户端配置中设置默认 RPC 节点和链 ID（Cosmos 风格的 <code>client.toml</code>；使用 <code>./inferenced config --help</code>）。之后您可以从下面的交易行中省略 <code>--node</code> 和 <code>--chain-id</code>。</p>
+<h3 id="_12">参数和周期</h3>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>params<span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>get-current-epoch<span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<h3 id="_13">查询委托状态</h3>
+<p><strong>所有模型：</strong></p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MY_ADDR</span><span class="s2">"</span><span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<p><strong>一个模型</strong>（第二个参数可选）：</p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MY_ADDR</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<p>响应分别列出了<strong>委托</strong>、<strong>拒绝</strong>和<strong>意向</strong>；对于给定模型，您最多只会拥有这三者中的<strong>一个</strong>。</p>
+<hr>
+<h3 id="_14">交易</h3>
+<p><strong>委托</strong>（发送交易时，委托方无需已运行该模型的 PoC）：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"your-model-id"</span>
+<span class="nv">DELEGATEE</span><span class="o">=</span><span class="s2">"gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>set-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$DELEGATEE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p><strong>清除委托</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"your-model-id"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>set-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p><strong>拒绝</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"your-model-id"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>refuse-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p><strong>引导意向</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"your-model-id"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>declare-poc-intent<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<hr>
+<h2 id="_15">惩罚与参数</h2>
+<p>惩罚和委托份额在构建下一个周期的活跃集合时应用于<strong>共识权重</strong>，<strong>在</strong> PoC 结果已知之后。以下所有内容均来自 <code>./inferenced query inference params</code>（JSON 字段因版本略有不同；在输出中搜索这些名称）。</p>
+<table>
+<thead>
+<tr>
+<th>在 <code>params</code> 中的位置</th>
+<th>字段</th>
+<th>对主机的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每个模型在 <code>poc_params</code> → <code>models</code> 中</td>
+<td><code>penalty_start_epoch</code></td>
+<td>在此周期索引之前，<strong>该模型</strong>的惩罚规则不适用。按 <code>model_id</code> 跟踪。</td>
+</tr>
+<tr>
+<td>每个模型在 <code>poc_params</code> → <code>models</code> 中</td>
+<td><code>weight_scale_factor</code></td>
+<td>将该模型的 PoC 权重缩放为共识权重。</td>
+</tr>
+<tr>
+<td><code>delegation_params</code></td>
+<td><code>refusal_penalty</code></td>
+<td>在 <code>penalty_start_epoch</code> 之后使用 <code>refuse-poc-delegation</code> 时从原始共识权重中移除的比例。</td>
+</tr>
+<tr>
+<td><code>delegation_params</code></td>
+<td><code>no_participation_penalty</code></td>
+<td>未拒绝、无有效委托且未自行提供该模型服务时——在应用惩罚后移除的比例。</td>
+</tr>
+<tr>
+<td><code>delegation_params</code></td>
+<td><code>delegation_share</code></td>
+<td>当委托有效时，委托人原始权重中重新分配给被委托人的比例。</td>
+</tr>
+<tr>
+<td><code>delegation_params</code></td>
+<td><code>deploy_window</code></td>
+<td>在下一个 PoC 开始前选择引导快照高度的区块数（<code>next_poc_start − deploy_window</code>）。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>高级资格参数</strong>（大多数主机可跳过）：<code>w_threshold</code>、<code>v_min</code>、<code>cap_factor</code>、<code>initial_model_id</code>、<code>max_model_voting_power_percentage</code>——资格阈值、上限和每模型投票集中度限制。最后一个为零通常表示“无上限”。</p>
+<p>如果 <strong><code>refusal_penalty</code></strong>、<strong><code>no_participation_penalty</code></strong> 和 <strong><code>delegation_share</code></strong> 均为<strong>零</strong>，链不会应用这些扣除或转移（升级后常见，直到治理启用它们）。</p>
+<hr>
+<h2 id="_16">主机检查清单</h2>
+<ol>
+<li>升级前，清理您持久化的 MLNode 配置，使其仅包含受支持的模型。</li>
+<li>尽可能为每个 ML 节点使用一个逻辑模型。当多个模型共存于同一节点时，配置错误更容易发生。</li>
+<li>升级后，确认 <code>params</code> 在 <code>poc_params</code> 下列出了您关心的每个模型。</li>
+<li>检查每个模型的 <code>penalty_start_epoch</code>。</li>
+<li>检查 <code>refusal_penalty</code>、<code>no_participation_penalty</code> 和 <code>delegation_share</code> 是否非零。</li>
+<li>对于每个模型，决定您是想运行它、委托、拒绝，还是什么都不做。</li>
+<li>如果您自行运行该模型，请确保您的 PoC 堆栈为该模型提交有效的 PoC v2 存储提交。</li>
+<li>如果您委托，请使用 <code>poc-delegation</code> 验证结果，并确认被委托人在当前周期确实为该模型提交了 PoC。</li>
+<li>对于新模型，请监控 <code>bootstrap_model_preeligibility</code> 事件，并在捕获高度前发送 <code>declare-poc-intent</code>（如果您计划参与）。</li>
+<li>在任何配置更改、重启或新主机上线后，请确保持久化的 DAPI 配置中不存在不支持的模型。</li>
+<li>绝不要将守护节点设为您的委托目标。</li>
+<li>在网络事件后，重新验证您的委托方是否仍在提供该模型服务；委托在验证开始时被快照，无法在周期内重新路由。</li>
+</ol></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

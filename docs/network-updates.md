@@ -10,6 +10,28 @@
 
 ## August 25, 2026
 
+**The PR for the devshard-only upgrade is now open for review**
+
+Devshard upgrades update the devshard runtime independently from the main blockchain. They do not require a coordinated full-node upgrade through Cosmovisor, do not affect mainnet behavior, and are not expected to cause downtime for inference serving. If approved through the governance process, the new devshard v5 runtime will run in parallel with the existing v4 runtime.
+
+**Key changes**
+
+1. The main intent of v5 is height-sync: every host and the sequencer keep a signed, replayable view of mainnet height inside the escrow log, including when there is no inference traffic. With that clock, a devshard can now provably know when cPoC is running and treat a participant's skipped inference as a legal skip. The height-sync protocol design: [HEIGHT_SYNC_PROTOCOL_PROPOSAL.md](https://github.com/gonka-ai/gonka/blob/ak/height-sync-protocol/devshard/docs/proposals/HEIGHT_SYNC_PROTOCOL_PROPOSAL.md)
+
+2. Diff heightstamping adds logical time to the protocol. `observed_height` / `observed_block_hash` stamps are already present on all messages that previously carried timestamp fields. Later releases can replace wall-clock fields such as `confirmed_at` and `started_at` with heightstamps. This closes time-in-the-future attack issues and opens the way to account for stream timeouts at the protocol level. This release carries the stamps; it does not yet switch timeout and seal decisions onto them.
+
+3. Heartbeating by roundtrip over all slots was added, so a quiet session still syncs height on a regular cadence, while a busy session can discharge the same cadence through ordinary inference stamps.
+
+**Action items**
+
+Please review the PR [gonka-ai/gonka#1584](https://github.com/gonka-ai/gonka/pull/1584) and leave comments on any findings, questions, suggested improvements, edge cases, or potential vulnerabilities.
+
+Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties in the next upgrade cycle.
+
+This is a call for PR review only. It does not start formal voting.
+
+## August 25, 2026
+
 **Proposal 97 is open for voting: Increase DeepSeek V4 Flash weight_scale_factor to 0.246**
 
 A new on-chain governance proposal (proposal id 97) is open for voting.

@@ -8,6 +8,47 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## August 25, 2026
+
+**Proposal 97 is open for voting: Increase DeepSeek V4 Flash weight_scale_factor to 0.246**
+
+A new on-chain governance proposal (proposal id 97) is open for voting.
+
+**What it does**
+
+Increases the `weight_scale_factor` for `deepseek-ai/DeepSeek-V4-Flash-0731` from 0.214 to 0.246. All other model and chain parameters remain unchanged.
+
+**Voting**
+
+Voting ends **Aug 27, 03:47 UTC**. Please vote if you can.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 97 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 97 -o json --node $NODE_URL/chain-rpc/
+```
+
 ## August 21, 2026
 
 **PROPOSAL PASSED: Stabilize in-epoch invalid SPRT on small samples**

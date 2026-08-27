@@ -672,4 +672,4 @@ Replacing the gateway **image** or recreating the main container would drop in-f
 
 - [Developer Quickstart](quickstart.md) - community brokers; [become a broker via OpenBroker](quickstart.md#recommended-become-a-broker-with-openbroker); [GitHub allow-list fallback](quickstart.md#fallback-github-allow-list-request)
 
-**Need help?** See the [FAQ](https://gonka.ai/FAQ/), join [Discord](https://discord.com/invite/RADwCT2U6R), or - only if OpenBroker does not fit - open a [gateway allowlist request](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request) on GitHub.
+**Need help?** See the [FAQ](https://gonka.ai/FAQ/), join [Discord](https://discord.gg/REcpeYc7P7), or - only if OpenBroker does not fit - open a [gateway allowlist request](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request) on GitHub.

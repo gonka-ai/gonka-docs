@@ -345,4 +345,4 @@ Gonka 代理端点与 OpenAI 兼容，因此您可以直接使用官方 OpenAI S
 
 ---
 
-**需要帮助？** 请参阅 [FAQ 页面](https://gonka.ai/FAQ/)，或加入 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 以获取技术问题或安全问题。
+**需要帮助？** 请参阅 [FAQ 页面](https://gonka.ai/FAQ/)，或加入 [Discord 服务器](https://discord.gg/REcpeYc7P7) 以获取技术问题或安全问题。

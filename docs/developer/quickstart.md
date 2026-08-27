@@ -345,4 +345,4 @@ Include your operator name and contact, the `gonka1...` address you intend to us
 
 ---
 
-**Need help?** See the [FAQ page](https://gonka.ai/FAQ/), or join the [Discord server](https://discord.com/invite/RADwCT2U6R) for technical issues or security concerns.
+**Need help?** See the [FAQ page](https://gonka.ai/FAQ/), or join the [Discord server](https://discord.gg/REcpeYc7P7) for technical issues or security concerns.

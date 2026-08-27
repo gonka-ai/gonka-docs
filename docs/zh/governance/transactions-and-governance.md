@@ -32,7 +32,7 @@
 
 任何拥有有效治理密钥（冷账户）的人都可以支付所需费用并创建治理提案。然而，每个提案仍需通过基于PoC加权投票由活跃参与者批准。
 
-建议提案者首先在链下讨论重大变更（例如通过[GitHub](https://github.com/gonka-ai)或[社区论坛](https://discord.com/invite/RADwCT2U6R)），以提高批准的可能性。
+建议提案者首先在链下讨论重大变更（例如通过[GitHub](https://github.com/gonka-ai)或[社区论坛](https://discord.gg/REcpeYc7P7)），以提高批准的可能性。
 
 ---
 

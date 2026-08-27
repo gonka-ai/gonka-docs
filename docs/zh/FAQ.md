@@ -91,7 +91,7 @@ Gonka与“大玩家”的区别在于其定价机制，以及无论主机规模
 - [白皮书](https://gonka.ai/whitepaper.pdf) — 描述架构、共识模型、Proof-of-Compute 等的技术文档。
 - [Tokenomics](https://gonka.ai/tokenomics.pdf) — 项目代币经济概览，包括供应量、分配、激励和经济设计。
 - [GitHub](https://github.com/gonka-ai/gonka/) — 访问项目源代码、仓库、开发活动和开源贡献。
-- [Discord](https://discord.com/invite/RADwCT2U6R) — 社区讨论、公告和技术支持的主要场所。
+- [Discord](https://discord.gg/REcpeYc7P7) — 社区讨论、公告和技术支持的主要场所。
 - [X (Twitter)](https://x.com/gonka_ai) — 新闻、更新和公告。
 
 ## Tokenomics
@@ -235,7 +235,7 @@ Base Weight +
 - 任何必须通过治理模块批准和执行的其他操作
 
 ### 谁可以创建治理提案？
-任何拥有有效治理密钥（冷钱包）的人都可以支付所需费用并创建治理提案。然而，每个提案仍需通过PoC加权投票由活跃参与者批准。建议提案者在链下先讨论重大变更（例如，通过[GitHub](https://github.com/gonka-ai)或[社区论坛](https://discord.com/invite/RADwCT2U6R)），以提高提案通过的可能性。参见[完整指南](https://gonka.ai/governance/transactions-and-governance/)。
+任何拥有有效治理密钥（冷钱包）的人都可以支付所需费用并创建治理提案。然而，每个提案仍需通过PoC加权投票由活跃参与者批准。建议提案者在链下先讨论重大变更（例如，通过[GitHub](https://github.com/gonka-ai)或[社区论坛](https://discord.gg/REcpeYc7P7)），以提高提案通过的可能性。参见[完整指南](https://gonka.ai/governance/transactions-and-governance/)。
 
 ### 如果提案失败会怎样？
 - 如果提案未达到法定人数 → 自动失败
@@ -1352,7 +1352,7 @@ pruning-interval    = "100"
 
 一旦运行，将现有 `tmkms` 卷移动到新节点（先禁用现有节点的区块签名）。
 
-这是该方法的一般思路。如果您决定尝试并有任何疑问，欢迎在 [Discord](https://discord.com/invite/RADwCT2U6R) 上联系。
+这是该方法的一般思路。如果您决定尝试并有任何疑问，欢迎在 [Discord](https://discord.gg/REcpeYc7P7) 上联系。
 
 === "选项 4：升级到修剪修复"
 
@@ -1606,7 +1606,7 @@ Risk = Impact × Likelihood
 ### 我在哪里提出和讨论协议的创意？
 
 - 将你的想法发布为 **[GitHub Discussions](https://github.com/gonka-ai/gonka/discussions)**。从欢迎指南 **[Welcome to Proposals #795](https://github.com/gonka-ai/gonka/discussions/795)** 开始，其中说明了哪些内容适合此处以及如何撰写一个有力且结构清晰的提案。
-- 在社区活跃的渠道中收集反馈——Telegram 群组、其他社区群组以及 [Gonka Discord](https://discord.com/invite/RADwCT2U6R)。请将关键上下文汇总回 GitHub Discussions，以便完整历史记录保持可搜索且集中一处。
+- 在社区活跃的渠道中收集反馈——Telegram 群组、其他社区群组以及 [Gonka Discord](https://discord.gg/REcpeYc7P7)。请将关键上下文汇总回 GitHub Discussions，以便完整历史记录保持可搜索且集中一处。
 
 ### 我在哪里可以看到当前的协议优先级？
 

@@ -1497,4 +1497,4 @@ rm -rf $HF_HOME
 !!! note 
     删除 `$HF_HOME` 将需要从 Hugging Face 重新下载大型模型文件，或重新挂载 NFS 缓存。
 
-    **需要帮助？** 请访问 [常见问题页面](https://gonka.ai/FAQ/) 获取答案，或加入 [Discord 服务器](https://discord.com/invite/RADwCT2U6R) 获取一般查询、技术问题或安全问题的帮助。  
+    **需要帮助？** 请访问 [常见问题页面](https://gonka.ai/FAQ/) 获取答案，或加入 [Discord 服务器](https://discord.gg/REcpeYc7P7) 获取一般查询、技术问题或安全问题的帮助。  

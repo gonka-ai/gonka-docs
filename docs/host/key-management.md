@@ -92,4 +92,4 @@ Company Participant:
 !!! warning "Production Deployment"
     Before deploying to production, ensure you understand the complete key management workflow and have tested key recovery procedures in a safe environment.
 
-**Need help?**  Find answers on [FAQ page](https://gonka.ai/FAQ/), or join [Discord server](https://discord.com/invite/RADwCT2U6R) for assistance with general inquiries, technical issues, or security concerns.  
+**Need help?**  Find answers on [FAQ page](https://gonka.ai/FAQ/), or join [Discord server](https://discord.gg/REcpeYc7P7) for assistance with general inquiries, technical issues, or security concerns.  

@@ -672,4 +672,4 @@ sudo docker compose down
 
 - [开发者快速入门](quickstart.md) - 社区经纪人；[通过 OpenBroker 成为经纪人](quickstart.md#recommended-become-a-broker-with-openbroker)；[GitHub 白名单回退](quickstart.md#fallback-github-allow-list-request)
 
-**需要帮助？** 请参阅 [FAQ](https://gonka.ai/FAQ/)，加入 [Discord](https://discord.com/invite/RADwCT2U6R)，或仅在 OpenBroker 不适用时，在 GitHub 上提交 [网关白名单请求](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request)。
+**需要帮助？** 请参阅 [FAQ](https://gonka.ai/FAQ/)，加入 [Discord](https://discord.gg/REcpeYc7P7)，或仅在 OpenBroker 不适用时，在 GitHub 上提交 [网关白名单请求](https://github.com/gonka-ai/gonka/issues/new?title=Gateway+allowlist+request)。

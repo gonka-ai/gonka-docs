@@ -32,7 +32,7 @@ Governance Proposals are required for any on-chain changes that affect the netwo
 
 Anyone with a valid governance key (cold account) can pay the required fee and create a Governance Proposal. However, each proposal must still be approved by active participants through PoC-weighted voting.
 
-Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.com/invite/RADwCT2U6R)) to increase the likelihood of approval.
+Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.gg/REcpeYc7P7)) to increase the likelihood of approval.
 
 ---
 

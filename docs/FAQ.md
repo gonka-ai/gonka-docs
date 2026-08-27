@@ -91,7 +91,7 @@ Below are the most important resources for learning about the Gonka ecosystem:
 - [Whitepaper](https://gonka.ai/whitepaper.pdf) — technical documentation describing the architecture, consensus model, Proof-of-Compute, etc.
 - [Tokenomics](https://gonka.ai/tokenomics.pdf) — project tokenomics overview, including supply, distribution, incentives, and economic design.
 - [GitHub](https://github.com/gonka-ai/gonka/) — access to the project’s source code, repositories, development activity, and open-source contributions.
-- [Discord](https://discord.com/invite/RADwCT2U6R) — the primary place for community discussions, announcements, and technical support.
+- [Discord](https://discord.gg/REcpeYc7P7) — the primary place for community discussions, announcements, and technical support.
 - [X (Twitter)](https://x.com/gonka_ai) — news, updates, and announcements.
 
 ## Tokenomics
@@ -235,7 +235,7 @@ Governance Proposals are required for any on-chain changes that affect the netwo
 - Any other actions that must be approved and executed via the governance module
 
 ### Who can create a Governance Proposal?
-Anyone with a valid governance key (cold account) can pay the required fee and create a Governance Proposal. However, each proposal must still be approved by active participants through PoC-weighted voting. Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.com/invite/RADwCT2U6R)) to increase the likelihood of approval. See [the full guide](https://gonka.ai/governance/transactions-and-governance/).
+Anyone with a valid governance key (cold account) can pay the required fee and create a Governance Proposal. However, each proposal must still be approved by active participants through PoC-weighted voting. Proposers are encouraged to discuss significant changes off-chain first (for example, via [GitHub](https://github.com/gonka-ai) or [community forums](https://discord.gg/REcpeYc7P7)) to increase the likelihood of approval. See [the full guide](https://gonka.ai/governance/transactions-and-governance/).
 
 ### What happens if a proposal fails?
 - If a proposal does not meet quorum → it automatically fails
@@ -1354,7 +1354,7 @@ There are several ways how to reset `application.db`:
     
     Once it's running, move existing `tmkms` volume to the new node (disable block signing on existing one first). 
     
-    This is the general idea of the approach. If you decide to try it and have any questions, feel free to reach out on [Discord](https://discord.com/invite/RADwCT2U6R).
+    This is the general idea of the approach. If you decide to try it and have any questions, feel free to reach out on [Discord](https://discord.gg/REcpeYc7P7).
 
 === "OPTION 4: Upgrade to the pruning fix" 
 
@@ -1608,7 +1608,7 @@ If you want to help develop the protocol (not report a security issue), the work
 ### Where do I propose and discuss ideas for the protocol?
 
 - Publish your ideas as **[GitHub Discussions](https://github.com/gonka-ai/gonka/discussions)**. Start with the welcome guide at **[Welcome to Proposals #795](https://github.com/gonka-ai/gonka/discussions/795)**, which explains what belongs there and how to write a strong, structured proposal.
-- Gather feedback from the community across the channels where it is active — Telegram groups, other community groups, and the [Gonka Discord](https://discord.com/invite/RADwCT2U6R). Please consolidate the key context back into GitHub Discussions so the full history stays searchable and in one place.
+- Gather feedback from the community across the channels where it is active — Telegram groups, other community groups, and the [Gonka Discord](https://discord.gg/REcpeYc7P7). Please consolidate the key context back into GitHub Discussions so the full history stays searchable and in one place.
 
 ### Where can I see the current protocol priorities?
 

@@ -40,6 +40,7 @@ nav:
 
   - Contributor:
     - Bounty program: bounty-program.md
+    - Report a Vulnerability: report-vulnerability.md
 
   - Wallet:
     - Create a Gonka account: wallet/create-account.md
@@ -81,7 +82,6 @@ nav:
     - FAQ: FAQ.md
     - Get help: help.md
     - Bounty program: bounty-program.md
-    - Report a Vulnerability: report-vulnerability.md
 
 # Visual
 theme:

@@ -19,7 +19,7 @@
 **Gonka personas:**
 
 - **Developer** builds and deploys AI applications by leveraging the network’s distributed computing power.
-- **Gonka Contributor** participates in development of the core blockchain codebase, protocol upgrades, performance optimizations, security patches, and new feature integrations. See the [Bounty program](bounty-program.md).
+- **Contributor** participates in development of the core blockchain codebase, protocol upgrades, performance optimizations, security patches, and new feature integrations. See the [Bounty program](bounty-program.md).
 - **Holder** holds the network’s native coin, which simply means having a Gonka wallet with coins in it. Holders may hold coins, transfer or sell them, spend them on inference and use them according to the protocol rules. Being a holder does not imply any obligation, responsibility, or governance role beyond standard coin ownership.
 - **Host** contributes compute capacity to the network. Hosts perform inference and other computational tasks and are rewarded proportionally to their contributed compute capacity, as long as they maintain honest participation and reliability. Hosts form the backbone of the network. Only Hosts have voting power in the network. This voting power represents their weight in governance and is used to propose and vote on protocol decisions, parameter changes, and upgrades. Any Host acts as Validator, Transfer Agent and an Executor (these are not predefined or on-chain roles, but dynamic operational functions assumed when processing a inference request).
 

@@ -46,22 +46,22 @@ Guideline only — HackerOne is authoritative:
 
 - Attacks that assume two-thirds of Hosts turn malicious (**honest-majority** / BFT assumption)
 - Attacks against a **particular Host’s own infrastructure**
-- Public write-ups, GitHub issues, or Discord posts about an undisclosed vulnerability
 - Unverified AI-generated findings
 
 ### How to report
 
-1. Use the [HackerOne report form](report-vulnerability.md). That is the official intake. Do not open a public issue or PR.
-2. Reviewers **triage** the report and assign severity.
-3. Valid reports are paid after triage. You can include a written report, a fix in a private fork, or both. A fix does not change the report payout; any extra payment for the fix is discussed individually.
+1. Use the [HackerOne report form](report-vulnerability.md). That is the only intake. Do not open a public GitHub issue or PR, and do not post the issue in Discord or other public channels.
+2. If reviewers can confirm the vulnerability is already known — for example there was already a GitHub discussion, or a report already exists on HackerOne — your report may be marked as a **duplicate** and not paid.
+3. Reviewers **triage** the report and assign severity.
+4. Valid reports are paid after triage. You can include a written report, a fix in a private fork, or both. A fix does not change the report payout; any extra payment for the fix is discussed individually.
 
-### What we expect in a report
+### What a good report includes
 
 Same bar as other protocol programs:
 
 - **Reproducible research** — steps, screenshots, logs, or a recording so an analyst can confirm the issue
 - **Demonstrable impact** — show what an attacker can actually do. Theoretical library or config issues are usually rejected
-- **Collaboration** — analysts will follow up; help them reproduce and think through the fix
+- **Follow-up** — reviewers may ask questions after you submit. Reply so they can reproduce and confirm the issue.
 - **Your own verification** — do not submit AI-generated findings you have not checked
 
 ### Severity guideline

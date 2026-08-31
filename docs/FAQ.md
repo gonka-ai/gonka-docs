@@ -1550,12 +1550,12 @@ It’s not necessary to be a Host to participate: anyone can report a security v
 
 There are two complementary tracks:
 
-- **Security vulnerabilities** are handled through Gonka’s official program on **[HackerOne](https://hackerone.com/)**. See [How do I report a security vulnerability?](#how-do-i-report-a-security-vulnerability) below.
+- **Security vulnerabilities** are handled through Gonka’s program on **[HackerOne](https://hackerone.com/)**. See [How do I report a security vulnerability?](#how-do-i-report-a-security-vulnerability) below.
 - **Protocol contributions** (fixes, improvements, and new features) are proposed, reviewed, and validated by the community on GitHub, and rewards are paid out through a network upgrade in a stablecoin. See [How do I contribute to protocol development?](#how-do-i-contribute-to-protocol-development) below.
 
 ### How do I report a security vulnerability?
 
-Gonka runs its security program on **HackerOne**. Submit all vulnerability reports through the official form at **[gonka.ai/docs/report-vulnerability](https://gonka.ai/docs/report-vulnerability/)** rather than disclosing them in public issues, pull requests, or chats.
+Gonka runs its security program on **HackerOne**. Submit all vulnerability reports through the form at **[gonka.ai/docs/report-vulnerability](https://gonka.ai/docs/report-vulnerability/)** rather than disclosing them in public issues, pull requests, or chats.
 
 How rewards work on HackerOne:
 

@@ -1,6 +1,6 @@
 # Bounty program
 
-Gonka runs two programs that will look familiar if you have contributed to other protocols:
+Gonka runs two programs:
 
 | Program | What it is | Where |
 |---|---|---|
@@ -19,7 +19,7 @@ Earn **$15,000–$25,000** for a **critical-severity** vulnerability affecting t
 
 **[Submit a report →](report-vulnerability.md)**
 
-This is the same shape as Ethereum’s bug bounty, Cosmos (Immunefi / HackerOne), or Celestia (HackenProof): private coordinated disclosure on a bounty platform, triage, then a payout tied to severity.
+Reports go through HackerOne: private coordinated disclosure, triage, then a payout tied to severity.
 
 The program is rolling out in phases. It is currently **private** — open to researchers invited by HackerOne, and to Gonka community members via the form above. A public program is planned.
 
@@ -46,22 +46,20 @@ Guideline only — HackerOne is authoritative:
 
 - Attacks that assume two-thirds of Hosts turn malicious (**honest-majority** / BFT assumption)
 - Attacks against a **particular Host’s own infrastructure**
-- Public write-ups, GitHub issues, or Discord posts about an undisclosed vulnerability
 - Unverified AI-generated findings
 
 ### How to report
 
-1. Use the [HackerOne report form](report-vulnerability.md). That is the official intake. Do not open a public issue or PR.
-2. Reviewers **triage** the report and assign severity.
-3. Valid reports are paid after triage. You can include a written report, a fix in a private fork, or both. A fix does not change the report payout; any extra payment for the fix is discussed individually.
+1. Use the [HackerOne report form](report-vulnerability.md). That is the only intake. Do not open a public GitHub issue or PR, and do not post the issue in Discord or other public channels.
+2. If reviewers can confirm the vulnerability is already known — for example there was already a GitHub discussion, or a report already exists on HackerOne — your report may be marked as a **duplicate** and not paid.
+3. Reviewers **triage** the report and assign severity.
+4. Valid reports are paid after triage. You can include a written report, a fix in a private fork, or both. A fix does not change the report payout; any extra payment for the fix is discussed individually.
 
-### What we expect in a report
-
-Same bar as other protocol programs:
+### What a good report includes
 
 - **Reproducible research** — steps, screenshots, logs, or a recording so an analyst can confirm the issue
 - **Demonstrable impact** — show what an attacker can actually do. Theoretical library or config issues are usually rejected
-- **Collaboration** — analysts will follow up; help them reproduce and think through the fix
+- **Follow-up** — reviewers may ask questions after you submit. Reply so they can reproduce and confirm the issue.
 - **Your own verification** — do not submit AI-generated findings you have not checked
 
 ### Severity guideline
@@ -102,7 +100,7 @@ HackerOne needs a legal entity as the billing partner. **Bitfury** currently fun
 
 ## Contributor rewards
 
-Public work on the protocol — the same pattern as Cosmos-style **community-pool** funding: discuss, ship, then Hosts approve a payout on-chain.
+Public work on the protocol: discuss, ship, then Hosts approve a payout on-chain.
 
 Work in the open in [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/). Accepted contributions are typically paid from the **community pool**, in a **stablecoin**, through a **network upgrade**. Every payout needs on-chain approval. You can suggest what the work might be worth; that is not a commitment.
 
@@ -112,7 +110,7 @@ Grant-style arrangements (funding agreed around a larger body of work) **have al
 
 **Start with a [GitHub Discussion](https://github.com/gonka-ai/gonka/discussions).** Discussions are the source of truth for proposal history; Discord is for reach. Get community support before you invest in a large implementation.
 
-That step matters. The same idea may already have been discussed, or the network may already have a **consciously adopted design decision**. A Discussion is how you find that out, avoid duplicate work, and avoid shipping something that fights an existing direction. Read [Welcome to Proposals #795](https://github.com/gonka-ai/gonka/discussions/795) first.
+That step matters. The same idea may already have been discussed, or the current approach may be a **trade-off**. A Discussion is how you find that out and avoid duplicate work. Read [Welcome to Proposals #795](https://github.com/gonka-ai/gonka/discussions/795) first.
 
 Include motivation, expected impact, and what would change for the network. If you represent a team or have relevant prior work, link it.
 

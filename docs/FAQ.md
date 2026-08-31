@@ -1550,12 +1550,12 @@ It’s not necessary to be a Host to participate: anyone can report a security v
 
 There are two complementary tracks:
 
-- **Security vulnerabilities** are handled through Gonka’s official program on **[HackerOne](https://hackerone.com/)**. See [How do I report a security vulnerability?](#how-do-i-report-a-security-vulnerability) below.
+- **Security vulnerabilities** are handled through Gonka’s program on **[HackerOne](https://hackerone.com/)**. See [How do I report a security vulnerability?](#how-do-i-report-a-security-vulnerability) below.
 - **Protocol contributions** (fixes, improvements, and new features) are proposed, reviewed, and validated by the community on GitHub, and rewards are paid out through a network upgrade in a stablecoin. See [How do I contribute to protocol development?](#how-do-i-contribute-to-protocol-development) below.
 
 ### How do I report a security vulnerability?
 
-Gonka runs its security program on **HackerOne**. Submit all vulnerability reports through the official form at **[gonka.ai/docs/report-vulnerability](https://gonka.ai/docs/report-vulnerability/)** rather than disclosing them in public issues, pull requests, or chats.
+Gonka runs its security program on **HackerOne**. Submit all vulnerability reports through the form at **[gonka.ai/docs/report-vulnerability](https://gonka.ai/docs/report-vulnerability/)** rather than disclosing them in public issues, pull requests, or chats.
 
 How rewards work on HackerOne:
 
@@ -1601,7 +1601,7 @@ Impact is evaluated from a network perspective (a network-wide effect is require
 
 If you want to help develop the protocol (not report a security issue), the workflow is community-driven on GitHub:
 
-1. **Start a Discussion.** Publish the idea in [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions) and get community support first. The same topic may already have been discussed, or the network may already have an adopted design. Then pick an [existing `up-for-grabs` issue](https://github.com/gonka-ai/gonka/issues?q=is%3Aissue%20state%3Aopen%20label%3Aup-for-grabs) or open a new Issue. Before starting an existing issue, leave a comment that work has started and include an approximate ETA.
+1. **Start a Discussion.** Publish the idea in [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions) and get community support first. The same topic may already have been discussed, or the current approach may be a trade-off. Then pick an [existing `up-for-grabs` issue](https://github.com/gonka-ai/gonka/issues?q=is%3Aissue%20state%3Aopen%20label%3Aup-for-grabs) or open a new Issue. Before starting an existing issue, leave a comment that work has started and include an approximate ETA.
 2. **Open a pull request.** Ship a solid fix or implementation and open a PR against [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/).
 3. **Keep seeking review.** Ask other community members to comment on the Issue or PR so the change can be reviewed and included in a network upgrade.
 

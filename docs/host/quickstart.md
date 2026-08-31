@@ -44,15 +44,6 @@ The protocol supports **governance-approved** models for inference and Proof of 
 
 You typically run **one model per ML Node** in `node-config.json`. Hosts may operate separate ML Nodes (or fleets) for MiniMax, Kimi, and DeepSeek.
 
-!!! tip "Reference deploy configs in the repo"
-    DeepSeek V4 Flash configs, MiniMax `minimaxm27-*` configs, and MLNode **3.0.16** live on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) branch (not `main`). Copy the file that matches your hardware to `node-config.json` instead of writing one from scratch:
-
-    - **Kimi K2.6** — `deploy/join/node-config-kimik26-H200.json`, `deploy/join/node-config-kimik26-B200.json`
-    - **MiniMax M2.7** — `deploy/join/node-config-minimaxm27-A100.json`, `deploy/join/node-config-minimaxm27-H100.json`, `deploy/join/node-config-minimaxm27-H200.json`, `deploy/join/node-config-minimaxm27-B200.json`, `deploy/join/node-config-minimaxm27-B300.json`
-    - **DeepSeek V4 Flash** — `deploy/join/node-config-deepseekv4flash0731-H100.json`, `deploy/join/node-config-deepseekv4flash0731-H200.json`, `deploy/join/node-config-deepseekv4flash0731-B200.json`, `deploy/join/node-config-deepseekv4flash0731-B300.json`. On Blackwell, nvfp4 variants: `node-config-deepseekv4flash0731-B200-nvfp4.json`, `node-config-deepseekv4flash0731-B300-nvfp4.json`.
-
-    The contents of these files are reproduced inline below for convenience.
-
 !!! note "If you will not run every approved model"
     Multi-model PoC tracks participation **per model**. If your hardware does **not** cover every governance-approved model, you will need on-chain **delegation** or **refusal** so your consensus weight is handled correctly for the models you skip. That is **not** required to bring a node online—you use the same **Account (cold) key** as in [Grant Permissions to ML Operational Key](#33-local-machine-grant-permissions-to-ml-operational-key), **after** registration and verification. Copy-paste commands are at the end: [Optional: PoC delegation and refusal](#optional-poc-delegation-and-refusal). For strategy and penalties, read [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md).
 
@@ -1246,6 +1237,31 @@ curl http://node2.gonka.ai:8000/chain-rpc/status
 ```
 
 Once your node is visible in the Dashboard, you may also want to update your public profile (host name, website, avatar). This helps other participants identify your node in the network. You can find [the instructions here](https://gonka.ai/host/validator_info/).
+
+## Fund your Account Key (transaction fees) {#fund-account-fees}
+
+**IMPORTANT: Fees are paid from your cold wallet. Perform transfers and fee-bearing transactions on your secure local machine.**
+
+Starting with upgrade **v0.2.16**, Gonka charges on-chain fees for a defined set of host transactions. Registration alone is not enough to join Proof of Compute or an epoch: your cold account must hold a liquid GNK balance so those messages can be included on-chain.
+
+Fund your Account Key address before the next PoC window. Keep this balance separate from collateral you will lock in [§5 Deposit Collateral](#5-local-machine-deposit-collateral) — fees are spent from the free balance; collateral is deposited into the collateral module.
+
+Fees currently apply to the following message types:
+
+| Message | What it covers |
+|---------|----------------|
+| `MsgPoCV2StoreCommit` | Submitting PoC v2 commits during Proof of Compute |
+| `MsgSubmitHardwareDiff` | Reporting hardware / ML Node changes |
+| `MsgDeclarePoCIntent` | Declaring intent for a model during bootstrap windows |
+| `MsgSetPoCDelegation` | Delegating PoC validation weight to another participant |
+| `MsgRefusePoCDelegation` | Explicitly refusing PoC delegation for a model |
+| `MsgDepositCollateral` | Depositing collateral (this section’s follow-up step) |
+| `MsgWithdrawCollateral` | Withdrawing collateral after the unbonding period |
+
+Other protocol-duty traffic (for example routine inference and validation paths that the network treats as duty) is outside this fee set. Always use the `ngonka` denomination for balances and fees.
+
+!!! note "Recommended top-up and fee calculation"
+    Transfer enough GNK to your cold account to cover PoC participation and the fee-bearing messages above. The recommended top-up amount is **10 GNK**. Instruction on how to calculate fees for each message will be documented here shortly.
 
 ## 5. [Local machine] Deposit Collateral
 

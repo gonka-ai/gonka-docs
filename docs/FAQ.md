@@ -17,7 +17,7 @@ Gonka is a decentralized AI infrastructure built to reduce dependence on central
 The Gonka ecosystem has four key participant groups:
 
 - Developer builds and deploys AI applications by leveraging the network’s distributed computing power.
-- Gonka Contributor participates in development of the core blockchain codebase, protocol upgrades, performance optimizations, security patches, and new feature integrations.
+- Contributor participates in development of the core blockchain codebase, protocol upgrades, performance optimizations, security patches, and new feature integrations.
 - Holder holds the network’s native coin, which simply means having a Gonka wallet with coins in it. Holders may hold coins, transfer or sell them, spend them on inference and use them according to the protocol rules. Being a holder does not imply any obligation, responsibility, or governance role beyond standard coin ownership.
 - Host contributes compute capacity to the network. Hosts perform inference and other computational tasks and are rewarded proportionally to their contributed compute capacity, as long as they maintain honest participation and reliability. Hosts form the backbone of the network. Only Hosts have voting power in the network. This voting power represents their weight in governance and is used to propose and vote on protocol decisions, parameter changes, and upgrades. Any Host acts as Validator, Transfer Agent and an Executor (these are not predefined or on-chain roles, but dynamic operational functions assumed when processing a inference request).
 	
@@ -1542,23 +1542,25 @@ echo "642eb9858cd77d182f3e1c4d44553f5379d615983430e1fd8e85f09632af4271 .inferenc
 
 ## Bounty program
 
+The full guide for contributors is the [Bounty program](bounty-program.md) page. Short answers to common questions are below.
+
 ### What is the bounty program? Who can participate? How are rewards paid?
 
 It’s not necessary to be a Host to participate: anyone can report a security vulnerability or contribute fixes, improvements, and new features to the broader Gonka infrastructure.
 
 There are two complementary tracks:
 
-- **Security vulnerabilities** are handled through Gonka’s official program on **[HackerOne](https://hackerone.com/)**. See [How do I report a security vulnerability?](#how-do-i-report-a-security-vulnerability) below.
+- **Security vulnerabilities** are handled through Gonka’s program on **[HackerOne](https://hackerone.com/)**. See [How do I report a security vulnerability?](#how-do-i-report-a-security-vulnerability) below.
 - **Protocol contributions** (fixes, improvements, and new features) are proposed, reviewed, and validated by the community on GitHub, and rewards are paid out through a network upgrade in a stablecoin. See [How do I contribute to protocol development?](#how-do-i-contribute-to-protocol-development) below.
 
 ### How do I report a security vulnerability?
 
-Gonka runs its security program on **HackerOne**. Submit all vulnerability reports through the official form at **[gonka.ai/docs/report-vulnerability](https://gonka.ai/docs/report-vulnerability/)** rather than disclosing them in public issues, pull requests, or chats.
+Gonka runs its security program on **HackerOne**. Submit all vulnerability reports through the form at **[gonka.ai/docs/report-vulnerability](https://gonka.ai/docs/report-vulnerability/)** rather than disclosing them in public issues, pull requests, or chats.
 
 How rewards work on HackerOne:
 
 - **Payment is made right after your report is triaged** on HackerOne — it does **not** require you to also submit a fix.
-- **Fixing the issue is rewarded separately**, in addition to the report itself.
+- **A fix may be paid separately.** That amount is discussed individually; it is not an automatic extra on top of the report.
 - The authoritative severity model, reward amounts, categories, scope, and eligibility rules are all defined by the program on HackerOne. **Always read the full program terms on HackerOne before submitting**, as they take precedence over any summary here.
 
 ### What is the vulnerability severity model?
@@ -1599,9 +1601,9 @@ Impact is evaluated from a network perspective (a network-wide effect is require
 
 If you want to help develop the protocol (not report a security issue), the workflow is community-driven on GitHub:
 
-1. **Find or create work.** Look for [existing issues labeled `up-for-grabs`](https://github.com/gonka-ai/gonka/issues?q=is%3Aissue%20state%3Aopen%20label%3Aup-for-grabs), or create your own issue and seek validation from the community that the work is worth doing. Before starting an existing issue, leave a quick comment that work has started and include an approximate ETA, so others have visibility and avoid duplicate effort.
+1. **Start a Discussion.** Publish the idea in [GitHub Discussions](https://github.com/gonka-ai/gonka/discussions) and get community support first. The same topic may already have been discussed, or the current approach may be a trade-off. Then pick an [existing `up-for-grabs` issue](https://github.com/gonka-ai/gonka/issues?q=is%3Aissue%20state%3Aopen%20label%3Aup-for-grabs) or open a new Issue. Before starting an existing issue, leave a comment that work has started and include an approximate ETA.
 2. **Open a pull request.** Ship a solid fix or implementation and open a PR against [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/).
-3. **Gather community validation.** Share the PR in the relevant developer channels and seek validation from the community so the change can be reviewed and included in a network upgrade.
+3. **Keep seeking review.** Ask other community members to comment on the Issue or PR so the change can be reviewed and included in a network upgrade.
 
 **How contribution rewards are paid:** rewards for accepted contributions are paid out through a network upgrade in a **stablecoin**. As with all on-chain actions, the upgrade and its payments are subject to governance approval.
 
@@ -1616,7 +1618,7 @@ The community-aligned **[Gonka Network Development Roadmap](https://github.com/g
 
 ### Where can I see who was paid bounties, for what, and when?
 
-For security bounties, the record lives in the Gonka program on **HackerOne**. For protocol contributions, the most reliable sources are on-chain records and [GitHub](https://github.com/gonka-ai/gonka/). Use them as the main source of truth for who was paid, what the reward was for, and when it was executed.
+For security bounties, the record lives in the Gonka program on **HackerOne**. For protocol contributions, the **chain** is the source of truth: payouts execute on-chain. You can also inspect the corresponding records in the [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/) GitHub repository. Discord’s `#bounty-awards` channel posts some of this later, but it can be incomplete and is not authoritative.
 
 ## Errors
 

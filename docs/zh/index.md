@@ -64,7 +64,7 @@ landing: true
     <section class="gonka-hero">
       <div class="gonka-inner">
         <h1>Gonka</h1>
-        <p class="tagline">AI计算已成为新的货币</p>
+        <p class="tagline">AI 计算已成为新的货币</p>
         <p class="hero-uniswap">
           <a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">
             <span>在</span>
@@ -88,7 +88,7 @@ landing: true
 <div class="gonka-carousel">
       <div class="carousel-track">
         <div class="partner-card">
-          <span class="partner-label">审计方</span>
+          <span class="partner-label">审计机构</span>
           <div class="partner-logos">
             <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/certik.svg" alt="CertiK" />
@@ -195,7 +195,7 @@ landing: true
 
           <!-- Card B: GPU provider -->
           <div class="role-card">
-            <h2 class="role-title">我是GPU提供方</h2>
+            <h2 class="role-title">我是GPU提供者</h2>
             <p class="role-value">托管模型、提供推理服务并赚取GNK。</p>
             <a class="role-cta gonka-doc-cta" href="/docs/host/quickstart/">成为主机 <span aria-hidden="true">&rarr;</span></a>
             <ul class="role-links">
@@ -227,7 +227,15 @@ landing: true
           </div>
 
 </div>
-      </div>
+
+<!-- Contributor strip -->
+        <div class="contributor-strip">
+          <h2 class="role-title">我是贡献者</h2>
+          <p class="role-value">构建协议、推理或训练功能，并通过赏金计划获得社区奖励。</p>
+          <a class="role-cta gonka-doc-cta" href="/docs/bounty-program/">加入赏金计划 <span aria-hidden="true">&rarr;</span></a>
+        </div>
+
+</div>
     </section>
   </main>
 
@@ -293,13 +301,13 @@ landing: true
         <h4>GNK</h4>
         <ul>
           <li><a href="/tokenomics.pdf">Gonka代币经济</a></li>
-          <li><a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">Uniswap上的Gonka</a></li>
+          <li><a href="https://app.uniswap.org/explore/tokens/ethereum/0x972a7A92D92796a98801A8818bcF91f1648f2F68" target="_blank" rel="noopener noreferrer">Gonka在Uniswap上</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>法律</h4>
         <ul>
-          <li><a href="/protocol-license.pdf">Gonka协议许可</a></li>
+          <li><a href="/protocol-license.pdf">Gonka协议许可证</a></li>
           <li><a href="#">专利</a></li>
           <li><a href="/disclaimer/">免责声明</a></li>
         </ul>

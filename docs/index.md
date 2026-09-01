@@ -232,7 +232,7 @@ landing: true
         <div class="contributor-strip">
           <h2 class="role-title">I'm a contributor</h2>
           <p class="role-value">Build protocol, inference, or training features and earn community rewards through the bounty program.</p>
-          <a class="role-cta" href="https://gonka.ai/docs/bounty-program/" target="_blank" rel="noopener">Join the bounty program <span aria-hidden="true">&rarr;</span></a>
+          <a class="role-cta gonka-doc-cta" href="/docs/bounty-program/">Join the bounty program <span aria-hidden="true">&rarr;</span></a>
         </div>
 
       </div>

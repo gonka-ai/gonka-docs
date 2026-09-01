@@ -1260,8 +1260,62 @@ Fees currently apply to the following message types:
 
 Other protocol-duty traffic (for example routine inference and validation paths that the network treats as duty) is outside this fee set. Always use the `ngonka` denomination for balances and fees.
 
-!!! note "Recommended top-up and fee calculation"
-    Transfer enough GNK to your cold account to cover PoC participation and the fee-bearing messages above. The recommended top-up amount is **10 GNK**. Instruction on how to calculate fees for each message will be documented here shortly.
+Get your cold account address on your **local machine**:
+
+```bash
+./inferenced keys show gonka-account-key -a --keyring-backend file
+```
+
+Send GNK to that address. A practical starting top-up is **10 GNK** — enough for several epochs of operational fees plus one-time setup transactions (registration follow-ups, permission grants, delegation, collateral deposit). Collateral is separate; see [§5 Deposit Collateral](#5-local-machine-deposit-collateral).
+
+Confirm the transfer arrived (replace `<your-gonka-cold-address>`):
+
+```bash
+curl -s "http://node2.gonka.ai:8000/v2/accounts/<your-gonka-cold-address>" | jq '.balance, .denom'
+```
+
+### Check the fee budget for one epoch
+
+After your node is running and the **API** container is up ([§4 Launch Full Node](#4-server-launch-full-node)), run this on the **server**. The admin API listens on localhost only — it is not exposed through the public proxy.
+
+```bash
+curl -s http://127.0.0.1:9200/admin/v1/epoch-fee-budget | jq
+```
+
+Example response:
+
+```json
+{
+  "denom": "ngonka",
+  "spendable_balance": "7254963228",
+  "budget_balance": "36266880",
+  "count": 23712,
+  "count_source": "top_participant",
+  "budget_known": true,
+  "spendable_covers_budget": true
+}
+```
+
+**How to read it:**
+
+- **`budget_balance`** — estimated **ngonka** needed for **this epoch only** (main PoC, possible confirmation PoCs, and hardware-diff fees). It is an upper bound with headroom, not an exact bill.
+- **`spendable_covers_budget: true`** — your setup can pay those epoch fees (cold-account balance available through the fee allowance to the ML Operational Key).
+- **`spendable_covers_budget: false`** — send more GNK to your cold account; target at least `budget_balance` for this epoch.
+- **`count_source: "top_participant"`** — the estimate scales store commits to the busiest participant in the last PoC stage. For a conservative manual estimate, pass your own commit count:
+
+```bash
+curl -s "http://127.0.0.1:9200/admin/v1/epoch-fee-budget?count=100" | jq
+```
+
+This check does **not** include collateral or one-time setup messages from the table above — only recurring PoC/hardware traffic for the current epoch.
+
+### Planning for many epochs
+
+The endpoint estimates **one epoch at a time**. Fees are spent as transactions land; unused GNK stays on your cold account.
+
+- **Re-check each epoch** — run the command again before or after PoC if network activity changes.
+- **Plan ahead** — multiply `budget_balance` by the number of epochs you want to cover (for example, `budget_balance × 90` for roughly three months on mainnet, where epochs are ~24 hours), then ensure `spendable_balance` meets that total. The **10 GNK** starting top-up is sized so most Hosts do not need to recalculate every epoch.
+- **Top up when `spendable_covers_budget` turns false** — you are running low on fee headroom for the current estimate.
 
 ## 5. [Local machine] Deposit Collateral
 

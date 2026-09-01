@@ -96,10 +96,68 @@ Below are the most important resources for learning about the Gonka ecosystem:
 
 ## Tokenomics
 
+### What is weight?
+
+!!! note "v0.2.16"
+	From **v0.2.16**, Weight is the real compute figure used for rewards. Governance voting power uses the [weight cap](#what-is-the-weight-cap) instead of Weight directly.
+
+Weight is the Host’s measured compute contribution for an epoch. The chain derives it from Proof-of-Compute (PoC): how many valid nonces the Host processed during the Sprint, scaled by per-model coefficients. That raw result is then adjusted for:
+
+- Confirmation Proof-of-Compute (cPoC) — whether the Host actually delivered the claimed capacity during the epoch
+- Penalties (for example missed models or invalid inference)
+- Collateral — after the Grace Period, only the collateral-backed portion of PoC weight is active
+- A concentration limit — no Host may hold more than 30% of total network Weight
+
+The result is the Host’s real, fully-adjusted **Weight**. It is the value used for:
+
+- Epoch rewards
+- cPoC confirmation of claimed compute
+- Unit-of-compute pricing
+- Weighted selection of Hosts for work
+
+Weight is **not** the same as governance voting power. Voting power uses the [weight cap](#what-is-the-weight-cap).
+
+You can inspect your current `weight` in the active participants list at `$NODE_URL/v1/epochs/current/participants`.
+
+### What is the weight cap?
+
+!!! note "v0.2.16"
+	The previous-epoch weight cap is introduced in **v0.2.16**. Before this upgrade, governance, BLS, and PoC/cPoC validation voting used Weight directly.
+
+The weight cap (`cap_weight`) is the Host’s **trust weight**: the portion of Weight allowed to influence consensus-critical decisions.
+
+From v0.2.16, a Host’s trust weight for the next epoch cannot exceed the compute that Host actually confirmed in the previous epoch:
+
+```
+CapWeight for epoch N+1 = min(Weight in epoch N+1, confirmed Weight from epoch N)
+```
+
+This delay exists so a sudden jump in declared compute — new hardware coming online, or a manipulated PoC result — does not immediately buy governance votes, a larger BLS signing share, or a louder voice in validating everyone else’s PoC.
+
+**Uses the weight cap**
+
+- Governance / CometBFT validator power
+- BLS threshold-signing share
+- PoC and cPoC validation voting
+
+**Does not use the weight cap**
+
+- Rewards. A Host that legitimately added capacity still earns on its real Weight in the same epoch. Only consensus influence is delayed by one epoch.
+
+**New or returning Hosts**
+
+If you were not a live participant in the previous epoch, there is no confirmed baseline, so `cap_weight` is `0` for the first epoch. You still earn rewards on Weight. Governance, BLS, and validation voting power stay at zero until the network has confirmed your compute for one full epoch.
+
+If settlement’s statistical test (`MissedStatTest`) fails, the confirmed baseline used for the next cap is treated as `0`.
+
+The previous-epoch weight cap is **not** the 30% concentration limit. The 30% rule is applied to real Weight first. The previous-epoch cap is applied after that, and only to trust weight.
+
+After v0.2.16, the active participants list includes both fields: `weight` (rewards) and `cap_weight` (governance, BLS, and validation voting).
+
 ### How is governance power calculated in Gonka?
 Gonka uses a PoC-weighted voting model:
 
-- Proof-of-Compute (PoC): Voting power is proportional to your verified compute contribution.
+- Proof-of-Compute (PoC): your Weight is proportional to verified compute contribution. Governance voting power uses the [weight cap](#what-is-the-weight-cap), which cannot exceed that Weight.
 - Collateral commitment:
     - 20% of PoC-derived voting weight is activated automatically.
     - To unlock the remaining 80%, you must lock GNK coins as collateral.
@@ -198,17 +256,16 @@ Yes. Withdrawal triggers an unbonding period (default: 1 epoch). During unbondin
 
 ### What collateral is NOT
 
-- Collateral is NOT voting power. Voting power is derived from PoC weight, not token balance.
+- Collateral is NOT voting power. Voting power is derived from the [weight cap](#what-is-the-weight-cap), which is bounded by PoC Weight, not from coin balance.
 - Collateral is NOT delegation. Each account must back its own weight.
 - Collateral is NOT a permanent lock. It can be withdrawn (subject to unbonding).
 - Collateral was NOT required during the Grace Period (first 180 epochs).
 
 ### How are epoch-minted rewards distributed?
 A fixed amount of GNK is minted each epoch and distributed proportionally to Active PoC Weight.
-Active Weight determines:
+Active Weight determines your share of epoch-minted Reward Coins.
 
-- Your share of epoch-minted Reward Coins
-- Your governance influence
+Governance voting power uses the [weight cap](#what-is-the-weight-cap), which cannot exceed Active Weight.
 
 If your Active Weight is reduced due to insufficient collateral, your share of epoch rewards decreases proportionally. Inactive weight does not receive rewards.
 
@@ -995,7 +1052,7 @@ Proof of Compute (PoC) is a consensus mechanism that replaces capital-based or h
 
 ### What is Sprint?
 
-Sprint is a phase of Proof of Compute. During a Sprint, all Hosts simultaneously run AI-relevant inference on a transformer with randomized layers over a stream of nonces, producing output vectors. A Host’s voting power for the next epoch is proportional to the number of nonces it processed, as long as the reported outputs are verifiably produced by the required Sprint model.
+Sprint is a phase of Proof of Compute. During a Sprint, all Hosts simultaneously run AI-relevant inference on a transformer with randomized layers over a stream of nonces, producing output vectors. A Host’s Weight for the next epoch is proportional to the number of nonces it processed, as long as the reported outputs are verifiably produced by the required Sprint model. Governance voting power uses the [weight cap](#what-is-the-weight-cap), which cannot exceed that Weight.
 
 ### How to simulate Proof-of-Compute (PoC)?
 

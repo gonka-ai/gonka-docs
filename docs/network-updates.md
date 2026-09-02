@@ -14,7 +14,7 @@
 
 The on-chain governance vote for proposal id 98 has concluded.
 
-The proposal was APPROVED. It increases the `weight_scale_factor` for `deepseek-ai/DeepSeek-V4-Flash-0731` from 0.214 to 0.246. All other model and chain parameters remain unchanged. This is a resubmission of proposal 97, which expired without reaching quorum; no votes were cast against it.
+The proposal was APPROVED. It increases the `weight_scale_factor` for `deepseek-ai/DeepSeek-V4-Flash-0731` from 0.214 to 0.246. All other model and chain parameters remain unchanged. This is a resubmission of proposal 97. Proposal 97 was not rejected: voting ended without reaching quorum, and no votes were cast against it.
 
 The original 0.214 factor came from inflated nonce/min numbers. The measurement fix is in [gonka-ai/gonka#1640](https://github.com/gonka-ai/gonka/pull/1640). Nothing is required from hosts.
 

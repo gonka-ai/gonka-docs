@@ -18,7 +18,7 @@
 
 - 模型：`deepseek-ai/DeepSeek-V4-Flash-0731`（固定修订版 `7872f01b1d1fe23eabc4c98b48bffcef5a386062`）
 - 需要在 **vLLM 0.25.1**（MLNode **3.0.16**）上运行的 MLNode，并使用随附的节点配置（`node-config-deepseekv4flash0731-*.json` 适用于 B300 / B200 / H200 / H100）
-- 链上 PoC `weight_scale_factor = 0.214`，推理 `validation_threshold = 0.90`（处理后的 logprobs）
+- 链上 PoC `weight_scale_factor` 在注册时为 **0.214**；[提案 98](../network-updates.md#august-29-2026) 随后将其提高至 **0.246**。推理 `validation_threshold = 0.90`（处理后的 logprobs）
 - `penalty_start_epoch = 360`
 - 投票于 **2026 年 8 月 12 日 16:05 UTC** / 8 月 12 日 09:05 PDT 结束
 - 首次启动尝试在 **纪元 359**；模型组在 **纪元 360** 变为活跃
@@ -91,7 +91,7 @@ DeepSeek V4 Flash 的启动可能遵循以下主要场景：
 
 ## 硬件与共识权重
 
-DeepSeek V4 Flash 注册为 `v_ram = 280`（每个实例约 **280 GB 总 VRAM**）和 `weight_scale_factor = 0.214`。与运行 MiniMax M2.7 的 8×H100 集群相比，公告估计：
+DeepSeek V4 Flash 注册为 `v_ram = 280`（每个实例约 **280 GB 总 VRAM**）。当前链上 `weight_scale_factor` 为 **0.246**（[提案 98](../network-updates.md#august-29-2026)；原先为 0.214）。与运行 MiniMax M2.7 的 8×H100 集群相比，原始公告（按 0.214）估计：
 
 - 8×H200 最优可产生 **1.46×** 权重运行 MiniMax M2.7
 - 8×B200 最优可产生 **2.96×** 权重运行 Kimi K2.6
@@ -99,12 +99,12 @@ DeepSeek V4 Flash 注册为 `v_ram = 280`（每个实例约 **280 GB 总 VRAM**�
 
 实际影响：
 
-- **B300 用户**：在所提议的系数下，DeepSeek 是权重最高的选项。请为 vLLM 0.25.1 / MLNode 3.0.16 和 B300 节点配置做好准备。
+- **B300 用户**：在当前系数下，DeepSeek 是权重最高的选项。请为 vLLM 0.25.1 / MLNode 3.0.16 和 B300 节点配置做好准备。
 - **B200 用户**：Kimi K2.6 在此类别中仍具有最高的 PoC 权重；如果您希望参与，可通过 B200 节点配置使用 DeepSeek。
 - **H200 / H100 用户**：MiniMax M2.7 仍是这些类别的最高权重模型；DeepSeek 配置已存在，但切换是可选的，无需为获得最大权重而切换。
 - 完整系数表：[Google Sheet](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
 
-基于模型使用情况，治理后续可提高系数，以激励将更多 B 系列 GPU 转向 DeepSeek。
+基于模型使用情况，治理仍可调整系数，以激励将更多 B 系列 GPU 转向 DeepSeek。
 
 
 ## 为将部署 DeepSeek V4 Flash 的主机提供的说明

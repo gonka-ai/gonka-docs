@@ -33,7 +33,7 @@ The protocol supports **governance-approved** models for inference and Proof of 
 |----------|------|
 | `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — base model and an active PoC model on the network |
 | `moonshotai/Kimi-K2.6` | **Kimi K2.6** — active PoC model |
-| `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — active PoC model (epoch 360; coefficient 0.214) |
+| `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — active PoC model (epoch 360; coefficient 0.246) |
 
 !!! tip "Authoritative model list (governance API)"
     Approved models can change between releases or epochs. **Before you edit `node-config.json`,** call the governance API and use each returned object’s `"id"` as the key under `"models"`:
@@ -72,7 +72,7 @@ To run a valid node, you need machines with [supported GPU(s)](/host/hardware-sp
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple ML Nodes across all model tiers.
 
-Per-model `weight_scale_factor` values are set by governance. DeepSeek V4 Flash currently uses **0.214**; on B300 this is the highest-weight option, while MiniMax remains highest-weight on H100/H200 and Kimi on B200. See [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) and the [coefficient table](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0). Example vLLM arguments are in the `node-config.json` examples below.
+Per-model `weight_scale_factor` values are set by governance. DeepSeek V4 Flash currently uses **0.246**; on B300 this is the highest-weight option, while MiniMax remains highest-weight on H100/H200 and Kimi on B200. See [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) and the [coefficient table](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0). Example vLLM arguments are in the `node-config.json` examples below.
 
 More details about the optimal deployment configuration can be found [here](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
@@ -848,7 +848,7 @@ source config.env
 
 === "DeepSeek — 1×B300"
 
-    Use this vLLM argument set for **DeepSeek V4 Flash** on **1×B300**. DeepSeek requires **MLNode 3.0.16** (vLLM 0.25.1). On B300 this is the highest-weight PoC option under the current coefficient (0.214). For better performance, use the nvfp4 variant `node-config-deepseekv4flash0731-B300-nvfp4.json` (`model_override` to `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`); that format needs API `v0.2.15-post5` — see [Network updates](../network-updates.md).
+    Use this vLLM argument set for **DeepSeek V4 Flash** on **1×B300**. DeepSeek requires **MLNode 3.0.16** (vLLM 0.25.1). On B300 this is the highest-weight PoC option under the current coefficient (0.246). For better performance, use the nvfp4 variant `node-config-deepseekv4flash0731-B300-nvfp4.json` (`model_override` to `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`); that format needs API `v0.2.15-post5` — see [Network updates](../network-updates.md).
 
     Reference deploy config in the repo: `deploy/join/node-config-deepseekv4flash0731-B300.json`.
 

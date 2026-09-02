@@ -8,6 +8,18 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## August 29, 2026
+
+**PROPOSAL PASSED: Increase DeepSeek V4 Flash weight_scale_factor to 0.246**
+
+The on-chain governance vote for proposal id 98 has concluded.
+
+The proposal was APPROVED. It increases the `weight_scale_factor` for `deepseek-ai/DeepSeek-V4-Flash-0731` from 0.214 to 0.246. All other model and chain parameters remain unchanged. This is a resubmission of proposal 97, which expired without reaching quorum; no votes were cast against it.
+
+The original 0.214 factor came from inflated nonce/min numbers. The measurement fix is in [gonka-ai/gonka#1640](https://github.com/gonka-ai/gonka/pull/1640). Nothing is required from hosts.
+
+Thanks to everyone who voted.
+
 ## August 25, 2026
 
 **The PR for the devshard-only upgrade is now open for review**
@@ -159,7 +171,7 @@ The rollout is intentionally gradual so that any unexpected issues can be identi
 
 **DeepSeek V4 Flash is now active on Gonka network**
 
-The bootstrap stage announced in [proposal 94](https://gonka.ai/docs/network-updates/#august-10-2026) is complete. As of chain epoch 360, `deepseek-ai/DeepSeek-V4-Flash-0731` joins MiniMax-M2.7 and Kimi K2.6 as an active model group, and PoC weight earned in the DeepSeek group is now being converted into consensus weight at the calibrated coefficient 0.214.
+The bootstrap stage announced in [proposal 94](https://gonka.ai/docs/network-updates/#august-10-2026) is complete. As of chain epoch 360, `deepseek-ai/DeepSeek-V4-Flash-0731` joins MiniMax-M2.7 and Kimi K2.6 as an active model group, and PoC weight earned in the DeepSeek group is now being converted into consensus weight at the calibrated coefficient 0.214 (later raised to 0.246 by [proposal 98](#august-29-2026)).
 
 Per-model participation enforcement for DeepSeek is now in effect. Hosts that have already chosen DIRECT, DELEGATE or REFUSE for DeepSeek do not need to do anything else — the same setup keeps working. Hosts that have not yet made a choice are encouraged to do so now to avoid the per-epoch penalty ([https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)).
 

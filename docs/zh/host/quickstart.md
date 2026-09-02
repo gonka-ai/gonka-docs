@@ -33,7 +33,7 @@
 |----------|------|
 | `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — 基础模型，同时也是网络上的活跃PoC模型 |
 | `moonshotai/Kimi-K2.6` | **Kimi K2.6** — 活跃的PoC模型 |
-| `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — 活跃的PoC模型（周期360；系数0.214） |
+| `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — 活跃的PoC模型（周期360；系数0.246） |
 
 !!! tip "权威模型列表（治理API）"
     批准的模型可能在发布或周期之间发生变化。**在编辑 `node-config.json` 之前**，调用治理API，并使用每个返回对象的 `"id"` 作为 `"models"` 下的键：
@@ -72,7 +72,7 @@
 
 这是一个参考架构。您可以调整节点数量或硬件分配，但我们建议遵循核心原则：每个节点应支持所有模型层级的多个ML节点。
 
-每个模型的`weight_scale_factor`值由治理机制设定。DeepSeek V4 Flash当前使用**0.214**；在B300上这是权重最高的选项，而MiniMax在H100/H200上权重最高，Kimi在B200上权重最高。详见[DeepSeek V4 Flash引导配置](./deepseek-bootstrap.md)和[系数表](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)。vLLM参数示例见下方`node-config.json`示例。
+每个模型的`weight_scale_factor`值由治理机制设定。DeepSeek V4 Flash当前使用**0.246**；在B300上这是权重最高的选项，而MiniMax在H100/H200上权重最高，Kimi在B200上权重最高。详见[DeepSeek V4 Flash引导配置](./deepseek-bootstrap.md)和[系数表](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)。vLLM参数示例见下方`node-config.json`示例。
 
 有关最优部署配置的更多详情，请参见[此处](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
@@ -848,7 +848,7 @@ source config.env
 
 === "DeepSeek — 1×B300"
 
-在 **1×B300** 上使用此 vLLM 参数集运行 **DeepSeek V4 Flash**。DeepSeek 需要 **MLNode 3.0.16**（vLLM 0.25.1）。在 B300 上，这是当前系数（0.214）下权重最高的 PoC 选项。为获得更好性能，请使用 nvfp4 变体 `node-config-deepseekv4flash0731-B300-nvfp4.json`（`model_override` 至 `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`）；该格式需要 API `v0.2.15-post5` —— 请参阅 [网络更新](../network-updates.md)。
+在 **1×B300** 上使用此 vLLM 参数集运行 **DeepSeek V4 Flash**。DeepSeek 需要 **MLNode 3.0.16**（vLLM 0.25.1）。在 B300 上，这是当前系数（0.246）下权重最高的 PoC 选项。为获得更好性能，请使用 nvfp4 变体 `node-config-deepseekv4flash0731-B300-nvfp4.json`（`model_override` 至 `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`）；该格式需要 API `v0.2.15-post5` —— 请参阅 [网络更新](../network-updates.md)。
 
 仓库中的参考部署配置：`deploy/join/node-config-deepseekv4flash0731-B300.json`。
 

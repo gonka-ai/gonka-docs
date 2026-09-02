@@ -8,6 +8,18 @@
 
     本页面不保证内容完整。如需获取最新信息，包括治理投票的启动及其当前状态，请参考链上数据或查看可用的浏览器和仪表板。
 
+## 2026年8月29日 {#august-29-2026}
+
+**提案已通过：将 DeepSeek V4 Flash 的 weight_scale_factor 提高至 0.246**
+
+提案 ID 98 的链上治理投票已结束。
+
+该提案已获批准。它将 `deepseek-ai/DeepSeek-V4-Flash-0731` 的 `weight_scale_factor` 从 0.214 提高至 0.246。其他所有模型和链参数保持不变。这是提案 97 的重新提交：提案 97 因未达到法定人数而过期，当时没有反对票。
+
+原先的 0.214 系数来自被高估的 nonce/min 数据。测量修复见 [gonka-ai/gonka#1640](https://github.com/gonka-ai/gonka/pull/1640)。主机无需采取任何操作。
+
+感谢所有参与投票的人。
+
 ## 2026年8月25日
 
 **提案 97 已开放投票：将 DeepSeek V4 Flash 的 weight_scale_factor 提高至 0.246**
@@ -135,7 +147,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 **DeepSeek V4 Flash 现已在 Gonka 网络上激活**
 
-在[提案94](https://gonka.ai/docs/network-updates/#august-10-2026)中宣布的引导阶段已完成。自链纪元360起，`deepseek-ai/DeepSeek-V4-Flash-0731`与MiniMax-M2.7和Kimi K2.6一同作为活跃模型组加入，DeepSeek组中获得的PoC权重现在正以校准系数0.214转换为共识权重。
+在[提案94](https://gonka.ai/docs/network-updates/#august-10-2026)中宣布的引导阶段已完成。自链纪元360起，`deepseek-ai/DeepSeek-V4-Flash-0731`与MiniMax-M2.7和Kimi K2.6一同作为活跃模型组加入，DeepSeek组中获得的PoC权重现在正以校准系数0.214转换为共识权重（随后由[提案 98](https://gonka.ai/docs/network-updates/#august-29-2026)提高至 0.246）。
 
 针对DeepSeek的按模型参与强制执行现已生效。已为DeepSeek选择DIRECT、DELEGATE或REFUSE的主机无需再做任何操作——现有设置将继续有效。尚未做出选择的主机应尽快选择，以避免每纪元惩罚（[https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)）。
 

@@ -21,7 +21,7 @@
 |---|---|
 | `MiniMaxAI/MiniMax-M2.7` | 基线模型，活跃 |
 | `moonshotai/Kimi-K2.6` | 活跃 |
-| `deepseek-ai/DeepSeek-V4-Flash-0731` | 活跃（纪元 360；`weight_scale_factor = 0.214`） |
+| `deepseek-ai/DeepSeek-V4-Flash-0731` | 活跃（纪元 360；`weight_scale_factor = 0.246`） |
 | `zai-org/GLM-5.2-FP8` | 已注册；未启动（`penalty_start_epoch = 500`） |
 
 每个模型的 `weight_scale_factor` 和 `penalty_start_epoch` 通过治理变更过于频繁，无法在此可靠列出。请始终从您所用链上的实时 `params` 查询中读取：

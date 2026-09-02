@@ -28,7 +28,7 @@ As of epoch `308`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` has been retired by 
 |---|---|
 | `MiniMaxAI/MiniMax-M2.7` | Base model, active |
 | `moonshotai/Kimi-K2.6` | Active |
-| `deepseek-ai/DeepSeek-V4-Flash-0731` | Active (epoch 360; `weight_scale_factor = 0.214`) |
+| `deepseek-ai/DeepSeek-V4-Flash-0731` | Active (epoch 360; `weight_scale_factor = 0.246`) |
 | `zai-org/GLM-5.2-FP8` | Registered; not bootstrapped (`penalty_start_epoch = 500`) |
 
 Per-model `weight_scale_factor` and `penalty_start_epoch` change through governance too often to list here reliably. Always read them from a live `params` query on the chain you use:

@@ -18,7 +18,7 @@ Details from the proposal / announcement:
 
 - Model: `deepseek-ai/DeepSeek-V4-Flash-0731` (pinned revision `7872f01b1d1fe23eabc4c98b48bffcef5a386062`)
 - Requires an MLNode on **vLLM 0.25.1** (MLNode **3.0.16**) with the shipped node configuration (`node-config-deepseekv4flash0731-*.json` for B300 / B200 / H200 / H100)
-- On-chain PoC `weight_scale_factor = 0.214`, inference `validation_threshold = 0.90` (processed logprobs)
+- On-chain PoC `weight_scale_factor` was **0.214** at registration; [proposal 98](../network-updates.md#august-29-2026) later raised it to **0.246**. Inference `validation_threshold = 0.90` (processed logprobs)
 - `penalty_start_epoch = 360`
 - Voting ended **August 12, 2026 at 16:05 UTC** / August 12 at 09:05 PDT
 - First bootstrap attempt at **epoch 359**; the model group became active at **epoch 360**
@@ -91,7 +91,7 @@ If DeepSeek passes both checks, punishment follows the usual scenarios described
 
 ## Hardware and consensus weight
 
-DeepSeek V4 Flash is registered with `v_ram = 280` (about **280 GB of total VRAM** per instance) and `weight_scale_factor = 0.214`. Relative to an 8×H100 cluster running MiniMax M2.7, the announcement estimates:
+DeepSeek V4 Flash is registered with `v_ram = 280` (about **280 GB of total VRAM** per instance). The live `weight_scale_factor` is **0.246** ([proposal 98](../network-updates.md#august-29-2026); originally 0.214). Relative to an 8×H100 cluster running MiniMax M2.7, the original announcement (at 0.214) estimated:
 
 - 8×H200 optimally yields **1.46×** weight running MiniMax M2.7
 - 8×B200 optimally yields **2.96×** weight running Kimi K2.6
@@ -99,12 +99,12 @@ DeepSeek V4 Flash is registered with `v_ram = 280` (about **280 GB of total VRAM
 
 Practical implications:
 
-- **B300 owners**: DeepSeek is the highest-weight option under the proposed coefficient. Plan for vLLM 0.25.1 / MLNode 3.0.16 and the B300 node config.
+- **B300 owners**: DeepSeek is the highest-weight option under the current coefficient. Plan for vLLM 0.25.1 / MLNode 3.0.16 and the B300 node config.
 - **B200 owners**: Kimi K2.6 still yields the highest PoC weight on this class; DeepSeek is available via the B200 node config if you want to opt in.
 - **H200 / H100 owners**: MiniMax M2.7 remains the highest-weight model for these classes; DeepSeek configs exist, but switching is optional and not required for max weight.
 - Full coefficient table: [Google Sheet](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
 
-Based on model usage, governance can later raise coefficients to incentivise moving more B-series GPUs to DeepSeek.
+Based on model usage, governance can still adjust coefficients to incentivise moving more B-series GPUs to DeepSeek.
 
 
 ## Instructions for hosts who are going to deploy DeepSeek V4 Flash

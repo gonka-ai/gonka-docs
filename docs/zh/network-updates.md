@@ -14,7 +14,7 @@
 
 提案 ID 98 的链上治理投票已结束。
 
-该提案已获批准。它将 `deepseek-ai/DeepSeek-V4-Flash-0731` 的 `weight_scale_factor` 从 0.214 提高至 0.246。其他所有模型和链参数保持不变。这是提案 97 的重新提交。提案 97 并未被否决：投票结束时未达到法定人数，且没有反对票。
+该提案已获批准。它将 `deepseek-ai/DeepSeek-V4-Flash-0731` 的 `weight_scale_factor` 从 0.214 提高至 0.246。其他所有模型和链参数保持不变。这是提案 97 的重新提交。链上提案 97 的结果为 `PROPOSAL_STATUS_REJECTED`，`failed_reason` 为 `proposal did not get enough votes to pass`（未达到 25% 法定人数）。最终计票：yes 15452，abstain 3093，no 0，no_with_veto 0。
 
 原先的 0.214 系数来自被高估的 nonce/min 数据。测量修复见 [gonka-ai/gonka#1640](https://github.com/gonka-ai/gonka/pull/1640)。主机无需采取任何操作。
 

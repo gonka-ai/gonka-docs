@@ -10,6 +10,16 @@
 
 ## September 4, 2026
 
+**PROPOSAL PASSED: Support Gonka's presence at TOKEN2049 Singapore**
+
+The on-chain governance vote for proposal id 99 has concluded.
+
+The proposal was APPROVED. It allocates 100,000 USDT from the Community Pool to support Gonka's participation at TOKEN2049 Singapore 2026, taking place on 7-8 October 2026 at Marina Bay Sands. The funds cover the Gold Sponsorship package and related logistics: travel, accommodation, local coordination, guest hosting, event operations, and supporting materials.
+
+Thanks to everyone who voted.
+
+## September 4, 2026
+
 **Devshard binary update: `v4.0.2`**
 
 The `v4.0.2` devshard binary is available. Hosts can update the v4 binary manually using the instructions below. An automatic update is not scheduled yet.

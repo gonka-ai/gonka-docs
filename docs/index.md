@@ -96,6 +96,14 @@ landing: true
           </div>
         </div>
         <div class="partner-card">
+          <span class="partner-label">Bug Bounty Program</span>
+          <div class="partner-logos">
+            <a href="https://hackerone.com" target="_blank" rel="noopener noreferrer">
+              <img src="images/logos/hackerone.svg" alt="HackerOne" />
+            </a>
+          </div>
+        </div>
+        <div class="partner-card">
           <span class="partner-label">Community Partners</span>
           <div class="partner-logos">
             <a href="https://web3.com/" target="_blank" rel="noopener noreferrer">

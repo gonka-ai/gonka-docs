@@ -8,6 +8,57 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 4, 2026
+
+**Devshard binary update: `v4.0.2`**
+
+The `v4.0.2` devshard binary is available. Hosts can update the v4 binary manually using the instructions below. An automatic update is not scheduled yet.
+
+**What changed**
+
+On restart, `v4.0.1` restored every session from nonce 1. Nodes with many stored sessions took hours to become ready, `versiond` then killed the child on the 60 second ready timeout, and clients saw HTTP 502s.
+
+`v4.0.2` loads the latest snapshot and restores only the diffs after it. This version is fully compatible with the previous v4 release.
+
+Release: [devshard/v4.0.2](https://github.com/gonka-ai/gonka/releases/tag/release/devshard/v4.0.2)
+
+**Update instructions**
+
+Update one node at a time and confirm each one is back before moving to the next.
+
+```shell
+sudo mkdir -p ./devshards/bin/override/v4 && \
+wget -q -O /tmp/devshardd-v4.0.2.zip 'https://github.com/gonka-ai/gonka/releases/download/release%2Fdevshard%2Fv4.0.2/devshardd.zip' && \
+echo "38aea0a4f1658e85321d11149efa247e565e952c51db4d268a02e0a6f0734200  /tmp/devshardd-v4.0.2.zip" | sha256sum --check --status && echo checksum_ok && \
+sudo unzip -qo -j /tmp/devshardd-v4.0.2.zip -d ./devshards/bin/override/v4/ && \
+sudo chmod 755 ./devshards/bin/override/v4/devshardd && \
+test -f ./devshards/bin/override/v4/devshardd && \
+docker pull -q ghcr.io/product-science/versiond:0.2.15 >/dev/null && \
+test "$(docker run --rm --entrypoint /devshardd -v ./devshards/bin/override/v4/devshardd:/devshardd:ro ghcr.io/product-science/versiond:0.2.15 --print-protocol-version)" = v4 && echo protocol_v4
+```
+
+Add this env to `docker-compose.yml`:
+
+```yaml
+  versiond:
+    ...
+    environment:
+    ...
+      - VERSIOND_FORCE=v4
+      - VERSIOND_OVERRIDE_v4=/opt/versiond/bin/override/v4/devshardd
+```
+
+Then restart:
+
+```shell
+source config.env && docker compose up versiond -d --no-deps --force-recreate
+```
+
+**Check your deployed version**
+
+```shell
+curl <your_node_url>/devshard/v4/stats/shards | jq '.binary_version'
+```
 ## August 29, 2026
 
 **PROPOSAL PASSED: Increase DeepSeek V4 Flash weight_scale_factor to 0.246**

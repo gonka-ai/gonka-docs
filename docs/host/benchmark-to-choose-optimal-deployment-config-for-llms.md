@@ -2,7 +2,7 @@
 ## Intro
 Effective GPU utilization is critical for deploying large language models. Gonka Nodes utilize a customized vLLM inference engine that supports both high-performance inference and its validation.
 
-To achieve the best results, vLLM requires careful, server-specific configuration. The optimal performance depends on both GPUs' characteristics and the speed of cross-GPU data transfer. This guide provides instructions on how to select vLLM parameters using the `Qwen/Qwen3-32B-FP8` model as a **worked example**. That model is not a current mainnet PoC model — copy the tuning method, then apply it to a governance-approved model from the [Host Quickstart](./quickstart.md). We will also describe which parameters can be tuned for optimal performance without affecting validation and which parameters must remain unchanged.
+To achieve the best results, vLLM requires careful, server-specific configuration. The optimal performance depends on both GPUs' characteristics and the speed of cross-GPU data transfer. This guide provides instructions on how to select vLLM parameters using the `Qwen/Qwen3-32B-FP8` model as a **worked example**. That model is not a current mainnet PoC model — copy the tuning method, then apply it to a governance-approved model from the [Host Quickstart](./quickstart.md). The guide also covers which parameters can be tuned for optimal performance without affecting validation and which parameters must remain unchanged.
 
 !!! note "Performance vs. correctness"
     This guide is about **performance tuning** (`compressa-perf`, TP / PP). To validate that your deployment produces honest PoC vectors matching the golden reference for the target model, see [Validate ML Node Deployment](./mlnode-validation.md) (`mlnode-validate` skill in the [`gonka` repo](https://github.com/gonka-ai/gonka)).
@@ -163,7 +163,7 @@ We have deployed the `MLNode` container to this server, with the following port 
 - API management port (default 8080) is mapped to `http://24.124.32.70:46195`
 - Inference port (default 5000) is mapped to `http://24.124.32.70:46085`
 
-For this example, we'll use the `Qwen/Qwen3-32B-FP8` model. It is **not** currently deployed on Gonka mainnet; it is only a worked example of the benchmark procedure. It has the following mandatory parameters:
+This example uses the `Qwen/Qwen3-32B-FP8` model. It is **not** currently deployed on Gonka mainnet; it is only a worked example of the benchmark procedure. It has the following mandatory parameters:
 
 - `--kv-cache-dtype fp8`
 - `--quantization fp8`

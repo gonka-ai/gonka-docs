@@ -1,16 +1,16 @@
 # MiniMax-M2.7 Bootstrap
 
-`MiniMaxAI/MiniMax-M2.7` (FP8) 已在 Gonka 主网的 Proof of Compute 中 **通过引导** 并 **激活**，自链纪元 278（`v0.2.13`）起生效。它是当前的基础模型（`delegation_params.initial_model_id`）。以下的时间线和交易示例仍有助于理解激活机制以及委托等操作；有关当前部署默认值（包括 `node-config.json`），请参阅 [Host Quickstart](./quickstart.md)。
+`MiniMaxAI/MiniMax-M2.7` (FP8) 已通过引导并作为基础模型（`delegation_params.initial_model_id`）在 Gonka 主网的 Proof of Compute 上激活，当前链纪元为 278（`v0.2.13`）。以下的时间线和交易示例仍有助于理解激活机制及委托等操作；有关当前部署默认值（包括 `node-config.json`），请参阅 [Host Quickstart](./quickstart.md)。
 
 有关多模型 PoC 机制的更广泛背景，请参阅 [Multi-Model PoC](./multi_model_poc.md)。其他模型的引导及其机制记录在 [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) 和 [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) 中。
 
 !!! note 
-    引导可能需要多个纪元，具体取决于有多少参与者准备就绪。在配置的惩罚纪元之前，如果参与者明确提交选择且即将部署的主机提交 `PoCIntent`，则不会减少权重。MiniMax 的按模型参与强制机制现已生效（纪元 278）。
+    引导可能需要多个纪元，具体取决于有多少参与者准备就绪。在配置的惩罚纪元之前，如果参与者明确提交选择且即将部署的主机提交 `PoCIntent`，则不会减少权重。MiniMax 的每模型参与强制机制现已生效（纪元 278）。
 
 
-## 时间线
+## Timeline
 
-缺失 MiniMax-M2.7 的惩罚从 **纪元 `278`** 开始。从升级激活起，每个纪元链都会尝试引导该模型：它在该纪元 PoC 阶段前捕获 `BootstrapDelegationSnapshot` 500 个区块（即 `DeployWindow`），根据 `V_min = 3` 个直接意向提交者和总网络权重的 `W_threshold` 比例（通过 INTENT + DELEGATE 实现 `>2/3` 可达性）评估预资格，并（若预合格）在该纪元启动 MiniMax 的 PoC。
+缺少 MiniMax-M2.7 的惩罚从 **纪元 `278`** 开始。从升级激活起，每个纪元，链都会尝试引导该模型：在该纪元 PoC 阶段前捕获 `BootstrapDelegationSnapshot` 500 个区块（即 `DeployWindow`），根据 `V_min = 3` 直接意向提交者和总网络权重的 `W_threshold` 比例（通过 INTENT + DELEGATE 实现 `>2/3` 可达性）评估预资格，并（若预合格）在该纪元启动 MiniMax 的 PoC。
 
 当前 `W_threshold` 是一个治理参数——请从链上读取，而非硬编码值（GIP-48 已将其从 `0.3` 降低至 `0.1`，未来可能再次变更）：
 
@@ -27,7 +27,7 @@ curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/par
   | jq '.params.poc_params.models[] | select(.model_id=="MiniMaxAI/MiniMax-M2.7")'
 ```
 
-要计算任何给定评估纪元的确切区块号，请以链上当前纪元为锚点进行前推。`epoch_shift` 参数不锚定创世块（它会因过去的纪元长度变化而过时），因此 `epoch_shift + N * epoch_length` 在主网上是错误的——始终以实时当前 PoC_start 为锚点：
+要计算任意评估纪元的精确区块编号，请以链上当前纪元为锚点进行前推。`epoch_shift` 参数不锚定创世块（它会因过去纪元长度变化而过时），因此 `epoch_shift + N * epoch_length` 在主网上是错误的——请始终以实时当前 PoC_start 为锚点：
 
 ```bash
 NODE=https://node3.gonka.ai
@@ -46,42 +46,42 @@ SNAPSHOT_BLOCK=$(( POC_START - 500 ))
 echo "Epoch $EPOCH (current $CURRENT_EPOCH): snapshot at block $SNAPSHOT_BLOCK, PoC starts at block $POC_START"
 ```
 
-MiniMax 在参与主机加委托覆盖阈值的最早纪元成为预合格。
+MiniMax 在参与主机加委托覆盖阈值的最早纪元中成为预合格。
 
 
-### 可能的情形
+### Possible Scenarios
 
-MiniMax-M2.7 的引导可能遵循以下主要情形：
+MiniMax-M2.7 的引导可能遵循以下主要场景：
 
 1. **MiniMax 在某纪元快照中未通过预评估**（且在 PoC 中仍不合格）：
 
-    - 所有提交 `PoCIntent` 的人保持其全部权重（无惩罚）
-    - 所有提交 `PoCDelegation` / `PoCRefusal` 的人保持其全部权重（无惩罚）
-    - **在纪元 `278` 之前**：所有未提交者也保持其全部权重（宽限期期间惩罚被抑制）
+    - 所有提交 `PoCIntent` 的人保持完整权重（无惩罚）
+    - 所有提交 `PoCDelegation` / `PoCRefusal` 的人保持完整权重（无惩罚）
+    - **在纪元 `278` 之前**：所有未提交者也保持完整权重（宽限期期间惩罚被抑制）
     - **从纪元 `278` 起**：所有未提交者每个纪元每遗漏一个模型损失 15% 权重
 
-=> 在纪元 `278` 之前**明确发送包含您意图行为的交易**非常重要
+=> 重要的是在纪元 `278` 之前明确发送包含您意图行为的交易
 
 2. **MiniMax 通过预评估但未在 PoC 中合格**（例如，INTENT 主机未能及时部署）：
 
-    - 实际部署 MiniMax-M2.7 并在本纪元提交 MiniMax PoC 提交的主机，保留其现有模型组的全部权重（无惩罚）
-    - 所有提交 `PoCDelegation` / `PoCRefusal` 的人保持其全部权重（无惩罚）
-    - **从纪元 `278` 起**：所有未提交者损失 15% 权重，所有提交 `PoCIntent` 但未部署且未提交 MiniMax PoC 提交者也损失 15%（`IntentMissed` 解决方案）
+    - 实际部署了 MiniMax-M2.7 并在本纪元提交 MiniMax PoC 提交的主机，保持其现有模型组的完整权重（无惩罚）
+    - 所有提交 `PoCDelegation` / `PoCRefusal` 的人保持完整权重（无惩罚）
+    - **从纪元 `278` 起**：所有未提交者每纪元损失 15% 权重，所有提交 `PoCIntent` 但未部署且未提交 MiniMax PoC 提交者也损失 15%（`IntentMissed` 解决方案）
 
 
-如果 MiniMax 通过两项检查，惩罚遵循 [Multi-Model PoC](./multi_model_poc.md) 中描述的常规情形。
+如果 MiniMax 通过两项检查，惩罚遵循 [Multi-Model PoC](./multi_model_poc.md) 中描述的常规场景。
 
 
-## 硬件资格
+## Hardware eligibility
 
-MiniMax-M2.7 (FP8) 每实例需要 **约 320 GB 总 VRAM**——比 Kimi K2.6 或 Qwen3-235B（两者均需 ≥640 GB 每实例，参见 [host quickstart 参考布局](./quickstart.md#hardware-and-machines)）的占用显著更小。实际影响：
+MiniMax-M2.7 (FP8) 每实例需要 **约 320 GB 总 VRAM**——相比 Kimi K2.6 或 Qwen3-235B（根据 [host quickstart reference layout](./quickstart.md#hardware-and-machines) 均需 ≥640 GB 每实例）显著更小。实际影响：
 
-- **A100 80GB 拥有者**：MiniMax-M2.7 是**首个获得治理批准并适配 A100 80GB 容量的模型**。如果您此前无法托管 Kimi 或 Qwen-235B，现在可通过 MiniMax 赢得共识权重。推荐配置：8×A100 80GB 配 `tp=4`（每主机两个实例）或 `tp=8`（每主机一个实例）。
-- **H100 / H200 拥有者**：MiniMax-M2.7 在共识输出上与 Qwen3-235B 相当（根据工作负载混合，偏差在百分之几内），且在 Kimi 的系数调整后（`v0.2.13`）明显优于 Kimi K2.6。建议从 Kimi 切换至 MiniMax；此前使用 Qwen3-235B 的主机必须切换至 MiniMax，因为 Qwen3-235B 已被治理退役（提案 78）。
-- **B200 / B300 拥有者**：MiniMax-M2.7 运行良好，但 Kimi K2.6 在旗舰硬件上仍保持轻微的共识输出优势。如果您已在运行 Kimi，则无需更改。
+- **A100 80GB 拥有者**：MiniMax-M2.7 是**首个获治理批准并适配 A100 80GB 容量的模型**。如果您之前无法托管 Kimi 或 Qwen-235B，现在可通过 MiniMax 赚取共识权重。推荐配置：8×A100 80GB，配置 `tp=4`（每主机两个实例）或 `tp=8`（每主机一个实例）。
+- **H100 / H200 拥有者**：MiniMax-M2.7 在共识输出上与 Qwen3-235B 相当（根据工作负载组合有百分之几的浮动），且在 Kimi 的系数调整后（`v0.2.13`）明显优于 Kimi K2.6。建议从 Kimi 切换到 MiniMax；此前使用 Qwen3-235B 的主机必须切换至 MiniMax，因为 Qwen3-235B 已被治理退役（提案 78）。
+- **B200 / B300 拥有者**：MiniMax-M2.7 运行良好。`moonshotai/Kimi-K2.6` 目前未提供，因此该类别上无实时 Kimi 权重——请在 `/v1/epochs/current/participants` 上确认。
 
 
-## 准备部署 MiniMax-M2.7 的主机操作说明
+## Instructions for hosts who are going to deploy MiniMax-M2.7
 
 #### 向链发送 `PoCIntent`
 
@@ -99,7 +99,7 @@ export NODE=https://node3.gonka.ai/chain-rpc/
 
 #### 预下载权重并验证可部署性
 
-MiniMax-M2.7 FP8 权重大小为 **约 230 GB**。请据此规划磁盘空间和带宽。请遵循指南 [预下载模型权重](https://gonka.ai/host/quickstart/#server-pre-download-model-weights-to-hugging-face-cache-hf_home)，使用以下仓库和提交：
+MiniMax-M2.7 FP8 权重为 **~230 GB**。请相应规划磁盘空间和带宽。请按照指南 [预下载模型权重](https://gonka.ai/host/quickstart/#server-pre-download-model-weights-to-hugging-face-cache-hf_home)，使用以下仓库和提交：
 
 - `hf_repo`: `MiniMaxAI/MiniMax-M2.7`
 - `hf_commit`: `d494266a4affc0d2995ba1fa35c8481cbd84294b`
@@ -114,9 +114,9 @@ MiniMax-M2.7 FP8 权重大小为 **约 230 GB**。请据此规划磁盘空间和
 --reasoning-parser minimax_m2_append_think
 ```
 
-#### 等待下一个评估纪元并检查预资格
+#### 等待下一个评估纪元并检查预合格状态
 
-每个评估纪元的快照区块后，链会发出 `bootstrap_model_preeligibility` 事件：
+每次评估纪元的快照区块后，链会发出 `bootstrap_model_preeligibility` 事件：
 
 ```bash
 NODE=https://node3.gonka.ai
@@ -137,9 +137,9 @@ curl -s "$NODE/chain-rpc/block_results?height=$HEIGHT" \
       | $a'
 ```
 
-关键属性是 `pre_eligible`。若其值为 `true`，则链将在本纪元运行 MiniMax PoC，您应做好部署准备。支持字段显示三项检查是否通过：`meets_v_min`（≥ `V_min` 个直接意向提交者）、`meets_weight_threshold`（意向权重 ≥ `W_threshold` 的 `total_network_weight`）、和 `meets_reachability`（意向+委托 `reachable_voting_power` 覆盖 `>2/3`）。`intent_host_count` 和 `intent_weight` 显示本纪元的直接意向覆盖情况。
+关键属性是 `pre_eligible`。若其值为 `true`，则链将在本纪元运行 MiniMax PoC，您应已准备就绪。支持字段显示三项检查是否通过：`meets_v_min`（≥ `V_min` 直接意向提交者）、`meets_weight_threshold`（意向权重 ≥ `W_threshold` 的 `total_network_weight`）、`meets_reachability`（意向 + 委托 `reachable_voting_power` 覆盖 `>2/3`）。`intent_host_count` 和 `intent_weight` 显示本纪元的直接意向覆盖率。
 
-#### 若预合格，则切换至 MiniMax-M2.7 模型
+#### 若预合格，将模型切换为 MiniMax-M2.7
 
 用于在8×A100 80GB（`tp=4`，每台主机两个实例）上部署MiniMax-M2.7的示例命令：
 
@@ -172,16 +172,16 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
      }'
 ```
 
-对于4×B200 / 8×B200部署，请根据吞吐量偏好使用`--tensor-parallel-size 2`（每8×B200机箱两个实例）或`--tensor-parallel-size 4`（一个实例）。链`Model.ModelArgs`为最小配置；部署端标志（`--tensor-parallel-size`、`--gpu-memory-utilization`、`--max-num-seqs`等）由操作员选择。
+对于4×B200 / 8×B200部署，请根据吞吐量偏好使用`--tensor-parallel-size 2`（每台8×B200设备两个实例）或`--tensor-parallel-size 4`（一个实例）。链`Model.ModelArgs`是最小化的；部署端标志（`--tensor-parallel-size`、`--gpu-memory-utilization`、`--max-num-seqs`等）由操作员选择。
 
 #### 验证您的部署
 
-[`gonka` 仓库](https://github.com/gonka-ai/gonka) 提供了一个代理技能 `mlnode-validate`，用于将已部署的ML节点与特定模型的预计算诚实PoC向量进行验证。对于MiniMax M2.7，已提交的黄金参考为 `mlnode/packages/benchmarks/scripts/poc_validation/artifacts/minimaxai-minimax-m2.7.json`（200个向量；在2×H200上记录）。还为 `4×A100`、`4×H100`、`2×H200` 和 `2×B200` 提供了现成的 `deploy/join/` 配置。请参阅 [验证ML节点部署](./mlnode-validation.md) 和 [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md)。
+[$`gonka`$ 仓库](https://github.com/gonka-ai/gonka) 提供了一个代理技能 `mlnode-validate`，用于根据特定模型的预计算诚实PoC向量验证已部署的ML节点。对于MiniMax M2.7，提交的黄金参考是 `mlnode/packages/benchmarks/scripts/poc_validation/artifacts/minimaxai-minimax-m2.7.json`（200个向量；在2×H200上记录）。为 `deploy/join/`、`4×A100`、`4×H100` 和 `2×H200` 提供了现成的 `2×B200` 配置。参见 [验证ML节点部署](./mlnode-validation.md) 和 [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md)。
 
 
 ## 未计划部署MiniMax-M2.7的主机的说明
 
-#### 检查您是否信任任何将部署MiniMax / 发送 `PoCIntent` 的主机
+#### 检查您是否信任任何将要部署MiniMax / 发送 `PoCIntent` 的主机
 
 ```python
 import time

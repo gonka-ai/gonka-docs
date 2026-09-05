@@ -28,10 +28,10 @@ As of epoch `308`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` has been retired by 
 |---|---|
 | `MiniMaxAI/MiniMax-M2.7` | Base model since epoch 308 (proposal 78) |
 | `deepseek-ai/DeepSeek-V4-Flash-0731` | PoC group since epoch 360 (proposal 94). Coefficient is in `poc_params`. |
-| `moonshotai/Kimi-K2.6` | In `poc_params` since v0.2.12 (first eligible at epoch 251). Listing is not eligibility. |
+| `moonshotai/Kimi-K2.6` | In `poc_params` since v0.2.12 (first eligible at epoch 251). Currently not served. |
 | `zai-org/GLM-5.2-FP8` | In `poc_params`. Bootstrap / penalty timing is `penalty_start_epoch` in params. |
 
-A model in `poc_params` is **eligible** for that epoch’s miss/refuse penalties only if it has voting power that meets `v_min` and `w_threshold`. Models in `poc_params` with no voting power are bootstrap candidates on the next PoC. Check `/v1/epochs/current/participants` and the epoch’s `confirmation_weight_scales` — do not infer status from the table above.
+A model in `poc_params` is **eligible** for that epoch’s miss/refuse penalties only if it has voting power that meets `v_min` and `w_threshold`. A model's `weight_scale_factor` only produces consensus weight when that group is eligible. Models in `poc_params` with no voting power are bootstrap candidates on the next PoC. Check `poc_params` and the epoch’s `confirmation_weight_scales`. Live serving is a separate check: `/v1/epochs/current/participants` (`moonshotai/Kimi-K2.6` is currently not served). Do not infer either from the table above.
 
 Per-model `weight_scale_factor` and `penalty_start_epoch` change through governance too often to list here reliably. Always read them from a live `params` query on the chain you use:
 

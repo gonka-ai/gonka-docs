@@ -1659,7 +1659,7 @@ After a restart, the issue should not recur.
 ## Inference
 
 !!! note
-    Several answers below discuss `moonshotai/Kimi-K2.6` request-shape details from when that model was served. Governance listing is not live serving: query `/v1/epochs/current/participants` (and the broker’s `GET /v1/models`) for what hosts are actually serving. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` was removed by proposal 78.
+    Several answers below discuss `moonshotai/Kimi-K2.6` request-shape details from when that model was served. That model is currently not served — query `/v1/epochs/current/participants` and the broker’s `GET /v1/models`. Governance listing is not live serving. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` was removed by proposal 78.
 
 ### Why does the 4,096 output token limit cause the model to stall during thinking — returning zero tokens?
 
@@ -2082,7 +2082,7 @@ Three causes; the client can work around two, but not the third.
 
 ### Is there a model that handles both input and output without trade-offs?
 
-**MiniMax-M2.7** launched on mainnet ~2026-05-28 via the chain governance upgrade v0.2.13. Verified live on both brokers. Clarification: "Qwen output cap 8,192" in the question is inaccurate — the output cap is the same for all models (3,072 / 4,096, Q3), not model-side. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` itself is **not on mainnet** (removed by proposal 78 at epoch 308). `moonshotai/Kimi-K2.6` remains in governance params; governance listing is not live serving — check the broker’s `GET /v1/models`.
+**MiniMax-M2.7** launched on mainnet ~2026-05-28 via the chain governance upgrade v0.2.13. Verified live on both brokers. Clarification: "Qwen output cap 8,192" in the question is inaccurate — the output cap is the same for all models (3,072 / 4,096, Q3), not model-side. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` itself is **not on mainnet** (removed by proposal 78 at epoch 308). `moonshotai/Kimi-K2.6` remains in governance params and is currently not served — check the broker’s `GET /v1/models`.
 
 | Model | Native context | Mainnet | Native thinking | Tool calls |
 |--------|---------------|---------|-----------------|------------|

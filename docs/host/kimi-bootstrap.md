@@ -1,6 +1,6 @@
 # Kimi K2.6 Bootstrap
 
-`moonshotai/Kimi-K2.6` is in governance models and `poc_params` (since v0.2.12). Governance listing is not eligibility. The timeline below is the original bootstrap record (first eligible at epoch 251). For MiniMax/DeepSeek deploy defaults, see the [Host Quickstart](./quickstart.md).
+`moonshotai/Kimi-K2.6` is in governance models and `poc_params` (since v0.2.12). It is currently not served: no host in `/v1/epochs/current/participants` lists it. The timeline below is the original bootstrap record (first eligible at epoch 251). For MiniMax/DeepSeek deploy defaults, see the [Host Quickstart](./quickstart.md).
 
 This document explains how a model group becomes eligible and how participation modes work.
 

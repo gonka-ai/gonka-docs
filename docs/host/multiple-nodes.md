@@ -99,7 +99,7 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 
 Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired.
-Download the model you will deploy. Confirm it is in `GET /v1/governance/models`; governance listing is not eligibility.
+Download the model you will deploy. Confirm it is in `GET /v1/governance/models`. Governance listing is not eligibility. `moonshotai/Kimi-K2.6` is currently not served — confirm on `/v1/epochs/current/participants`.
 
 ```
 huggingface-cli download MiniMaxAI/MiniMax-M2.7
@@ -162,7 +162,7 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `model_name`         | The name of the model.                              | `MiniMaxAI/MiniMax-M2.7`, `deepseek-ai/DeepSeek-V4-Flash-0731`, `moonshotai/Kimi-K2.6` (ids from `GET /v1/governance/models`)    |
 | `model_args`         | vLLM arguments for the inference of the model.                              | `"--tensor-parallel-size","4"`    |
 
-Confirm the model id against `GET /v1/governance/models`. Governance listing is not eligibility — check `/v1/epochs/current/participants` and `confirmation_weight_scales` before treating a model as a live PoC group.
+Confirm the model id against `GET /v1/governance/models`. Eligibility (`confirmation_weight_scales`) and live serving (`/v1/epochs/current/participants`) are separate from that catalog. `moonshotai/Kimi-K2.6` is currently not served.
 
 To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout. Full `node-config.json` examples are in the [Host Quickstart](./quickstart.md).
 

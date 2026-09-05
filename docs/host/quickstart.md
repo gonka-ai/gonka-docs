@@ -33,7 +33,7 @@ The protocol supports **governance-approved** models for inference and Proof of 
 |----------|------|
 | `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — base model (since proposal 78 / epoch 308) |
 | `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — PoC model (since proposal 94 / epoch 360). Coefficient is in `poc_params`. |
-| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — in governance / `poc_params` (since v0.2.12). Listing is not the same as eligibility or live serving. |
+| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — in governance / `poc_params` (since v0.2.12). Currently not served. |
 
 !!! tip "Authoritative model list (governance API)"
     Approved models can change between releases or epochs. **Before you edit `node-config.json`,** call the governance API and use each returned object’s `"id"` as the key under `"models"`:
@@ -42,7 +42,11 @@ The protocol supports **governance-approved** models for inference and Proof of 
     ```
     To list only model ids, pipe the response: `jq -r '.models[].id'`. If `node2.gonka.ai` is unreachable, use another participant’s public API base URL (scheme, host, and port). The response also includes network parameters such as `model_args`; the `node-config.json` examples later show typical `args` for common hardware—adjust for your GPUs and benchmarks.
 
-You typically run **one model per ML Node** in `node-config.json`. Governance listing (`GET /v1/governance/models`, `poc_params.models`) is the approved catalog. A model is **eligible** for that epoch’s miss/refuse penalties only if it has voting power that meets `v_min` and `w_threshold`. Models in `poc_params` with no voting power are bootstrap candidates on the next PoC — switching `node-config` alone does not restore consensus weight. Check live serving on `/v1/epochs/current/participants` and the epoch’s `confirmation_weight_scales`. See [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) and [Multi-Model PoC](./multi_model_poc.md).
+You typically run **one model per ML Node** in `node-config.json`.
+
+Governance listing (`GET /v1/governance/models`, `poc_params.models`) is the approved catalog for every model. A model's `weight_scale_factor` only produces consensus weight if that group is eligible: voting power that meets `v_min` and `w_threshold`. Miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate on the next PoC — switching `node-config` alone does not restore consensus weight. Check `poc_params` and the epoch’s `confirmation_weight_scales`. See [Multi-Model PoC](./multi_model_poc.md).
+
+Live serving is a separate check: `/v1/epochs/current/participants`. `moonshotai/Kimi-K2.6` is currently not served. To restore that group, see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
 
 !!! tip "Reference deploy configs in the repo"
     DeepSeek V4 Flash configs, MiniMax `minimaxm27-*` configs, and MLNode **3.0.16** live on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) branch (not `main`). Copy the file that matches your hardware to `node-config.json` instead of writing one from scratch:
@@ -530,12 +534,14 @@ source config.env
 ### [Server] Edit Inference Node Description for the Server
 
 !!! note
-    Pick the tab that matches the model and GPU class you will serve. Confirm the model is in `GET /v1/governance/models`, then check `/v1/epochs/current/participants` and `confirmation_weight_scales` before treating it as a live PoC group. Governance listing is not eligibility. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
+    Pick the tab that matches the model and GPU class you will serve. Confirm the model is in `GET /v1/governance/models`. Eligibility (voting power, `confirmation_weight_scales`) and live serving (`/v1/epochs/current/participants`) are separate from that catalog. `moonshotai/Kimi-K2.6` is currently not served. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
 
 === "Kimi — 4×B200 / 8×B200 (and 8×H200 reference class)"
 
-    !!! warning "Governance listing is not eligibility"
-        A model in `poc_params` is not automatically eligible. Eligibility needs voting power that meets `v_min` / `w_threshold`. Without that, the next PoC treats the model as a bootstrap candidate — a single-host `node-config` switch does not restore consensus weight. These args are the last known deploy shape. See [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
+    !!! warning "Currently not served"
+        No host in `/v1/epochs/current/participants` lists `moonshotai/Kimi-K2.6`. These args are the last known deploy shape.
+
+        Eligibility is a separate, network-wide rule: a model in `poc_params` is not automatically eligible. Eligibility needs voting power that meets `v_min` / `w_threshold`. Without that, the next PoC treats the model as a bootstrap candidate — a single-host `node-config` switch does not restore consensus weight. See [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
 
     Use this vLLM argument set for **Kimi K2.6** on Blackwell **4×B200 or 8×B200**, and as the reference for **8×H200** on the same layout (`tensor_parallel_size` 4 with expert parallelism across eight GPUs). Adjust only if your stack or benchmarking requires it.
 
@@ -896,7 +902,7 @@ To make sure the model weights are ready for inference, you should download them
 
 === "Kimi K2.6"
 
-    Download `moonshotai/Kimi-K2.6` if you will deploy it. A listed model with no voting power is a bootstrap candidate (`V_min` established members); a solo `node-config` switch does not restore consensus weight. See [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
+    `moonshotai/Kimi-K2.6` is currently not served. Download it if deploying it (including to restore the group). A listed model with no voting power is a bootstrap candidate; a solo `node-config` switch does not restore consensus weight. See [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
 
     ```bash
     mkdir -p $HF_HOME

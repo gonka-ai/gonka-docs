@@ -1656,7 +1656,10 @@ After a restart, the issue should not recur.
 !!! note 
 	`main` includes v0.2.10-post6. Nodes starting from this version apply this setting automatically, so you typically won’t need to change it manually.
 
-## Inference 
+## Inference
+
+!!! note
+    Several answers below discuss `moonshotai/Kimi-K2.6` request-shape details from when that model was served. That model is currently not served — query `/v1/epochs/current/participants` and the broker’s `GET /v1/models`. Governance listing is not live serving. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` was removed by proposal 78.
 
 ### Why does the 4,096 output token limit cause the model to stall during thinking — returning zero tokens?
 
@@ -1783,7 +1786,7 @@ Half of the default budget goes to hidden thinking even for a trivial task — h
 
 **For Inference User:**
 
-- Tool-heavy / agentic flows without reasoning — `"thinking": {"type": "disabled"}` (Kimi) or `"enable_thinking": false` (Qwen, translated automatically).
+- Tool-heavy / agentic flows without reasoning — `"thinking": {"type": "disabled"}` (Kimi).
 - Complex reasoning — set `thinking_token_budget` explicitly (don't rely on the default `max_tokens / 2`).
 - If `thinking:disabled` still causes burn on your prompt — duplicate it with `thinking_token_budget: 0` explicitly.
 
@@ -1929,11 +1932,13 @@ The low-level vLLM fields `guided_json`, `guided_regex`, `guided_grammar`, `guid
 
 **The correct fields for structured output**
 
-| Field | Kimi K2.6 | Qwen3-235B | Notes |
-|------|-----------|------------|---------|
-| `response_format` (`type: "json_schema"` or `"json_object"`) | works | works | OpenAI standard. Reliable choice. Empirically verified on both models through a public broker. |
-| `structured_outputs` envelope (`json`/`regex`/`choice`/`grammar`/`structural_tag`/`json_object`) | HTTP 400 (network-wide reject) | HTTP 400 (network-wide reject) | PR #1215 (`StructuredOutputsValidator`) merged in the repository, but **not activated on production mainnet as of 2026-05-25**. Both brokers reject with an identical error: `"Chat completions parameter `structured_outputs` is currently rejected by the Gonka network"` — the error references the dev branch `dl/devshards-gateway-to-main`, not main. This is a **network-wide release lag**, not per-broker. The only reliable structured-output option today is `response_format` on Kimi K2.6 and Qwen3. |
-| Both at once (`response_format` + `structured_outputs`) | HTTP 400 | HTTP 400 / 502 (depends on the broker) | The gateway rejects the combo before vLLM (anchor `#reject-structured_outputs-with-response_format`). On vLLM 0.20.0 the fields are merged via `dataclasses.replace()` and violate exactly-one in `StructuredOutputsParams.__post_init__`. |
+`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` is no longer on mainnet (proposal 78, epoch 308). The table below is for `response_format` behavior on `moonshotai/Kimi-K2.6` when that model is served — confirm live capacity on the broker’s `GET /v1/models` before sending Kimi requests.
+
+| Field | Kimi K2.6 (when served) | Notes |
+|------|-----------|---------|
+| `response_format` (`type: "json_schema"` or `"json_object"`) | works | OpenAI standard. Reliable choice. Empirically verified through a public broker. |
+| `structured_outputs` envelope (`json`/`regex`/`choice`/`grammar`/`structural_tag`/`json_object`) | HTTP 400 (network-wide reject) | PR #1215 (`StructuredOutputsValidator`) merged in the repository, but **not activated on production mainnet as of 2026-05-25**. Brokers reject with: `"Chat completions parameter `structured_outputs` is currently rejected by the Gonka network"` — the error references the dev branch `dl/devshards-gateway-to-main`, not main. This is a **network-wide release lag**, not per-broker. The only reliable structured-output option today is `response_format`. |
+| Both at once (`response_format` + `structured_outputs`) | HTTP 400 / 502 (depends on the broker) | The gateway rejects the combo before vLLM (anchor `#reject-structured_outputs-with-response_format`). On vLLM 0.20.0 the fields are merged via `dataclasses.replace()` and violate exactly-one in `StructuredOutputsParams.__post_init__`. |
 
 **For Inference User:**
 
@@ -1943,7 +1948,7 @@ The low-level vLLM fields `guided_json`, `guided_regex`, `guided_grammar`, `guid
 **For Broker:**
 
 - Guided decoding doesn't raise throughput. Don't promise it to clients as a solution for the token cap.
-- Watch for the rollout of PR #1215 (`StructuredOutputsValidator`) on all routes — Qwen3 users are already waiting for the `structured_outputs` envelope for regex / choice / grammar workloads.
+- Watch for the rollout of PR #1215 (`StructuredOutputsValidator`) on all routes — clients that need regex / choice / grammar structured output are waiting for the `structured_outputs` envelope.
 
 ### Why does generation speed fluctuate so drastically? And why does the boost apply only to reasoning tokens?
 
@@ -1988,17 +1993,17 @@ Kimi with thinking enabled first generates a bulky `reasoning_content` (hundreds
 
 **For Broker:**
 
-Where exactly the difference comes from (per internal benchmarks from [`kaitakuai/experiments`](https://github.com/kaitakuai/experiments) — not measured on gonka-api.org or gonkagate.com):
+Where exactly the difference comes from (per internal benchmarks from [`kaitakuai/experiments`](https://github.com/kaitakuai/experiments) — not measured on gonka-api.org or gonkagate.com). The Qwen3-235B numbers below are **historical**: that model was retired from mainnet at epoch 308 (proposal 78) and is not served today.
 
-| GPU | Memory | sm | Qwen3-235B nonces/min per instance | Per-GPU |
+| GPU | Memory | sm | Qwen3-235B nonces/min per instance (historical) | Per-GPU |
 |-----|--------|-----|------------------------------|---------|
 | 4×H100 SXM5 | 80 GB HBM3 | 90 | **1,248** @ batch=16 | ~312 |
 | 4×H200 | 141 GB HBM3e | 90 | **1,408** @ batch=32–64 | ~352 |
 | 2×B200 | 192 GB HBM3e | 100 | **1,984** @ batch=64 | **~992** |
 
 - **H200 vs H100:** +13% per-GPU. Same chip (sm_90), but HBM3e + 141 GB vs HBM3 + 80 GB → allows a smaller TP for large models and a faster KV cache.
-- **B200/B300 vs H100/H200:** **~3× per-GPU** on Qwen3-235B FP8.
-- **Kimi-K2.6 INT4 — specific numbers:** 4×B200 gives 2,240 nonces/min = **~560 per-GPU** (see `experiments/2026-05/kimi_k26_int4_4xb200_q-int4-k2`). 16×H100 TP gives 1,389 nonces/min = **~87 per-GPU** (see `experiments/2026-05/kimi-k26-int4-2x8xh100`). The difference on a per-GPU basis is roughly 6×; in absolute numbers, per-GPU Kimi is slower than Qwen on the same hardware (4×B200 Kimi INT4 ~560 per-GPU vs Qwen ~992 per-GPU).
+- **B200/B300 vs H100/H200:** **~3× per-GPU** on the historical Qwen3-235B FP8 baseline.
+- **Kimi-K2.6 INT4 — specific numbers:** 4×B200 gives 2,240 nonces/min = **~560 per-GPU** (see `experiments/2026-05/kimi_k26_int4_4xb200_q-int4-k2`). 16×H100 TP gives 1,389 nonces/min = **~87 per-GPU** (see `experiments/2026-05/kimi-k26-int4-2x8xh100`). The difference on a per-GPU basis is roughly 6×; in absolute numbers, per-GPU Kimi was slower than historical Qwen on the same hardware (4×B200 Kimi INT4 ~560 per-GPU vs Qwen ~992 per-GPU).
 - **Kimi-K2.6 INT4 on Blackwell:** `VLLM_USE_FLASHINFER_MOE_INT4=1` gives **+138% vs Marlin** (A/B test in `experiments/2026-05/kimi_k26_b300_eager_flashinfer`). Applicable only to INT4 MoE workloads on the Blackwell family (kernel gate — `is_device_capability_family(100)`, covers B100/B200/B300; B300 is effectively sm_103a).
 
 **Tracing and diagnostics:** observability was merged in [PR #1046 "Implement dapi & devshard observability"](https://github.com/gonka-ai/gonka/pull/1046) — it adds OpenTelemetry traces, Prometheus metrics, and dashboards. If Grafana has no per-host TTFT panels — check that DAPI / devshard are updated and the dashboards are included in the build.
@@ -2077,13 +2082,13 @@ Three causes; the client can work around two, but not the third.
 
 ### Is there a model that handles both input and output without trade-offs?
 
-**MiniMax-M2.7** launched on mainnet ~2026-05-28 via the chain governance upgrade v0.2.13 — Gonka's third model. Verified live on both brokers. Clarification: "Qwen output cap 8,192" in the question is inaccurate — the output cap is the same for all models (3,072 / 4,096, Q3), not model-side.
+**MiniMax-M2.7** launched on mainnet ~2026-05-28 via the chain governance upgrade v0.2.13. Verified live on both brokers. Clarification: "Qwen output cap 8,192" in the question is inaccurate — the output cap is the same for all models (3,072 / 4,096, Q3), not model-side. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` itself is **not on mainnet** (removed by proposal 78 at epoch 308). `moonshotai/Kimi-K2.6` remains in governance params and is currently not served — check the broker’s `GET /v1/models`.
 
 | Model | Native context | Mainnet | Native thinking | Tool calls |
 |--------|---------------|---------|-----------------|------------|
-| Kimi-K2.6 | 256K | 240K | yes (chat_template_kwargs) | `functions.<name>:<idx>` |
-| Qwen3-235B-A22B-Instruct-2507-FP8 | 128K | 240K | no (Instruct) | hermes parser |
 | MiniMax-M2.7 | ~180K | 180K | yes (`<think>` in content) | `chatcmpl-tool-<hash>` |
+| DeepSeek-V4-Flash-0731 | — | 400K | yes (`deepseek_v4` parser) | `deepseek_v4` parser |
+| Kimi-K2.6 | 256K | 240K | yes (chat_template_kwargs) | `functions.<name>:<idx>` |
 
 **MiniMax deploy spec (`inference-chain/app/upgrades/v0_2_13/upgrades.go:minimaxGovernanceModel()`):**
 
@@ -2096,14 +2101,14 @@ minimaxStartEpoch: 271
 HfCommit: d494266a4affc0d2995ba1fa35c8481cbd84294b
 ```
 
-**Important differences of MiniMax from Kimi/Qwen:**
+**Important differences of MiniMax from Kimi:**
 
 - **`<think>` blocks in `delta.content`** (not in `reasoning_content` like Kimi) — behavior of the `minimax_m2_append_think` parser. Parse the tags client-side if you don't need them in the final text.
 - **Tool-call IDs `chatcmpl-tool-<hash>`** — already unique by shape, so the Q5 advice about canonical id rewriting doesn't apply.
 
 Related artifacts: PR #1163 Weight Scaling (merged 2026-05-13, aligned the economics with Kimi); PR [#1226](https://github.com/gonka-ai/gonka/pull/1226) (open, not merged) — a gateway-side refactor on top of the deployed model, not a blocker.
 
-**For Inference User:** MiniMax-M2.7 is available **today** (ID `MiniMaxAI/MiniMax-M2.7` on gonka-api.org, `minimaxai/minimax-m2.7` on gonkagate.com — see case-sensitivity Q1). Choose by workload: Kimi for reasoning+tools, Qwen3 for large context + structured outputs, MiniMax-M2.7 — a tool-friendly alternative to Kimi with better throughput.
+**For Inference User:** MiniMax-M2.7 ID is `MiniMaxAI/MiniMax-M2.7` on gonka-api.org, `minimaxai/minimax-m2.7` on gonkagate.com — see case-sensitivity Q1. Choose among models the broker actually lists on `GET /v1/models`. Do not send `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`.
 
 **For Broker:** the deploy was done by the network via the v0.2.13 upgrade. Not serving MiniMax — check that the mlnode-image supports the deploy args above and the hosts are updated. PR #1226 (open) will improve the UX (per-model dispatch, tool-message shape), but doesn't block.
 
@@ -2204,7 +2209,7 @@ Even when vLLM #33264 merges and the gateway adds a hash → `cache_salt` bridge
 
 **Target:** v0.2.14+, but there's no committed timeline; blocked by issue #1198 (independent validation, up-for-grabs).
 
-**What's empirically confirmed today:** a request with a `messages[0].content` array containing `{type:"image_url"}` returns HTTP 400 on both routes (Kimi and Qwen3). Multimodal inputs are not accepted at the gateway level.
+**What's empirically confirmed today:** a request with a `messages[0].content` array containing `{type:"image_url"}` returns HTTP 400 (verified on Kimi). Multimodal inputs are not accepted at the gateway level.
 
 **For Inference User:** not available today.
 

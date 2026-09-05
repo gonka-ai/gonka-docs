@@ -97,10 +97,12 @@ DeepSeek V4 Flash is registered with `v_ram = 280` (about **280 GB of total VRAM
 - 8×B200 optimally yields **2.96×** weight running Kimi K2.6
 - 8×B300 optimally yields **3.37×** weight running DeepSeek V4 Flash
 
+A model's `weight_scale_factor` only produces consensus weight if that model group is eligible (has voting power). Check `poc_params` and `confirmation_weight_scales`.
+
 Practical implications:
 
 - **B300 owners**: DeepSeek is the highest-weight option under the current coefficient. Plan for vLLM 0.25.1 / MLNode 3.0.16 and the B300 node config.
-- **B200 owners**: Kimi K2.6 still yields the highest PoC weight on this class; DeepSeek is available via the B200 node config if you want to opt in.
+- **B200 owners**: DeepSeek and MiniMax both have B200 node configs. `moonshotai/Kimi-K2.6` is currently not served — confirm on `/v1/epochs/current/participants`.
 - **H200 / H100 owners**: MiniMax M2.7 remains the highest-weight model for these classes; DeepSeek configs exist, but switching is optional and not required for max weight.
 - Full coefficient table: [Google Sheet](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
 

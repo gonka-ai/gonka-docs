@@ -1,10 +1,15 @@
 # Kimi K2.6 Bootstrap
 
-`moonshotai/Kimi-K2.6` has **passed bootstrap** and is **active** in Proof of Compute on Gonka mainnet. The timeline and transaction examples below remain useful for understanding how activation worked and for operations such as delegation; for current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md).
+`moonshotai/Kimi-K2.6` is in governance models and `poc_params` (since v0.2.12). It is currently not served: no host in `/v1/epochs/current/participants` lists it. The timeline below is the original bootstrap record (first eligible at epoch 251). For MiniMax/DeepSeek deploy defaults, see the [Host Quickstart](./quickstart.md).
 
-Epoch 251 was when the model group `moonshotai/Kimi-K2.6` became eligible.
+This document explains how a model group becomes eligible and how participation modes work.
 
-This document explains how to minimize the chance of weight reductions, whether or not the model gets enough participants.
+!!! warning "Governance listing is not eligibility"
+    Timeline steps below that mention `Qwen235B` are historical (the original Kimi bootstrap). `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` was removed by [proposal 78](../network-updates.md#june-25-2026) at epoch 308. Do not deploy it.
+
+    A model in `poc_params` with no voting power is a bootstrap candidate on the next PoC. Switching `node-config` does not restore consensus weight. Eligibility needs `V_min` established members and `W_threshold` (read live values from `poc_params`). Pre-eligibility is advisory — enough hosts can still become eligible by submitting that model's PoC — but one host is not enough.
+
+    Do **not** assume you must `refuse` a model that is not eligible. Regular miss/refuse penalties apply only to **eligible** groups. On the bootstrap path, an unmatched host is treated as NONE; `refuse` is not a bootstrap participation mode.
 
 !!! note
     The bootstrap can take multiple epochs, depending on how many participants are ready. Before activation, no weight reduction happens if participants submit their choice explicitly and hosts who are going to deploy submit `PoCIntent`.

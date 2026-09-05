@@ -78,7 +78,7 @@ MiniMax-M2.7 (FP8) requires **roughly 320 GB of total VRAM** per instance — a 
 
 - **A100 80GB owners**: MiniMax-M2.7 is the **first governance-approved model that fits the A100 80GB envelope**. If you previously could not host Kimi or Qwen-235B, you are now eligible to earn consensus weight via MiniMax. Recommended config: 8×A100 80GB with `tp=4` (two instances per host) or `tp=8` (one instance).
 - **H100 / H200 owners**: MiniMax-M2.7 is comparable to Qwen3-235B on consensus output (a few percent in either direction depending on workload mix) and clearly preferable to Kimi K2.6 after Kimi's coefficient adjustment in `v0.2.13`. Switching from Kimi to MiniMax is recommended; hosts previously on Qwen3-235B must switch to MiniMax, as Qwen3-235B has been retired by governance (proposal 78).
-- **B200 / B300 owners**: MiniMax-M2.7 runs well, but Kimi K2.6 retains a narrow consensus-output lead on flagship hardware. No change required if you already run Kimi.
+- **B200 / B300 owners**: MiniMax-M2.7 runs well. `moonshotai/Kimi-K2.6` is currently not served, so there is no live Kimi weight on this class — confirm on `/v1/epochs/current/participants`.
 
 
 ## Instructions for hosts who are going to deploy MiniMax-M2.7

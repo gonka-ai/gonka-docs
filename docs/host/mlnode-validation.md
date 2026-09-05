@@ -68,6 +68,9 @@ Per [SKILL.md → Available golden references](https://github.com/gonka-ai/gonka
 
 The "Recording context" column describes the server that generated the vectors (FYI only — these flags are NOT a deploy default for your validation; see [Deploy config: from the caller, not the golden](#deploy-config-from-the-caller-not-the-golden) above).
 
+!!! note "Qwen golden references are not mainnet models"
+    `Qwen/Qwen3-0.6B` is a local-dev fixture. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` was removed from mainnet by [proposal 78](../network-updates.md#june-25-2026) (epoch 308). Those artifacts remain in the repo for historical / local checks. Hosts joining mainnet should validate the model they actually deploy. A Kimi K2.6 golden reference is in the repo for that layout.
+
 | Model | Filename | Vectors | Recording context |
 |-------|----------|---------|-------------------|
 | `Qwen/Qwen3-0.6B` | `qwen-qwen3-0.6b.json` | 32 | local dev / single GPU |
@@ -76,15 +79,15 @@ The "Recording context" column describes the server that generated the vectors (
 | `moonshotai/Kimi-K2.6` (default lookup) | `moonshotai-kimi-k2.6.json` | 200 | tp=4 + expert-parallel, FLASHINFER_MLA attention, gpu-mem 0.95, max-model-len 240000, kimi_k2 tool/reasoning parsers, `--disable-custom-all-reduce`, `--trust-remote-code`. Recorded on 4xB200. |
 | `deepseek-ai/DeepSeek-V4-Flash-0731` (default lookup) | `deepseek-ai-deepseek-v4-flash-0731.json` | 1000 | tp=1, fp8 kv-cache, max-model-len 400000, `--tokenizer-mode deepseek_v4`, deepseek_v4 tool/reasoning parsers, `--trust-remote-code`. Recorded on 1xB300 (vLLM 0.25.1). On the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts) branch. |
 
-For Qwen3-235B the same model id has multiple references, exercising different code paths (tp-size, MoE backend) — see SKILL.md for the recommended multi-run pattern.
+For Qwen3-235B the same model id has multiple references, exercising different code paths (tp-size, MoE backend) — see SKILL.md for the recommended multi-run pattern. That model is not on mainnet; use this only if you are reproducing a historical or local validation.
 
 ## Ready-made deploy configs in `deploy/join/`
 
 The repo ships `node-config-*.json` files matching common GPU classes. DeepSeek configs and MLNode 3.0.16 are on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) branch:
 
-- `deploy/join/node-config-qwen235B-B200.json`
-- `deploy/join/node-config-kimik26-B200.json`
-- `deploy/join/node-config-kimik26-H200.json`
+- `deploy/join/node-config-qwen235B-B200.json` (historical Qwen3-235B layout; that model is not on mainnet)
+- `deploy/join/node-config-kimik26-B200.json` (Kimi K2.6)
+- `deploy/join/node-config-kimik26-H200.json` (Kimi K2.6)
 - `deploy/join/node-config-minimaxm27-A100.json`
 - `deploy/join/node-config-minimaxm27-H100.json`
 - `deploy/join/node-config-minimaxm27-H200.json`

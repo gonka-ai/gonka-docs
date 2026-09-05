@@ -65,7 +65,7 @@ Example ML Node configuration:
 ```
 
 !!! note "Supported model and vLLM arguments"
-    The network currently supports three active PoC models: `MiniMaxAI/MiniMax-M2.7` (base), `moonshotai/Kimi-K2.6`, and `deepseek-ai/DeepSeek-V4-Flash-0731` (subject to governance decisions). Use the matching `node-config-*.json` from the [Host Quickstart](./quickstart.md). See the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
+    Use the matching `node-config-*.json` from the [Host Quickstart](./quickstart.md). Confirm the model id against `GET /v1/governance/models`; governance listing is not eligibility. See the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
 
 ---
 

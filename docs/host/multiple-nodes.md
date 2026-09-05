@@ -99,12 +99,12 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 
 Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired.
-The network currently supports three active PoC models: `MiniMaxAI/MiniMax-M2.7` (base), `moonshotai/Kimi-K2.6`, and `deepseek-ai/DeepSeek-V4-Flash-0731`. Download the model you will serve:
+Download the model you will deploy. Confirm it is in `GET /v1/governance/models`; governance listing is not eligibility.
 
 ```
 huggingface-cli download MiniMaxAI/MiniMax-M2.7
-huggingface-cli download moonshotai/Kimi-K2.6
 huggingface-cli download deepseek-ai/DeepSeek-V4-Flash-0731 --revision 7872f01b1d1fe23eabc4c98b48bffcef5a386062
+huggingface-cli download moonshotai/Kimi-K2.6
 ```
 
 Model licenses: see [Model licenses](../model-licenses.md). DeepSeek V4 Flash is MIT.
@@ -159,10 +159,10 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `poc_port`       | The port which is used for **MLNode management**.   | `8080` (port mapped to `8080` of MLNode's `nginx`)                                                   |
 | `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500`                                                     |
 | `models`         | A **supported models** that the inference node can process.                              | (see below)    |
-| `model_name`         | The name of the model.                              | `MiniMaxAI/MiniMax-M2.7`, `moonshotai/Kimi-K2.6`, `deepseek-ai/DeepSeek-V4-Flash-0731`    |
+| `model_name`         | The name of the model.                              | `MiniMaxAI/MiniMax-M2.7`, `deepseek-ai/DeepSeek-V4-Flash-0731`, `moonshotai/Kimi-K2.6` (ids from `GET /v1/governance/models`)    |
 | `model_args`         | vLLM arguments for the inference of the model.                              | `"--tensor-parallel-size","4"`    |
 
-The network currently supports three active PoC models: `MiniMaxAI/MiniMax-M2.7` (base), `moonshotai/Kimi-K2.6`, and `deepseek-ai/DeepSeek-V4-Flash-0731`.
+Confirm the model id against `GET /v1/governance/models`. Governance listing is not eligibility — check `/v1/epochs/current/participants` and `confirmation_weight_scales` before treating a model as a live PoC group.
 
 To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout. Full `node-config.json` examples are in the [Host Quickstart](./quickstart.md).
 

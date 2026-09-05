@@ -22,14 +22,16 @@ Multi-model Proof-of-Compute (PoC) arrived in v0.2.12 and expanded again in v0.2
 
 Before v0.2.12, the network operated a single enforced model: `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`. v0.2.12 added `moonshotai/Kimi-K2.6` as the second governance-approved model and introduced per-model participation, delegation, and penalty timing. v0.2.13 recalibrated model coefficients and added `MiniMaxAI/MiniMax-M2.7` as the third governance-approved model.
 
-As of epoch `308`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` has been retired by governance (proposal 78) and `MiniMaxAI/MiniMax-M2.7` is the base model. As of epoch `360` ([proposal 94](../network-updates.md#august-14-2026)), `deepseek-ai/DeepSeek-V4-Flash-0731` is also an active PoC model group. `poc_params.models` on mainnet contains:
+As of epoch `308`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` has been retired by governance (proposal 78) and `MiniMaxAI/MiniMax-M2.7` is the base model. As of epoch `360` ([proposal 94](../network-updates.md#august-14-2026)), `deepseek-ai/DeepSeek-V4-Flash-0731` is also a PoC model group. `poc_params.models` on mainnet contains:
 
-| `model_id` | Current mainnet status |
+| `model_id` | On-chain notes |
 |---|---|
-| `MiniMaxAI/MiniMax-M2.7` | Base model, active |
-| `moonshotai/Kimi-K2.6` | Active |
-| `deepseek-ai/DeepSeek-V4-Flash-0731` | Active (epoch 360; `weight_scale_factor = 0.246`) |
-| `zai-org/GLM-5.2-FP8` | Registered; not bootstrapped (`penalty_start_epoch = 500`) |
+| `MiniMaxAI/MiniMax-M2.7` | Base model since epoch 308 (proposal 78) |
+| `deepseek-ai/DeepSeek-V4-Flash-0731` | PoC group since epoch 360 (proposal 94). Coefficient is in `poc_params`. |
+| `moonshotai/Kimi-K2.6` | In `poc_params` since v0.2.12 (first eligible at epoch 251). Listing is not eligibility. |
+| `zai-org/GLM-5.2-FP8` | In `poc_params`. Bootstrap / penalty timing is `penalty_start_epoch` in params. |
+
+A model in `poc_params` is **eligible** for that epoch’s miss/refuse penalties only if it has voting power that meets `v_min` and `w_threshold`. Models in `poc_params` with no voting power are bootstrap candidates on the next PoC. Check `/v1/epochs/current/participants` and the epoch’s `confirmation_weight_scales` — do not infer status from the table above.
 
 Per-model `weight_scale_factor` and `penalty_start_epoch` change through governance too often to list here reliably. Always read them from a live `params` query on the chain you use:
 

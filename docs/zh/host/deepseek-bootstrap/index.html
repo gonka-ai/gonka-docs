@@ -1,0 +1,3544 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/docs/zh/host/deepseek-bootstrap/">
+      
+      
+        <link rel="prev" href="../minimax-bootstrap/">
+      
+      
+        <link rel="next" href="../benchmark-to-choose-optimal-deployment-config-for-llms/">
+      
+      
+        
+          <link rel="alternate" href="../../../host/deepseek-bootstrap/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>DeepSeek V4 Flash 引导 - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CInter:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Inter"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - DeepSeek V4 Flash 引导">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/docs/zh/host/deepseek-bootstrap/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deepseek-v4-flash-bootstrap" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="https://gonka.ai/" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DeepSeek V4 Flash 引导
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../host/deepseek-bootstrap/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://gonka.ai/" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    了解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    了解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/gateway-developer-quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署自己的网关
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    硬件规格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    密钥管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    抵押
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 节点管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    验证 ML 节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编辑主机公开信息
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型与基准测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型与基准测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi_model_poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模型 PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kimi-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kimi K2.6 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minimax-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MiniMax-M2.7 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek V4 Flash 引导
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek V4 Flash 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        治理背景（提案 94）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时间线
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="时间线">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可能场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        硬件与共识权重
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deepseek-v4-flash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        即将部署 DeepSeek V4 Flash 的主机说明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="即将部署 DeepSeek V4 Flash 的主机说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pocintent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将 PoCIntent 发送到链上
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        预下载权重并验证可部署性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        等待下一个评估纪元并检查预资格
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deepseek-v4-flash_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        若预合格，切换为 DeepSeek V4 Flash
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证您的部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deepseek-v4-flash_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不打算部署DeepSeek V4 Flash的主机说明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="不打算部署DeepSeek V4 Flash的主机说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deepseekpocintent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        检查您是否信任任何将部署DeepSeek/发送PoCIntent的主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        发送委托或拒绝
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贡献者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    贡献者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bounty-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    悬赏计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../report-vulnerability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    报告漏洞
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/create-account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建 Gonka 账户
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包与转账指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链转账
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    跨链转账
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过看板桥接（UI 指南）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_2" id="__nav_6_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    以太坊跨链桥
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    以太坊跨链桥
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/addresses-and-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    地址和密钥
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/bridge-epoch-update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链桥 Epoch 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/register-token/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    注册代币
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 USDT（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 GNK（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 GNK（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_3" id="__nav_6_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IBC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ibc/withdraw-usdt-via-kava/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过 Kava 提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_4" id="__nav_6_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/widget-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组件集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/tracker-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘与跟踪器集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    治理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    治理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交易与治理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-on-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提案投票
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/creating-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建提案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-power-eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting Power, Eligibility, Delegation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘维护者备忘录 v0.2.13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bounty-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    悬赏计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        治理背景（提案 94）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        时间线
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="时间线">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可能场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        硬件与共识权重
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deepseek-v4-flash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        即将部署 DeepSeek V4 Flash 的主机说明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="即将部署 DeepSeek V4 Flash 的主机说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pocintent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将 PoCIntent 发送到链上
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        预下载权重并验证可部署性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        等待下一个评估纪元并检查预资格
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deepseek-v4-flash_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        若预合格，切换为 DeepSeek V4 Flash
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证您的部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deepseek-v4-flash_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不打算部署DeepSeek V4 Flash的主机说明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="不打算部署DeepSeek V4 Flash的主机说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deepseekpocintent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        检查您是否信任任何将部署DeepSeek/发送PoCIntent的主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        发送委托或拒绝
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="deepseek-v4-flash-bootstrap">DeepSeek V4 Flash Bootstrap</h1>
+<p><code>deepseek-ai/DeepSeek-V4-Flash-0731</code> 已通过引导并自链纪元 360 起在 Gonka 主网的计算证明（Proof of Compute）中处于活跃状态（<a href="../../network-updates/#august-10-2026">提案 94</a>）。以下的时间线和交易示例仍有助于理解激活机制以及委托等操作；有关当前部署默认值（包括 <code>node-config.json</code>），请参阅 <a href="../quickstart/">Host Quickstart</a>。</p>
+<p>有关多模型 PoC 机制的更广泛背景，请参阅 <a href="../multi_model_poc/">Multi-Model PoC</a>。先前模型的引导及其机制记录在 <a href="../kimi-bootstrap/">Kimi K2.6 Bootstrap</a> 和 <a href="../minimax-bootstrap/">MiniMax-M2.7 Bootstrap</a> 中。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>引导可能需要多个纪元，具体取决于有多少参与者准备就绪。在配置的惩罚纪元之前，如果参与者明确提交其选择且即将部署的主机提交 <code>PoCIntent</code>，则不会减少权重。继续提供 MiniMax 或 Kimi 且未选择 DeepSeek 的主机，在 <code>penalty_start_epoch</code> 达到后仍需明确提交 <code>PoCDelegation</code> / <code>PoCRefusal</code>。DeepSeek 的按模型参与强制执行现已生效（纪元 360）。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>在 Blackwell GPU 上，为获得最佳性能，可使用以 fp8 + nvfp4 重新打包的模型，而非 fp8 + fp4，例如 <code>MJPansa/DeepSeek-V4-Flash-0731-NVFP4</code>。模型精度相同。使用 <code>node-config-deepseekv4flash0731-B200-nvfp4.json</code> / <code>node-config-deepseekv4flash0731-B300-nvfp4.json</code> 配置和 API <code>v0.2.15-post5</code> —— 详见 <a href="../../network-updates/">Network updates</a> 中 8 月 13 日的 "Testing DeepSeek V4 Flash" 注释。</p>
+</div>
+<h2 id="94">治理背景（提案 94）</h2>
+<p>提案 94 将 DeepSeek V4 Flash 注册为新的 PoC 模型。未修改任何现有参数或模型；唯一更改是新增模型条目。</p>
+<p>提案/公告详情：</p>
+<ul>
+<li>模型：<code>deepseek-ai/DeepSeek-V4-Flash-0731</code>（固定版本 <code>7872f01b1d1fe23eabc4c98b48bffcef5a386062</code>）</li>
+<li>需要在 <strong>vLLM 0.25.1</strong>（MLNode <strong>3.0.16</strong>）上运行的 MLNode，使用内置节点配置（<code>node-config-deepseekv4flash0731-*.json</code> 适用于 B300 / B200 / H200 / H100）</li>
+<li>链上 PoC <code>weight_scale_factor</code> 注册时为 <strong>0.214</strong>；<a href="../../network-updates/#august-29-2026">提案 98</a> 后提升至 <strong>0.246</strong>。推理 <code>validation_threshold = 0.90</code>（处理的 logprobs）</li>
+<li><code>penalty_start_epoch = 360</code></li>
+<li>投票于 <strong>2026 年 8 月 12 日 16:05 UTC</strong> / 8 月 12 日 09:05 PDT 结束</li>
+<li>首次引导尝试在 <strong>纪元 359</strong>；模型组于 <strong>纪元 360</strong> 变为活跃</li>
+</ul>
+<p>在投票结束后、纪元 359 快照前 <code>start_poc − deploy_window</code> 之前声明 <code>PoCIntent</code>。MLNode 镜像在 <a href="https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join"><code>vllm-0.25.1-upgrade</code></a> 分支上固定为 3.0.16（<code>main</code> 仍固定为 3.0.14-post2）；请使用内置的 DeepSeek <code>node-config-*.json</code> 文件。</p>
+<h2 id="_1">时间线</h2>
+<p>缺少 DeepSeek V4 Flash 的惩罚从 <strong>纪元 <code>360</code></strong> 开始。从提案激活起，每个纪元链都会尝试引导该模型：在该纪元 PoC 阶段前捕获 <code>BootstrapDelegationSnapshot</code> 500 个区块（来自 <code>delegation_params.deploy_window</code> 的 <code>DeployWindow</code>），根据 <code>V_min = 3</code> 直接提交者和总网络权重的 <code>W_threshold</code> 比例（通过 INTENT + DELEGATE 实现 <code>&gt;2/3</code> 可达性）评估预资格，并（如预合格）在该纪元启动 DeepSeek 的 PoC。</p>
+<p>提案 94 保留当前委托阈值：<code>w_threshold = 0.1</code>、<code>v_min = 3</code>、<code>no_participation_penalty = 0.15</code>、<code>refusal_penalty = 0.1</code>。执行后仍需从链上读取实时值：</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"https://node3.gonka.ai/chain-api/productscience/inference/inference/params"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.params.delegation_params | {deploy_window, w_threshold, v_min, no_participation_penalty, refusal_penalty}'</span>
+<span class="c1"># Decimal fields use {value, exponent}: e.g. {"value":"1","exponent":-1} → 0.1 (10%).</span>
+</code></pre></div>
+<p>提案执行后确认实时 DeepSeek 条目（包括 <code>penalty_start_epoch</code> 和 <code>weight_scale_factor</code>）：</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"https://node3.gonka.ai/chain-api/productscience/inference/inference/params"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.params.poc_params.models[] | select(.model_id=="deepseek-ai/DeepSeek-V4-Flash-0731")'</span>
+</code></pre></div>
+<p>为计算任何给定评估纪元的确切区块号，请以链当前纪元为锚点进行前推。<code>epoch_shift</code> 参数不锚定创世块（在过去的纪元长度变化中会过时），因此 <code>epoch_shift + N * epoch_length</code> 在主网上是错误的——始终以实时当前 PoC_start 为锚点：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NODE</span><span class="o">=</span>https://node3.gonka.ai
+
+<span class="nv">PARAMS</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">/chain-api/productscience/inference/inference/params"</span><span class="k">)</span>
+<span class="nv">EPOCH_LENGTH</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$PARAMS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.params.epoch_params.epoch_length | tonumber'</span><span class="k">)</span>
+
+<span class="nv">CURRENT</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">/v1/epochs/current/participants"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.active_participants'</span><span class="k">)</span>
+<span class="nv">CURRENT_EPOCH</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CURRENT</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.epoch_id'</span><span class="k">)</span>
+<span class="nv">CURRENT_POC_START</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CURRENT</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.poc_start_block_height'</span><span class="k">)</span>
+
+<span class="nv">EPOCH</span><span class="o">=</span><span class="m">359</span><span class="w">                   </span><span class="c1"># change to any target epoch</span>
+<span class="nv">POC_START</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">CURRENT_POC_START</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">(</span><span class="nv">EPOCH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">CURRENT_EPOCH</span><span class="o">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">EPOCH_LENGTH</span><span class="w"> </span><span class="k">))</span>
+<span class="nv">SNAPSHOT_BLOCK</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">POC_START</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="k">))</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Epoch </span><span class="nv">$EPOCH</span><span class="s2"> (current </span><span class="nv">$CURRENT_EPOCH</span><span class="s2">): snapshot at block </span><span class="nv">$SNAPSHOT_BLOCK</span><span class="s2">, PoC starts at block </span><span class="nv">$POC_START</span><span class="s2">"</span>
+</code></pre></div>
+<p>当参与主机加委托覆盖阈值时，DeepSeek 最早成为预合格。提案参数中保留现有模型条目（<code>MiniMaxAI/MiniMax-M2.7</code>、<code>moonshotai/Kimi-K2.6</code>、<code>zai-org/GLM-5.2-FP8</code>）不变。</p>
+<h3 id="_2">可能场景</h3>
+<p>DeepSeek V4 Flash 的引导可能遵循以下主要场景：</p>
+<ol>
+<li>
+<p><strong>在某纪元快照中 DeepSeek 未通过预评估</strong>（且在 PoC 中仍不合格）：</p>
+<ul>
+<li>所有提交 <code>PoCIntent</code> 的人保持其全部权重（无惩罚）</li>
+<li>所有提交 <code>PoCDelegation</code> 的人保持其全部权重（无惩罚）</li>
+<li><strong>在纪元 <code>360</code> 之前</strong>：所有未提交者以及提交 <code>PoCRefusal</code> 者均保持全部权重（宽限期期间惩罚被抑制）</li>
+<li><strong>从纪元 <code>360</code> 起</strong>：所有未提交者每纪元每遗漏模型损失 <strong>15%</strong> 权重（<code>no_participation_penalty</code>）；提交 <code>PoCRefusal</code> 可避免 15% 的遗漏，但在惩罚纪元生效后仍适用 <code>refusal_penalty</code>（<strong>10%</strong>）</li>
+</ul>
+</li>
+</ol>
+<p>=&gt; 在纪元 <code>360</code> 之前明确发送包含您意图行为的交易至关重要</p>
+<ol>
+<li>
+<p><strong>DeepSeek 通过预评估但未在 PoC 中合格</strong>（例如，INTENT 主机未能及时部署）：</p>
+<ul>
+<li>实际部署 DeepSeek 并在该纪元提交 DeepSeek PoC 提交的主机，保持其现有模型组的全部权重（无惩罚）</li>
+<li>所有提交 <code>PoCDelegation</code> 的人保持其全部权重（无惩罚）</li>
+<li><strong>从纪元 <code>360</code> 起</strong>：所有未提交者损失 15% 权重；提交 <code>360</code> 但未部署且未提交 DeepSeek PoC 提交者也损失 15%（<code>IntentMissed</code> 解决）；<code>PoCRefusal</code> 采用 10% 的 <code>refusal_penalty</code> 而非 15% 的遗漏</li>
+</ul>
+</li>
+</ol>
+<p>如果 DeepSeek 通过两项检查，惩罚遵循 <a href="../multi_model_poc/">Multi-Model PoC</a> 中描述的常规场景。</p>
+<h2 id="_3">硬件与共识权重</h2>
+<p>DeepSeek V4 Flash 注册为 <code>v_ram = 280</code>（每个实例约 <strong>280 GB 总显存</strong>）。实时 <code>weight_scale_factor</code> 为 <strong>0.246</strong>（<a href="../../network-updates/#august-29-2026">提案 98</a>；原为 0.214）。与运行 MiniMax M2.7 的 8×H100 集群相比，原始公告（0.214 时）估算：</p>
+<ul>
+<li>8×H200 最优可产生 <strong>1.46×</strong> 权重运行 MiniMax M2.7</li>
+<li>8×B200 最优可产生 <strong>2.96×</strong> 权重运行 Kimi K2.6</li>
+<li>8×B300 在运行 DeepSeek V4 Flash 时最优可产生 <strong>3.37×</strong> 权重</li>
+</ul>
+<p>模型的 <code>weight_scale_factor</code> 仅在该模型组有资格（具有投票权）时才产生共识权重。请检查 <code>poc_params</code> 和 <code>confirmation_weight_scales</code>。</p>
+<p>实际影响：</p>
+<ul>
+<li><strong>B300 拥有者</strong>：在当前系数下，DeepSeek 是权重最高的选项。请为 vLLM 0.25.1 / MLNode 3.0.16 和 B300 节点配置做准备。</li>
+<li><strong>B200 拥有者</strong>：DeepSeek 和 MiniMax 均有 B200 节点配置。<code>moonshotai/Kimi-K2.6</code> 目前未提供服务——请在 <code>/v1/epochs/current/participants</code> 上确认。</li>
+<li><strong>H200 / H100 拥有者</strong>：MiniMax M2.7 仍是这些类别中权重最高的模型；DeepSeek 配置存在，但切换是可选的，无需为获得最大权重而强制切换。</li>
+<li>完整系数表：<a href="https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0">Google Sheet</a></li>
+</ul>
+<p>基于模型使用情况，治理仍可调整系数以激励更多 B 系列 GPU 转向 DeepSeek。</p>
+<h2 id="deepseek-v4-flash">即将部署 DeepSeek V4 Flash 的主机说明</h2>
+<h4 id="pocintent">将 <code>PoCIntent</code> 发送到链上</h4>
+<p>在提案 94 投票结束后、目标纪元快照块前提交：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NODE</span><span class="o">=</span>https://node3.gonka.ai/chain-rpc/
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>declare-poc-intent<span class="w"> </span>deepseek-ai/DeepSeek-V4-Flash-0731<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span>gonka-api-key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span>gonka-mainnet<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<h4 id="_4">预下载权重并验证可部署性</h4>
+<p>使用提案中固定的 Hugging Face 版本：</p>
+<ul>
+<li><code>hf_repo</code>: <code>deepseek-ai/DeepSeek-V4-Flash-0731</code></li>
+<li><code>hf_commit</code>: <code>7872f01b1d1fe23eabc4c98b48bffcef5a386062</code></li>
+<li>许可证：<strong>MIT</strong> — 请参阅 <a href="../../model-licenses/">模型许可证</a> 和 <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/LICENSE">上游 LICENSE</a>。Blackwell nvfp4 重打包 <code>MJPansa/DeepSeek-V4-Flash-0731-NVFP4</code>（提交 <code>64d64cd89bc63a66aa46506da89d7821f7491c62</code>）同样为 MIT 许可。</li>
+</ul>
+<p>请遵循 <a href="https://gonka.ai/host/quickstart/#server-pre-download-model-weights-to-hugging-face-cache-hf_home">预下载模型权重</a> 指南。在引导窗口前规划好磁盘空间和带宽——首次尝试时 Hugging Face 的速率限制可能导致资格丧失。</p>
+<p>在引导快照块前，验证模型是否能在您的硬件上加载。您需要：</p>
+<ul>
+<li>MLNode 使用 <strong>vLLM 0.25.1</strong>（镜像 <strong>3.0.16</strong>）</li>
+<li>已提供的节点配置：<code>node-config-deepseekv4flash0731-*.json</code>（适用于您的 GPU 类型：B300 / B200 / H200 / H100）</li>
+</ul>
+<p>链上将 DeepSeek 注册为 <code>Model.ModelArgs</code>：</p>
+<div class="highlight"><pre><span></span><code>--max-model-len 400000
+--kv-cache-dtype fp8
+--tokenizer-mode deepseek_v4
+--enable-auto-tool-choice
+--tool-call-parser deepseek_v4
+--reasoning-parser deepseek_v4
+--trust-remote-code
+</code></pre></div>
+<p>部署端标志（<code>--tensor-parallel-size</code>、<code>--enable-expert-parallel</code>、<code>--gpu-memory-utilization</code>、推测/注意力后端标志等）来自为您的硬件提供的 <code>node-config</code>——请勿仅根据链上 <code>ModelArgs</code> 自行创建。</p>
+<h4 id="_5">等待下一个评估纪元并检查预资格</h4>
+<p>每个评估纪元的快照块后，链会发出 <code>bootstrap_model_preeligibility</code> 事件：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NODE</span><span class="o">=</span>https://node3.gonka.ai
+<span class="nv">MODEL</span><span class="o">=</span><span class="s1">'deepseek-ai/DeepSeek-V4-Flash-0731'</span>
+
+<span class="nv">HEIGHT</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-sG<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">/chain-rpc/block_search"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s2">"query=\"bootstrap_model_preeligibility.model_id='</span><span class="nv">$MODEL</span><span class="s2">'\""</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'[.result.blocks[].block.header.height|tonumber]|max'</span><span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Latest snapshot at height </span><span class="nv">$HEIGHT</span><span class="s2">"</span>
+
+curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">/chain-rpc/block_results?height=</span><span class="nv">$HEIGHT</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>--arg<span class="w"> </span>m<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="s1">'</span>
+<span class="s1">      .result.finalize_block_events[]</span>
+<span class="s1">      | select(.type=="bootstrap_model_preeligibility")</span>
+<span class="s1">      | (.attributes | from_entries) as $a</span>
+<span class="s1">      | select($a.model_id==$m)</span>
+<span class="s1">      | $a'</span>
+</code></pre></div>
+<p>关键属性是 <code>pre_eligible</code>。若其为 <code>true</code>，链将在本纪元运行 DeepSeek PoC，您应已准备就绪。支持字段显示三项检查是否通过：<code>meets_v_min</code>（≥ <code>V_min</code> 直接意向提交者），<code>meets_weight_threshold</code>（意向权重 ≥ <code>W_threshold</code> 的 <code>total_network_weight</code>），以及 <code>meets_reachability</code>（意向+委托 <code>reachable_voting_power</code> 覆盖 <code>&gt;2/3</code>）。<code>intent_host_count</code> 和 <code>intent_weight</code> 显示本纪元的直接意向覆盖率。</p>
+<h4 id="deepseek-v4-flash_1">若预合格，切换为 DeepSeek V4 Flash</h4>
+<p>使用与您的 GPU 类型匹配的已提供配置。Admin API 更新示例形状（用您的 <code>node-config-deepseekv4flash0731-*.json</code> 内容替换参数）：</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:9200/admin/v1/nodes<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">       "id": "&lt;NODE_ID&gt;",</span>
+<span class="s1">       "host": "&lt;NODE_IP&gt;",</span>
+<span class="s1">       "inference_port": 5050,</span>
+<span class="s1">       "poc_port": 8080,</span>
+<span class="s1">       "max_concurrent": 500,</span>
+<span class="s1">       "models": {</span>
+<span class="s1">         "deepseek-ai/DeepSeek-V4-Flash-0731": {</span>
+<span class="s1">           "args": [</span>
+<span class="s1">             "--max-model-len", "400000",</span>
+<span class="s1">             "--kv-cache-dtype", "fp8",</span>
+<span class="s1">             "--tokenizer-mode", "deepseek_v4",</span>
+<span class="s1">             "--enable-auto-tool-choice",</span>
+<span class="s1">             "--tool-call-parser", "deepseek_v4",</span>
+<span class="s1">             "--reasoning-parser", "deepseek_v4",</span>
+<span class="s1">             "--trust-remote-code"</span>
+<span class="s1">           ]</span>
+<span class="s1">         }</span>
+<span class="s1">       }</span>
+<span class="s1">     }'</span>
+</code></pre></div>
+<p>从分发的配置中合并操作符标志（张量并行大小、专家并行、GPU内存利用率、推测解码以及任何硬件特定后端）。PoC启动时的成员资格由提交PoC存储提交的人决定——仅声明意向是不够的。</p>
+<h4 id="_6">验证您的部署</h4>
+<p>遵循发布的MLNode设置说明以及提交的DeepSeek黄金参考（在<a href="https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts"><code>vllm-0.25.1-upgrade</code></a>分支上的<code>deepseek-ai-deepseek-v4-flash-0731.json</code>）。<a href="https://github.com/gonka-ai/gonka"><code>gonka</code>仓库</a>附带了一个代理技能<code>mlnode-validate</code>，用于将已部署的ML节点与预计算的诚实PoC向量进行验证。参见<a href="../mlnode-validation/">验证ML节点部署</a>和<a href="https://github.com/gonka-ai/gonka/blob/vllm-0.25.1-upgrade/skills/mlnode-validate/SKILL.md"><code>skills/mlnode-validate/SKILL.md</code></a>。</p>
+<h2 id="deepseek-v4-flash_2">不打算部署DeepSeek V4 Flash的主机说明</h2>
+<p>保留MiniMax或Kimi是可以的——现有模型保持不变。DeepSeek的按模型参与强制执行现已生效（纪元<strong><code>360</code></strong>）。如果您未提供DeepSeek服务，请提交<strong>委托</strong>（如果您信任某个DeepSeek主机则优先选择）或<strong>拒绝</strong>，以免被视为缺失该模型。拒绝可避免15%的缺失惩罚，但仍需承担10%的<code>refusal_penalty</code>。已选择DIRECT、DELEGATE或REFUSE的主机无需重新提交。</p>
+<h4 id="deepseekpocintent">检查您是否信任任何将部署DeepSeek/发送<code>PoCIntent</code>的主机</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">requests.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPAdapter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">urllib3.util.retry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Retry</span>
+
+<span class="n">NODE</span> <span class="o">=</span> <span class="s2">"https://node3.gonka.ai"</span>
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">"deepseek-ai/DeepSeek-V4-Flash-0731"</span>
+<span class="n">TIMEOUT</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">DELAY</span> <span class="o">=</span> <span class="mf">0.15</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">session</span><span class="p">():</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+    <span class="c1"># Retry transient 5xx (node3 returns 503 for some poc_delegation lookups</span>
+    <span class="c1"># under load) so a single hiccup does not silently drop a participant</span>
+    <span class="c1"># from the result.</span>
+    <span class="n">retry</span> <span class="o">=</span> <span class="n">Retry</span><span class="p">(</span>
+        <span class="n">total</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">backoff_factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">status_forcelist</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">),</span>
+        <span class="n">allowed_methods</span><span class="o">=</span><span class="p">(</span><span class="s2">"GET"</span><span class="p">,),</span>
+    <span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">"https://"</span><span class="p">,</span> <span class="n">HTTPAdapter</span><span class="p">(</span><span class="n">max_retries</span><span class="o">=</span><span class="n">retry</span><span class="p">))</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">"Connection"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"close"</span>
+    <span class="k">return</span> <span class="n">s</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">weight</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="c1"># weight may be 0, missing, or literally null — all mean "no voting weight".</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"weight"</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_json</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">TIMEOUT</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">session</span><span class="p">()</span>
+
+<span class="n">participants</span> <span class="o">=</span> <span class="n">get_json</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">NODE</span><span class="si">}</span><span class="s2">/v1/epochs/current/participants"</span><span class="p">)[</span>
+    <span class="s2">"active_participants"</span>
+<span class="p">][</span><span class="s2">"participants"</span><span class="p">]</span>
+
+<span class="n">intents</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">with_deepseek_model</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">skipped</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># participants whose poc_delegation lookup failed after retries</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">participants</span><span class="p">:</span>
+    <span class="n">addr</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s2">"index"</span><span class="p">]</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">weight</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">MODEL</span> <span class="ow">in</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"models"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]):</span>
+        <span class="n">with_deepseek_model</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">addr</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">get_json</span><span class="p">(</span>
+            <span class="n">s</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">NODE</span><span class="si">}</span><span class="s2">/chain-api/productscience/inference/inference/poc_delegation/</span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">skipped</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">addr</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">DELAY</span><span class="p">)</span>
+        <span class="k">continue</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"intents"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]:</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"model_id"</span><span class="p">)</span> <span class="o">==</span> <span class="n">MODEL</span><span class="p">:</span>
+            <span class="n">intents</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">addr</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">DELAY</span><span class="p">)</span>
+
+<span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">weight</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">participants</span><span class="p">)</span>
+<span class="n">intent_weight</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">intents</span><span class="p">)</span>
+
+<span class="n">nonzero_intents</span> <span class="o">=</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">intents</span> <span class="k">if</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">zero_intents</span> <span class="o">=</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">intents</span> <span class="k">if</span> <span class="n">w</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Active participants: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">participants</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"With </span><span class="si">{</span><span class="n">MODEL</span><span class="si">}</span><span class="s2"> in models[]: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">with_deepseek_model</span><span class="p">)</span><span class="si">}</span><span class="s2"> (not same as intent)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Intent from (PoCDirectIntent on chain):"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">addr</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">nonzero_intents</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">zero_intents</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Zero-weight intents (count toward V_min, contribute 0 to W_threshold):"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">addr</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">zero_intents</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="s2"> : 0"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intent weight: </span><span class="si">{</span><span class="n">intent_weight</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">total</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intent share: </span><span class="si">{</span><span class="mf">100.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">intent_weight</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">skipped</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Skipped </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">skipped</span><span class="p">)</span><span class="si">}</span><span class="s2"> participants after retries (intent may be undercounted):"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">addr</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">err</span> <span class="ow">in</span> <span class="n">skipped</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="s2"> (weight=</span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<p>引导时委托：<strong>不要委托给守护节点</strong>；将权重分散到独立的DeepSeek主机上。有关更新的委托指南，请参见<a href="../multi_model_poc/">多模型PoC</a>。</p>
+<h4 id="_7">发送委托或拒绝</h4>
+<p>委托：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NODE</span><span class="o">=</span>https://node3.gonka.ai/chain-rpc/
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>set-poc-delegation<span class="w"> </span>deepseek-ai/DeepSeek-V4-Flash-0731<span class="w"> </span>&lt;DELEGATEE&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span>gonka-account-key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span>gonka-mainnet<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p>拒绝：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NODE</span><span class="o">=</span>https://node3.gonka.ai/chain-rpc/
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>refuse-poc-delegation<span class="w"> </span>deepseek-ai/DeepSeek-V4-Flash-0731<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span>gonka-account-key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span>gonka-mainnet<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

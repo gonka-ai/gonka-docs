@@ -400,7 +400,7 @@
         http://36.189.234.237:17241
         https://node1.gonka.ai:8443
         https://node2.gonka.ai:8443
-        http://47.236.26.199:8000
+        https://node3.gonka.ai
         http://47.236.19.22:18000
         http://gonka.spv.re:8000
         ```

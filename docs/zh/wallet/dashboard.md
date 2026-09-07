@@ -17,7 +17,7 @@
         - [http://36.189.234.237:17241](http://36.189.234.237:17241)  
         - [https://node1.gonka.ai:8443](https://node1.gonka.ai:8443)  
         - [https://node2.gonka.ai:8443](https://node2.gonka.ai:8443)  
-        - [http://47.236.26.199:8000](http://47.236.26.199:8000)  
+        - [https://node3.gonka.ai](https://node3.gonka.ai)  
         - [http://47.236.19.22:18000](http://47.236.19.22:18000)  
         - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)  
     
@@ -26,6 +26,9 @@
             从列表中选择任意活跃主机。
             复制他们的 `inference_url` 值。
             将 `inference_url` 粘贴到浏览器中以加载仪表盘。
+
+            !!! note "部分主机可能关闭公共仪表盘"
+                主机不必公开仪表盘或 chain RPC。出现在 `active_participants` 中的 `inference_url` 表示该主机在提供推理服务，并不表示其仪表盘对外开放。许多主机仍会打开仪表盘页面，但可能显示 **disconnected** 且指标为零。这是正常现象 — 请另选一个 `inference_url`，直到出现实时数据。这并不代表该主机已离线。
     
     2. 打开后，你将看到直接来自该主机节点的实时数据流。
     

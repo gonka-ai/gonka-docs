@@ -606,14 +606,12 @@ If your node cannot connect to the default seed node, simply point it to another
     ```
     Available genesis API URLs:
     ```
-    http://185.216.21.98:8000
-    http://36.189.234.197:18026
     http://36.189.234.237:17241
     http://node1.gonka.ai:8000
+    https://node1.gonka.ai:8443
     http://node2.gonka.ai:8000
-    http://node3.gonka.ai:8000
-    https://node4.gonka.ai
-    http://47.236.26.199:8000
+    https://node2.gonka.ai:8443
+    https://node3.gonka.ai
     http://47.236.19.22:18000
     http://gonka.spv.re:8000
     ```
@@ -682,7 +680,7 @@ There are two distinct ways to update seed nodes, depending on whether the node 
     ```
     To view known peers from any running node, use chain RPC:
     ```
-    curl http://47.236.26.199:8000/chain-rpc/net_info | jq
+    curl http://node2.gonka.ai:8000/chain-rpc/net_info | jq
     ```
 
     In response, look for:
@@ -702,7 +700,7 @@ There are two distinct ways to update seed nodes, depending on whether the node 
       "result": {
         "listening": true,
         "listeners": [
-          "Listener(@tcp://47.236.26.199:5000)"
+          "Listener(@tcp://node2.gonka.ai:5000)"
         ],
         "n_peers": "50",
         "peers": [

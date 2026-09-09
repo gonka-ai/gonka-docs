@@ -8,6 +8,58 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 9, 2026
+
+**The devshard v4.1 runtime proposal has entered governance**
+
+Proposal id 100 adds `v4.1` to the approved list of devshard versions.
+
+This is a devshard-only change. It goes through an on-chain params proposal, not a full chain software upgrade: Cosmovisor is not involved, the chain does not halt, and inference keeps serving. If approved, `versiond` downloads the binary, verifies its SHA-256 against the value stored on-chain, and starts the runtime.
+
+v4.1 runs alongside the existing v3 and v4 runtimes. Passing the proposal does not by itself move any traffic, so brokers can migrate their gateways progressively afterwards.
+
+**Binary**
+
+```
+https://github.com/gonka-ai/gonka/releases/download/release%2Fdevshard%2Fv4.1.0/devshardd.zip
+sha256 69e58e6b6c124fc218d3ed1e38d7853c0a8ce20df660d348fc28ccd249a1ccf1
+```
+
+**Voting**
+
+Voting ends **September 10, 2026 at 22:36 UTC**. To pass, the proposal needs a 25% quorum by weight, a majority in favor, and less than 33.4% voting no with veto.
+
+Nothing is required from hosts.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 100 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 100 -o json --node $NODE_URL/chain-rpc/
+```
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
+
 ## September 4, 2026
 
 **PROPOSAL PASSED: Support Gonka's presence at TOKEN2049 Singapore**

@@ -40,8 +40,6 @@ Model args: `--max-model-len 400000 --kv-cache-dtype fp8 --enable-auto-tool-choi
 
 **What this means for hosts**
 
-The `weight_scale_factor` was calibrated so that a B200 host switching its PoC model to GLM-5.3-Flash is expected to gain roughly 7% more weight relative to what it earns today. For other GPUs the optimal model does not change.
-
 The activation epoch for GLM-5.3-Flash is **394**. From that epoch the `penalty_start_epoch` is in effect, so hosts without an explicit choice risk the no-participation penalty.
 
 After this proposal the PoC model set is:

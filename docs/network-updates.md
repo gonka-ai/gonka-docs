@@ -10,6 +10,83 @@
 
 ## September 9, 2026
 
+**Proposal 101: add GLM-5.3-Flash, remove Kimi-K2.6 and GLM-5.2-FP8 from PoC models**
+
+Proposal id 101 registers `zai-org/GLM-5.3-Flash` as a governance-approved model and adds it to the PoC model set. At the same time it removes `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` from `poc_params.models`.
+
+`MiniMaxAI/MiniMax-M2.7` and `deepseek-ai/DeepSeek-V4-Flash-0731` are not affected: their PoC parameters and weights stay as they are. All other chain parameters remain unchanged.
+
+The model and its parameters were proposed by the kaitaku.ai team, independently validated by vbgd0, and are now proposed jointly. Release inputs, measurements and the reasoning behind the thresholds are in [gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734).
+
+**GLM-5.3-Flash parameters**
+
+```
+hf_repo                     zai-org/GLM-5.3-Flash
+hf_commit                   04c4e9e95c5da8862dced7e5056455116f83a7e0
+units_of_compute_per_token  10000
+v_ram                       560
+throughput_per_nonce        1500
+validation_threshold        0.951
+
+seq_len                     1024
+dist_threshold              0.44
+p_mismatch                  0.10
+p_value_threshold           0.05
+weight_scale_factor         0.62
+penalty_start_epoch         394
+```
+
+Model args: `--max-model-len 400000 --kv-cache-dtype fp8 --enable-auto-tool-choice --tool-call-parser glm47 --reasoning-parser glm45 --trust-remote-code`
+
+**What this means for hosts**
+
+The `weight_scale_factor` was calibrated so that a B200 host switching its PoC model to GLM-5.3-Flash is expected to gain roughly 7% more weight relative to what it earns today. For other GPUs the optimal model does not change.
+
+The activation epoch for GLM-5.3-Flash is **394**. From that epoch the `penalty_start_epoch` is in effect, so hosts without an explicit choice risk the no-participation penalty.
+
+After this proposal the PoC model set is:
+
+| Model | weight_scale_factor | penalty_start_epoch |
+| --- | --- | --- |
+| MiniMaxAI/MiniMax-M2.7 | 0.3024 | 278 |
+| deepseek-ai/DeepSeek-V4-Flash-0731 | 0.246 | 360 |
+| zai-org/GLM-5.3-Flash | 0.62 | 394 |
+
+**Voting**
+
+Voting ends **September 10, 2026 at 23:17 UTC**. To pass, the proposal needs a 25% quorum by weight, a majority in favor, and less than 33.4% voting no with veto.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 101 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 101 -o json --node $NODE_URL/chain-rpc/
+```
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
+
+## September 9, 2026
+
 **The devshard v4.1 runtime proposal has entered governance**
 
 Proposal id 100 adds `v4.1` to the approved list of devshard versions.

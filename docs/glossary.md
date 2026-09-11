@@ -45,10 +45,14 @@ When referring to “Next PoC” or “PoC phase”, this typically means the ne
 
 **Randomized Task Verification** is the foundation of the platform’s validation strategy. Instead of verifying every inference task redundantly, the system randomly selects a subset of tasks for verification based on Hosts (Executor) Reputation. The higher Host’s Reputation, the less of its work requires validation. This approach drastically reduces overhead to just 1–10% of tasks, while maintaining trust through probabilistic guarantees and the threat of losing rewards if caught cheating.
 
-**Sprint** is a phase of PoC. During a Sprint, all Hosts simultaneously run AI-relevant inference on a transformer with randomized layers over a stream of nonces, producing output vectors. A Host’s voting power for the next epoch is proportional to the number of nonces it processed, as long as the reported outputs are verifiably produced by the required Sprint model.
+**Sprint** is a phase of PoC. During a Sprint, all Hosts simultaneously run AI-relevant inference on a transformer with randomized layers over a stream of nonces, producing output vectors. A Host’s Weight for the next epoch is proportional to the number of nonces it processed, as long as the reported outputs are verifiably produced by the required Sprint model. Governance voting power uses the weight cap, which cannot exceed that Weight.
 
 **Sprint Seed** is generated with a random number generator based on the latest blockchain state. This seed is used to apply random transformations to the hidden layers of the transformer model.
 
 **Validator `status: jailed`** means that a validator has been automatically and temporarily removed from block production by the protocol because it failed to meet the minimum consensus participation requirements (specifically, it signed fewer than the required number of blocks within the defined window).
 
-**Voting Power (Weight)** represents the weight a Host has in governance and protocol decisions within the network and is determined proportionally by the number of processed nonces found during a Sprint.
+**Weight** is a Host’s real, fully-adjusted compute contribution for an epoch. It is derived from Proof of Compute and then adjusted for confirmation, penalties, collateral, and a 30% concentration limit. Weight is used for rewards, confirmation, pricing, and work selection. From v0.2.16, governance voting power uses the weight cap instead of Weight. See [What is weight?](FAQ.md#what-is-weight).
+
+**Weight cap (`CapWeight`)** *(v0.2.16)* is the Host’s trust weight: `min(Weight, confirmed weight from the previous epoch)`. From v0.2.16 it is used for governance voting power, BLS threshold signing, and PoC/cPoC validation voting. A Host that was not live last epoch has `CapWeight = 0` for one epoch, but still earns rewards on Weight. The previous-epoch cap is distinct from the 30% concentration limit applied to Weight. See [What is the weight cap?](FAQ.md#what-is-the-weight-cap).
+
+**Voting Power** *(v0.2.16)* is the Host’s influence on governance and consensus-critical votes. From v0.2.16 it equals the weight cap (`CapWeight`), not Weight. Weight itself remains the source of rewards.

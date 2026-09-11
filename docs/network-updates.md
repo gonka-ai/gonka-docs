@@ -8,6 +8,73 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 11, 2026
+
+**PROPOSAL PASSED: Ratify Quant Mesh Limited as the Ledger Integration Counterparty and Fund the Initial Ledger Integration Payment**
+
+The on-chain governance vote for proposal id 102 has concluded.
+
+The proposal was APPROVED. Quant Mesh Limited is ratified as the legal contracting counterparty for the Gonka-Ledger integration, and 350,350 USDT has been allocated from the Community Pool to `gonka1yqj5xf0wtqgpdmv5v68cus0tp2j5fv7lzcfd6g`.
+
+The allocation covers 275,000 USDT in Phase 1 Launch Fees, 75,000 USDT for the first-year Annual Activation Fee, and 350 USDT for processing costs. The authorization and funding are strictly limited to the Ledger integration described in the full proposal.
+
+The transfer has executed on chain.
+
+Final tally: yes 146903, no 0, no_with_veto 0, abstain 5568.
+
+Nothing is required from hosts.
+
+Thanks to everyone who voted.
+
+## September 11, 2026
+
+**PROPOSAL PASSED: Add GLM-5.3-Flash, remove Kimi-K2.6 and GLM-5.2-FP8 from PoC models**
+
+The on-chain governance vote for proposal id 101 has concluded.
+
+The proposal was APPROVED. `zai-org/GLM-5.3-Flash` is now a governance-approved model and part of the PoC model set, while `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` have been removed from `poc_params.models`.
+
+`MiniMaxAI/MiniMax-M2.7` and `deepseek-ai/DeepSeek-V4-Flash-0731` are unaffected: their PoC parameters and weights are unchanged.
+
+The model and its parameters were proposed by the kaitaku.ai team, independently validated by vbgd0, and proposed jointly. Measurements and the reasoning behind the thresholds are in [gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734).
+
+**The PoC model set is now**
+
+| Model | weight_scale_factor | penalty_start_epoch |
+| --- | --- | --- |
+| MiniMaxAI/MiniMax-M2.7 | 0.3024 | 278 |
+| deepseek-ai/DeepSeek-V4-Flash-0731 | 0.246 | 360 |
+| zai-org/GLM-5.3-Flash | 0.62 | 394 |
+
+**What this means for hosts**
+
+The activation epoch for GLM-5.3-Flash is **394**. From that epoch `penalty_start_epoch` is in effect, so hosts without an explicit choice risk the no-participation penalty. If you plan to serve it, declaring intent early gives the group the best chance of forming.
+
+Final tally: yes 309308, no 0, no_with_veto 0, abstain 3168.
+
+Thanks to everyone who voted.
+
+## September 11, 2026
+
+**PROPOSAL PASSED: devshard v4.1**
+
+The on-chain governance vote for proposal id 100 has concluded.
+
+The proposal was APPROVED, and `v4.1` has been added to the approved list of devshard versions. `versiond` downloads the binary, verifies its SHA-256 against the value stored on-chain, and starts the runtime. No manual host action is required.
+
+v4.1 now runs alongside the existing v3 and v4 runtimes, so current traffic keeps being served and brokers can migrate their gateways progressively.
+
+Binary:
+
+```
+https://github.com/gonka-ai/gonka/releases/download/release%2Fdevshard%2Fv4.1.0/devshardd.zip
+sha256 69e58e6b6c124fc218d3ed1e38d7853c0a8ce20df660d348fc28ccd249a1ccf1
+```
+
+Final tally: yes 312476, no 0, no_with_veto 0, abstain 0.
+
+Thanks to everyone who voted.
+
 ## September 9, 2026
 
 **Proposal 101: add GLM-5.3-Flash, remove Kimi-K2.6 and GLM-5.2-FP8 from PoC models**

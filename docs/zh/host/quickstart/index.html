@@ -1,0 +1,5053 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/docs/zh/host/quickstart/">
+      
+      
+        <link rel="prev" href="../../developer/gateway-developer-quickstart/">
+      
+      
+        <link rel="next" href="../hardware-specifications/">
+      
+      
+        
+          <link rel="alternate" href="../../../host/quickstart/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>快速上手 - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CInter:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Inter"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - 快速上手">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/docs/zh/host/quickstart/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="https://gonka.ai/" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              快速上手
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../host/quickstart/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://gonka.ai/" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    了解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    了解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/gateway-developer-quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署自己的网关
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先决条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="先决条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        支持的模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建议的硬件配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        网络访问、代理和端口（重要）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设置您的节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="设置您的节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        密钥管理概览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地机器] 安装CLI工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地机器] 创建账户密钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 下载部署文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 设置环境变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 编辑环境变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 编辑服务器的推理节点描述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-hugging-face-hf_home" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] 预下载模型权重到 Hugging Face 缓存 (HF_HOME)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        启动节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启动节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] 拉取 Docker 镜像（容器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 启动初始服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完成密钥设置和主机注册
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="完成密钥设置和主机注册">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. [服务器] 创建ML操作密钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. [服务器] 注册主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. [本地机器] 为 ML 运营密钥授予权限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. [服务器] 手动 SSL 证书设置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4. [服务器] 手动 SSL 证书设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockerized-certbotdns01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成证书（Dockerized Certbot；DNS‑01）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证证书文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 启动完整节点
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-node-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证节点状态
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地机器] 存入抵押品
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-poc-delegation-and-refusal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可选：PoC委托与拒绝
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        停止并清理您的节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="停止并清理您的节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何停止您的节点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何清理您的节点（完全重置）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    硬件规格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    密钥管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    抵押
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 节点管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    验证 ML 节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编辑主机公开信息
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型与基准测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型与基准测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi_model_poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模型 PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kimi-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kimi K2.6 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minimax-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MiniMax-M2.7 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deepseek-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek V4 Flash 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贡献者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    贡献者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bounty-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    悬赏计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../report-vulnerability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    报告漏洞
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/create-account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建 Gonka 账户
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包与转账指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链转账
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    跨链转账
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过看板桥接（UI 指南）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_2" id="__nav_6_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    以太坊跨链桥
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    以太坊跨链桥
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/addresses-and-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    地址和密钥
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/bridge-epoch-update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链桥 Epoch 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/register-token/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    注册代币
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 USDT（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 GNK（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 GNK（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_3" id="__nav_6_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IBC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ibc/withdraw-usdt-via-kava/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过 Kava 提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_4" id="__nav_6_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/widget-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组件集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/tracker-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘与跟踪器集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    治理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    治理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交易与治理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-on-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提案投票
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/creating-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建提案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-power-eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting Power, Eligibility, Delegation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘维护者备忘录 v0.2.13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bounty-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    悬赏计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先决条件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="先决条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        支持的模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        建议的硬件配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        网络访问、代理和端口（重要）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设置您的节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="设置您的节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        密钥管理概览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地机器] 安装CLI工具
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地机器] 创建账户密钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 下载部署文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 设置环境变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 编辑环境变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 编辑服务器的推理节点描述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-hugging-face-hf_home" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] 预下载模型权重到 Hugging Face 缓存 (HF_HOME)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        启动节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启动节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [Server] 拉取 Docker 镜像（容器）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 启动初始服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完成密钥设置和主机注册
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="完成密钥设置和主机注册">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. [服务器] 创建ML操作密钥
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. [服务器] 注册主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. [本地机器] 为 ML 运营密钥授予权限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. [服务器] 手动 SSL 证书设置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4. [服务器] 手动 SSL 证书设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockerized-certbotdns01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成证书（Dockerized Certbot；DNS‑01）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证证书文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [服务器] 启动完整节点
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-node-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证节点状态
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [本地机器] 存入抵押品
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-poc-delegation-and-refusal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可选：PoC委托与拒绝
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        停止并清理您的节点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="停止并清理您的节点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何停止您的节点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        如何清理您的节点（完全重置）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="_1">设置您的链</h1>
+<p><strong>主机</strong>（<strong>硬件提供商</strong>或<strong>节点</strong>）向网络提供计算资源，并根据其提供的资源数量和质量获得奖励。</p>
+<p>要加入网络，您需要部署两个服务：</p>
+<ul>
+<li><strong>网络节点</strong> – 由两个节点组成的服务：<strong>链节点</strong>和<strong>API节点</strong>。此服务处理所有通信。<strong>链节点</strong>连接到区块链，而<strong>API节点</strong>管理用户请求。</li>
+<li><strong>推理（ML）节点</strong> – 一种在GPU上执行大语言模型（LLM）推理的服务。您至少需要一个<strong>ML节点</strong>才能加入网络。</li>
+</ul>
+<p>本指南描述了在同台机器上部署这两个服务的场景，每个主机拥有一个ML节点。服务以Docker容器形式部署。</p>
+<details class="note">
+<summary>实时演示 — 如何启动节点（主机快速入门）</summary>
+<p>通过快速入门启动节点的演示会话视频记录如下。视频中的某些步骤可能与下方说明不同，因为快速入门会根据社区反馈持续更新。请始终遵循书面快速入门 — 它反映了当前正确的流程。</p>
+</details>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+      <iframe src="https://www.youtube.com/embed/DWOeHQoU_LY" title="Gonka: Live Demo — How to Launch a Node (Quickstart for Hosts)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+      </iframe>
+    </div>
+
+<h2 id="_2">先决条件</h2>
+<p>本节提供有关配置硬件基础设施以参与Gonka网络启动的指导。目标是通过使您的部署符合网络预期来最大化协议奖励。</p>
+<h3 id="_3">支持的模型</h3>
+<p>该协议支持<strong>治理批准</strong>的模型用于推理和计算证明（PoC v2）。在Gonka主网上，每个批准的模型都有其独立的PoC组和奖励追踪（自v0.2.12升级后为多模型PoC）。</p>
+<table>
+<thead>
+<tr>
+<th>模型ID</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MiniMaxAI/MiniMax-M2.7</code></td>
+<td><strong>MiniMax M2.7</strong> — 基础模型（自提案78 / 轮次308起）</td>
+</tr>
+<tr>
+<td><code>deepseek-ai/DeepSeek-V4-Flash-0731</code></td>
+<td><strong>DeepSeek V4 Flash</strong> — PoC模型（自提案94 / 轮次360起）。系数位于<code>poc_params</code>中。</td>
+</tr>
+<tr>
+<td><code>moonshotai/Kimi-K2.6</code></td>
+<td><strong>Kimi K2.6</strong> — 治理中 / <code>poc_params</code>（自v0.2.12起）。当前未提供服务。</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">权威模型列表（治理API）</p>
+<p>批准的模型可能在版本或轮次间发生变化。<strong>在编辑<code>node-config.json</code>之前</strong>，调用治理API，并将返回的每个对象的<code>"id"</code>作为<code>"models"</code>下的键：
+</p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sS<span class="w"> </span>http://node2.gonka.ai:8000/v1/governance/models
+</code></pre></div>
+要仅列出模型ID，请将响应通过管道传递：<code>jq -r '.models[].id'</code>。如果<code>node2.gonka.ai</code>无法访问，请使用其他参与者的公共API基础URL（协议、主机和端口）。响应还包含网络参数，例如<code>model_args</code>；后面的<code>node-config.json</code>示例展示了常见硬件的典型<code>args</code> — 请根据您的GPU和基准测试进行调整。
+</div>
+<p>您通常在<code>node-config.json</code>中为每个ML节点运行<strong>一个模型</strong>。</p>
+<p>治理列表（<code>GET /v1/governance/models</code>，<code>poc_params.models</code>）是每个模型的批准目录。模型的<code>weight_scale_factor</code>只有在该组有资格时才产生共识权重：满足<code>v_min</code>和<code>w_threshold</code>的投票权。仅对有资格的组适用错过/拒绝处罚。无投票权的列出模型是下一个PoC的启动候选；仅切换<code>node-config</code>不会恢复共识权重。请检查<code>poc_params</code>和该轮次的<code>confirmation_weight_scales</code>。参见<a href="../multi_model_poc/">多模型PoC</a>。</p>
+<p>实时服务是单独的检查：<code>/v1/epochs/current/participants</code>。<code>moonshotai/Kimi-K2.6</code>当前未提供服务。要恢复该组，请参阅<a href="../kimi-bootstrap/">Kimi K2.6启动</a>。</p>
+<div class="admonition tip">
+<p class="admonition-title">仓库中的参考部署配置</p>
+<p>DeepSeek V4 Flash配置、MiniMax <code>minimaxm27-*</code>配置和MLNode <strong>3.0.16</strong>位于<a href="https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join"><code>vllm-0.25.1-upgrade</code></a>分支（非<code>main</code>）。将与您硬件匹配的文件复制到<code>node-config.json</code>，而非从头编写：</p>
+<ul>
+<li><strong>MiniMax M2.7</strong> — <code>deploy/join/node-config-minimaxm27-A100.json</code>，<code>deploy/join/node-config-minimaxm27-H100.json</code>，<code>deploy/join/node-config-minimaxm27-H200.json</code>，<code>deploy/join/node-config-minimaxm27-B200.json</code>，<code>deploy/join/node-config-minimaxm27-B300.json</code></li>
+<li><strong>DeepSeek V4 Flash</strong> — <code>deploy/join/node-config-deepseekv4flash0731-H100.json</code>，<code>deploy/join/node-config-deepseekv4flash0731-H200.json</code>，<code>deploy/join/node-config-deepseekv4flash0731-B200.json</code>，<code>deploy/join/node-config-deepseekv4flash0731-B300.json</code>。在Blackwell上，nvfp4变体：<code>node-config-deepseekv4flash0731-B200-nvfp4.json</code>，<code>node-config-deepseekv4flash0731-B300-nvfp4.json</code>。</li>
+<li><strong>Kimi K2.6</strong> — <code>deploy/join/node-config-kimik26-H200.json</code>，<code>deploy/join/node-config-kimik26-B200.json</code></li>
+</ul>
+</div>
+<p>为方便起见，以下内联复制了这些文件的内容。</p>
+<div class="admonition note">
+<p class="admonition-title">如果您不运行所有批准的模型</p>
+<p>多模型PoC按<strong>每个模型</strong>跟踪参与情况。对于您未运行的<strong>有资格</strong>模型，请使用链上<strong>委托</strong>或<strong>拒绝</strong>。常规的错过/拒绝处罚仅适用于有资格的组。无投票权的列出模型是启动候选；<code>refuse</code>不是必需的，也不是启动参与模式。委托/拒绝<strong>不是</strong>上线节点所必需的 — 您使用与<a href="#33-local-machine-grant-permissions-to-ml-operational-key">向ML操作密钥授予权限</a>中相同的<strong>账户（冷）密钥</strong>，<strong>在注册和验证之后</strong>。复制粘贴命令位于末尾：<a href="#optional-poc-delegation-and-refusal">可选：PoC委托和拒绝</a>。有关策略和处罚，请阅读<a href="../multi_model_poc/">多模型PoC — 主机操作指南</a>。要恢复失去投票权的组，请参阅<a href="../kimi-bootstrap/">Kimi K2.6启动</a>。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">治理与模型分类</p>
+<ul>
+<li>如果经治理批准，模型可被分类为某一类别。</li>
+<li>关于添加或更改支持模型的决策由治理作出。</li>
+<li>有关治理流程和如何提议新模型的详细信息，请参阅<a href="https://gonka.ai/governance/transactions-and-governance/">交易与治理指南</a>。</li>
+</ul>
+</div>
+<h3 id="_4">建议的硬件配置</h3>
+<p>要运行有效节点，您需要配备<a href="/host/hardware-specifications/">支持的GPU</a>的机器。以下是参考布局：</p>
+<table>
+<thead>
+<tr>
+<th><strong>模型名称</strong></th>
+<th><strong>ML节点（最少）</strong></th>
+<th><strong>示例硬件</strong></th>
+<th><strong>每个 ML 节点的最小 VRAM</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MiniMaxAI/MiniMax-M2.7</code></td>
+<td>≥ 2</td>
+<td>每个 MLNode 配置：4× A100 / 4× H100 / 2× H200 / 2× B200</td>
+<td>~320 GB</td>
+</tr>
+<tr>
+<td><code>deepseek-ai/DeepSeek-V4-Flash-0731</code></td>
+<td>≥ 2</td>
+<td>每个 MLNode 配置：4× H100 / 2× H200 / 2× B200 / 1× B300</td>
+<td>~280 GB</td>
+</tr>
+<tr>
+<td><code>moonshotai/Kimi-K2.6</code></td>
+<td>≥ 2</td>
+<td>每个 MLNode 配置：8× H200 或 8× B200（参考规格）</td>
+<td>720 GB</td>
+</tr>
+</tbody>
+</table>
+<p>这是一个参考架构。您可以调整节点数量或硬件分配，但我们建议遵循核心原则：每个节点应支持所有模型层级的多个 ML 节点。</p>
+<p>每个模型的 <code>weight_scale_factor</code> 值由治理设定——请从 <code>poc_params</code> 中读取。仅当模型组有资格（具有投票权）时，系数才会产生共识权重。请参阅 <a href="../deepseek-bootstrap/">DeepSeek V4 Flash Bootstrap</a> 和 <a href="https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0">系数表</a>。以下 <code>node-config.json</code> 示例中包含 vLLM 参数示例。</p>
+<p>有关最优部署配置的更多详细信息，请参见 <a href="https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/">此处</a>。</p>
+<p>托管网络节点的服务器应具备：</p>
+<ul>
+<li>16 核 CPU (amd64)</li>
+<li>64 GB 或更多内存</li>
+<li>1TB NVMe SSD</li>
+<li>最低 100Mbps 网络连接（推荐 1Gbps）</li>
+</ul>
+<p>最终要求将取决于连接的 ML 节点数量及其总吞吐量。</p>
+<p>用于部署每个 ML 节点的服务器应具备：</p>
+<ul>
+<li>至少为 GPU VRAM 的 1.5 倍内存</li>
+<li>16 核 CPU（网络节点和 ML 节点可部署在同一台服务器上）。</li>
+<li>已安装并配置 NVIDIA Container Toolkit，CUDA Toolkit 版本介于 12.6 至 12.9 之间。您可通过 <code>nvidia-smi</code> 检查版本。</li>
+</ul>
+<h3 id="_5">网络访问、代理和端口（重要）</h3>
+<p>Gonka 网络采用基于代理的架构，以保护节点免受滥用和 DDoS 攻击。所有公共 HTTP/HTTPS 流量必须通过代理容器。直接暴露网络节点或 ML 节点服务是不安全的。</p>
+<div class="admonition note">
+<p class="admonition-title">公开暴露的端口</p>
+<p>以下端口可暴露于公共互联网：</p>
+<ul>
+<li>5000 - Tendermint P2P 通信</li>
+<li>8000 / 8443 - 仅通过代理提供的应用服务</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告：内部端口</p>
+<p>以下端口为仅内部使用，严禁公开访问：</p>
+<ul>
+<li>26657 - Tendermint RPC</li>
+<li>9100, 9200 — 网络节点内部 API</li>
+<li>5050 — ML 节点 / vLLM 推理 API</li>
+<li>8080 — ML 节点 API</li>
+</ul>
+</div>
+<p>如果这些端口中的任何一个暴露在公共互联网上，您的节点将面临风险。第三方可自由发送请求，过载您的 ML 节点，干扰挖矿，或导致您的节点脱离一个纪元。</p>
+<p><strong>要求：</strong></p>
+<div class="highlight"><pre><span></span><code>- 仅允许从本地主机、私有网络或白名单访问这些端口
+- 切勿公开暴露这些端口
+- Docker 默认设置不安全
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">从升级 0.2.8 开始</p>
+<p>为默认增强安全性和性能，以下路由控制和链服务限制将自动应用，除非显式覆盖。
+</p><div class="highlight"><span class="filename">API Manual Routes Control</span><pre><span></span><code><span class="w">      </span><span class="c1"># Defines which routes bypass rate limits (Exempt) vs those completely disabled (Blocked)</span>
+<span class="w">      </span>-<span class="w"> </span><span class="nv">GONKA_API_EXEMPT_ROUTES</span><span class="o">=</span>chat<span class="w"> </span>inference
+<span class="w">      </span>-<span class="w"> </span><span class="nv">GONKA_API_BLOCKED_ROUTES</span><span class="o">=</span>poc-batches<span class="w"> </span>training
+</code></pre></div>
+<div class="highlight"><span class="filename">Chain Routes Disabling</span><pre><span></span><code><span class="w">      </span><span class="c1"># Disables public access to Chain services by default</span>
+<span class="w">      </span>-<span class="w"> </span><span class="nv">DISABLE_CHAIN_API</span><span class="o">=</span><span class="si">${</span><span class="nv">DISABLE_CHAIN_API</span><span class="k">:-</span><span class="nv">true</span><span class="si">}</span>
+<span class="w">      </span>-<span class="w"> </span><span class="nv">DISABLE_CHAIN_RPC</span><span class="o">=</span><span class="si">${</span><span class="nv">DISABLE_CHAIN_RPC</span><span class="k">:-</span><span class="nv">true</span><span class="si">}</span>
+<span class="w">      </span>-<span class="w"> </span><span class="nv">DISABLE_CHAIN_GRPC</span><span class="o">=</span><span class="si">${</span><span class="nv">DISABLE_CHAIN_GRPC</span><span class="k">:-</span><span class="nv">true</span><span class="si">}</span>
+</code></pre></div>
+</div>
+<p>以下情况描述了网络节点和ML节点服务的内部端口隔离。这些规则在代理配置为唯一公共入口点后生效。它们不能替代代理，必须与代理一起使用。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">情况1：ML节点和网络节点在同一台机器上</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>将端口仅绑定到本地主机。</p>
+</div>
+</div>
+</div>
+<p><strong>网络节点 (<code>docker-compose.yml</code>)</strong></p>
+<p>如果您的ML节点容器和网络节点容器位于同一台机器上，您可以直接编辑 <code>gonka/deploy/join/docker-compose.yml</code>：
+    </p><div class="highlight"><pre><span></span><code>api:
+    ports:
+        - "127.0.0.1:9100:9100"
+        - "127.0.0.1:9200:9200"
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>**ML节点 (`docker-compose.mlnode.yml`)**
+```
+ports:
+    - "127.0.0.1:${PORT:-8080}:8080"
+    - "127.0.0.1:${INFERENCE_PORT:-5050}:5000"
+```
+
+请勿使用：
+
+- "9100:9100"
+- "9200:9200"
+- "5050:5000"
+- "8080:8080"
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">情况2：ML节点和网络节点在不同机器上</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>在此配置中，网络节点与ML节点之间的所有通信必须通过私有网络进行。严禁使用公共IP或公共DNS名称进行以下操作：</p>
+<ul>
+<li>ML节点API</li>
+<li><code>DAPI_API__POC_CALLBACK_URL</code></li>
+</ul>
+</div>
+</div>
+</div>
+<p>如果ML节点和网络节点容器位于不同机器上，情况1中描述的修复方法将无效，保护这些端口的具体方式取决于您的环境。您应通过使用相同的Docker网络，或在机器之间设置私有网络、在该网络中暴露端口并关闭公共访问，来建立ML节点与网络节点之间的连接。此时，您还应在配置中正确设置 <code>DAPI_API__POC_CALLBACK_URL</code> 变量。此URL必须指向私有/内部地址，而非公共地址。</p>
+<h2 id="_6">设置您的节点</h2>
+<p>快速入门指南旨在将网络节点和推理节点部署在同一台机器上（单服务器设置）。</p>
+<details class="note">
+<summary>多节点部署</summary>
+<p>如果您要部署多个GPU节点，请参阅详细的<a href="https://gonka.ai/host/multiple-nodes/">多节点部署指南</a>以进行正确设置和配置。无论您是将推理节点部署在单台机器上还是跨多台服务器（包括跨地理区域），所有推理节点都必须连接到同一个网络节点。</p>
+</details>
+<h3 id="_7">密钥管理概览</h3>
+<p>在配置您的网络节点之前，您需要设置加密密钥以实现安全操作。<br>
+<strong>建议在启动生产节点前阅读<a href="/host/key-management/">密钥管理指南</a>。</strong></p>
+<p>我们使用三密钥系统：</p>
+<ul>
+<li><strong>账户密钥</strong>（冷钱包）- 在您的本地安全机器上创建，用于高风险操作</li>
+<li><strong>共识密钥</strong>（TMKMS - 温存储）- 由安全的TMKMS服务管理，用于区块验证和网络共识参与</li>
+<li><strong>ML操作密钥</strong>（温钱包）- 在服务器上创建，用于自动化AI工作负载交易</li>
+</ul>
+<h3 id="cli">[本地机器] 安装CLI工具</h3>
+<p><code>inferenced</code> CLI 是本地账户管理和网络操作所必需的。它是一个命令行界面工具，允许您从本地机器创建和管理Gonka账户、注册主机并执行各种网络操作。</p>
+<p><strong>选择正确的二进制文件</strong></p>
+<p>GitHub发布版本可能包含多个 <code>inferenced</code> 组件。</p>
+<p>对于本地CLI使用，请始终下载<strong>特定操作系统的打包CLI构建</strong>，例如：</p>
+<ul>
+<li><code>inferenced-darwin-amd64.zip</code></li>
+<li><code>inferenced-darwin-arm64.zip</code></li>
+<li><code>inferenced-linux-amd64.zip</code></li>
+<li><code>inferenced-linux-arm64.zip</code></li>
+</ul>
+<p>请勿使用专为升级路径或容器/运行时环境设计的通用 <code>inferenced</code> 二进制文件。这些组件可能无法在您的本地机器上作为独立CLI正常工作。</p>
+<p><strong>版本要求</strong></p>
+<p>请确保您使用的是 <code>inferenced</code> CLI 构建 <a href="https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9">版本 0.2.9</a> 或<a href="https://github.com/gonka-ai/gonka/releases">更新版本</a>。旧版CLI不支持权限授予，可能导致意外行为。</p>
+<p>如果您计划提交治理提案，尤其是使用新消息类型的提案，请使用最新发布的特定操作系统CLI构建。</p>
+<p><strong>验证安装</strong></p>
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>inferenced
+./inferenced<span class="w"> </span>--help
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">macOS 用户</p>
+<p>在macOS上，如果提示，请在 <code>System Settings</code> → <code>Privacy &amp; Security</code> 中允许执行。向下滚动至关于 <code>inferenced</code> 的警告并点击 <code>Allow Anyway</code>。</p>
+<p>如果在Linux上二进制文件启动失败并出现类似 <code>Error relocating ./inferenced: qsort_r: symbol not found</code> 的错误，您很可能下载了非CLI或仅用于升级的组件，而非特定操作系统的打包CLI构建。请重新下载适用于您操作系统和架构的正确归档文件。</p>
+</div>
+<h3 id="_8">[本地机器] 创建账户密钥</h3>
+<p><strong>重要：请在安全的本地机器上执行此步骤（不要在您的服务器上执行）</strong></p>
+<details class="note">
+<summary>关于账户密钥（冷密钥）</summary>
+<p>账户密钥是您的主要高权限密钥。它在本地创建，永远不会存储在您的服务器上。</p>
+<ul>
+<li>授予所有其他密钥权限的主密钥</li>
+<li>必须离线存储在安全的空气隔离机器上</li>
+<li>仅用于授予权限和验证者注册</li>
+<li>由助记词保护——如果丢失，所有访问将永久失效</li>
+</ul>
+</details>
+<p>使用 <code>file</code> 密钥环后端创建您的账户密钥（在支持的系统上，您也可以使用 <code>os</code> 以获得更高安全性）：</p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>keys<span class="w"> </span>add<span class="w"> </span>gonka-account-key<span class="w"> </span>--keyring-backend<span class="w"> </span>file
+</code></pre></div>
+<p>CLI 将要求您输入密码，并显示已创建密钥对的信息。
+</p><div class="highlight"><pre><span></span><code>❯ ./inferenced keys add gonka-account-key --keyring-backend file
+Enter keyring passphrase (attempt 1/3):
+Re-enter keyring passphrase:
+
+- address: gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+  name: gonka-account-key
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Au+a3CpMj6nqFV6d0tUlVajCTkOP3cxKnps+1/lMv5zY"}'
+  type: local
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+pyramid sweet dumb critic lamp various remove token talent drink announce tiny lab follow blind awful expire wasp flavor very pair tell next cable
+</code></pre></div>
+<p><strong>至关重要</strong>：请将此助记词抄写下来，并存储在安全的离线位置。此助记词是<strong>唯一</strong>恢复您的账户密钥的方法。</p>
+<div class="admonition info">
+<p class="admonition-title">硬件钱包支持</p>
+<p><strong>当前状态</strong>：在网络启动时，硬件钱包尚不支持。</p>
+<p><strong>目前</strong>：请将您的账户密钥存储在安全的专用机器上，该机器应尽量减少互联网暴露并启用强加密。</p>
+<p><strong>重要</strong>：无论未来是否采用硬件钱包，请始终将助记词作为备份。</p>
+</div>
+<h3 id="_9">[服务器] 下载部署文件</h3>
+<p>克隆包含基础部署脚本的仓库：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/gonka-ai/gonka.git<span class="w"> </span>-b<span class="w"> </span>main<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="nb">cd</span><span class="w"> </span>gonka/deploy/join
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">DeepSeek V4 Flash 和 MLNode 3.0.16</p>
+<p><code>main</code> 仍锁定 MLNode <strong>3.0.14-post2</strong>，且不包含 DeepSeek <code>node-config-*.json</code> 文件。要部署 <code>deepseek-ai/DeepSeek-V4-Flash-0731</code>，请改为克隆 <a href="https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join"><code>vllm-0.25.1-upgrade</code></a>：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/gonka-ai/gonka.git<span class="w"> </span>-b<span class="w"> </span>vllm-0.25.1-upgrade<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="nb">cd</span><span class="w"> </span>gonka/deploy/join
+</code></pre></div>
+<p>该分支锁定 <code>ghcr.io/gonka-ai/mlnode:3.0.16</code>（如果主机仍使用 CUDA 12.9，请使用 <code>3.0.16-cu129</code> 标签）。</p>
+</div>
+<p>并复制 <code>config</code> 文件模板：
+</p><div class="highlight"><pre><span></span><code>cp config.env.template config.env
+</code></pre></div>
+<p>克隆仓库后，您将找到以下关键配置文件：</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config.env</code></td>
+<td>包含网络节点的环境变量</td>
+</tr>
+<tr>
+<td><code>docker-compose.yml</code></td>
+<td>用于启动网络节点的 Docker Compose 文件</td>
+</tr>
+<tr>
+<td><code>docker-compose.mlnode.yml</code></td>
+<td>用于启动 ML 节点的 Docker Compose 文件</td>
+</tr>
+<tr>
+<td><code>node-config.json</code></td>
+<td>网络节点使用的配置文件，描述了该网络节点管理的推理节点</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">[服务器] 设置环境变量</h3>
+<!-- CONDITION START: data-show-when='["non-finished"]' -->
+<div class="admonition note">
+<p class="admonition-title">配置必需</p>
+<p>请完成问卷以生成您的 <code>config.env</code> 配置。环境变量取决于您的选择（HTTP/HTTPS、SSL 证书方法等）。
+<!-- CONDITION END --></p>
+<!-- CONDITION START: data-show-when='["domainNo"]' -->
+</div>
+<div class="admonition warning">
+<p class="admonition-title">没有域名则无法使用 HTTPS</p>
+<p>SSL/TLS 证书只能为域名（例如 <code>example.com</code>）颁发，不能为直接 IP 地址颁发。由于您表示未配置域名，您的节点将仅配置为 <strong>HTTP</strong>（端口 8000）。</p>
+<p>如果您需要 HTTPS 安全性，请执行以下操作：</p>
+<ol>
+<li>获取一个域名，并配置 DNS 指向您服务器的 IP 地址</li>
+<li>点击上方的 <strong>"重置"</strong> 按钮，并在询问是否拥有域名时选择 <strong>"是"</strong></li>
+</ol>
+</div>
+<p>对于生产部署，强烈建议使用 HTTPS 以加密 API 通信并保护敏感数据。</p>
+<!-- CONDITION END -->
+
+<div id="quickstart-questionnaire" class="quickstart-questionnaire">
+  <div id="quickstart-questions"></div>
+
+<div id="quickstart-config-result" style="display: none;">
+    <div class="admonition note">
+      <p class="admonition-title">config.env</p>
+      <div id="quickstart-config-display">
+        <pre><code></code></pre>
+      </div>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.7rem; color: var(--md-default-fg-color--light);">复制上述配置，并按照下方说明编辑值。</p>
+    <button class="quickstart-copy-btn">复制到剪贴板</button>
+    <button class="quickstart-reset-btn">重置</button>
+  </div>
+</div>
+
+<!-- CONDITION START: data-show-when='["finished"]' -->
+
+<p>如果您的节点无法连接到默认种子节点，请<a href="https://gonka.ai/FAQ/#my-node-cannot-connect-to-the-default-seed-node-specified-in-the-configenv">参见常见问题解答获取详细信息。</a></p>
+<h3 id="_11">[服务器] 编辑环境变量</h3>
+<p>需要编辑的变量：</p>
+<div id="quickstart-edit-table"></div>
+
+<p>其他所有变量均可保持不变。</p>
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto"]' -->
+<p><strong>如何从域名提供商获取变量：</strong></p>
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "cloudflare"]' -->
+<details class="details">
+<summary>Cloudflare</summary>
+<p>1) 打开 Cloudflare 控制面板。</p>
+</details>
+<p>2) 转到 Profile → API Tokens。</p>
+<p>3) 点击 Create Token。</p>
+<p>4) 使用 Edit zone DNS 模板，或设置权限：Zone:Read 和 DNS:Edit。</p>
+<p>5) 将令牌限制为您的 DNS 区域并创建它。</p>
+<p>6) 复制令牌并设置 <code>CF_DNS_API_TOKEN</code>。</p>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "route53"]' -->
+<details class="details">
+<summary>AWS Route53</summary>
+<p><strong>选项 A — AWS CLI</strong>
+</p><div class="highlight"><pre><span></span><code><span class="nv">HOSTED_ZONE_ID</span><span class="o">=</span><span class="s2">"Z123EXAMPLE"</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>route53-acme.json<span class="w"> </span><span class="s">&lt;&lt;'JSON'</span>
+<span class="s">{</span>
+<span class="s">"Version": "2012-10-17",</span>
+<span class="s">"Statement": [</span>
+<span class="s">    {</span>
+<span class="s">    "Effect": "Allow",</span>
+<span class="s">    "Action": ["route53:ChangeResourceRecordSets"],</span>
+<span class="s">    "Resource": "arn:aws:route53:::hostedzone/${HOSTED_ZONE_ID}"</span>
+<span class="s">    },</span>
+<span class="s">    {</span>
+<span class="s">    "Effect": "Allow",</span>
+<span class="s">    "Action": [</span>
+<span class="s">        "route53:ListHostedZones",</span>
+<span class="s">        "route53:ListHostedZonesByName",</span>
+<span class="s">        "route53:ListResourceRecordSets",</span>
+<span class="s">        "route53:GetChange"</span>
+<span class="s">    ],</span>
+<span class="s">    "Resource": "*"</span>
+<span class="s">    }</span>
+<span class="s">]</span>
+<span class="s">}</span>
+<span class="s">JSON</span>
+
+aws<span class="w"> </span>iam<span class="w"> </span>create-policy<span class="w"> </span><span class="se">\</span>
+--policy-name<span class="w"> </span>acme-dns-route53-<span class="si">${</span><span class="nv">HOSTED_ZONE_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+--policy-document<span class="w"> </span>file://route53-acme.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.Policy.Arn
+
+<span class="nv">USER_NAME</span><span class="o">=</span><span class="s2">"acme-dns"</span>
+<span class="nv">POLICY_ARN</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>iam<span class="w"> </span>list-policies<span class="w"> </span>--query<span class="w"> </span><span class="s2">"Policies[?PolicyName=='acme-dns-route53-</span><span class="si">${</span><span class="nv">HOSTED_ZONE_ID</span><span class="si">}</span><span class="s2">'].Arn"</span><span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+aws<span class="w"> </span>iam<span class="w"> </span>create-user<span class="w"> </span>--user-name<span class="w"> </span><span class="s2">"</span><span class="nv">$USER_NAME</span><span class="s2">"</span><span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+aws<span class="w"> </span>iam<span class="w"> </span>attach-user-policy<span class="w"> </span>--user-name<span class="w"> </span><span class="s2">"</span><span class="nv">$USER_NAME</span><span class="s2">"</span><span class="w"> </span>--policy-arn<span class="w"> </span><span class="s2">"</span><span class="nv">$POLICY_ARN</span><span class="s2">"</span>
+<span class="nv">CREDS</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>iam<span class="w"> </span>create-access-key<span class="w"> </span>--user-name<span class="w"> </span><span class="s2">"</span><span class="nv">$USER_NAME</span><span class="s2">"</span><span class="k">)</span>
+<span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.AccessKey.AccessKeyId<span class="k">)</span>
+<span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.AccessKey.SecretAccessKey<span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AWS_ACCESS_KEY_ID=</span><span class="nv">$AWS_ACCESS_KEY_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AWS_SECRET_ACCESS_KEY=</span><span class="nv">$AWS_SECRET_ACCESS_KEY</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AWS_REGION=&lt;your-aws-region&gt;"</span>
+</code></pre></div>
+<p><strong>选项 B — 控制台</strong></p>
+</details>
+<p>1) 创建仅限于您的托管区域的 IAM 策略（ChangeResourceRecordSets 和列出权限）。</p>
+<p>2) 创建具有程序化访问权限的 IAM 用户。</p>
+<p>3) 将策略附加到该用户。</p>
+<p>4) 创建访问密钥对并设置 <code>AWS_ACCESS_KEY_ID</code>、<code>AWS_SECRET_ACCESS_KEY</code> 和 <code>AWS_REGION</code>。</p>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "gcloud"]' -->
+<details class="details">
+<summary>Google Cloud DNS</summary>
+<p><strong>选项 A — gcloud CLI：</strong>
+</p><div class="highlight"><pre><span></span><code><span class="nv">PROJECT_ID</span><span class="o">=</span><span class="s2">"&lt;your-gcp-project&gt;"</span>
+<span class="nv">SA_NAME</span><span class="o">=</span><span class="s2">"acme-dns"</span>
+<span class="nv">SA_EMAIL</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SA_NAME</span><span class="s2">@</span><span class="nv">$PROJECT_ID</span><span class="s2">.iam.gserviceaccount.com"</span>
+
+gcloud<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>project<span class="w"> </span><span class="s2">"</span><span class="nv">$PROJECT_ID</span><span class="s2">"</span>
+<span class="c1"># 1) Service account</span>
+gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>create<span class="w"> </span><span class="s2">"</span><span class="nv">$SA_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--display-name<span class="w"> </span><span class="s2">"ACME DNS for proxy-ssl"</span>
+<span class="c1"># 2) Role</span>
+gcloud<span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span><span class="s2">"</span><span class="nv">$PROJECT_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--member<span class="w"> </span><span class="s2">"serviceAccount:</span><span class="nv">$SA_EMAIL</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--role<span class="w"> </span><span class="s2">"roles/dns.admin"</span>
+<span class="c1"># 3) Key → base64 (single line)</span>
+gcloud<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>keys<span class="w"> </span>create<span class="w"> </span>key.json<span class="w"> </span>--iam-account<span class="w"> </span><span class="s2">"</span><span class="nv">$SA_EMAIL</span><span class="s2">"</span>
+<span class="nv">GCE_SERVICE_ACCOUNT_JSON_B64</span><span class="o">=</span><span class="k">$(</span>base64<span class="w"> </span>&lt;<span class="w"> </span>key.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\n'</span><span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"GCE_PROJECT=</span><span class="nv">$PROJECT_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"GCE_SERVICE_ACCOUNT_JSON_B64=</span><span class="nv">$GCE_SERVICE_ACCOUNT_JSON_B64</span><span class="s2">"</span>
+</code></pre></div>
+<strong>选项 B — 控制台</strong>
+</details>
+<p>1) IAM 和管理员 → 服务账号 → 创建服务账号（例如 acme-dns）。</p>
+<p>2) 为服务账号授予角色：DNS 管理员（<code>roles/dns.admin</code>）。</p>
+<p>3) 服务账号 → 密钥 → 添加密钥 → 创建新密钥（JSON）→ 下载。</p>
+<p>4) 将 JSON 密钥 Base64 编码为单行，并设置 <code>GCE_SERVICE_ACCOUNT_JSON_B64</code>。将 <code>GCE_PROJECT</code> 设置为您的项目 ID。</p>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "azure"]' -->
+<details class="details">
+<summary>Azure DNS</summary>
+<p><strong>选项 A — Azure CLI</strong>（快速）
+</p><div class="highlight"><pre><span></span><code><span class="c1"># 1) Login and choose subscription</span>
+az<span class="w"> </span>login
+az<span class="w"> </span>account<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--subscription<span class="w"> </span><span class="s2">"&lt;your-subscription-name-or-id&gt;"</span>
+
+<span class="c1"># 2) Set where your DNS zone lives</span>
+<span class="nv">RG</span><span class="o">=</span><span class="s2">"&lt;&lt;your-dns-resource-group&gt;&gt;"</span>
+<span class="nv">ZONE</span><span class="o">=</span><span class="s2">"&lt;&lt;your-zone&gt;&gt;"</span><span class="w">         </span><span class="c1"># e.g., gonka.ai</span>
+<span class="nv">SP_NAME</span><span class="o">=</span><span class="s2">"gonka-acme-</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="s2">"</span>
+
+<span class="nv">SUBSCRIPTION_ID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>id<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+<span class="nv">SCOPE</span><span class="o">=</span><span class="s2">"/subscriptions/</span><span class="nv">$SUBSCRIPTION_ID</span><span class="s2">/resourceGroups/</span><span class="nv">$RG</span><span class="s2">/providers/Microsoft.Network/dnszones/</span><span class="nv">$ZONE</span><span class="s2">"</span>
+
+<span class="nv">CREDS</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>create-for-rbac<span class="w"> </span><span class="se">\</span>
+--name<span class="w"> </span><span class="s2">"</span><span class="nv">$SP_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--role<span class="w"> </span><span class="s2">"DNS Zone Contributor"</span><span class="w"> </span><span class="se">\</span>
+--scopes<span class="w"> </span><span class="s2">"</span><span class="nv">$SCOPE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+--only-show-errors<span class="k">)</span>
+
+<span class="c1"># 4) Extract values</span>
+<span class="nv">AZURE_CLIENT_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.appId<span class="k">)</span>
+<span class="nv">AZURE_CLIENT_SECRET</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.password<span class="k">)</span>
+<span class="nv">AZURE_TENANT_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.tenant<span class="k">)</span>
+
+<span class="c1"># 5) Print for your env file</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_CLIENT_ID=</span><span class="nv">$AZURE_CLIENT_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_CLIENT_SECRET=</span><span class="nv">$AZURE_CLIENT_SECRET</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_SUBSCRIPTION_ID=</span><span class="nv">$SUBSCRIPTION_ID</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"AZURE_TENANT_ID=</span><span class="nv">$AZURE_TENANT_ID</span><span class="s2">"</span>
+</code></pre></div>
+<strong>选项 B — 门户</strong>
+</details>
+<p>1) 转到 Microsoft Entra ID → 应用注册 → 新注册。复制应用程序（客户端）ID 和目录（租户）ID。</p>
+<p>2) 转到证书和密钥 → 新客户端密钥。复制密钥值并设置 <code>AZURE_CLIENT_SECRET</code>。</p>
+<p>3) 复制你的订阅 ID 并设置 <code>AZURE_SUBSCRIPTION_ID</code>。</p>
+<p>4) 在你的 DNS 区域中，打开访问控制 (IAM) → 添加角色分配 → DNS 区域参与者 → 分配给已注册的应用。</p>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "digitalocean"]' -->
+<details class="details">
+<summary>DigitalOcean DNS</summary>
+<p>1) 打开 DigitalOcean 控制面板。</p>
+</details>
+<p>2) 转到 API → 令牌。</p>
+<p>3) 生成一个具有写入权限的令牌并设置 <code>DO_AUTH_TOKEN</code>。</p>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "hetzner"]' -->
+<details class="details">
+<summary>Hetzner DNS</summary>
+<p>1) 打开 https://dns.hetzner.com。</p>
+</details>
+<p>2) 转到 API 令牌。</p>
+<p>3) 创建一个新令牌并设置 <code>HETZNER_API_KEY</code>。</p>
+<!-- CONDITION END -->
+<!-- CONDITION END -->
+
+<p><strong>加载配置：</strong>
+</p><div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">使用环境变量</p>
+<p>以下各节中的示例将引用这些环境变量（例如 <code>$PUBLIC_URL</code>、<code>$ACCOUNT_PUBKEY</code>、<code>$SEED_API_URL</code>），无论是在本地机器命令还是服务器命令中。请确保在每个将执行这些命令的终端会话中运行 <code>source config.env</code>。
+<!-- CONDITION END --></p>
+</div>
+<h3 id="_12">[服务器] 编辑服务器的推理节点描述</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>选择与你将要服务的模型和 GPU 类别匹配的标签。确认模型在 <code>GET /v1/governance/models</code> 中。资格（投票权，<code>confirmation_weight_scales</code>）和实时服务（<code>/v1/epochs/current/participants</code>）与此目录无关。<code>moonshotai/Kimi-K2.6</code> 目前未提供服务。模型的添加或修改由治理机制决定。有关模型治理的工作原理及如何提议新模型的详细信息，请参阅 <a href="https://gonka.ai/governance/transactions-and-governance/">交易与治理指南</a>。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked id="__tabbed_3_1" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Kimi — 4×B200 / 8×B200（及 8×H200 参考类别）</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">目前未提供服务</p>
+<p><code>/v1/epochs/current/participants</code> 中没有任何主机列出 <code>moonshotai/Kimi-K2.6</code>。这些参数是最后已知的部署形态。</p>
+<p>资格是一个独立的全网规则：<code>poc_params</code> 中的模型不会自动获得资格。资格需要满足 <code>v_min</code> / <code>w_threshold</code> 的投票权。如果没有，则下一个 PoC 将该模型视为引导候选者——单主机 <code>node-config</code> 切换不会恢复共识权重。请参阅 <a href="../kimi-bootstrap/">Kimi K2.6 引导</a>。</p>
+<p>对于 <strong>Kimi K2.6</strong> 在 Blackwell <strong>4×B200 或 8×B200</strong> 上，以及作为 <strong>8×H200</strong> 在相同布局（<code>tensor_parallel_size</code> 4，跨八个 GPU 使用专家并行）上的参考，使用此 vLLM 参数集。仅在你的堆栈或基准测试需要时进行调整。</p>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-kimik26-B200.json</code>。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">edit node-config.json</p>
+<div class="highlight"><pre><span></span><code>[
+    {
+        "id": "node1",
+        "host": "inference",
+        "inference_port": 5000,
+        "poc_port": 8080,
+        "max_concurrent": 500,
+        "models": {
+            "moonshotai/Kimi-K2.6": {
+                "args": [
+                    "--tensor-parallel-size", "4",
+                    "--enable-expert-parallel",
+                    "--trust-remote-code",
+                    "--mm-encoder-tp-mode", "data",
+                    "--tool-call-parser", "kimi_k2",
+                    "--reasoning-parser", "kimi_k2",
+                    "--attention-backend", "FLASHINFER_MLA",
+                    "--disable-custom-all-reduce",
+                    "--gpu-memory-utilization", "0.95",
+                    "--max-num-seqs", "128",
+                    "--max-model-len", "240000"
+                ]
+            }
+        }
+    }
+]
+</code></pre></div>
+</div>
+<p>在通过 API 注册或更新节点时，使用相同的 <code>"models"</code> 块；有关等效的 <code>curl</code> 示例，请参阅 <a href="../kimi-bootstrap/">Kimi K2.6 引导</a>。</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked id="__tabbed_4_1" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">Kimi — 8×H200</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-kimik26-H200.json</code>。在所有 GPU 上使用 <code>FLASHMLA</code> 注意力和 <code>tensor_parallel_size=8</code>，不使用专家并行。</p>
+<div class="highlight"><pre><span></span><code>!!! note "edit node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "moonshotai/Kimi-K2.6": {
+                    "args": [
+                        "--tensor-parallel-size", "8",
+                        "--enable-expert-parallel",
+                        "--trust-remote-code",
+                        "--mm-encoder-tp-mode", "data",
+                        "--tool-call-parser", "kimi_k2",
+                        "--reasoning-parser", "kimi_k2",
+                        "--attention-backend", "FLASHMLA",
+                        "--gpu-memory-utilization", "0.90",
+                        "--max-model-len", "240000"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked id="__tabbed_5_1" name="__tabbed_5" type="radio"><div class="tabbed-labels"><label for="__tabbed_5_1">MiniMax — 4×A100</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>对于 <strong>MiniMax M2.7</strong> 在 <strong>4×A100</strong> 上，使用此 vLLM 参数集。A100 无法使用 FP8 FlashInfer MoE 路径，因此此配置使用 <code>marlin</code> MoE 后端。你还需为 <code>mlnode-308</code> 服务设置环境变量 <code>VLLM_USE_FLASHINFER_MOE_FP8=0</code>（这在随 MLNode 3.0.14 一起提供的 <code>deploy/join/docker-compose.mlnode.yml</code> 中已预先设置）。</p>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-minimaxm27-A100.json</code>。</p>
+<div class="highlight"><pre><span></span><code>!!! note "edit node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "MiniMaxAI/MiniMax-M2.7": {
+                    "args": [
+                        "--moe-backend", "marlin",
+                        "--tensor-parallel-size", "4",
+                        "--gpu-memory-utilization", "0.95",
+                        "--max-num-seqs", "128",
+                        "--enable-auto-tool-choice",
+                        "--max-model-len", "180000",
+                        "--kv-cache-dtype", "fp8",
+                        "--tool-call-parser", "minimax_m2",
+                        "--reasoning-parser", "minimax_m2_append_think"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked id="__tabbed_6_1" name="__tabbed_6" type="radio"><div class="tabbed-labels"><label for="__tabbed_6_1">MiniMax — 4×H100</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>对于 <strong>MiniMax M2.7</strong> 在 <strong>4×H100</strong> 上，使用此 vLLM 参数集。使用 <code>FLASHINFER</code> 注意力后端和 FP8 kv-cache。</p>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-minimaxm27-H100.json</code>。</p>
+<div class="highlight"><pre><span></span><code>!!! note "edit node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "MiniMaxAI/MiniMax-M2.7": {
+                    "args": [
+                        "--tensor-parallel-size", "4",
+                        "--attention-backend", "FLASHINFER",
+                        "--gpu-memory-utilization", "0.92",
+                        "--max-num-seqs", "128",
+                        "--enable-auto-tool-choice",
+                        "--max-model-len", "180000",
+                        "--kv-cache-dtype", "fp8",
+                        "--tool-call-parser", "minimax_m2",
+                        "--reasoning-parser", "minimax_m2_append_think"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked id="__tabbed_7_1" name="__tabbed_7" type="radio"><div class="tabbed-labels"><label for="__tabbed_7_1">MiniMax — 2×H200</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>对于 <strong>MiniMax M2.7</strong> 在 <strong>2×H200</strong>（MiniMax 的 Hopper 参考类别）上，使用此 vLLM 参数集。使用 <code>FLASHINFER</code> 注意力后端、FP8 kv-cache 和 <code>tensor_parallel_size=2</code>。MiniMax M2.7 的 PoC 黄金向量是在此确切配置上记录的。</p>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-minimaxm27-H200.json</code>。</p>
+<div class="highlight"><pre><span></span><code>!!! note "edit node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "MiniMaxAI/MiniMax-M2.7": {
+                    "args": [
+                        "--tensor-parallel-size", "2",
+                        "--attention-backend", "FLASHINFER",
+                        "--gpu-memory-utilization", "0.92",
+                        "--max-num-seqs", "128",
+                        "--enable-auto-tool-choice",
+                        "--max-model-len", "180000",
+                        "--kv-cache-dtype", "fp8",
+                        "--tool-call-parser", "minimax_m2",
+                        "--reasoning-parser", "minimax_m2_append_think"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked id="__tabbed_8_1" name="__tabbed_8" type="radio"><div class="tabbed-labels"><label for="__tabbed_8_1">MiniMax — 2×B200</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>使用此 vLLM 参数集在 <strong>2×B200</strong>（MiniMax 的 Blackwell 参考类别）上运行 <strong>MiniMax M2.7</strong>。使用 <code>FLASHINFER_TRTLLM</code> MoE 后端和 FP8 kv-cache 以及 <code>tensor_parallel_size=2</code>。</p>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-minimaxm27-B200.json</code>。</p>
+<div class="highlight"><pre><span></span><code>!!! note "edit node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "MiniMaxAI/MiniMax-M2.7": {
+                    "args": [
+                        "--tensor-parallel-size", "2",
+                        "--moe-backend", "FLASHINFER_TRTLLM",
+                        "--gpu-memory-utilization", "0.92",
+                        "--max-num-seqs", "128",
+                        "--enable-auto-tool-choice",
+                        "--max-model-len", "180000",
+                        "--kv-cache-dtype", "fp8",
+                        "--tool-call-parser", "minimax_m2",
+                        "--reasoning-parser", "minimax_m2_append_think"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked id="__tabbed_9_1" name="__tabbed_9" type="radio"><div class="tabbed-labels"><label for="__tabbed_9_1">DeepSeek — 4×H100</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>使用此 vLLM 参数集在 <strong>4×H100</strong> 上运行 <strong>DeepSeek V4 Flash</strong>。DeepSeek 需要 <strong>MLNode 3.0.16</strong>（vLLM 0.25.1）。</p>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-deepseekv4flash0731-H100.json</code>。</p>
+<div class="highlight"><pre><span></span><code>!!! note "edit node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "deepseek-ai/DeepSeek-V4-Flash-0731": {
+                    "args": [
+                        "--revision", "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+                        "--tensor-parallel-size", "4",
+                        "--gpu-memory-utilization", "0.85",
+                        "--max-model-len", "400000",
+                        "--max-num-batched-tokens", "32768",
+                        "--kv-cache-dtype", "fp8",
+                        "--tokenizer-mode", "deepseek_v4",
+                        "--enable-auto-tool-choice",
+                        "--tool-call-parser", "deepseek_v4",
+                        "--reasoning-parser", "deepseek_v4",
+                        "--trust-remote-code"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked id="__tabbed_10_1" name="__tabbed_10" type="radio"><div class="tabbed-labels"><label for="__tabbed_10_1">DeepSeek — 2×H200</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>使用此 vLLM 参数集在 <strong>2×H200</strong> 上运行 <strong>DeepSeek V4 Flash</strong>。DeepSeek 需要 <strong>MLNode 3.0.16</strong>（vLLM 0.25.1）。</p>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-deepseekv4flash0731-H200.json</code>。</p>
+<div class="highlight"><pre><span></span><code>!!! note "edit node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "deepseek-ai/DeepSeek-V4-Flash-0731": {
+                    "args": [
+                        "--revision", "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+                        "--tensor-parallel-size", "2",
+                        "--gpu-memory-utilization", "0.90",
+                        "--max-model-len", "400000",
+                        "--max-num-batched-tokens", "32768",
+                        "--kv-cache-dtype", "fp8",
+                        "--tokenizer-mode", "deepseek_v4",
+                        "--enable-auto-tool-choice",
+                        "--tool-call-parser", "deepseek_v4",
+                        "--reasoning-parser", "deepseek_v4",
+                        "--trust-remote-code"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked id="__tabbed_11_1" name="__tabbed_11" type="radio"><div class="tabbed-labels"><label for="__tabbed_11_1">DeepSeek — 2×B200</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>使用此 vLLM 参数集在 <strong>2×B200</strong> 上运行 <strong>DeepSeek V4 Flash</strong>。DeepSeek 需要 <strong>MLNode 3.0.16</strong>（vLLM 0.25.1）。为在 Blackwell 上获得更好性能，请使用 nvfp4 变体 <code>node-config-deepseekv4flash0731-B200-nvfp4.json</code>（<code>model_override</code> 到 <code>MJPansa/DeepSeek-V4-Flash-0731-NVFP4</code>）；该格式需要 API <code>v0.2.15-post5</code> —— 请参阅 <a href="../../network-updates/">网络更新</a>。</p>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-deepseekv4flash0731-B200.json</code>。</p>
+<div class="highlight"><pre><span></span><code>!!! note "edit node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "deepseek-ai/DeepSeek-V4-Flash-0731": {
+                    "args": [
+                        "--revision", "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+                        "--tensor-parallel-size", "2",
+                        "--gpu-memory-utilization", "0.90",
+                        "--max-model-len", "400000",
+                        "--max-num-batched-tokens", "32768",
+                        "--kv-cache-dtype", "fp8",
+                        "--tokenizer-mode", "deepseek_v4",
+                        "--enable-auto-tool-choice",
+                        "--tool-call-parser", "deepseek_v4",
+                        "--reasoning-parser", "deepseek_v4",
+                        "--trust-remote-code"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:1"><input checked id="__tabbed_12_1" name="__tabbed_12" type="radio"><div class="tabbed-labels"><label for="__tabbed_12_1">DeepSeek — 1×B300</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>使用此 vLLM 参数集在 <strong>1×B300</strong> 上运行 <strong>DeepSeek V4 Flash</strong>。DeepSeek 需要 <strong>MLNode 3.0.16</strong>（vLLM 0.25.1）。在 B300 上，这是当前系数（0.246）下权重最高的 PoC 选项。为获得更好性能，请使用 nvfp4 变体 <code>node-config-deepseekv4flash0731-B300-nvfp4.json</code>（<code>model_override</code> 到 <code>MJPansa/DeepSeek-V4-Flash-0731-NVFP4</code>）；该格式需要 API <code>v0.2.15-post5</code> —— 请参阅 <a href="../../network-updates/">网络更新</a>。</p>
+<p>仓库中的参考部署配置：<code>deploy/join/node-config-deepseekv4flash0731-B300.json</code>。</p>
+<div class="highlight"><pre><span></span><code>!!! note "edit node-config.json"
+    ```
+    [
+        {
+            "id": "node1",
+            "host": "inference",
+            "inference_port": 5000,
+            "poc_port": 8080,
+            "max_concurrent": 500,
+            "models": {
+                "deepseek-ai/DeepSeek-V4-Flash-0731": {
+                    "args": [
+                        "--revision", "7872f01b1d1fe23eabc4c98b48bffcef5a386062",
+                        "--tensor-parallel-size", "1",
+                        "--gpu-memory-utilization", "0.90",
+                        "--max-model-len", "400000",
+                        "--max-num-batched-tokens", "32768",
+                        "--kv-cache-dtype", "fp8",
+                        "--tokenizer-mode", "deepseek_v4",
+                        "--enable-auto-tool-choice",
+                        "--tool-call-parser", "deepseek_v4",
+                        "--reasoning-parser", "deepseek_v4",
+                        "--trust-remote-code"
+                    ]
+                }
+            }
+        }
+    ]
+    ```
+</code></pre></div>
+<p>有关最优部署配置的更多详细信息，请参阅 <a href="https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/">此链接</a>。</p>
+<div class="admonition tip">
+<p class="admonition-title">Validate the deployment</p>
+<p><a href="https://github.com/gonka-ai/gonka"><code>gonka</code> 仓库</a> 提供了一个代理技能 <code>mlnode-validate</code>，用于根据预计算的诚实 PoC 向量验证 ML Node 是否符合特定模型。使用与您部署的模型匹配的黄金参考（MiniMax-M2.7、DeepSeek V4 Flash 在 <a href="https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts"><code>vllm-0.25.1-upgrade</code></a> 或 Kimi K2.6）。Qwen3-0.6B / Qwen3-235B 工件为历史版本，<strong>不是</strong>主网模型。请参阅 <a href="../mlnode-validation/">验证 ML Node 部署</a>。</p>
+</div>
+<h3 id="server-hugging-face-hf_home">[Server] 预下载模型权重到 Hugging Face 缓存 (HF_HOME)</h3>
+<p>推理节点从 Hugging Face 下载模型权重。
+为确保模型权重在部署前就绪，您应在部署前下载它们。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:1"><input checked id="__tabbed_13_1" name="__tabbed_13" type="radio"><div class="tabbed-labels"><label for="__tabbed_13_1">Kimi K2.6</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><code>moonshotai/Kimi-K2.6</code> 目前未提供服务。如需部署（包括恢复组），请下载它。列出但无投票权的模型是引导候选；单个 <code>node-config</code> 开关无法恢复共识权重。请参阅 <a href="../kimi-bootstrap/">Kimi K2.6 引导</a>。</p>
+<div class="highlight"><pre><span></span><code>```bash
+mkdir -p $HF_HOME
+huggingface-cli download moonshotai/Kimi-K2.6
+```
+
+模型许可证：请参阅 [模型许可证](../model-licenses.md)。有关运营说明和链上选项（意图、委托），请参阅 [Kimi K2.6 引导](./kimi-bootstrap.md)。
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked id="__tabbed_14_1" name="__tabbed_14" type="radio"><input id="__tabbed_14_2" name="__tabbed_14" type="radio"><div class="tabbed-labels"><label for="__tabbed_14_1">MiniMax M2.7</label><label for="__tabbed_14_2">DeepSeek V4 Flash</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HF_HOME</span>
+huggingface-cli<span class="w"> </span>download<span class="w"> </span>MiniMaxAI/MiniMax-M2.7
+</code></pre></div>
+<p>模型许可证：请参阅 <a href="../../model-licenses/">模型许可证</a>。MiniMax M2.7 需要 <strong>MLNode 3.0.14 或更高版本</strong>（镜像 <code>ghcr.io/gonka-ai/mlnode:3.0.14-cu129</code>，在 <code>deploy/join/docker-compose.mlnode.yml</code> 中锁定）。在 A100 硬件上，请确保为 <code>mlnode-308</code> 服务设置了 <code>VLLM_USE_FLASHINFER_MOE_FP8=0</code> 环境变量（已预设在提供的 compose 文件中）。</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HF_HOME</span>
+huggingface-cli<span class="w"> </span>download<span class="w"> </span>deepseek-ai/DeepSeek-V4-Flash-0731<span class="w"> </span>--revision<span class="w"> </span>7872f01b1d1fe23eabc4c98b48bffcef5a386062
+</code></pre></div>
+<p>模型许可证：请参阅 <a href="../../model-licenses/">模型许可证</a>。DeepSeek V4 Flash 需要 <strong>MLNode 3.0.16 或更高版本</strong>（镜像 <code>ghcr.io/gonka-ai/mlnode:3.0.16</code>，在 <code>deploy/join/docker-compose.mlnode.yml</code> 分支中锁定；如果主机仍使用 CUDA 12.9，请使用 <code>3.0.16-cu129</code> 标签）。有关运营说明和链上选项（意图、委托），请参阅 <a href="../deepseek-bootstrap/">DeepSeek V4 Flash 引导</a>。在 Blackwell GPU 上，nvfp4 重新打包 <code>MJPansa/DeepSeek-V4-Flash-0731-NVFP4</code> 需要 API <code>v0.2.15-post5</code> —— 请参阅 <a href="../../network-updates/">网络更新</a>。</p>
+</div>
+</div>
+</div>
+<h2 id="_13">启动节点</h2>
+<h3 id="server-docker">[Server] 拉取 Docker 镜像（容器）</h3>
+<p>在运行以下命令前，请确保您位于 <code>gonka/deploy/join</code> 文件夹中。 
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>pull
+</code></pre></div>
+<h3 id="_14">[服务器] 启动初始服务</h3>
+<p>启动密钥设置所需的必要服务（不包括API服务）：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>tmkms<span class="w"> </span>node<span class="w"> </span>-d<span class="w"> </span>--no-deps
+</code></pre></div>
+<p>我们首先启动这些特定容器，因为：</p>
+<ul>
+<li><strong><code>tmkms</code></strong> - 生成并安全管理验证者注册所需的共识密钥</li>
+<li><strong><code>node</code></strong> - 连接到区块链并提供RPC端点以检索共识密钥</li>
+<li><strong><code>api</code></strong> - 在此阶段故意被排除，因为我们需要在下一步中在其内部创建ML操作密钥</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">建议</p>
+<p>您可以查看日志以验证初始服务是否成功启动：</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>tmkms<span class="w"> </span>node<span class="w"> </span>-f
+</code></pre></div>
+<p>如果看到链节点持续处理区块事件，则说明设置正常运行。</p>
+</div>
+<details class="note">
+<summary>关于共识密钥</summary>
+<ul>
+<li>由安全的TMKMS服务管理</li>
+<li>温存储并防止双签</li>
+<li>区块验证和网络共识参与</li>
+<li>可通过账户密钥或授权代理进行轮换</li>
+</ul>
+</details>
+<p>在<a href="https://gonka.ai/host/quickstart/#32-server-register-host">步骤3.2.</a>（<code>inferenced register-new-participant</code>）的注册命令期间，共识密钥将与您的账户密钥（冷密钥）链上关联，从而将您的节点确立为网络中的有效参与者。</p>
+<p>如果您删除或覆盖了 <code>.tmkms</code> 文件夹，您的共识密钥将丢失。此密钥是将您的节点与区块链验证者集关联的关键。一旦 <code>.tmkms</code> 被删除，您必须从头开始整个设置，包括生成新的共识密钥（通过 <code>tmkms</code>）（参见FAQ页面中的“<a href="https://gonka.ai/FAQ/#i-cleared-or-overwrote-my-consensus-key">我清除了或覆盖了我的共识密钥</a>”）。</p>
+<h3 id="_15">完成密钥设置和主机注册</h3>
+<p>现在我们需要通过创建温密钥、注册主机并授予权限来完成密钥管理设置：</p>
+<h4 id="31-ml">3.1. [服务器] 创建ML操作密钥</h4>
+<details class="note">
+<summary>关于ML操作密钥（温密钥）</summary>
+<ul>
+<li>由账户密钥授权用于ML特定交易</li>
+<li>服务器上的加密文件，可通过程序访问</li>
+<li>自动化交易（推理请求、证明提交、奖励）</li>
+<li>可随时由账户密钥轮换或吊销</li>
+<li>需要持续可用，除非必要，请勿删除或轮换。</li>
+</ul>
+</details>
+<p>在 <code>api</code> 容器内使用 <code>file</code> keyring 后端创建温密钥（程序化访问所必需）。密钥将存储在映射到容器 <code>/root/.inference</code> 的持久卷中：
+</p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--no-deps<span class="w"> </span>-it<span class="w"> </span>api<span class="w"> </span>/bin/sh
+</code></pre></div>
+<p>在容器内创建ML操作密钥：
+</p><div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_PASSWORD</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_PASSWORD</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>inferenced<span class="w"> </span>keys<span class="w"> </span>add<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY_NAME</span><span class="s2">"</span><span class="w"> </span>--keyring-backend<span class="w"> </span>file
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">重要</p>
+<p>请勿运行此命令两次。
+ML操作密钥（温密钥）每个服务器仅生成一次，必须在重启后保留。</p>
+<ul>
+<li>如果您意外删除或重新初始化了它，请遵循FAQ中的恢复说明： “<a href="https://gonka.ai/FAQ/#i-deleted-the-warm-key">我删除了温密钥</a>”.</li>
+<li>重启节点时，请完全跳过此步骤——密钥已生成并持久存储在API容器内。</li>
+</ul>
+</div>
+<p><strong>示例输出：</strong>
+</p><div class="highlight"><pre><span></span><code>~ # printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add "$KEY_NAME" --keyring-backend file
+
+- address: gonka1gyz2agg5yx49gy2z4qpsz9826t6s9xev6tkehw
+  name: node-702105
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"Ao8VPh5U5XQBcJ6qxAIwBbhF/3UPZEwzZ9H/qbIA6ipj"}'
+  type: local
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+again plastic athlete arrow first measure danger drastic wolf coyote work memory already inmate sorry path tackle custom write result west tray rabbit jeans
+</code></pre></div>
+<h4 id="32">3.2. [服务器] 注册主机</h4>
+<p>从同一容器中注册主机——这将在链上将您的URL、账户密钥和共识密钥（自动获取）关联起来：</p>
+<div class="highlight"><pre><span></span><code>inferenced register-new-participant \
+    $DAPI_API__PUBLIC_URL \
+    $ACCOUNT_PUBKEY \
+    --node-address $DAPI_CHAIN_NODE__SEED_API_URL
+</code></pre></div>
+<p><strong>预期输出：</strong>
+</p><div class="highlight"><pre><span></span><code>...
+Found participant: gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm (url: http://36.189.234.237:19250, status: ACTIVE)
+Participant is now available at http://36.189.234.237:19250/v2/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
+Account balance: 0
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">账户已有GNK但尚未发送任何交易</p>
+<p>在大多数情况下，<code>inferenced register-new-participant</code> 可直接从 <code>api</code> 容器内注册您的主机。</p>
+<p>但存在一个已知的边缘情况：如果您的账户密钥地址已收到GNK但从未发送过交易，从容器内注册可能会失败，并出现类似以下错误：</p>
+<div class="highlight"><pre><span></span><code>rpc error: code = Unknown desc = runtime error: invalid memory address or nil pointer dereference: panic
+</code></pre></div>
+<p>当账户有余额但链上交易序列仍为 <code>0</code> 时，可能发生这种情况。</p>
+</div>
+<p>如果上述命令因该错误失败，您可以通过您的<strong>本地机器</strong>检查账户余额和序列：</p>
+<div class="highlight"><pre><span></span><code>```bash
+./inferenced query auth account &lt;YOUR_COLD_ADDRESS&gt; \
+  --node &lt;node-url&gt;/chain-rpc/ \
+  --output json | jq -r '.account.value.sequence // .sequence // "0"'
+```
+
+如果账户有非零的 `ngonka` 余额且序列命令返回 `0`，请使用下面的手动注册流程。
+</code></pre></div>
+<p><strong>步骤 1.</strong> 仍在步骤 3.1 的容器中时，获取您的共识密钥并记录下来：
+    </p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span><span class="nv">$DAPI_CHAIN_NODE__URL</span>/status<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.result.validator_info.pub_key.value'</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>**步骤 2.** 退出容器，然后在您的**本地机器**（您的账户密钥存储位置）上运行此命令：
+```bash
+./inferenced tx inference submit-new-participant \
+    &lt;PUBLIC_URL&gt; \
+    --validator-key &lt;CONSENSUS_KEY&gt; \
+    --keyring-backend file \
+    --from &lt;COLD_KEY_NAME&gt; \
+    --timeout-duration 1m \
+    --unordered \
+    --node &lt;node-url&gt;/chain-rpc/ \
+    --chain-id gonka-mainnet
+```
+
+`&lt;node-url&gt;` — 网络上任何已运行的节点（例如 `http://node2.gonka.ai:8000`）。在此步骤中不要使用您自己的节点 URL — 它尚未完全启动。
+</code></pre></div>
+<p>如果您使用自定义 <code>--keyring-dir</code> 创建了账户密钥，请在命令中添加 <code>--keyring-dir &lt;path&gt;</code>。</p>
+<p>该命令将提示 <code>confirm transaction before signing and broadcasting [y/N]:</code> — 输入 <code>y</code> 继续。</p>
+<p>燃料费从账户密钥的余额中扣除。请确保账户在运行此命令前有足够的代币。</p>
+<div class="admonition note">
+<p class="admonition-title">每个节点的账户密钥配置</p>
+<p>为每个网络节点生成唯一的 <code>ACCOUNT_PUBKEY</code>，以确保主机之间的正确隔离。</p>
+<p>然后我们可以退出容器：</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nb">exit</span>
+</code></pre></div>
+<h4 id="33-ml">3.3. [本地机器] 为 ML 运营密钥授予权限</h4>
+<p><strong>重要：请在您创建账户密钥的安全本地机器上执行此步骤</strong></p>
+<p>从您的账户密钥向 ML 运营密钥授予权限：
+</p><div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>grant-ml-ops-permissions<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>gonka-account-key<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&lt;ml-operational-key-address-from-step-3.1&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--from<span class="w"> </span>gonka-account-key<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--gas<span class="w"> </span><span class="m">2000000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node<span class="w"> </span>&lt;seed_api_url<span class="w"> </span>from<span class="w"> </span>server<span class="err">'</span>s<span class="w"> </span>config.env&gt;/chain-rpc/<span class="w"> </span>
+</code></pre></div>
+<p><strong>预期输出：</strong>
+</p><div class="highlight"><pre><span></span><code>...
+Transaction sent with hash: FB9BBBB5F8C155D0732B290C443A0D06BC114CDF43E8EE8FB329D646C608062E
+Waiting for transaction to be included in a block...
+
+Transaction confirmed successfully!
+Block height: 174
+</code></pre></div>
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
+<h4 id="34-ssl">3.4. [服务器] 手动 SSL 证书设置</h4>
+<p>如果您在上面的问卷中选择了手动 SSL 证书设置，请按照以下步骤配置您的 SSL 证书：</p>
+<h5 id="_16">准备目录</h5>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>secrets/nginx-ssl<span class="w"> </span>secrets/certbot
+</code></pre></div>
+<h5 id="dockerized-certbotdns01">生成证书（Dockerized Certbot；DNS‑01）</h5>
+<div class="highlight"><pre><span></span><code><span class="nv">DOMAIN</span><span class="o">=</span>&lt;FULL_DOMAIN_NAME&gt;
+<span class="nv">ACCOUNT_EMAIL</span><span class="o">=</span>&lt;EMAIL_ADDRESS&gt;<span class="w">    </span><span class="c1"># renewal notices</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>secrets/nginx-ssl<span class="w"> </span>secrets/certbot
+
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/secrets/certbot:/etc/letsencrypt"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/secrets/nginx-ssl:/mnt/nginx-ssl"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>certbot/certbot<span class="w"> </span>certonly<span class="w"> </span>--manual<span class="w"> </span>--preferred-challenges<span class="w"> </span>dns<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$DOMAIN</span><span class="s2">"</span><span class="w"> </span>--email<span class="w"> </span><span class="s2">"</span><span class="nv">$ACCOUNT_EMAIL</span><span class="s2">"</span><span class="w"> </span>--agree-tos<span class="w"> </span>--no-eff-email<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--deploy-hook<span class="w"> </span><span class="s1">'install -m 0644 "$RENEWED_LINEAGE/fullchain.pem" /mnt/nginx-ssl/cert.pem; \</span>
+<span class="s1">                 install -m 0600 "$RENEWED_LINEAGE/privkey.pem"   /mnt/nginx-ssl/private.key'</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">DNS 挑战</p>
+<p>Certbot 将暂停并显示您在提供商处需要添加的 <strong>TXT DNS</strong> 记录。验证后，<code>cert.pem</code> 和 <code>private.key</code> 将出现在 <code>./secrets/nginx-ssl/</code> 中。</p>
+</div>
+<h5 id="_17">验证证书文件</h5>
+<p>确保证书文件已就位：</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-la<span class="w"> </span>secrets/nginx-ssl/
+</code></pre></div>
+<p>您应看到：
+- <code>cert.pem</code>（完整链证书）
+- <code>private.key</code>（权限为 0600 的私钥）</p>
+<p>问卷生成的 <code>config.env</code> 文件已包含必要的 SSL 配置变量：
+- <code>SERVER_NAME=&lt;FULL_DOMAIN_NAME&gt;</code>
+- <code>SSL_CERT_SOURCE=./secrets/nginx-ssl</code></p>
+<p>请在继续前使用您的实际域名编辑 <code>SERVER_NAME</code>。</p>
+<!-- CONDITION END -->
+
+<h2 id="_18">[服务器] 启动完整节点</h2>
+<p>最后，启动所有容器，包括 API：</p>
+<!-- CONDITION START: data-show-when='["non-finished"]' -->
+<div class="admonition note">
+<p class="admonition-title">需要配置</p>
+<p>请完成<a href="#quickstart-questionnaire">上面的问卷</a>以生成启动命令。
+<!-- CONDITION END --></p>
+<p><!-- CONDITION START: data-show-when='["protocolHttp"]' -->
+启动所有容器：</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto"]' -->
+<p>使用自动 SSL 证书管理启动所有容器：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+docker<span class="w"> </span>compose<span class="w"> </span>--profile<span class="w"> </span><span class="s2">"ssl"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>up<span class="w"> </span>-d
+</code></pre></div>
+<p><code>--profile "ssl"</code> 标志启用了 <code>proxy-ssl</code> 容器，该容器自动管理 SSL 证书。</p>
+<!-- CONDITION END -->
+
+<!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
+<p>使用手动SSL证书启动所有容器:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>config.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.yml<span class="w"> </span>-f<span class="w"> </span>docker-compose.mlnode.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<!-- CONDITION END -->
+
+<h2 id="verify-node-status">验证节点状态</h2>
+<!-- CONDITION START: data-show-when='["protocolHttps"]' -->
+<p>验证HTTPS是否正常工作:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-I<span class="w"> </span>https://&lt;FULL_DOMAIN_NAME&gt;:8443/health<span class="w">   </span><span class="c1"># Expect: HTTP/2 200 OK</span>
+</code></pre></div>
+<!-- CONDITION END -->
+
+<p>打开此URL，将<code>&lt;your-gonka-cold-address&gt;</code>替换为您的地址:
+</p><div class="highlight"><pre><span></span><code>http://node2.gonka.ai:8000/v2/participants/&lt;your-gonka-cold-address&gt;
+</code></pre></div>
+<p>您应该在JSON中看到参与者数据（<code>participant.address</code>，<code>participant.inferenceUrl</code>，<code>participant.status</code>）。</p>
+<p>要检查账户数据（<code>pubkey</code>，<code>balance</code>，<code>denom</code>），请使用:
+</p><div class="highlight"><pre><span></span><code>http://node2.gonka.ai:8000/v2/accounts/&lt;your-gonka-cold-address&gt;
+</code></pre></div>
+<p>一旦您的节点完成计算证明阶段（每24小时运行一次），您可以访问以下URL查看您的节点:
+</p><div class="highlight"><pre><span></span><code>http://node2.gonka.ai:8000/v1/epochs/current/participants
+</code></pre></div>
+<p>您可以<a href="https://gonka.ai/FAQ/#how-to-simulate-proof-of-compute-poc">在MLNode上自行模拟计算证明</a>，以确保在链上开始PoC阶段时一切正常。</p>
+<p>您可以在该阶段前关闭服务器，并在下一次计算证明开始前重新启动。
+要跟踪下一次计算证明会话何时开始，请查看<a href="https://gonka.ai/wallet/dashboard/">仪表板</a>：
+</p><div class="highlight"><pre><span></span><code>http://node2.gonka.ai:8000/dashboard/gonka/validator
+</code></pre></div>
+<p>节点启动后，通过代理检查您的节点状态。
+</p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://&lt;PUBLIC_IP&gt;:8000/chain-rpc/status
+</code></pre></div>
+在服务器上，您可以使用私有地址（从容器内部或如果26657绑定到localhost）。
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://0.0.0.0:26657/status
+</code></pre></div>
+使用创世节点的公共端点。
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://node2.gonka.ai:8000/chain-rpc/status
+</code></pre></div>
+<p>一旦您的节点在仪表板中可见，您可能还想更新您的公共资料（主机名、网站、头像）。这有助于其他参与者在网络中识别您的节点。您可以在<a href="https://gonka.ai/host/validator_info/">此处找到说明</a>。</p>
+<h2 id="_19">[本地机器] 存入抵押品</h2>
+<p><strong>重要：请在您创建账户密钥的安全本地机器上执行此步骤。</strong></p>
+<p>抵押品是锁定的GNK，用于激活您的PoC权重中符合抵押资格的部分。如果没有它，主机仅获得<strong>基础权重</strong>（默认为20%）的计算证明收益。宽限期已结束，因此此步骤是实现全额权重运行的必要条件。</p>
+<blockquote>
+<p><strong>关于时间的说明：</strong> 验证节点状态仅确认您的容器正在运行且参与者已注册。它<strong>不</strong>意味着计算证明已成功——PoC每约24小时运行一次，只有在完成后，您才能在<code>$NODE_URL/v1/epochs/current/participants</code>处看到您的实际权重。以下两个选项允许您要么现在使用估算值存入，要么等待首次PoC完成后使用精确数据存入。</p>
+</blockquote>
+<p>无法提前知道您的PoC权重——它由您的硬件、网络当前规模和每个模型的系数决定。</p>
+<p><strong>选项A — 现在存入（从第1个纪元起获得全额权重）。</strong> 查看网络中的当前权重分布，并存入足够覆盖上限的金额。您的节点在首次PoC时已配备抵押品。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NODE_URL</span><span class="o">=</span><span class="s2">"&lt;seed_api_url from server's config.env&gt;"</span><span class="w">   </span><span class="c1"># e.g. http://node2.gonka.ai:8000</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CHAIN_ID</span><span class="o">=</span><span class="s2">"gonka-mainnet"</span>
+
+<span class="nv">PARAMS</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE_URL</span><span class="s2">/chain-api/productscience/inference/inference/params"</span><span class="k">)</span>
+<span class="nv">BASE_WEIGHT_RATIO</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$PARAMS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.params.collateral_params.base_weight_ratio</span>
+<span class="s1">  | (.value | tonumber) * pow(10; .exponent | tonumber)'</span><span class="k">)</span>
+<span class="nv">COLLATERAL_PER_UNIT</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$PARAMS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.params.collateral_params.collateral_per_weight_unit</span>
+<span class="s1">  | (.value | tonumber) * pow(10; .exponent | tonumber)'</span><span class="k">)</span>
+
+<span class="nv">MAX_WEIGHT</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE_URL</span><span class="s2">/v1/epochs/current/participants"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'[.active_participants.participants[].weight] | max'</span><span class="k">)</span>
+
+<span class="nv">DEPOSIT</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s2">"%.0f"</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$MAX_WEIGHT</span><span class="s2"> * (1 - </span><span class="nv">$BASE_WEIGHT_RATIO</span><span class="s2">) * </span><span class="nv">$COLLATERAL_PER_UNIT</span><span class="s2"> * 2"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span>-l<span class="k">)</span><span class="s2">"</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Recommended deposit (covers network max with 2x buffer): </span><span class="si">${</span><span class="nv">DEPOSIT</span><span class="si">}</span><span class="s2"> ngonka"</span>
+</code></pre></div>
+<p>公式为<code>MAX_WEIGHT × (1 − BASE_WEIGHT_RATIO) × COLLATERAL_PER_UNIT × 2</code>：仅需为权重中符合抵押资格的部分提供 backing（其余部分作为基础权重授予），而<code>× 2</code>是建议的安全缓冲。所有参数均从链上读取，因此即使治理更新，脚本仍保持正确。</p>
+<blockquote>
+<p><strong>为什么是2倍缓冲？</strong> PoC权重在纪元间波动（网络标准化、模型系数、上限、惩罚）。协议<strong>不会</strong>自动补足：如果您的抵押品在下一个纪元边界时不足以覆盖实际权重，您将默默获得较少权重，直到您存入更多——至少损失一个纪元的全额奖励。超额抵押品不会丢失：它将保留在模块中，稍后可通过<code>withdraw-collateral</code>提取。</p>
+</blockquote>
+<p><strong>选项B — 等待首次PoC后再精确存入（导致一个纪元仅以20%权重运行）。</strong> 现在跳过此步骤，等待您的首次PoC阶段完成（每约24小时），然后在<code>$NODE_URL/v1/epochs/current/participants</code>处查看您的实际权重，并使用您的实际权重替换上述脚本中的<code>MAX_WEIGHT</code>重新运行。从第二个纪元开始，您的节点将以全额权重运行。</p>
+<p>使用您的账户密钥存入抵押品（始终使用<code>ngonka</code>）：</p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>tx<span class="w"> </span>collateral<span class="w"> </span>deposit-collateral<span class="w"> </span><span class="si">${</span><span class="nv">DEPOSIT</span><span class="si">}</span>ngonka<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span>gonka-account-key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span>file<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="nv">$NODE_URL</span>/chain-rpc/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="nv">$CHAIN_ID</span>
+</code></pre></div>
+<p>验证:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MY_ADDR</span><span class="o">=</span><span class="k">$(</span>./inferenced<span class="w"> </span>keys<span class="w"> </span>show<span class="w"> </span>gonka-account-key<span class="w"> </span>-a<span class="w"> </span>--keyring-backend<span class="w"> </span>file<span class="k">)</span>
+curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE_URL</span><span class="s2">/chain-api/productscience/inference/collateral/collateral/</span><span class="nv">$MY_ADDR</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</code></pre></div>
+<p>存款是累积的——如果您的权重增长，可稍后通过另一个<code>deposit-collateral</code>进行补充。要释放未使用的抵押品，请使用<code>withdraw-collateral</code>（需经历解绑期，默认为一个纪元）。</p>
+<p>有关 slashing、提取和参数调优的详细信息，请参阅<a href="https://gonka.ai/host/collateral/">抵押品文档</a>。</p>
+<h2 id="optional-poc-delegation-and-refusal">可选：PoC委托与拒绝</h2>
+<p>在您的主机已注册、ML操作密钥已授权且您可以<a href="#verify-node-status">验证</a>参与后，使用本节——通常在您的<strong>本地机器</strong>上使用<strong>账户（冷）密钥</strong>（<code>gonka-account-key</code>）。此处操作并非启动容器的必需步骤；当您<strong>不</strong>在自己的GPU上运行每个治理批准的模型，而必须<strong>委托</strong>PoC投票给其他参与者、<strong>拒绝</strong>委托或与<code>params</code>比较时间时适用。</p>
+<p>对于每个<code>model_id</code>，您要么运行模型（PoC来自您的堆栈），要么在链上发出信号。<strong>委托</strong>是当您信任运行该模型的主机时的常见选择；<strong>拒绝</strong>是明确的退出。背景：<a href="../multi_model_poc/">多模型PoC——主机操作指南</a>。</p>
+<p>将<code>NODE</code>设置为任意同步的链RPC（模式与<code>grant-ml-ops-permissions</code>相同：从<code>config.env</code>获取API URL，并附加<code>/chain-rpc/</code>）。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NODE</span><span class="o">=</span><span class="s2">"&lt;PUBLIC_CHAIN_RPC&gt;"</span><span class="w">   </span><span class="c1"># e.g. http://node2.gonka.ai:8000/chain-rpc/</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CHAIN_ID</span><span class="o">=</span><span class="s2">"gonka-mainnet"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KEY</span><span class="o">=</span><span class="s2">"gonka-account-key"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KEYRING_BACKEND</span><span class="o">=</span><span class="s2">"file"</span>
+</code></pre></div>
+<p>检查治理参数（惩罚、<code>penalty_start_epoch</code>等）：</p>
+<div class="highlight"><pre><span></span><code>./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>params<span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<p><strong>检查您的PoC委托/拒绝/意向状态</strong>（所有模型）：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MY_ADDR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>./inferenced<span class="w"> </span>keys<span class="w"> </span>show<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span>-a<span class="w"> </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span>
+./inferenced<span class="w"> </span>query<span class="w"> </span>inference<span class="w"> </span>poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MY_ADDR</span><span class="s2">"</span><span class="w"> </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json
+</code></pre></div>
+<p><strong>委托</strong> — 将您对该模型PoC验证的权重附加到<code>DELEGATEE</code>（其<code>gonka1…</code>地址）。MiniMax示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"MiniMaxAI/MiniMax-M2.7"</span>
+<span class="nv">DELEGATEE</span><span class="o">=</span><span class="s2">"gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>set-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$DELEGATEE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p>DeepSeek示例（例如，您仅在自己的GPU上运行MiniMax）：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"deepseek-ai/DeepSeek-V4-Flash-0731"</span>
+<span class="nv">DELEGATEE</span><span class="o">=</span><span class="s2">"gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>set-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$DELEGATEE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p><strong>清除</strong>对某个模型的委托：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"deepseek-ai/DeepSeek-V4-Flash-0731"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>set-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p><strong>拒绝</strong>对某个模型的委托（链上明确的“否”）。对于您未运行的<strong>合格</strong>模型，请使用此操作（例如，如果您仅提供MiniMax服务，则拒绝DeepSeek）。常规拒绝/错过惩罚仅适用于合格组。</p>
+<div class="highlight"><pre><span></span><code><span class="nv">MODEL</span><span class="o">=</span><span class="s2">"deepseek-ai/DeepSeek-V4-Flash-0731"</span>
+
+./inferenced<span class="w"> </span>tx<span class="w"> </span>inference<span class="w"> </span>refuse-poc-delegation<span class="w"> </span><span class="s2">"</span><span class="nv">$MODEL</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="w"> </span><span class="s2">"</span><span class="nv">$KEY</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node<span class="w"> </span><span class="s2">"</span><span class="nv">$NODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chain-id<span class="w"> </span><span class="s2">"</span><span class="nv">$CHAIN_ID</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--keyring-backend<span class="w"> </span><span class="s2">"</span><span class="nv">$KEYRING_BACKEND</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--gas-adjustment<span class="w"> </span><span class="m">1</span>.3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-y
+</code></pre></div>
+<p><code>declare-poc-intent</code>主要适用于<strong>新模型启动</strong>窗口；请参阅<a href="../kimi-bootstrap/">Kimi K2.6启动</a>和<a href="../deepseek-bootstrap/">DeepSeek V4 Flash启动</a>。更多命令和边缘情况：<a href="../multi_model_poc/#copy-paste-setup-commands">多模型PoC — 主机操作指南</a>。</p>
+<h2 id="_20">停止并清理您的节点</h2>
+<h3 id="_21">如何停止您的节点</h3>
+<p>检查您当前所处的纪元。打开URL：<a href="http://node1.gonka.ai:8000/api/v1/epochs/latest">http://node1.gonka.ai:8000/api/v1/epochs/latest</a>（您也可以使用任何其他活跃参与者的URL）。</p>
+<p>在响应中查找：
+</p><div class="highlight"><pre><span></span><code>"latest_epoch": {
+    "index": 88,
+    ...
+}
+</code></pre></div>
+<p>记住您的节点最后工作的纪元索引。</p>
+<p>在同一JSON响应中查找：
+</p><div class="highlight"><pre><span></span><code>"next_epoch_stages": {
+  ...
+  "claim_money": &lt;block_number&gt;
+}
+</code></pre></div>
+此区块编号表示您可领取奖励的区块之后。但请注意，您现在应立即禁用每个ML节点（无需等待此区块后再禁用ML节点）。
+<p>禁用每个ML节点。</p>
+<p></p><div class="highlight"><pre><span></span><code>curl -X POST http://&lt;api_node_static_ip&gt;:&lt;admin_port&gt;/admin/v1/nodes/&lt;id&gt;/disable
+</code></pre></div>
+等待下一个纪元。请勿停止网络节点或ML节点。禁用标志仅在下一个纪元开始后生效。
+<p>保持网络节点在线并同步，它应自动处理奖励领取。
+要检查您的最新奖励是否已被领取，在<code>claim_money</code>区块之后运行以下命令（请将<code>&lt;YOUR_ADDRESS&gt;</code>和<code>&lt;EPOCH&gt;</code>替换为您的实际值）：
+</p><div class="highlight"><pre><span></span><code>inferenced query inference show-epoch-performance-summary &lt;EPOCH&gt; &lt;YOUR_ADDRESS&gt; --node http://node1.gonka.ai:8000/chain-rpc/ --output json
+</code></pre></div>
+示例： 
+<div class="highlight"><pre><span></span><code>Output:
+{
+  "epochPerformanceSummary": {
+    "epoch_index": "87",
+    "participant_id": "&lt;YOUR_ADDRESS&gt;",
+    "missed_requests": "1",
+    "rewarded_coins": "123456",
+    "claimed": true
+  }
+}
+</code></pre></div>
+如果结果显示<code>claimed = true</code>，则您的奖励已被领取。
+如果显示<code>false</code>，请继续手动领取步骤。
+<div class="admonition note">
+<p class="admonition-title">手动领取奖励（如需要）</p>
+<p>运行：
+</p><div class="highlight"><pre><span></span><code>curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
+ -H "Content-Type: application/json" \
+ -d '{"force_claim": true}'
+</code></pre></div>
+</div>
+<p>验证移除和权重。如果您禁用了所有节点，则您的参与者应不再出现在活跃参与者列表中。如果您仍能看到自己的参与者，说明网络仍期望您参与该纪元，若此时禁用节点，您可能会错过推理，从而影响您的声誉。</p>
+<p>确保您位于<code>gonka/deploy/join</code>文件夹中。要停止所有运行的容器：
+</p><div class="highlight"><pre><span></span><code>docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
+</code></pre></div>
+这将停止并移除<code>docker-compose.yml</code>和<code>docker-compose.mlnode.yml</code>文件中定义的所有服务，除非明确配置，否则不会删除卷或数据。
+<h3 id="_22">如何清理您的节点（完全重置）</h3>
+<p>如果您想完全重置节点并删除所有数据（用于重新部署或迁移），请使用以下清理步骤。</p>
+<ol>
+<li>
+<p>要清理缓存并从头开始，删除本地<code>.inference</code>和<code>.dapi</code>文件夹（推理运行时缓存和身份）：
+</p><div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>.inference<span class="w"> </span>.dapi<span class="w"> </span>.tmkms
+</code></pre></div>
+</li>
+<li>
+<p>(可选) 清除模型权重缓存：
+</p><div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$HF_HOME</span>
+</code></pre></div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>删除<code>$HF_HOME</code>将需要从Hugging Face重新下载大型模型文件，或重新挂载NFS缓存。</p>
+<p><strong>需要帮助？</strong> 请访问<a href="https://gonka.ai/FAQ/">常见问题页面</a>获取答案，或加入<a href="https://discord.gg/REcpeYc7P7">Discord服务器</a>以获取一般性问题、技术问题或安全问题的帮助。  </p>
+</div></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

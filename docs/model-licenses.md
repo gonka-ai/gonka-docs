@@ -1,4 +1,7 @@
 # Model licenses
+
+This page is a list of model licenses. It does not say whether a model is on Gonka now, was served in the past, or was never deployed. For the live governance set, query `GET /v1/governance/models`.
+
 - [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1/blob/main/LICENSE)
 - [DeepSeek-V3](https://github.com/deepseek-ai/DeepSeek-V3/blob/main/LICENSE-MODEL)
 - [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/LICENSE)

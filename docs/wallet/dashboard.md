@@ -17,7 +17,7 @@ You can interact with the dashboard in two ways:
         - [http://36.189.234.237:17241](http://36.189.234.237:17241)  
         - [https://node1.gonka.ai:8443](https://node1.gonka.ai:8443)  
         - [https://node2.gonka.ai:8443](https://node2.gonka.ai:8443)  
-        - [http://47.236.26.199:8000](http://47.236.26.199:8000)  
+        - [https://node3.gonka.ai](https://node3.gonka.ai)  
         - [http://47.236.19.22:18000](http://47.236.19.22:18000)  
         - [http://gonka.spv.re:8000](http://gonka.spv.re:8000)  
     
@@ -26,6 +26,9 @@ You can interact with the dashboard in two ways:
             Choose any active Host from the list.
             Copy their `inference_url` value.
             Paste the `inference_url` into your browser to load the dashboard.
+
+            !!! note "Some Hosts disable the public dashboard"
+                Hosts are not required to keep a public dashboard or chain RPC open. An `inference_url` in `active_participants` means the Host is serving inference, not that its dashboard is public. Many Hosts still serve the dashboard page, but it may show **disconnected** with zero metrics. That is expected — pick another `inference_url` until live data appears. This does not mean the Host is offline.
     
     2. Once opened, you’ll see real-time data streamed directly from the Host’s node.
     

@@ -8,6 +8,353 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 14, 2026
+
+**The devshard v5 proposal has entered governance**
+
+Proposal id 104 does two things: it adds `v5` to the approved list of devshard versions, and it distributes 91,300 USDT in contributor bounties from the community-sale contract.
+
+**Devshard v5**
+
+This is a devshard-only change. It goes through an on-chain params proposal, not a full chain software upgrade: Cosmovisor is not involved, the chain does not halt, and inference keeps serving. If approved, `versiond` downloads the binary, verifies its SHA-256 against the value stored on-chain, and starts the runtime.
+
+v5 runs alongside the existing v3, v4 and v4.1 runtimes. Passing the proposal does not by itself move any traffic, so brokers can migrate their gateways progressively afterwards.
+
+```
+https://github.com/gonka-ai/gonka/releases/download/devshard%2Fv5.0.0/devshardd.zip
+sha256 ae2d1f90374b54efd4290b4df8b8c0ae339deb0d3b6e5b10936ea9f73155f564
+```
+
+The PoC model set is not affected: MiniMax-M2.7, DeepSeek-V4-Flash-0731 and GLM-5.3-Flash keep their current parameters and weights.
+
+**Bounty payouts**
+
+The proposal also pays out 91,300 USDT in contributor bounties, split across seven recipients:
+
+| Amount | Recipient |
+| --- | --- |
+| 36,000 USDT | gonka1ejkupq3cy6p8xd64ew2wlzveml86ckpzn9dl56 |
+| 23,000 USDT | gonka1j3f2xkapx8cmczpjqcsrh7cc3peyj3ngkjv4p8 |
+| 12,000 USDT | gonka1vnupswg7qz2w5k5ax6zrp02mxmln6arnvjc87h |
+| 11,500 USDT | gonka1p2hjjf63dqhpf5qmyaaq6u73zrzsrf3ra3qxk2 |
+| 6,500 USDT | gonka1frlfyz2wtltdy47dq3w9pwc8ruvjvlthp2lh53 |
+| 2,000 USDT | gonka1zqss46r6jf6dhhyaa777kc2ppvjhn0ufkx4y57 |
+| 300 USDT | gonka105ce4495mj0mwkxqeasgdzqfq5jjrfq32eza5l |
+
+**Voting**
+
+Voting ends **September 16, 2026 at 01:23 UTC**. To pass, the proposal needs a 25% quorum by weight, a majority in favor, and less than 33.4% voting no with veto.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 104 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 104 -o json --node $NODE_URL/chain-rpc/
+```
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
+
+## September 12, 2026
+
+**PROPOSAL PASSED: Reimbursement of Expenses for Daniil and David Liberman's Participation in All-In Summit 2026**
+
+The on-chain governance vote for proposal id 103 has concluded.
+
+The proposal was APPROVED. 15,500 USDT has been allocated from the Community Pool to reimburse two Attendee Passes for All-In Summit 2026 for Daniil and David Liberman, co-creators of the Gonka protocol.
+
+The Summit took place on September 13-15, 2026 in Los Angeles. The standard Attendee Pass costs 7,500 USDT per person; the tickets had already been paid for. The reimbursement covers the two tickets plus transaction fees for withdrawing the funds. Flights, accommodation and other expenses were not requested from the Community Pool under this proposal.
+
+Final tally: yes 184762, no 0, no_with_veto 0, abstain 0.
+
+Nothing is required from hosts.
+
+## September 11, 2026
+
+**PROPOSAL PASSED: Ratify Quant Mesh Limited as the Ledger Integration Counterparty and Fund the Initial Ledger Integration Payment**
+
+The on-chain governance vote for proposal id 102 has concluded.
+
+The proposal was APPROVED. Quant Mesh Limited is ratified as the legal contracting counterparty for the Gonka-Ledger integration, and 350,350 USDT has been allocated from the Community Pool to `gonka1yqj5xf0wtqgpdmv5v68cus0tp2j5fv7lzcfd6g`.
+
+The allocation covers 275,000 USDT in Phase 1 Launch Fees, 75,000 USDT for the first-year Annual Activation Fee, and 350 USDT for processing costs. The authorization and funding are strictly limited to the Ledger integration described in the full proposal.
+
+The transfer has executed on chain.
+
+Final tally: yes 146903, no 0, no_with_veto 0, abstain 5568.
+
+Nothing is required from hosts.
+
+Thanks to everyone who voted.
+
+## September 11, 2026
+
+**PROPOSAL PASSED: Add GLM-5.3-Flash, remove Kimi-K2.6 and GLM-5.2-FP8 from PoC models**
+
+The on-chain governance vote for proposal id 101 has concluded.
+
+The proposal was APPROVED. `zai-org/GLM-5.3-Flash` is now a governance-approved model and part of the PoC model set, while `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` have been removed from `poc_params.models`.
+
+`MiniMaxAI/MiniMax-M2.7` and `deepseek-ai/DeepSeek-V4-Flash-0731` are unaffected: their PoC parameters and weights are unchanged.
+
+The model and its parameters were proposed by the kaitaku.ai team, independently validated by vbgd0, and proposed jointly. Measurements and the reasoning behind the thresholds are in [gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734).
+
+**The PoC model set is now**
+
+| Model | weight_scale_factor | penalty_start_epoch |
+| --- | --- | --- |
+| MiniMaxAI/MiniMax-M2.7 | 0.3024 | 278 |
+| deepseek-ai/DeepSeek-V4-Flash-0731 | 0.246 | 360 |
+| zai-org/GLM-5.3-Flash | 0.62 | 394 |
+
+**What this means for hosts**
+
+The activation epoch for GLM-5.3-Flash is **394**. From that epoch `penalty_start_epoch` is in effect, so hosts without an explicit choice risk the no-participation penalty. If you plan to serve it, declaring intent early gives the group the best chance of forming.
+
+Final tally: yes 309308, no 0, no_with_veto 0, abstain 3168.
+
+Thanks to everyone who voted.
+
+## September 11, 2026
+
+**PROPOSAL PASSED: devshard v4.1**
+
+The on-chain governance vote for proposal id 100 has concluded.
+
+The proposal was APPROVED, and `v4.1` has been added to the approved list of devshard versions. `versiond` downloads the binary, verifies its SHA-256 against the value stored on-chain, and starts the runtime. No manual host action is required.
+
+v4.1 now runs alongside the existing v3 and v4 runtimes, so current traffic keeps being served and brokers can migrate their gateways progressively.
+
+Binary:
+
+```
+https://github.com/gonka-ai/gonka/releases/download/release%2Fdevshard%2Fv4.1.0/devshardd.zip
+sha256 69e58e6b6c124fc218d3ed1e38d7853c0a8ce20df660d348fc28ccd249a1ccf1
+```
+
+Final tally: yes 312476, no 0, no_with_veto 0, abstain 0.
+
+Thanks to everyone who voted.
+
+## September 9, 2026
+
+**Proposal 101: add GLM-5.3-Flash, remove Kimi-K2.6 and GLM-5.2-FP8 from PoC models**
+
+Proposal id 101 registers `zai-org/GLM-5.3-Flash` as a governance-approved model and adds it to the PoC model set. At the same time it removes `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` from `poc_params.models`.
+
+`MiniMaxAI/MiniMax-M2.7` and `deepseek-ai/DeepSeek-V4-Flash-0731` are not affected: their PoC parameters and weights stay as they are. All other chain parameters remain unchanged.
+
+The model and its parameters were proposed by the kaitaku.ai team, independently validated by vbgd0, and are now proposed jointly. Release inputs, measurements and the reasoning behind the thresholds are in [gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734).
+
+**GLM-5.3-Flash parameters**
+
+```
+hf_repo                     zai-org/GLM-5.3-Flash
+hf_commit                   04c4e9e95c5da8862dced7e5056455116f83a7e0
+units_of_compute_per_token  10000
+v_ram                       560
+throughput_per_nonce        1500
+validation_threshold        0.951
+
+seq_len                     1024
+dist_threshold              0.44
+p_mismatch                  0.10
+p_value_threshold           0.05
+weight_scale_factor         0.62
+penalty_start_epoch         394
+```
+
+Model args: `--max-model-len 400000 --kv-cache-dtype fp8 --enable-auto-tool-choice --tool-call-parser glm47 --reasoning-parser glm45 --trust-remote-code`
+
+**What this means for hosts**
+
+The activation epoch for GLM-5.3-Flash is **394**. From that epoch the `penalty_start_epoch` is in effect, so hosts without an explicit choice risk the no-participation penalty.
+
+After this proposal the PoC model set is:
+
+| Model | weight_scale_factor | penalty_start_epoch |
+| --- | --- | --- |
+| MiniMaxAI/MiniMax-M2.7 | 0.3024 | 278 |
+| deepseek-ai/DeepSeek-V4-Flash-0731 | 0.246 | 360 |
+| zai-org/GLM-5.3-Flash | 0.62 | 394 |
+
+**Voting**
+
+Voting ends **September 10, 2026 at 23:17 UTC**. To pass, the proposal needs a 25% quorum by weight, a majority in favor, and less than 33.4% voting no with veto.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 101 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 101 -o json --node $NODE_URL/chain-rpc/
+```
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
+
+## September 9, 2026
+
+**The devshard v4.1 runtime proposal has entered governance**
+
+Proposal id 100 adds `v4.1` to the approved list of devshard versions.
+
+This is a devshard-only change. It goes through an on-chain params proposal, not a full chain software upgrade: Cosmovisor is not involved, the chain does not halt, and inference keeps serving. If approved, `versiond` downloads the binary, verifies its SHA-256 against the value stored on-chain, and starts the runtime.
+
+v4.1 runs alongside the existing v3 and v4 runtimes. Passing the proposal does not by itself move any traffic, so brokers can migrate their gateways progressively afterwards.
+
+**Binary**
+
+```
+https://github.com/gonka-ai/gonka/releases/download/release%2Fdevshard%2Fv4.1.0/devshardd.zip
+sha256 69e58e6b6c124fc218d3ed1e38d7853c0a8ce20df660d348fc28ccd249a1ccf1
+```
+
+**Voting**
+
+Voting ends **September 10, 2026 at 22:36 UTC**. To pass, the proposal needs a 25% quorum by weight, a majority in favor, and less than 33.4% voting no with veto.
+
+Nothing is required from hosts.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 100 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 100 -o json --node $NODE_URL/chain-rpc/
+```
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
+
+## September 4, 2026
+
+**PROPOSAL PASSED: Support Gonka's presence at TOKEN2049 Singapore**
+
+The on-chain governance vote for proposal id 99 has concluded.
+
+The proposal was APPROVED. It allocates 100,000 USDT from the Community Pool to support Gonka's participation at TOKEN2049 Singapore 2026, taking place on 7-8 October 2026 at Marina Bay Sands. The funds cover the Gold Sponsorship package and related logistics: travel, accommodation, local coordination, guest hosting, event operations, and supporting materials.
+
+Thanks to everyone who voted.
+
+## September 4, 2026
+
+**Devshard binary update: `v4.0.2`**
+
+The `v4.0.2` devshard binary is available. Hosts can update the v4 binary manually using the instructions below. An automatic update is not scheduled yet.
+
+**What changed**
+
+On restart, `v4.0.1` restored every session from nonce 1. Nodes with many stored sessions took hours to become ready, `versiond` then killed the child on the 60 second ready timeout, and clients saw HTTP 502s.
+
+`v4.0.2` loads the latest snapshot and restores only the diffs after it. This version is fully compatible with the previous v4 release.
+
+Release: [devshard/v4.0.2](https://github.com/gonka-ai/gonka/releases/tag/release/devshard/v4.0.2)
+
+**Update instructions**
+
+Update one node at a time and confirm each one is back before moving to the next.
+
+```shell
+sudo mkdir -p ./devshards/bin/override/v4 && \
+wget -q -O /tmp/devshardd-v4.0.2.zip 'https://github.com/gonka-ai/gonka/releases/download/release%2Fdevshard%2Fv4.0.2/devshardd.zip' && \
+echo "38aea0a4f1658e85321d11149efa247e565e952c51db4d268a02e0a6f0734200  /tmp/devshardd-v4.0.2.zip" | sha256sum --check --status && echo checksum_ok && \
+sudo unzip -qo -j /tmp/devshardd-v4.0.2.zip -d ./devshards/bin/override/v4/ && \
+sudo chmod 755 ./devshards/bin/override/v4/devshardd && \
+test -f ./devshards/bin/override/v4/devshardd && \
+docker pull -q ghcr.io/product-science/versiond:0.2.15 >/dev/null && \
+test "$(docker run --rm --entrypoint /devshardd -v ./devshards/bin/override/v4/devshardd:/devshardd:ro ghcr.io/product-science/versiond:0.2.15 --print-protocol-version)" = v4 && echo protocol_v4
+```
+
+Add this env to `docker-compose.yml`:
+
+```yaml
+  versiond:
+    ...
+    environment:
+    ...
+      - VERSIOND_FORCE=v4
+      - VERSIOND_OVERRIDE_v4=/opt/versiond/bin/override/v4/devshardd
+```
+
+Then restart:
+
+```shell
+source config.env && docker compose up versiond -d --no-deps --force-recreate
+```
+
+**Check your deployed version**
+
+```shell
+curl <your_node_url>/devshard/v4/stats/shards | jq '.binary_version'
+```
+## August 29, 2026
+
+**PROPOSAL PASSED: Increase DeepSeek V4 Flash weight_scale_factor to 0.246**
+
+The on-chain governance vote for proposal id 98 has concluded.
+
+The proposal was APPROVED. It increases the `weight_scale_factor` for `deepseek-ai/DeepSeek-V4-Flash-0731` from 0.214 to 0.246. All other model and chain parameters remain unchanged. This is a resubmission of proposal 97. On chain, proposal 97 ended as `PROPOSAL_STATUS_REJECTED` with `failed_reason`: `proposal did not get enough votes to pass` (25% quorum was not reached). Final tally: yes 15452, abstain 3093, no 0, no_with_veto 0.
+
+The original 0.214 factor came from inflated nonce/min numbers. The measurement fix is in [gonka-ai/gonka#1640](https://github.com/gonka-ai/gonka/pull/1640). Nothing is required from hosts.
+
+Thanks to everyone who voted.
+
 ## August 25, 2026
 
 **The PR for the devshard-only upgrade is now open for review**
@@ -159,7 +506,7 @@ The rollout is intentionally gradual so that any unexpected issues can be identi
 
 **DeepSeek V4 Flash is now active on Gonka network**
 
-The bootstrap stage announced in [proposal 94](https://gonka.ai/docs/network-updates/#august-10-2026) is complete. As of chain epoch 360, `deepseek-ai/DeepSeek-V4-Flash-0731` joins MiniMax-M2.7 and Kimi K2.6 as an active model group, and PoC weight earned in the DeepSeek group is now being converted into consensus weight at the calibrated coefficient 0.214.
+The bootstrap stage announced in [proposal 94](https://gonka.ai/docs/network-updates/#august-10-2026) is complete. As of chain epoch 360, `deepseek-ai/DeepSeek-V4-Flash-0731` joins MiniMax-M2.7 and Kimi K2.6 as an active model group, and PoC weight earned in the DeepSeek group is now being converted into consensus weight at the calibrated coefficient 0.214 (later raised to 0.246 by [proposal 98](#august-29-2026)).
 
 Per-model participation enforcement for DeepSeek is now in effect. Hosts that have already chosen DIRECT, DELEGATE or REFUSE for DeepSeek do not need to do anything else — the same setup keeps working. Hosts that have not yet made a choice are encouraged to do so now to avoid the per-epoch penalty ([https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)).
 

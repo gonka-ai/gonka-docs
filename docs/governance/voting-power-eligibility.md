@@ -23,6 +23,13 @@ For the Genesis Guardians, an additional power-enhancement step is applied first
 
 A small set of bootstrap validators operated by the project team, hardcoded into chain params. They receive a temporary power boost during the early network phase. The boost is configurable on-chain and has changed over time, so query live params before publishing exact Guardian voting-power numbers.
 
+```bash
+curl -sS "https://node2.gonka.ai:8443/chain-api/productscience/inference/inference/params" \
+  | jq '.params.genesis_guardian_params'
+```
+
+`https://node1.gonka.ai:8443` and `https://node3.gonka.ai` expose the same path. The response has `guardian_addresses`, `network_maturity_threshold`, and `network_maturity_min_height`. The power multiplier (`0.33334` as of v0.2.13) is not in this object.
+
 ??? note "Current Genesis Guardian set on the live network"
     - `gonkavaloper1y2a9p56kv044327uycmqdexl7zs82fs5lyang5` (`gonka-1`)
     - `gonkavaloper1dkl4mah5erqggvhqkpc8j3qs5tyuetgdc59d0v` (`gonka-2`)

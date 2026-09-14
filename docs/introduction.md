@@ -8,5 +8,6 @@ The system features key roles:
 
 - **Developers** build and deploy AI applications using the network’s distributed power. Getting started, visit the [Developer Quickstart Guide](https://gonka.ai/developer/quickstart/).
 - **Hosts (hardware providers or nodes)** contribute computational resources to the network and are rewarded based on the amount and quality of resources they provide. To begin contributing, visit the [Host Quickstart Guide](https://gonka.ai/host/quickstart/).
+- **Contributors** improve the protocol, tooling, and security of Gonka. You do not need to be a Host. See the [Bounty program](bounty-program.md).
 
 This collaboration allows the platform to offer AI services at significantly lower prices, making advanced AI technology more accessible to a broader audience.

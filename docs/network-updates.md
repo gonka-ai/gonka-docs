@@ -8,6 +8,86 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 14, 2026
+
+**The devshard v5 proposal has entered governance**
+
+Proposal id 104 does two things: it adds `v5` to the approved list of devshard versions, and it distributes 91,300 USDT in contributor bounties from the community-sale contract.
+
+**Devshard v5**
+
+This is a devshard-only change. It goes through an on-chain params proposal, not a full chain software upgrade: Cosmovisor is not involved, the chain does not halt, and inference keeps serving. If approved, `versiond` downloads the binary, verifies its SHA-256 against the value stored on-chain, and starts the runtime.
+
+v5 runs alongside the existing v3, v4 and v4.1 runtimes. Passing the proposal does not by itself move any traffic, so brokers can migrate their gateways progressively afterwards.
+
+```
+https://github.com/gonka-ai/gonka/releases/download/devshard%2Fv5.0.0/devshardd.zip
+sha256 ae2d1f90374b54efd4290b4df8b8c0ae339deb0d3b6e5b10936ea9f73155f564
+```
+
+The PoC model set is not affected: MiniMax-M2.7, DeepSeek-V4-Flash-0731 and GLM-5.3-Flash keep their current parameters and weights.
+
+**Bounty payouts**
+
+The proposal also pays out 91,300 USDT in contributor bounties, split across seven recipients:
+
+| Amount | Recipient |
+| --- | --- |
+| 36,000 USDT | gonka1ejkupq3cy6p8xd64ew2wlzveml86ckpzn9dl56 |
+| 23,000 USDT | gonka1j3f2xkapx8cmczpjqcsrh7cc3peyj3ngkjv4p8 |
+| 12,000 USDT | gonka1vnupswg7qz2w5k5ax6zrp02mxmln6arnvjc87h |
+| 11,500 USDT | gonka1p2hjjf63dqhpf5qmyaaq6u73zrzsrf3ra3qxk2 |
+| 6,500 USDT | gonka1frlfyz2wtltdy47dq3w9pwc8ruvjvlthp2lh53 |
+| 2,000 USDT | gonka1zqss46r6jf6dhhyaa777kc2ppvjhn0ufkx4y57 |
+| 300 USDT | gonka105ce4495mj0mwkxqeasgdzqfq5jjrfq32eza5l |
+
+**Voting**
+
+Voting ends **September 16, 2026 at 01:23 UTC**. To pass, the proposal needs a 25% quorum by weight, a majority in favor, and less than 33.4% voting no with veto.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 104 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 104 -o json --node $NODE_URL/chain-rpc/
+```
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
+
+## September 12, 2026
+
+**PROPOSAL PASSED: Reimbursement of Expenses for Daniil and David Liberman's Participation in All-In Summit 2026**
+
+The on-chain governance vote for proposal id 103 has concluded.
+
+The proposal was APPROVED. 15,500 USDT has been allocated from the Community Pool to reimburse two Attendee Passes for All-In Summit 2026 for Daniil and David Liberman, co-creators of the Gonka protocol.
+
+The Summit took place on September 13-15, 2026 in Los Angeles. The standard Attendee Pass costs 7,500 USDT per person; the tickets had already been paid for. The reimbursement covers the two tickets plus transaction fees for withdrawing the funds. Flights, accommodation and other expenses were not requested from the Community Pool under this proposal.
+
+Final tally: yes 184762, no 0, no_with_veto 0, abstain 0.
+
+Nothing is required from hosts.
+
 ## September 11, 2026
 
 **PROPOSAL PASSED: Ratify Quant Mesh Limited as the Ledger Integration Counterparty and Fund the Initial Ledger Integration Payment**

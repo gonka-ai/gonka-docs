@@ -984,7 +984,73 @@ Back up the **cold key** on your local device, outside the server.
     ```
     source config.env && docker compose up -d
     ```
-    
+
+### How do I declare a PoC intent from a warm key?
+
+Same pattern as voting without the cold key: grant once from the cold key, then submit with `authz exec` from the warm key. See [What should I do if I cannot vote because I do not have access to the cold key, or if I want another key to vote on my behalf?](#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf).
+
+`grant-ml-ops-permissions` does not include PoC intent, delegation, or refusal on current mainnet (**v0.2.15**). Grant those types separately. After **v0.2.16**, `MsgDeclarePoCIntent` is backfilled for existing cold→warm pairs; `MsgSetPoCDelegation` and `MsgRefusePoCDelegation` are not.
+
+Do not run `declare-poc-intent` with `--from` set to the warm key. The inner message must be from the participant (cold) address.
+
+1) Grant permissions (once, signed by cold key)
+
+First arg is the warm-key address. `--from` is the cold-key name in this keyring.
+
+```
+./inferenced tx authz grant <WARM_ADDRESS> generic \
+    --msg-type=/inference.inference.MsgDeclarePoCIntent \
+    --from <COLD_KEY> \
+    --keyring-backend file \
+    --gas 200000 \
+    --chain-id gonka-mainnet \
+    --node "http://node1.gonka.ai:8000/chain-rpc/"
+
+./inferenced tx authz grant <WARM_ADDRESS> generic \
+    --msg-type=/inference.inference.MsgRefusePoCDelegation \
+    --from <COLD_KEY> \
+    --keyring-backend file \
+    --gas 200000 \
+    --chain-id gonka-mainnet \
+    --node "http://node1.gonka.ai:8000/chain-rpc/"
+
+./inferenced tx authz grant <WARM_ADDRESS> generic \
+    --msg-type=/inference.inference.MsgSetPoCDelegation \
+    --from <COLD_KEY> \
+    --keyring-backend file \
+    --gas 200000 \
+    --chain-id gonka-mainnet \
+    --node "http://node1.gonka.ai:8000/chain-rpc/"
+```
+
+2) Check that granted
+
+```
+./inferenced query authz grants-by-grantee <WARM_ADDRESS> \
+    --node "http://node1.gonka.ai:8000/chain-rpc/"
+```
+
+3) Intent (signed by warm key)
+
+`generate-only --from` is the cold-key address (bech32, no cold key needed). `authz exec --from` is the warm-key name in this keyring.
+
+```
+./inferenced tx inference declare-poc-intent zai-org/GLM-5.3-Flash \
+    --from <COLD_ADDRESS> \
+    --generate-only --offline --account-number 0 --sequence 0 \
+    > declare-intent.json
+
+./inferenced tx authz exec declare-intent.json \
+    --from <WARM_KEY> \
+    --keyring-backend file \
+    --gas 300000 \
+    --chain-id gonka-mainnet \
+    --home ~/mainnet \
+    --node "http://node1.gonka.ai:8000/chain-rpc/"
+```
+
+The same `generate-only` + `authz exec` flow works for any other message type after you grant it.
+
 ## Proof-of-Compute (PoC)
 
 ### What is Proof-of-Compute?

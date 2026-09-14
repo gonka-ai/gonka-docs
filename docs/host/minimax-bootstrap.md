@@ -85,6 +85,8 @@ MiniMax-M2.7 (FP8) requires **roughly 320 GB of total VRAM** per instance — a 
 
 #### 1. Send `PoCIntent` to the chain
 
+Examples below use the Host key named in `--from`. To submit intent, delegation, or refusal from a warm key, see [How do I declare a PoC intent from a warm key?](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key).
+
 ```bash
 export NODE=https://node3.gonka.ai/chain-rpc/
 ./inferenced tx inference declare-poc-intent MiniMaxAI/MiniMax-M2.7 \

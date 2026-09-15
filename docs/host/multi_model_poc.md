@@ -64,7 +64,7 @@ New models are added through governance: each new model should have its own gove
 
 **In scope:** model cleanup before upgrade, per-model participation choices, delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.
 
-**Signing:** everything in this guide is shown as if you broadcast from your **cold** Host key (`--from` points at that account). *(But permission can be granted to perform delegation using warm keys.)*
+**Signing:** everything in this guide is shown as if you broadcast from your **cold** Host key (`--from` points at that account). To submit intent, delegation, or refusal from a warm key, see [How do I declare a PoC intent from a warm key?](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key).
 
 **Before you start:** confirm your binary and network expose these commands:
 
@@ -331,6 +331,8 @@ MODEL="your-model-id"
 ```
 
 **Bootstrap intent:**
+
+Examples below use the cold Host key. To submit from a warm key, see [How do I declare a PoC intent from a warm key?](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key).
 
 ```bash
 MODEL="your-model-id"

@@ -55,6 +55,8 @@ If the model passes both checks, punishment follows the usual scenarios describe
 
 #### 1. Send `PoCIntent` to the chain:
 
+Examples below use the Host key named in `--from`. To submit intent, delegation, or refusal from a warm key, see [How do I declare a PoC intent from a warm key?](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key).
+
 ```
 export NODE=https://node3.gonka.ai/
 ./inferenced tx inference declare-poc-intent moonshotai/Kimi-K2.6 \

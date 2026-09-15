@@ -2,7 +2,7 @@
 
 `MiniMaxAI/MiniMax-M2.7` (FP8) has **passed bootstrap** and is **active** in Proof of Compute on Gonka mainnet as of chain epoch 278 (`v0.2.13`). It is the current base model (`delegation_params.initial_model_id`). The timeline and transaction examples below remain useful for understanding how activation worked and for operations such as delegation; for current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md).
 
-For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./multi_model_poc.md). Other model bootstraps and their mechanics are documented in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) and [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md).
+For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./multi_model_poc.md). Other model bootstraps and their mechanics are documented in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md), [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md), and [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 !!! note
     The bootstrap can take multiple epochs, depending on how many participants are ready. Before the configured punishment epoch, no weight reduction happens if participants submit their choice explicitly and hosts who are going to deploy submit `PoCIntent`. Per-model participation enforcement for MiniMax is now in effect (epoch 278).
@@ -78,7 +78,7 @@ MiniMax-M2.7 (FP8) requires **roughly 320 GB of total VRAM** per instance — a 
 
 - **A100 80GB owners**: MiniMax-M2.7 is the **first governance-approved model that fits the A100 80GB envelope**. If you previously could not host Kimi or Qwen-235B, you are now eligible to earn consensus weight via MiniMax. Recommended config: 8×A100 80GB with `tp=4` (two instances per host) or `tp=8` (one instance).
 - **H100 / H200 owners**: MiniMax-M2.7 is comparable to Qwen3-235B on consensus output (a few percent in either direction depending on workload mix) and clearly preferable to Kimi K2.6 after Kimi's coefficient adjustment in `v0.2.13`. Switching from Kimi to MiniMax is recommended; hosts previously on Qwen3-235B must switch to MiniMax, as Qwen3-235B has been retired by governance (proposal 78).
-- **B200 / B300 owners**: MiniMax-M2.7 runs well. `moonshotai/Kimi-K2.6` is currently not served, so there is no live Kimi weight on this class — confirm on `/v1/epochs/current/participants`.
+- **B200 / B300 owners**: MiniMax-M2.7 runs well. After [proposal 101](../network-updates.md#proposal-101), GLM-5.3-Flash is the intended PoC switch on B200 (~7% more weight); DeepSeek remains the highest-weight option on B300. Confirm live serving on `/v1/epochs/current/participants`. See [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 
 ## Instructions for hosts who are going to deploy MiniMax-M2.7

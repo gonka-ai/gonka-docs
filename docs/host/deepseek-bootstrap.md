@@ -2,10 +2,10 @@
 
 `deepseek-ai/DeepSeek-V4-Flash-0731` has **passed bootstrap** and is **active** in Proof of Compute on Gonka mainnet as of chain epoch 360 ([proposal 94](../network-updates.md#august-10-2026)). The timeline and transaction examples below remain useful for understanding how activation worked and for operations such as delegation; for current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md).
 
-For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./multi_model_poc.md). Previous model bootstraps and their mechanics are documented in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) and [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md).
+For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./multi_model_poc.md). Previous model bootstraps and their mechanics are documented in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md), [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md), and [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 !!! note
-    The bootstrap can take multiple epochs, depending on how many participants are ready. Before the configured punishment epoch, no weight reduction happens if participants submit their choice explicitly and hosts who are going to deploy submit `PoCIntent`. Hosts that keep serving MiniMax or Kimi and do not opt into DeepSeek still need an explicit `PoCDelegation` / `PoCRefusal` once `penalty_start_epoch` is reached. Per-model participation enforcement for DeepSeek is now in effect (epoch 360).
+    The bootstrap can take multiple epochs, depending on how many participants are ready. Before the configured punishment epoch, no weight reduction happens if participants submit their choice explicitly and hosts who are going to deploy submit `PoCIntent`. Hosts that keep serving MiniMax and do not opt into DeepSeek still need an explicit `PoCDelegation` / `PoCRefusal` once `penalty_start_epoch` is reached. Per-model participation enforcement for DeepSeek is now in effect (epoch 360).
 
 !!! note
     On Blackwell GPUs, for best performance you can use the model repacked as fp8 + nvfp4 instead of fp8 + fp4, e.g. `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`. The model's precision is the same. Use the `node-config-deepseekv4flash0731-B200-nvfp4.json` / `node-config-deepseekv4flash0731-B300-nvfp4.json` configs and API `v0.2.15-post5` — see the August 13 "Testing DeepSeek V4 Flash" note in [Network updates](../network-updates.md).
@@ -64,7 +64,7 @@ SNAPSHOT_BLOCK=$(( POC_START - 500 ))
 echo "Epoch $EPOCH (current $CURRENT_EPOCH): snapshot at block $SNAPSHOT_BLOCK, PoC starts at block $POC_START"
 ```
 
-DeepSeek becomes pre-eligible at the earliest epoch where participating hosts plus delegations cover the thresholds. Existing model entries (`MiniMaxAI/MiniMax-M2.7`, `moonshotai/Kimi-K2.6`, `zai-org/GLM-5.2-FP8`) are preserved unchanged in the proposal params.
+DeepSeek becomes pre-eligible at the earliest epoch where participating hosts plus delegations cover the thresholds. Existing model entries (`MiniMaxAI/MiniMax-M2.7`, `moonshotai/Kimi-K2.6`, `zai-org/GLM-5.2-FP8`) were preserved unchanged in proposal 94. [Proposal 101](../network-updates.md#proposal-101) later removed Kimi and GLM-5.2 from `poc_params` and added `zai-org/GLM-5.3-Flash`.
 
 
 ### Possible Scenarios
@@ -102,7 +102,7 @@ A model's `weight_scale_factor` only produces consensus weight if that model gro
 Practical implications:
 
 - **B300 owners**: DeepSeek is the highest-weight option under the current coefficient. Plan for vLLM 0.25.1 / MLNode 3.0.16 and the B300 node config.
-- **B200 owners**: DeepSeek and MiniMax both have B200 node configs. `moonshotai/Kimi-K2.6` is currently not served — confirm on `/v1/epochs/current/participants`.
+- **B200 owners**: After [proposal 101](../network-updates.md#proposal-101), GLM-5.3-Flash is the intended PoC switch on B200. DeepSeek and MiniMax both still have B200 node configs. Confirm live serving on `/v1/epochs/current/participants`. See [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 - **H200 / H100 owners**: MiniMax M2.7 remains the highest-weight model for these classes; DeepSeek configs exist, but switching is optional and not required for max weight.
 - Full coefficient table: [Google Sheet](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
 
@@ -219,7 +219,7 @@ Follow the posted MLNode setup notes and the committed golden reference for Deep
 
 ## Instructions for hosts who are NOT going to deploy DeepSeek V4 Flash
 
-Keeping MiniMax or Kimi is fine — existing models are unchanged. Per-model participation enforcement for DeepSeek is now in effect (epoch **`360`**). If you are not serving DeepSeek, submit a **delegation** (preferred if you trust a DeepSeek host) or a **refusal** so you are not treated as missing the model. Refusal avoids the 15% miss penalty but still costs the 10% `refusal_penalty`. Hosts that already chose DIRECT, DELEGATE, or REFUSE do not need to resubmit.
+Keeping MiniMax is fine — existing models are unchanged by proposal 94. Per-model participation enforcement for DeepSeek is now in effect (epoch **`360`**). If you are not serving DeepSeek, submit a **delegation** (preferred if you trust a DeepSeek host) or a **refusal** so you are not treated as missing the model. Refusal avoids the 15% miss penalty but still costs the 10% `refusal_penalty`. Hosts that already chose DIRECT, DELEGATE, or REFUSE do not need to resubmit.
 
 #### 1. Check if you trust any host who is going to deploy DeepSeek / sent `PoCIntent`
 

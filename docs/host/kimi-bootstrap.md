@@ -1,6 +1,6 @@
 # Kimi K2.6 Bootstrap
 
-`moonshotai/Kimi-K2.6` is in governance models and `poc_params` (since v0.2.12). It is currently not served: no host in `/v1/epochs/current/participants` lists it. The timeline below is the original bootstrap record (first eligible at epoch 251). For MiniMax/DeepSeek deploy defaults, see the [Host Quickstart](./quickstart.md).
+`moonshotai/Kimi-K2.6` is **not a PoC model** after [proposal 101](../network-updates.md#proposal-101): it was removed from `poc_params.models` together with `zai-org/GLM-5.2-FP8`. It remains in `GET /v1/governance/models` (inference catalog). No host currently lists it in `/v1/epochs/current/participants`. The timeline below is the original bootstrap record (first eligible at epoch 251). For current PoC models, see the [Host Quickstart](./quickstart.md) and [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 This document explains how a model group becomes eligible and how participation modes work.
 

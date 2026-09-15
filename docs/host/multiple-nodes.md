@@ -88,7 +88,7 @@ Clone the repository with the base deploy scripts:
 git clone https://github.com/gonka-ai/gonka.git -b main
 ```
 
-To serve DeepSeek V4 Flash (MLNode 3.0.16 and the DeepSeek `node-config-*.json` files), clone [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) instead of `main`.
+To serve DeepSeek V4 Flash (MLNode 3.0.16 and the DeepSeek `node-config-*.json` files), clone [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) instead of `main`. To serve GLM-5.3-Flash (MLNode 3.1.0 / vLLM 0.28), clone [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join).
 
 **1.2. (Optional) Pre-download Model Weights to Hugging Face Cache (HF_HOME)**
 
@@ -99,15 +99,15 @@ export HF_HOME=/path/to/your/hf-cache
 ```
 
 Create a writable directory (e.g. `~/hf-cache`) and pre-load models if desired.
-Download the model you will deploy. Confirm it is in `GET /v1/governance/models`. Governance listing is not eligibility. `moonshotai/Kimi-K2.6` is currently not served — confirm on `/v1/epochs/current/participants`.
+Download the model you will deploy. Confirm it is in `GET /v1/governance/models`. Governance listing is not eligibility. `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` are not PoC models after [proposal 101](../network-updates.md#proposal-101) — confirm live serving on `/v1/epochs/current/participants`.
 
 ```
 huggingface-cli download MiniMaxAI/MiniMax-M2.7
 huggingface-cli download deepseek-ai/DeepSeek-V4-Flash-0731 --revision 7872f01b1d1fe23eabc4c98b48bffcef5a386062
-huggingface-cli download moonshotai/Kimi-K2.6
+huggingface-cli download zai-org/GLM-5.3-Flash --revision 04c4e9e95c5da8862dced7e5056455116f83a7e0
 ```
 
-Model licenses: see [Model licenses](../model-licenses.md). DeepSeek V4 Flash is MIT.
+Model licenses: see [Model licenses](../model-licenses.md). DeepSeek V4 Flash and GLM-5.3-Flash are MIT.
 
 **1.3. Ports open for network node connections**
 ```
@@ -159,10 +159,10 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `poc_port`       | The port which is used for **MLNode management**.   | `8080` (port mapped to `8080` of MLNode's `nginx`)                                                   |
 | `max_concurrent` | The **maximum number of concurrent inference requests** this node can handle.   | `500`                                                     |
 | `models`         | A **supported models** that the inference node can process.                              | (see below)    |
-| `model_name`         | The name of the model.                              | `MiniMaxAI/MiniMax-M2.7`, `deepseek-ai/DeepSeek-V4-Flash-0731`, `moonshotai/Kimi-K2.6` (ids from `GET /v1/governance/models`)    |
+| `model_name`         | The name of the model.                              | `MiniMaxAI/MiniMax-M2.7`, `deepseek-ai/DeepSeek-V4-Flash-0731`, `zai-org/GLM-5.3-Flash` (ids from `GET /v1/governance/models`)    |
 | `model_args`         | vLLM arguments for the inference of the model.                              | `"--tensor-parallel-size","4"`    |
 
-Confirm the model id against `GET /v1/governance/models`. Eligibility (`confirmation_weight_scales`) and live serving (`/v1/epochs/current/participants`) are separate from that catalog. `moonshotai/Kimi-K2.6` is currently not served.
+Confirm the model id against `GET /v1/governance/models`. Eligibility (`confirmation_weight_scales`) and live serving (`/v1/epochs/current/participants`) are separate from that catalog. `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` are not PoC models after [proposal 101](../network-updates.md#proposal-101).
 
 To ensure correct setup and optimal performance, use the arguments that best match your model and GPU layout. Full `node-config.json` examples are in the [Host Quickstart](./quickstart.md).
 
@@ -170,6 +170,7 @@ To ensure correct setup and optimal performance, use the arguments that best mat
 |-----------------------------------------|---------------------------------------------------------------------------------------|
 | `MiniMaxAI/MiniMax-M2.7` on 4xH100           | `"--tensor-parallel-size","4"`                                      |
 | `deepseek-ai/DeepSeek-V4-Flash-0731` on 4xH100 | `"--tensor-parallel-size","4"` (full args in the [Host Quickstart](./quickstart.md)) |
+| `zai-org/GLM-5.3-Flash` on 4xB200 | `"--tensor-parallel-size","4"` (full args in the [Host Quickstart](./quickstart.md)) |
 
 For detailed guidance on selecting optimal deployment configurations and vLLM parameters tailored to your GPU hardware, refer to the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
 

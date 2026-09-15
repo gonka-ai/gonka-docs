@@ -31,7 +31,7 @@ After the four phases, the script writes three files into `mlnode/packages/bench
 Per [SKILL.md → Required inputs](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md#required-inputs), the caller MUST supply both:
 
 - `MLNODE_URL` — base URL of the MLNode under test (e.g. `http://1.2.3.4:8080`). No default.
-- `MODEL` — target HuggingFace model id in full `org/repo` form (e.g. `MiniMaxAI/MiniMax-M2.7`, `moonshotai/Kimi-K2.6`, `deepseek-ai/DeepSeek-V4-Flash-0731`). No default.
+- `MODEL` — target HuggingFace model id in full `org/repo` form (e.g. `MiniMaxAI/MiniMax-M2.7`, `deepseek-ai/DeepSeek-V4-Flash-0731`, `zai-org/GLM-5.3-Flash`). No default.
 
 ## Deploy config: from the caller, not the golden
 
@@ -69,15 +69,16 @@ Per [SKILL.md → Available golden references](https://github.com/gonka-ai/gonka
 The "Recording context" column describes the server that generated the vectors (FYI only — these flags are NOT a deploy default for your validation; see [Deploy config: from the caller, not the golden](#deploy-config-from-the-caller-not-the-golden) above).
 
 !!! note "Qwen golden references are not mainnet models"
-    `Qwen/Qwen3-0.6B` is a local-dev fixture. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` was removed from mainnet by [proposal 78](../network-updates.md#june-25-2026) (epoch 308). Those artifacts remain in the repo for historical / local checks. Hosts joining mainnet should validate the model they actually deploy. A Kimi K2.6 golden reference is in the repo for that layout.
+    `Qwen/Qwen3-0.6B` is a local-dev fixture. `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` was removed from mainnet by [proposal 78](../network-updates.md#june-25-2026) (epoch 308). Those artifacts remain in the repo for historical / local checks. Hosts joining mainnet should validate the model they actually deploy.
 
 | Model | Filename | Vectors | Recording context |
 |-------|----------|---------|-------------------|
 | `Qwen/Qwen3-0.6B` | `qwen-qwen3-0.6b.json` | 32 | local dev / single GPU |
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` (default lookup) | `qwen-qwen3-235b-a22b-instruct-2507-fp8.json` | 32 | tp=4, FlashInfer baseline. Quick smoke test. |
 | `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` (extended) | `qwen-qwen3-235b-a22b-instruct-2507-fp8-deepgemm.json` | 2000 | tp=2, DeepGEMM MoE backend (`VLLM_USE_DEEP_GEMM=1`, `VLLM_MOE_USE_DEEP_GEMM=1`), recorded on 4xB200. Pass with `--reference`. |
-| `moonshotai/Kimi-K2.6` (default lookup) | `moonshotai-kimi-k2.6.json` | 200 | tp=4 + expert-parallel, FLASHINFER_MLA attention, gpu-mem 0.95, max-model-len 240000, kimi_k2 tool/reasoning parsers, `--disable-custom-all-reduce`, `--trust-remote-code`. Recorded on 4xB200. |
+| `moonshotai/Kimi-K2.6` (default lookup) | `moonshotai-kimi-k2.6.json` | 200 | Historical. tp=4 + expert-parallel, FLASHINFER_MLA attention, gpu-mem 0.95, max-model-len 240000, kimi_k2 tool/reasoning parsers, `--disable-custom-all-reduce`, `--trust-remote-code`. Recorded on 4xB200. Kimi is not a PoC model after [proposal 101](../network-updates.md#proposal-101). |
 | `deepseek-ai/DeepSeek-V4-Flash-0731` (default lookup) | `deepseek-ai-deepseek-v4-flash-0731.json` | 1000 | tp=1, fp8 kv-cache, max-model-len 400000, `--tokenizer-mode deepseek_v4`, deepseek_v4 tool/reasoning parsers, `--trust-remote-code`. Recorded on 1xB300 (vLLM 0.25.1). On the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts) branch. |
+| `zai-org/GLM-5.3-Flash` (default lookup) | `zai-org-glm-5.3-flash.json` | — | tp=4, fp8 kv-cache, `--block-size 2304`, glm47 / glm45 parsers, `--trust-remote-code`. Recorded on 4×H200 (vLLM 0.28 / MLNode 3.1.0). On the [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/mlnode/packages/benchmarks/scripts/poc_validation/artifacts) branch ([gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)). |
 
 For Qwen3-235B the same model id has multiple references, exercising different code paths (tp-size, MoE backend) — see SKILL.md for the recommended multi-run pattern. That model is not on mainnet; use this only if you are reproducing a historical or local validation.
 
@@ -99,6 +100,13 @@ The repo ships `node-config-*.json` files matching common GPU classes. DeepSeek 
 - `deploy/join/node-config-deepseekv4flash0731-B300.json`
 - `deploy/join/node-config-deepseekv4flash0731-B200-nvfp4.json`
 - `deploy/join/node-config-deepseekv4flash0731-B300-nvfp4.json`
+- `deploy/join/node-config-glm53flash-H100.json`
+- `deploy/join/node-config-glm53flash-H200.json`
+- `deploy/join/node-config-glm53flash-8xH200.json`
+- `deploy/join/node-config-glm53flash-B200.json`
+- `deploy/join/node-config-glm53flash-B300.json`
+
+GLM configs and MLNode 3.1.0 are on the [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join) branch.
 
 These configs are also reproduced inline in the [Host Quickstart](./quickstart.md).
 
@@ -125,4 +133,4 @@ Exit codes:
 - [Host Quickstart](./quickstart.md) — initial deploy and `node-config.json` examples for every supported model and GPU class.
 - [ML Node Management](./mlnode-management.md) — adding / updating / enabling / disabling ML Nodes via the Admin API.
 - [Benchmark to Choose Optimal Deployment Config for LLMs](./benchmark-to-choose-optimal-deployment-config-for-llms.md) — performance tuning (TP / PP) via `compressa-perf`.
-- [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) / [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md) / [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) — on-chain bootstrap timelines and `PoCIntent` / delegation transactions.
+- [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) / [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md) / [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) / [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md) — on-chain bootstrap timelines and `PoCIntent` / delegation transactions.

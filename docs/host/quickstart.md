@@ -33,7 +33,7 @@ The protocol supports **governance-approved** models for inference and Proof of 
 |----------|------|
 | `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — base model (since proposal 78 / epoch 308) |
 | `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — PoC model (since proposal 94 / epoch 360). Coefficient is in `poc_params`. |
-| `moonshotai/Kimi-K2.6` | **Kimi K2.6** — in governance / `poc_params` (since v0.2.12). Currently not served. |
+| `zai-org/GLM-5.3-Flash` | **GLM-5.3-Flash** — PoC model (since [proposal 101](../network-updates.md#proposal-101) / `penalty_start_epoch` 394). Coefficient is in `poc_params`. |
 
 !!! tip "Authoritative model list (governance API)"
     Approved models can change between releases or epochs. **Before you edit `node-config.json`,** call the governance API and use each returned object’s `"id"` as the key under `"models"`:
@@ -46,10 +46,10 @@ You typically run **one model per ML Node** in `node-config.json`.
 
 Governance listing (`GET /v1/governance/models`, `poc_params.models`) is the approved catalog for every model. A model's `weight_scale_factor` only produces consensus weight if that group is eligible: voting power that meets `v_min` and `w_threshold`. Miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate on the next PoC — switching `node-config` alone does not restore consensus weight. Check `poc_params` and the epoch’s `confirmation_weight_scales`. See [Multi-Model PoC](./multi_model_poc.md).
 
-Live serving is a separate check: `/v1/epochs/current/participants`. `moonshotai/Kimi-K2.6` is currently not served. To restore that group, see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
+Live serving is a separate check: `/v1/epochs/current/participants`. `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` remain in the governance catalog but were removed from `poc_params` by [proposal 101](../network-updates.md#proposal-101) — they are not PoC models. GLM-5.3-Flash is in bootstrap from epoch 394; see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 !!! note "If you will not run every approved model"
-    Multi-model PoC tracks participation **per model**. For an **eligible** model you do not run, use on-chain **delegation** or **refusal**. Regular miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate; `refuse` is not required and is not a bootstrap participation mode. Delegation/refusal is **not** required to bring a node online—you use the same **Account (cold) key** as in [Grant Permissions to ML Operational Key](#33-local-machine-grant-permissions-to-ml-operational-key), **after** registration and verification. Copy-paste commands are at the end: [Optional: PoC delegation and refusal](#optional-poc-delegation-and-refusal). For strategy and penalties, read [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md). To restore a group that lost voting power, see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
+    Multi-model PoC tracks participation **per model**. For an **eligible** model you do not run, use on-chain **delegation** or **refusal**. Regular miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate; `refuse` is not required and is not a bootstrap participation mode. Delegation/refusal is **not** required to bring a node online—you use the same **Account (cold) key** as in [Grant Permissions to ML Operational Key](#33-local-machine-grant-permissions-to-ml-operational-key), **after** registration and verification. Copy-paste commands are at the end: [Optional: PoC delegation and refusal](#optional-poc-delegation-and-refusal). For strategy and penalties, read [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md). For GLM-5.3-Flash (penalties from epoch 394), see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 !!! note "Governance and model classification"
     - Models may be classified into a category if approved by governance.
@@ -63,11 +63,11 @@ To run a valid node, you need machines with [supported GPU(s)](/host/hardware-sp
 |------------------------------------------|-------------------|-------------------------------------------------|----------------|
 | `MiniMaxAI/MiniMax-M2.7`                | ≥ 2               | 4× A100 / 4× H100 / 2× H200 / 2× B200 per MLNode | ~320 GB        |
 | `deepseek-ai/DeepSeek-V4-Flash-0731`    | ≥ 2               | 4× H100 / 2× H200 / 2× B200 / 1× B300 per MLNode | ~280 GB        |
-| `moonshotai/Kimi-K2.6`                  | ≥ 2               | 8× H200 or 8× B200 per MLNode (reference class) | 720 GB         |
+| `zai-org/GLM-5.3-Flash`                 | ≥ 2               | 8× H100 / 4× H200 / 4× B200 / 2× B300 per MLNode | ~560 GB        |
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple ML Nodes across all model tiers.
 
-Per-model `weight_scale_factor` values are set by governance — read them from `poc_params`. A coefficient only produces consensus weight if that model group is eligible (has voting power). See [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) and the [coefficient table](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0). Example vLLM arguments are in the `node-config.json` examples below.
+Per-model `weight_scale_factor` values are set by governance — read them from `poc_params`. A coefficient only produces consensus weight if that model group is eligible (has voting power). See [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md), [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md), and the [coefficient table](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0). Example vLLM arguments are in the `node-config.json` examples below.
 
 More details about the optimal deployment configuration can be found [here](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
@@ -279,6 +279,16 @@ cd gonka/deploy/join
     ```
 
     That branch pins `ghcr.io/gonka-ai/mlnode:3.0.16` (use the `3.0.16-cu129` tag if the host is still on CUDA 12.9).
+
+!!! warning "GLM-5.3-Flash and MLNode 3.1.0"
+    GLM-5.3-Flash requires **vLLM 0.28**, a **CUDA 13** driver (580+), and image `ghcr.io/gonka-ai/mlnode:3.1.0-vllm-0.28.0`. Do not use `3.0.17` for GLM. Clone [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join) for the shipped `node-config-glm53flash-*.json` files ([gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)):
+
+    ```bash
+    git clone https://github.com/gonka-ai/gonka.git -b feat/glm-5-3-flash-release && \
+    cd gonka/deploy/join
+    ```
+
+    Set `POC_BATCH_SIZE_DEFAULT` to 8 on 8×H100, 16 on H200, 32 on B200/B300. On NVSwitch VMs set `NCCL_NVLS_ENABLE=0`. See [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 And copy `config` file template:
 ```
@@ -525,14 +535,14 @@ source config.env
 ### [Server] Edit Inference Node Description for the Server
 
 !!! note
-    Pick the tab that matches the model and GPU class you will serve. Confirm the model is in `GET /v1/governance/models`. Eligibility (voting power, `confirmation_weight_scales`) and live serving (`/v1/epochs/current/participants`) are separate from that catalog. `moonshotai/Kimi-K2.6` is currently not served. The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
+    Pick the tab that matches the model and GPU class you will serve. Confirm the model is in `GET /v1/governance/models`. Eligibility (voting power, `confirmation_weight_scales`) and live serving (`/v1/epochs/current/participants`) are separate from that catalog. `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` are not PoC models after [proposal 101](../network-updates.md#proposal-101). The governance makes decisions on adding or modifying supported models. For details on how model governance works and how to propose new models, see the [Transactions and Governance Guide](https://gonka.ai/governance/transactions-and-governance/).
 
 === "Kimi — 4×B200 / 8×B200 (and 8×H200 reference class)"
 
-    !!! warning "Currently not served"
-        No host in `/v1/epochs/current/participants` lists `moonshotai/Kimi-K2.6`. These args are the last known deploy shape.
+    !!! warning "Not a PoC model (proposal 101)"
+        `moonshotai/Kimi-K2.6` was removed from `poc_params.models` by [proposal 101](../network-updates.md#proposal-101). It remains in `GET /v1/governance/models` (inference catalog) but switching to it does not earn PoC consensus weight. These args are the last known deploy shape.
 
-        Eligibility is a separate, network-wide rule: a model in `poc_params` is not automatically eligible. Eligibility needs voting power that meets `v_min` / `w_threshold`. Without that, the next PoC treats the model as a bootstrap candidate — a single-host `node-config` switch does not restore consensus weight. See [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
+        For the current PoC set (MiniMax, DeepSeek, GLM-5.3-Flash), see the other tabs and [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md). The original Kimi bootstrap record is in [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
 
     Use this vLLM argument set for **Kimi K2.6** on Blackwell **4×B200 or 8×B200**, and as the reference for **8×H200** on the same layout (`tensor_parallel_size` 4 with expert parallelism across eight GPUs). Adjust only if your stack or benchmarking requires it.
 
@@ -875,6 +885,150 @@ source config.env
                             "--tool-call-parser", "deepseek_v4",
                             "--reasoning-parser", "deepseek_v4",
                             "--trust-remote-code"
+        ]
+        ```
+
+=== "GLM — 8×H100"
+
+    Use this vLLM argument set for **GLM-5.3-Flash** on **8×H100**. GLM requires **MLNode 3.1.0** (vLLM 0.28, CUDA 13). Set `POC_BATCH_SIZE_DEFAULT=8`.
+
+    Reference deploy config in the repo: `deploy/join/node-config-glm53flash-H100.json` on [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join).
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "zai-org/GLM-5.3-Flash": {
+                        "args": [
+                            "--revision", "04c4e9e95c5da8862dced7e5056455116f83a7e0",
+                            "--tensor-parallel-size", "8",
+                            "--gpu-memory-utilization", "0.95",
+                            "--max-num-batched-tokens", "16384",
+                            "--kv-cache-dtype", "fp8",
+                            "--block-size", "2304",
+                            "--max-num-seqs", "256",
+                            "--no-enable-flashinfer-autotune",
+                            "--enable-auto-tool-choice",
+                            "--tool-call-parser", "glm47",
+                            "--reasoning-parser", "glm45",
+                            "--trust-remote-code"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "GLM — 4×H200"
+
+    Use this vLLM argument set for **GLM-5.3-Flash** on **4×H200**. GLM requires **MLNode 3.1.0** (vLLM 0.28, CUDA 13). Set `POC_BATCH_SIZE_DEFAULT=16`. For 8×H200, run two 4-GPU instances (`node-config-glm53flash-8xH200.json`).
+
+    Reference deploy config in the repo: `deploy/join/node-config-glm53flash-H200.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "zai-org/GLM-5.3-Flash": {
+                        "args": [
+                            "--revision", "04c4e9e95c5da8862dced7e5056455116f83a7e0",
+                            "--tensor-parallel-size", "4",
+                            "--gpu-memory-utilization", "0.90",
+                            "--max-num-batched-tokens", "16384",
+                            "--kv-cache-dtype", "fp8",
+                            "--block-size", "2304",
+                            "--max-num-seqs", "256",
+                            "--no-enable-flashinfer-autotune",
+                            "--enable-auto-tool-choice",
+                            "--tool-call-parser", "glm47",
+                            "--reasoning-parser", "glm45",
+                            "--trust-remote-code"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "GLM — 4×B200"
+
+    Use this vLLM argument set for **GLM-5.3-Flash** on **4×B200**. GLM requires **MLNode 3.1.0** (vLLM 0.28, CUDA 13). On B200 this is the intended PoC switch under the current coefficient (0.62). Set `POC_BATCH_SIZE_DEFAULT=32`. On NVSwitch VMs set `NCCL_NVLS_ENABLE=0`.
+
+    Reference deploy config in the repo: `deploy/join/node-config-glm53flash-B200.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "zai-org/GLM-5.3-Flash": {
+                        "args": [
+                            "--revision", "04c4e9e95c5da8862dced7e5056455116f83a7e0",
+                            "--tensor-parallel-size", "4",
+                            "--gpu-memory-utilization", "0.90",
+                            "--max-num-batched-tokens", "65536",
+                            "--kv-cache-dtype", "fp8",
+                            "--block-size", "2304",
+                            "--max-num-seqs", "256",
+                            "--no-enable-flashinfer-autotune",
+                            "--enable-auto-tool-choice",
+                            "--tool-call-parser", "glm47",
+                            "--reasoning-parser", "glm45",
+                            "--trust-remote-code"
+                        ]
+                    }
+                }
+            }
+        ]
+        ```
+
+=== "GLM — 2×B300"
+
+    Use this vLLM argument set for **GLM-5.3-Flash** on **2×B300**. GLM requires **MLNode 3.1.0** (vLLM 0.28, CUDA 13). DeepSeek remains the highest-weight option on B300 under current coefficients; this profile is optional. Set `POC_BATCH_SIZE_DEFAULT=32`. On NVSwitch VMs set `NCCL_NVLS_ENABLE=0`.
+
+    Reference deploy config in the repo: `deploy/join/node-config-glm53flash-B300.json`.
+
+    !!! note "edit node-config.json"
+        ```
+        [
+            {
+                "id": "node1",
+                "host": "inference",
+                "inference_port": 5000,
+                "poc_port": 8080,
+                "max_concurrent": 500,
+                "models": {
+                    "zai-org/GLM-5.3-Flash": {
+                        "args": [
+                            "--revision", "04c4e9e95c5da8862dced7e5056455116f83a7e0",
+                            "--tensor-parallel-size", "2",
+                            "--gpu-memory-utilization", "0.90",
+                            "--max-num-batched-tokens", "65536",
+                            "--kv-cache-dtype", "fp8",
+                            "--block-size", "2304",
+                            "--max-num-seqs", "256",
+                            "--no-enable-flashinfer-autotune",
+                            "--enable-auto-tool-choice",
+                            "--tool-call-parser", "glm47",
+                            "--reasoning-parser", "glm45",
+                            "--trust-remote-code"
                         ]
                     }
                 }
@@ -885,7 +1039,7 @@ source config.env
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 !!! tip "Validate the deployment"
-    The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates an ML Node against pre-computed honest PoC vectors for a specific model. Use the golden reference that matches the model you deploy (MiniMax-M2.7, DeepSeek V4 Flash on [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts), or Kimi K2.6). Qwen3-0.6B / Qwen3-235B artifacts are historical and **not** mainnet models. See [Validate ML Node Deployment](./mlnode-validation.md).
+    The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates an ML Node against pre-computed honest PoC vectors for a specific model. Use the golden reference that matches the model you deploy (MiniMax-M2.7, DeepSeek V4 Flash on [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts), or GLM-5.3-Flash on [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/mlnode/packages/benchmarks/scripts/poc_validation/artifacts)). Qwen3-0.6B / Qwen3-235B artifacts are historical and **not** mainnet models. See [Validate ML Node Deployment](./mlnode-validation.md).
 
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
@@ -893,14 +1047,14 @@ To make sure the model weights are ready for inference, you should download them
 
 === "Kimi K2.6"
 
-    `moonshotai/Kimi-K2.6` is currently not served. Download it if deploying it (including to restore the group). A listed model with no voting power is a bootstrap candidate; a solo `node-config` switch does not restore consensus weight. See [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
+    `moonshotai/Kimi-K2.6` is not a PoC model after [proposal 101](../network-updates.md#proposal-101). Download it only if you intend to serve it from the governance inference catalog. Switching `node-config` to Kimi does not restore PoC consensus weight. See [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) for the historical record.
 
     ```bash
     mkdir -p $HF_HOME
     huggingface-cli download moonshotai/Kimi-K2.6
     ```
 
-    Model license: see [Model licenses](../model-licenses.md). For operational notes and on-chain options (intent, delegation), see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
+    Model license: see [Model licenses](../model-licenses.md).
 
 === "MiniMax M2.7"
 
@@ -919,6 +1073,15 @@ To make sure the model weights are ready for inference, you should download them
     ```
 
     Model license: see [Model licenses](../model-licenses.md). DeepSeek V4 Flash requires **MLNode 3.0.16 or newer** (image `ghcr.io/gonka-ai/mlnode:3.0.16`, pinned in `deploy/join/docker-compose.mlnode.yml` on the `vllm-0.25.1-upgrade` branch; use the `3.0.16-cu129` tag if the host is still on CUDA 12.9). For operational notes and on-chain options (intent, delegation), see [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md). On Blackwell GPUs, the nvfp4 repack `MJPansa/DeepSeek-V4-Flash-0731-NVFP4` needs API `v0.2.15-post5` — see [Network updates](../network-updates.md).
+
+=== "GLM-5.3-Flash"
+
+    ```bash
+    mkdir -p $HF_HOME
+    huggingface-cli download zai-org/GLM-5.3-Flash --revision 04c4e9e95c5da8862dced7e5056455116f83a7e0
+    ```
+
+    Model license: see [Model licenses](../model-licenses.md). GLM-5.3-Flash requires **MLNode 3.1.0** (image `ghcr.io/gonka-ai/mlnode:3.1.0-vllm-0.28.0`), vLLM 0.28, and a CUDA 13 driver (580+). Do not use `3.0.17`. For operational notes and on-chain options (intent, delegation), see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 ## Launch Nodes
     
@@ -1492,7 +1655,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   -y
 ```
 
-**Refuse** delegation for one model (explicit on-chain “no”). Use this for an **eligible** model you do not run (for example DeepSeek if you only serve MiniMax). Regular refuse/miss penalties apply only to eligible groups.
+**Refuse** delegation for one model (explicit on-chain “no”). Use this for an **eligible** model you do not run (for example GLM-5.3-Flash or DeepSeek if you only serve MiniMax). Regular refuse/miss penalties apply only to eligible groups.
 
 ```bash
 MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
@@ -1507,7 +1670,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   -y
 ```
 
-`declare-poc-intent` applies mainly to **new model bootstrap** windows; see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) and [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md). More commands and edge cases: [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md#copy-paste-setup-commands).
+`declare-poc-intent` applies mainly to **new model bootstrap** windows; see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md) and [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md). More commands and edge cases: [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md#copy-paste-setup-commands).
 
 ## Stopping and Cleaning Up Your Node
 

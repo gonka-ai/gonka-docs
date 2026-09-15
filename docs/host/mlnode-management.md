@@ -65,7 +65,7 @@ Example ML Node configuration:
 ```
 
 !!! note "Supported model and vLLM arguments"
-    Use the matching `node-config-*.json` from the [Host Quickstart](./quickstart.md). Confirm the model id against `GET /v1/governance/models`. Eligibility and live serving are separate from that catalog. `moonshotai/Kimi-K2.6` is currently not served. See the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
+    Use the matching `node-config-*.json` from the [Host Quickstart](./quickstart.md). Confirm the model id against `GET /v1/governance/models`. Eligibility and live serving are separate from that catalog. `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` are not PoC models after [proposal 101](../network-updates.md#proposal-101). See the [Benchmark to Choose Optimal Deployment Config for LLMs guide.](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)
 
 ---
 

@@ -14,7 +14,7 @@ There are several ways to do this:
     - With the `inferenced` CLI tool
     - In Keplr using the “Connect with Google” flow
 
-[Tangem](https://tangem.com/){target=_blank} is a hardware wallet (NFC card or ring plus mobile app) that supports native GNK on Gonka and wrapped GNK on Ethereum. Add Gonka in the Tangem app to hold, send, and receive GNK.
+[Tangem](https://tangem.com/){target=_blank} is a hardware wallet (NFC card or ring plus mobile app). Add Gonka in the Tangem app to hold, send, and receive GNK.
 
 Step-by-step instructions are provided below for **Keplr** and **Cosmostation**. The same process — install the wallet or extension, log in, enable the Gonka chain, and copy your address — also works in [Fox Wallet](https://foxwallet.com/){target=_blank}.
 

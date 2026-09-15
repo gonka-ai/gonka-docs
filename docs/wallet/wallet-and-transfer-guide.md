@@ -75,7 +75,7 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
 
 In Cosmos, a fund transfer means sending coins from one account (wallet address) to another within a Cosmos-based blockchain. These transfers are used to pay for services or simply send value between users.
 
-You can also send and receive native GNK in [Tangem](https://tangem.com/){target=_blank} (hardware wallet plus mobile app). 
+You can also send and receive GNK in [Tangem](https://tangem.com/){target=_blank} (hardware wallet plus mobile app). 
 
 === "CLI"
 

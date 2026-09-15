@@ -8,24 +8,6 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
-## September 15, 2026
-
-**On-chain check: proposal 101 is live; GLM-5.3-Flash is bootstrapping at epoch 394**
-
-Queried mainnet (`https://node3.gonka.ai`). Proposal 101 is `PROPOSAL_STATUS_PASSED`. Live `poc_params.models` matches the proposal:
-
-| Model | weight_scale_factor | penalty_start_epoch |
-| --- | --- | --- |
-| MiniMaxAI/MiniMax-M2.7 | 0.3024 | 278 |
-| deepseek-ai/DeepSeek-V4-Flash-0731 | 0.246 | 360 |
-| zai-org/GLM-5.3-Flash | 0.62 | 394 |
-
-GLM-5.3-Flash PoC parameters on chain: `seq_len` 1024, `dist_threshold` 0.44, `p_mismatch` 0.10, `p_value_threshold` 0.05. Governance `validation_threshold` is 0.951, `v_ram` 560, revision `04c4e9e95c5da8862dced7e5056455116f83a7e0`.
-
-`moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` are **not** in `poc_params.models`. They remain in `GET /v1/governance/models` (inference catalog) and are not currently served.
-
-At epoch **394**, GLM is in `sub_group_models` (PoC is running for it) but **not** yet in `confirmation_weight_scales`, so it does not yet produce consensus weight. `penalty_start_epoch` is in effect: hosts without DIRECT / DELEGATE / REFUSE for GLM risk the 15% no-participation penalty. Host actions: [GLM-5.3-Flash Bootstrap](./host/glm-bootstrap.md).
-
 ## September 14, 2026
 
 **The devshard v5 proposal has entered governance**

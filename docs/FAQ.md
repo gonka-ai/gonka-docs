@@ -71,8 +71,9 @@ We've created a dedicated document focused on [Tokenomics](https://gonka.ai/toke
 You can find the minimum and recommended [hardware specifications](https://gonka.ai/host/hardware-specifications/) clearly outlined in the documentation. You should review this section to ensure your hardware meets the requirements for effective contribution.
 
 ### What wallets can I use to store GNK coins?
-You can store GNK coin in several supported wallets within the Cosmos ecosystem:
+You can store GNK coin in several supported wallets:
 
+- [Tangem](https://tangem.com/) — hardware wallet (card or ring) with a mobile app; supports native GNK on Gonka and wrapped GNK (WGNK) on Ethereum
 - [Keplr](https://www.keplr.app/)
 - [Cosmostation](https://cosmostation.io/products/application)
 - `inferenced` CLI - a command-line utility for local account management and network operations in Gonka.

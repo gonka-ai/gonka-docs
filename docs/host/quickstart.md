@@ -48,15 +48,6 @@ Governance listing (`GET /v1/governance/models`, `poc_params.models`) is the app
 
 Live serving is a separate check: `/v1/epochs/current/participants`. `moonshotai/Kimi-K2.6` is currently not served. To restore that group, see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
 
-!!! tip "Reference deploy configs in the repo"
-    DeepSeek V4 Flash configs, MiniMax `minimaxm27-*` configs, and MLNode **3.0.16** live on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) branch (not `main`). Copy the file that matches your hardware to `node-config.json` instead of writing one from scratch:
-
-    - **MiniMax M2.7** — `deploy/join/node-config-minimaxm27-A100.json`, `deploy/join/node-config-minimaxm27-H100.json`, `deploy/join/node-config-minimaxm27-H200.json`, `deploy/join/node-config-minimaxm27-B200.json`, `deploy/join/node-config-minimaxm27-B300.json`
-    - **DeepSeek V4 Flash** — `deploy/join/node-config-deepseekv4flash0731-H100.json`, `deploy/join/node-config-deepseekv4flash0731-H200.json`, `deploy/join/node-config-deepseekv4flash0731-B200.json`, `deploy/join/node-config-deepseekv4flash0731-B300.json`. On Blackwell, nvfp4 variants: `node-config-deepseekv4flash0731-B200-nvfp4.json`, `node-config-deepseekv4flash0731-B300-nvfp4.json`.
-    - **Kimi K2.6** — `deploy/join/node-config-kimik26-H200.json`, `deploy/join/node-config-kimik26-B200.json`
-
-    The contents of these files are reproduced inline below for convenience.
-
 !!! note "If you will not run every approved model"
     Multi-model PoC tracks participation **per model**. For an **eligible** model you do not run, use on-chain **delegation** or **refusal**. Regular miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate; `refuse` is not required and is not a bootstrap participation mode. Delegation/refusal is **not** required to bring a node online—you use the same **Account (cold) key** as in [Grant Permissions to ML Operational Key](#33-local-machine-grant-permissions-to-ml-operational-key), **after** registration and verification. Copy-paste commands are at the end: [Optional: PoC delegation and refusal](#optional-poc-delegation-and-refusal). For strategy and penalties, read [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md). To restore a group that lost voting power, see [Kimi K2.6 Bootstrap](./kimi-bootstrap.md).
 
@@ -1097,7 +1088,7 @@ exit
 #### 3.3. [Local machine] Grant Permissions to ML Operational Key
 **IMPORTANT: Perform this step on your secure local machine where you created the Account Key**
 
-Grant permissions from your Account Key to the ML Operational Key:
+Grant permissions from your Account Key to the ML Operational Key. This also creates a **feegrant** (cold → warm) with a default spend limit of **10 GNK**, so the API can pay fee-bearing txs from the cold account. If that allowance is later depleted, you cannot top it up in place — revoke and re-grant; see [Refresh the feegrant](#refresh-the-feegrant-when-the-10-gnk-allowance-is-used-up).
 ```bash
 ./inferenced tx inference grant-ml-ops-permissions \
     gonka-account-key \
@@ -1257,6 +1248,118 @@ curl http://node2.gonka.ai:8000/chain-rpc/status
 ```
 
 Once your node is visible in the Dashboard, you may also want to update your public profile (host name, website, avatar). This helps other participants identify your node in the network. You can find [the instructions here](https://gonka.ai/host/validator_info/).
+
+## Fund your Account Key (transaction fees) {#fund-account-fees}
+
+**IMPORTANT: Fees are paid from your cold wallet. Perform transfers and fee-bearing transactions on your secure local machine.**
+
+Starting with upgrade **v0.2.16**, Gonka charges on-chain fees for a defined set of host transactions. Registration alone is not enough to join Proof of Compute or an epoch: your cold account must hold a liquid GNK balance so those messages can be included on-chain.
+
+Fund your Account Key address before the next PoC window. Keep this balance separate from collateral you will lock in [§5 Deposit Collateral](#5-local-machine-deposit-collateral) — fees are spent from the free balance; collateral is deposited into the collateral module.
+
+Fees currently apply to the following message types:
+
+| Message | What it covers |
+|---------|----------------|
+| `MsgPoCV2StoreCommit` | Submitting PoC v2 commits during Proof of Compute |
+| `MsgSubmitHardwareDiff` | Reporting hardware / ML Node changes |
+| `MsgDeclarePoCIntent` | Declaring intent for a model during bootstrap windows |
+| `MsgSetPoCDelegation` | Delegating PoC validation weight to another participant |
+| `MsgRefusePoCDelegation` | Explicitly refusing PoC delegation for a model |
+| `MsgDepositCollateral` | Depositing collateral (this section’s follow-up step) |
+| `MsgWithdrawCollateral` | Withdrawing collateral after the unbonding period |
+
+Other protocol-duty traffic (for example routine inference and validation paths that the network treats as duty) is outside this fee set. Always use the `ngonka` denomination for balances and fees.
+
+Get your cold account address on your **local machine**:
+
+```bash
+./inferenced keys show gonka-account-key -a --keyring-backend file
+```
+
+Send GNK to that address. A practical starting top-up is **10 GNK** on the cold account — enough for several epochs of operational fees plus one-time setup transactions you sign from cold (permission grants, delegation, collateral deposit). Separately, [§3.3 Grant Permissions](#33-local-machine-grant-permissions-to-ml-operational-key) creates a **feegrant** so the ML Operational Key can spend fees from cold, with a default **spend limit of 10 GNK**. That limit is a cap on feegrant spending; it is not topped up by sending more GNK. Collateral is separate; see [§5 Deposit Collateral](#5-local-machine-deposit-collateral).
+
+Confirm the transfer arrived (replace `<your-gonka-cold-address>`):
+
+```bash
+curl -s "http://node2.gonka.ai:8000/v2/accounts/<your-gonka-cold-address>" | jq '.balance, .denom'
+```
+
+### Check the fee budget for one epoch
+
+After your node is running and the **API** container is up ([§4 Launch Full Node](#4-server-launch-full-node)), run this on the **server**. The admin API listens on localhost only — it is not exposed through the public proxy.
+
+```bash
+curl -s http://127.0.0.1:9200/admin/v1/epoch-fee-budget | jq
+```
+
+Example response:
+
+```json
+{
+  "denom": "ngonka",
+  "spendable_balance": "7254963228",
+  "budget_balance": "36266880",
+  "count": 23712,
+  "count_source": "top_participant",
+  "budget_known": true,
+  "spendable_covers_budget": true
+}
+```
+
+**How to read it:**
+
+- **`budget_balance`** — estimated **ngonka** needed for **this epoch only** (main PoC, possible confirmation PoCs, and hardware-diff fees). It is an upper bound with headroom, not an exact bill.
+- **`spendable_balance`** — what the node can actually spend on fees right now: the cold account’s liquid balance, **capped by the remaining feegrant allowance** to the ML Operational Key.
+- **`spendable_covers_budget: true`** — that capped amount is enough for this epoch’s estimate.
+- **`spendable_covers_budget: false`** — not enough fee headroom. Check both sides:
+  - If the cold account balance is low → send more GNK to cold.
+  - If cold still has funds but the feegrant spend limit is exhausted → revoke and re-grant (see below). Sending GNK alone does **not** raise the feegrant limit.
+- **`count_source: "top_participant"`** — the estimate scales store commits to the busiest participant in the last PoC stage. For a conservative manual estimate, pass your own commit count:
+
+```bash
+curl -s "http://127.0.0.1:9200/admin/v1/epoch-fee-budget?count=100" | jq
+```
+
+This check does **not** include collateral or one-time setup messages from the table above — only recurring PoC/hardware traffic for the current epoch.
+
+### Planning for many epochs
+
+The endpoint estimates **one epoch at a time**. Fees are spent as transactions land; unused GNK stays on your cold account, and unused feegrant headroom stays in the allowance until it is depleted.
+
+- **Re-check each epoch** — run the command again before or after PoC if network activity changes.
+- **Plan ahead** — multiply `budget_balance` by the number of epochs you want to cover (for example, `budget_balance × 90` for roughly three months on mainnet, where epochs are ~24 hours). Keep that much liquid GNK on cold **and** enough remaining feegrant limit (default **10 GNK** per grant).
+- **When `spendable_covers_budget` is false** — top up cold if the balance is low; if the feegrant limit is used up, refresh the allowance (next section). There is no “top up feegrant” tx.
+
+### Refresh the feegrant when the 10 GNK allowance is used up
+
+`grant-ml-ops-permissions` creates a **feegrant** so the ML Operational Key (warm) can pay fees from your Account Key (cold), with a default spend limit of **10 GNK**. Cosmos feegrant has no update/top-up message: when that allowance is depleted (or expired), the API can no longer submit fee-bearing txs even if the cold account still has a balance. You must **revoke** the old allowance, then **grant again** to create a fresh 10 GNK limit.
+
+1. Make sure the cold account still holds enough liquid GNK (send more if needed).
+2. On your **local machine**, revoke the old allowance (`[granter] [grantee]` — cold, then warm). Wait until the revoke tx is confirmed in a block before running grant.
+
+```bash
+./inferenced tx feegrant revoke <cold-account-address> <ml-operational-key-address> \
+  --from gonka-account-key \
+  --keyring-backend file \
+  --node http://node2.gonka.ai:8000/chain-rpc/ \
+  --chain-id gonka-mainnet
+```
+
+3. After the revoke is confirmed, grant again:
+
+```bash
+./inferenced tx inference grant-ml-ops-permissions \
+  gonka-account-key \
+  <ml-operational-key-address> \
+  --from gonka-account-key \
+  --keyring-backend file \
+  --gas 2000000 \
+  --node http://node2.gonka.ai:8000/chain-rpc/ \
+  --chain-id gonka-mainnet
+```
+
+If an allowance already exists, `grant-ml-ops-permissions` skips creating a new feegrant and prints a reminder to revoke. After a successful re-grant, re-check with `epoch-fee-budget` until `spendable_covers_budget` is `true`.
 
 ## 5. [Local machine] Deposit Collateral
 

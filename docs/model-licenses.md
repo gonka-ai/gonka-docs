@@ -6,6 +6,7 @@ This page is a list of model licenses. It does not say whether a model is on Gon
 - [DeepSeek-V3](https://github.com/deepseek-ai/DeepSeek-V3/blob/main/LICENSE-MODEL)
 - [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/main/LICENSE)
 - [Gemma-3-27B](https://ai.google.dev/gemma/terms)
+- [GLM-5.2-FP8](https://huggingface.co/zai-org/GLM-5.2-FP8/blob/main/LICENSE)
 - [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash/blob/main/LICENSE)
 - [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b/blob/main/LICENSE)
 - [Kimi-k2.6](https://huggingface.co/moonshotai/Kimi-K2.6/blob/main/LICENSE)

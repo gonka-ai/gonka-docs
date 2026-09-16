@@ -8,6 +8,14 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## PROPOSAL REJECTED: Approve devshard v5 and bounty payouts
+
+The on-chain governance vote for proposal id 104 has concluded. The proposal was REJECTED with `failed_reason`: `proposal did not get enough votes to pass`.
+
+Final tally: yes 25291, no 0, no_with_veto 0, abstain 0.
+
+Nobody voted against it. Turnout was roughly 6% of network weight against a 25% quorum, so the proposal failed on participation alone.
+
 ## September 16, 2026
 
 **GLM-5.3-Flash is live**

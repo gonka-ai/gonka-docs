@@ -12,9 +12,9 @@
 
 **devshard v5 提案已进入治理阶段**
 
-提案 ID 104 做了两件事：将 `v5` 添加到批准的 devshard 版本列表中，并从社区销售合约分配 91,300 USDT 作为贡献者奖金。
+提案ID 104 实现两项内容：将 `v5` 添加到 devshard 版本的批准列表中，并从社区销售合约分配91,300 USDT作为贡献者奖金。
 
-**Devshard v5**
+**devshard v5**
 
 这是一个仅限 devshard 的变更。它通过链上参数提案进行，而非完整的链软件升级：不涉及 Cosmovisor，链不会暂停，推理服务持续运行。若获得批准，`versiond` 将下载二进制文件，并将其 SHA-256 值与链上存储的值进行验证，然后启动运行时。
 
@@ -25,7 +25,7 @@ https://github.com/gonka-ai/gonka/releases/download/devshard%2Fv5.0.0/devshardd.
 sha256 ae2d1f90374b54efd4290b4df8b8c0ae339deb0d3b6e5b10936ea9f73155f564
 ```
 
-PoC 模型集不受影响：MiniMax-M2.7、DeepSeek-V4-Flash-0731 和 GLM-5.3-Flash 保持其当前参数和权重。
+PoC 模型集不受影响：MiniMax-M2.7、DeepSeek-V4-Flash-0731 和 GLM-5.3-Flash 保持其当前参数和权重不变。
 
 **奖金发放**
 
@@ -45,7 +45,7 @@ PoC 模型集不受影响：MiniMax-M2.7、DeepSeek-V4-Flash-0731 和 GLM-5.3-Fl
 
 投票将于 **2026年9月16日 01:23 UTC** 结束。提案通过需满足：权重达到 25% 的法定人数、多数赞成票，且反对票（含否决）低于 33.4%。
 
-提案详情和投票可通过 `inferenced` 查看：任何活跃节点均可使用：
+提案详情和投票可通过 `inferenced` 查看。任何活跃节点均可使用：
 
 - http://node1.gonka.ai:8000
 - http://node2.gonka.ai:8000
@@ -65,7 +65,7 @@ export NODE_URL=https://node3.gonka.ai/
 --yes
 ```
 
-要查看投票状态：
+要检查投票状态：
 
 ```shell
 export NODE_URL=https://node3.gonka.ai/
@@ -76,7 +76,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 ## 2026年9月12日
 
-**提案通过：为Daniil和David Liberman参加All-In Summit 2026的费用报销**
+**提案通过：补偿 Daniil 和 David Liberman 参与 All-In Summit 2026 的费用**
 
 提案ID为103的链上治理投票已结束。
 
@@ -84,13 +84,13 @@ export NODE_URL=https://node3.gonka.ai/
 
 峰会于2026年9月13日至15日在洛杉矶举行。标准参会通行证每人7,500 USDT，门票已先行支付。本次报销涵盖两张门票及提取资金的交易费用。本提案未申请从社区资金池报销航班、住宿及其他费用。
 
-最终投票结果：赞成184762票，反对0票，否决0票，弃权0票。
+最终投票结果：赞成 184762，反对 0，否决 0，弃权 0。
 
 主办方无需采取任何行动。
 
 ## 2026年9月11日
 
-**提案通过：批准Quant Mesh Limited作为账本集成合作方并拨付初始账本集成款项**
+**提案通过：批准 Quant Mesh Limited 作为 Ledger 集成合作方并拨付初始 Ledger 集成款项**
 
 提案ID为102的链上治理投票已结束。
 
@@ -100,7 +100,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 转账已在链上执行。
 
-最终投票结果：赞成146903票，反对0票，否决0票，弃权5568票。
+最终投票结果：赞成 146903，反对 0，否决 0，弃权 5568。
 
 主办方无需采取任何行动。
 
@@ -108,17 +108,17 @@ export NODE_URL=https://node3.gonka.ai/
 
 ## 2026年9月11日 {#proposal-101}
 
-**提案通过：添加GLM-5.3-Flash，移除Kimi-K2.6和GLM-5.2-FP8作为PoC模型**
+**提案通过：添加 GLM-5.3-Flash，移除 Kimi-K2.6 和 GLM-5.2-FP8 作为 PoC 模型**
 
 提案ID为101的链上治理投票已结束。
 
 提案已获批准。`zai-org/GLM-5.3-Flash`现已成为经治理批准的模型并纳入PoC模型集，而`moonshotai/Kimi-K2.6`和`zai-org/GLM-5.2-FP8`已从`poc_params.models`中移除。这两个ID仍保留在`GET /v1/governance/models`（推理目录）中，但不再是PoC模型。
 
-`MiniMaxAI/MiniMax-M2.7`和`deepseek-ai/DeepSeek-V4-Flash-0731`不受影响：其PoC参数和权重保持不变。
+`MiniMaxAI/MiniMax-M2.7` 和 `deepseek-ai/DeepSeek-V4-Flash-0731` 不受影响：其 PoC 参数和权重保持不变。
 
 该模型及其参数由kaitaku.ai团队提出，经vbgd0独立验证，并联合提交。测量数据及阈值设定的依据详见[gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)。
 
-**当前PoC模型集如下**
+**当前 PoC 模型集如下**
 
 | 模型 | weight_scale_factor | penalty_start_epoch |
 | --- | --- | --- |
@@ -126,11 +126,11 @@ export NODE_URL=https://node3.gonka.ai/
 | deepseek-ai/DeepSeek-V4-Flash-0731 | 0.246 | 360 |
 | zai-org/GLM-5.3-Flash | 0.62 | 394 |
 
-**这对主办方意味着什么**
+**这对宿主意味着什么**
 
 GLM-5.3-Flash的激活纪元为**394**。自该纪元起，`penalty_start_epoch`生效，因此未明确选择的主办方将面临不参与惩罚。若您计划提供该模型，尽早声明意向将有助于团队形成。主机指南：[GLM-5.3-Flash 启动指南](./host/glm-bootstrap.md)。
 
-最终投票结果：赞成309308票，反对0票，否决0票，弃权3168票。
+最终投票结果：赞成 309308，反对 0，带否决反对 0，弃权 3168。
 
 感谢所有参与投票的成员。
 
@@ -151,7 +151,7 @@ https://github.com/gonka-ai/gonka/releases/download/release%2Fdevshard%2Fv4.1.0/
 sha256 69e58e6b6c124fc218d3ed1e38d7853c0a8ce20df660d348fc28ccd249a1ccf1
 ```
 
-最终投票结果：赞成 312476，反对 0，否决 0，弃权 0。
+最终投票结果：赞成 312476，反对 0，带否决反对 0，弃权 0。
 
 感谢所有参与投票的人。
 
@@ -185,7 +185,7 @@ penalty_start_epoch         394
 
 模型参数：`--max-model-len 400000 --kv-cache-dtype fp8 --enable-auto-tool-choice --tool-call-parser glm47 --reasoning-parser glm45 --trust-remote-code`
 
-**这对主机意味着什么**
+**这对宿主意味着什么**
 
 GLM-5.3-Flash 的激活纪元为 **394**。从该纪元起，`penalty_start_epoch` 生效，因此未明确选择的主机将面临不参与惩罚。
 
@@ -207,7 +207,7 @@ GLM-5.3-Flash 的激活纪元为 **394**。从该纪元起，`penalty_start_epoc
 - http://node2.gonka.ai:8000
 - https://node3.gonka.ai
 
-投出您的投票（`yes`，`no`，`abstain`，`no_with_veto`）：
+投出您的选票 (`yes`, `no`, `abstain`, `no_with_veto`):
 
 ```shell
 export NODE_URL=https://node3.gonka.ai/
@@ -240,7 +240,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 v4.1 与现有的 v3 和 v4 运行时并行运行。通过该提案本身不会移动任何流量，因此经纪人可以在之后逐步迁移其网关。
 
-**Binary**
+**二进制文件**
 
 ```
 https://github.com/gonka-ai/gonka/releases/download/release%2Fdevshard%2Fv4.1.0/devshardd.zip
@@ -259,7 +259,7 @@ sha256 69e58e6b6c124fc218d3ed1e38d7853c0a8ce20df660d348fc28ccd249a1ccf1
 - http://node2.gonka.ai:8000
 - https://node3.gonka.ai
 
-投出您的选票（`yes`, `no`, `abstain`, `no_with_veto`）：
+投出您的选票（`yes`、`no`、`abstain`、`no_with_veto`）：
 
 ```shell
 export NODE_URL=https://node3.gonka.ai/
@@ -273,7 +273,7 @@ export NODE_URL=https://node3.gonka.ai/
 --yes
 ```
 
-查看投票状态：
+要检查投票状态：
 
 ```shell
 export NODE_URL=https://node3.gonka.ai/
@@ -284,17 +284,17 @@ export NODE_URL=https://node3.gonka.ai/
 
 ## 2026年9月4日
 
-**提案通过：支持Gonka参与TOKEN2049新加坡**
+**提案通过：支持 Gonka 参与 TOKEN2049 新加坡**
 
-提案ID为99的链上治理投票已结束。
+提案编号 99 的链上治理投票已结束。
 
 提案已获批准。将从社区资金池拨款100,000 USDT，用于支持Gonka参与2026年10月7日至8日在滨海湾金沙举行的TOKEN2049新加坡活动。资金将覆盖黄金赞助包及相关后勤开支：差旅、住宿、本地协调、嘉宾接待、活动运营及支持材料。
 
-感谢所有参与投票的用户。
+感谢所有参与投票的人。
 
 ## 2026年9月4日
 
-**Devshard二进制更新：`v4.0.2`**
+**Devshard 二进制更新：`v4.0.2`**
 
 `v4.0.2` devshard二进制文件已可用。主机可使用以下说明手动更新v4二进制文件。尚未安排自动更新。
 
@@ -302,7 +302,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 重启时，`v4.0.1`会从nonce 1恢复所有会话。拥有大量存储会话的节点需要数小时才能就绪，`versiond`会在60秒就绪超时后终止子进程，导致客户端出现HTTP 502错误。
 
-`v4.0.2`加载最新快照，仅恢复其后的差异。此版本与之前的v4版本完全兼容。
+`v4.0.2` 加载最新快照并仅恢复其后的差异。此版本与之前的 v4 发布版本完全兼容。
 
 发布：[devshard/v4.0.2](https://github.com/gonka-ai/gonka/releases/tag/release/devshard/v4.0.2)
 
@@ -345,19 +345,19 @@ curl <your_node_url>/devshard/v4/stats/shards | jq '.binary_version'
 ```
 ## 2026年8月29日
 
-**提案通过：将DeepSeek V4 Flash的weight_scale_factor提升至0.246**
+**提案通过：将 DeepSeek V4 Flash 的 weight_scale_factor 提高至 0.246**
 
-提案ID为98的链上治理投票已结束。
+提案编号 98 的链上治理投票已结束。
 
 提案已获批准。将`weight_scale_factor`对`deepseek-ai/DeepSeek-V4-Flash-0731`的权重系数从0.214提升至0.246。所有其他模型和链参数保持不变。这是提案97的重新提交。链上提案97最终结果为`PROPOSAL_STATUS_REJECTED`，结果为`failed_reason`：`proposal did not get enough votes to pass`（未达到25%法定人数）。最终投票统计：赞成15452，弃权3093，反对0，否决0。
 
 原始的0.214系数源于被高估的nonce/min数值。测量修正详见 [gonka-ai/gonka#1640](https://github.com/gonka-ai/gonka/pull/1640)。主机无需执行任何操作。
 
-感谢所有参与投票的用户。
+感谢所有投票的人。
 
 ## 2026年8月25日
 
-**仅升级devshard的PR现已开放评审**
+**仅适用于 devshard 的升级 PR 现已开放评审**
 
 Devshard升级独立于主区块链更新devshard运行时。它们无需通过Cosmovisor协调全节点升级，不影响主网行为，预计不会造成推理服务的停机。若通过治理流程批准，新的devshard v5运行时将与现有的v4运行时并行运行。
 
@@ -369,7 +369,7 @@ Devshard升级独立于主区块链更新devshard运行时。它们无需通过C
 
 3. 增加了通过所有插槽往返的心跳机制，因此即使会话静默，也能定期同步高度；而繁忙会话则可通过常规推理标记实现相同频率。
 
-**行动项**
+**操作项**
 
 请审查 PR [gonka-ai/gonka#1584](https://github.com/gonka-ai/gonka/pull/1584)，并对任何发现、问题、改进建议、边缘情况或潜在漏洞留下评论。
 
@@ -383,13 +383,13 @@ Devshard升级独立于主区块链更新devshard运行时。它们无需通过C
 
 一个新的链上治理提案（提案编号 97）已开放投票。
 
-**作用**
+**其内容**
 
 将 `weight_scale_factor` 的 `deepseek-ai/DeepSeek-V4-Flash-0731` 从 0.214 提高至 0.246。所有其他模型和链参数保持不变。
 
 **投票**
 
-投票将于 **UTC 时间 8 月 27 日 03:47** 结束。如能投票，请参与。
+投票将于 **UTC 时间 8 月 27 日 03:47** 结束。如果可以，请参与投票。
 
 提案详情和投票可通过 `inferenced` 查看：任何活跃节点均可使用：
 
@@ -411,7 +411,7 @@ export NODE_URL=https://node3.gonka.ai/
 --yes
 ```
 
-查看投票状态：
+要检查投票状态：
 
 ```shell
 export NODE_URL=https://node3.gonka.ai/
@@ -426,15 +426,15 @@ export NODE_URL=https://node3.gonka.ai/
 
 该提案已获批准。它调整了在周期早期数据不足时无效推断检查（SPRT）的行为，避免因样本过小而误触发。主机无需采取任何操作。
 
-感谢所有参与投票的人。
+感谢所有投票的人。
 
 ## 2026年8月20日
 
-**提案 96 已开放投票：稳定小样本下周期内无效 SPRT**
+**提案 96 已开放投票：稳定小样本下 epoch 内无效 SPRT**
 
 一个新的链上治理提案（提案编号 96）已开放投票。
 
-**作用**
+**其内容**
 
 在周期早期，数据尚不足，因此无效推断检查（SPRT）可能在样本足够大前，仅因少量无效数据就触发。本提案使其更稳定：
 
@@ -447,7 +447,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 这是一个加速提案，因此投票将于 **UTC 时间 8 月 21 日 06:04**（约 12 小时后）结束。如能投票，请参与。如果未能在时限内达到加速阈值，提案不会被拒绝：它将转为常规提案，投票将继续进行更长的正常周期。如转为常规提案，您需重新投票。
 
-提案详情和投票可通过 `inferenced` 查看：任何活跃节点均可使用：
+提案详情与投票可通过 `inferenced` 查看。任何活跃节点均可使用：
 
 - http://node1.gonka.ai:8000
 - http://node2.gonka.ai:8000
@@ -483,7 +483,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 此仪表板从网关的角度显示每个主机执行的工作。在结算启用后，Misses 和 Invalid 指标将用于链上。在当前主网阈值配置下，错误率低于 10% 的主机不会触发任何处罚或罚没，但应作为协议开发过程的一部分进行调查。
 
-错误率较高的主机应在结算开始前解决这些问题。没有显著问题的主机无需采取任何操作。
+错误率较高的主机应在结算开始前解决这些问题。无显著问题的主机无需采取任何操作。
 
 仪表板还显示了网关的内部细节，例如特定主机的请求失败原因或无效上下文长度，这些信息有助于排查主机端的问题。
 超调度和隔离部分旨在为网关开发提供洞察，主机无需对此采取行动。
@@ -498,7 +498,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 **5) 在所有经纪人成功验证后。** 结算覆盖率将逐步提升至 100%。
 
-此次发布故意采取渐进方式，以便在结算扩展到整个网络之前识别并解决任何意外问题。
+此部署刻意采取渐进方式，以便在结算扩展至全网前识别并解决任何意外问题。
 
 ## 2026 年 8 月 14 日
 
@@ -510,7 +510,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 ## 2026 年 8 月 14 日
 
-**MLNode 3.0.16 发布**
+**MLNode 3.0.16 部署**
 
 如果您的所有节点均已使用新版本（3.0.16），则无需任何操作。
 
@@ -526,7 +526,7 @@ MLNode 镜像已在 [`docker-compose.mlnode.yml`](https://github.com/gonka-ai/go
 
 ## 2026 年 8 月 13 日
 
-**迁移社区销售和包装代币合约**
+**迁移社区销售与封装代币合约**
 
 将在线社区销售合约及所有包装代币实例迁移至新存储的 CosmWasm 代码，并为未来的实例化注册该包装代币代码。合约地址和余额保持不变。无需链二进制升级。此举旨在缓解安全报告中发现的理论风险，预计不会影响正常运行。
 创世守护者预计会支持该提案。
@@ -565,7 +565,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 ## 2026年8月13日
 
-**DeepSeek V4 Flash 启动：意向阈值已达成——请在 epoch 360 快照前完成委托**
+**DeepSeek V4 Flash 启动：意向阈值已满足——请在 epoch 360 快照前完成委托**
 
 `deepseek-ai/DeepSeek-V4-Flash-0731` 在 epoch 359 快照时未能满足预合格条件。此后，实时意向和委托权重已满足 `V_min`、`W_threshold` 以及 **>2/3 可达性**（DeepSeek 意向权重加上委托给这些主机的权重）。下一次**官方**检查为 epoch 360 启动快照——在此前请保持委托多样化，以确保快照有效。
 
@@ -597,7 +597,7 @@ export NODE_URL=https://node3.gonka.ai/
 * Epoch 360 PoC 开始：区块 **5,552,115** —— 约为 2026 年 8 月 14 日 02:09 UTC
 * DeepSeek 不参与惩罚从 epoch **360** 开始
 
-更多关于启动机制的信息：[https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)
+更多关于启动机制的说明：[https://gonka.ai/docs/host/deepseek-bootstrap/](https://gonka.ai/docs/host/deepseek-bootstrap/)
 
 ## 2026年8月13日
 
@@ -609,7 +609,7 @@ DeepSeek 已通过投票并进入启动阶段——如果您计划提供服务�
 
 **1) MLNode (vLLM 0.25.1)**
 
-从该分支获取 MLNode 堆栈——默认镜像已在 [compose 文件](https://github.com/gonka-ai/gonka/blob/vllm-0.25.1-upgrade/deploy/join/docker-compose.mlnode.yml) 中锁定。
+从该分支获取 MLNode 栈——默认镜像已在 [compose 文件](https://github.com/gonka-ai/gonka/blob/vllm-0.25.1-upgrade/deploy/join/docker-compose.mlnode.yml) 中固定。
 
 **2) 预制节点配置**
 
@@ -625,7 +625,7 @@ DeepSeek 已通过投票并进入启动阶段——如果您计划提供服务�
 - `node-config-deepseekv4flash0731-B200-nvfp4.json`
 - `node-config-deepseekv4flash0731-B300-nvfp4.json`
 
-以该格式运行模型需要新 API 版本 v0.2.15-post5。安装方法：
+以该格式运行模型需要新版本 API，v0.2.15-post5。安装方法：
 ```bash
 sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.15-post5/ .dapi/data/upgrade-info.json
 sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.15-post5/bin/
@@ -671,7 +671,7 @@ docker start api
 
 提案94已通过——DeepSeek V4 Flash已获批准。计划提供该模型的主机应立即声明意向，以便模型能在第359轮启动。
 
-[完整系数表](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
+[包含系数的完整表格](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
 
 **效果**
 
@@ -683,7 +683,7 @@ docker start api
 
 **主机所需操作**
 
-1. 声明意向。在提案94通过后、在区块5,536,224（约2026年8月13日02:40 UTC / 8月12日19:40 PDT）的启动快照之前，请提交：
+1. 声明意向。鉴于提案94已通过，且在区块5,536,224（约2026年8月13日02:40 UTC / 8月12日19:40 PDT）的启动快照之前，请提交：
 ```
 ./inferenced tx inference declare-poc-intent deepseek-ai/DeepSeek-V4-Flash-0731
 ```
@@ -724,12 +724,12 @@ DeepSeek的0.214系数为在B300上托管DeepSeek提供了轻微优势。对于�
 
 **启动机制**
 
-模型通过标准启动流程进入，主机可在投入硬件前评估其可行性：
+模型通过标准启动流程进入，因此主机可在投入硬件前评估其可行性：
 
 1. 声明意向：在 `start_poc - deploy_window` 快照前提交 `MsgDeclarePoCIntent`。
 2. 预资格快照：链对意向/委托进行快照并发出建议性预资格事件。
 3. 部署窗口：已声明意向的主机配置其MLNode。
-4. PoC开始：PoC开始时的成员资格由谁提交PoC存储提交决定，而非由谁声明意向。
+4. PoC开始：成员资格由在PoC开始时提交PoC存储提交的人决定，而不是由声明意向的人决定。
 
 最终的MLNode版本和设置说明将在投票结束后发布。
 
@@ -737,7 +737,7 @@ DeepSeek的0.214系数为在B300上托管DeepSeek提供了轻微优势。对于�
 
 **若获批准的影响**
 
-在符合引导资格的前提下，从第359个纪元起（PoC开始时间约为2026年8月13日03:24 UTC / 8月12日20:24 PDT），`deepseek-ai/DeepSeek-V4-Flash-0731`将成为可用的PoC模型。现有模型保持不变。DeepSeek的不参与惩罚从第`360`个纪元（`penalty_start_epoch = 360`）开始。
+在符合引导资格的前提下，从第359个纪元开始（PoC开始时间约为2026年8月13日03:24 UTC / 8月12日20:24 PDT），`deepseek-ai/DeepSeek-V4-Flash-0731`将成为可用的PoC模型。现有模型保持不变。DeepSeek的不参与惩罚从第`360`个纪元（`penalty_start_epoch = 360`）开始。
 
 **主机所需操作**
 
@@ -758,7 +758,7 @@ DeepSeek的0.214系数为在B300上托管DeepSeek提供了轻微优势。对于�
 - http://node2.gonka.ai:8000
 - https://node3.gonka.ai
 
-投出您的投票（`yes`，`no`，`abstain`，`no_with_veto`）：
+投出您的选票（`yes`，`no`，`abstain`，`no_with_veto`）：
 ```
 export NODE_URL=https://node3.gonka.ai/
 ./inferenced tx gov vote 94 yes \
@@ -793,7 +793,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 新的 API 二进制文件 `v0.2.15-post3` 已可用。
 
-此版本提高了 PoC 种子的可靠性，并包含若干 API 和部署修复。
+此版本改进了 PoC 种子的可靠性，并包含若干 API 和部署修复。
 
 **变更内容**
 
@@ -841,7 +841,7 @@ devshard 运行时通过链上参数提案升级，而非完整链软件升级�
 
 **如何投票**
 
-如果您没有直接访问拥有投票权密钥的权限，或希望由另一个密钥代为投票，请参阅有关将治理投票权限从冷密钥授予热密钥的指南。
+如果您没有直接访问持有投票权密钥的权限，或希望由另一个密钥代为投票，请参考从冷密钥向热密钥授予治理投票权限的指南。
 
 提案详情和投票可通过 `inferenced` 查看。任何活跃节点均可使用。可用节点包括：
 
@@ -888,7 +888,7 @@ export NODE_URL=https://node3.gonka.ai/
 - 提议的升级高度：5316315
 - 预计升级时间：2026年7月30日 15:28 UTC / 2026年7月30日 08:28 PDT
 
-鼓励主机查看[GitHub](https://github.com/gonka-ai/gonka/pull/1497)上的提案并参与投票。
+鼓励主机查看 [GitHub](https://github.com/gonka-ai/gonka/pull/1497) 上的提案并参与投票。
 
 提前预下载二进制文件有助于在升级窗口期间避免依赖GitHub的可用性。
 
@@ -945,7 +945,7 @@ v4 的主要目标是在主机故障和升级期间实现高可用性。当一�
 
 v4 是首个为多实例高可用设计的版本：在共享的 Postgres 上，通过 versiond-router 部署 N 个 versioned/devshardd 副本，采用粘性会话路由和验证租约排他性。网关仅通过 gRPC 与链通信。公共可观测性为无版本化（/devshard/sessions|stats|metrics）；仅托管方通过签名聊天绑定。当治理发布同名新二进制文件（名称不变，仅 sha256 变化）时，versiond 可执行蓝绿切换并排水，确保正在进行的工作（包括 SSE）在旧版本上完成。
 
-v4 还包含了错误修复和安全补丁。
+v4 还包含错误修复和安全补丁。
 
 **主网 v0.2.15 变更**
 
@@ -973,7 +973,7 @@ v4 还包含了错误修复和安全补丁。
 
 提案批准后，`versiond` 可自动：
 
-1. 下载经批准的二进制文件。
+1. 下载已批准的二进制文件。
 2. 将其 SHA-256 哈希值与链上存储的值进行验证。
 3. 启动 v4 `devshardd` 运行时。
 4. 通过相应的 devshard 路由配置提供运行时服务。
@@ -1006,7 +1006,7 @@ export NODE_URL=https://node3.gonka.ai/
 --yes
 ```
 
-查看投票状态：
+要检查投票状态：
 ```
 export NODE_URL=https://node3.gonka.ai/
 ./inferenced query gov votes 92 -o json --node $NODE_URL/chain-rpc/
@@ -1023,13 +1023,13 @@ export NODE_URL=https://node3.gonka.ai/
 - 请确保在升级窗口期间保持在线，以便及时执行任何后续步骤或缓解指令。
 - 升级期间，Cosmovisor 会在 `.inference/data` 目录中创建完整状态备份；请确保有足够的磁盘空间（主网中 Cosmovisor 对 `application.db` 的备份通常为数十 GB，建议提前确认）。有关如何安全删除 `.inference` 目录中旧备份的指南，请参阅[文档](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。
 - 如果 `application.db` 占用了大量磁盘空间，可应用 [指南](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 中描述的清理技术。
-- 如果获得批准，升级后 devshard 存储可选择由共享的 Postgres 实例支持（与负载存储使用相同的环境变量）。本地 SQLite 将保持默认，并自动清理（保留最近3个周期）。
+- 如果获得批准，升级后 devshard 存储可选择由共享的 Postgres 实例提供支持（与负载存储使用相同的环境变量）。本地 SQLite 将保持默认设置，并自动清理（保留最近 3 个周期）。
 
 ## 2026年7月23日
 
 **升级已完成：v0.2.14 现已在主网上线**
 
-针对升级提案 v0.2.14（提案ID 89）的链上治理投票已结束。
+针对升级提案 v0.2.14（提案编号 89）的链上治理投票已结束。
 
 该提案已获批准，并于主网区块 5195700 成功执行升级。
 
@@ -1127,7 +1127,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 - 仪表板维护者 —— 本次升级未移除或重构任何现有查询端点。如果您的仪表板从链上读取并显示数据，它将继续正常工作。您需要了解一个语义变更（委托），以及三个小注意事项（请阅读完整指南：[https://gonka.ai/docs/dashboard-maintainer-memo-v0.2.14/](https://gonka.ai/docs/dashboard-maintainer-memo-v0.2.14/)）
 
-**截止日期**
+**截止时间**
 
 - 投票截止：2026年7月23日 00:02 UTC / 2026年7月22日 17:02 PDT
 - 提议的升级高度：5195700
@@ -1142,17 +1142,17 @@ export NODE_URL=https://node3.gonka.ai/
 
 ## 2026年7月20日
 
-**[仅 devshard 的 PR](https://github.com/gonka-ai/gonka/pull/1482) 现已开放审查**
+**[仅 devshard 的 PR](https://github.com/gonka-ai/gonka/pull/1482) 现已开放评审**
 
 devshard 升级独立于主区块链进行。它们无需通过 Cosmovisor 协调全节点升级，不影响主网行为，且预计不会导致推理服务中断。若通过治理流程批准，新 devshard 版本将与现有的 v3 运行时并行运行。
 
-**关键变更**
+**主要变更**
 
 - v4 的主要目标是在主机故障和升级时保障 devshard 主机的高可用性。当一台机器宕机或重启时，它仍能继续处理新请求；在版本升级时，多台机器可逐台替换版本。这是系列 devshard 和网络节点变更中的首次更新，旨在将单体架构重构为高可用、容错、可扩展的架构。
 - v4 是首个面向多实例高可用的版本：在共享 Postgres 上通过 versiond-router 部署 N 个 versioned/devshardd 副本，采用粘性会话路由和验证租约独占性。网关仅通过 gRPC 与链通信。公共可观测性为无版本化（/devshard/sessions|stats|metrics）；仅托管方通过签名聊天绑定。当治理发布同版本名的新二进制文件（名称不变，仅 sha256 变化）时，versiond 可执行蓝绿切换并排水，确保正在进行的工作（包括 SSE）在旧版本上完成。
 - v4 还包含错误修复和安全补丁。
 
-**行动项**
+**操作事项**
 
 请审查 PR [https://github.com/gonka-ai/gonka/pull/1482](https://github.com/gonka-ai/gonka/pull/1482)，并在发现任何问题、疑问、改进建议、边界情况或潜在漏洞时留下评论。
 
@@ -1235,7 +1235,7 @@ export NODE_URL=https://node3.gonka.ai/
 - 意向截止时间（第330轮）：区块 **5,105,276** — 2026年7月17日，约12:05 UTC（约05:05 PDT）。
 - 第331轮PoC开始：区块 **5,105,776** — 2026年7月17日 12:50 UTC（05:50 PDT）。
 
-更多关于引导机制的说明：[https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
+更多关于引导机制的信息：[https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
 
 ## 2026年7月15日
 
@@ -1290,7 +1290,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 **发生了什么**
 
-两台由守护者运营的运行 Kimi 的服务器同时故障：
+两台运行 Kimi 的监护人操作服务器同时失败：
 
 * 其中一台服务器上，运行 Kimi 的 MLNode 因供应商端问题崩溃。大量 Kimi 委托集中在这台主机上，因此其故障一次性移除了这些投票。
 * 第二台服务器的网络节点因内存不足而失效。
@@ -1333,7 +1333,7 @@ Kimi 的验证投票一直接近 2/3 阈值，因此这次故障足以使该组�
 
 devshard v3 运行时已通过链上批准并添加到 `DevshardEscrowParams.approved_versions`。
 
-该提案涵盖 [devshard v3 发布。](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.14/proposals/governance-artifacts/update-v0.2.13-devshard-v3)
+该提案涵盖 [devshard v3 发布版本。](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.14/proposals/governance-artifacts/update-v0.2.13-devshard-v3)
 
 这是一个仅限 devshard 的运行时升级。它独立于完整链软件升级运行，不需要链二进制升级。
 
@@ -1360,7 +1360,7 @@ devshard v3 运行时已通过链上批准并添加到 `DevshardEscrowParams.app
 
 本提案涵盖 [devshard v3 发布版本。](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.14/proposals/governance-artifacts/update-v0.2.13-devshard-v3)
 
-这是一个仅限 devshard 的升级。它独立于完整的链软件升级运行。一旦获得批准，v3 将与现有的 devshard 运行时并行运行。
+这是一个仅限 devshard 的升级。它独立于完整的链软件升级运行。一旦获批，v3 将与现有的 devshard 运行时并行运行。
 
 v3 运行时准备代理在 v0.2.14 链升级期间无需依赖已弃用的经典 API 路径即可继续提供推理服务。同时改进了 RAM 利用率，修复了网关运行时行为，并启用了 SQLite 和 Postgres 存储之间的安全切换。
 
@@ -1423,7 +1423,7 @@ devshard 部分准备了 v3 运行时，使代理在链升级期间无需依赖�
 节点二进制文件通过链上软件升级提案进行升级。升级过程中，现有主机无需手动更新其 `api` 或 `node` 容器。
 将从该分支发布独立的 devshard v3 版本，并在主网链升级前提出并部署。提前将推理流量切换至 `/devshard/v3` 的代理可在链升级期间继续提供推理服务。
 
-**建议流程**
+**提议流程**
 
 1. 活跃主机在 [GitHub](https://github.com/gonka-ai/gonka/pull/PR) 上审查本提案。
 2. devshard v3 版本将在主网链升级前提出并部署。
@@ -1459,7 +1459,7 @@ devshard v3 发布版本将在主网链升级前提出并部署，以便经纪�
 
 请更新您的 API 容器。
 请确保在非 PoC 或 cPoC 期间执行此步骤。
-部署方式（一次一台机器以降低风险）：
+为降低风险，请逐台部署（一次一台）：
 ```
 sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.13-post7/ .dapi/data/upgrade-info.json
 sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.13-post7/bin/
@@ -1500,8 +1500,8 @@ docker start api
 
 > **更新（2026年7月15日）：此建议已撤回 —— 请勿委托给守护节点。** 守护节点是 PoC 验证的后备机制，必须与委托保持独立。请选择一个非守护节点且运行该模型的主机，并避免选择已是主要委托目标的主机。有关最新委托指南，请参阅 [多模型 PoC 指南](https://gonka.ai/docs/host/multi_model_poc/)。
 
-**关键时间点*** 意向截止时间（第310轮）：区块 **4,797,456** —— 约6月28日 ~12:00 UTC。
-* 第311轮开始：区块 **4,797,956** —— 约6月28日 ~12:47 UTC。
+**关键时间点*** 意向截止时间（第310轮）：区块 **4,797,456** —— 约6月28日，12:00 UTC。
+* 第311轮开始：区块 **4,797,956** —— 约6月28日，12:47 UTC。
 
 有关启动机制的更多说明：[https://gonka.ai/docs/host/kimi-bootstrap/](https://gonka.ai/docs/host/kimi-bootstrap/)
 
@@ -1592,7 +1592,7 @@ MLNode 版本和操作说明将在投票结束后发布。
 
 ## 2026年6月25日
 
-**提案78已通过：`MiniMaxAI/MiniMax-M2.7`现为唯一PoC模型；Kimi K2.6和Qwen3-235B已移除**
+**提案78已通过：`MiniMaxAI/MiniMax-M2.7`现在是唯一的PoC模型；Kimi K2.6和Qwen3-235B已被移除**
 
 提案78的加急投票已通过。这些变更从第308个纪元起生效。
 
@@ -1608,7 +1608,7 @@ MLNode 版本和操作说明将在投票结束后发布。
 **主机所需操作*** 请确保您的MLNode正在提供`MiniMaxAI/MiniMax-M2.7`。任何仍使用Qwen或Kimi的主机在本纪元将无法获得cPoC，直到切换为止。
 * 计划再次提供Kimi的主机应保留Kimi的配置并准备好在PoC 309时将MLNode切换回Kimi——将在第308纪元进行一次投票以恢复Kimi。
 
-**即将进行**
+**接下来的内容**
 
 在第308纪元将进行一次加急投票，合并两项变更，均于第309纪元生效（PoC开始时间约为2026年6月26日15:25 UTC）：
 
@@ -1767,7 +1767,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 **[仅适用于devshard的升级PR](https://github.com/gonka-ai/gonka/pull/1289) 现已开放评审。**
 
-这是首次仅针对devshard的升级，因此流程与标准链升级不同。Devshard升级独立于主区块链更新devshard运行时，无需通过Cosmovisor协调全节点升级，不影响主网行为，且预计不会导致推理服务中断。
+这是首次仅针对devshard的升级，因此流程与标准链升级不同。Devshard升级独立于主区块链更新devshard运行时，无需通过Cosmovisor协调全节点升级，不影响主网行为，且不会导致推理服务中断。
 
 如果通过治理流程批准，新版本的devshard将与现有的v1运行时并行运行。
 
@@ -1895,7 +1895,7 @@ PR：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/g
 - 注册 Ethereum 桥接合约地址 `0x972a7a92d92796a98801a8818bcf91f1648f2f68`、USDC 和 USDT 代币元数据、桥接交易授权以及 CW20 `wrapped_token` 代码 ID `105`。
 - 激活后，桥接将启用 Gonka 主网与 Ethereum 之间的跨链传输（包括在 Ethereum 上包装 GNK 以及桥接 USDC/USDT）。包装/解包脚本和操作员工作流程将另行文档化。
 
-**decentralized-api & devshard**
+**去中心化 API 与 devshard**
 
 - 默认在端口 `9400` 启用 `NodeManagerGrpcPort`。
 - 为 devshard 状态添加 Postgres 支持。
@@ -1931,7 +1931,7 @@ docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
 
 **如何投票**
 
-如果您没有直接访问拥有投票权密钥的权限，或希望使用其他密钥代为投票，请参阅 [指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) 了解如何从冷密钥向热密钥授予治理投票权限。
+如果您无法直接访问拥有投票权的密钥，或希望由其他密钥代为投票，请参阅 [指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) 了解如何从冷密钥向热密钥授予治理投票权限。
 提案详情和投票可通过 `inferenced` 查看。任何活跃节点均可使用。可用节点包括：
 
 - http://node1.gonka.ai:8000
@@ -2087,7 +2087,7 @@ PR：[https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/g
 - 修复新模型引导期间确认 PoC 奖励核算问题。
 - 在本次升级周期剩余时间内禁用确认 PoC，以便新快照逻辑从下一个周期干净启动。
 - 当参与者再次激活时，重置 `ConsecutiveInvalidInferences`。
-- 为在 v0.2.12 之前加入的 DAPI 补全缺失的 `MsgRespondDealerComplaints` 授权。
+- 为在 v0.2.12 之前加入的 DAPIs 补全缺失的 `MsgRespondDealerComplaints` 授权。
 - 修复桥接和流动性池合约权限检查的 Wasm keeper 访问问题。
 - 将创世守护者调整投票权减少至约 25%，并将链上治理法定人数设置为 `0.25`。在守护者不投票的情况下，其余 75% 投票权的有效法定人数为 1/3（`0.25 / 0.75 = 0.334`）。
 
@@ -2233,7 +2233,7 @@ source config.env && docker compose up bridge -d --force-recreate --no-deps
 
 请直接审查 PR 代码，并对发现的任何问题、疑问、改进建议、边界情况或漏洞留下评论。
 
-有意义的审查贡献，包括重要评论、错误发现和安全问题，可能在下一轮升级周期中符合社区奖励资格。
+有意义的审查贡献，包括重要评论、漏洞发现和安全问题，可能在下一轮升级周期中符合社区奖励资格。
 
 本次仅为拉取请求的审查请求，不启动正式投票。治理投票流程将在审查期结束后开始，很可能明天开始。
 
@@ -2279,11 +2279,11 @@ source config.env && docker compose up bridge -d --force-recreate --no-deps
 
 [https://github.com/gonka-ai/gonka/pull/1143](https://github.com/gonka-ai/gonka/pull/1143)
 
-请更新 api 容器的二进制文件。在每次 PoC 开始前有 500 个区块的无 CPoC（`confirmation_poc_safety_window`）窗口，因此这可能是部署的最安全版本。
+请更新 api 容器的二进制文件。在每个 PoC 开始前有 500 个区块的无 CPoC（`confirmation_poc_safety_window`）窗口，因此这可能是部署的最安全版本。
 
 更新前，请确保没有 CPoC 或 PoC 正在运行。
 
-部署方法（一次一台机器以降低风险）：
+部署方式（一次一台机器以降低风险）：
 ```
 sudo rm -rf decentralized-api.zip .dapi/cosmovisor/upgrades/v0.2.12-api-post3/ .dapi/data/upgrade-info.json
 sudo mkdir -p  .dapi/cosmovisor/upgrades/v0.2.12-api-post3/bin/
@@ -2314,7 +2314,7 @@ curl http://localhost:9100/versions # may not be bound to localhost
 
 修复：[https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8](https://github.com/gonka-ai/gonka/pull/1143/changes#diff-4c44fd18f746bca1c63d9bcbb9a73f06bc0172bfb8a33152854920d4dffff0e8)
 
-我们建议替换api容器的二进制文件。除修复外，新版本还启用了对devshard数据库的修剪功能，并为devshard状态增加了Postgres支持。
+我们建议替换api容器的二进制文件。除了修复外，新版本还启用了对devshard数据库的修剪功能，并为devshard状态增加了Postgres支持。
 
 部署方法：
 ```
@@ -2332,7 +2332,7 @@ sudo ln -sf upgrades/v0.2.12-api-post2 .dapi/cosmovisor/current && \
 echo "9882b36ac6e5546fc18e3dd34da293cd5255f311f19e14ace74d3b9190c8ca1d .dapi/cosmovisor/current/bin/decentralized-api" && \
 docker start api
 ```
-此外，如果您有托管Kimi-K2.6的MLNode，请在部署参数中添加部署参数"--enable-auto-tool-choice"。为此，您可以重复执行以下命令（以B200为例）：
+此外，如果您有托管Kimi-K2.6的MLNode，请在部署参数中添加部署参数"--enable-auto-tool-choice"。为此，您可以重复以下命令（以B200为例）：
 ```
 curl -X POST http://localhost:9200/admin/v1/nodes \
      -H "Content-Type: application/json" \
@@ -2434,7 +2434,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 ## 2026年4月30日
 
-**升级已执行：v0.2.12 现已在主网上线**
+**升级已执行：v0.2.12 已上线主网**
 
 针对升级提案 v0.2.12 的链上治理投票已结束。该提案已获批准，并已在主网上成功执行。
 
@@ -2475,7 +2475,7 @@ v0.2.12 升级提案的链上治理流程即将结束。
 
 建议主机查看 [GitHub](https://github.com/gonka-ai/gonka/pull/948) 上的提案并参与投票。
 
-提前预下载二进制文件有助于避免在升级窗口期间依赖 GitHub 的可用性。
+提前预下载二进制文件有助于避免在升级窗口期内依赖 GitHub 的可用性。
 
 ```
 # 1. Create Directories
@@ -2522,7 +2522,7 @@ v0.2.12 升级提案现已进入链上投票期的中途阶段。
 
 随着网络接近升级窗口，主机应提前准备节点，以防提案通过。
 
-此清理过程**必须在升级发生前完成**。如果在升级时，您的节点配置包含不受支持的模型，**节点将被拒绝并离线。**
+此清理过程**必须在升级发生前完成**。如果在升级时，您的节点配置包含不受支持的模型，**节点将被拒绝并下线。**
 
 版本 0.2.12 将移除所有不在升级后批准列表中的治理模型。在主网上，仅保留之前强制执行的模型和 Kimi。
 每个 DAPI 会在本地持久化其 MLNode 配置。启动时，它会将每个配置的模型与链上治理列表进行验证。如果配置中包含至少一个不受支持的模型，整个节点将被拒绝，主机将离线。
@@ -2587,7 +2587,7 @@ curl -sS http://127.0.0.1:9200/admin/v1/config \
 
 **v0.2.12 升级提案进入治理**
 
-[升级提案](https://github.com/gonka-ai/gonka/pull/948) 的下一个链上软件版本 v0.2.12 已发布至链上并开放投票。
+[升级提案](https://github.com/gonka-ai/gonka/pull/948) 已上链，现开放投票，用于下一个链上软件版本 v0.2.12。
 
 **关键变更**
 
@@ -2630,7 +2630,7 @@ docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
 
 如果您没有直接访问拥有投票权的密钥，或希望使用其他密钥代为投票，请参阅[指南](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf)了解如何从冷密钥向热密钥授予治理投票权限。
 
-提案详情和投票可通过 `inferenced` 查看。任何活跃节点均可使用。可用节点包括：
+提案详情和投票可通过 `inferenced` 查看。任何活跃节点均可使用，可用节点包括：
 
 - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
 - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
@@ -2648,7 +2648,7 @@ export NODE_URL=https://node3.gonka.ai/
 --chain-id gonka-mainnet \
 --yes
 ```
-要检查投票状态：
+检查投票状态：
 ```
 export NODE_URL=https://node3.gonka.ai/
 ./inferenced query gov votes 44 -o json --node $NODE_URL/chain-rpc/
@@ -2689,7 +2689,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 **升级计划**
 
-二进制版本将通过链上升级提案更新。有关升级流程的更多信息，请参阅 [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
+二进制版本将通过链上升级提案进行更新。有关升级流程的更多信息，请参阅 [/docs/upgrades.md.](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/docs/upgrades.md)
 
 **升级后所需操作**
 
@@ -2741,12 +2741,12 @@ v0.2.11 升级提案的链上治理投票已结束。提案已获批准，升级
 这些性能改进可使每个区块的推理量提升高达 100 倍，具体取决于工作负载和网络条件。
 有关这些及其他变更的更多详细信息，请参见：[https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813)
 
-**对主机的建议**
+**主机指南**
 
 - **二进制版本**：通过链上升级流程更新。
 - **迁移**：测试和迁移详情请参见 [v0.2.11 文档](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.11/docs/upgrades.md)。
 
-有关这些变更的更多详细信息，请参见治理文档：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/)
+有关这些变更的更多详细信息，请参见治理文件：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.11/proposals/)
 
 ## 2026年3月19日
 
@@ -2880,7 +2880,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 本次仅为拉取请求的审查请求，并非正式投票的开始。治理投票流程将在审查期结束后开始。
 
-**主要变更**
+**关键变更**
 
 [初始扩展架构：基于 `devshards` 的推理会话](https://github.com/gonka-ai/gonka/pull/877)
 
@@ -2910,7 +2910,7 @@ export NODE_URL=https://node3.gonka.ai/
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull explorer
 docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d explorer
 ```
-审查者可在此处找到完整的升级提案、迁移详情、测试摘要和建议流程：[https://github.com/gonka-ai/gonka/pull/813](https://github.com/gonka-ai/gonka/pull/813)。
+审查者可在[此处](https://github.com/gonka-ai/gonka/pull/813)找到完整的升级提案、迁移详情、测试摘要和提议流程。
 
 ## 2026年3月16日
 
@@ -3296,10 +3296,10 @@ source config.env && docker compose up api --no-deps --force-recreate -d
 ```
 docker restart join-mlnode-1
 ```
-过渡到 `mlnode:3.0.12-post4-*` 应在升级中引入的3000个区块宽限期结束前完成。
+过渡到 `mlnode:3.0.12-post4-*` 应在升级中引入的3000区块宽限期结束前完成。
 
 !!! note "兼容性说明"
-    此次升级包括迁移至 IBC 栈 v8.7.0。请检查任何解析 `inferenced` CLI 输出的脚本。枚举和 int64/uint64 值现在以字符串形式编码。
+    此次升级包括迁移到 IBC 栈 v8.7.0。请检查任何解析 `inferenced` CLI 输出的脚本。枚举和 int64/uint64 值现在以字符串形式编码。
 
     **当前生效的关键变更****PoC 验证采样优化**
 
@@ -3317,7 +3317,7 @@ docker restart join-mlnode-1
     **其他协议更新**
 
 - 修复：PoC 和 CPoC 交集错误（PR #752）。
-- IBC 升级：将 IBC 栈升级至 v8.7.0。
+- IBC 升级：将 IBC 栈升级到 v8.7.0。
 - 惩罚：阈值现在基于链上数据推导（PR #688）。
 - 锁仓：支持带有活跃锁仓的流式锁仓转账（PR #641）。
 - MLNode：更可靠的 MLNode 容器版本 ghcr.io/product-science/mlnode:3.0.12-post4 / ghcr.io/product-science/mlnode:3.0.12-post4-blackwell。
@@ -3330,7 +3330,7 @@ docker restart join-mlnode-1
 
 **抵押参数更新提案现已开放投票**
 
-更新抵押参数的提案已发布供社区投票。
+关于更新抵押参数的提案已发布供社区投票。
 
 建议参数：
 
@@ -3407,7 +3407,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 **升级执行后所需的主机操作**
 
-如果提案获得批准并执行升级，必须重启ML Node容器以触发模型重新部署。运行：
+如果提案获得批准并执行升级，则必须重启ML Node容器以触发模型重新部署。运行：
 ```
 docker restart join-mlnode-1
 ```
@@ -3415,7 +3415,7 @@ docker restart join-mlnode-1
 
 **如何投票**
 
-提案详情和投票可通过`inferenced`访问。任何活跃节点均可使用。可用节点包括：
+提案详情和投票可通过`inferenced`进行。任何活跃节点均可使用。可用节点包括：
 
 - [http://node1.gonka.ai:8000](http://node1.gonka.ai:8000)
 - [http://node2.gonka.ai:8000](http://node2.gonka.ai:8000)
@@ -3485,7 +3485,7 @@ export NODE_URL=https://node3.gonka.ai/
 **大致时间表：**
 
 - 周日晚上（洛杉矶时间）— 投票期开始
-- 周一（UTC早晨）— 投票进行中
+- 周一（UTC早晨）— 投票生效
 - 周二— 升级执行（如获批准）
 
 请在GitHub上审阅v0.2.10升级PR并留下您的反馈。有意义的审阅贡献可能在下一次升级中获得奖励。
@@ -3504,7 +3504,7 @@ export NODE_URL=https://node3.gonka.ai/
 
 **需要采取的操作**
 
-请主机尽快应用补丁，以确保正确的PoC验证行为并安全恢复区块生产。
+请主机尽快应用此补丁，以确保正确的PoC验证行为并安全恢复区块生产。
 ```
 # Download Binary
 sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.9-post3/ .inference/data/upgrade-info.json
@@ -3583,8 +3583,8 @@ curl "http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/pa
 
 **其他关键变更：**
 
-- **[PR #708](https://github.com/gonka-ai/gonka/pull/708)** IBC 升级至 v8.7.0
-- **[PR #723](https://github.com/gonka-ai/gonka/pull/723)** Testnet 桥接设置脚本
+- **[PR #708](https://github.com/gonka-ai/gonka/pull/708)** IBC升级至v8.7.0
+- **[PR #723](https://github.com/gonka-ai/gonka/pull/723)** Testnet桥接设置脚本
 - **[PR #666](https://github.com/gonka-ai/gonka/pull/666)** 工件存储吞吐量优化
 - **[PR #688](https://github.com/gonka-ai/gonka/pull/688)** 从链上数据获取惩罚统计
 - **[PR #697](https://github.com/gonka-ai/gonka/pull/697)** 适用于macOS测试构建的可移植BLST构建
@@ -3639,7 +3639,7 @@ v0.2.10的测试指南和迁移详情已记录在[此处](https://github.com/gon
 
 **PoC v2 基于推理的权重调整**
 
-在PoC v2激活后，权重分配现在基于当前模型`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`的实测推理性能。因此，中位GPU权重以及不同GPU类型之间的相对权重比例均已调整。
+在PoC v2激活后，权重分配现在基于当前模型`Qwen/Qwen3-235B-A22B-Instruct-2507-FP8`的实测推理性能。因此，中位GPU权重以及GPU类型之间的相对权重比例均已调整。
 
 **观察到的GPU权重变化（第158轮 → 第159轮）**
 
@@ -3691,7 +3691,7 @@ echo "75410178a4c3b867c0047d0425b48f590f39b9e9bc0f3cf371d08670d54e8afe .inferenc
 # Restart 
 source config.env && docker compose up node --no-deps --force-recreate -d
 ```
-进一步的说明，包括恢复区块验证所需的任何协调步骤，将另行提供。
+进一步的说明，包括恢复区块验证所需的任何协调步骤，将另行分享。
 
 ## 2026年2月2日
 
@@ -3700,7 +3700,7 @@ source config.env && docker compose up node --no-deps --force-recreate -d
 由于在当前的PoC周期中，验证阈值可能无法满足的高风险，主机们集体采取行动暂停了区块验证。
 根据当前评估，旨在处理此情况的机制可能无法按预期运行。为防止在不确定或不安全的条件下完成验证者最终确认，网络在验证者选择前已停止运行。
 
-**下一步行动**
+**下一步**
 
 以下操作目前正在执行中：
 
@@ -3760,19 +3760,19 @@ ML 节点要符合 PoC v2 权重分配资格，必须同时满足以下两个条
 
 **其他协议更新**
 
-- 转让代理角色在初始阶段仅限于[定义](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist)的`allowlist`
+- 传输代理角色在初始阶段仅限于[定义](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist)的`allowlist`
 - 在参与PoC生成但忽略PoC验证的节点已被从[参与者](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal)的`allowlist`中移除
-- [监护人权重](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)在PoC v2验证投票阈值未达到时作为确定性后备机制应用
+- [守护者权重](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)在PoC v2验证投票阈值未达成时作为确定性后备机制应用
 
-这些变更的更多详细信息请参见治理工件：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 ](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 )
+这些变更的更多详细信息可在治理工件中查看：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 ](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9 )
 
 ## 2026年2月1日
 
 v0.2.9升级提案的链上治理流程即将结束。
 
-- 投票截止：2026年2月1日22:02:58（UTC）
+- 投票截止：2026年2月1日，UTC时间22:02:58
 - 升级高度：2451000。
-- 预计升级时间：2026年2月2日05:10:00（UTC）
+- 预计升级时间：2026年2月2日，UTC时间05:10:00
 
 鼓励主机查看[GitHub](https://github.com/gonka-ai/gonka/pull/668)上的提案并参与投票。
 
@@ -3808,7 +3808,7 @@ echo "ae20517e4bb38293202f7f5d52439d5315cb32c8f3c34a02fa65feaefadd6193 .inferenc
 
 ## 2026年1月31日
 
-**v0.2.9升级提案进入治理**
+**v0.2.9升级提案进入治理阶段**
 
 下一个链上软件版本v0.2.9的升级提案现已上链并开放投票。若获批准，该提案将启用PoC v2进行权重分配，并通过链上治理完成对传统PoC机制的过渡。
 
@@ -3839,11 +3839,11 @@ ML节点要符合PoC v2权重分配资格，必须同时满足以下条件：
 
 **其他协议更新**
 
-- 转让代理角色在初始阶段仅限于[定义](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist)的`allowlist`
+- 传输代理角色在初始阶段仅限于[定义](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#transfer-agent-whitelist)的`allowlist`
 - 在参与PoC生成但忽略PoC验证的节点已被从[参与者](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#suspicious-participant-removal)的`allowlist`中移除
-- [监护人权重](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)在PoC v2验证投票阈值未达到时作为确定性后备机制应用
+- [守护者权重](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9#guardian-tiebreaker-for-poc-v2-voting)在PoC v2验证投票阈值未达成时作为确定性后备机制应用
 
-这些变更的更多详细信息请参见治理工件：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9)
+这些变更的更多详细信息可在治理工件中查看：[https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9](https://github.com/gonka-ai/gonka/tree/upgrade-v0.2.9/proposals/governance-artifacts/update-v0.2.9)
 
 **主机准备**
 
@@ -3946,7 +3946,7 @@ export NODE_URL=https://node4.gonka.ai/
 !!! note 
     未能同时满足上述两项条件的节点，在网络过渡到单模型配置后将失去 PoC v2 参与资格。PoC v2 权重分配的过渡仍受观测采用阈值和后续治理的约束。
 
-    **维护与操作**
+    **维护与运营**
 
 - Cosmovisor：节点和 API 二进制文件的更新将自动处理。现有主机无需对正在运行的容器执行手动更新。
 - 磁盘空间：Cosmovisor 会在 `.inference/data` 目录中创建完整状态备份。请确保有 250 GB 以上的可用空间。
@@ -4085,7 +4085,7 @@ curl http://127.0.0.1:9200/admin/v1/nodes
 ```
 
 !!! note "治理和 PoC v2 激活说明"
-    PoC v2 分阶段引入，不会一次性激活。
+    PoC v2 分阶段引入，并非一次性激活。
 
     **第一阶段：观察（v0.2.8 之后的当前状态）**
 
@@ -4197,7 +4197,7 @@ echo "308c63c7bda4fb668632ac3e13f3f6cccacf54c563c8e9fd473bcb48c7389fe0 .inferenc
 
 **Host 需执行的操作**
 
-为参与 PoC v2 过渡，Host 必须完成以下两项操作：
+为参与 PoC v2 过渡，Host 必须完成以下两个步骤：
 
 - 确认您的 ML 节点已配置为提供 `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` 服务
 - 将 ML Node 升级至支持 PoC v2 的版本：
@@ -4241,17 +4241,17 @@ export NODE_URL=https://node4.gonka.ai/
 
 请查看并投票，如果您是 Host。
 
-**注意 1：** 请在升级窗口期间保持在线，以便在需要时及时执行后续步骤或缓解指令。
+**注意 1：** 请计划在升级窗口期间保持在线，以便在需要时及时执行后续步骤或缓解指令。
 
 **注意 2：** 在升级过程中，Cosmovisor 会在 `.inference/data directory` 中创建完整的状态备份。请确保有足够的磁盘空间。有关如何安全删除 `.inference` 目录中的旧备份的说明，请参阅 [此处](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory)。如果 `application.db` 占用了大量磁盘空间，可以使用 [此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 描述的清理技术。
 
-**注意：** 升级后，可以将 Postgres 配置为本地有效负载的存储。
+**注意：** 升级后，Postgres 可配置为本地有效载荷的存储。
 
 ## 2026 年 1 月 19 日
 
 **提案更新：批准延长稳定期**
 
-关于延长稳定期的最近治理投票已成功通过。稳定期现已正式延长，以允许进行额外的测试和网络升级。
+关于延长稳定期的近期治理投票已成功通过。稳定期现已正式延长，以允许进行额外的测试和网络升级。
 
 **主机操作事项**
 
@@ -4276,11 +4276,11 @@ export NODE_URL=https://node4.gonka.ai/
 
 **投票范围**
 
-如果获得批准，网络将暂时继续在现有的 `allowlist`（包括未表现出非标准硬件行为的主机）下运行。
+如果获得批准，网络将暂时继续在现有的 `allowlist`（包含未表现出非标准硬件行为的主机）下运行。
 
 开发者 `allowlist` 将以相同的偏移量延长，并将持续生效至区块 2459375。
 
-未包含在 `allowlist` 中的主机在延长的稳定期内将无法参与 PoC，该稳定期将在区块 2443558 结束。
+未包含在 `allowlist` 中的主机在延长的稳定期内将无法参与 PoC，该期限将在区块 2443558 结束。
 
 **可复现性与方法论**
 
@@ -4289,7 +4289,7 @@ export NODE_URL=https://node4.gonka.ai/
 - 可在以下位置获取：[https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv)
 - 通过预定义的硬件配置模式从公开可观察的链上数据推导而来。这些模式使用此处提供的开源脚本进行评估：[https://github.com/product-science/filter](https://github.com/product-science/filter)
 
-**执行特性**
+**执行特征**
 
 - 如果提案获得批准，`allowlist` 将自动延长。
 - 无需软件升级。
@@ -4349,7 +4349,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 当前有一个新的治理投票正在进行。该投票通过将若干地址添加到 [允许列表](https://github.com/product-science/filter/blob/main/artifacts_end2end/allowlist.csv) 来修正一个过滤边缘情况，这些地址此前因硬件名称为空但 ML 节点权重为零而被过滤掉。该提案还向允许的开发者列表中添加了少量开发者账户，并将 `allowlist` 的过期时间与区块 2,222,222 的参与者注册截止时间对齐。
 所有参与逻辑保持不变。此提案仅修复现有过滤逻辑中的一个小问题。
 
-**可复现性与方法论**
+**可重复性与方法论**
 
 `allowlist` 是通过预定义的硬件配置模式从公开可观察的链上数据推导得出的。这些模式使用此处提供的开源脚本进行评估：[https://github.com/product-science/filter](https://github.com/product-science/filter)
 
@@ -4365,7 +4365,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 - http://node3.gonka.ai:8000/
 - https://node4.gonka.ai/
 
-检查投票状态：
+查看投票状态：
 ```
 export NODE_URL=http://node1.gonka.ai:8000
 ./inferenced query gov votes 21 -o json --node $NODE_URL/chain-rpc/
@@ -4406,8 +4406,8 @@ export NODE_URL=http://node1.gonka.ai:8000
 
 1) 网络将运行一个 `allowlist`，由在多个周期中满足以下条件的参与者组成：
 
-- 报告的硬件特征与常见观察到的配置模式匹配（过滤的非标准配置字符串列表见此处：[https://github.com/product-science/filter/blob/main/filter_strings.txt](https://github.com/product-science/filter/blob/main/filter_strings.txt))
-- 证明的PoC权重不超过可比硬件观察到的权重的150%
+- 报告的硬件特征与常见观测到的配置模式匹配（过滤的非标准配置字符串列表见此处：[https://github.com/product-science/filter/blob/main/filter_strings.txt](https://github.com/product-science/filter/blob/main/filter_strings.txt))
+- 证明的PoC权重不超过同类硬件观测到的权重的150%
 
 2) 之前表现出偏离这些模式的参与者将被排除在 `allowlist` 之外，直至稳定窗口在区块2,222,222结束。
 
@@ -4460,29 +4460,29 @@ export NODE_URL=http://node1.gonka.ai:8000
 - 从那时起，`allowlist`将持续有效，直至并包括区块2222222。
 - 如有进一步调整，仍需通过治理决定。
 
-**在稳定窗口之后**
+**稳定窗口之后**
 
-`allowlist`定义为具有固定过期时间，不会延续至稳定窗口之后。一旦`allowlist`在区块2222222过期：
+`allowlist`具有固定过期时间，不会延续至稳定窗口之后。一旦`allowlist`在区块2222222过期：
 
 - 网络将恢复至稳定期之前生效的标准参与规则，或
 - 任何替代配置必须通过独立的治理决策定义。
 
 **如何投票**
 
-您可以使用`inferenced`命令获取提案详情并投票。
+您可使用`inferenced`命令获取提案详情并投出您的选票。
 请注意，任何活跃节点均可用于查询或投票。当前可用节点包括：
 
 - http://node1.gonka.ai:8000/
 - http://node2.gonka.ai:8000/
 - https://node4.gonka.ai/
 
-要检查投票状态：
+查看投票状态：
 ```
 export NODE_URL=http://node1.gonka.ai:8000
 ./inferenced query gov votes 20 -o json --node $NODE_URL/chain-rpc/
 ```
 
-要投票（`yes`，`no`，`abstain`，`no_with_veto`）：
+投票（`yes`，`no`，`abstain`，`no_with_veto`）：
 ```
 export NODE_URL=http://node1.gonka.ai:8000
 ./inferenced tx gov vote 20 yes \
@@ -4498,7 +4498,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 
 此过程完全通过治理处理，无需软件升级。
 
-**时间表与截止日期**
+**时间线与截止日期**
 
 - 投票截止：2026年1月10日，UTC时间06:46:52。
 - `Allowlist`激活：在下一个PoC执行于区块2089140后。
@@ -4516,7 +4516,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 
 **网络更新——补丁已准备好部署**
 
-针对PoC期间观察到的近期共识故障的补丁现已可用。
+用于解决PoC期间观察到的近期共识故障的补丁现已可用。
 
 [指南](https://gonka.ai/FAQ/#upgrade-v027)
 
@@ -4538,13 +4538,13 @@ export NODE_URL=http://node1.gonka.ai:8000
 
 **网络更新——PoC期间共识失败**
 
-在计算证明（PoC）期间，网络上观察到共识失败。
+在Proof-of-Compute（PoC）期间，网络上观察到共识失败。
 问题已识别，正在准备补丁以解决根本原因。后续说明和技术细节将很快发布。
 建议主机保持在线并关注更新，因为补丁发布后可能需要采取后续行动。
 
 ## 2026年1月8日
 
-**v0.2.7升级提案：主网上线的创世验证者增强**
+**v0.2.7升级提案：主网上线的创世验证者增强功能**
 
 链上治理投票已结束，关于v0.2.7升级提案：创世验证者增强已获批准，并成功部署于主网。
 
@@ -4569,7 +4569,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 
 通过将其纳入此处，该行为成为全网一致应用的协议级规则。
 
-**临时参与和执行限制**
+**临时参与与执行限制**
 
 - 主机级注册：新主机的注册将在区块2.222.222之前暂停（约两周后）。此措施旨在稳定网络并为其进一步增长做准备。
 - 开发者地址注册：在稳定期内，新开发者地址的注册将暂停。预定义的`allowlist`开发者地址列表立即生效。列入白名单的开发者地址在此期间可执行推理。所有适用于开发者地址的限制，包括开发者级注册和推理执行，将持续至区块2.294.222（约19天）。
@@ -4602,12 +4602,12 @@ export NODE_URL=http://node1.gonka.ai:8000
 
 ## 2026年1月7日
 
-版本**v0.2.7**的升级提案已通过链上治理批准。
+版本 **v0.2.7** 的升级提案已通过链上治理批准。
 
 **升级详情**
 
 - 升级高度：区块2.054.000
-- 预计时间：2026年1月8日08:10:00 UTC。
+- 预计时间：2026年1月8日 08:10:00 UTC。
 
 提前预下载二进制文件有助于避免在升级期间依赖 GitHub 的可用性。
 
@@ -4663,14 +4663,14 @@ Inference Installed and Verified
 
 ## 2026年1月7日
 
-**主机的重要说明**
+**主机重要提示**
 
 通过为 `node` 容器设置环境变量 `UNSAFE_SKIP_BACKUP=true`，可以在 Cosmovisor 升级期间选择跳过自动备份。
-此选项具有风险——如果升级失败，您将无法恢复状态。
+此选项存在风险——如果升级失败，您将无法恢复状态备份。
 
 ## 2026年1月6日
 
-**v0.2.7 升级提案：创世验证者增强进入治理**
+**v0.2.7 升级提案：创世验证者增强功能进入治理**
 
 与创世验证者增强相关的链上治理提案已发布，现开放投票。
 
@@ -4729,7 +4729,7 @@ export NODE_URL=http://node1.gonka.ai:8000
 ./inferenced query gov votes 19 -o json --node $NODE_URL/chain-rpc/
 ```
 
-投票（ `yes` , `no` , `abstain` , `no_with_veto` ）：
+要投票（ `yes` , `no` , `abstain` , `no_with_veto` ）：
 ```
 export NODE_URL=http://node1.gonka.ai:8000
 ./inferenced tx gov vote 19 yes \
@@ -4748,12 +4748,12 @@ export NODE_URL=http://node1.gonka.ai:8000
 - 升级提议区块：2.054.000。
 - 预计升级时间：2026年1月8日，UTC时间08:10:00。
 
-**主机请注意****注意事项 1**
+**主机注意****注意 1**
 
-如果您是主机，请审阅提案并投票。
+请审阅提案并作为主机进行投票。
 在升级窗口期间保持在线，以便在出现问题时遵循指示。
 
-**注意事项 2**
+**注意 2**
 
 Cosmovisor 在执行更新时会在 `.inference/data` 状态文件夹中创建完整备份，请确保您的磁盘有足够的空间。阅读 [此处](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory) 了解如何安全地从 `.inference` 目录中删除旧备份。
 如果您的 `application.db` 占用大量空间，您可以使用 [此处](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) 提供的技术进行清理。

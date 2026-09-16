@@ -8,6 +8,28 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 16, 2026
+
+**GLM-5.3-Flash is live**
+
+As of epoch 395, `zai-org/GLM-5.3-Flash` is an active model group and is serving inference on mainnet.
+
+If you want to host it, you are welcome to join. Declare intent for the model and provision your MLNode during the deploy window, which opens 500 blocks before the next PoC start.
+
+**Don't forget your participation choice**
+
+The non-participation penalty for GLM-5.3-Flash has been in effect since epoch 394. For every governance-approved model you need an explicit choice: serve it yourself, delegate, or refuse. Doing nothing carries a 15% per-epoch penalty against your full weight, and it keeps applying every epoch until you choose.
+
+**Please do not delegate to guardian nodes**
+
+The genesis guardians are:
+
+```
+gonka1y2a9p56kv044327uycmqdexl7zs82fs5ryv5le
+gonka1dkl4mah5erqggvhqkpc8j3qs5tyuetgdy552cp
+gonka1kx9mca3xm8u8ypzfuhmxey66u0ufxhs7nm6wc5
+```
+
 ## September 14, 2026
 
 **The devshard v5 proposal has entered governance**

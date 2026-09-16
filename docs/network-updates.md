@@ -8,6 +8,77 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 16, 2026
+
+**The devshard v5 proposal is back in governance (resubmission of 104)**
+
+Proposal id 105 adds `v5` to the approved list of devshard versions and distributes 91,300 USDT in contributor bounties from the community-sale contract.
+
+**Devshard v5**
+
+This is a devshard-only change. Cosmovisor is not involved, the chain does not halt, and inference keeps serving. If approved, `versiond` downloads the binary, verifies its SHA-256 against the value stored on-chain, and starts the runtime. v5 runs alongside the existing v3, v4 and v4.1 runtimes, so nothing moves automatically and brokers can migrate their gateways progressively.
+
+The main protocol addition is height-sync, which gives devshard sessions a signed, replayable view of mainnet height and establishes protocol-level logical time for future cPoC, timeout and dispute mechanisms, and protocol-level QoS. The release also includes high-availability improvements, warm cutover and session recovery, gateway updates, validation and settlement fixes, security hardening, observability improvements and expanded end-to-end testing.
+
+The release was tested with the core test team and an external test lab.
+
+```
+https://github.com/gonka-ai/gonka/releases/download/devshard%2Fv5.0.1/devshardd.zip
+sha256 e4dcde3990a3af62efcf6af5da8557b05ed3a98ede4a343aab020986a68a2012
+```
+
+Technical scope, individual contributions, PR references and the full bounty breakdown: [gonka-ai/gonka#1584](https://github.com/gonka-ai/gonka/pull/1584)
+
+Full description: [update-v0.2.15-devshard-v5/README.md](https://github.com/gonka-ai/gonka/blob/devshard-0.2.15-v5/proposals/governance-artifacts/update-v0.2.15-devshard-v5/README.md) (sha256 `7bba17188e4c3d15476f2c6330281b3908fc124e9eb26950acd6f9f927d89dc4`)
+
+**Bounty payouts**
+
+Recipients are Gonka core contributors active across multiple development cycles and releases: @akup / @a-kuprin, @qdanik, @Ryanchen911, @aikuznetsov, @snevolin, @shd and @redstartechno.
+
+| Amount | Recipient |
+| --- | --- |
+| 36,000 USDT | gonka1ejkupq3cy6p8xd64ew2wlzveml86ckpzn9dl56 |
+| 23,000 USDT | gonka1j3f2xkapx8cmczpjqcsrh7cc3peyj3ngkjv4p8 |
+| 12,000 USDT | gonka1vnupswg7qz2w5k5ax6zrp02mxmln6arnvjc87h |
+| 11,500 USDT | gonka1p2hjjf63dqhpf5qmyaaq6u73zrzsrf3ra3qxk2 |
+| 6,500 USDT | gonka1frlfyz2wtltdy47dq3w9pwc8ruvjvlthp2lh53 |
+| 2,000 USDT | gonka1zqss46r6jf6dhhyaa777kc2ppvjhn0ufkx4y57 |
+| 300 USDT | gonka105ce4495mj0mwkxqeasgdzqfq5jjrfq32eza5l |
+
+**Voting**
+
+Voting ends **September 18, 2026 at 16:47 UTC**. To pass, the proposal needs a 25% quorum by weight, a majority in favor, and less than 33.4% voting no with veto.
+
+Please vote. The previous attempt died on turnout with nobody opposing it, so participation is the only thing standing between this and approval.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`):
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 105 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+
+To check the voting status:
+
+```shell
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 105 -o json --node $NODE_URL/chain-rpc/
+```
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
+
 ## PROPOSAL REJECTED: Approve devshard v5 and bounty payouts
 
 The on-chain governance vote for proposal id 104 has concluded. The proposal was REJECTED with `failed_reason`: `proposal did not get enough votes to pass`.

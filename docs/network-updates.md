@@ -8,6 +8,36 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 18, 2026
+
+**PROPOSAL PASSED: Approve devshard v5 and bounty payouts**
+
+The on-chain governance vote for proposal id 105 has concluded.
+
+The proposal was APPROVED with 123,754 yes and no votes against.
+
+**What it changes**
+
+DevShard v5 has been added to the approved devshard versions on chain:
+
+```
+name    v5
+binary  https://github.com/gonka-ai/gonka/releases/download/devshard%2Fv5.0.1/devshardd.zip
+sha256  e4dcde3990a3af62efcf6af5da8557b05ed3a98ede4a343aab020986a68a2012
+```
+
+The main protocol addition is height-sync, which gives DevShard sessions a signed, replayable view of mainnet height and establishes protocol level logical time for future cPoC, timeout, dispute and QoS mechanisms. The release also includes high availability improvements, warm cutover and session recovery, Gateway updates, validation and settlement fixes, security hardening, observability improvements and expanded end to end testing.
+
+**What is required from hosts**
+
+Nothing. `versiond` downloads the new runtime, verifies the sha256 and starts serving it alongside the versions already running. `v3`, `v4` and `v4.1` remain approved, so existing sessions and route prefixes are unaffected. This is a runtime version, not a gateway release: any gateway move is announced separately with its own guide.
+
+**Bounties**
+
+The proposal also distributes 91,300 USDT from the community sale contract to core contributors who have worked across multiple development cycles: @a-kuprin, @qdanik, @Ryanchen911, @aikuznetsov, @snevolin, @shd and @redstartechno. All payouts have executed on chain.
+
+Technical scope, individual contributions, PR references and the full bounty breakdown: [PR 1584](https://github.com/gonka-ai/gonka/pull/1584)
+
 ## September 16, 2026
 
 **The devshard v5 proposal is back in governance (resubmission of 104)**

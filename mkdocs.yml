@@ -31,6 +31,7 @@ nav:
       - Multiple nodes: host/multiple-nodes.md
       - Edit public host info: host/host_info.md
       - Network Node API: host/network-node-api.md
+      - High-availability devshard host: host/devshard-high-availability.md
     - Models & benchmarks:
       - Multi-Model PoC: host/multi_model_poc.md
       - MiniMax-M2.7 bootstrap: host/minimax-bootstrap.md

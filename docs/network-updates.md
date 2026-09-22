@@ -8,30 +8,6 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
-## September 22, 2026
-
-**DevShard versions: only v4.1 and v5 will remain**
-
-v3 and plain v4 are being retired from the approved versions list on chain. A governance proposal will follow, and we will post the voting window when it opens.
-
-If you are still on v3 or v4, pull these images and restart:
-
-```shell
-ghcr.io/gonka-ai/versiond:0.2.15-devshard-v5
-ghcr.io/gonka-ai/versiond-router:0.2.15-devshard-v5
-ghcr.io/gonka-ai/proxy:0.2.15-devshard-v5
-```
-
-To check which versions you are serving:
-
-```shell
-curl -s http://localhost:9100/versions | jq
-```
-
-You should see v4.1 and v5. If you only see v3 or v4, the images did not update.
-
-If you are already on the current versions, there is nothing to do.
-
 ## September 18, 2026
 
 **PROPOSAL PASSED: Approve devshard v5 and bounty payouts**

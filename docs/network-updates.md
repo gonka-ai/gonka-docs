@@ -132,7 +132,9 @@ export NODE_URL=https://node3.gonka.ai/
 ```
 If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to the guide on granting governance voting permission from a cold key to a warm key.
 
-## PROPOSAL REJECTED: Approve devshard v5 and bounty payouts
+## September 18, 2026
+
+**PROPOSAL REJECTED: Approve devshard v5 and bounty payouts**
 
 The on-chain governance vote for proposal id 104 has concluded. The proposal was REJECTED with `failed_reason`: `proposal did not get enough votes to pass`.
 

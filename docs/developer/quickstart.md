@@ -56,6 +56,7 @@ A broker is an independent operator who runs a Gonka gateway and resells inferen
     <ul class="broker-dashboards">
     <li><a href="https://meter.gonka.gg/">G-Meter</a></li>
     <li><a href="https://power.gnk.space/">Gonka Power</a></li>
+    <li><a href="https://inference.dahl.global/gonka-heartbeat/">Gonka Heartbeat</a></li>
     </ul>
 
     These dashboards are **community-built tools, not part of the core protocol**. Data accuracy, methodology, and availability are the responsibility of each dashboard operator. Always verify critical metrics against your own testing. The list is displayed in a random order on every page load.

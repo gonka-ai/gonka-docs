@@ -10,27 +10,26 @@
 
 ## September 22, 2026
 
-**DevShard versions: only v4.1 and v5 will remain**
+**Pull Request Review for Upgrade v0.2.16**
 
-v3 and plain v4 are being retired from the approved versions list on chain. A governance proposal will follow, and we will post the voting window when it opens.
+The pull request for the next on-chain software upgrade, v0.2.16, is open for review [https://github.com/gonka-ai/gonka/pull/1535](https://github.com/gonka-ai/gonka/pull/1535). Meaningful review contributions, including important comments, bug findings, and security issues, may be eligible for community bounties during the next upgrade cycle.
 
-If you are still on v3 or v4, pull these images and restart:
+The mainnet chain/API work focuses on trusted weight, dynamic coefficients, transaction fee groups, and PoC Challenge. If the proposal is approved, governance, BLS, and PoC validation power are limited to compute confirmed in the previous epoch, while new compute still earns rewards immediately. Governance can set a target share and a coefficient range per model. At upgrade those ranges stay closed, so coefficients and rewards do not move. Message groups and gas rules are added, and every group stays disabled, so the protocol still charges no fees. An allowlisted challenger can pull one active host off inference onto full-capacity PoC until the next regular PoC.
 
-```shell
-ghcr.io/gonka-ai/versiond:0.2.15-devshard-v5
-ghcr.io/gonka-ai/versiond-router:0.2.15-devshard-v5
-ghcr.io/gonka-ai/proxy:0.2.15-devshard-v5
-```
+**Key Changes**
 
-To check which versions you are serving:
+1. **Trusted Weight.** Before v0.2.16, a sudden increase in claimed compute immediately increased a participant's power in governance, BLS, and PoC validation. This gave unconfirmed capacity influence over consensus and over validation of other participants. The upgrade limits that power to compute confirmed in the previous epoch. New or returning participants start at 0, and a failed confirmation sets the next baseline to 0. New compute still earns rewards immediately. Only trust-sensitive power waits one confirmed epoch.
+2. **Dynamic Coefficients v1.** The network needs predictable throughput for each model so users can rely on its availability. The target throughput for each model should follow expected demand. With fixed coefficients, an entire hardware class tends to switch to the same model. This makes capacity per model difficult to balance and predict. This upgrade lets governance set a target percentage of network compute and a coefficient range for each model. The protocol dynamically adjusts the coefficient inside that range to move compute toward the target. Compute above the target is scored at the minimum coefficient, which discourages oversupply. Governance initially sets targets from demand estimates and data sources such as OpenRouter. Later versions can aggregate host estimates and eventually use on-chain model usage. This version changes incentives only. It does not automatically switch the models deployed by a host. At upgrade, the minimum and maximum both equal the current scale, so coefficients and rewards stay unchanged until governance opens the ranges.
+3. **Fee.** Historically, the protocol has charged no transaction fees. An attacker can therefore submit high-volume messages at little cost while every validator pays the processing and storage cost. The upgrade groups transaction types and adds per-message gas rules so each group can be priced separately. All groups are disabled by default and charge nothing. Governance can enable and price them later. The upgrade proposal info can also enable groups at upgrade height.
+4. **PoC Challenge.** PoC and random Confirmation PoC prove a host's claimed capacity. During the rest of the epoch, inference statistics check that this hardware is used for work assigned by the protocol. A high rate of missed or invalid inferences can remove a host. This provides a strong ongoing check, but its sensitivity depends on inference volume and may not reveal every gap between claimed and available capacity. PoC Challenge adds an additional security layer for these cases. An approved challenger can require one active host to leave inference and run PoC at full capacity until the next regular PoC. To open the challenge, the challenger locks a payment equal to a fraction of the target's remaining epoch reward. If the target passes, it receives the payment. If it fails, the challenger is refunded, and the target receives the same penalty as for a failed Confirmation PoC. Inference missed during the challenge does not count against the target. Only allowlisted devshard escrow creators can open a challenge. If the allowlist is empty, anyone can open one.
+More details and other changes are here: [https://github.com/gonka-ai/gonka/pull/1535 ](https://github.com/gonka-ai/gonka/pull/1535 )
 
-```shell
-curl -s http://localhost:9100/versions | jq
-```
+**Action items**
 
-You should see v4.1 and v5. If you only see v3 or v4, the images did not update.
+1. **Everyone.** Now — review the PRs. Read [https://github.com/gonka-ai/gonka/pull/1535](https://github.com/gonka-ai/gonka/pull/1535) and leave comments on any findings, questions, suggested improvements, edge cases, or vulnerabilities.
+2. **Hosts.** Nothing else before the vote. Do not update containers, re-grant keys, or move models for this upgrade.
+3. **Dashboard maintainers.** If the governance vote passes, governance, BLS, and validation voting follow the capped weight. Rewards stay on real weight.
 
-If you are already on the current versions, there is nothing to do.
 
 ## September 18, 2026
 

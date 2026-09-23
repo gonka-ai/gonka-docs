@@ -33,7 +33,7 @@ The protocol supports **governance-approved** models for inference and Proof of 
 |----------|------|
 | `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — base model (since proposal 78 / epoch 308) |
 | `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — PoC model (since proposal 94 / epoch 360). Coefficient is in `poc_params`. |
-| `zai-org/GLM-5.3-Flash` | **GLM-5.3-Flash** — PoC model (since [proposal 101](../network-updates.md#proposal-101) / `penalty_start_epoch` 394). Coefficient is in `poc_params`. |
+| `zai-org/GLM-5.3-Flash` | **GLM-5.3-Flash** — active PoC model since epoch 395 ([proposal 101](../network-updates.md#proposal-101)). `penalty_start_epoch` 394. Coefficient 0.62 is in `poc_params`. |
 
 !!! tip "Authoritative model list (governance API)"
     Approved models can change between releases or epochs. **Before you edit `node-config.json`,** call the governance API and use each returned object’s `"id"` as the key under `"models"`:
@@ -46,7 +46,7 @@ You typically run **one model per ML Node** in `node-config.json`.
 
 Governance listing (`GET /v1/governance/models`, `poc_params.models`) is the approved catalog for every model. A model's `weight_scale_factor` only produces consensus weight if that group is eligible: voting power that meets `v_min` and `w_threshold`. Miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate on the next PoC — switching `node-config` alone does not restore consensus weight. Check `poc_params` and the epoch’s `confirmation_weight_scales`. See [Multi-Model PoC](./multi_model_poc.md).
 
-Live serving is a separate check: `/v1/epochs/current/participants`. `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` remain in the governance catalog but were removed from `poc_params` by [proposal 101](../network-updates.md#proposal-101) — they are not PoC models. GLM-5.3-Flash is in bootstrap from epoch 394; see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
+Live serving is a separate check: `/v1/epochs/current/participants`. `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` remain in the governance catalog but were removed from `poc_params` by [proposal 101](../network-updates.md#proposal-101) — they are not PoC models. GLM-5.3-Flash has been an active PoC group since epoch 395 (`penalty_start_epoch` 394); see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 !!! note "If you will not run every approved model"
     Multi-model PoC tracks participation **per model**. For an **eligible** model you do not run, use on-chain **delegation** or **refusal**. Regular miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate; `refuse` is not required and is not a bootstrap participation mode. Delegation/refusal is **not** required to bring a node online—you use the same **Account (cold) key** as in [Grant Permissions to ML Operational Key](#33-local-machine-grant-permissions-to-ml-operational-key), **after** registration and verification. Copy-paste commands are at the end: [Optional: PoC delegation and refusal](#optional-poc-delegation-and-refusal). For strategy and penalties, read [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md). For GLM-5.3-Flash (penalties from epoch 394), see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).

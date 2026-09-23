@@ -1,22 +1,22 @@
 # GLM-5.3-Flash Bootstrap
 
-`zai-org/GLM-5.3-Flash` 是 Gonka 主网上的一个治理批准的 PoC 模型，自 [提案 101](../network-updates.md#proposal-101) 起生效。其 `penalty_start_epoch` 为 **394**。该组处于引导阶段：它出现在该纪元的 `sub_group_models` 中，但尚未出现在 `confirmation_weight_scales` 中，因此尚不产生共识权重。有关当前部署默认值（包括 `node-config.json`），请参阅 [Host Quickstart](./quickstart.md)。
+`zai-org/GLM-5.3-Flash` 已通过引导并作为 Proof of Compute 模型在 Gonka 主网激活，当前链纪元为 395（[提案 101](../network-updates.md#proposal-101)）。其 `penalty_start_epoch` 为 **394**。它与 `weight_scale_factor` 的 0.62 处于 `confirmation_weight_scales` 状态，因此产生共识权重。以下的时间线和交易示例仍有助于理解激活机制及委托等操作；有关当前部署默认值（包括 `node-config.json`），请参阅 [Host Quickstart](./quickstart.md)。
 
-有关多模型 PoC 机制的更广泛背景，请参阅 [Multi-Model PoC](./multi_model_poc.md)。其他模型引导及其机制记录在 [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md)、[DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) 和 [Kimi K2.6 Bootstrap](./kimi-bootstrap.md)（历史记录）中。
+有关多模型 PoC 机制的更广泛背景，请参阅 [Multi-Model PoC](./multi_model_poc.md)。其他模型的引导及其机制记录在 [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md)、[DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md) 和 [Kimi K2.6 Bootstrap](./kimi-bootstrap.md)（历史记录）中。
 
 !!! warning "GLM 的每模型参与从纪元 394 开始生效"
-    从纪元 **394** 开始，未明确选择 `zai-org/GLM-5.3-Flash` 的主机将面临每纪元 15% 的 `no_participation_penalty` 惩罚。如果您将提供该模型，请提交 `PoCIntent` 并部署。如果您不提供，请提交 **委托**（如果您信任 GLM 主机则更推荐）或 **拒绝**。拒绝可避免 15% 的缺失，但仍会应用 10% 的 `refusal_penalty`。已选择 DIRECT、DELEGATE 或 REFUSE 的主机无需重新提交。
+    从纪元 **394** 开始，未对 `zai-org/GLM-5.3-Flash` 做出明确选择的主机将面临每纪元 15% 的 `no_participation_penalty` 惩罚。如果您将提供该模型，请提交 `PoCIntent` 并部署。如果您不提供，请提交 **委托**（如果您信任 GLM 主机则优先选择）或 **拒绝**。拒绝可避免 15% 的惩罚，但仍适用 10% 的 `refusal_penalty`。已选择 DIRECT、DELEGATE 或 REFUSE 的主机无需重新提交。
 
 !!! warning "MLNode 3.1.0 / vLLM 0.28 / CUDA 13"
-    GLM-5.3-Flash 需要 **vLLM 0.28** 和 **CUDA 13** 驱动程序（580+）。使用镜像 `ghcr.io/gonka-ai/mlnode:3.1.0-vllm-0.28.0`（`sha256:25cccf7d9954678550e47a1f09f12d3db140803e9cd6c289f3af25d34ceabda0`）。请**不要**使用 `3.0.17` 运行 GLM —— 该镜像包含一个始终无法验证的批次首项 PoC 工件。节点配置和黄金参考位于 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join) 分支（[gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)）。
+    GLM-5.3-Flash 要求使用 **vLLM 0.28** 和 **CUDA 13** 驱动（580+）。请使用镜像 `ghcr.io/gonka-ai/mlnode:3.1.0-vllm-0.28.0`（`sha256:25cccf7d9954678550e47a1f09f12d3db140803e9cd6c289f3af25d34ceabda0`）。请**不要**使用 `3.0.17` 运行 GLM —— 该镜像包含一个始终无法验证的首批次 PoC 工件。节点配置和黄金参考位于 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join) 分支（[gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)）。
 
 ## 治理背景（提案 101）
 
-提案 101 将 GLM-5.3-Flash 注册为治理批准的模型，并将其添加到 PoC 模型集合中。它从 `poc_params.models` 中移除了 `moonshotai/Kimi-K2.6` 和 `zai-org/GLM-5.2-FP8`。这两个 ID 仍保留在 `GET /v1/governance/models`（推理目录）中，但不再是 PoC 模型。`MiniMaxAI/MiniMax-M2.7` 和 `deepseek-ai/DeepSeek-V4-Flash-0731` 保持不变。
+提案 101 将 GLM-5.3-Flash 注册为治理批准的模型，并将其添加至 PoC 模型集合。它从 `poc_params.models` 中移除了 `moonshotai/Kimi-K2.6` 和 `zai-org/GLM-5.2-FP8`。这两个 ID 仍保留在 `GET /v1/governance/models`（推理目录）中，但不再是 PoC 模型。`MiniMaxAI/MiniMax-M2.7` 和 `deepseek-ai/DeepSeek-V4-Flash-0731` 保持不变。
 
-该模型及其参数由 kaitaku.ai 团队提出，由 vbgd0 独立验证，并联合提出。发布输入、测量值及阈值设定的理由详见 [gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)。
+该模型及其参数由 kaitaku.ai 团队提出，经 vbgd0 独立验证，并联合提交。发布输入、测量数据及阈值设定的推理依据详见 [gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)。
 
-链上实时值（在任何后续治理变更后请核实）：
+链上实时值（在任何后续治理变更后请验证）：
 
 - 模型：`zai-org/GLM-5.3-Flash`（固定修订版 `04c4e9e95c5da8862dced7e5056455116f83a7e0`）
 - PoC：`seq_len` 1024，`dist_threshold` 0.44，`p_mismatch` 0.10，`p_value_threshold` 0.05，`weight_scale_factor` **0.62**
@@ -24,7 +24,7 @@
 - `penalty_start_epoch` **394**
 - 投票于 **2026 年 9 月 10 日 23:17 UTC** 结束；提案通过
 
-`weight_scale_factor` 已校准，使得将 PoC 模型切换为 GLM-5.3-Flash 的 B200 主机预期将获得约 7% 的权重增长。对于其他 GPU，最优模型不会改变。
+`weight_scale_factor` 已校准，使得 B200 主机将其 PoC 模型切换为 GLM-5.3-Flash 后，预期可获得约 7% 的权重增长。对于其他 GPU，最优模型未发生变化。
 
 确认实时 GLM 条目：
 
@@ -35,9 +35,9 @@ curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/par
 
 ## 时间线
 
-错过 GLM-5.3-Flash 的惩罚从 **纪元 `394`** 开始。每个纪元，链都会尝试引导该模型：在该纪元 PoC 阶段前 500 个区块（`BootstrapDelegationSnapshot`）捕获一个 `delegation_params.deploy_window`，根据 `V_min = 3` 直接提交者和总网络权重的 `W_threshold` 比例（通过 INTENT + DELEGATE 实现 `>2/3` 可达性）评估预资格，并（如预合格）在该纪元启动 GLM 的 PoC。
+缺少 GLM-5.3-Flash 的惩罚从 **纪元 `394`** 开始生效。每个纪元，链会尝试引导该模型：在该纪元 PoC 阶段前捕获 `BootstrapDelegationSnapshot` 500 个区块（`delegation_params.deploy_window`），根据 `V_min = 3` 直接提交者和总网络权重中 `W_threshold` 比例且通过 INTENT + DELEGATE 可达的节点评估预资格，并（如预合格）在该纪元启动 GLM 的 PoC。
 
-提案 101 保留当前委托阈值：`w_threshold = 0.1`，`v_min = 3`，`no_participation_penalty = 0.15`，`refusal_penalty = 0.1`。仍请从链上读取实时值：
+提案 101 保留当前委托阈值：`w_threshold = 0.1`、`v_min = 3`、`no_participation_penalty = 0.15`、`refusal_penalty = 0.1`。仍请从链上获取实时值：
 
 ```bash
 curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \
@@ -45,7 +45,7 @@ curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/par
 # Decimal fields use {value, exponent}: e.g. {"value":"1","exponent":-1} → 0.1 (10%).
 ```
 
-要计算任何给定评估纪元的确切区块编号，请以实时当前 `poc_start_block_height` 为锚点 —— 请勿从 `epoch_shift` 重建：
+要计算任意评估纪元的确切区块号，请以当前实时 `poc_start_block_height` 为锚点——不要从 `epoch_shift` 重建：
 
 ```bash
 NODE=https://node3.gonka.ai
@@ -64,46 +64,46 @@ SNAPSHOT_BLOCK=$(( POC_START - 500 ))
 echo "Epoch $EPOCH (current $CURRENT_EPOCH): snapshot at block $SNAPSHOT_BLOCK, PoC starts at block $POC_START"
 ```
 
-资格（共识权重）是与“列于 `poc_params`”和实时服务分开的检查。每次 PoC 后，请确认：
+资格（共识权重）是独立于“列于 `poc_params`”和实时服务的检查。每次 PoC 后，请确认：
 
 - `poc_params.models` —— 批准的 PoC 目录
 - 该纪元的 `sub_group_models` 和 `confirmation_weight_scales` —— 该组是否运行了 PoC 以及是否产生共识权重
-- `/v1/epochs/current/participants` —— 谁在提供服务
+- `/v1/epochs/current/participants` —— 谁正在提供该服务
 
 ### 可能的情形
 
-1. **在某个纪元的快照中 GLM 未通过预评估**（且在 PoC 时仍无资格）：
+1. **在某纪元快照中 GLM 未通过预评估**（且在 PoC 中仍不合格）：
 
-    - 所有提交 `PoCIntent` 的人保留其全部权重（无惩罚）
-    - 所有提交 `PoCDelegation` 的人保留其全部权重（无惩罚）
-    - **从纪元 `394` 开始**：所有未提交者每纪元损失 **15%** 权重（`no_participation_penalty`）；`PoCRefusal` 可避免 15% 的损失，但仍适用 `refusal_penalty`（**10%**）
+    - 所有提交 `PoCIntent` 的主机保留其全部权重（无惩罚）
+    - 所有提交 `PoCDelegation` 的主机保留其全部权重（无惩罚）
+    - **从纪元 `394` 开始**：所有未提交者每纪元损失 **15%** 权重（`no_participation_penalty`）；提交 `PoCRefusal` 可避免 15% 惩罚，但仍适用 `refusal_penalty`（**10%**）
 
-2. **GLM 通过预评估但未在 PoC 时获得资格**（例如 INTENT 主机未能及时部署）：
+2. **GLM 通过预评估但未在 PoC 中获得资格**（例如 INTENT 主机未能及时部署）：
 
-    - 在该纪元实际部署 GLM 并提交 GLM PoC 提交的主机，保留其现有模型组的全部权重（无惩罚）
-    - 所有提交 `PoCDelegation` 的人保留其全部权重（无惩罚）
-    - **从纪元 `394` 开始**：所有未提交者损失 15%；所有提交 `PoCIntent` 但未部署且未提交 GLM PoC 提交者也损失 15%（`IntentMissed`）；`PoCRefusal` 仅承担 10% 的 `refusal_penalty` 而非 15% 的损失
+    - 实际部署 GLM 并在本纪元提交 GLM PoC 提交的主机，保留其原有模型组的全部权重（无惩罚）
+    - 所有提交 `PoCDelegation` 的主机保留其全部权重（无惩罚）
+    - **从纪元 `394` 开始**：所有未提交者损失 15%；提交 `PoCIntent` 但未部署并提交 GLM PoC 提交的主机也损失 15%（`IntentMissed`）；`PoCRefusal` 承受 10% 的 `refusal_penalty` 而非 15% 惩罚
 
 如果 GLM 通过两项检查，惩罚遵循 [Multi-Model PoC](./multi_model_poc.md) 中的常规情形。
 
 ## 硬件与共识权重
 
-GLM-5.3-Flash 注册为 `v_ram = 560`（每个实例约 **560 GB 总 VRAM**）。实时 `weight_scale_factor` 为 **0.62**。模型系数仅在该组有资格（拥有投票权）时才产生共识权重。请检查 `poc_params` 和 `confirmation_weight_scales`。
+GLM-5.3-Flash 注册为 `v_ram = 560`（每个实例约 **560 GB 总显存**）。实时 `weight_scale_factor` 为 **0.62**。模型系数仅在该组具备资格（拥有投票权）时才产生共识权重。请检查 `poc_params` 和 `confirmation_weight_scales`。
 
 实际影响（来自提案校准；请确认实时系数）：
 
-- **B200 拥有者**：GLM 是预期的切换目标。将 PoC 模型切换为 GLM-5.3-Flash 的 B200 主机预期将获得约 7% 的权重增长。使用 `node-config-glm53flash-B200.json`（TP=4）。
-- **B300 所有者**：在当前系数下，DeepSeek V4 Flash 仍是权重最高的选项。GLM 可适配 2×B300（`node-config-glm53flash-B300.json`），但非达到最大权重所必需。
-- **H200 / H100 所有者**：MiniMax M2.7 仍是这些类别的最高权重模型。GLM 配置存在（4×H200 上为 `node-config-glm53flash-H200.json`，8×H100 上为 `node-config-glm53flash-H100.json`；`node-config-glm53flash-8xH200.json` 为两个 4×H200 实例）。切换为可选操作。
+- **B200 用户**：GLM 是预期切换目标。B200 主机将其 PoC 模型切换为 GLM-5.3-Flash 后，预期可获得约 7% 的权重增长。请使用 `node-config-glm53flash-B200.json`（TP=4）。
+- **B300 用户**：在当前系数下，DeepSeek V4 Flash 仍是权重最高的选项。GLM 可适配 2×B300（`node-config-glm53flash-B300.json`），但非达到最大权重所必需。
+- **H200 / H100 用户**：MiniMax M2.7 仍是这些类别中权重最高的模型。GLM 配置存在（4×H200 上为 `node-config-glm53flash-H200.json`，8×H100 上为 `node-config-glm53flash-H100.json`；`node-config-glm53flash-8xH200.json` 为两个 4×H200 实例）。切换为可选操作。
 - 完整系数表：[Google Sheet](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)
 
-在 join `.env` 中将 `POC_BATCH_SIZE_DEFAULT` 设置为：8×H100 上为 8，H200 上为 16，B200/B300 上为 32。在 NVSwitch VM 上设置 `NCCL_NVLS_ENABLE=0`。
+在 join `.env` 中设置 `POC_BATCH_SIZE_DEFAULT` 为：8×H100 上为 8，H200 上为 16，B200/B300 上为 32。在 NVSwitch VM 上设置 `NCCL_NVLS_ENABLE=0`。
 
-## 部署 GLM-5.3-Flash 的主机操作说明
+## 部署 GLM-5.3-Flash 的主机操作指南
 
-#### 向链发送 `PoCIntent`
+#### 向链中发送 `PoCIntent`
 
-在目标纪元的快照区块前提交。以下示例使用 `--from` 中指定的主机密钥。如需从热密钥提交意向、委托或拒绝，请参阅 [如何从热密钥声明 PoC 意向？](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key)。
+请在目标纪元的快照区块前提交。以下示例使用 `--from` 中指定的主机密钥。如需从热密钥提交意向、委托或拒绝，请参阅 [如何从热密钥声明 PoC 意向？](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key)。
 
 ```bash
 export NODE=https://node3.gonka.ai/chain-rpc/
@@ -125,14 +125,14 @@ export NODE=https://node3.gonka.ai/chain-rpc/
 - `hf_commit`: `04c4e9e95c5da8862dced7e5056455116f83a7e0`
 - 许可证：**MIT** — 请参阅 [模型许可证](../model-licenses.md) 和 [上游 LICENSE](https://huggingface.co/zai-org/GLM-5.3-Flash/blob/main/LICENSE)
 
-遵循 [预下载模型权重](https://gonka.ai/host/quickstart/#server-pre-download-model-weights-to-hugging-face-cache-hf_home) 指南。在引导窗口前规划好磁盘空间和带宽——首次尝试时 Hugging Face 的速率限制可能导致资格失效。
+请遵循 [预下载模型权重](https://gonka.ai/host/quickstart/#server-pre-download-model-weights-to-hugging-face-cache-hf_home) 指南。在引导窗口前规划好磁盘空间和带宽 —— 首次尝试时 Hugging Face 的速率限制可能导致资格失效。
 
-在引导快照区块**之前**验证模型能否在您的硬件上加载。您需要：
+在引导快照区块前，验证模型能否在您的硬件上加载。您需要：
 
 - MLNode **3.1.0** / vLLM **0.28** / CUDA **13**（驱动 580+）
-- 已发货的节点配置：针对您的 GPU 类型（H100 / H200 / B200 / B300）的 `node-config-glm53flash-*.json`
+- 预配置节点设置：您的 GPU 类型（H100 / H200 / B200 / B300）对应的 `node-config-glm53flash-*.json`
 
-链将 GLM 注册为 `Model.ModelArgs`：
+链上注册 GLM 使用 `Model.ModelArgs`：
 
 ```
 --max-model-len 400000
@@ -143,7 +143,7 @@ export NODE=https://node3.gonka.ai/chain-rpc/
 --trust-remote-code
 ```
 
-部署端标志（`--tensor-parallel-size`、`--gpu-memory-utilization`、`--max-num-batched-tokens`、`--block-size`、`--no-enable-flashinfer-autotune` 和锁定的 `--revision`）来自为您的硬件提供的已发货 `node-config` —— 不要仅从链的 `ModelArgs` 中自行推断。
+部署端标志（`--tensor-parallel-size`、`--gpu-memory-utilization`、`--max-num-batched-tokens`、`--block-size`、`--no-enable-flashinfer-autotune` 及锁定的 `--revision`）来自为您的硬件提供的 `node-config` —— 请勿仅从链上 `ModelArgs` 推断这些值。
 
 #### 等待下一个评估纪元并检查预资格
 
@@ -168,11 +168,11 @@ curl -s "$NODE/chain-rpc/block_results?height=$HEIGHT" \
       | $a'
 ```
 
-键属性是 `pre_eligible`。如果它是 `true`，则本周期链将运行 GLM PoC，您应做好部署准备。支持字段显示三项检查中哪些通过：`meets_v_min`（≥ `V_min` 直接意图提交者）、`meets_weight_threshold`（意图权重 ≥ `W_threshold` 的 `total_network_weight`），以及 `meets_reachability`（意图 + 委托 `reachable_voting_power` 覆盖 `>2/3`）。`intent_host_count` 和 `intent_weight` 显示本周期的直接意图覆盖率。
+关键属性是 `pre_eligible`。如果它是 `true`，本周期链将运行 GLM PoC，您应做好部署准备。支持字段显示三项检查中哪些通过：`meets_v_min`（≥ `V_min` 直接意图提交者）、`meets_weight_threshold`（意图权重 ≥ `W_threshold` 的 `total_network_weight`），以及 `meets_reachability`（意图 + 委托 `reachable_voting_power` 覆盖 `>2/3`）。`intent_host_count` 和 `intent_weight` 显示本周期的直接意图覆盖率。
 
 #### 如果预合格，将模型切换为 GLM-5.3-Flash
 
-使用与您的 GPU 类型匹配的已发布配置。Admin API 更新的示例形状（将 args 替换为您的 `node-config-glm53flash-*.json` 内容）：
+使用与您的 GPU 类型匹配的已发布配置。Admin API 更新的示例格式（将 args 替换为您的 `node-config-glm53flash-*.json` 内容）：
 
 ```bash
 curl -X POST http://localhost:9200/admin/v1/nodes \
@@ -213,7 +213,7 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 ## 不部署 GLM-5.3-Flash 的主机说明
 
-保留 MiniMax 或 DeepSeek 没有问题——这些 PoC 条目未更改。GLM 的每模型参与强制执行从周期 **`394`** 开始生效。如果您不提供 GLM，请提交**委托**（如果您信任某个 GLM 主机则优先选择）或**拒绝**，以免被视为缺失该模型。拒绝可避免 15% 的缺失惩罚，但仍需承担 10% 的 `refusal_penalty`。已选择 DIRECT、DELEGATE 或 REFUSE 的主机无需重新提交。
+保留 MiniMax 或 DeepSeek 是可以的——这些 PoC 条目未更改。GLM 的每模型参与强制执行从周期 **`394`** 开始生效。如果您未提供 GLM 服务，请提交**委托**（如果您信任某个 GLM 主机，则优先选择）或**拒绝**，以免被视为缺失该模型。拒绝可避免 15% 的缺失惩罚，但仍需承担 10% 的 `refusal_penalty`。已选择 DIRECT、DELEGATE 或 REFUSE 的主机无需重新提交。
 
 #### 检查您是否信任任何将部署 GLM / 发送 `PoCIntent` 的主机
 
@@ -307,7 +307,7 @@ if skipped:
         print(f"  {addr} (weight={w}): {err}")
 ```
 
-引导时委托：**不要委托给守护节点**；将权重分散到独立的 GLM 主机上。有关更新的委托指南，请参阅 [多模型 PoC](./multi_model_poc.md)。
+引导时委托：**不要委托给守护节点**；将权重分散到独立的 GLM 主机上。有关更新的委托指南，请参见 [多模型 PoC](./multi_model_poc.md)。
 
 #### 发送委托或拒绝
 

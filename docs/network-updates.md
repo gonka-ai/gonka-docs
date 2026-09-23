@@ -260,8 +260,6 @@ Final tally: yes 146903, no 0, no_with_veto 0, abstain 5568.
 
 Nothing is required from hosts.
 
-Thanks to everyone who voted.
-
 ## September 11, 2026 {#proposal-101}
 
 **PROPOSAL PASSED: Add GLM-5.3-Flash, remove Kimi-K2.6 and GLM-5.2-FP8 from PoC models**
@@ -288,8 +286,6 @@ The activation epoch for GLM-5.3-Flash is **394**. From that epoch `penalty_star
 
 Final tally: yes 309308, no 0, no_with_veto 0, abstain 3168.
 
-Thanks to everyone who voted.
-
 ## September 11, 2026
 
 **PROPOSAL PASSED: devshard v4.1**
@@ -308,8 +304,6 @@ sha256 69e58e6b6c124fc218d3ed1e38d7853c0a8ce20df660d348fc28ccd249a1ccf1
 ```
 
 Final tally: yes 312476, no 0, no_with_veto 0, abstain 0.
-
-Thanks to everyone who voted.
 
 ## September 9, 2026
 
@@ -446,8 +440,6 @@ The on-chain governance vote for proposal id 99 has concluded.
 
 The proposal was APPROVED. It allocates 100,000 USDT from the Community Pool to support Gonka's participation at TOKEN2049 Singapore 2026, taking place on 7-8 October 2026 at Marina Bay Sands. The funds cover the Gold Sponsorship package and related logistics: travel, accommodation, local coordination, guest hosting, event operations, and supporting materials.
 
-Thanks to everyone who voted.
-
 ## September 4, 2026
 
 **Devshard binary update: `v4.0.2`**
@@ -508,8 +500,6 @@ The on-chain governance vote for proposal id 98 has concluded.
 The proposal was APPROVED. It increases the `weight_scale_factor` for `deepseek-ai/DeepSeek-V4-Flash-0731` from 0.214 to 0.246. All other model and chain parameters remain unchanged. This is a resubmission of proposal 97. On chain, proposal 97 ended as `PROPOSAL_STATUS_REJECTED` with `failed_reason`: `proposal did not get enough votes to pass` (25% quorum was not reached). Final tally: yes 15452, abstain 3093, no 0, no_with_veto 0.
 
 The original 0.214 factor came from inflated nonce/min numbers. The measurement fix is in [gonka-ai/gonka#1640](https://github.com/gonka-ai/gonka/pull/1640). Nothing is required from hosts.
-
-Thanks to everyone who voted.
 
 ## August 25, 2026
 
@@ -581,8 +571,6 @@ export NODE_URL=https://node3.gonka.ai/
 The on-chain governance vote for proposal id 96 has concluded.
 
 The proposal was APPROVED. It adjusts how the invalid-inference check behaves on small samples so it doesn't misfire early in an epoch before there's enough data. Nothing is required from hosts.
-
-Thanks to everyone who voted.
 
 ## August 20, 2026
 

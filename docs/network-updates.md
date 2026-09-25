@@ -8,6 +8,50 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 25, 2026
+
+**Proposal 108 is open for voting: DevShard v5.0.2**
+
+An important fix for DevShard node failures. It also retires v3 and v4.
+
+Voting closes **27 September, 00:03 UTC**.
+
+**What it fixes**
+
+Each running DevShard version opened a Postgres pool sized to the host CPU count. A host running several versions on a multicore machine could consume every available connection, and the node failed. v5.0.2 caps payload pools at the session limit (`PG_POOL_MAX_CONNS`, default 4).
+
+It also stops inference-timeout waits from stacking a timer on every heartbeat, opens the next heartbeat one interval after turnover, and records which process holds a validation lease so only that process can finish or release it.
+
+**What changes on chain**
+
+`approved_versions` becomes:
+
+```
+v4.1   release/devshard/v4.1.0     unchanged
+v5     devshard/v5.0.2             updated
+```
+
+v3 and plain v4 are removed. Nothing is required from hosts: `versiond` picks up the new binary, verifies its sha256 and runs it.
+
+No bounty is attached to this proposal.
+
+**Voting**
+
+Please cast your vote before the deadline.
+
+```shell
+# options: yes | no | no_with_veto | abstain
+inferenced tx gov vote 108 yes \
+  --from <COLD_KEY_NAME> \
+  --keyring-backend file \
+  --unordered --timeout-duration=60s \
+  --gas=2000000 --gas-adjustment=5.0 \
+  --node <NODE_URL>/chain-rpc/ \
+  --yes
+```
+
+Full technical scope: [PR 1840](https://github.com/gonka-ai/gonka/pull/1840)
+
 ## September 22, 2026
 
 **Pull Request Review for Upgrade v0.2.16**

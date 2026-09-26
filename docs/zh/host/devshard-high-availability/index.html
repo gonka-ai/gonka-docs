@@ -1,0 +1,5015 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/docs/zh/host/devshard-high-availability/">
+      
+      
+        <link rel="prev" href="../network-node-api/">
+      
+      
+        <link rel="next" href="../multi_model_poc/">
+      
+      
+        
+          <link rel="alternate" href="../../../host/devshard-high-availability/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>High-availability devshard host - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CInter:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Inter"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - High-availability devshard host">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/docs/zh/host/devshard-high-availability/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#devshard" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="https://gonka.ai/" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              High-availability devshard host
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../host/devshard-high-availability/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://gonka.ai/" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    了解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    了解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/gateway-developer-quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署自己的网关
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    硬件规格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    密钥管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    抵押
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 节点管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mlnode-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    验证 ML 节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编辑主机公开信息
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    High-availability devshard host
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    High-availability devshard host
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为何重要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        发布与镜像
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        前提条件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安装新主机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="安装新主机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤 1：安装 PostgreSQL（最好本身也是高可用的）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="步骤 1：安装 PostgreSQL（最好本身也是高可用的）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择数据库
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max_connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        调整 max_connections 大小
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置 PostgreSQL 凭据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postgresql_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备 PostgreSQL 目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-versiond" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤 2：运行多个 versiond 实例 + 路由器集群
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="步骤 2：运行多个 versiond 实例 + 路由器集群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 同一台机器，两个副本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 外部或托管 PostgreSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤 3：启动部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤 4：验证是否正常工作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="步骤 4：验证是否正常工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 检查运行中的服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 检查路由故障转移
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        升级现有主机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="升级现有主机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        备份 PostgreSQL 和部署文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备发布版本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        检查数据库布局
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        更新部署
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="更新部署">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        带停机时间的更新
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        滚动更新
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加远程副本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="添加远程副本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备主主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置并启动副本主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        检查远程数据库
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将副本添加到路由器池
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加本地副本
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        操作部署
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作部署">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        管理路由器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重启成员
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        替换成员
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        移除成员
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        故障排除
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="故障排除">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        维护前取消
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        恢复中断的滚动更新
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        解决缺失的数据库
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型与基准测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型与基准测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi_model_poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模型 PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minimax-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MiniMax-M2.7 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deepseek-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek V4 Flash 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glm-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GLM-5.3-Flash bootstrap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贡献者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    贡献者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bounty-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    悬赏计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../report-vulnerability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    报告漏洞
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/create-account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建 Gonka 账户
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包与转账指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链转账
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    跨链转账
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过看板桥接（UI 指南）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_2" id="__nav_6_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    以太坊跨链桥
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    以太坊跨链桥
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/addresses-and-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    地址和密钥
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/bridge-epoch-update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链桥 Epoch 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/register-token/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    注册代币
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 USDT（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/deposit-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 GNK（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/withdraw-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 GNK（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_3" id="__nav_6_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IBC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ibc/withdraw-usdt-via-kava/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过 Kava 提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_4" id="__nav_6_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/widget-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组件集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cross-chain-transfers/ethereum-bridge/tracker-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘与跟踪器集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    治理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    治理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交易与治理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-on-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提案投票
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/creating-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建提案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../governance/voting-power-eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting Power, Eligibility, Delegation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard-maintainer-memo-v0.2.13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘维护者备忘录 v0.2.13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bounty-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    悬赏计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为何重要
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        发布与镜像
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        前提条件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安装新主机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="安装新主机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤 1：安装 PostgreSQL（最好本身也是高可用的）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="步骤 1：安装 PostgreSQL（最好本身也是高可用的）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择数据库
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max_connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        调整 max_connections 大小
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置 PostgreSQL 凭据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postgresql_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备 PostgreSQL 目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-versiond" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤 2：运行多个 versiond 实例 + 路由器集群
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="步骤 2：运行多个 versiond 实例 + 路由器集群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 同一台机器，两个副本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 外部或托管 PostgreSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤 3：启动部署
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤 4：验证是否正常工作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="步骤 4：验证是否正常工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 检查运行中的服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 检查路由故障转移
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        升级现有主机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="升级现有主机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        备份 PostgreSQL 和部署文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备发布版本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        检查数据库布局
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        更新部署
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="更新部署">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        带停机时间的更新
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        滚动更新
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加远程副本
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="添加远程副本">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        准备主主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置并启动副本主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        检查远程数据库
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将副本添加到路由器池
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加本地副本
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        操作部署
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作部署">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        管理路由器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        重启成员
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        替换成员
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        移除成员
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        添加协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        故障排除
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="故障排除">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        维护前取消
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        恢复中断的滚动更新
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        解决缺失的数据库
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="devshard">高可用 devshard 主机设置</h1>
+<p>由多个 <code>versiond</code> 实例支持的持续可用的 devshard 推理服务。</p>
+<h2 id="_1">目录</h2>
+<ul>
+<li><a href="#why-this-matters">为何重要</a></li>
+<li><a href="#release-and-images">发布与镜像</a></li>
+<li><a href="#prerequisites">前提条件</a></li>
+<li><a href="#install-a-new-host">安装新主机</a></li>
+<li><a href="#upgrade-an-existing-host">升级现有主机</a></li>
+<li><a href="#add-a-remote-replica">添加远程副本</a></li>
+<li><a href="#add-a-local-replica">添加本地副本</a></li>
+<li><a href="#operate-the-deployment">操作部署</a></li>
+<li><a href="#troubleshooting">故障排除</a></li>
+</ul>
+<h2 id="_2">为何重要</h2>
+<p>单个 <code>versiond</code> 进程是一个单点故障（SPOF）：如果该机器或容器宕机，网关将无法通过该协议版本访问您的主机。</p>
+<p>在路由器集群后运行多个 <code>versiond</code> 实例，并共享 PostgreSQL。如果一个实例失败，路由器会将请求发送到剩余的实例。</p>
+<div class="highlight"><pre><span></span><code>Public proxy (/devshard/...)
+        │
+        ▼
+ versiond-router fleet
+        │
+        ├── versiond  ──► devshardd ──┐
+        ├── versiond2 ──► devshardd ──┤
+        ├── versiond3 ──► devshardd ──┼── shared PostgreSQL
+        │       ⋮                    │
+        └── versiondN ──► devshardd ──┘
+</code></pre></div>
+<h2 id="_3">发布与镜像</h2>
+<p>本指南涵盖 <a href="https://github.com/gonka-ai/gonka/releases/tag/devshard%2Fv5.0.1">Devshard v5.0.1</a>。</p>
+<p>编辑 <code>deploy/join/config.env</code>。将以下变量设置为所示值。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">VERSIOND_IMAGE</span><span class="o">=</span>ghcr.io/gonka-ai/versiond:0.2.15-devshard-v5
+<span class="nb">export</span><span class="w"> </span><span class="nv">VERSIOND_ROUTER_IMAGE</span><span class="o">=</span>ghcr.io/gonka-ai/versiond-router:0.2.15-devshard-v5
+<span class="nb">export</span><span class="w"> </span><span class="nv">PROXY_ROUTER_IMAGE</span><span class="o">=</span>ghcr.io/gonka-ai/proxy-router:0.2.15-devshard-v5
+<span class="nb">export</span><span class="w"> </span><span class="nv">PROXY_POLICY_IMAGE</span><span class="o">=</span>ghcr.io/gonka-ai/proxy:0.2.15-devshard-v5
+<span class="nb">export</span><span class="w"> </span><span class="nv">ORACLE_FILTER_IMAGE</span><span class="o">=</span>python:3.12-alpine
+<span class="nb">export</span><span class="w"> </span><span class="nv">DEVSHARD_POSTGRES_IMAGE</span><span class="o">=</span>postgres:16-alpine
+</code></pre></div>
+<h2 id="_4">前提条件</h2>
+<ol>
+<li>主机上已正常运行的 <code>node</code> + <code>api</code> (dapi) + <code>proxy</code>（标准加入部署）。</li>
+<li>使用来自<a href="#release-and-images">同一发布版本</a>的加入文件和主机/网关镜像。</li>
+<li>每个 HA <code>versiond</code> 副本使用相同的参与者身份：</li>
+<li>相同的 <code>KEY_NAME</code> 和密钥环。</li>
+<li>相同的 <code>ACCOUNT_PUBKEY</code>。</li>
+<li>共享 PostgreSQL；每个副本使用独立的数据目录。不要用相同密钥启动第二个 dapi。</li>
+<li>Docker Compose <strong>2.24.4+</strong>、Bash、Python 3、Git、<code>tar</code>、<code>curl</code>、<code>jq</code>、<code>flock</code>、<code>sha256sum</code>、<code>timeout</code>、<code>xargs</code>。远程主机还需 <code>ssh</code>、<code>psql</code>，并需从<strong>主主机</strong>到<strong>副本主机</strong>的 SSH 访问权限。</li>
+</ol>
+<p>本地 HA 需要协议 v4 或更高版本。滚动更新和远程副本要求每个服务的协议为 v5 或更高版本。此处不涵盖从 v4 之前协议的迁移。</p>
+<h2 id="_5">安装新主机</h2>
+<h3 id="1-postgresql">步骤 1：安装 PostgreSQL（最好本身也是高可用的）</h3>
+<p>HA <code>versiond</code> 消除了对单个<strong>应用</strong>服务器的依赖，但如果 PostgreSQL 是单个虚拟机，<strong>PostgreSQL 将成为您的新 SPOF</strong>。建议使用托管或复制的数据库。</p>
+<h4 id="_6">选择数据库</h4>
+<p><strong>托管 PostgreSQL（推荐）。</strong> 选择高可用配置并创建数据库和用户。</p>
+<p><strong>自管理 PostgreSQL。</strong> 在专用主机或集群上安装 PostgreSQL，创建角色/数据库，并配置复制和故障转移以实现数据库高可用。</p>
+<p>对于托管或自管理的 PostgreSQL，获取主端点、端口、数据库、用户和密码。允许每个副本连接，并配置 <a href="#22-external-or-managed-postgresql">§2.2</a>。</p>
+<p><strong>本地 Compose PostgreSQL。</strong> <code>docker-compose.versiond.yml</code> 在加入主机上启动 <code>devshard-postgres</code>。如果机器宕机，数据库也随之宕机。</p>
+<h4 id="max_connections">调整 <code>max_connections</code> 大小</h4>
+<p>devshardd v4 至 v5.0.1 版本根据主机 CPU 数量设置 PostgreSQL 连接池大小，因此 PostgreSQL 默认的 100 个连接对于这些版本的 HA 来说太小。将 <code>max_connections</code> 设置为 250；这可覆盖最多 16 个 CPU 的主机上两个副本和三个协议。如有更多 CPU、副本或协议，请按比例增加。对于托管或自管理的 PostgreSQL，请在服务器或提供商设置中配置。对于本地 Compose PostgreSQL，<a href="#21-same-machine-two-replicas">§2.1</a> 中的覆盖设置会应用该值。该值仅在 PostgreSQL 重启后生效。</p>
+<h4 id="postgresql">配置 PostgreSQL 凭据</h4>
+<p>在 <code>deploy/join</code> 中运行以下命令，将 PostgreSQL 密码保存到 <code>config.env</code>。对于新的本地数据库，请选择一个密码；对于现有数据库，请输入其当前密码：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-s<span class="w"> </span>-p<span class="w"> </span><span class="s1">'PostgreSQL password: '</span><span class="w"> </span>DEVSHARD_POSTGRES_PASSWORD
+<span class="w">  </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'\n'</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$DEVSHARD_POSTGRES_PASSWORD</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="nv">DEVSHARD_POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">"</span><span class="nv">$DEVSHARD_POSTGRES_PASSWORD</span><span class="s2">"</span><span class="w"> </span>python3<span class="w"> </span><span class="s">&lt;&lt;'PYTHON'</span>
+<span class="s">import os, pathlib, re, shlex</span>
+<span class="s">path = pathlib.Path("config.env")</span>
+<span class="s">name = "DEVSHARD_POSTGRES_PASSWORD"</span>
+<span class="s">lines = path.read_text().splitlines()</span>
+<span class="s">lines = [line for line in lines if not re.match(r"^\s*(?:export\s+)?" + name + r"\s*=", line)]</span>
+<span class="s">lines.append("export " + name + "=" + shlex.quote(os.environ[name]))</span>
+<span class="s">path.chmod(0o600)</span>
+<span class="s">path.write_text("\n".join(lines) + "\n")</span>
+<span class="s">PYTHON</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>数据库和用户默认为 <code>devshardd</code>；可通过 <code>DEVSHARD_POSTGRES_DB</code> 和 <code>DEVSHARD_POSTGRES_USER</code> 覆盖。</p>
+<p>本地数据路径：<code>${DEVSHARD_POSTGRES_DATA_DIR:-./devshards/postgres}/data</code>。对于外部 PostgreSQL，请完成 <a href="#22-external-or-managed-postgresql">§2.2</a>。</p>
+<h4 id="postgresql_1">准备 PostgreSQL 目录</h4>
+<p>仅本地 Compose PostgreSQL。在首次启动或迁移前，在 <code>deploy/join</code> 中运行，通过 Docker 创建数据目录。PostgreSQL 入口点在启动时设置其所有者：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="nv">pg_dir</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DEVSHARD_POSTGRES_DATA_DIR</span><span class="k">:-</span><span class="p">./devshards/postgres</span><span class="si">}</span><span class="s2">"</span>
+<span class="o">[[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$pg_dir</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>/*<span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">pg_dir</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/</span><span class="nv">$pg_dir</span><span class="s2">"</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--network<span class="w"> </span>none<span class="w"> </span>--read-only<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--security-opt<span class="w"> </span><span class="nv">label</span><span class="o">=</span>disable<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--volume<span class="w"> </span><span class="s2">"</span><span class="nv">$pg_dir</span><span class="s2">:/target:ro"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--entrypoint<span class="w"> </span>/bin/true<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"</span><span class="nv">$DEVSHARD_POSTGRES_IMAGE</span><span class="s2">"</span>
+</code></pre></div>
+<p>如果命令失败，请停止并检查目录权限：</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-ld<span class="w"> </span>--<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">"</span><span class="nv">$pg_dir</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$pg_dir</span><span class="s2">"</span>
+</code></pre></div>
+<p>不要手动更改数据库所有者。</p>
+<h3 id="2-versiond">步骤 2：运行多个 <code>versiond</code> 实例 + 路由器集群</h3>
+<p><code>deploy/join</code> 中的基础安装文件：</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker-compose.yml</code></td>
+<td>基础加入部署，随发布版本提供</td>
+</tr>
+<tr>
+<td><code>docker-compose.versiond.yml</code></td>
+<td>共享 PostgreSQL 和 HA 副本设置，随发布版本提供</td>
+</tr>
+<tr>
+<td><code>docker-compose.devshard-v5.override.yml</code></td>
+<td>目录过滤器；在下方创建</td>
+</tr>
+<tr>
+<td><code>docker-compose.devshard-pg-external.override.yml</code></td>
+<td>外部数据库设置；仅在 §2.2 中创建</td>
+</tr>
+</tbody>
+</table>
+<h4 id="21">2.1 同一台机器，两个副本</h4>
+<p><strong>1. 将 HA 设置保存在 <code>config.env</code> 中。</strong></p>
+<p>先应用 <a href="#release-and-images">发布版本和镜像</a>。</p>
+<p>列出节点上批准的协议名称：</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1:9100/versions<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-er<span class="w"> </span><span class="s1">'.versions[].name'</span>
+</code></pre></div>
+<p>对于此版本，请在 <code>VERSIOND_VERSIONS</code> 中使用列出的名称 <code>v4</code>、<code>v4.1</code>，以及一旦可用时的 <code>v5</code>。排除预 HA 版本，例如 <code>v3</code>。更新时保留现有列表；使用 <a href="#add-a-protocol">添加协议</a> 进行添加。</p>
+<p>在 <code>config.env</code> 中编辑这些变量。保留现有的身份和数据库设置。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Protocol list for a new host on this release; keep the existing list when updating.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VERSIOND_VERSIONS</span><span class="o">=</span><span class="s2">"v4 v4.1"</span>
+<span class="c1"># Deployment settings (retain these across component updates)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VERSIOND_NON_HA_VERSIONS</span><span class="o">=</span><span class="s2">""</span>
+<span class="c1"># Use the same filtered catalog for replicas and both routing tiers.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VERSIOND_ROUTING_CATALOG_URL</span><span class="o">=</span>http://oracle-filter:9100/versions
+<span class="nb">export</span><span class="w"> </span><span class="nv">COMPOSE_FILE</span><span class="o">=</span>docker-compose.yml:docker-compose.versiond.yml:docker-compose.devshard-v5.override.yml
+<span class="c1"># Append every additional override used by this deployment, in the same order.</span>
+</code></pre></div>
+<p>保持 <code>VERSIOND_NON_HA_VERSIONS</code> 为空。在每次运行时，将所有覆盖项包含在 <code>COMPOSE_FILE</code> 中，顺序保持一致。</p>
+<p><strong>2. 在 <code>deploy/join</code> 中创建 <code>docker-compose.devshard-v5.override.yml</code>。</strong></p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.devshard-v5.override.yml<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<span class="s">services:</span>
+<span class="s">  # Shared catalog of selected HA protocols for replicas and routers.</span>
+<span class="s">  oracle-filter:</span>
+<span class="s">    container_name: oracle-filter</span>
+<span class="s">    image: ${ORACLE_FILTER_IMAGE:?set the component images in config.env}</span>
+<span class="s">    environment:</span>
+<span class="s">      - ORACLE_UPSTREAM=http://api:9100/versions</span>
+<span class="s">      - ORACLE_ALLOW=${VERSIOND_VERSIONS:?set the approved HA protocol list}</span>
+<span class="s">      - LISTEN_PORT=9100</span>
+<span class="s">    command:</span>
+<span class="s">      - python</span>
+<span class="s">      - -c</span>
+<span class="s">      - |</span>
+<span class="s">        import json, os, urllib.request</span>
+<span class="s">        from http.server import BaseHTTPRequestHandler, HTTPServer</span>
+<span class="s">        UP = os.environ["ORACLE_UPSTREAM"]</span>
+<span class="s">        ALLOW = set(x.strip() for x in os.environ["ORACLE_ALLOW"].replace(",", " ").split() if x.strip())</span>
+<span class="s">        PORT = int(os.environ.get("LISTEN_PORT", "9100"))</span>
+<span class="s">        class H(BaseHTTPRequestHandler):</span>
+<span class="s">            def do_GET(self):</span>
+<span class="s">                if self.path.split("?",1)[0] not in ("/versions", "/"):</span>
+<span class="s">                    self.send_response(404); self.end_headers(); return</span>
+<span class="s">                with urllib.request.urlopen(UP, timeout=10) as r:</span>
+<span class="s">                    data = json.load(r)</span>
+<span class="s">                vers = [v for v in data.get("versions", []) if v.get("name") in ALLOW]</span>
+<span class="s">                body = json.dumps({"versions": vers}).encode()</span>
+<span class="s">                self.send_response(200)</span>
+<span class="s">                self.send_header("Content-Type", "application/json")</span>
+<span class="s">                self.send_header("Content-Length", str(len(body)))</span>
+<span class="s">                self.end_headers()</span>
+<span class="s">                self.wfile.write(body)</span>
+<span class="s">            def log_message(self, *args):</span>
+<span class="s">                pass</span>
+<span class="s">        HTTPServer(("0.0.0.0", PORT), H).serve_forever()</span>
+<span class="s">    depends_on:</span>
+<span class="s">      api:</span>
+<span class="s">        condition: service_started</span>
+<span class="s">    networks:</span>
+<span class="s">      default: {}</span>
+<span class="s">      versiond-router-back: {}</span>
+<span class="s">    restart: always</span>
+
+<span class="s">  # Local Compose PostgreSQL: size for every replica and protocol; see Step 1.</span>
+<span class="s">  devshard-postgres:</span>
+<span class="s">    command: ["postgres", "-c", "max_connections=250"]</span>
+
+<span class="s">  versiond:</span>
+<span class="s">    environment:</span>
+<span class="s">      - VERSIOND_ORACLE_URL=http://oracle-filter:9100/versions</span>
+<span class="s">      - VERSIOND_NON_HA_VERSIONS=${VERSIOND_NON_HA_VERSIONS-}</span>
+<span class="s">    depends_on:</span>
+<span class="s">      oracle-filter:</span>
+<span class="s">        condition: service_started</span>
+<span class="s">      devshard-postgres:</span>
+<span class="s">        condition: service_healthy</span>
+
+<span class="s">  versiond2:</span>
+<span class="s">    environment:</span>
+<span class="s">      - VERSIOND_ORACLE_URL=http://oracle-filter:9100/versions</span>
+<span class="s">      - VERSIOND_NON_HA_VERSIONS=${VERSIOND_NON_HA_VERSIONS-}</span>
+<span class="s">    depends_on:</span>
+<span class="s">      oracle-filter:</span>
+<span class="s">        condition: service_started</span>
+<span class="s">      devshard-postgres:</span>
+<span class="s">        condition: service_healthy</span>
+
+<span class="s">  # Give every extra replica the same oracle-filter environment and dependencies.</span>
+
+<span class="s">  proxy:</span>
+<span class="s">    environment:</span>
+<span class="s">      - VERSIOND_NON_HA_VERSIONS=${VERSIOND_NON_HA_VERSIONS-}</span>
+<span class="s">      - VERSIOND_ROUTING_CATALOG_URL=${VERSIOND_ROUTING_CATALOG_URL:?set the routing catalog URL}</span>
+<span class="s">      - VERSIOND_VERSIONS=${VERSIOND_VERSIONS:?set the approved HA protocol list}</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h4 id="22-postgresql">2.2 外部或托管 PostgreSQL</h4>
+<p>如果使用本地 Compose PostgreSQL，请跳过本节，前往 <a href="#step-3-start-the-deployment">步骤 3</a>。</p>
+<p>直接连接到 PostgreSQL。如果使用连接池（如 PgBouncer），请配置会话池；事务池不被支持。</p>
+<p>此部署不支持通过 <code>PGSSL*</code> 变量配置 PostgreSQL TLS；仅接受 <code>PGSSLMODE=disable</code>。如果您的提供商要求显式 TLS 设置，则此流程不适用。不要禁用必需的 TLS。</p>
+<p>通过提供商创建数据库和角色，或运行：</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">devshardd</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'...'</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">devshardd</span><span class="w"> </span><span class="k">OWNER</span><span class="w"> </span><span class="n">devshardd</span><span class="p">;</span>
+</code></pre></div>
+<p>允许来自每个副本的访问。按 <a href="#configure-postgresql-credentials">配置 PostgreSQL 凭据</a> 中所述保存凭据。创建 <code>docker-compose.devshard-pg-external.override.yml</code>，包含数据库主机和端口：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">devshard-postgres</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">profiles</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">local-postgres</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># Leave this profile disabled.</span>
+
+<span class="w">  </span><span class="nt">versiond</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;external-postgres</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">PGHOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-managed-pg.example.com</span>
+<span class="w">      </span><span class="nt">PGPORT</span><span class="p">:</span><span class="w"> </span><span class="s">"5432"</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="kt">!override</span>
+<span class="w">      </span><span class="nt">api</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_started</span>
+<span class="w">      </span><span class="nt">oracle-filter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_started</span>
+
+<span class="w">  </span><span class="nt">versiond2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="nv">*external-postgres</span>
+</code></pre></div>
+<p>额外副本：使用 <code>&lt;&lt;: *external-postgres</code> 添加服务名称。</p>
+<p>在 <code>config.env</code> 中设置 <code>COMPOSE_FILE</code>，追加任何其他覆盖项：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">COMPOSE_FILE</span><span class="o">=</span>docker-compose.yml:docker-compose.versiond.yml:docker-compose.devshard-v5.override.yml:docker-compose.devshard-pg-external.override.yml
+</code></pre></div>
+<h3 id="3">步骤 3：启动部署</h3>
+<p>在加入主机上运行。首次失败时停止：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>/path/to/gonka/deploy/join
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">COMPOSE_FILE</span><span class="p">:?set the complete Compose file list in config.env</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>prepare-networks
+
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span>
+
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>apply
+<span class="o">)</span>
+</code></pre></div>
+<h3 id="4">步骤 4：验证是否正常工作</h3>
+<h4 id="41">4.1 检查运行中的服务</h4>
+<p>在安装或更新后，在加入主机上运行。列出 <code>replicas</code> 中的每个本地副本；在远程主机上重复副本检查。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/path/to/gonka/deploy/join
+<span class="nb">source</span><span class="w"> </span>./config.env
+<span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VERSIOND_VERSIONS</span><span class="p">:?set the approved HA protocol list</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span><span class="nv">replicas</span><span class="o">=(</span>versiond<span class="w"> </span>versiond2<span class="o">)</span>
+
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>verify-admission
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>replica<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">replicas</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"</span><span class="nv">$replica</span><span class="s2">"</span><span class="w"> </span>wget<span class="w"> </span>-qO-<span class="w"> </span>http://127.0.0.1:8080/readyz
+<span class="w">    </span><span class="k">for</span><span class="w"> </span>version<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$VERSIOND_VERSIONS</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"</span><span class="nv">$replica</span><span class="s2">"</span><span class="w"> </span>wget<span class="w"> </span>-qO-<span class="w"> </span><span class="s2">"http://127.0.0.1:8080/readyz?version=</span><span class="nv">$version</span><span class="s2">"</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>version<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$VERSIOND_VERSIONS</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>./versiond-router-fleet.sh<span class="w"> </span>wait-version<span class="w"> </span><span class="s2">"</span><span class="nv">$version</span><span class="s2">"</span>
+<span class="w">    </span>curl<span class="w"> </span>-fsS<span class="w"> </span><span class="s2">"http://127.0.0.1:</span><span class="si">${</span><span class="nv">API_PORT</span><span class="k">:-</span><span class="nv">8000</span><span class="si">}</span><span class="s2">/devshard/</span><span class="nv">$version</span><span class="s2">/healthz"</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>所有命令必须成功；就绪和公共健康端点必须返回 HTTP 200。保留提供的 <code>/readyz</code> Docker 健康检查。</p>
+<p>新或替换的远程成员：在池准入前通过 <a href="#check-the-remote-database">数据库检查</a>。</p>
+<h4 id="42">4.2 检查路由故障转移</h4>
+<p>在安装或池更改后，对 <code>VERSIOND_VERSIONS</code> 中的每个协议运行。其余副本必须能够处理负载。</p>
+<ol>
+<li>在公共代理主机上，请求协议的健康端点：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="nv">version</span><span class="o">=</span><span class="s1">'&lt;protocol from VERSIOND_VERSIONS&gt;'</span>
+<span class="nv">url</span><span class="o">=</span><span class="s2">"http://127.0.0.1:</span><span class="si">${</span><span class="nv">API_PORT</span><span class="k">:-</span><span class="nv">8000</span><span class="si">}</span><span class="s2">/devshard/</span><span class="nv">$version</span><span class="s2">/healthz"</span>
+curl<span class="w"> </span>-sS<span class="w"> </span>-D<span class="w"> </span>-<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span><span class="s2">"</span><span class="nv">$url</span><span class="s2">"</span>
+</code></pre></div>
+<p>预期返回 HTTP 200。将 <code>X-Upstream-Addr</code> 匹配到本地容器或远程端点。包含每个本地副本：</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>inspect<span class="w"> </span>-f<span class="w"> </span><span class="s1">'{{.Name}} {{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}'</span><span class="w"> </span>versiond<span class="w"> </span>versiond2
+</code></pre></div>
+<ol>
+<li>停止 <code>X-Upstream-Addr</code> 中显示的副本，位于其主机上：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nv">replica</span><span class="o">=</span><span class="s1">'&lt;serving-container&gt;'</span>
+docker<span class="w"> </span>stop<span class="w"> </span>-t<span class="w"> </span><span class="m">1800</span><span class="w"> </span><span class="s2">"</span><span class="nv">$replica</span><span class="s2">"</span>
+</code></pre></div>
+<ol>
+<li>在公共代理主机上，重复相同的请求：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sS<span class="w"> </span>-D<span class="w"> </span>-<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span><span class="s2">"</span><span class="nv">$url</span><span class="s2">"</span>
+</code></pre></div>
+<p>预期 HTTP 200 和不同的 <code>X-Upstream-Addr</code>。</p>
+<ol>
+<li>即使检查失败，也要在主机上恢复已停止的副本：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>start<span class="w"> </span><span class="s2">"</span><span class="nv">$replica</span><span class="s2">"</span>
+</code></pre></div>
+<p>在停止另一个副本之前，先通过 <a href="#41-check-the-running-services">服务检查</a>。</p>
+<p>对于常规更新，仅运行 §4.1 中的服务检查。</p>
+<h2 id="_7">升级现有主机</h2>
+<p>滚动更新要求每个被服务的协议版本为 v5 或更高。服务较早协议的主机必须使用 <a href="#update-with-downtime">带停机时间的更新</a>。</p>
+<p>此升级流程支持使用 PostgreSQL 作为后端、版本为 v4 或更高、站点设置在 <code>config.env</code> 中、且 Compose 覆盖文件位于 Git 检出目录中的主机。版本早于 v4 的协议需要单独的迁移流程。</p>
+<h3 id="postgresql_2">备份 PostgreSQL 和部署文件</h3>
+<p>在替换发布文件之前，在现有主机的 <code>deploy/join</code> 中运行。保留 <code>versiond</code> 运行，并保存打印出的备份目录。</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span>mkdir<span class="w"> </span>-p<span class="w"> </span>backups
+<span class="w">  </span><span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/backups/pre-update.XXXXXXXX"</span><span class="k">)</span>
+<span class="w">  </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'Backup directory: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">"</span>
+<span class="w">  </span>git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/previous-commit"</span>
+<span class="w">  </span>docker<span class="w"> </span>inspect<span class="w"> </span>versiond<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/versiond.json"</span>
+<span class="w">  </span>python3<span class="w"> </span>-<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">"</span><span class="w"> </span><span class="s">&lt;&lt;'PYTHON'</span>
+<span class="s">import json, os, pathlib, shutil, subprocess, sys</span>
+<span class="s">backup = pathlib.Path(sys.argv[1])</span>
+<span class="s">container = json.loads((backup / "versiond.json").read_text())[0]</span>
+<span class="s">labels = container["Config"]["Labels"]</span>
+<span class="s">files = [pathlib.Path("config.env").resolve()]</span>
+<span class="s">files += [pathlib.Path(p) for p in labels["com.docker.compose.project.config_files"].split(",")]</span>
+<span class="s">if os.environ.get("VERSIOND_POOL_ENDPOINTS_FILE"):</span>
+<span class="s">    files.append(pathlib.Path(os.environ["VERSIOND_POOL_ENDPOINTS_FILE"]).resolve())</span>
+<span class="s">manifest, local_files = [], []</span>
+<span class="s">for src in dict.fromkeys(files):</span>
+<span class="s">    if not src.is_file():</span>
+<span class="s">        sys.exit(f"Missing deployment file: {src}")</span>
+<span class="s">    dst = backup / "files" / str(src).lstrip("/")</span>
+<span class="s">    dst.parent.mkdir(parents=True, exist_ok=True)</span>
+<span class="s">    shutil.copy2(src, dst)</span>
+<span class="s">    manifest.append(str(src))</span>
+<span class="s">    tracked = subprocess.run(["git", "ls-files", "--error-unmatch", str(src)],</span>
+<span class="s">                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0</span>
+<span class="s">    if not tracked or src.name == "config.env" or str(src) == str(pathlib.Path(os.environ.get("VERSIOND_POOL_ENDPOINTS_FILE", "")).resolve()):</span>
+<span class="s">        local_files.append(str(src))</span>
+<span class="s">(backup / "files.json").write_text(json.dumps(manifest, indent=2))</span>
+<span class="s">(backup / "local-files.json").write_text(json.dumps(local_files, indent=2))</span>
+<span class="s">env = dict(item.split("=", 1) for item in container["Config"]["Env"])</span>
+<span class="s">pg = {k: v for k, v in env.items() if k.startswith("PG") and k != "PG_POOL_MAX_CONNS"}</span>
+<span class="s">if not pg.get("PGHOST") or any("\n" in v or "\r" in v for v in pg.values()):</span>
+<span class="s">    sys.exit("Expected an existing PostgreSQL-backed versiond")</span>
+<span class="s">(backup / "postgres.env").write_text("".join(f"{k}={v}\n" for k, v in pg.items()))</span>
+<span class="s">(backup / "project").write_text(labels["com.docker.compose.project"])</span>
+<span class="s">PYTHON</span>
+<span class="w">  </span><span class="nv">project</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/project"</span><span class="k">)</span>
+<span class="w">  </span>docker<span class="w"> </span>ps<span class="w"> </span>-aq<span class="w"> </span>--filter<span class="w"> </span><span class="s2">"label=com.docker.compose.project=</span><span class="nv">$project</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>xargs<span class="w"> </span>-r<span class="w"> </span>docker<span class="w"> </span>inspect<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/containers.json"</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span>docker<span class="w"> </span>inspect<span class="w"> </span>devshard-postgres<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/postgres.json"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>devshard-postgres<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{index .Config.Labels "com.docker.compose.project"}}'</span><span class="k">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"</span><span class="nv">$project</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">    </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>devshard-postgres<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="s1">'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Atc "SELECT system_identifier FROM pg_control_system();"'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/postgres-system-identifier"</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="w">  </span>docker<span class="w"> </span>pull<span class="w"> </span>postgres:16-alpine
+<span class="w">  </span><span class="nv">pg_args</span><span class="o">=(</span>--rm<span class="w"> </span>--network<span class="w"> </span>container:versiond<span class="w"> </span>--env-file<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/postgres.env"</span><span class="o">)</span>
+<span class="w">  </span><span class="nv">pg_major</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>run<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">pg_args</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>postgres:16-alpine<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>psql<span class="w"> </span>-XAtw<span class="w"> </span>-v<span class="w"> </span><span class="nv">ON_ERROR_STOP</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT current_setting('server_version_num')::int / 10000"</span><span class="k">)</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$pg_major</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span>^<span class="o">[</span><span class="m">1</span>-9<span class="o">][</span><span class="m">0</span>-9<span class="o">]</span>*$<span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="nv">pg_client</span><span class="o">=</span><span class="s2">"postgres:</span><span class="nv">$pg_major</span><span class="s2">-alpine"</span>
+<span class="w">  </span>docker<span class="w"> </span>pull<span class="w"> </span><span class="s2">"</span><span class="nv">$pg_client</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span>run<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">pg_args</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$pg_client</span><span class="s2">"</span><span class="w"> </span>pg_dump<span class="w"> </span>-w<span class="w"> </span>-Fc<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/database.dump"</span>
+<span class="w">  </span>docker<span class="w"> </span>run<span class="w"> </span>-i<span class="w"> </span>--rm<span class="w"> </span><span class="s2">"</span><span class="nv">$pg_client</span><span class="s2">"</span><span class="w"> </span>pg_restore<span class="w"> </span>--list<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/database.dump"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/database.contents"</span>
+<span class="w">  </span><span class="nb">test</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/database.contents"</span>
+<span class="w">  </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$pg_client</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/pg-client"</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">'Backup complete.'</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>仅在 <code>Backup complete.</code> 后继续。备份包含密码；请保密。存档检查不测试完整恢复。</p>
+<h3 id="_8">准备发布版本</h3>
+<p>完成 <a href="#back-up-postgresql-and-deployment-files">备份</a>。在 <code>deploy/join</code> 中，进入其打印出的目录。保留站点设置在 <code>config.env</code> 中，并保持独立的、未跟踪的 Compose 覆盖文件。</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s1">'Pre-update backup directory: '</span><span class="w"> </span>BACKUP_DIR
+<span class="w">  </span><span class="nb">test</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">"</span>
+<span class="w">  </span><span class="nb">test</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/database.contents"</span>
+<span class="w">  </span><span class="nb">test</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/previous-commit"</span>
+<span class="w">  </span>git<span class="w"> </span>diff<span class="w"> </span>--binary<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/tracked.patch"</span>
+<span class="w">  </span>git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w"> </span>--binary<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/staged.patch"</span>
+<span class="w">  </span>git<span class="w"> </span>diff<span class="w"> </span>--exit-code
+<span class="w">  </span>git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w"> </span>--exit-code
+<span class="w">  </span>git<span class="w"> </span>fetch<span class="w"> </span>https://github.com/gonka-ai/gonka.git<span class="w"> </span>refs/tags/devshard/v5.0.1
+<span class="w">  </span>git<span class="w"> </span>switch<span class="w"> </span>--detach<span class="w"> </span>FETCH_HEAD
+<span class="w">  </span><span class="c1"># Confirm that config.env and the separate site overrides survived unchanged.</span>
+<span class="w">  </span>python3<span class="w"> </span>-<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">"</span><span class="w"> </span><span class="s">&lt;&lt;'PYTHON'</span>
+<span class="s">import json, pathlib, sys</span>
+<span class="s">backup = pathlib.Path(sys.argv[1])</span>
+<span class="s">for name in json.loads((backup / "local-files.json").read_text()):</span>
+<span class="s">    path = pathlib.Path(name)</span>
+<span class="s">    if not path.is_file() or path.read_bytes() != (backup / "files" / name.lstrip("/")).read_bytes():</span>
+<span class="s">        sys.exit(f"Local configuration changed: {path}; stop before updating containers")</span>
+<span class="s">PYTHON</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>如果受跟踪的文件有本地修改，此步骤将停止。不涵盖自动合并；请保留保存的补丁，不要运行 <code>git reset --hard</code>。</p>
+<p>应用 <a href="#release-and-images">发布和镜像</a>。站点覆盖必须使用这些镜像变量，而非硬编码的应用镜像。</p>
+<p>不要用新安装示例替换 <code>config.env</code>。先更新，再添加协议。不要将此更新与数据库迁移、PostgreSQL 主版本升级或集群重新配置合并。</p>
+<details>
+<summary><strong>如果旧的 config.env 没有 VERSIOND_VERSIONS</strong></summary>
+
+读取现有 `versiond` 上运行的协议：
+
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nv">versions</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>versiond<span class="w"> </span>/bin/busybox<span class="w"> </span>wget<span class="w"> </span>-qO-<span class="w"> </span>http://127.0.0.1:8080/healthz<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>jq<span class="w"> </span>-er<span class="w"> </span><span class="s1">'if length &gt; 0 and all(.[]; .status == "running" and (.name == "v4" or .name == "v4.1" or .name == "v5")) then map(.name) | join(" ") else error("Expected running HA protocols only; stop") end'</span><span class="k">)</span>
+<span class="w">  </span><span class="nv">VERSIOND_VERSIONS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$versions</span><span class="s2">"</span><span class="w"> </span>python3<span class="w"> </span><span class="s">&lt;&lt;'PYTHON'</span>
+<span class="s">import os, pathlib, re, shlex</span>
+<span class="s">path = pathlib.Path("config.env")</span>
+<span class="s">name = "VERSIOND_VERSIONS"</span>
+<span class="s">lines = path.read_text().splitlines()</span>
+<span class="s">lines = [line for line in lines if not re.match(r"^\s*(?:export\s+)?" + name + r"\s*=", line)]</span>
+<span class="s">lines.append("export " + name + "=" + shlex.quote(os.environ[name]))</span>
+<span class="s">path.chmod(0o600)</span>
+<span class="s">path.write_text("\n".join(lines) + "\n")</span>
+<span class="s">PYTHON</span>
+<span class="o">)</span>
+</code></pre></div>
+
+如果任何协议未运行或列表中包含非 HA 版本，则停止。
+
+</details>
+
+<p>首次 HA 设置：完成 <a href="#21-same-machine-two-replicas">§2.1</a> 以设置 HA 变量并创建过滤器覆盖；保留当前协议列表。对于外部数据库，还需使用现有数据库完成 <a href="#22-external-or-managed-postgresql">§2.2</a>。然后继续以下步骤；不要运行安装步骤 3–4。</p>
+<p>现有 HA 主机：检查 <a href="#size-max_connections"><code>max_connections</code></a>。对于本地 Compose PostgreSQL，将 <a href="#21-same-machine-two-replicas">§2.1</a> 中的 <code>devshard-postgres</code> 条目添加到现有覆盖中。带停机时间的更新会重启 PostgreSQL 并应用它；滚动更新不会。</p>
+<p>重新加载并验证：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>/path/to/gonka/deploy/join
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span><span class="c1"># Keep every active override in the ordered COMPOSE_FILE saved in config.env.</span>
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">COMPOSE_FILE</span><span class="p">:?set the complete Compose file list in config.env</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VERSIOND_VERSIONS</span><span class="p">:?retain the approved HA protocol list in config.env</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>config<span class="w"> </span>--quiet
+<span class="o">)</span>
+</code></pre></div>
+<h3 id="_9">检查数据库布局</h3>
+<p>外部 PostgreSQL：保持其运行，并前往 <a href="#3-update-the-deployment">更新部署</a>。对于本地 PostgreSQL，检查数据目录和挂载：</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>inspect<span class="w"> </span>devshard-postgres<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{json .Mounts}}'</span>
+docker<span class="w"> </span>inspect<span class="w"> </span>devshard-postgres<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{json .Config.Env}}'</span><span class="w"> </span><span class="p">|</span>
+<span class="w">  </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.[] | select(startswith("PGDATA="))'</span>
+</code></pre></div>
+<p>现有的持久路径 <code>${DEVSHARD_POSTGRES_DATA_DIR:-./devshards/postgres}/data</code> 无需复制。位于 <code>/var/lib/postgresql/data</code> 的 Docker 卷需要以下流程。</p>
+<details>
+<summary><strong>一次性从旧 PostgreSQL 卷复制</strong></summary>
+
+适用于一个加入主机，且所有写入者均列在 `replicas` 中。使用发布提供的 PostgreSQL 镜像，针对现有的 PostgreSQL 16 Alpine 集群。首先完成 [目录准备](#prepare-the-postgresql-directory)。
+
+在 `deploy/join` 中运行：
+
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">COMPOSE_FILE</span><span class="p">:?set the complete Compose file list</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span><span class="nv">replicas</span><span class="o">=(</span>versiond<span class="w"> </span>versiond2<span class="o">)</span>
+<span class="w">  </span>mkdir<span class="w"> </span>-p<span class="w"> </span>backups
+<span class="w">  </span><span class="nv">backup_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/backups/postgres-copy.XXXXXXXX"</span><span class="k">)</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Backup directory: </span><span class="nv">$backup_dir</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span>inspect<span class="w"> </span>devshard-postgres<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/postgres.json"</span>
+<span class="w">  </span><span class="nv">source_id</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>devshard-postgres<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Atc "SELECT system_identifier FROM pg_control_system();"'</span><span class="k">)</span>
+<span class="w">  </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$source_id</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/system-identifier"</span>
+<span class="w">  </span>bash<span class="w"> </span>./devshard-postgres-migration-preflight.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--source-container<span class="w"> </span>devshard-postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--target-dir<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">DEVSHARD_POSTGRES_DATA_DIR</span><span class="k">:-</span><span class="p">./devshards/postgres</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>stop-all<span class="w"> </span>--maintenance
+<span class="w">  </span>docker<span class="w"> </span>stop<span class="w"> </span>--time<span class="w"> </span><span class="m">1800</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">replicas</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>devshard-postgres<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Fc'</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/database.dump"</span>
+<span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>devshard-postgres<span class="w"> </span>pg_restore<span class="w"> </span>--list<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/database.dump"</span><span class="w"> </span>&gt;/dev/null
+<span class="w">  </span>docker<span class="w"> </span>stop<span class="w"> </span>--time<span class="w"> </span><span class="m">300</span><span class="w"> </span>devshard-postgres
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>prepare-networks
+<span class="w">  </span><span class="c1"># The PostgreSQL entrypoint copies the old volume into the persistent directory.</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span>devshard-postgres
+<span class="w">  </span><span class="nv">target_id</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>devshard-postgres<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Atc "SELECT system_identifier FROM pg_control_system();"'</span><span class="k">)</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$source_id</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="s2">"</span><span class="nv">$target_id</span><span class="s2">"</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"</span><span class="nv">$source_id</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span>
+<span class="o">)</span>
+</code></pre></div>
+
+失败时，保持副本停止并检查 `docker compose logs --tail=100 devshard-postgres`。保留源卷和备份：不要执行 `down -v`、`rm -v`、清理或 `--renew-anon-volumes`。
+
+如果 Compose 在复制继续时停止等待，请保持 PostgreSQL 运行。等待直到此命令报告 `healthy`：
+
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{.State.Health.Status}}'</span><span class="w"> </span>devshard-postgres
+</code></pre></div>
+
+然后使用上面打印的备份目录重复标识符检查：
+
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nv">backup_dir</span><span class="o">=</span><span class="s1">'&lt;printed-backup-directory&gt;'</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{.State.Health.Status}}'</span><span class="w"> </span>devshard-postgres<span class="k">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>healthy<span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="nv">source_id</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/system-identifier"</span><span class="k">)</span>
+<span class="w">  </span><span class="nv">target_id</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>devshard-postgres<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Atc "SELECT system_identifier FROM pg_control_system();"'</span><span class="k">)</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$source_id</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="s2">"</span><span class="nv">$target_id</span><span class="s2">"</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"</span><span class="nv">$source_id</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">'System identifiers match.'</span>
+<span class="o">)</span>
+</code></pre></div>
+
+成功后，继续执行[带停机时间的更新](#update-with-downtime)。保持旧副本停止。
+
+<details>
+<summary><strong>如果旧卷已分离</strong></summary>
+
+保持所有副本停止。完成[目录准备](#prepare-the-postgresql-directory)，然后进入预更新备份目录：
+
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s1">'Pre-update backup directory: '</span><span class="w"> </span>BACKUP_DIR
+<span class="w">  </span><span class="nv">DEVSHARD_POSTGRES_LEGACY_VOLUME</span><span class="o">=</span><span class="k">$(</span>jq<span class="w"> </span>-er<span class="w"> </span><span class="s1">'[.[0].Mounts[] | select(.Type == "volume" and .Destination == "/var/lib/postgresql/data") | .Name] | if length == 1 then .[0] else error("Expected one old PostgreSQL volume") end'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/postgres.json"</span><span class="k">)</span>
+<span class="w">  </span><span class="nb">export</span><span class="w"> </span>DEVSHARD_POSTGRES_LEGACY_VOLUME
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$DEVSHARD_POSTGRES_LEGACY_VOLUME</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="nb">test</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/postgres-system-identifier"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="c1"># Command-line -f replaces COMPOSE_FILE, so pass the complete list explicitly.</span>
+<span class="w">  </span><span class="nv">files</span><span class="o">=()</span>
+<span class="w">  </span><span class="nv">IFS</span><span class="o">=</span><span class="s1">':'</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-ra<span class="w"> </span>parts<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="s2">"</span><span class="nv">$COMPOSE_FILE</span><span class="s2">"</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">parts</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nv">files</span><span class="o">+=(</span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$f</span><span class="s2">"</span><span class="o">)</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+<span class="w">  </span>bash<span class="w"> </span>./devshard-postgres-migration-preflight.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source-volume<span class="w"> </span><span class="s2">"</span><span class="nv">$DEVSHARD_POSTGRES_LEGACY_VOLUME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-dir<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">DEVSHARD_POSTGRES_DATA_DIR</span><span class="k">:-</span><span class="p">./devshards/postgres</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">files</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-f<span class="w"> </span>docker-compose.versiond-postgres-recovery.yml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span>devshard-postgres
+
+<span class="w">  </span><span class="c1"># Compare the system identifier with the backup before proceeding.</span>
+<span class="w">  </span><span class="nv">source_id</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/postgres-system-identifier"</span><span class="k">)</span>
+<span class="w">  </span><span class="nv">target_id</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>devshard-postgres<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Atc "SELECT system_identifier FROM pg_control_system();"'</span><span class="k">)</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$source_id</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="s2">"</span><span class="nv">$target_id</span><span class="s2">"</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"</span><span class="nv">$source_id</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">'System identifiers match.'</span>
+<span class="o">)</span>
+</code></pre></div>
+
+在 `System identifiers match.` 之后，使用正常的 `COMPOSE_FILE`（不带恢复覆盖层）继续执行[带停机时间的更新](#update-with-downtime)。保持副本停止；保留源卷和备份。不要启用 `DEVSHARD_POSTGRES_ALLOW_EMPTY_INIT`。
+
+</details>
+
+</details>
+
+<h3 id="_10">更新部署</h3>
+<p>安排维护：更换公共代理可能会中断连接。</p>
+<p>滚动更新要求每个服务协议版本为 v5 或更高。如果任何服务协议版本早于 v5，请使用下面的停机时间流程。保持 <code>UPDATE_SKIP_POSTGRES_PROBE</code> 和 <code>UPDATE_ACCEPT_DATABASE_CHANGE</code> 禁用。</p>
+<h4 id="_11">带停机时间的更新</h4>
+<p>对于<strong>一个加入主机</strong>，使用相同的外部数据库或持久路径上的本地 PostgreSQL。如有必要，先复制<a href="#2-check-the-database-layout">旧本地卷</a>。保持数据库设置、参与者身份、副本数据挂载和协议不变。此流程不涵盖数据库迁移或多主机更新。</p>
+<p>在 <code>deploy/join</code> 中运行；将每个本地副本包含在 <code>replicas</code> 中。备份包含凭证；请保持其目录私密。</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">COMPOSE_FILE</span><span class="p">:?set the complete Compose file list</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span><span class="nv">replicas</span><span class="o">=(</span>versiond<span class="w"> </span>versiond2<span class="o">)</span>
+<span class="w">  </span>mkdir<span class="w"> </span>-p<span class="w"> </span>backups
+<span class="w">  </span><span class="nv">backup_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/backups/ha-update.XXXXXXXX"</span><span class="k">)</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Backup directory: </span><span class="nv">$backup_dir</span><span class="s2">"</span>
+
+<span class="w">  </span><span class="c1"># Save the old settings and reject changes to PostgreSQL connections.</span>
+<span class="w">  </span>docker<span class="w"> </span>inspect<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">replicas</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/containers.json"</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>config<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/compose.json"</span>
+<span class="w">  </span>python3<span class="w"> </span>-<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">"</span><span class="w"> </span><span class="s">&lt;&lt;'PYTHON'</span>
+<span class="s">import json, sys</span>
+<span class="s">from pathlib import Path</span>
+<span class="s">path = Path(sys.argv[1])</span>
+<span class="s">model = json.loads((path / "compose.json").read_text())</span>
+<span class="s">reference = None</span>
+<span class="s">for container in json.loads((path / "containers.json").read_text()):</span>
+<span class="s">    service = container["Config"]["Labels"]["com.docker.compose.service"]</span>
+<span class="s">    old = dict(item.split("=", 1) for item in container["Config"]["Env"])</span>
+<span class="s">    new = model["services"][service]["environment"]</span>
+<span class="s">    old = {key: value for key, value in old.items() if key.startswith("PG") and key != "PG_POOL_MAX_CONNS"}</span>
+<span class="s">    new = {key: value for key, value in new.items() if key.startswith("PG") and key != "PG_POOL_MAX_CONNS"}</span>
+<span class="s">    old.setdefault("PGPORT", "5432")</span>
+<span class="s">    new.setdefault("PGPORT", "5432")</span>
+<span class="s">    if old != new or (reference is not None and old != reference):</span>
+<span class="s">        sys.exit(f"{service}: PostgreSQL settings differ; keep the existing connection")</span>
+<span class="s">    if model["networks"]["default"]["name"] not in container["NetworkSettings"]["Networks"]:</span>
+<span class="s">        sys.exit(f"{service}: deployment network changed; stop")</span>
+<span class="s">    reference = old</span>
+<span class="s">if not reference or any("\n" in value or "\r" in value for value in reference.values()):</span>
+<span class="s">    sys.exit("Cannot export PostgreSQL settings to a Docker env file")</span>
+<span class="s">(path / "postgres.env").write_text("".join(f"{key}={value}\n" for key, value in reference.items()))</span>
+<span class="s">PYTHON</span>
+<span class="w">  </span><span class="nv">pg_network</span><span class="o">=</span><span class="k">$(</span>jq<span class="w"> </span>-er<span class="w"> </span><span class="s1">'.networks.default.name'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/compose.json"</span><span class="k">)</span>
+<span class="w">  </span><span class="nv">pg_args</span><span class="o">=(</span>--rm<span class="w"> </span>--network<span class="w"> </span><span class="s2">"</span><span class="nv">$pg_network</span><span class="s2">"</span><span class="w"> </span>--env-file<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/postgres.env"</span><span class="o">)</span>
+
+<span class="w">  </span><span class="c1"># Select pg_dump for the running server's major version; pull before downtime.</span>
+<span class="w">  </span>docker<span class="w"> </span>pull<span class="w"> </span>postgres:16-alpine
+<span class="w">  </span><span class="nv">pg_major</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>run<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">pg_args</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>postgres:16-alpine<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>psql<span class="w"> </span>-XAtw<span class="w"> </span>-v<span class="w"> </span><span class="nv">ON_ERROR_STOP</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT current_setting('server_version_num')::int / 10000"</span><span class="k">)</span>
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$pg_major</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span>^<span class="o">[</span><span class="m">1</span>-9<span class="o">][</span><span class="m">0</span>-9<span class="o">]</span>*$<span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="nv">pg_client</span><span class="o">=</span><span class="s2">"postgres:</span><span class="nv">$pg_major</span><span class="s2">-alpine"</span>
+<span class="w">  </span>docker<span class="w"> </span>pull<span class="w"> </span><span class="s2">"</span><span class="nv">$pg_client</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>pull<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">replicas</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>proxy<span class="w"> </span>proxy-policy<span class="w"> </span>proxy-policy2
+
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Starting maintenance"</span>
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>stop-all<span class="w"> </span>--maintenance
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">replicas</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span>run<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">pg_args</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$pg_client</span><span class="s2">"</span><span class="w"> </span>pg_dump<span class="w"> </span>-w<span class="w"> </span>-Fc<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/database.dump"</span>
+<span class="w">  </span>docker<span class="w"> </span>run<span class="w"> </span>-i<span class="w"> </span>--rm<span class="w"> </span><span class="s2">"</span><span class="nv">$pg_client</span><span class="s2">"</span><span class="w"> </span>pg_restore<span class="w"> </span>--list<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/database.dump"</span><span class="w"> </span>&gt;/dev/null
+<span class="w">  </span>./update-devshard.sh<span class="w"> </span>--check
+
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>prepare-networks
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.services.versiond.environment.PGHOST'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/compose.json"</span><span class="k">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>devshard-postgres<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span>devshard-postgres
+<span class="w">  </span><span class="k">fi</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>oracle-filter
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">replicas</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>proxy
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span>proxy-policy2<span class="w"> </span>proxy-policy<span class="w"> </span>proxy
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>apply
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>verify-admission
+<span class="w">  </span><span class="nv">project</span><span class="o">=</span><span class="k">$(</span>jq<span class="w"> </span>-er<span class="w"> </span><span class="s1">'.name | select(length &gt; 0)'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/compose.json"</span><span class="k">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nv">legacy_project</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{index .Config.Labels "com.docker.compose.project"}}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>versiond-router<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$legacy_project</span><span class="s2">"</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"</span><span class="nv">$project</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>versiond-router
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>预检检查数据库访问和容量，而非数据库身份。如果镜像下载失败，仅在未发生数据库复制、容器停止或替换的情况下<a href="#cancel-before-maintenance">取消准备</a>。</p>
+<p>运行<a href="#41-check-the-running-services">服务检查</a>，然后在此处停止。</p>
+<h4 id="_12">滚动更新</h4>
+<p>要求每个服务协议版本为 v5 或更高。保持 PostgreSQL、过滤器、副本和路由器集群运行。</p>
+<p>在首次滚动更新前准备过滤器：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./config.env
+./versiond-router-fleet.sh<span class="w"> </span>prepare-networks
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>oracle-filter
+</code></pre></div>
+<p>滚动更新要求每个服务协议版本为 v5 或更高。如果任何服务协议版本早于 v5，请使用<a href="#update-with-downtime">带停机时间的更新</a>。如果检查超时、返回 HTTP 503 或未能确认副本使用相同数据库，请勿继续。</p>
+<p>检查每个副本上的每个协议：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="c1"># Include every local member; repeat on remote hosts.</span>
+<span class="w">  </span><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-e
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VERSIOND_VERSIONS</span><span class="p">:?set the approved HA protocol list</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>replica<span class="w"> </span><span class="k">in</span><span class="w"> </span>versiond<span class="w"> </span>versiond2<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span>version<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$VERSIOND_VERSIONS</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nv">output</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"</span><span class="nv">$replica</span><span class="s2">"</span><span class="w"> </span>/bin/busybox<span class="w"> </span>wget<span class="w"> </span>-S<span class="w"> </span>-O<span class="w"> </span>/dev/null<span class="w"> </span>-T<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span><span class="s2">"http://127.0.0.1:8080/readyz?version=</span><span class="nv">$version</span><span class="s2">"</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">continue</span>
+<span class="w">      </span><span class="k">fi</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">"</span><span class="nv">$output</span><span class="s2">"</span><span class="w"> </span><span class="k">in</span>
+<span class="w">        </span>*<span class="s2">"HTTP/"</span>*<span class="s2">" 404 "</span>*<span class="o">)</span>
+<span class="w">          </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="s2">"</span><span class="nv">$replica</span><span class="s2">"</span><span class="w"> </span>/bin/busybox<span class="w"> </span>wget<span class="w"> </span>-qO-<span class="w"> </span>-T<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">            </span><span class="s2">"http://127.0.0.1:8080/</span><span class="nv">$version</span><span class="s2">/healthz"</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">        </span>*<span class="o">)</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s/%s: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$replica</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$version</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$output</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">      </span><span class="k">esac</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="w">  </span><span class="o">)</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>每个检查都应返回 HTTP 200。一次更新一个副本；在更新过程中，必须有另一个副本为每个协议提供服务。</p>
+<p>运行预检并预览替换内容。预检写入数据库探测，但不替换服务：</p>
+<div class="highlight"><pre><span></span><code>./update-devshard.sh<span class="w"> </span>--dry-run
+</code></pre></div>
+<p>审查建议的镜像和更改。如果出现目录创建错误，请运行<a href="#prepare-the-postgresql-directory">目录准备</a>并重试。预检失败时请勿继续。然后运行：</p>
+<div class="highlight"><pre><span></span><code>./update-devshard.sh
+</code></pre></div>
+<p>在最终验证前，一次替换<a href="#replace-a-member">一个远程成员</a>。</p>
+<p>运行<a href="#41-check-the-running-services">服务检查</a>。要启用新协议，请遵循<a href="#add-a-protocol">添加协议</a>。</p>
+<h2 id="_13">添加远程副本</h2>
+<p>此流程要求主机上的每个 <code>devshardd</code> 进程运行 v5 或更高版本的协议。较早的协议不支持此流程所需的共享数据库检查。</p>
+<p>在机器间使用私有网络。不要用相同的密钥启动第二个 dapi。</p>
+<p>新部署：首先在<strong>主主机</strong>上完成<a href="#step-3-start-the-deployment">启动</a>和<a href="#step-4-verify-it-works">验证</a>。</p>
+<table>
+<thead>
+<tr>
+<th>机器</th>
+<th>运行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>主主机</strong></td>
+<td>本地 <code>versiond</code> 副本 + node/api/proxy + 路由器集群</td>
+</tr>
+<tr>
+<td><strong>副本主机</strong></td>
+<td>仅 <code>versiond</code></td>
+</tr>
+<tr>
+<td>共享</td>
+<td>每个 <code>versiond</code> 实例均可访问的 PostgreSQL</td>
+</tr>
+</tbody>
+</table>
+<p>在副本检查通过前，将其排除在路由器池外。</p>
+<h3 id="_14">准备主主机</h3>
+<p>在<strong>主主机</strong>上，为<strong>副本主机</strong>在私有网络上发布这些端口：</p>
+<ul>
+<li>PostgreSQL <code>5432</code>，或外部数据库端口。</li>
+<li>节点管理器 <code>9400</code>。</li>
+<li>链 RPC/gRPC <code>26657</code>，<code>9090</code>。</li>
+<li>过滤的目录 <code>19100</code>。</li>
+</ul>
+<p>确认 <code>PGPASSWORD</code> 和 <code>KEYRING_PASSWORD</code> 与运行的本地 <code>versiond</code> 容器匹配。</p>
+<p>在<strong>主主机</strong>的 <code>config.env</code> 中设置 <code>export GONKA_PRIVATE_BIND_IP=&lt;primary-host-private-ip&gt;</code>。在 <code>deploy/join</code> 中运行：</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.devshard-private.override.yml<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<span class="s">services:</span>
+<span class="s">  node:</span>
+<span class="s">    ports:</span>
+<span class="s">      - "${GONKA_PRIVATE_BIND_IP:?set the primary host private IP}:26657:26657"</span>
+<span class="s">      - "${GONKA_PRIVATE_BIND_IP:?set the primary host private IP}:9090:9090"</span>
+<span class="s">  api:</span>
+<span class="s">    ports:</span>
+<span class="s">      - "${GONKA_PRIVATE_BIND_IP:?set the primary host private IP}:${NODE_MANAGER_GRPC_PORT:-9400}:${NODE_MANAGER_GRPC_PORT:-9400}"</span>
+<span class="s">  devshard-postgres:</span>
+<span class="s">    ports:</span>
+<span class="s">      - "${GONKA_PRIVATE_BIND_IP:?set the primary host private IP}:5432:5432"</span>
+<span class="s">  oracle-filter:</span>
+<span class="s">    ports:</span>
+<span class="s">      - "${GONKA_PRIVATE_BIND_IP:?set the primary host private IP}:19100:9100"</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<p>外部 PostgreSQL：删除 <code>devshard-postgres</code> 条目；<strong>副本主机</strong>使用真实端点。将此覆盖添加到<strong>主主机</strong>的 <code>COMPOSE_FILE</code>。</p>
+<p>新主机：在 <a href="#step-3-start-the-deployment">启动</a> 前包含此覆盖。现有主机：</p>
+<p>为端口更改安排维护。在<strong>主主机</strong>和每个现有<strong>副本主机</strong>上，在 <code>deploy/join</code> 中运行以停止副本：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./config.env<span class="w"> </span><span class="o">&amp;&amp;</span>
+mapfile<span class="w"> </span>-t<span class="w"> </span>replicas<span class="w"> </span>&lt;<span class="w"> </span>&lt;<span class="o">(</span>docker<span class="w"> </span>compose<span class="w"> </span>ps<span class="w"> </span>--services<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^versiond[0-9]*$'</span><span class="o">)</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="o">((</span><span class="si">${#</span><span class="nv">replicas</span><span class="p">[@]</span><span class="si">}</span><span class="w"> </span>&gt;<span class="w"> </span><span class="m">0</span><span class="o">))</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">replicas</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
+</code></pre></div>
+<p>在<strong>主主机</strong>上应用端口更改：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-e
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>stop-all<span class="w"> </span>--maintenance
+<span class="w">  </span><span class="k">if</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>config<span class="w"> </span>--services<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-qx<span class="w"> </span>devshard-postgres<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span>devshard-postgres
+<span class="w">  </span><span class="k">fi</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span>node<span class="w"> </span>api<span class="w"> </span>oracle-filter
+<span class="o">)</span>
+</code></pre></div>
+<p>在每个主机上，使用停止副本时相同的 shell 重启副本：</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">replicas</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
+</code></pre></div>
+<p>在<strong>主主机</strong>上恢复集群并运行<a href="#41-check-the-running-services">服务检查</a>：</p>
+<div class="highlight"><pre><span></span><code>./versiond-router-fleet.sh<span class="w"> </span>apply<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./update-devshard.sh<span class="w"> </span>--check
+</code></pre></div>
+<h3 id="_15">配置并启动副本主机</h3>
+<p>对于新的<strong>副本主机</strong>，在<strong>主主机</strong>的 <code>deploy/join</code> 中运行。将<strong>副本主机</strong>的 SSH 登录信息输入为 <code>user@host</code>。<strong>副本主机</strong>上的检出将创建在 <code>~/gonka</code>，使用<strong>主主机</strong>的提交。</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s1">'SSH login for the replica host (user@host): '</span><span class="w"> </span>REPLICA_SSH
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">KEYRING_BACKEND</span><span class="k">:-</span><span class="nv">file</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>file<span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"This copy procedure requires a file keyring"</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+<span class="w">  </span>ssh<span class="w"> </span><span class="s2">"</span><span class="nv">$REPLICA_SSH</span><span class="s2">"</span><span class="w"> </span><span class="s1">'test ! -e "$HOME/gonka"'</span>
+<span class="w">  </span>ssh<span class="w"> </span><span class="s2">"</span><span class="nv">$REPLICA_SSH</span><span class="s2">"</span><span class="w"> </span><span class="s1">'git clone --no-checkout https://github.com/gonka-ai/gonka.git "$HOME/gonka"'</span>
+<span class="w">  </span><span class="nv">release_commit</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD<span class="k">)</span>
+<span class="w">  </span>ssh<span class="w"> </span><span class="s2">"</span><span class="nv">$REPLICA_SSH</span><span class="s2">"</span><span class="w"> </span><span class="s2">"git -C \"\$HOME/gonka\" checkout --detach </span><span class="nv">$release_commit</span><span class="s2">"</span>
+<span class="w">  </span><span class="nv">remote_env</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="k">)</span>
+<span class="w">  </span><span class="nb">trap</span><span class="w"> </span><span class="s1">'rm -f "$remote_env"'</span><span class="w"> </span>EXIT
+<span class="w">  </span>python3<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$remote_env</span><span class="s2">"</span><span class="w"> </span><span class="s">&lt;&lt;'PYTHON'</span>
+<span class="s">import os, shlex</span>
+<span class="s">names = ["KEY_NAME", "ACCOUNT_PUBKEY", "KEYRING_PASSWORD", "VERSIOND_VERSIONS",</span>
+<span class="s">         "DEVSHARD_POSTGRES_PASSWORD"]</span>
+<span class="s">for name in names:</span>
+<span class="s">    value = os.environ[name]</span>
+<span class="s">    if not value:</span>
+<span class="s">        raise SystemExit(f"Missing {name}")</span>
+<span class="s">    print(f"export {name}={shlex.quote(value)}")</span>
+<span class="s">for name, default in [("KEYRING_BACKEND", "file"), ("DEVSHARD_POSTGRES_DB", "devshardd"),</span>
+<span class="s">                      ("DEVSHARD_POSTGRES_USER", "devshardd")]:</span>
+<span class="s">    print(f"export {name}={shlex.quote(os.environ.get(name, default))}")</span>
+<span class="s">print('export VERSIOND_NON_HA_VERSIONS=""')</span>
+<span class="s">if os.environ.get("VERSIOND_IMAGE"):</span>
+<span class="s">    print("export VERSIOND_IMAGE=" + shlex.quote(os.environ["VERSIOND_IMAGE"]))</span>
+<span class="s">PYTHON</span>
+<span class="w">  </span>ssh<span class="w"> </span><span class="s2">"</span><span class="nv">$REPLICA_SSH</span><span class="s2">"</span><span class="w"> </span><span class="s1">'touch "$HOME/gonka/deploy/join/config.env" &amp;&amp; chmod 600 "$HOME/gonka/deploy/join/config.env" &amp;&amp; cat &gt; "$HOME/gonka/deploy/join/config.env"'</span><span class="w"> </span>&lt;<span class="w"> </span><span class="s2">"</span><span class="nv">$remote_env</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>versiond<span class="w"> </span>/bin/busybox<span class="w"> </span>tar<span class="w"> </span>-C<span class="w"> </span>/root/.inference<span class="w"> </span>-cf<span class="w"> </span>-<span class="w"> </span>keyring-file<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>ssh<span class="w"> </span><span class="s2">"</span><span class="nv">$REPLICA_SSH</span><span class="s2">"</span><span class="w"> </span><span class="s1">'mkdir -p "$HOME/gonka/deploy/join/.inference"; tar --no-same-owner -xf - -C "$HOME/gonka/deploy/join/.inference"'</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>在<strong>副本主机</strong>上运行 <code>cd ~/gonka/deploy/join</code>。对于现有的<strong>副本主机</strong>，请使用<a href="#replace-a-member">替换成员</a>。</p>
+<p>在<strong>副本主机</strong>的 <code>config.env</code> 中添加真实私有地址：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NETWORK_NODE_PRIVATE_IP</span><span class="o">=</span><span class="s1">'&lt;primary-host-private-ip&gt;'</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">VERSIOND_BIND_IP</span><span class="o">=</span><span class="s1">'&lt;replica-host-private-ip&gt;'</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">COMPOSE_FILE</span><span class="o">=</span>docker-compose.versiond-remote.yml:docker-compose.versiond-remote-filter.yml
+</code></pre></div>
+<p>外部 PostgreSQL：同时设置 <code>DEVSHARD_POSTGRES_HOST</code> 和 <code>DEVSHARD_POSTGRES_PORT</code>。将<strong>副本主机</strong>的 8080 端口限制为仅允许路由器访问。</p>
+<p>在<strong>副本主机</strong>的 <code>deploy/join</code> 中创建过滤覆盖：</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.versiond-remote-filter.yml<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<span class="s">services:</span>
+<span class="s">  versiond:</span>
+<span class="s">    environment:</span>
+<span class="s">      VERSIOND_ORACLE_URL: http://${NETWORK_NODE_PRIVATE_IP:?set the primary host private IP}:19100/versions</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<p>启动远程副本并检查每个选定协议：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./config.env
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span>
+<span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-e
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VERSIOND_VERSIONS</span><span class="p">:?set the approved HA protocol list</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>version<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$VERSIOND_VERSIONS</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>curl<span class="w"> </span>-fsS<span class="w"> </span><span class="s2">"http://</span><span class="si">${</span><span class="nv">VERSIOND_BIND_IP</span><span class="si">}</span><span class="s2">:8080/readyz?version=</span><span class="nv">$version</span><span class="s2">"</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>当容器健康且所有检查均返回 HTTP 200 时继续。</p>
+<h3 id="_16">检查远程数据库</h3>
+<p>在将副本添加到路由器池之前检查<strong>副本主机</strong>的数据库。在<strong>副本主机</strong>上运行以下两个代码块；将 <code>/path/to/gonka</code> 替换为其检出目录（上面创建的主机为 <code>~/gonka</code>）：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>/path/to/gonka/deploy/join
+<span class="w">  </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>psql
+<span class="w">  </span><span class="nb">test</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>pool-postgres.env<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span>cp<span class="w"> </span>pool-postgres.env.template<span class="w"> </span>pool-postgres.env
+<span class="w">  </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>pool-postgres.env
+<span class="o">)</span>
+</code></pre></div>
+<p>使用<strong>主主机</strong>的数据库设置或数据库管理员提供的值，填写检出目录中的 <code>deploy/join/pool-postgres.env</code> 中的 <code>PGHOST</code>、<code>PGPORT</code>、<code>PGDATABASE</code>、<code>PGUSER</code> 和 <code>PGPASSWORD</code>。运行：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>/path/to/gonka/deploy/join
+<span class="w">  </span>./update-devshard.sh<span class="w"> </span>--check-storage<span class="w"> </span>--reference-env<span class="w"> </span>./pool-postgres.env
+<span class="o">)</span>
+</code></pre></div>
+<p>预期 <code>Storage check passed</code> 和退出码 0。该检查会向数据库写入测试数据；请将其与其他检查和更新分开运行。对于其他容器，请重复 <code>--container NAME</code>。</p>
+<h3 id="_17">将副本添加到路由器池</h3>
+<p>在<strong>主主机</strong>的 <code>deploy/join</code> 中创建 <code>versiond-endpoints.json</code>。将 <code>10.0.0.12</code> 替换为<strong>副本主机</strong>的私有 IP，并包含所有副本。所有路由器都必须能够连接到这些地址：</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>versiond-endpoints.json<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
+<span class="s">[</span>
+<span class="s">  {"id": "local-a", "host": "versiond", "port": 8080},</span>
+<span class="s">  {"id": "local-a-2", "host": "versiond2", "port": 8080},</span>
+<span class="s">  {"id": "remote-b", "host": "10.0.0.12", "port": 8080}</span>
+<span class="s">]</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<p>在<strong>主主机</strong>的 <code>config.env</code> 中设置 <code>export VERSIOND_POOL_ENDPOINTS_FILE=./versiond-endpoints.json</code>；<code>source ./config.env</code>。新集群：运行 <code>./versiond-router-fleet.sh apply</code>。现有集群：在维护期间运行：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>maintenance-rollout
+./versiond-router-fleet.sh<span class="w"> </span>verify-admission
+</code></pre></div>
+<p>滚动更新会中断新请求。在相同端点上替换主机时，请保留成员 ID。端点文件的编辑仅通过滚动更新生效。</p>
+<p>添加副本后，运行<a href="#41-check-the-running-services">服务检查</a>和<a href="#42-check-routing-failover">路由故障转移检查</a>。</p>
+<h2 id="_18">添加本地副本</h2>
+<p>在<a href="#step-3-start-the-deployment">启动和验证</a>后，添加 <code>versiond3</code>：</p>
+<ol>
+<li>在 <code>config.env</code> 中，将 <code>docker-compose.versiond3.yml</code> 立即插入 <code>COMPOSE_FILE</code> 中 <code>docker-compose.versiond.yml</code> 之后。保留其后的过滤器、数据库和站点覆盖：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">COMPOSE_FILE</span><span class="o">=</span>docker-compose.yml:docker-compose.versiond.yml:docker-compose.versiond3.yml:docker-compose.devshard-v5.override.yml
+<span class="c1"># External PostgreSQL: append :docker-compose.devshard-pg-external.override.yml</span>
+<span class="c1"># Retain every other site override after these files.</span>
+</code></pre></div>
+<ol>
+<li>在 <code>docker-compose.devshard-v5.override.yml</code> 的 <code>services</code> 下添加：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nt">versiond3</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">VERSIOND_ORACLE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://oracle-filter:9100/versions</span>
+<span class="w">    </span><span class="nt">VERSIOND_NON_HA_VERSIONS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${VERSIOND_NON_HA_VERSIONS-}</span>
+<span class="w">  </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">oracle-filter</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_started</span>
+<span class="w">    </span><span class="nt">devshard-postgres</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_healthy</span>
+</code></pre></div>
+<p>外部 PostgreSQL：也在 <code>docker-compose.devshard-pg-external.override.yml</code> 的 <code>services</code> 下添加，位于现有锚点下方：</p>
+<div class="highlight"><pre><span></span><code><span class="nt">versiond3</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="nv">*external-postgres</span>
+</code></pre></div>
+<ol>
+<li>本地 PostgreSQL：对现有副本运行<a href="#update-with-downtime">带停机时间的更新</a>以应用新的 PostgreSQL 挂载。外部数据库跳过此步骤。</li>
+<li>启动新副本：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./config.env
+docker<span class="w"> </span>compose<span class="w"> </span>config<span class="w"> </span>--quiet
+docker<span class="w"> </span>compose<span class="w"> </span>pull<span class="w"> </span>versiond3
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span>versiond3
+</code></pre></div>
+<ol>
+<li>如果使用 <code>versiond-endpoints.json</code>，添加 <code>versiond3</code> 并<a href="#3-add-the-replica-to-the-router-pool">应用更新的列表</a>。默认 Docker 发现会自动找到它。运行<a href="#41-check-the-running-services">服务检查</a>，包括 <code>versiond3</code>。</li>
+</ol>
+<p>对于第四个副本，复制 <code>docker-compose.versiond3.yml</code>，将 <code>3</code> 替换为 <code>4</code>，并重复上述覆盖。</p>
+<h2 id="_19">操作部署</h2>
+<p>每个 <code>versiond</code> 副本都是路由器池的成员。</p>
+<p>从 <code>deploy/join</code> 运行以下命令。在公共代理主机上管理路由器，并在运行副本的主机上管理 <code>versiond</code> 副本。</p>
+<h3 id="_20">管理路由器</h3>
+<p>使用 <code>versiond-router-fleet.sh</code> 管理路由器。该脚本读取 <code>config.env</code> 并在单独的 Docker Compose 项目中运行每个路由器。因此，为主要加入部署运行 <code>docker compose down</code> 会保持路由器运行。</p>
+<p>要停止所有路由器，请运行 <code>./versiond-router-fleet.sh stop-all --maintenance</code>。默认关闭超时时间为每个路由器 30 分钟（<code>VERSIOND_ROUTER_DRAIN_TIMEOUT_SECONDS</code>）。</p>
+<p>每个路由器实例占用一个编号的<strong>插槽</strong>。当其容器被替换时，插槽编号保持不变。在集群命令中使用此编号：</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查看路由器状态和插槽编号</td>
+<td><code>./versiond-router-fleet.sh status</code></td>
+</tr>
+<tr>
+<td>停止插槽 0 中的路由器</td>
+<td><code>./versiond-router-fleet.sh stop 0</code></td>
+</tr>
+<tr>
+<td>启动插槽 0 中的路由器</td>
+<td><code>./versiond-router-fleet.sh start 0</code></td>
+</tr>
+<tr>
+<td>更改后验证路由</td>
+<td><code>./versiond-router-fleet.sh verify-admission</code></td>
+</tr>
+<tr>
+<td>应用路由器镜像和配置更改</td>
+<td><code>./versiond-router-fleet.sh apply</code></td>
+</tr>
+</tbody>
+</table>
+<p>完整发布更新：请遵循<a href="#3-update-the-deployment">更新部署</a>。</p>
+<p>在操作中断后，保留先前停止的容器和目录卷；使用相同的镜像和配置重新运行。对于池、解析器或传统路由更改，请遵循<a href="#3-add-the-replica-to-the-router-pool">成员维护</a>。</p>
+<p>在机器维护前，请优雅地停止路由器，然后停止主堆栈：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span>./versiond-router-fleet.sh<span class="w"> </span>stop-all<span class="w"> </span>--maintenance
+<span class="w">  </span><span class="c1"># Stop the main stack after the fleet has drained.</span>
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">COMPOSE_FILE</span><span class="p">:?set the complete Compose file list</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>stop
+<span class="w">  </span><span class="c1"># Only when decommissioning, after the main stack is down:</span>
+<span class="w">  </span><span class="c1"># ./versiond-router-fleet.sh down --maintenance</span>
+<span class="o">)</span>
+</code></pre></div>
+<h3 id="_21">重启成员</h3>
+<p>一次重启一个副本。其余副本必须服务所有协议并处理负载。在 <code>COMPOSE_FILE</code> 中包含所有活动覆盖：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">cd</span><span class="w"> </span>/path/to/gonka/deploy/join
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span><span class="c1"># COMPOSE_FILE must include every active override, including external PG,</span>
+<span class="w">  </span><span class="c1"># private ports and additional replicas; keep this list in config.env.</span>
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">COMPOSE_FILE</span><span class="p">:?set the complete Compose file list in config.env</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span><span class="nv">dc</span><span class="o">=(</span>docker<span class="w"> </span>compose<span class="o">)</span>
+
+<span class="w">  </span><span class="c1"># Stop only one member, keeping enough other replicas ready to handle the load.</span>
+<span class="w">  </span><span class="s2">"</span><span class="si">${</span><span class="nv">dc</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>stop<span class="w"> </span>versiond2
+<span class="w">  </span><span class="c1"># Restart the same member with its existing data:</span>
+<span class="w">  </span><span class="s2">"</span><span class="si">${</span><span class="nv">dc</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span>versiond2
+<span class="w">  </span><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-e
+<span class="w">  </span>:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VERSIOND_VERSIONS</span><span class="p">:?set the approved HA protocol list</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>version<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$VERSIOND_VERSIONS</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>versiond2<span class="w"> </span>wget<span class="w"> </span>-qO-<span class="w"> </span><span class="s2">"http://127.0.0.1:8080/readyz?version=</span><span class="nv">$version</span><span class="s2">"</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="w">  </span><span class="o">)</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>在重启另一个副本前，运行上述就绪检查。</p>
+<h3 id="_22">替换成员</h3>
+<p>要更新副本的镜像，请使用以下过程替换其容器。</p>
+<p>保留相同的数据库、参与者身份、协议列表和数据挂载。一次替换一个副本；另一个副本必须服务每个协议。</p>
+<ol>
+<li>在运行副本的主机上，在其现有的 <code>deploy/join</code> 目录中运行，以获取并检出发布版本：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span>git<span class="w"> </span>diff<span class="w"> </span>--exit-code
+<span class="w">  </span>git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w"> </span>--exit-code
+<span class="w">  </span>git<span class="w"> </span>fetch<span class="w"> </span>https://github.com/gonka-ai/gonka.git<span class="w"> </span>refs/tags/devshard/v5.0.1
+<span class="w">  </span>git<span class="w"> </span>switch<span class="w"> </span>--detach<span class="w"> </span>FETCH_HEAD
+<span class="o">)</span>
+</code></pre></div>
+<p>如果 Git 报告本地更改或冲突文件，请停止；不要强制检出。将 <code>config.env</code> 和站点覆盖保存在独立的未跟踪文件中。检出成功后，应用<a href="#release-and-images">发布和镜像</a>中的变量。
+2. 对于远程成员，请在<strong>主主机</strong>上从 <code>versiond-endpoints.json</code> 中删除其条目，并运行<a href="#3-add-the-replica-to-the-router-pool">成员维护</a>。在成员的机器上，在 <code>deploy/join</code> 中运行以选择并替换副本：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>ps<span class="w"> </span>--services
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s1">'Replica service from the list (for example versiond2): '</span><span class="w"> </span>service
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$service</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span>^versiond<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*$<span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w"> </span><span class="s2">"</span><span class="nv">$service</span><span class="s2">"</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>pull<span class="w"> </span><span class="s2">"</span><span class="nv">$service</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>--wait<span class="w"> </span>--wait-timeout<span class="w"> </span><span class="m">2100</span><span class="w"> </span><span class="s2">"</span><span class="nv">$service</span><span class="s2">"</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>对于远程成员，在将条目恢复到<strong>主主机</strong>的端点文件并应用成员维护前，请先通过<a href="#check-the-remote-database">数据库检查</a>。
+3. 在替换下一个成员前，请通过<a href="#41-check-the-running-services">服务检查</a>。如果检查失败，请在替换另一个成员前停止。回滚镜像不会回滚数据库更改；任何回滚版本都必须支持当前数据库。</p>
+<h3 id="_23">移除成员</h3>
+<p>在副本的主机上，在 <code>deploy/join</code> 中运行：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">source</span><span class="w"> </span>./config.env
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>ps<span class="w"> </span>--services
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s1">'Replica service to remove (for example versiond2): '</span><span class="w"> </span>service
+<span class="w">  </span><span class="o">[[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$service</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span>^versiond<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*$<span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w"> </span><span class="s2">"</span><span class="nv">$service</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$service</span><span class="s2">"</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>编辑 <code>config.env</code>。要禁用 <code>versiond2</code>，请设置：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">VERSIOND2_REPLICAS</span><span class="o">=</span><span class="m">0</span>
+</code></pre></div>
+<p>为增加一个副本，将其 Compose 文件名从 <code>COMPOSE_FILE</code> 中移除，并从过滤器/数据库覆盖中删除其服务块。保留其数据目录。如果使用 <code>versiond-endpoints.json</code>，请在<strong>主主机</strong>上删除其条目，然后运行<a href="#3-add-the-replica-to-the-router-pool">成员维护</a>。对剩余副本运行<a href="#41-check-the-running-services">服务检查</a>。</p>
+<h3 id="_24">添加协议</h3>
+<ol>
+<li>检查主机/网关版本的<a href="https://github.com/gonka-ai/gonka/blob/devshard/v5.0.1/devshard/docs/release-0.2.15-v5.md#binary-upgrade-compatibility">发布二进制兼容性要求</a>。一旦它出现在节点的<a href="#21-same-machine-two-replicas">批准协议列表</a>中，请在每台主机的 <code>config.env</code> 中将它添加到 <code>VERSIOND_VERSIONS</code>。保留现有协议。</li>
+<li>在<strong>主主机</strong>上：<code>source ./config.env</code>，然后使用完整的 <code>COMPOSE_FILE</code> 执行 <code>docker compose up -d --no-deps oracle-filter</code>。</li>
+<li><code>./versiond-router-fleet.sh wait-version &lt;new-protocol&gt;</code>，然后使用更新后的列表运行<a href="#41-check-the-running-services">服务检查</a>。</li>
+</ol>
+<p>无需重启路由器。下一次主机更新会将保存的协议列表应用到路由器集群和公共代理；请将其安排为维护任务。</p>
+<p>为每个路由器插槽保留 <code>proxy-router-state</code> 和 <code>router-state</code> 卷。仅在维护期间、且其会话不再需要时才移除协议：过滤器更改可停止子进程，而默认情况下已接受的路由器路由仍会保留。</p>
+<h2 id="_25">故障排除</h2>
+<h3 id="_26">维护前取消</h3>
+<p>仅在准备失败<strong>且未执行任何数据库复制、容器停止或容器替换</strong>时使用。数据库复制过程在 <code>Starting maintenance</code> 之前运行，因此仅缺少该消息是不够的。此操作仅恢复文件。在 <code>deploy/join</code> 中运行；使用预更新备份打印的 <code>Backup directory</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s1">'Pre-update backup directory: '</span><span class="w"> </span>BACKUP_DIR
+<span class="nb">export</span><span class="w"> </span>BACKUP_DIR
+<span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">test</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/previous-commit"</span>
+<span class="w">  </span>git<span class="w"> </span>switch<span class="w"> </span>--detach<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/previous-commit"</span><span class="k">)</span><span class="s2">"</span>
+<span class="w">  </span>python3<span class="w"> </span>-<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">"</span><span class="w"> </span><span class="s">&lt;&lt;'PYTHON'</span>
+<span class="s">import json, pathlib, shutil, sys</span>
+<span class="s">backup = pathlib.Path(sys.argv[1])</span>
+<span class="s">for name in json.loads((backup / "files.json").read_text()):</span>
+<span class="s">    target = pathlib.Path(name)</span>
+<span class="s">    source = backup / "files" / name.lstrip("/")</span>
+<span class="s">    if not source.is_file():</span>
+<span class="s">        sys.exit(f"Missing backup file: {source}")</span>
+<span class="s">    shutil.copy2(source, target)</span>
+<span class="s">PYTHON</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>如果 <code>git switch</code> 因本地更改而拒绝，请停止并保留这些更改；不要强制检出或运行 <code>git reset --hard</code>。</p>
+<p>成功恢复后，打开新的终端或 SSH 会话，返回 <code>deploy/join</code> 并运行：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./config.env
+</code></pre></div>
+<p>不要重复使用更新 shell：它可能保留了已从恢复文件中缺失的导出设置。在该 shell 中启动另一个 Bash 也会继承这些设置。保留备份。在镜像下载期间遇到 <code>denied</code> 或 <code>manifest unknown</code> 时，请等待对发布镜像的访问；不要替换为其他标签。</p>
+<h3 id="_27">恢复中断的滚动更新</h3>
+<p>如果更新器报告待处理的恢复，请在 <code>deploy/join</code> 中重新运行它。使用相同的 OS 用户、发布版本和配置，包括任何 <code>UPDATE_STATE_DIR</code> 或 <code>XDG_STATE_HOME</code> 设置。不要在 sudo 和非 sudo 运行之间切换。保留更新器打印的恢复目录。不使用 <code>--check</code> 或 <code>--dry-run</code> 来恢复并继续更新：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>./config.env
+./update-devshard.sh
+</code></pre></div>
+<h3 id="_28">解决缺失的数据库</h3>
+<p>在针对空数据库启动副本之前先停止。对于本地数据库，请检查容器及其挂载：</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>devshard-postgres
+docker<span class="w"> </span>inspect<span class="w"> </span>devshard-postgres<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{json .Mounts}}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>如果容器已被删除，请从预更新备份中检查其保存的挂载：</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s1">'Pre-update backup directory: '</span><span class="w"> </span>backup_dir
+<span class="w">  </span><span class="nb">test</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/postgres.json"</span>
+<span class="w">  </span>jq<span class="w"> </span>-e<span class="w"> </span><span class="s1">'.[0].Mounts'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$backup_dir</span><span class="s2">/postgres.json"</span>
+<span class="o">)</span>
+</code></pre></div>
+<p>如果旧的 Docker 卷已分离，请使用<a href="#2-check-the-database-layout">检查数据库布局</a>中的恢复块配合预更新备份。没有保留源卷的缺失存储，以及外部数据库灾难恢复，不在本指南范围内。不要使用 <code>DEVSHARD_POSTGRES_ALLOW_EMPTY_INIT</code> 绕过恢复。</p></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>

@@ -117,7 +117,7 @@ The result is the Host’s real, fully-adjusted **Weight**. It is the value used
 
 Weight is **not** the same as governance voting power. Voting power uses the [weight cap](#what-is-the-weight-cap).
 
-You can inspect your current `weight` in the active participants list at `$NODE_URL/v1/epochs/current/participants`.
+You can inspect `weight` in the participants list at `$NODE_URL/v1/epochs/current/participants` and `$NODE_URL/v1/epochs/{epoch_id}/participants`.
 
 ### What is the weight cap?
 
@@ -132,7 +132,9 @@ From v0.2.16, a Host’s trust weight for the next epoch cannot exceed the compu
 CapWeight for epoch N+1 = min(Weight in epoch N+1, confirmed Weight from epoch N)
 ```
 
-This delay exists so a sudden jump in declared compute — new hardware coming online, or a manipulated PoC result — does not immediately buy governance votes, a larger BLS signing share, or a louder voice in validating everyone else’s PoC.
+That value is then concentration-capped the same way Weight is (no Host above 30% of total CapWeight), so published `cap_weight` may be lower than the `min` above.
+
+This is a one-epoch delay: consensus influence uses compute the Host already confirmed in the previous epoch, so a sudden jump in declared compute — new hardware coming online, or a manipulated PoC result — does not immediately buy governance votes, a larger BLS signing share, or a louder voice in validating everyone else’s PoC.
 
 **Uses the weight cap**
 
@@ -150,20 +152,20 @@ If you were not a live participant in the previous epoch, there is no confirmed 
 
 If settlement’s statistical test (`MissedStatTest`) fails, the confirmed baseline used for the next cap is treated as `0`.
 
-The previous-epoch weight cap is **not** the 30% concentration limit. The 30% rule is applied to real Weight first. The previous-epoch cap is applied after that, and only to trust weight.
+The previous-epoch weight cap is **not** the 30% concentration limit. The 30% rule is applied to real Weight first. The previous-epoch cap is applied after that, and only to trust weight. The 30% rule is applied to the resulting `cap_weight` again.
 
-After v0.2.16, the active participants list includes both fields: `weight` (rewards) and `cap_weight` (governance, BLS, and validation voting).
+After v0.2.16, the participants list includes both fields: `weight` (rewards) and `cap_weight` (governance, BLS, and validation voting). You can confirm them at `$NODE_URL/v1/epochs/current/participants` and `$NODE_URL/v1/epochs/{epoch_id}/participants`.
 
 ### How is governance power calculated in Gonka?
 Gonka uses a PoC-weighted voting model:
 
 - Proof-of-Compute (PoC): your Weight is proportional to verified compute contribution. Governance voting power uses the [weight cap](#what-is-the-weight-cap), which cannot exceed that Weight.
-- Collateral commitment:
-    - 20% of PoC-derived voting weight is activated automatically.
-    - To unlock the remaining 80%, you must lock GNK coins as collateral.
-- This ensures that governance influence reflects real compute work + economic collateral.
+- Collateral commitment (after the Grace Period):
+    - Base Active Weight (default 20% of PoC-derived Weight) is always active.
+    - To unlock the remaining 80% as Active Weight, you must lock GNK as collateral.
+- Active Weight feeds rewards and is the Weight input into the [weight cap](#what-is-the-weight-cap). Governance / BLS / validation influence use CapWeight, not Weight directly.
 
-For the first 180 epochs (approximately 6 months), new participants can participate in governance and earn voting weight through PoC alone, without collateral requirements. During this period, the full governance rights are available, while voting weight remains tied to verified compute activity.
+For the first 180 epochs (approximately 6 months), new participants can earn Weight through PoC alone, without collateral requirements. During this period the full PoC-derived Weight is active. Governance, BLS, and validation influence still use the [weight cap](#what-is-the-weight-cap).
 
 ### Why does Gonka require locking GNK coins for governance power?
 Voting power is never derived solely from holding coins. GNK coins serve as economic collateral, not as a source of influence. Influence is earned through continuous computational contribution, while locking GNK collateral is required to secure participation in governance and enforce accountability.

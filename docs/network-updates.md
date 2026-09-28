@@ -8,6 +8,33 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 28, 2026
+
+**PROPOSAL PASSED: DevShard v5.0.2**
+
+The on-chain governance vote for proposal id 108 has concluded.
+
+The proposal was APPROVED.
+
+DevShard v5 is updated to v5.0.2, which caps the Postgres payload pools that were exhausting connections and taking nodes down. `approved_versions` on chain is now:
+
+```
+v4.1   release/devshard/v4.1.0
+v5     devshard/v5.0.2
+```
+
+v3 and plain v4 have been removed.
+
+**What is required from hosts**
+
+Nothing. `versiond` downloads the new binary, verifies its sha256 and runs it.
+
+**Gateway operators**
+
+`/devshard/v3` and `/devshard/v4` are no longer served. Move to `/devshard/v4.1`. The current gateway release is v4.1.2, image `mainnet-v0.2.15-v4.1.2`; pin the digest rather than the tag.
+
+Full technical scope: [PR 1840](https://github.com/gonka-ai/gonka/pull/1840)
+
 ## September 25, 2026
 
 **Proposal 108 is open for voting: DevShard v5.0.2**

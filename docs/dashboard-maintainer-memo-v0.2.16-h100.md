@@ -16,23 +16,27 @@ Every dashboard that shows this metric uses that numerator. The published figure
 | [gonkascan.com](https://gonkascan.com/) | 1,956 H100 GPUs | Fixed `254.5`, the 19 February 2026 post-normalization weight of one H100 80GB HBM3 (epoch 176). `497,724 / 254.5 = 1,956` |
 | [gonkahub.com/network](https://gonkahub.com/network) | ~1,960 H100 GPUs | The chart is labeled "Weight ÷ 254.5 (H100 HBM3)". Same frozen February benchmark. |
 | [gnk.space](https://gnk.space/) | ~1,710 | Fixed `291`. The page uses `network_weight_h100` when that API field is set. It is empty, so the page falls back to `totalWeight / 291`. `497,724 / 291 = 1,710` |
+
 gonka.gg also shows "Total Physical GPUs: 642". That is a different metric: the self-reported GPU inventory of active hosts. It is not an H100 equivalent. The inventory moves when hosts update their hardware report.
 Two cards must not be mixed. On epoch 410 a pure H100 80GB HBM3 host produces about **457** weight per GPU. A pure H100 PCIe host produces about **245**.
 ## What changes if v0.2.16 passes
 The H100-equivalent endpoints do not change. `current_epoch_group_data` and `hardware_nodes_all` stay as they are. Reward weight stays on `validation_weights[].weight`.
 Model coefficients start moving. Governance sets a target share of compute and a coefficient range per model. Each epoch the protocol steps the coefficient inside that range. Compute above the target share is scored at the minimum coefficient.
 Initial ranges apply from the epoch after the upgrade. The upgrade epoch itself keeps today's reward weights.
+
 | Model | At upgrade | Allowed range |
 | --- | --- | --- |
 | MiniMax M2.7 | 0.3024 | Fixed at 0.3024 |
 | GLM 5.3 Flash | 0.62 | 0.558–0.682 |
 | DeepSeek V4 Flash 0731 | 0.246 | 0.2214–0.2706 |
 | Any other enabled model | Its current scale | That scale × [0.9, 1.1] |
+
 The same physical H100 then earns a different consensus weight depending on which model it serves and whether that model is above its target share. A divisor frozen at 254, 254.5, or 291 was already taken from an older epoch. It will drift further on every epoch after the upgrade.
 A second change in this upgrade does not belong in this metric. Governance, BLS, and PoC validation power are limited to compute confirmed in the previous epoch. New capacity still earns rewards immediately. Build H100 equivalent from `validation_weights[].weight`, the reward weight. `voting_power` on the root epoch group is 0 for every participant. It is filled only on model subgroups, and it is not the capacity figure.
 ## How to calculate it
 Recompute once per epoch, after that epoch's weights are in `current_epoch_group_data`. During PoC the chain has two epoch pointers. Follow this endpoint. Do not derive the epoch from block height.
 Reference card: **NVIDIA H100 80GB HBM3** only.
+
 1. `GET /chain-api/productscience/inference/inference/current_epoch_group_data`
    Take `epoch_index`, `total_weight`, and each `validation_weights[]` entry: `member_address` and `weight`.
 2. `GET /chain-api/productscience/inference/inference/hardware_nodes_all`

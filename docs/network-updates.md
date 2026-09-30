@@ -8,6 +8,86 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## September 30, 2026
+
+**v0.2.16 Upgrade Proposal Enters Governance**
+
+[The v0.2.16 proposal](https://gonkascan.com/?page=governance&proposal_id=109) (proposal id 109) is now on-chain and open for voting.
+
+The mainnet chain/API work focuses on trusted weight, dynamic coefficients, transaction fee groups, and PoC Challenge. If the proposal is approved, governance, BLS, and PoC validation power are limited to compute confirmed in the previous epoch, while new compute still earns rewards immediately. Governance can set a target share and a coefficient range per model. The proposal enables dynamic model coefficients with a minimal range: at upgrade each model starts from its existing coefficient, with a band of up to 10% above or below it. Message groups and gas rules are added, and every group stays disabled, so the protocol still charges no fees. An allowlisted challenger can pull one active host off inference onto full-capacity PoC until the next regular PoC.
+
+**Key Changes**
+
+1. **Trusted Weight.** Before v0.2.16, a sudden increase in claimed compute immediately increased a participant's power in governance, BLS, and PoC validation. This gave unconfirmed capacity influence over consensus and over validation of other participants. The upgrade limits that power to compute confirmed in the previous epoch. New or returning participants start at 0, and a failed confirmation sets the next baseline to 0. New compute still earns rewards immediately. Only trust-sensitive power waits one confirmed epoch.
+2. **Dynamic Coefficients v1.** The network needs predictable throughput for each model so users can rely on its availability. The target throughput for each model should follow expected demand. With fixed coefficients, an entire hardware class tends to switch to the same model. This makes capacity per model difficult to balance and predict. This upgrade lets governance set a target percentage of network compute and a coefficient range for each model. The protocol dynamically adjusts the coefficient inside that range to move compute toward the target. Compute above the target is scored at the minimum coefficient, which discourages oversupply. Governance initially sets targets from demand estimates and data sources such as OpenRouter. Later versions can aggregate host estimates and eventually use on-chain model usage. This version changes incentives only. It does not automatically switch the models deployed by a host.
+3. **Fee.** Historically, the protocol has charged no transaction fees. An attacker can therefore submit high-volume messages at little cost while every validator pays the processing and storage cost. The upgrade groups transaction types and adds per-message gas rules so each group can be priced separately. All groups are disabled by default and charge nothing. Governance can enable and price them later. The upgrade proposal info can also enable groups at upgrade height.
+4. **PoC Challenge.** PoC and random Confirmation PoC prove a host's claimed capacity. During the rest of the epoch, inference statistics check that this hardware is used for work assigned by the protocol. A high rate of missed or invalid inferences can remove a host. This provides a strong ongoing check, but its sensitivity depends on inference volume and may not reveal every gap between claimed and available capacity. PoC Challenge adds an additional security layer for these cases. An approved challenger can require one active host to leave inference and run PoC at full capacity until the next regular PoC. To open the challenge, the challenger locks a payment equal to a fraction of the target's remaining epoch reward. If the target passes, it receives the payment. If it fails, the challenger is refunded, and the target receives the same penalty as for a failed Confirmation PoC. Inference missed during the challenge does not count against the target. Only allowlisted devshard escrow creators can open a challenge. If the allowlist is empty, anyone can open one.
+
+**Proposal enables dynamic model coefficients with a minimal range**
+
+The target configuration is defined in dynamic-coeff-init.md. The upgrade applies the initial configuration below. Each model starts from its existing coefficient, with a range of up to 10% above or below it, within the target bounds. Models not listed in that document use only the 10% limit.
+
+Initial configuration at upgrade, using existing coefficients of 0.3024 (MiniMax), 0.62 (GLM), and 0.246 (DeepSeek):
+
+| Model | Starting coefficient | Allowed range | Relative difficulty |
+| --- | --- | --- | --- |
+| MiniMax M2.7 | 0.3024 | Fixed at 0.3024 | 1 |
+| GLM 5.3 Flash | 0.62 | 0.558 - 0.682 | 2.668169014084 |
+| DeepSeek V4 Flash 0731 | 0.246 | 0.2214 - 0.2706 | 1.541666666666 |
+| Other enabled models | Current scale | Current scale * [0.9, 1.1] | 1 |
+
+Starting coefficients come from chain parameters at upgrade height. Current-epoch reward weights stay unchanged. Later epochs use the new ranges.
+
+Target compute shares start equal across enabled models, with rounding to total 100%. Governance can later apply the target configuration without resetting coefficients. Hosts choose which models to deploy.
+
+For more details, please see the release: [https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.16](https://github.com/gonka-ai/gonka/releases/tag/release%2Fv0.2.16)
+
+**Upgrade Plan**
+
+The node binary is upgraded through an on-chain software upgrade proposal. Existing hosts are not required to manually update their `api` or `node` containers as part of the upgrade. Do not re-grant keys or move models for this upgrade. Devshard binaries stay on the versions already approved.
+
+If the governance vote passes, governance, BLS, and validation voting follow the capped weight. Rewards stay on real weight.
+
+**How to vote**
+
+If you do not have direct access to the key that holds voting power, or want another key to vote on your behalf, please refer to [the guide](https://gonka.ai/FAQ/#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf) on granting governance voting permission from a cold key to a warm key.
+
+Proposal details and voting are available via `inferenced`. Any active node can be used. Available nodes include:
+
+- http://node1.gonka.ai:8000
+- http://node2.gonka.ai:8000
+- https://node3.gonka.ai
+
+Cast your vote (`yes`, `no`, `abstain`, `no_with_veto`): The `--unordered` and `--timeout-duration` flags require `inferenced` from v0.2.12 or later.
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced tx gov vote 109 yes \
+--from <cold_key_name> \
+--keyring-backend file \
+--unordered \
+--timeout-duration=60s --gas=2000000 --gas-adjustment=5.0 \
+--node $NODE_URL/chain-rpc/ \
+--chain-id gonka-mainnet \
+--yes
+```
+To check the voting status:
+```
+export NODE_URL=https://node3.gonka.ai/
+./inferenced query gov votes 109 -o json --node $NODE_URL/chain-rpc/
+```
+
+**Deadlines**
+
+- Voting ends: October 2, 2026 at 02:40 UTC / October 1, 2026 at 7:40 PM PDT
+- Proposed upgrade height: 6353400
+- Estimated upgrade time: October 2, 2026 at ~07:05 UTC / October 2, 2026 at ~12:05 AM PDT
+
+**Attention**
+
+- Please plan to be online during the upgrade window so that any follow-up steps or mitigation instructions can be applied promptly.
+- During upgrades, Cosmovisor creates a full state backup in the `.inference/data` directory; ensure sufficient disk space is available (the Cosmovisor backup of `application.db` on mainnet is typically tens of GB, so verify in advance). Guidance on safely removing old backups from the `.inference` directory is available in [the documentation](https://gonka.ai/FAQ/#how-much-free-disk-space-is-required-for-a-cosmovisor-update-and-how-can-i-safely-remove-old-backups-from-the-inference-directory).
+- If `application.db` occupies a significant amount of disk space, the cleanup techniques described in the cosmovisor backup [guide](https://gonka.ai/FAQ/#why-is-my-applicationdb-growing-so-large-and-how-do-i-fix-it) may be applied.
+
 ## September 27, 2026
 
 **PROPOSAL PASSED: DevShard v5.0.2**

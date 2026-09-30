@@ -78,9 +78,9 @@ export NODE_URL=https://node3.gonka.ai/
 
 **Deadlines**
 
-- Voting ends: October 2, 2026 at 02:40 UTC / October 1, 2026 at 7:40 PM PDT
+- Voting ends: October 2, 2026 at 02:40 AM UTC / October 1, 2026 at 7:40 PM PDT
 - Proposed upgrade height: 6353400
-- Estimated upgrade time: October 2, 2026 at ~07:05 UTC / October 2, 2026 at ~12:05 AM PDT
+- Estimated upgrade time: October 2, 2026 at ~07:05 AM UTC / October 2, 2026 at ~12:05 AM PDT
 
 **Attention**
 

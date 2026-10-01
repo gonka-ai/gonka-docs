@@ -73,6 +73,7 @@ nav:
 
   - Reference:
     - Model licenses: model-licenses.md
+    - Dashboard maintainer memo v0.2.16: dashboard-maintainer-memo-v0.2.16-h100.md
     - Dashboard maintainer memo v0.2.15: dashboard-maintainer-memo-v0.2.15.md
     - Dashboard maintainer memo v0.2.14: dashboard-maintainer-memo-v0.2.14.md
     - Dashboard maintainer memo v0.2.13: dashboard-maintainer-memo-v0.2.13.md
@@ -238,6 +239,7 @@ plugins:
             Reference: 参考
             Transactions & governance: 交易与治理
             "Model licenses": 模型许可
+            Dashboard maintainer memo v0.2.16: 仪表盘维护者备忘录 v0.2.16
             Dashboard maintainer memo v0.2.13: 仪表盘维护者备忘录 v0.2.13
             Errors: 错误
             Resources: 资源

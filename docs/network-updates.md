@@ -8,6 +8,36 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## October 6, 2026
+
+Two proposals are open for voting. From this release the upgrade and the bounty payments go as two separate proposals and are voted on separately.
+
+### [#112 Upgrade Proposal: v0.2.16](https://gonka.gg/network/proposals/112)
+
+**Trusted Weight.** Before v0.2.16, a sudden increase in claimed compute immediately increased a participant's power in governance, BLS and PoC validation. The upgrade limits that power to compute confirmed in the previous epoch. New or returning participants start with zero voting power but still earn rewards.
+
+**Dynamic Coefficients v1.** Governance can set a target percentage of network compute and a coefficient range for each model. The protocol adjusts the coefficient inside that range to move compute toward the target. Compute above the target is scored at the minimum coefficient.
+
+**Fee.** Transaction types are grouped and per-message gas rules are added. The epoch and cosmos groups are enabled by default at 1 ngonka per gas, all other groups remain disabled. Before the upgrade, check that your cold-to-warm feegrant is valid and that the cold account has enough spendable GNK to cover fees.
+
+**PoC Challenge.** An approved challenger can require an active host to leave inference and run PoC at full capacity. The challenger locks a payment, which goes to the host if it passes or is refunded if it fails. Failure carries the same penalty as failed Confirmation PoC. Only allowlisted devshard escrow creators can open a challenge.
+
+**What hosts need to do.** Existing hosts are not required to rebuild their api or node containers. Devshard binaries stay on the versions already approved. New hosts joining after the upgrade should use the deploy and join files published with the final v0.2.16 release.
+
+Full technical scope, contributor list and PR references: https://github.com/gonka-ai/gonka/blob/136041c81ea8ff38e7620d76af66a7c7fe7eec50/proposals/governance-artifacts/update-v0.2.16/README.md
+
+### [#113 Distribute v0.2.16 bounty rewards](https://gonka.gg/network/proposals/113)
+
+104,150 USDT from community funds for development, research, infrastructure, security reporting, and code review work on the Gonka protocol. It covers contributions to v0.2.16 and larger projects spanning several upgrade cycles: Decode-PoC, the gonka-poc vLLM plugin, model benchmarking and integration, a vulnerability report, trainshards, and security and upgrade reviews. The per-recipient breakdown is in the proposal.
+
+Voting on both closes October 8, 02:40 UTC.
+
+## October 2, 2026
+
+**Proposal 109, Upgrade Proposal: v0.2.16, was rejected.**
+
+The proposal put the v0.2.16 upgrade and 104,150 USDT in bounty payments from community funds to the network as a single vote. It received no votes against and no vetoes. It was rejected because the votes cast did not reach the 25% quorum.
+
 ## September 30, 2026
 
 **v0.2.16 Upgrade Proposal Enters Governance**

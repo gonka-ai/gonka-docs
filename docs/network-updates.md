@@ -12,7 +12,9 @@
 
 Two proposals are open for voting. From this release the upgrade and the bounty payments go as two separate proposals and are voted on separately.
 
-### [#112 Upgrade Proposal: v0.2.16](https://gonka.gg/network/proposals/112)
+**#112 Upgrade Proposal: v0.2.16**
+
+Proposal 112: https://gonka.gg/network/proposals/112
 
 **Trusted Weight.** Before v0.2.16, a sudden increase in claimed compute immediately increased a participant's power in governance, BLS and PoC validation. The upgrade limits that power to compute confirmed in the previous epoch. New or returning participants start with zero voting power but still earn rewards.
 
@@ -22,15 +24,32 @@ Two proposals are open for voting. From this release the upgrade and the bounty 
 
 **PoC Challenge.** An approved challenger can require an active host to leave inference and run PoC at full capacity. The challenger locks a payment, which goes to the host if it passes or is refunded if it fails. Failure carries the same penalty as failed Confirmation PoC. Only allowlisted devshard escrow creators can open a challenge.
 
-**What hosts need to do.** Existing hosts are not required to rebuild their api or node containers. Devshard binaries stay on the versions already approved. New hosts joining after the upgrade should use the deploy and join files published with the final v0.2.16 release.
+**#113 Distribute v0.2.16 bounty rewards**
 
-Full technical scope, contributor list and PR references: https://github.com/gonka-ai/gonka/blob/136041c81ea8ff38e7620d76af66a7c7fe7eec50/proposals/governance-artifacts/update-v0.2.16/README.md
-
-### [#113 Distribute v0.2.16 bounty rewards](https://gonka.gg/network/proposals/113)
+Proposal 113: https://gonka.gg/network/proposals/113
 
 104,150 USDT from community funds for development, research, infrastructure, security reporting, and code review work on the Gonka protocol. It covers contributions to v0.2.16 and larger projects spanning several upgrade cycles: Decode-PoC, the gonka-poc vLLM plugin, model benchmarking and integration, a vulnerability report, trainshards, and security and upgrade reviews. The per-recipient breakdown is in the proposal.
 
+**How to vote**
+
+Vote on each proposal separately, once with `112` and once with `113`.
+
+```shell
+# options: yes | no | no_with_veto | abstain
+inferenced tx gov vote 112 yes \
+  --from <COLD_KEY_NAME> \
+  --keyring-backend file \
+  --unordered --timeout-duration=60s \
+  --gas=2000000 --gas-adjustment=5.0 \
+  --node <NODE_URL>/chain-rpc/ \
+  --yes
+```
+
+You can change your vote until voting closes, the last one counts.
+
 Voting on both closes October 8, 02:40 UTC.
+
+- Full technical scope, contributor list and PR references: https://github.com/gonka-ai/gonka/blob/136041c81ea8ff38e7620d76af66a7c7fe7eec50/proposals/governance-artifacts/update-v0.2.16/README.md
 
 ## October 2, 2026
 

@@ -14,7 +14,7 @@ Two proposals are open for voting. From this release the upgrade and the bounty 
 
 **#112 Upgrade Proposal: v0.2.16**
 
-Proposal 112: https://gonka.gg/network/proposals/112
+[Proposal 112, Upgrade Proposal: v0.2.16](https://gonka.gg/network/proposals/112)
 
 **Trusted Weight.** Before v0.2.16, a sudden increase in claimed compute immediately increased a participant's power in governance, BLS and PoC validation. The upgrade limits that power to compute confirmed in the previous epoch. New or returning participants start with zero voting power but still earn rewards.
 
@@ -26,7 +26,7 @@ Proposal 112: https://gonka.gg/network/proposals/112
 
 **#113 Distribute v0.2.16 bounty rewards**
 
-Proposal 113: https://gonka.gg/network/proposals/113
+[Proposal 113, Distribute v0.2.16 bounty rewards](https://gonka.gg/network/proposals/113)
 
 104,150 USDT from community funds for development, research, infrastructure, security reporting, and code review work on the Gonka protocol. It covers contributions to v0.2.16 and larger projects spanning several upgrade cycles: Decode-PoC, the gonka-poc vLLM plugin, model benchmarking and integration, a vulnerability report, trainshards, and security and upgrade reviews. The per-recipient breakdown is in the proposal.
 
@@ -49,7 +49,7 @@ You can change your vote until voting closes, the last one counts.
 
 Voting on both closes October 8, 02:40 UTC.
 
-- Full technical scope, contributor list and PR references: https://github.com/gonka-ai/gonka/blob/136041c81ea8ff38e7620d76af66a7c7fe7eec50/proposals/governance-artifacts/update-v0.2.16/README.md
+[Full technical scope, contributor list and PR references](https://github.com/gonka-ai/gonka/blob/136041c81ea8ff38e7620d76af66a7c7fe7eec50/proposals/governance-artifacts/update-v0.2.16/README.md)
 
 ## October 2, 2026
 

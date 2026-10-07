@@ -1,5 +1,7 @@
 # H100 equivalent on dashboards
-Please read this before the v0.2.16 upgrade. If proposal 109 passes, the upgrade height is 6,353,400, expected around 2 October 2026, 07:05 UTC.
+
+Read this for the v0.2.16 upgrade, proposal 112. If it passes, the upgrade height is 6,449,400, expected around 8 October 2026, 05:48 UTC. Proposal 109 did not pass. The coefficient and weight rules below are for proposal 112.
+
 ## What the number is
 
 H100 equivalent is the current network reward weight divided by the reward weight one reference H100 receives in that same epoch:
@@ -43,6 +45,8 @@ A divisor frozen at 254, 254.5, or 291 was already taken from an older epoch. It
 Group caps and collateral still change reward weight independently of the coefficient. The median of observed `validation_weights[].weight` already includes them. Do not replace the denominator with a benchmark throughput times a coefficient.
 
 A second change in this upgrade does not belong in this metric. Governance, BLS, and PoC validation power are limited to compute confirmed in the previous epoch. New capacity still earns rewards immediately. Build H100 equivalent from `validation_weights[].weight`, the reward weight. `voting_power` on the root epoch group is 0 for every participant. It is filled only on model subgroups, and it is not the capacity figure.
+
+This upgrade also restores JSON numbers on `/v1/epochs/latest`, `/v1/epochs/{epoch}/participants`, and `/v1/bls/*`. Enums stay names. Keep accepting the v0.2.15 string shape until every host you query has upgraded. See the [v0.2.15 memo](./dashboard-maintainer-memo-v0.2.15.md). `/v1/versions` is unchanged.
 
 ## How to calculate it
 

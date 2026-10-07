@@ -1049,11 +1049,15 @@ Back up the **cold key** on your local device, outside the server.
 
 Same pattern as voting without the cold key: grant once from the cold key, then submit with `authz exec` from the warm key. See [What should I do if I cannot vote because I do not have access to the cold key, or if I want another key to vote on my behalf?](#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf).
 
-`grant-ml-ops-permissions` does not include PoC intent, delegation, or refusal on current mainnet (**v0.2.15**). Grant those types separately. After **v0.2.16**, `MsgDeclarePoCIntent` is backfilled for existing cold→warm pairs; `MsgSetPoCDelegation` and `MsgRefusePoCDelegation` are not.
+On current mainnet (**v0.2.15**), `grant-ml-ops-permissions` does not include PoC intent, delegation, or refusal. Grant those types separately.
 
-Do not run `declare-poc-intent` with `--from` set to the warm key. The inner message must be from the participant (cold) address.
+From **v0.2.16**, `grant-ml-ops-permissions` includes `MsgDeclarePoCIntent`, and the upgrade backfills that grant on existing cold→warm pairs. Do not re-run the ML-ops grant for this upgrade. `MsgSetPoCDelegation` and `MsgRefusePoCDelegation` stay separate.
+
+Do not run `declare-poc-intent` with `--from` set to the warm key. The inner message must be from the participant (cold) address. Submit it with `authz exec`.
 
 1) Grant permissions (once, signed by cold key)
+
+After v0.2.16, skip the `MsgDeclarePoCIntent` grant below. Grant delegation and refusal only if the warm key will submit those. Before v0.2.16, grant all three.
 
 First arg is the warm-key address. `--from` is the cold-key name in this keyring.
 

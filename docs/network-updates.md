@@ -22,7 +22,7 @@ Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka
 
 Pre-downloading binaries in advance may help avoid relying on GitHub availability during the upgrade window.
 
-**Before the upgrade, hosts must check that their cold-to-warm feegrant is valid. The cold account must have enough spendable GNK to cover fees.**
+**Before the upgrade, hosts must check that their cold-to-warm feegrant is valid. The cold account [must have](https://gonka.ai/docs/host/quickstart/#fund-account-fees) enough spendable GNK to cover fees.**
 
 Run from the directory that already contains `.dapi` and `.inference`.
 ```

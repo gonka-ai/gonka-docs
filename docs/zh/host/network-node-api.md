@@ -1,6 +1,6 @@
 # 网络节点API
 
-本节描述`Network Node API`，特别是`/v1/epochs/{epoch_id}/participants`端点。此端点用于检索：
+本节描述`Network Node API`，特别是`/v1/epochs/{epoch_id}/participants`端点。该端点用于检索：
 
 - Merkle证明
 - 主机数据
@@ -120,22 +120,23 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 
 **`active_participants`**
 
-`participants`：活跃参与者的列表，包括：
+`participants`：活动参与者列表，包括：
 
 - `index`：gonka地址
 - `validator_key`：公钥（Base64）
-- `weight`：投票权重
+- `weight`：本纪元的奖励权重
+- `cap_weight`：用于治理、BLS和PoC验证的信任权重。当`cap_weight_applied`为true时存在（由v0.2.16或更高版本形成的纪元）。在更早的纪元中，投票权遵循`weight`
 - `inference_url`：服务端点
 - `models`：支持的模型列表
 - `seed`：带元数据的签名种子
 
 **`addresses`**：参与者地址列表（大写十六进制格式）
 
-**`active_participants_bytes`**：原始字节数组（十六进制编码），编码了主机数据——适用于Merkle证明验证或状态同步。
+**`active_participants_bytes`**：编码主机数据的原始字节数组（十六进制编码），适用于Merkle证明验证或状态同步。
 
 **`proof_ops`**：用于验证的ICS23兼容证明操作列表
 
-**`validators`**：纪元时刻的验证者集合：
+**`validators`**：纪元时间点的验证者集合：
 
 - `address`：验证者地址
 - `pub_key`：公钥（Base64）
@@ -145,6 +146,6 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 **`block`**：围绕纪元事件的区块列表
 
 - 包含完整的区块头元数据、提议者地址、提交签名等。
-- 有助于验证主机数据的包含和提交
+- 有助于验证主机数据的包含和承诺
 
-**需要帮助？** 在[常见问题页面](https://gonka.ai/FAQ/)查找答案，或加入[Discord服务器](https://discord.gg/REcpeYc7P7)获取一般性问题、技术问题或安全问题的协助。  
+**需要帮助？** 请访问[常见问题页面](https://gonka.ai/FAQ/)获取答案，或加入[Discord服务器](https://discord.gg/REcpeYc7P7)以获取一般性查询、技术问题或安全问题的帮助。  

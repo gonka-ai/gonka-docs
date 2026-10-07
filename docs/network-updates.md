@@ -8,6 +8,52 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## October 7, 2026
+
+**Upgrade v0.2.16: Pre-download binaries**
+
+The on-chain governance process for the v0.2.16 upgrade proposal is nearing its conclusion.
+
+- Voting ends: October 8, 2026 at 02:40 AM UTC
+- Proposed upgrade height: 6449400
+- Estimated upgrade time: October 8, 2026 at ~ 05:48 AM UTC
+
+Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka-ai/gonka/blob/136041c81ea8ff38e7620d76af66a7c7fe7eec50/proposals/governance-artifacts/update-v0.2.16/README.md) and participate in the vote.
+
+Pre-downloading binaries in advance may help avoid relying on GitHub availability during the upgrade window.
+
+**Before the upgrade, hosts must check that their cold-to-warm feegrant is valid. The cold account must have enough spendable GNK to cover fees.**
+
+Run from the directory that already contains `.dapi` and `.inference`.
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.16/bin \
+              .inference/cosmovisor/upgrades/v0.2.16/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.16-post1/decentralized-api-amd64.zip" && \
+echo "f64b9433cd27d9ee433f1aede89d6be910f6deb8df644d55e2dfe30b8f873802 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.16/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.16/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.16/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.16-post1/inferenced-amd64.zip" && \
+echo "d2ef13374fb15518a02ae5fac83d139d66fb79a8c93d97f4e78b43ce30e14f98 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.16/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.16/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.16/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.16/bin/inferenced && \
+echo "332699b4ec760569f5670c6e1feb9d579c2a0c4ec6e0cc5095bf74ea1a37007f .dapi/cosmovisor/upgrades/v0.2.16/bin/decentralized-api" | sudo sha256sum --check && \
+echo "2f6a31c3ecda063a84fcfd80782fe5b00908f9b678da9204d6c7acba602260de .inference/cosmovisor/upgrades/v0.2.16/bin/inferenced" | sudo sha256sum --check
+```
+
 ## October 6, 2026
 
 Two proposals are open for voting. From this release the upgrade and the bounty payments go as two separate proposals and are voted on separately.

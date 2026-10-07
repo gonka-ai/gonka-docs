@@ -17,6 +17,8 @@ A 10 GNK allowance with 0 spendable GNK cannot pay a fee. Vesting coins cannot p
 
 Denom on the wire is `ngonka`. Display GNK as `amount / 1_000_000_000`.
 
+Bank sends, authz grants, and feegrant revoke/grant are charged at 1 ngonka per gas. Governance votes are not.
+
 ## Whom to check
 
 Check members of the current epoch group. They submit the paid messages `MsgPoCV2StoreCommit` and `MsgSubmitHardwareDiff`. Registered participants outside that group do not submit those messages on a schedule.

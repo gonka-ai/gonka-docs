@@ -9,13 +9,15 @@ total_bonded = Σ validator.tokens   (over all bonded validators with tokens > 0
 ```
 
 Each validator's `tokens` value is set on every epoch transition by the inference module via `Staking.SetComputeValidators()`.
-For the vast majority of validators:
+
+From **v0.2.16**, an epoch formed by that release sets non-guardian `validator.tokens` from `cap_weight`, not from reward `weight`. `cap_weight` is on `active_participants.participants[]` at `$NODE_URL/v1/epochs/{epoch_id}/participants`. Use it when `cap_weight_applied` is true. When that flag is absent, the epoch was formed earlier and `tokens` still follow `weight`. A new or returning host has `cap_weight = 0` for the first such epoch, so its validator power is 0. Rewards still use `weight`.
 
 ```text
-validator.tokens = participant.weight   (their PoC weight in the current epoch)
+non_guardian.tokens = cap_weight    # cap_weight_applied
+non_guardian.tokens = weight        # earlier epochs
 ```
 
-For the Genesis Guardians, an additional power-enhancement step is applied first (see below).
+Guardian boost still runs after this clamp and replaces Guardian tokens. See below.
 
 ---
 
@@ -51,15 +53,15 @@ Mechanism is documented in the official proposal:
 
 ### Guardian power boost calculation
 
-Before `SetComputeValidators` runs, the inference module applies `applyEarlyNetworkProtection`, which computes enhanced power as follows:
+Before `SetComputeValidators` runs, the inference module clamps non-guardian power to `cap_weight` on epochs formed by v0.2.16, then applies `applyEarlyNetworkProtection`. The boost uses those capped powers. On earlier epochs, `cap_weight` in this formula is reward `weight`.
 
 ```text
-other_total         = total_network_power − Σ guardian_original_power
+other_total         = total_capped_power − Σ guardian_capped_power
 total_enhancement   = other_total × multiplier
 per_guardian_power  = total_enhancement / guardian_count
 
-guardian.tokens     = per_guardian_power                # original PoC weight is REPLACED
-non_guardian.tokens = participant.weight                # unchanged
+guardian.tokens     = per_guardian_power
+non_guardian.tokens = cap_weight
 ```
 
 As of the v0.2.13 upgrade, the configured multiplier is `0.33334`, which targets roughly `25%` combined Guardian power at the epoch transition where the boost is applied:
@@ -72,7 +74,7 @@ guardian_share = 0.33334 / 1.33334 ≈ 25%
 **Effect (measured at each epoch transition):**
 
 - At the instant the boost is applied, the combined Guardian share targets `multiplier / (1 + multiplier)` of total bonded power.
-- This target is reached **when the boost runs**, not as a fixed steady state. Guardian `tokens` are set once per epoch, so as the rest of the network's PoC weight grows the combined Guardian share can drift between epoch transitions.
+- This target is reached **when the boost runs**, not as a fixed steady state. Guardian `tokens` are set once per epoch, so as the rest of the network's capped power grows the combined Guardian share can drift between epoch transitions.
 - With the current `0.33334` multiplier, Guardians target roughly `25%` combined adjusted power, not enough to pass proposals alone and not enough to veto alone under the current `33.4%` veto threshold.
 - Cannot extract value or unilaterally change consensus — coordination among the Guardians is required for any action.
 
@@ -91,7 +93,7 @@ Current status on the live network:
 
 - The height threshold (`3,000,000`) has already been crossed.
 - Total network power is still well below `15,000,000`, so the boost remains active.
-- The boost will switch off in the first epoch transition after the network's aggregate PoC weight crosses `15,000,000`; at that point, Guardian validators' `tokens` will equal their PoC weight, just like every other validator.
+- The boost will switch off in the first epoch transition after the network's aggregate capped power crosses `15,000,000`. Guardian `tokens` then equal `cap_weight`, the same figure as every other validator. On epochs formed before v0.2.16 that figure is still reward `weight`.
 
 Both thresholds are governance-tunable (`network_maturity_threshold` and `network_maturity_min_height`), so the activation cut-off can be adjusted by a successful governance proposal if needed.
 

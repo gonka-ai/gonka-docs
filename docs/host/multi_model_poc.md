@@ -32,15 +32,15 @@ As of epoch `308`, `Qwen/Qwen3-235B-A22B-Instruct-2507-FP8` has been retired by 
 
 `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` remain in `GET /v1/governance/models` (inference catalog) but are not PoC models.
 
-A model in `poc_params` is **eligible** for that epoch’s miss/refuse penalties only if it has voting power that meets `v_min` and `w_threshold`. A model's `weight_scale_factor` only produces consensus weight when that group is eligible. Models in `poc_params` with no voting power are bootstrap candidates on the next PoC. Check `poc_params` and the epoch’s `confirmation_weight_scales`. Live serving is a separate check: `/v1/epochs/current/participants`. Do not infer either from the table above.
+A model in `poc_params` is **eligible** for that epoch’s miss/refuse penalties only if it has voting power that meets `v_min` and `w_threshold`. A model's coefficient only produces consensus weight when that group is eligible. Models in `poc_params` with no voting power are bootstrap candidates on the next PoC. Check `poc_params` and the epoch’s `confirmation_weight_scales`. Live serving is a separate check: `/v1/epochs/current/participants`. Do not infer either from the table above.
 
-Per-model `weight_scale_factor` and `penalty_start_epoch` change through governance too often to list here reliably. Always read them from a live `params` query on the chain you use:
+`penalty_start_epoch` is still on `poc_params.models` and changes too often to list here. From **v0.2.16**, `weight_scale_factor` there is empty. Read the epoch's reward coefficient from `confirmation_weight_scales[].effective_coefficient`, or:
 
+```bash
+curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/dynamic_coefficients/0"
 ```
-./inferenced query inference params --node "$NODE" -o json
-```
 
-Look inside `poc_params` → `models`.
+`0` is the current epoch. Decode each `Decimal` as `value × 10^exponent`. Epochs formed before v0.2.16 have `weight_scale_factor` and no `effective_coefficient`.
 
 ??? note "Why multi-model PoC works this way"
 
@@ -65,7 +65,7 @@ New models are added through governance: each new model should have its own gove
 
 **In scope:** model cleanup before upgrade, per-model participation choices, delegation and intent transactions, delegation queries, PoC v2 commit diagnostics, and the chain parameters that affect your choices.
 
-**Signing:** everything in this guide is shown as if you broadcast from your **cold** Host key (`--from` points at that account). To submit intent, delegation, or refusal from a warm key, see [How do I declare a PoC intent from a warm key?](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key).
+**Signing:** everything in this guide is shown as if you broadcast from your **cold** Host key (`--from` points at that account). To submit intent, delegation, or refusal from a warm key, see [How do I declare a PoC intent from a warm key?](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key). From **v0.2.16**, `grant-ml-ops-permissions` includes intent, and existing cold→warm grants receive it at the upgrade. Delegation and refusal still need a separate grant. The warm key still submits with `authz exec`, not with `--from` set to the warm key.
 
 **Before you start:** confirm your binary and network expose these commands:
 
@@ -357,7 +357,7 @@ Penalties and the delegation share apply to **consensus weight** when the next e
 | Where in `params` | Field | Meaning for hosts |
 |---|---|---|
 | Per model in `poc_params` → `models` | `penalty_start_epoch` | Before this epoch index, penalty rules for **that model** do not apply. Track per `model_id`. |
-| Per model in `poc_params` → `models` | `weight_scale_factor` | Scales that model's PoC weight into consensus weight. |
+| Per model in `poc_params` → `models` | `weight_scale_factor` | Before v0.2.16, scales that model's PoC weight into consensus weight. From v0.2.16 this field is empty. Use `effective_coefficient` on the epoch's `confirmation_weight_scales`. |
 | `delegation_params` | `refusal_penalty` | Fraction of your original consensus weight removed when you used `refuse-poc-delegation` after `penalty_start_epoch`. |
 | `delegation_params` | `no_participation_penalty` | Fraction removed when you did not refuse, did not have a valid delegation, and did not serve the model yourself — after penalties apply. |
 | `delegation_params` | `delegation_share` | Fraction of the delegator's original weight reallocated to the delegate when delegation is valid. |

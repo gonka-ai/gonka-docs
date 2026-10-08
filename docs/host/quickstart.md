@@ -1434,6 +1434,8 @@ Fees currently apply to the following message types:
 
 Other protocol-duty traffic (for example routine inference, PoC validation, seed submission, reward claims, and BLS) stays free. Bank sends, authz grants, and feegrant revoke/grant are in the `cosmos` group and cost 1 ngonka per gas. Governance votes stay free. Always use the `ngonka` denomination for balances and fees.
 
+The chain withdraws `gas limit × price` for a paid transaction. `--gas 2000000` at 1 ngonka per gas is 0.002 GNK. Keep a manual limit in that range. A limit of billions of gas withdraws billions of ngonka from the account, even when the transaction uses little gas. The chain rejects a fee above **100 GNK**. Any fee under that cap is still charged in full.
+
 Get your cold account address on your **local machine**:
 
 ```bash

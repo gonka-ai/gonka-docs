@@ -8,7 +8,7 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
-# October 7, 2026
+## October 7, 2026
 
 **UPGRADE EXECUTED: v0.2.16 is now live on mainnet**
 

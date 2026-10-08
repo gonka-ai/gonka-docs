@@ -8,6 +8,48 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+# October 7, 2026
+
+**UPGRADE EXECUTED: v0.2.16 is now live on mainnet**
+
+The on-chain governance vote for [Upgrade Proposal v0.2.16](https://github.com/gonka-ai/gonka/blob/136041c81ea8ff38e7620d76af66a7c7fe7eec50/proposals/governance-artifacts/update-v0.2.16/README.md) (proposal id 112) has concluded.
+
+The proposal was APPROVED, and the upgrade was successfully executed on the mainnet at block 6449400.
+
+**What changed**
+
+**1. Trusted Weight.** Before v0.2.16, a sudden increase in claimed compute immediately increased a participant's power in governance, BLS, and PoC validation. This gave unconfirmed capacity influence over consensus and over validation of other participants. The upgrade limits that power to compute confirmed in the previous epoch. New or returning participants start at 0, and a failed confirmation sets the next baseline to 0. New compute still earns rewards immediately. Only trust-sensitive power waits one confirmed epoch.
+
+**2. Dynamic Coefficients v1.** The network needs predictable throughput for each model so users can rely on its availability. The target throughput for each model should follow expected demand. With fixed coefficients, an entire hardware class tends to switch to the same model. This makes capacity per model difficult to balance and predict. This upgrade lets governance set a target percentage of network compute and a coefficient range for each model. The protocol dynamically adjusts the coefficient inside that range to move compute toward the target. Compute above the target is scored at the minimum coefficient, which discourages oversupply. Governance initially sets targets from demand estimates and data sources such as OpenRouter. Later versions can aggregate host estimates and eventually use on-chain model usage. This version changes incentives only. It does not automatically switch the models deployed by a host. At upgrade, the minimum and maximum both equal the current scale, so coefficients and rewards stay unchanged until governance opens the ranges.
+
+**3. Fee.** Historically, the protocol has charged no transaction fees. An attacker can therefore submit high-volume messages at little cost while every validator pays the processing and storage cost. The upgrade groups transaction types and adds per-message gas rules so each group can be priced separately. All groups are disabled by default and charge nothing. Governance can enable and price them later. The upgrade proposal info can also enable groups at upgrade height.
+
+**4. PoC Challenge.** PoC and random Confirmation PoC prove a host's claimed capacity. During the rest of the epoch, inference statistics check that this hardware is used for work assigned by the protocol. A high rate of missed or invalid inferences can remove a host. This provides a strong ongoing check, but its sensitivity depends on inference volume and may not reveal every gap between claimed and available capacity. PoC Challenge adds an additional security layer for these cases. An approved challenger can require one active host to leave inference and run PoC at full capacity until the next regular PoC. To open the challenge, the challenger locks a payment equal to a fraction of the target's remaining epoch reward. If the target passes, it receives the payment. If it fails, the challenger is refunded, and the target receives the same penalty as for a failed Confirmation PoC. Inference missed during the challenge does not count against the target. Only allowlisted devshard escrow creators can open a challenge. If the allowlist is empty, anyone can open one. More details and other changes are here: [https://github.com/gonka-ai/gonka/pull/1535](https://github.com/gonka-ai/gonka/pull/1535)
+
+**Action items**
+
+**Hosts**
+
+1. Check fees before the next PoC. The cold account must hold spendable GNK, and the cold-to-warm feegrant must be valid. On the server:
+```
+curl -s http://127.0.0.1:9200/admin/v1/epoch-fee-budget | jq
+```
+`spendable_covers_budget` must be `true`. Vesting coins do not pay fees. A balance on the warm key does not pay fees while the node uses the cold account as `fee_granter`. If the cold spendable balance is 0, send liquid GNK to the cold account. If the feegrant allowance is used up or expired, revoke it and run `grant-ml-ops-permissions` again. Sending GNK does not raise that allowance cap. The v0.2.12 grant was 100 GNK. `grant-ml-ops-permissions` grants 10 GNK. See [Fund your Account Key.](https://gonka.ai/host/quickstart/#fund-account-fees)
+
+2. Do not re-grant ML-ops permissions. The upgrade adds `MsgDeclarePoCIntent` to existing cold-to-warm grants. New grants from `grant-ml-ops-permissions` include it. `MsgSetPoCDelegation` and `MsgRefusePoCDelegation` are still separate. A warm key submits intent with `authz exec`, not with `--from` set to the warm key. See [How do I declare a PoC intent from a warm key?.](https://gonka.ai/FAQ/#how-do-i-declare-a-poc-intent-from-a-warm-key)
+
+3. Read the reward coefficient from `effective_coefficient`. `poc_params.models[].weight_scale_factor` is empty. The same value is at `GET /chain-api/productscience/inference/inference/dynamic_coefficients/0` (`0` is the current epoch). Epochs formed before this upgrade still use `weight_scale_factor`. See [Multi-Model PoC.](https://gonka.ai/host/multi_model_poc/)
+   
+**Dashboard maintainers**
+
+1. H100 equivalent stays on reward weight. Keep using `validation_weights[].weight`. Do not read `poc_params.models[].weight_scale_factor`. From this upgrade, chart `effective_coefficient`. The upgrade epoch already has it set to the old scale. The epoch after the upgrade is the first one on the new ranges. See the [H100 memo](https://gonka.ai/dashboard-maintainer-memo-v0.2.16-h100/).
+   
+2. Voting power and rewards are different fields. Rewards use `weight`. Governance, BLS, and PoC validation use `cap_weight` on epochs where `cap_weight_applied` is true. On earlier epochs, `cap_weight` is absent and voting power still follows `weight`. See [Voting Power](https://gonka.ai/governance/voting-power-eligibility/) and [What is the weight cap?](https://gonka.ai/FAQ/#what-is-the-weight-cap).
+   
+3. `/v1` integers are JSON numbers again on `/v1/epochs/latest`, `/v1/epochs/{epoch}/participants`, and `/v1/bls/*`. Enums are names. Keep accepting the v0.2.15 string shape until every host you query is on v0.2.16. `/v1/versions` is unchanged. See the [v0.2.15 memo](https://gonka.ai/dashboard-maintainer-memo-v0.2.15/).
+   
+4. Fee health is cold spendable balance and the remaining cold-to-warm allowance, not vesting and not the warm balance. The recurring paid messages are `MsgPoCV2StoreCommit` and `MsgSubmitHardwareDiff`. See [the fee memo.](https://gonka.ai/dashboard-maintainer-memo-v0.2.16-fee/)
+
 ## October 7, 2026
 
 **Upgrade v0.2.16: Pre-download binaries**

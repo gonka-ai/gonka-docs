@@ -25,9 +25,9 @@ H100_eq = total_weight / weight_per_h100
 | [gnk.space](https://gnk.space/) | ~1,710 | 修复 `291`。当该 API 字段被设置时，页面使用 `network_weight_h100`。该字段为空，因此页面回退至 `totalWeight / 291`。`497,724 / 291 = 1,710` |
 
 gonka.gg 也显示“总物理 GPU：642”。这是一个不同的指标：活跃主机自报的 GPU 库存。它不是 H100 等效值。当主机更新其硬件报告时，该库存会发生变化。
-不得混淆这两类卡。在第 410 轮，一个纯 H100 80GB HBM3 主机每 GPU 产生约 **457** 权重。一个纯 H100 PCIe 主机每 GPU 产生约 **245**。
+H100 80GB HBM3 与 H100 PCIe 是不同的卡。在第 410 轮，一个纯 H100 80GB HBM3 主机每 GPU 产生约 **457** 权重。一个纯 H100 PCIe 主机每 GPU 产生约 **245**。样本中不包含 PCIe。
 ## 如果 v0.2.16 通过会发生什么变化
-查询路径保持不变。奖励权重仍位于 `validation_weights[].weight`。该数字已包含该轮的有效系数，无需再次乘以系数。
+查询路径保持不变。分子仍是根 `total_weight`，即 `validation_weights[].weight` 之和。该数字已包含该轮的有效系数。不要再把 `validation_weights[].weight` 乘以系数。
 `current_epoch_group_data` 的内容会发生变化。在升级轮次及之后，`confirmation_weight_scales[].weight_scale_factor` 被清空，`effective_coefficient` 被设置。升级前形成的轮次仍保留 `weight_scale_factor` 且无 `effective_coefficient`。`poc_params.models[].weight_scale_factor` 在升级时被清空。将其读作实时系数将返回空值。
 模型系数开始变动。治理机构为每个模型设定目标算力份额和系数范围。每轮协议在该范围内逐步调整基础系数。超过目标份额的算力按最低系数评分，因此用于奖励权重的有效系数可能低于基础系数。该表格为初始范围，而非后续轮次应用的系数。
 初始范围从升级后的下一轮开始生效。升级轮次本身仍保留当前的奖励权重。
@@ -39,12 +39,12 @@ gonka.gg 也显示“总物理 GPU：642”。这是一个不同的指标：活�
 | DeepSeek V4 Flash 0731 | 0.246 | 0.2214–0.2706 | `deepseek-ai/DeepSeek-V4-Flash-0731` |
 | 任何其他启用的模型 | 其当前规模 | 该规模 × [0.9, 1.1] | 来自链参数 |
 
-相同的物理H100根据其服务的模型以及该模型是否超过其目标份额，获得不同的奖励权重。不同模型的主机是不同的单位，因此中位数必须来自所有服务同一模型的主机。
-MiniMax初始被锁定：`coeff_min`和`coeff_max`均为0.3024。当这两个边界在该轮次冻结的`config`上相等时，模型被锁定。治理可以稍后打开MiniMax的范围，或锁定其他模型，而无需重置控制器。不要硬编码MiniMax。每个轮次，读取边界并从中选择参考模型。
-一个在254、254.5或291冻结的除数已被从前一轮次取走。在升级后，每个轮次它都会进一步漂移。
-组上限和抵押品仍独立于系数改变奖励权重。观察到的`validation_weights[].weight`的中位数已包含它们。不要用基准吞吐量乘以系数来替换分母。
+相同的物理 H100 根据其服务的模型以及该模型是否超过其目标份额，获得不同的奖励权重。`poc_weight` 仍是原始值。取中位数之前，将其乘以该模型的 `effective_coefficient`，并把所有模型上的节点放在同一样本中。在标题旁列出这些模型 id。
+MiniMax 初始被锁定：`coeff_min` 和 `coeff_max` 均为 0.3024。当这两个边界在该轮次冻结的 `config` 上相等时，模型被锁定。治理可以稍后打开 MiniMax 的范围，或锁定其他模型，而无需重置控制器。不要硬编码 MiniMax。单位仍是一张 H100 80GB HBM3。不要把标题改成 B200 或 B300。
+在 254、254.5、291 或上一轮次的 488 冻结的除数已经取自更早的轮次。升级之后，每个轮次它都会进一步漂移。
+组上限和抵押品仍会改变参与者的根奖励权重。该根权重不是一张 H100 的正确分子：未提交抵押品的主机看起来像更弱的卡。每 GPU 样本是 `poc_weight × effective_coefficient / card count`。不要用主机的根奖励权重除以卡数。不要用基准吞吐量乘以系数来替换分母。
 
-此升级中的第二个更改不属于此指标。治理、BLS和PoC验证能力受限于上一轮次确认的计算能力。新容量仍立即获得奖励。从`validation_weights[].weight`（奖励权重）构建H100等效值。根轮次组的`voting_power`对每个参与者均为0。它仅在模型子组中填充，且不是容量数值。
+此升级中的第二个更改不属于此指标。治理、BLS 和 PoC 验证能力受限于上一轮次确认的计算能力。新容量仍立即获得奖励。分子是根轮次组的 `total_weight`。根轮次组的 `voting_power` 对每个参与者均为 0。它仅在模型子组中填充，且不是容量数值。
 
 此升级还恢复了`/v1/epochs/latest`、`/v1/epochs/{epoch}/participants`和`/v1/bls/*`上的JSON数字。枚举仍保留名称。在您查询的每个主机升级之前，继续接受v0.2.15字符串格式。参见[v0.2.15备忘录](./dashboard-maintainer-memo-v0.2.15.md)。`/v1/versions`保持不变。
 
@@ -52,39 +52,33 @@ MiniMax初始被锁定：`coeff_min`和`coeff_max`均为0.3024。当这两个边
 
 每个轮次重新计算一次，在该轮次的权重进入`current_epoch_group_data`之后。在PoC期间，链有两个轮次指针。遵循此端点。不要从区块高度推导轮次。
 
-参考卡：仅限**NVIDIA H100 80GB HBM3**。
+参考卡：仅限 **NVIDIA H100 80GB HBM3**。标题保持为 H100。不要把它改成 B200 或 B300。
 
-包括升级轮次在内，样本为所有纯H100 80GB HBM3主机。从下一个轮次开始，仅保留服务该轮次参考模型的主机。
+样本是活跃 CometBFT 验证者上符合条件的 H100 节点。混合主机保留在样本中。仅在每块上报 GPU 都是 H100 时才保留主机，会丢掉与另一张卡共用机器的卡。如果每台这样的主机再加一张其他卡，该样本就会空掉。
 
 1. `GET /chain-api/productscience/inference/inference/current_epoch_group_data`
-取`epoch_index`、`total_weight`、`sub_group_models`和每个`validation_weights[]`条目：`member_address`和`weight`。使用此根`weight`作为主机的奖励权重。它已包含有效系数。
+   取 `epoch_index`、`total_weight`、`sub_group_models` 和每个 `validation_weights[]` 条目：`member_address` 和 `weight`。`total_weight` 是分子。它已包含有效系数。不要用成员的根 `weight` 除以卡数。
 2. `GET /chain-api/productscience/inference/inference/hardware_nodes_all`
-保留`participant`属于当前轮次`validation_weights`的行。丢弃其余行。未过滤列表是历史数据。目前包含4,455条记录，不是实时网络。
-3. 仅当所有报告的GPU均为`NVIDIA H100 80GB HBM3`时，才保留参与者。一个H100 PCIe、H100 NVL或未标记的`gpu`将使主机从样本中移除。GPU类型为自报，链不验证。此过滤器可防止混合服务器改变每GPU权重。
-4. 从首次使用新范围的轮次开始，将每个纯主机分配给其服务的单一模型。对于`sub_group_models`中的每个`model_id`：
+   保留 `participant` 属于当前轮次 `validation_weights` 的行。丢弃其余行。未过滤列表是历史数据。目前包含 4,455 条记录，不是实时网络。
+3. `GET /chain-api/cosmos/base/tendermint/v1beta1/validatorsets/latest`
+   仅当 `participant.validator_key` 等于某个验证者的 `pub_key.key` 时才保留该参与者。`validator_key` 在 `GET /chain-api/productscience/inference/inference/participant/{member_address}`。RTX 5090 位于不是验证者的轮次成员上。这些成员不进入样本。
+4. 对每个保留的硬件节点，要求 `status` = `INFERENCE`，且某个 `hardware[].type` 以 `NVIDIA H100 80GB HBM3` 开头。实时上报会在后面加上 ` | 79GB`。H100 PCIe 是另一种卡。不要把它放进来。同一主机上的另一张卡不会移除这个节点。GPU 类型为自报，链不验证。
+5. 对于 `sub_group_models` 中的每个 `model_id`：
 
    ```text
    GET /chain-api/productscience/inference/inference/epoch_group_data/{epoch_index}?model_id={model_id}
    ```
 
-   当该子组的`validation_weights`条目中`weight` > 0时，参与者服务该模型。丢弃服务多个模型的参与者。将其余参与者按该单一模型分组。
-5. 为本轮次选择参考模型：
-   - 当其冻结的`config.coeff_min`和`config.coeff_max`解码为相同数字时，模型被锁定。升级时，该模型为`MiniMaxAI/MiniMax-M2.7`。
-   - 在至少有3个纯H100主机的锁定模型中，选择拥有最多此类主机的模型。平局：选择`model_id`最低的。
-   - 如果没有锁定模型拥有3个此类主机，则选择拥有最多纯H100主机的单一模型，无论是否锁定。平局：选择`model_id`最低的。分母随后遵循该模型的有效系数。标记模型和系数，以便变化可见。
-   - 不要跨模型取中位数。
-6. 对于参考模型上的每个主机，`sample = weight / h100_count`，使用步骤1中的根奖励权重。
-7. 分母 = 这些样本的中位数。若为偶数个，取两个中心值的平均值。
-8. `H100_eq = total_weight / denominator`。
+   将硬件节点的 `local_id` 与 `ml_nodes[].node_id` 匹配。当该条目的 `poc_weight` > 0 时保留该节点。使用该模型的 `effective_coefficient`。
+6. `poc_weight` 是原始值。该节点上每 GPU 为 `poc_weight × effective_coefficient / card count`。卡数是该节点上类型以 `NVIDIA H100 80GB HBM3` 开头的 `hardware[].count`。`effective_coefficient` 已在下文说明。不要再把 `validation_weights[].weight` 乘以系数。不要用主机的根奖励权重除以卡数。
+7. `weight_per_h100` = 这些每 GPU 数值的中位数。若为偶数个，取两个中心值的平均值。
+8. `H100_eq = total_weight / weight_per_h100`。`total_weight` 仍是根轮次组的 `total_weight`。
 
-如果所选模型上剩余主机少于3个：
-
-- 通过升级轮次，保留上一轮次的分母，并标注为延续。
-- 之后，保留上一轮次使用相同参考`model_id`的分母，并标注为延续。不要重用457.33或任何其他升级前的分母。不要在参考模型变更时延续分母。如果此模型无先前分母，则省略该轮次的标题。
+如果本轮次没有符合条件的 H100 节点，省略标题。不要复用上一轮次的分母。本轮次仍有存活的 H100 节点时，不得复用上一轮次的 488。
 
 ### 第410轮次检查
 
-此检查使用升级前的样本：所有纯H100 80GB HBM3主机，而非单一参考模型。在升级轮次期间发布。
+此检查使用升级前的样本：所有纯 H100 80GB HBM3 主机，而非单一参考模型。
 
 四个纯H100 80GB HBM3主机，每GPU权重：451.69、452.38、462.29、466.50。
 
@@ -92,19 +86,35 @@ MiniMax初始被锁定：`coeff_min`和`coeff_max`均为0.3024。当这两个边
 
 `497,724 / 457.33 = 1,088`。
 
-在新范围应用之前，以此数值为标准。它与tracker.gonka.vip（约1,087）匹配。gonka.gg的1,102使用相同公式，但包含了三个仅H100-PCIe主机，使中位数从457.3变为451.7。
+它与 tracker.gonka.vip（约 1,087）匹配。gonka.gg 的 1,102 使用相同公式，但包含了三个仅 H100 PCIe 的主机，使中位数从 457.3 变为 451.7。
 
-在首次使用新范围的轮次，标题可能变动，因为样本从所有纯HBM3主机变为单一参考模型的主机。升级时该模型为MiniMax，因其为锁定模型。如果治理后来解除锁定，则遵循相同规则选择任何被锁定的模型，或拥有最多纯H100主机的单一模型。在标题旁显示样本标签，以解释跳跃。
+1,088 只是历史检查。之后的轮次，包括升级轮次和第 420 轮，都使用上面的节点样本，包括混合主机。不要复用 457.33。
+
+### 第 420 轮次
+
+在第 420 轮的实时读数中，`total_weight` 为 **669,024**。
+
+11 个符合条件的节点，64 张 H100 80GB HBM3，全部为 `INFERENCE`，且 `poc_weight` 均 > 0。
+
+MiniMax 的 `effective_coefficient` 为 0.3024。DeepSeek 为 0.2706。
+
+每 GPU，从低到高：233、237、263、344、350、394、441、458、458、458、458。
+
+中位数 `weight_per_h100` 为 394.4（11 个中的第 6 个）。
+
+`669,024 / 394.4 = 1,696`。
+
+1,180 和 488 是旧的纯主机回退，不是本轮的 `weight_per_h100`。用本次读数的 `total_weight` 除以 488 得到 1,371，而不是 1,180。1,180 对应的总权重约为 575,840。
 
 ## 显示内容
 
-- 标题：**H100 等效值**，即除法结果。在第 410 个周期时，该值约为 **1,088**。
-- 其旁边：分母、样本量和参考模型。升级周期为："457 weight per H100 80GB HBM3, 4 hosts"。从下一个周期开始："weight per H100 80GB HBM3 on {model_id}, effective coefficient {effective_coefficient}, N hosts"。
+- 标题：**H100 等效值**，即除法结果。单位保持为 H100。第 410 轮的升级前检查约为 **1,088**。
+- 标题旁边：`weight_per_h100`、节点数、卡数、模型 id，以及混合主机已包含在内。"weight per H100 80GB HBM3, N nodes, C cards, {model_ids}, mixed hosts included"。
 - 物理 GPU 数量，若显示，应为单独一行。将其标记为自报库存。
 - gonka.gg 上的标题 "H100 median weight: 1,102" 是等效值，而非中位数。将等效值标记为 H100 等效值，并单独显示中位数。
 - 将卡片标记为奖励权重等效值。向更高系数模型的转变会改变此数值，而不会改变 GPU 数量。
 
-从每个周期的权重中刷新分母。使用新系数范围的第一个周期是升级后的周期，而非升级周期本身。
+每个轮次用该轮次符合条件的节点刷新 `weight_per_h100`。不要沿用上一轮次的分母。使用新系数范围的第一个轮次是升级后的轮次，而非升级轮次本身。
 
 ## 如果你也显示模型系数
 
@@ -120,7 +130,7 @@ GET /chain-api/productscience/inference/inference/dynamic_coefficients/{epoch_in
 
 对于每个模型：
 
-- `effective_coefficient` 是已包含在 `validation_weights[].weight` 中的乘数。这是用作系数的数值。
+- `effective_coefficient` 是已包含在 `validation_weights[].weight` 中的乘数。这是用作系数的数值。原始 `poc_weight` 不包含它。每 GPU 样本只乘它一次。
 - `base_coefficient` 是超供稀释前的控制器值。将其与有效值并列显示。当模型的计算份额高于目标时，两者不同。
 - `config.coeff_min`、`config.coeff_max`、`config.target_share_bps` 和 `config.relative_difficulty` 是该纪元冻结的边界、目标和难度。目标份额为 `target_share_bps / 10000`。上表仅为初始边界。
 - `poc_params.models[].dynamic_coefficient` 是下一个 PoC 的实时治理边界。它不是当前纪元使用的系数。

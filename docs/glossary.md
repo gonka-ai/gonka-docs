@@ -16,6 +16,10 @@
 
 **Gonka Network** is a comprehensive ecosystem of participants, including Hosts and Developers that interact through decentralized infrastructure. Powered by the Gonka Blockchain, the network distributes tasks, verifies results, and rewards honest participation only verifiable useful work, creating a competitive, scalable environment for AI workloads.
 
+**`INVALID` (Host status)** means inference validation found invalid work and excluded the Host from its epoch groups. Under the proposed v0.2.18 rule, unpaid Reward Coins and Work Coins for that epoch go to governance. See [Host status and unpaid earnings](FAQ.md#what-happens-to-unpaid-earnings-if-my-host-becomes-invalid-or-inactive).
+
+**`INACTIVE` (Host status)** means downtime checks excluded the Host from its epoch groups. It has the same proposed v0.2.18 treatment of unpaid epoch earnings as `INVALID`. This inference status is distinct from a validator's consensus `jailed` status.
+
 **Gonka personas:**
 
 - **Developer** builds and deploys AI applications by leveraging the network’s distributed computing power.

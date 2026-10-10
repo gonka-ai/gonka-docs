@@ -620,6 +620,12 @@ Then, to check if the node was unjailed:
 ```
 When a node is jailed, it shows `jailed: true`.
 
+### What happens to unpaid earnings if my Host becomes INVALID or INACTIVE?
+
+Under the proposed v0.2.18 rule, a Host marked `INVALID` for invalid inference or `INACTIVE` for downtime during an epoch loses its unpaid Reward Coins and Work Coins for that epoch to governance. The Work Coins transfer covers both a positive balance at epoch account settlement and the Host's full share of a devshard escrow settled after the exclusion was recorded for that epoch. The escrow may settle in a later epoch; the exclusion record for the escrow's epoch still controls its payout. Payments completed before the exclusion was recorded are not reclaimed.
+
+Consensus `jailed` status is different from these inference participation statuses. Jailing alone does not trigger this Work Coins transfer; a jailed validator can continue earning as a Host while its inference status remains `ACTIVE`. Follow the [shutdown sequence](host/quickstart.md#how-to-stop-your-node) and keep serving until the disable takes effect at the next epoch. See [the issue describing the change](https://github.com/gonka-ai/gonka/issues/1746).
+
 ### How to decommission an old cluster?
 
 Follow this guide to safely shut down an old cluster without impacting reputation.

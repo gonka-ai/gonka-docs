@@ -1706,6 +1706,8 @@ curl -X POST http://<api_node_static_ip>:<admin_port>/admin/v1/nodes/<id>/disabl
 ```
 Wait for the next epoch. Do not stop the Network Node or the ML Nodes yet. The disable flag takes effect only after the next epoch starts.
 
+With the proposed v0.2.18 payment rule, stopping service before the disable takes effect can cause the Host to become `INACTIVE` or `INVALID` during the current epoch. Both statuses forfeit unpaid Reward Coins and Work Coins from that epoch to governance; Work Coins already paid before the exclusion are not reclaimed. Keep serving until your Host is no longer expected to participate, as checked below. See [Host status and unpaid earnings](../FAQ.md#what-happens-to-unpaid-earnings-if-my-host-becomes-invalid-or-inactive).
+
 Keep your Network Node online and synced, it should handle the reward claim automatically.
 To check that your latest reward was claimed, after the `claim_money` block run the following command (replace `<YOUR_ADDRESS>` and `<EPOCH>` with your actual values):
 ```

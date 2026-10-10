@@ -8,6 +8,12 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## October 10, 2026
+
+**Proposed for v0.2.18: unpaid earnings after Host exclusion (not live yet)**
+
+The proposed change sends unpaid Reward Coins and Work Coins for an epoch to governance when a Host becomes `INVALID` or `INACTIVE` in that epoch. For Work Coins, this covers both the balance still awaiting epoch account settlement and the full Host share of a devshard escrow settled after the exclusion was recorded, even if that escrow settles in a later epoch. A payment completed before the exclusion was recorded is not reclaimed. Consensus jailing alone is a separate status and does not trigger this transfer. See [the issue and policy discussion](https://github.com/gonka-ai/gonka/issues/1746) and the [Host shutdown sequence](host/quickstart.md#how-to-stop-your-node). This rule takes effect only if the v0.2.18 change is accepted and activated.
+
 ## October 7, 2026
 
 **UPGRADE EXECUTED: v0.2.16 is now live on mainnet**

@@ -1237,7 +1237,7 @@ Account balance: 0
 
     The command will prompt `confirm transaction before signing and broadcasting [y/N]:` — type `y` to proceed.
 
-    Gas is paid from the Account Key's balance. Make sure the account has coins before running this command.
+    Registration stays free on mainnet. The onboarding fee group is disabled, so this command does not spend GNK on gas.
 
 !!! note "Per-Node Account Key Configuration"
     Always generate a unique `ACCOUNT_PUBKEY` for each Network Node to ensure proper separation of Hosts.
@@ -1259,6 +1259,7 @@ Grant permissions from your Account Key to the ML Operational Key. This also cre
     --from gonka-account-key \
     --keyring-backend file \
     --gas 2000000 \
+    --gas-prices 1ngonka \
     --node <seed_api_url from server's config.env>/chain-rpc/ 
 ```
 
@@ -1436,6 +1437,17 @@ Other protocol-duty traffic (for example routine inference, PoC validation, seed
 
 The chain withdraws `gas limit × price` for a paid transaction. `--gas 2000000` at 1 ngonka per gas is 0.002 GNK. Keep a manual limit in that range. A limit of billions of gas withdraws billions of ngonka from the account, even when the transaction uses little gas. The chain rejects a fee above **100 GNK**. Any fee under that cap is still charged in full.
 
+`--gas auto` sets the gas limit only. Pass `--gas-prices 1ngonka` as well, or set an explicit `--fees` amount. A paid transaction with an empty fee is rejected with `insufficient fee`.
+
+The charged groups are on chain:
+
+```bash
+curl -s http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/params \
+  | jq '.params.fee_params | {enabled_fee_groups, groups: [.groups[] | {name, min_gas_price}]}'
+```
+
+On mainnet, `enabled_fee_groups` is `epoch` and `cosmos`, each at 1 ngonka per gas. A group that is absent from that list stays free.
+
 Get your cold account address on your **local machine**:
 
 ```bash
@@ -1508,7 +1520,10 @@ The endpoint estimates **one epoch at a time**. Fees are spent as transactions l
   --from gonka-account-key \
   --keyring-backend file \
   --node http://node2.gonka.ai:8000/chain-rpc/ \
-  --chain-id gonka-mainnet
+  --chain-id gonka-mainnet \
+  --gas auto \
+  --gas-adjustment 1.5 \
+  --gas-prices 1ngonka
 ```
 
 3. After the revoke is confirmed, grant again:
@@ -1520,6 +1535,7 @@ The endpoint estimates **one epoch at a time**. Fees are spent as transactions l
   --from gonka-account-key \
   --keyring-backend file \
   --gas 2000000 \
+  --gas-prices 1ngonka \
   --node http://node2.gonka.ai:8000/chain-rpc/ \
   --chain-id gonka-mainnet
 ```
@@ -1568,7 +1584,10 @@ Deposit collateral from your Account Key (always use `ngonka`):
   --from gonka-account-key \
   --keyring-backend file \
   --node $NODE_URL/chain-rpc/ \
-  --chain-id $CHAIN_ID
+  --chain-id $CHAIN_ID \
+  --gas auto \
+  --gas-adjustment 1.5 \
+  --gas-prices 1ngonka
 ```
 
 Verify:
@@ -1623,6 +1642,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 1ngonka \
   -y
 ```
 
@@ -1639,6 +1659,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 1ngonka \
   -y
 ```
 
@@ -1654,6 +1675,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 1ngonka \
   -y
 ```
 
@@ -1669,6 +1691,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
   --gas-adjustment 1.3 \
+  --gas-prices 1ngonka \
   -y
 ```
 

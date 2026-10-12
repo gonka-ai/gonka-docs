@@ -10,7 +10,7 @@ Unordered transactions are supported and recommended here to avoid sequence cont
     - `--from <COLD_KEY_NAME>` → use your cold governance key.
     - `--keyring-backend file` → ensures signing with your local key (you will be prompted).
     - `--unordered --timeout-duration=60s` → makes the tx valid for a bounded time, bypassing sequence ordering (new in v0.53+).
-    - `--gas=2000000` → manual gas limit (enough for these txs). `--gas-adjustment` only multiplies the estimate when `--gas auto` is used, so alongside a fixed `--gas` it is ignored. Governance votes are free, so this limit costs nothing on a vote. A paid transaction withdraws `gas limit × price`. Keep the limit near this example. See [Fund your Account Key](https://gonka.ai/host/quickstart/#fund-account-fees).
+    - `--gas=2000000` → manual gas limit (enough for these txs). `--gas-adjustment` only multiplies the estimate when `--gas auto` is used, so alongside a fixed `--gas` it is ignored. Governance votes are free, so this limit costs nothing on a vote. A paid transaction withdraws `gas limit × price` and needs `--gas-prices 1ngonka`. Keep the limit near this example. See [Fund your Account Key](https://gonka.ai/host/quickstart/#fund-account-fees).
     - `--node <NODE_URL>/chain-rpc/` → required unless you run a local RPC node.
     - `--yes` → auto-approve broadcasting.
     
@@ -100,4 +100,4 @@ For the full quorum, threshold, veto, and `abstain` formulas, see [Voting on Pro
 
 ???+ note "Notes"
     - **Unordered tx semantics.** When using `--unordered`, the tx carries an expiry via `--timeout-duration`, and its sequence is left unset. External tooling that expects monotonic sequences must not rely on them for these txs. ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/learn/beginner/tx-lifecycle))
-    - **Gas tuning.** If simulations are tight or validators use higher min gas prices, raise `--gas-adjustment` or set `--gas-prices` per network policy. ([docs.cosmos.network](https://docs.cosmos.network/sdk/v0.53/learn/beginner/tx-lifecycle))
+    - **Gas tuning.** `--gas-adjustment` multiplies the simulated limit when `--gas auto` is used. It does not set the fee. Governance votes are free. A paid transaction needs `--gas-prices 1ngonka` or `--fees`. See [Fund your Account Key](https://gonka.ai/host/quickstart/#fund-account-fees).

@@ -104,7 +104,10 @@ Always use the `ngonka` denomination. The transaction is signed by the participa
   --from gonka-account-key \
   --keyring-backend file \
   --node $NODE_URL/chain-rpc/ \
-  --chain-id gonka-mainnet
+  --chain-id gonka-mainnet \
+  --gas auto \
+  --gas-adjustment 1.5 \
+  --gas-prices 1ngonka
 ```
 
 To compute a sensible `<COLLATERAL_SIZE>` for a given target weight, see [Compute collateral per weight](#compute-collateral-per-weight) above. For the recommended safety margin, see [Recommended Buffer](#recommended-buffer).
@@ -141,7 +144,10 @@ To withdraw collateral:
   --from gonka-account-key \
   --keyring-backend file \
   --node $NODE_URL/chain-rpc/ \
-  --chain-id gonka-mainnet
+  --chain-id gonka-mainnet \
+  --gas auto \
+  --gas-adjustment 1.5 \
+  --gas-prices 1ngonka
 ```
 
 To check unbonding collateral:

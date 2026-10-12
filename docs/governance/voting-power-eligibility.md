@@ -127,7 +127,10 @@ This delegation only allows voting on governance proposals. The grantee can stil
       --chain-id=gonka-mainnet \
       --expiration=<UNIX_TIMESTAMP> \
       --home .inference \
-      --keyring-backend file
+      --keyring-backend file \
+      --gas auto \
+      --gas-adjustment 1.5 \
+      --gas-prices 1ngonka
     ```
     
 === "Example response"

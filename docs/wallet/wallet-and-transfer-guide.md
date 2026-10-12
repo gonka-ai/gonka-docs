@@ -82,9 +82,17 @@ You can also send and receive GNK in [Tangem](https://tangem.com/){target=_blank
     You can perform transfers using the Cosmos SDK command-line tool — specifically, the `inferenced` CLI. Each transfer is recorded on the blockchain and needs a valid sender, recipient, amount, and coin denomination.
     
     Once you know your balance and have the recipient’s address, you can send coins.
+
+    Bank sends are in the `cosmos` fee group. On mainnet that group costs **1 ngonka per gas**. `--gas auto` sets the gas limit. `--gas-prices 1ngonka` sets the fee. A transfer with an empty fee is rejected with `insufficient fee`. See [Fund your Account Key](https://gonka.ai/host/quickstart/#fund-account-fees).
     
     ```bash
-    inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
+    inferenced tx bank send <sender-key-name> <recipient-address> <coins> \
+      --chain-id gonka-mainnet \
+      --gas auto \
+      --gas-adjustment 1.5 \
+      --gas-prices 1ngonka \
+      [--node <node_rpc_url>] \
+      [--keyring-backend test]
     ```
 
     !!! note
@@ -94,7 +102,11 @@ You can also send and receive GNK in [Tangem](https://tangem.com/){target=_blank
     **Example:**
 
     ```bash
-    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka --chain-id gonka-mainnet
+    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka \
+      --chain-id gonka-mainnet \
+      --gas auto \
+      --gas-adjustment 1.5 \
+      --gas-prices 1ngonka
     ```
 
 === "Keplr (web-extension)"

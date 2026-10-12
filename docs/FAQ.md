@@ -336,7 +336,10 @@ This delegation only allows voting on governance proposals. The grantee can stil
       --chain-id=gonka-mainnet \
       --expiration=<UNIX_TIMESTAMP> \
       --home .inference \
-      --keyring-backend file
+      --keyring-backend file \
+      --gas auto \
+      --gas-adjustment 1.5 \
+      --gas-prices 1ngonka
     ```
     
 === "Example response"
@@ -489,7 +492,10 @@ Voting options:
       --from=<GRANTER_KEY_NAME> \
       --chain-id=gonka-mainnet \
       --home .inference \
-      --keyring-backend file
+      --keyring-backend file \
+      --gas auto \
+      --gas-adjustment 1.5 \
+      --gas-prices 1ngonka
     ```
 === "Example response"
 
@@ -609,7 +615,7 @@ export NODE_URL=http://<NODE_URL>:<port>
     --chain-id gonka-mainnet \
     --gas auto \
     --gas-adjustment 1.5 \
-    --fees 200000ngonka \
+    --gas-prices 1ngonka \
     --node $NODE_URL/chain-rpc/
 ```
 Then, to check if the node was unjailed:
@@ -1037,6 +1043,7 @@ Back up the **cold key** on your local device, outside the server.
         --from gonka-account-key \
         --keyring-backend file \
         --gas 2000000 \
+        --gas-prices 1ngonka \
         --node http://<node-url>/chain-rpc/
     ```
 
@@ -1049,15 +1056,13 @@ Back up the **cold key** on your local device, outside the server.
 
 Same pattern as voting without the cold key: grant once from the cold key, then submit with `authz exec` from the warm key. See [What should I do if I cannot vote because I do not have access to the cold key, or if I want another key to vote on my behalf?](#what-should-i-do-if-i-cannot-vote-because-i-do-not-have-access-to-the-cold-key-or-if-i-want-another-key-to-vote-on-my-behalf).
 
-On current mainnet (**v0.2.15**), `grant-ml-ops-permissions` does not include PoC intent, delegation, or refusal. Grant those types separately.
-
-From **v0.2.16**, `grant-ml-ops-permissions` includes `MsgDeclarePoCIntent`, and the upgrade backfills that grant on existing cold→warm pairs. Do not re-run the ML-ops grant for this upgrade. `MsgSetPoCDelegation` and `MsgRefusePoCDelegation` stay separate.
+On mainnet **v0.2.16**, `grant-ml-ops-permissions` includes `MsgDeclarePoCIntent`, and the upgrade backfills that grant on existing cold→warm pairs. Do not re-run the ML-ops grant for this upgrade. `MsgSetPoCDelegation` and `MsgRefusePoCDelegation` stay separate.
 
 Do not run `declare-poc-intent` with `--from` set to the warm key. The inner message must be from the participant (cold) address. Submit it with `authz exec`.
 
 1) Grant permissions (once, signed by cold key)
 
-After v0.2.16, skip the `MsgDeclarePoCIntent` grant below. Grant delegation and refusal only if the warm key will submit those. Before v0.2.16, grant all three.
+Skip the `MsgDeclarePoCIntent` grant below. The v0.2.16 upgrade already added it. Grant delegation and refusal only if the warm key will submit those.
 
 First arg is the warm-key address. `--from` is the cold-key name in this keyring.
 
@@ -1067,6 +1072,7 @@ First arg is the warm-key address. `--from` is the cold-key name in this keyring
     --from <COLD_KEY> \
     --keyring-backend file \
     --gas 200000 \
+    --gas-prices 1ngonka \
     --chain-id gonka-mainnet \
     --node "http://node1.gonka.ai:8000/chain-rpc/"
 
@@ -1075,6 +1081,7 @@ First arg is the warm-key address. `--from` is the cold-key name in this keyring
     --from <COLD_KEY> \
     --keyring-backend file \
     --gas 200000 \
+    --gas-prices 1ngonka \
     --chain-id gonka-mainnet \
     --node "http://node1.gonka.ai:8000/chain-rpc/"
 
@@ -1083,6 +1090,7 @@ First arg is the warm-key address. `--from` is the cold-key name in this keyring
     --from <COLD_KEY> \
     --keyring-backend file \
     --gas 200000 \
+    --gas-prices 1ngonka \
     --chain-id gonka-mainnet \
     --node "http://node1.gonka.ai:8000/chain-rpc/"
 ```
@@ -1108,12 +1116,13 @@ First arg is the warm-key address. `--from` is the cold-key name in this keyring
     --from <WARM_KEY> \
     --keyring-backend file \
     --gas 300000 \
+    --gas-prices 1ngonka \
     --chain-id gonka-mainnet \
     --home ~/mainnet \
     --node "http://node1.gonka.ai:8000/chain-rpc/"
 ```
 
-The same `generate-only` + `authz exec` flow works for any other message type after you grant it.
+The same `generate-only` + `authz exec` flow works for any other message type after you grant it. Keep `--gas-prices 1ngonka` when the inner message is in an enabled fee group (`epoch` or `cosmos`). A governance vote stays free, so leave the price off that transaction.
 
 ## Proof-of-Compute (PoC)
 

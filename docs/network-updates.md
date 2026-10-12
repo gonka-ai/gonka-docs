@@ -8,6 +8,18 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## October 11, 2026
+
+**Proposal #114 is open for voting: DevShard v4.2**
+
+This proposal stabilizes the v4 line with v4.2, removes v5 from the approved DevShard versions, and keeps v4.1 unchanged. The planned next step is to move from v4.* to a stable v6 release.
+
+Voting ends October 14 at 04:46 UTC.
+
+[https://gonka.gg/network/proposals/114](https://gonka.gg/network/proposals/114)
+
+Please review the proposal and cast your vote before the deadline.
+
 ## October 7, 2026
 
 **UPGRADE EXECUTED: v0.2.16 is now live on mainnet**

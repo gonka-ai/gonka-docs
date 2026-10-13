@@ -84,7 +84,7 @@ You can also send and receive GNK in [Tangem](https://tangem.com/){target=_blank
     Once you know your balance and have the recipient’s address, you can send coins.
     
     ```bash
-    inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
+    inferenced tx bank send <sender-key-name> <recipient-address> <coins> --gas-prices 1ngonka --gas auto --gas-adjustment 1.5 --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
     ```
 
     !!! note
@@ -94,7 +94,7 @@ You can also send and receive GNK in [Tangem](https://tangem.com/){target=_blank
     **Example:**
 
     ```bash
-    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka --chain-id gonka-mainnet
+    inferenced tx bank send genesis gonka1juwk05glldgn7850a3547jsl7l4vrhx9k5g3cr 100ngonka --gas-prices 1ngonka --gas auto --gas-adjustment 1.5 --chain-id gonka-mainnet --node https://node1.gonka.ai:8443/chain-rpc/
     ```
 
 === "Keplr (web-extension)"

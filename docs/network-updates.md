@@ -8,6 +8,37 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## October 14, 2026
+
+PROPOSAL PASSED: DevShard v4.2
+
+The on-chain governance vote for [proposal #114](https://gonka.gg/network/proposals/114) has concluded. The proposal was **APPROVED**.
+
+DevShard v4.2 brings production fixes and performance improvements to the v4 runtime. The approved DevShard versions on chain are now:
+
+```text
+v4.1   release/devshard/v4.1.0
+v4.2   devshard/v4.2.0
+```
+
+`v5` has been removed from the approved list.
+
+### What is required from hosts
+
+Nothing. `versiond` automatically downloads the approved binary, verifies its SHA-256 against the on-chain value, and serves it under `/devshard/v4.2`. No full chain software upgrade is required.
+
+### Gateway operators
+
+Continue using v4.1 and migrate to v4.2 when applicable.
+
+### Main fixes and performance improvements
+
+- Fixes for streamed-token validation, timeouts, validation recovery, and gateway routing.
+- Improved refusal handling and executor receipt verification.
+- Lower CPU and memory usage, faster state updates, less repeated validation work, and more efficient gateway history catch-up.
+
+Full technical scope: [DevShard v4.2 governance specification](https://github.com/gonka-ai/gonka/blob/b88062c9529389a61d4ba15b8b5603716a50909e/proposals/governance-artifacts/devshard/v4.2/README.md).
+
 ## October 11, 2026
 
 **Proposal #114 is open for voting: DevShard v4.2**

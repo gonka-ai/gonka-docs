@@ -8,6 +8,27 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## October 15, 2026
+
+A new governance proposal #115 is open for voting. 
+It proposes expanding the dynamic PoC coefficient ranges for GLM-5.3-Flash and DeepSeek-V4-Flash.
+
+**`zai-org/GLM-5.3-Flash`**
+- `coeff_max`: 0.682 → 1.556470588235
+- `relative_difficulty`: 2.668169014084 → 2.9
+- `coeff_min`: 0.558 (unchanged)
+
+**`deepseek-ai/DeepSeek-V4-Flash-0731`**
+- `coeff_max`: 0.2706 → 1.2403125
+- `relative_difficulty`: 1.541666666666 → 1.705882352941
+- `coeff_min`: 0.2214 (unchanged)
+
+**MiniMax M2.7 remains unchanged**, with a fixed coefficient of 0.3024.
+
+[Calculations and simulations](https://github.com/gonka-ai/gonka/blob/559e6fe376764acdf4c03246db7326a978e7431f/proposals/multi-model-poc/dynamic-coeff-init.md).
+
+Please [review the proposal](https://gonkascan.com/?page=governance&proposal_id=115) and cast your vote by **October 17, 2026, at 00:19 UTC**.
+
 ## October 14, 2026
 
 PROPOSAL PASSED: DevShard v4.2

@@ -25,9 +25,9 @@ Every dashboard that shows this metric uses that numerator. The published figure
 | [gnk.space](https://gnk.space/) | ~1,710 | Fixed `291`. The page uses `network_weight_h100` when that API field is set. It is empty, so the page falls back to `totalWeight / 291`. `497,724 / 291 = 1,710` |
 
 gonka.gg also shows "Total Physical GPUs: 642". That is a different metric: the self-reported GPU inventory of active hosts. It is not an H100 equivalent. The inventory moves when hosts update their hardware report.
-Two cards must not be mixed. On epoch 410 a pure H100 80GB HBM3 host produces about **457** weight per GPU. A pure H100 PCIe host produces about **245**.
+H100 80GB HBM3 and H100 PCIe are different cards. On epoch 410 a pure H100 80GB HBM3 host produces about **457** weight per GPU. A pure H100 PCIe host produces about **245**. Leave PCIe out of the sample.
 ## What changes if v0.2.16 passes
-The query paths stay the same. Reward weight stays on `validation_weights[].weight`. That number already includes the epoch's effective coefficient. Do not multiply it by a coefficient again.
+The query paths stay the same. The numerator stays the root `total_weight`, the sum of `validation_weights[].weight`. That number already includes the epoch's effective coefficient. Do not multiply `validation_weights[].weight` by a coefficient again.
 The body of `current_epoch_group_data` does change. On the upgrade epoch and after, `confirmation_weight_scales[].weight_scale_factor` is cleared and `effective_coefficient` is set. Epochs formed before the upgrade still have `weight_scale_factor` and no `effective_coefficient`. `poc_params.models[].weight_scale_factor` is cleared at the upgrade. Reading it as the live coefficient returns an empty value.
 Model coefficients start moving. Governance sets a target share of compute and a coefficient range per model. Each epoch the protocol steps a base coefficient inside that range. Compute above the target share is scored at the minimum coefficient, so the effective coefficient used for reward weight can sit below the base. The table is the starting bounds, not the coefficient applied on later epochs.
 Initial ranges apply from the epoch after the upgrade. The upgrade epoch itself keeps today's reward weights.
@@ -39,12 +39,12 @@ Initial ranges apply from the epoch after the upgrade. The upgrade epoch itself 
 | DeepSeek V4 Flash 0731 | 0.246 | 0.2214–0.2706 | `deepseek-ai/DeepSeek-V4-Flash-0731` |
 | Any other enabled model | Its current scale | That scale × [0.9, 1.1] | From chain params |
 
-The same physical H100 then earns a different reward weight depending on which model it serves and whether that model is above its target share. Hosts on different models are different units, so the median has to come from hosts that all serve one model.
-MiniMax starts pinned: `coeff_min` and `coeff_max` are both 0.3024. A model is pinned when those two bounds are equal on that epoch's frozen `config`. Governance can later open MiniMax's range, or pin a different model, without resetting the controller. Do not hardcode MiniMax. Each epoch, read the bounds and choose the reference model from them.
-A divisor frozen at 254, 254.5, or 291 was already taken from an older epoch. It will drift further on every epoch after the upgrade.
-Group caps and collateral still change reward weight independently of the coefficient. The median of observed `validation_weights[].weight` already includes them. Do not replace the denominator with a benchmark throughput times a coefficient.
+The same physical H100 then earns a different reward weight depending on which model it serves and whether that model is above its target share. `poc_weight` is still raw. Multiply it by that model's `effective_coefficient` before the median, and keep nodes from every model in one sample. List those model ids next to the headline.
+MiniMax starts pinned: `coeff_min` and `coeff_max` are both 0.3024. A model is pinned when those two bounds are equal on that epoch's frozen `config`. Governance can later open MiniMax's range, or pin a different model, without resetting the controller. Do not hardcode MiniMax. The unit stays one H100 80GB HBM3. Do not switch the headline to B200 or B300.
+A divisor frozen at 254, 254.5, 291, or a previous epoch's 488 was already taken from an older epoch. It will drift further on every epoch after the upgrade.
+Group caps and collateral still change a participant's root reward weight. That root weight is the wrong numerator for one H100: a host that posted no collateral looks like weaker cards. The per-GPU sample is `poc_weight × effective_coefficient / card count`. Do not divide the host's root reward weight by its card count. Do not replace the denominator with a benchmark throughput times a coefficient.
 
-A second change in this upgrade does not belong in this metric. Governance, BLS, and PoC validation power are limited to compute confirmed in the previous epoch. New capacity still earns rewards immediately. Build H100 equivalent from `validation_weights[].weight`, the reward weight. `voting_power` on the root epoch group is 0 for every participant. It is filled only on model subgroups, and it is not the capacity figure.
+A second change in this upgrade does not belong in this metric. Governance, BLS, and PoC validation power are limited to compute confirmed in the previous epoch. New capacity still earns rewards immediately. The numerator is the root epoch group's `total_weight`. `voting_power` on the root epoch group is 0 for every participant. It is filled only on model subgroups, and it is not the capacity figure.
 
 This upgrade also restores JSON numbers on `/v1/epochs/latest`, `/v1/epochs/{epoch}/participants`, and `/v1/bls/*`. Enums stay names. Keep accepting the v0.2.15 string shape until every host you query has upgraded. See the [v0.2.15 memo](./dashboard-maintainer-memo-v0.2.15.md). `/v1/versions` is unchanged.
 
@@ -52,39 +52,33 @@ This upgrade also restores JSON numbers on `/v1/epochs/latest`, `/v1/epochs/{epo
 
 Recompute once per epoch, after that epoch's weights are in `current_epoch_group_data`. During PoC the chain has two epoch pointers. Follow this endpoint. Do not derive the epoch from block height.
 
-Reference card: **NVIDIA H100 80GB HBM3** only.
+Reference card: **NVIDIA H100 80GB HBM3** only. The headline stays H100. Do not switch it to B200 or B300.
 
-Through the upgrade epoch, inclusive, the sample is every pure H100 80GB HBM3 host. From the next epoch on, keep hosts that serve only that epoch's reference model.
+The sample is qualifying H100 nodes on active CometBFT validators. Mixed hosts stay in. Keeping a host only when every reported GPU is an H100 drops cards that share a machine with another card. If every such host adds one other card, that sample is empty.
 
 1. `GET /chain-api/productscience/inference/inference/current_epoch_group_data`
-   Take `epoch_index`, `total_weight`, `sub_group_models`, and each `validation_weights[]` entry: `member_address` and `weight`. Use this root `weight` as the host's reward weight. It already includes the effective coefficient.
+   Take `epoch_index`, `total_weight`, `sub_group_models`, and each `validation_weights[]` entry: `member_address` and `weight`. `total_weight` is the numerator. It already includes the effective coefficient. Do not divide a member's root `weight` by its card count.
 2. `GET /chain-api/productscience/inference/inference/hardware_nodes_all`
    Keep rows whose `participant` is in this epoch's `validation_weights`. Drop the rest. The unfiltered list is historical. It currently contains 4,455 records and is not the live network.
-3. Keep a participant only when every reported GPU is `NVIDIA H100 80GB HBM3`. One H100 PCIe, H100 NVL, or unlabeled `gpu` removes the host from the sample. GPU type is self-reported. The chain does not verify it. The filter is what keeps mixed servers from changing the per-GPU weight.
-4. From the first epoch that uses the new ranges, assign each pure host to the single model it serves. For each `model_id` in `sub_group_models`:
+3. `GET /chain-api/cosmos/base/tendermint/v1beta1/validatorsets/latest`
+   Keep a participant only when `participant.validator_key` equals a validator `pub_key.key`. `validator_key` is on `GET /chain-api/productscience/inference/inference/participant/{member_address}`. RTX 5090s are on epoch members who are not validators. Leave those members out.
+4. On each kept hardware node, require `status` = `INFERENCE` and a `hardware[].type` that starts with `NVIDIA H100 80GB HBM3`. Live reports append ` | 79GB`. H100 PCIe is a different card. Leave it out. Another card on the same host does not remove this node. GPU type is self-reported. The chain does not verify it.
+5. For each `model_id` in `sub_group_models`:
 
    ```text
    GET /chain-api/productscience/inference/inference/epoch_group_data/{epoch_index}?model_id={model_id}
    ```
 
-   A participant serves that model when that subgroup's `validation_weights` entry for them has `weight` > 0. Drop a participant who serves more than one model. Group the rest by that one model.
-5. Choose the reference model for this epoch:
-   - A model is pinned when its frozen `config.coeff_min` and `config.coeff_max` decode to the same number. At upgrade, that model is `MiniMaxAI/MiniMax-M2.7`.
-   - Among pinned models with at least 3 pure H100 hosts, use the one with the most such hosts. Tie: lowest `model_id`.
-   - If no pinned model has 3 such hosts, use the single model with the most pure H100 hosts, pinned or not. Tie: lowest `model_id`. The denominator then follows that model's effective coefficient. Label the model and the coefficient so the movement is visible.
-   - Do not take a median across models.
-6. For each host on the reference model, `sample = weight / h100_count`, using the root reward weight from step 1.
-7. Denominator = median of those samples. With an even count, average the two central values.
-8. `H100_eq = total_weight / denominator`.
+   Match the hardware node's `local_id` to `ml_nodes[].node_id`. Keep the node when that entry's `poc_weight` > 0. Use that model's `effective_coefficient`.
+6. `poc_weight` is raw. Per GPU on that node is `poc_weight × effective_coefficient / card count`. Card count is that node's `hardware[].count` for types that start with `NVIDIA H100 80GB HBM3`. `effective_coefficient` is already documented below. Do not multiply `validation_weights[].weight` by a coefficient again. Do not divide the host's root reward weight by its card count.
+7. `weight_per_h100` = median of those per-GPU values. With an even count, average the two central values.
+8. `H100_eq = total_weight / weight_per_h100`. `total_weight` stays the root epoch group's `total_weight`.
 
-If fewer than 3 hosts remain on the chosen model:
-
-- Through the upgrade epoch, keep the previous epoch's denominator and label the figure as carried forward.
-- After that, keep the denominator from the previous epoch that used this same reference `model_id`, and label it carried forward. Do not reuse 457.33 or any other pre-upgrade denominator. Do not carry a denominator across a change of reference model. If this model has no prior denominator, omit the headline for that epoch.
+If this epoch has no qualifying H100 node, omit the headline. Do not reuse the previous epoch's denominator. A previous epoch's 488 must not be reused while this epoch has live H100 nodes.
 
 ### Epoch 410 check
 
-This check uses the pre-upgrade sample: every pure H100 80GB HBM3 host, not a single reference model. Publish it through the upgrade epoch.
+This check uses the pre-upgrade sample: every pure H100 80GB HBM3 host, not a single reference model.
 
 Four pure H100 80GB HBM3 hosts, weight per GPU: 451.69, 452.38, 462.29, 466.50.
 
@@ -92,19 +86,35 @@ Median = 457.33.
 
 `497,724 / 457.33 = 1,088`.
 
-That is the figure to standardize on until the new ranges apply. It matches tracker.gonka.vip (~1,087). gonka.gg's 1,102 uses the same formula with three H100-PCIe-only hosts included, which moves the median from 457.3 to 451.7.
+It matches tracker.gonka.vip (~1,087). gonka.gg's 1,102 uses the same formula with three H100-PCIe-only hosts included, which moves the median from 457.3 to 451.7.
 
-The headline can move on the first epoch that uses the new ranges because the sample changes from all pure HBM3 hosts to hosts on one reference model. At upgrade that model is MiniMax, because it is the pinned model. If governance later unpins it, the same rule selects whatever model is pinned, or the single model with the most pure H100 hosts. Show the sample label next to the headline so the jump is explained.
+That 1,088 figure is the historical check only. Later epochs, including the upgrade epoch and epoch 420, use the node sample above, including mixed hosts. Do not reuse 457.33.
+
+### Epoch 420
+
+On the live epoch 420 reading, `total_weight` is **669,024**.
+
+11 qualifying nodes, 64 H100 80GB HBM3 cards, all `INFERENCE`, all with `poc_weight` > 0.
+
+MiniMax `effective_coefficient` is 0.3024. DeepSeek is 0.2706.
+
+Per GPU, low to high: 233, 237, 263, 344, 350, 394, 441, 458, 458, 458, 458.
+
+Median `weight_per_h100` is 394.4 (the 6th of 11).
+
+`669,024 / 394.4 = 1,696`.
+
+1,180 and 488 are the old pure-host fallback, not this epoch's `weight_per_h100`. Pairing this reading's `total_weight` with 488 gives 1,371, not 1,180. 1,180 matches a total weight of about 575,840.
 
 ## What to display
 
-- Headline: **H100 equivalent**, the result of the division. On epoch 410 this is about **1,088**.
-- Next to it: the denominator, the sample size, and the reference model. Through the upgrade epoch: "457 weight per H100 80GB HBM3, 4 hosts". From the next epoch: "weight per H100 80GB HBM3 on {model_id}, effective coefficient {effective_coefficient}, N hosts".
+- Headline: **H100 equivalent**, the result of the division. Keep H100 as the unit. On epoch 410 the pre-upgrade check is about **1,088**.
+- Next to the headline: `weight_per_h100`, the node count, the card count, the model ids, and that mixed hosts are included. "weight per H100 80GB HBM3, N nodes, C cards, {model_ids}, mixed hosts included".
 - Physical GPU count, if you show it, is a separate row. Label it as self-reported inventory.
 - The headline on gonka.gg, "H100 median weight: 1,102", is the equivalent count, not the median. Label the equivalent as H100 equivalent and show the median separately.
 - Label the card as reward-weight equivalent. A shift toward a higher-coefficient model can change this number without changing the number of GPUs.
 
-Refresh the denominator every epoch from that epoch's weights. The first epoch that uses the new coefficient ranges is the epoch after the upgrade, not the upgrade epoch itself.
+Refresh `weight_per_h100` every epoch from that epoch's qualifying nodes. Do not carry forward the previous epoch's denominator. The first epoch that uses the new coefficient ranges is the epoch after the upgrade, not the upgrade epoch itself.
 
 ## If you also show model coefficients
 
@@ -120,7 +130,7 @@ GET /chain-api/productscience/inference/inference/dynamic_coefficients/{epoch_in
 
 For each model:
 
-- `effective_coefficient` is the multiplier already included in `validation_weights[].weight`. This is the number to chart as the coefficient.
+- `effective_coefficient` is the multiplier already included in `validation_weights[].weight`. This is the number to chart as the coefficient. Raw `poc_weight` does not include it. The per-GPU sample multiplies by it once.
 - `base_coefficient` is the controller value before oversupply dilution. Show it beside the effective value. They differ when the model's compute share is above its target.
 - `config.coeff_min`, `config.coeff_max`, `config.target_share_bps`, and `config.relative_difficulty` are the bounds, target, and difficulty frozen for that epoch. Target share is `target_share_bps / 10000`. The table above is only the initial bounds.
 - `poc_params.models[].dynamic_coefficient` is the live governance bounds for the next PoC. It is not the coefficient used for the current epoch.

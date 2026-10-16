@@ -8,7 +8,71 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
-# October 7, 2026
+## October 15, 2026
+
+A new governance proposal #115 is open for voting. 
+It proposes expanding the dynamic PoC coefficient ranges for GLM-5.3-Flash and DeepSeek-V4-Flash.
+
+**`zai-org/GLM-5.3-Flash`**
+- `coeff_max`: 0.682 → 1.556470588235
+- `relative_difficulty`: 2.668169014084 → 2.9
+- `coeff_min`: 0.558 (unchanged)
+
+**`deepseek-ai/DeepSeek-V4-Flash-0731`**
+- `coeff_max`: 0.2706 → 1.2403125
+- `relative_difficulty`: 1.541666666666 → 1.705882352941
+- `coeff_min`: 0.2214 (unchanged)
+
+**MiniMax M2.7 remains unchanged**, with a fixed coefficient of 0.3024.
+
+[Calculations and simulations](https://github.com/gonka-ai/gonka/blob/559e6fe376764acdf4c03246db7326a978e7431f/proposals/multi-model-poc/dynamic-coeff-init.md).
+
+Please [review the proposal](https://gonkascan.com/?page=governance&proposal_id=115) and cast your vote by **October 17, 2026, at 00:19 UTC**.
+
+## October 14, 2026
+
+PROPOSAL PASSED: DevShard v4.2
+
+The on-chain governance vote for [proposal #114](https://gonka.gg/network/proposals/114) has concluded. The proposal was **APPROVED**.
+
+DevShard v4.2 brings production fixes and performance improvements to the v4 runtime. The approved DevShard versions on chain are now:
+
+```text
+v4.1   release/devshard/v4.1.0
+v4.2   devshard/v4.2.0
+```
+
+`v5` has been removed from the approved list.
+
+### What is required from hosts
+
+Nothing. `versiond` automatically downloads the approved binary, verifies its SHA-256 against the on-chain value, and serves it under `/devshard/v4.2`. No full chain software upgrade is required.
+
+### Gateway operators
+
+Continue using v4.1 and migrate to v4.2 when applicable.
+
+### Main fixes and performance improvements
+
+- Fixes for streamed-token validation, timeouts, validation recovery, and gateway routing.
+- Improved refusal handling and executor receipt verification.
+- Lower CPU and memory usage, faster state updates, less repeated validation work, and more efficient gateway history catch-up.
+
+Full technical scope: [DevShard v4.2 governance specification](https://github.com/gonka-ai/gonka/blob/b88062c9529389a61d4ba15b8b5603716a50909e/proposals/governance-artifacts/devshard/v4.2/README.md).
+
+## October 11, 2026
+
+**Proposal #114 is open for voting: DevShard v4.2**
+
+This proposal stabilizes the v4 line with v4.2, removes v5 from the approved DevShard versions, and keeps v4.1 unchanged. The planned next step is to move from v4.* to a stable v6 release.
+
+Voting ends October 14 at 04:46 UTC.
+
+[https://gonka.gg/network/proposals/114](https://gonka.gg/network/proposals/114)
+
+Please review the proposal and cast your vote before the deadline.
+
+## October 7, 2026
 
 **UPGRADE EXECUTED: v0.2.16 is now live on mainnet**
 

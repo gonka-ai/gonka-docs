@@ -124,7 +124,8 @@ curl -X GET http://<your_api_node_url:public_port>/v1/epochs/<epoch_id>/particip
 
 - `index`: gonka address
 - `validator_key`: Public key (Base64)
-- `weight`: Voting weight
+- `weight`: Reward weight for this epoch
+- `cap_weight`: Trust weight for governance, BLS, and PoC validation. Present when `cap_weight_applied` is true (epochs formed by v0.2.16 or later). On earlier epochs, voting power follows `weight`
 - `inference_url`: Service endpoint
 - `models`: List of supported models
 - `seed`: Signature seed with metadata

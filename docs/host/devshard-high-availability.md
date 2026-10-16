@@ -35,7 +35,7 @@ Public proxy (/devshard/...)
 
 ## Release and images
 
-This guide covers Devshard v6.0.0 (`release/devshard/v6.0.0`). From this release, hosts exchange peer RPC over HTTP/2 on port `9443` of the public proxy; see [Prerequisites](#prerequisites).
+This guide covers Devshard v6.0.0 (`release/devshard/v6.0.0`). From this release, hosts exchange peer RPC over HTTP/2 on the public proxy's existing port (the `PUBLIC_URL` port); no new port is opened. See [Prerequisites](#prerequisites).
 
 Edit `deploy/join/config.env`. Set the variables below to the shown values.
 
@@ -56,7 +56,7 @@ export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
    - Same `KEY_NAME` and keyring.
    - Same `ACCOUNT_PUBKEY`.
 4. Shared PostgreSQL; a separate data directory for each replica. Do not start a second dapi with the same keys.
-5. Inbound TCP `9443` open on the host that runs the public `proxy`: peers reach this host's peer RPC there, over HTTP/2. Outbound TCP `9443` to every peer from every host that runs a `versiond` replica, the **replica host** included. The port is `DEVSHARD_RPC_H2_PORT` (default `9443`). A host dials every peer on its own value of this setting, so the whole network uses one port; leave it at `9443`.
+5. Peer RPC uses the port of `PUBLIC_URL` (`API_PORT` or `API_SSL_PORT` on the host that runs the public `proxy`), the same port the JSON API already uses. The proxy recognises a peer connection by its first bytes and carries it over HTTP/2 inside its own process; every other connection on that port still goes to nginx. Every host that runs a `versiond` replica, the **replica host** included, needs outbound access to every peer's `PUBLIC_URL`, which a replica already has for the JSON API. Nothing new is opened and nothing is set in `config.env`.
 6. Docker Compose **2.24.4+**, Bash, Python 3, Git, `tar`, `curl`, `jq`, `flock`, `sha256sum`, `timeout`, `xargs`. Remote hosts also need `ssh`, `psql` and SSH access from the **primary host** to the **replica host**.
 
 Local HA requires protocol v4 or later. Rolling updates and remote replicas require v5 or later for every served protocol. Migration from protocols earlier than v4 is not covered here.
@@ -343,16 +343,16 @@ source ./config.env
 
 All commands must succeed; readiness and public health endpoints must return HTTP 200. Keep the supplied `/readyz` Docker healthcheck.
 
-On the public proxy host, `docker port proxy` must list `9443`. Each router slot has two listeners, JSON on `8080` and peer RPC over HTTP/2 on `8081`. `verify-admission`, `/readyz` and `update-devshard.sh --check` do not exercise the HTTP/2 path: the proxy probes a slot's admin port over HTTP/1.1, and a peer's TCP connection on `9443` does not show that its requests reach `versiond`. After a wrapping update, send one peer RPC through the public endpoint for each protocol in `VERSIOND_VERSIONS` from `v6` on. Earlier protocols (`v4`, `v4.1`, `v4.2`, `v5`) have no peer RPC over HTTP/2 and keep the JSON path; for them this probe answers HTTP 503 on a healthy host, and the JSON checks above are the whole test.
+Peer RPC over HTTP/2 shares the public port with the JSON API: the proxy hands a connection that opens with the HTTP/2 preface (HTTP) or offers the ALPN token `gonka-rpc/1` (HTTPS) to its peer-RPC frontend, and each router slot takes that HTTP/2 on the same `8080` that serves JSON. `verify-admission`, `/readyz` and `update-devshard.sh --check` do not exercise the HTTP/2 path: the proxy probes a slot's admin port over HTTP/1.1. After a wrapping update, send one peer RPC over HTTP/2 through the public endpoint for each protocol in `VERSIOND_VERSIONS` from `v6` on. Earlier protocols (`v4`, `v4.1`, `v4.2`, `v5`) have no peer RPC over HTTP/2 and keep the JSON path; for them this probe answers HTTP 503 on a healthy host, and the JSON checks above are the whole test.
 
 ```bash
 version='<protocol v6 or later from VERSIOND_VERSIONS>'
 curl -sS --http2-prior-knowledge -X POST -H 'content-type: application/json' -d '{}' \
   -w '\nHTTP %{http_code}\n' \
-  "http://<public host>:9443/$version/sessions/_/rpc/devshard.transport.v1.PeerAuthService/Attach"
+  "http://<public host>:${API_PORT:-8000}/devshard/$version/sessions/_/rpc/devshard.transport.v1.PeerAuthService/Attach"
 ```
 
-Use `https://` for an HTTPS `PUBLIC_URL`. An HTTP 400 or 401 with a JSON `code` (`invalid_argument`, `unauthenticated`) comes from the protocol's child and proves the path through the proxy, the router fleet and `versiond`. For such a protocol, HTTP 503, HTTP 404 or a refused connection means the HTTP/2 path is not serving. Peer connections then appear in `docker exec proxy netstat -tn | grep ':9443'`.
+For an HTTPS `PUBLIC_URL`, `curl` cannot offer the peer-RPC ALPN token; probe the HTTP port if `NGINX_MODE=both`, otherwise rely on a peer's `versiond` log, which reports `peer rpc origin does not speak HTTP/2; using HTTP/1.1` once per host when the probe misses. An HTTP 400 or 401 with a JSON `code` (`invalid_argument`, `unauthenticated`) comes from the protocol's child and proves the HTTP/2 path through the proxy, the router fleet and `versiond`. For such a protocol, HTTP 503 or a connection reset means the HTTP/2 path is not serving; peers then continue over HTTP/1.1 through nginx and retry HTTP/2 about every 30 minutes, so the host works but without one connection per peer. Peer HTTP/2 sessions appear in `docker exec proxy sh -c 'echo "show sess" | socat - /var/run/haproxy/haproxy.sock' | grep rpc_h2`.
 
 New or replaced remote member: pass the [database check](#check-the-remote-database) before pool admission.
 
@@ -509,7 +509,7 @@ If tracked files have local edits, this step stops. Automatic merging is not cov
 
 Apply [Release and images](#release-and-images). Site overrides must use those image variables rather than hard-coded application images.
 
-Do not replace `config.env` with the new-installation example. Update first; add protocols afterwards. The v6 `config.env.template` adds `DEVSHARD_RPC_H2_PORT` and the `EDGE_API_*` shutdown settings; the Compose files carry the same defaults, so an existing `config.env` needs no new entry. Do not combine this update with a database move, PostgreSQL major upgrade or fleet reconfiguration.
+Do not replace `config.env` with the new-installation example. Update first; add protocols afterwards. The v6 `config.env.template` adds the `EDGE_API_*` shutdown settings; the Compose files carry the same defaults, so an existing `config.env` needs no new entry. Do not combine this update with a database move, PostgreSQL major upgrade or fleet reconfiguration.
 
 <details>
 <summary><strong>If the old config.env has no VERSIOND_VERSIONS</strong></summary>
@@ -675,7 +675,7 @@ After `System identifiers match.`, continue with [Update with downtime](#update-
 
 Schedule maintenance: replacing the public proxy can interrupt connections.
 
-Before the first update onto the v6 wrapping, open inbound TCP `9443` on the public proxy host and outbound `9443` to peers from every replica host (see [Prerequisites](#prerequisites)); the new `proxy` publishes the port when it starts.
+The v6 wrapping needs no new port: peer RPC over HTTP/2 rides the `PUBLIC_URL` port (see [Prerequisites](#prerequisites)).
 
 Rolling updates require v5 or later for every served protocol. If any served protocol is earlier than v5, use the downtime procedure below. Leave `UPDATE_SKIP_POSTGRES_PROBE` and `UPDATE_ACCEPT_DATABASE_CHANGE` disabled.
 
@@ -815,7 +815,7 @@ Run preflight and preview the replacements. Preflight writes database probes; it
 
 Review the proposed images and changes. On a directory creation error, run [directory preparation](#prepare-the-postgresql-directory) and retry. Do not proceed while preflight fails.
 
-A move onto the v6 wrapping applies the router fleet, then the public proxy, then the `versiond` replicas. A move back off it applies the proxy first, so that `9443` is gone before any router loses its HTTP/2 listener `8081`; the script refuses a router rollback while the proxy still publishes `9443`, so roll the proxy back in the same run. The public proxy dials the router slots on `DEVSHARD_RPC_H2_ROUTER_PORT` (default `8081`), and every slot listens there; the slot Compose file does not pass a different listener port, so leave that setting at its default: a mismatch black-holes peer RPC while JSON on `:443` stays up. `9443` is the same on every host of the network and is independent of the inner ports. `--dry-run` and `--check` do not test the HTTP/2 path; the [service checks](#41-check-the-running-services) after the update do. Then run:
+A move onto or off the v6 wrapping applies the router fleet, then the public proxy, then the `versiond` replicas. No order is unsafe for peer RPC: a proxy or router generation without HTTP/2 still carries it as HTTP/1.1 on the same ports, and peers switch between the two in band. Between the fleet step and the `versiond` step the peer-RPC pools are empty and this host's peers see errors on `/rpc/`; keep the run uninterrupted. `--dry-run` and `--check` do not test the HTTP/2 path; the [service checks](#41-check-the-running-services) after the update do. Then run:
 
 ```bash
 ./update-devshard.sh
@@ -850,7 +850,7 @@ On the **primary host**, publish these ports for the **replica host** on the pri
 - Chain RPC/gRPC `26657`, `9090`.
 - Filtered catalog `19100`.
 
-The **replica host** also needs outbound TCP `9443` to every peer: its `versiond` dials them on that port (`docker-compose.versiond-remote.yml` sets it). Its port `8080` receives HTTP/2 from the routers; keep it restricted to them as described below.
+The **replica host** also needs outbound access to every peer's `PUBLIC_URL`: its `versiond` dials peers there, over HTTP/2 where the peer's wrapping speaks it and HTTP/1.1 otherwise. Its port `8080` receives HTTP/2 from the routers; keep it restricted to them as described below.
 
 Confirm `PGPASSWORD` and `KEYRING_PASSWORD` match the running local `versiond` containers.
 
@@ -1103,7 +1103,7 @@ Use `versiond-router-fleet.sh` to manage routers. The script reads `config.env` 
 
 To stop all routers, run `./versiond-router-fleet.sh stop-all --maintenance`. The default shutdown timeout is 30 minutes per router (`VERSIOND_ROUTER_DRAIN_TIMEOUT_SECONDS`).
 
-Each router instance occupies a numbered **slot**. The slot number stays the same when its container is replaced. A slot listens for JSON and health on `8080` and for peer RPC over HTTP/2 on `8081`; `status` and `verify-admission` report both. Use this number in fleet commands:
+Each router instance occupies a numbered **slot**. The slot number stays the same when its container is replaced. A slot listens for JSON, health and peer RPC over HTTP/2 on one port, `8080`; `status` and `verify-admission` report the JSON pool and the peer-RPC pool. Use this number in fleet commands:
 
 | Task | Command |
 | --- | --- |

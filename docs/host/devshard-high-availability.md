@@ -56,7 +56,7 @@ export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
    - Same `KEY_NAME` and keyring.
    - Same `ACCOUNT_PUBKEY`.
 4. Shared PostgreSQL; a separate data directory for each replica. Do not start a second dapi with the same keys.
-5. Inbound TCP `9443` open on the host that runs the public `proxy`: peers reach this host's peer RPC there, over HTTP/2. Outbound TCP `9443` to every peer from every host that runs a `versiond` replica, the **replica host** included. The port is `DEVSHARD_RPC_H2_PORT` (default `9443`) in `config.env`; change it only together with the firewall.
+5. Inbound TCP `9443` open on the host that runs the public `proxy`: peers reach this host's peer RPC there, over HTTP/2. Outbound TCP `9443` to every peer from every host that runs a `versiond` replica, the **replica host** included. The port is `DEVSHARD_RPC_H2_PORT` (default `9443`). A host dials every peer on its own value of this setting, so the whole network uses one port; leave it at `9443`.
 6. Docker Compose **2.24.4+**, Bash, Python 3, Git, `tar`, `curl`, `jq`, `flock`, `sha256sum`, `timeout`, `xargs`. Remote hosts also need `ssh`, `psql` and SSH access from the **primary host** to the **replica host**.
 
 Local HA requires protocol v4 or later. Rolling updates and remote replicas require v5 or later for every served protocol. Migration from protocols earlier than v4 is not covered here.
@@ -343,7 +343,16 @@ source ./config.env
 
 All commands must succeed; readiness and public health endpoints must return HTTP 200. Keep the supplied `/readyz` Docker healthcheck.
 
-On the public proxy host, `docker port proxy` must list `9443`. Each router slot has two listeners, JSON on `8080` and peer RPC over HTTP/2 on `8081`; `verify-admission` above covers both. `/readyz` and `update-devshard.sh --check` do not exercise the HTTP/2 path. After a wrapping update, confirm that peers connect: `ss -tn state established '( sport = :9443 )'` on the proxy host lists their connections.
+On the public proxy host, `docker port proxy` must list `9443`. Each router slot has two listeners, JSON on `8080` and peer RPC over HTTP/2 on `8081`. `verify-admission`, `/readyz` and `update-devshard.sh --check` do not exercise the HTTP/2 path: the proxy probes a slot's admin port over HTTP/1.1, and a peer's TCP connection on `9443` does not show that its requests reach `versiond`. After a wrapping update, send one peer RPC through the public endpoint for each protocol in `VERSIOND_VERSIONS`:
+
+```bash
+version='<protocol from VERSIOND_VERSIONS>'
+curl -sS --http2-prior-knowledge -X POST -H 'content-type: application/json' -d '{}' \
+  -w '\nHTTP %{http_code}\n' \
+  "http://<public host>:9443/$version/sessions/_/rpc/devshard.transport.v1.PeerAuthService/Attach"
+```
+
+Use `https://` for an HTTPS `PUBLIC_URL`. An HTTP 400 or 401 with a JSON `code` (`invalid_argument`, `unauthenticated`) comes from the protocol's child and proves the path through the proxy, the router fleet and `versiond`. HTTP 503, HTTP 404 or a refused connection means the HTTP/2 path is not serving. Peer connections then appear in `docker exec proxy netstat -tn | grep ':9443'`.
 
 New or replaced remote member: pass the [database check](#check-the-remote-database) before pool admission.
 
@@ -500,7 +509,7 @@ If tracked files have local edits, this step stops. Automatic merging is not cov
 
 Apply [Release and images](#release-and-images). Site overrides must use those image variables rather than hard-coded application images.
 
-Do not replace `config.env` with the new-installation example. Update first; add protocols afterwards. The v6 `config.env.template` adds `DEVSHARD_RPC_H2_PORT` and the `EDGE_API_*` shutdown settings; the Compose files carry the same defaults, so an existing `config.env` needs no new entry unless the peer RPC port must differ from `9443`. Do not combine this update with a database move, PostgreSQL major upgrade or fleet reconfiguration.
+Do not replace `config.env` with the new-installation example. Update first; add protocols afterwards. The v6 `config.env.template` adds `DEVSHARD_RPC_H2_PORT` and the `EDGE_API_*` shutdown settings; the Compose files carry the same defaults, so an existing `config.env` needs no new entry. Do not combine this update with a database move, PostgreSQL major upgrade or fleet reconfiguration.
 
 <details>
 <summary><strong>If the old config.env has no VERSIOND_VERSIONS</strong></summary>
@@ -806,7 +815,7 @@ Run preflight and preview the replacements. Preflight writes database probes; it
 
 Review the proposed images and changes. On a directory creation error, run [directory preparation](#prepare-the-postgresql-directory) and retry. Do not proceed while preflight fails.
 
-A move onto the v6 wrapping applies the router fleet, then the public proxy, then the `versiond` replicas. A move back off it applies the proxy first, so that `9443` is gone before any router loses its HTTP/2 listener `8081`; the script refuses a router rollback while the proxy still publishes `9443`, so roll the proxy back in the same run. The three HTTP/2 ports are a set: client to proxy `9443`, proxy to router `8081`, router to `versiond` `8080`. Change one only together with the others; a mismatch black-holes peer RPC while JSON on `:443` stays up. `--dry-run` and `--check` do not test the HTTP/2 path; the [service checks](#41-check-the-running-services) after the update do. Then run:
+A move onto the v6 wrapping applies the router fleet, then the public proxy, then the `versiond` replicas. A move back off it applies the proxy first, so that `9443` is gone before any router loses its HTTP/2 listener `8081`; the script refuses a router rollback while the proxy still publishes `9443`, so roll the proxy back in the same run. The public proxy dials the router slots on `DEVSHARD_RPC_H2_ROUTER_PORT` (default `8081`), and every slot listens there; the slot Compose file does not pass a different listener port, so leave that setting at its default: a mismatch black-holes peer RPC while JSON on `:443` stays up. `9443` is the same on every host of the network and is independent of the inner ports. `--dry-run` and `--check` do not test the HTTP/2 path; the [service checks](#41-check-the-running-services) after the update do. Then run:
 
 ```bash
 ./update-devshard.sh
@@ -841,7 +850,7 @@ On the **primary host**, publish these ports for the **replica host** on the pri
 - Chain RPC/gRPC `26657`, `9090`.
 - Filtered catalog `19100`.
 
-The **replica host** also needs outbound TCP `9443` to every peer (peer RPC). Its port `8080` receives HTTP/2 from the routers; keep it restricted to them as described below.
+The **replica host** also needs outbound TCP `9443` to every peer: its `versiond` dials them on that port (`docker-compose.versiond-remote.yml` sets it). Its port `8080` receives HTTP/2 from the routers; keep it restricted to them as described below.
 
 Confirm `PGPASSWORD` and `KEYRING_PASSWORD` match the running local `versiond` containers.
 

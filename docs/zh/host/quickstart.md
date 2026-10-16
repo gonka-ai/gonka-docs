@@ -1506,7 +1506,10 @@ curl -s "http://127.0.0.1:9200/admin/v1/epoch-fee-budget?count=100" | jq
   --from gonka-account-key \
   --keyring-backend file \
   --node http://node2.gonka.ai:8000/chain-rpc/ \
-  --chain-id gonka-mainnet
+  --chain-id gonka-mainnet \
+  --gas auto \
+  --gas-adjustment 1.6 \
+  --gas-prices 1ngonka
 ```
 
 3. 撤销确认后，重新授权：

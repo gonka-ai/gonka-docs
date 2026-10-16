@@ -1522,7 +1522,7 @@ The endpoint estimates **one epoch at a time**. Fees are spent as transactions l
   --node http://node2.gonka.ai:8000/chain-rpc/ \
   --chain-id gonka-mainnet \
   --gas auto \
-  --gas-adjustment 1.5 \
+  --gas-adjustment 1.6 \
   --gas-prices 1ngonka
 ```
 

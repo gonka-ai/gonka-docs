@@ -3613,7 +3613,10 @@ Voting options:
       --from=<GRANTER_KEY_NAME> \
       --chain-id=gonka-mainnet \
       --home .inference \
-      --keyring-backend file
+      --keyring-backend file \
+      --gas auto \
+      --gas-adjustment 1.6 \
+      --gas-prices 1ngonka
     ```
 === "Example response"
 

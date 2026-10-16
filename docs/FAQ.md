@@ -494,7 +494,7 @@ Voting options:
       --home .inference \
       --keyring-backend file \
       --gas auto \
-      --gas-adjustment 1.5 \
+      --gas-adjustment 1.6 \
       --gas-prices 1ngonka
     ```
 === "Example response"

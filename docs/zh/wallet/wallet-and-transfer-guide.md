@@ -1,7 +1,7 @@
 # 钱包与转账指南
 
-本指南介绍如何在网络中使用钱包和代币：如何获取您的钱包地址、检查余额、发送代币以及跟踪交易。
-在执行任何钱包操作之前，您需要访问您的账户。请根据您在网络中的角色遵循以下说明。
+本指南解释了如何在网络中使用钱包和代币：如何获取您的钱包地址、检查余额、发送代币以及跟踪交易。
+在执行任何钱包操作之前，您需要访问您的账户。请根据您在网络中的角色，按照以下说明操作。
 
 **您是主机吗？**
 
@@ -10,7 +10,7 @@
 
 **您是开发者吗？**
 
-如果您仅需要推理（发送提示并接收完成结果），则无需 Gonka 账户——请前往 [开发者快速入门](https://gonka.ai/developer/quickstart/) 使用社区代理开始使用。
+如果您仅需要推理（发送提示并接收完成内容），则无需 Gonka 账户 —— 请前往 [开发者快速入门](https://gonka.ai/developer/quickstart/) 使用社区代理开始使用。
 
 如果您运行自己的网关或需要在链上持有和转移 GNK，请先 [创建 Gonka 账户](https://gonka.ai/wallet/create-account/)，然后返回此处。
 
@@ -23,15 +23,15 @@
 ## 面额
 
 链上唯一的有效面额是 `ngonka`。所有余额、费用和交易必须 exclusively 使用 `ngonka`。
-Cosmos SDK 可能允许定义其他面额，但这些面额无效——SDK 不会在它们之间执行自动转换。
-`gonka` 仅用作链下、用户友好的显示单位。它代表 10 亿 `ngonka`，在链上并不存在。
+Cosmos SDK 可能允许定义其他面额，但这些面额无效 —— SDK 不会在它们之间执行自动转换。
+`gonka` 仅用作链下、用户友好的显示单位。它代表 10 亿 `ngonka`，本身并不存在于链上。
 
 **有效单位**
 
 | 单位 | 用途 | 链上？ | 比例 |
 |--------|----------------------------------|-----------|--------------------------------------|
 | `ngonka` | 网络上使用的基单位 | 是 | 1 |
-| `gonka` | 易读的显示单位 | 否 | 1 `gonka` = 1,000,000,000 `ngonka` |
+| `gonka` | 人类可读的显示单位 | 否 | 1 `gonka` = 1,000,000,000 `ngonka` |
 
 ## 获取您的钱包地址
 
@@ -73,37 +73,49 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
 
 ## 发送代币
 
-在 Cosmos 中，资金转账是指在基于 Cosmos 的区块链中，从一个账户（钱包地址）向另一个账户发送代币。这些转账用于支付服务或在用户之间传递价值。
+在 Cosmos 中，资金转账是指在基于 Cosmos 的区块链内从一个账户（钱包地址）向另一个账户发送代币。这些转账用于支付服务或在用户之间传递价值。
 
-您也可以在 [Tangem](https://tangem.com/){target=_blank}（硬件钱包加移动应用）中发送和接收 GNK。
+您还可以在 [Tangem](https://tangem.com/){target=_blank}（硬件钱包加移动应用）中发送和接收 GNK。
 
 === "CLI"
 
-您可以使用 Cosmos SDK 命令行工具执行转账——具体而言，是 `inferenced` CLI。每个转账都会记录在区块链上，需要有效的发送方、接收方、金额和代币面额。
+您可以使用 Cosmos SDK 命令行工具执行转账 —— 特别是 `inferenced` CLI。每个转账都会记录在区块链上，需要有效的发送方、接收方、金额和代币面额。
 
 一旦您知道余额并拥有接收方地址，就可以发送代币。
 
+银行转账属于 `cosmos` 费用组。在主网上，该组费用为 **每单位燃气 1 ngonka**。`--gas auto` 设置燃气上限。`--gas-prices 1ngonka` 设置费用。若转账费用为空，则会被拒绝并返回 `insufficient fee`。请参阅 [为您的账户密钥充值](https://gonka.ai/host/quickstart/#fund-account-fees)。
+
     ```bash
-    inferenced tx bank send <sender-key-name> <recipient-address> <coins> --chain-id gonka-mainnet [--node <node_rpc_url> | --keyring-backend test]
+    inferenced tx bank send <sender-key-name> <recipient-address> <coins> \
+      --chain-id gonka-mainnet \
+      --gas auto \
+      --gas-adjustment 2.0 \
+      --gas-prices 1ngonka \
+      [--node <node_rpc_url>] \
+      [--keyring-backend test]
     ```
 
     !!! note 
 
-        `<sender-key-name>` 是您密钥环中的 **本地密钥名称**——即创建密钥时您选择的标签。使用 `inferenced keys list` 查看此机器上的名称。
+        `<sender-key-name>` 是您的密钥环中的**本地密钥名称**——即创建密钥时您选择的标签。使用 `inferenced keys list` 查看此机器上的名称。
 
         **示例：**
 
     ```bash
-    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka --chain-id gonka-mainnet
+    inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka \
+      --chain-id gonka-mainnet \
+      --gas auto \
+      --gas-adjustment 2.0 \
+      --gas-prices 1ngonka
     ```
 
-=== "Keplr（浏览器扩展）"
+=== "Keplr（网页扩展）"
 
-要使用Keplr钱包在Gonka链上进行Gonka账户之间的转账，请登录并打开您的Keplr钱包。
+要使用 Keplr 钱包在 Gonka 链上进行 Gonka 账户之间的转账，请登录并打开您的 Keplr 钱包。
 
 <a href="/images/keplr_sender_txs_1.png" target="_blank"><img src="/images/keplr_sender_txs_1.png" style="width:250px; height:auto;"></a>
 
-在主页上搜索Gonka链。
+在主页上搜索 Gonka 链。
 
 <a href="/images/keplr_sender_txs_2.png" target="_blank"><img src="/images/keplr_sender_txs_1.png" style="width:250px; height:auto;"></a>
 
@@ -111,20 +123,20 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
 
 <a href="/images/keplr_sender_txs_3.png" target="_blank"><img src="/images/keplr_sender_txs_3.png" style="width:250px; height:auto;"></a>
 
-=== "如果您已知接收方的Gonka钱包地址"
+=== "如果您已知接收方的 Gonka 钱包地址"
 
-将接收方的Gonka钱包地址粘贴到地址字段中。指定您要发送的金额。
+将接收方的 Gonka 钱包地址粘贴到地址字段中。指定您要发送的金额。
 
 <a href="/images/keplr_sender_txs_4.png" target="_blank"><img src="/images/keplr_sender_txs_4.png" style="width:250px; height:auto;"></a>
 
 
-=== "如果您不知道接收方的Gonka钱包地址"
+=== "如果您不知道接收方的 Gonka 钱包地址"
 
-接收方应打开其Keplr钱包并确保已添加Gonka账户。点击余额上方的“复制地址”。
+接收方应打开其已添加 Gonka 账户的 Keplr 钱包。点击余额上方的“复制地址”。
 
 <a href="/images/keplr_receiver_txs_1.png" target="_blank"><img src="/images/keplr_receiver_txs_1.png" style="width:250px; height:auto;"></a>
 
-他们搜索Gonka链。
+他们搜索 Gonka 链。
 
 <a href="/images/keplr_receiver_txs_2.png" target="_blank"><img src="/images/keplr_receiver_txs_2.png" style="width:250px; height:auto;"></a>
 
@@ -132,7 +144,7 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
 
 <a href="/images/keplr_receiver_txs_3.png" target="_blank"><img src="/images/keplr_receiver_txs_3.png" style="width:250px; height:auto;"></a>
 
-将接收方的Gonka钱包地址粘贴到地址字段中。指定您要发送的金额。
+将接收方的 Gonka 钱包地址粘贴到地址字段中。指定您要发送的金额。
 
 <a href="/images/keplr_sender_txs_4.png" target="_blank"><img src="/images/keplr_sender_txs_4.png" style="width:250px; height:auto;"></a>
 
@@ -141,17 +153,17 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
 
 <a href="/images/keplr_sender_txs_5.png" target="_blank"><img src="/images/keplr_sender_txs_5.png" style="width:250px; height:auto;"></a>
 
-等待交易成功的通知。由于Gonka是非原生链，您不会在活动标签中看到该交易。
+等待交易成功的通知。由于 Gonka 是非原生链，您不会在活动标签中看到该交易。
 
 <a href="/images/keplr_sender_txs_6.png" target="_blank"><img src="/images/keplr_sender_txs_6.png" style="width:250px; height:auto;"></a>
 
 === "Keplr（移动应用）"
 
-要使用Keplr钱包在Gonka链上进行Gonka账户之间的转账，请登录并打开您的Keplr钱包。
+要使用 Keplr 钱包在 Gonka 链上进行 Gonka 账户之间的转账，请登录并打开您的 Keplr 钱包。
 
 <a href="/images/keplr_mobile_sender_1.PNG" target="_blank"><img src="/images/keplr_mobile_sender_1.PNG" style="width:250px; height:auto;"></a>
 
-在主页上搜索Gonka链。
+在主页上搜索 Gonka 链。
 
 <a href="/images/keplr_mobile_sender_2.PNG" target="_blank"><img src="/images/keplr_mobile_sender_2.PNG" style="width:250px; height:auto;"></a>
 
@@ -159,32 +171,32 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
 
 <a href="/images/keplr_mobile_sender_3.PNG" target="_blank"><img src="/images/keplr_mobile_sender_3.PNG" style="width:250px; height:auto;"></a>
 
-=== "如果您已知接收方的Gonka钱包地址"
+=== "如果您已知接收方的 Gonka 钱包地址"
 
-将接收方的Gonka钱包地址粘贴到地址字段中。指定您要发送的金额。
+将接收方的 Gonka 钱包地址粘贴到地址字段中。指定您要发送的金额。
 
 <a href="/images/keplr_mobile_sender_4.PNG" target="_blank"><img src="/images/keplr_mobile_sender_4.PNG" style="width:250px; height:auto;"></a>
 
 
-=== "如果您不知道接收方的Gonka钱包地址"
+=== "如果您不知道接收方的 Gonka 钱包地址"
 
-接收方应打开其Keplr钱包并确保已添加Gonka账户。
+接收方应打开其已添加 Gonka 账户的 Keplr 钱包。
 
 <a href="/images/keplr_mobile_receiver_1.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_1.PNG" style="width:250px; height:auto;"></a>
 
-他们搜索Gonka链并点击。
+他们搜索 Gonka 链并点击。
 
 <a href="/images/keplr_mobile_receiver_2.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_2.PNG" style="width:250px; height:auto;"></a>
 
-他们复制余额上方的地址，或点击“接收”并在下一步中复制地址。
+他们将地址复制到余额上方，或点击“接收”并在下一步中复制地址。
 
 <a href="/images/keplr_mobile_receiver_3.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_3.PNG" style="width:250px; height:auto;"></a>
 
-他们将地址复制并发送给你。
+他们复制并发送给你他们的地址。
 
 <a href="/images/keplr_mobile_receiver_4.PNG" target="_blank"><img src="/images/keplr_mobile_receiver_4.PNG" style="width:250px; height:auto;"></a>
 
-将接收方的 Gonka 钱包地址粘贴到地址字段中，并指定你要发送的金额。
+将接收者的 Gonka 钱包地址粘贴到地址字段中。指定您要发送的金额。
 
 <a href="/images/keplr_mobile_sender_4.PNG" target="_blank"><img src="/images/keplr_mobile_sender_4.PNG" style="width:250px; height:auto;"></a>
 
@@ -193,7 +205,7 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
 
 <a href="/images/keplr_mobile_sender_5.PNG" target="_blank"><img src="/images/keplr_mobile_sender_5.PNG" style="width:250px; height:auto;"></a>
 
-等待屏幕显示交易成功的确认信息。由于 Gonka 是非原生链，你不会在活动标签中看到该交易。
+等待屏幕显示交易成功的确认信息。由于 Gonka 是非原生链，您不会在活动标签中看到该交易。
 
 <a href="/images/keplr_mobile_sender_6.PNG" target="_blank"><img src="/images/keplr_mobile_sender_6.PNG" style="width:250px; height:auto;"></a>
 
@@ -203,14 +215,14 @@ inferenced query bank balances gonka1ddswmmmn38esxegjf6qw36mt4aqyw6etvysy5x --no
 
 ## 检查交易状态
 
-发送交易后，你可能希望验证交易是否已成功处理并包含在区块中。每个交易都会分配一个唯一的哈希值（`TXHASH`），你可以使用它在区块链上查询其状态。
+发送交易后，您可能希望验证交易是否已成功处理并包含在区块中。每个交易都会分配一个唯一的哈希（`TXHASH`），您可以使用它在区块链上查询其状态。
 要检查交易状态，请使用以下命令：
 ```bash
 inferenced query tx <TXHASH> --chain-id gonka-mainnet [--node <node_rpc_url>]
 ```
 
-- 将 `<TXHASH>` 替换为你从转账命令中收到的实际交易哈希。
-- 如有需要，可选择指定节点和链 ID。
+- 将 `<TXHASH>` 替换为您从转账命令中收到的实际交易哈希。
+- 如有需要，您可以选择指定节点和链 ID。
 
 **示例：**
 ```bash
@@ -220,7 +232,7 @@ inferenced query tx 9712D97F127A1908C4DC4A1F4409AE380DC3BF0D662FA8D7E394422989CF
 
 - `code: 0` — 表示成功
 - 区块 `height` — 交易被包含的区块
-- `timestamp` — 区块提交的时间
+- `timestamp` — 区块被提交的时间
 - 交易消息的详细信息（例如使用的 `sender`、`receiver`、`amount`、`module`、`gas`）
 
 **示例响应（为清晰起见已简化）：**

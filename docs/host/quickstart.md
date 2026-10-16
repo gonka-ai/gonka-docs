@@ -1522,7 +1522,7 @@ The endpoint estimates **one epoch at a time**. Fees are spent as transactions l
   --node http://node2.gonka.ai:8000/chain-rpc/ \
   --chain-id gonka-mainnet \
   --gas auto \
-  --gas-adjustment 1.6 \
+  --gas-adjustment 2.0 \
   --gas-prices 1ngonka
 ```
 
@@ -1586,7 +1586,7 @@ Deposit collateral from your Account Key (always use `ngonka`):
   --node $NODE_URL/chain-rpc/ \
   --chain-id $CHAIN_ID \
   --gas auto \
-  --gas-adjustment 1.5 \
+  --gas-adjustment 2.0 \
   --gas-prices 1ngonka
 ```
 
@@ -1641,7 +1641,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
-  --gas-adjustment 1.5 \
+  --gas-adjustment 2.0 \
   --gas-prices 1ngonka \
   -y
 ```
@@ -1658,7 +1658,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
-  --gas-adjustment 1.5 \
+  --gas-adjustment 2.0 \
   --gas-prices 1ngonka \
   -y
 ```
@@ -1674,7 +1674,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
-  --gas-adjustment 1.5 \
+  --gas-adjustment 2.0 \
   --gas-prices 1ngonka \
   -y
 ```
@@ -1690,7 +1690,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
-  --gas-adjustment 1.5 \
+  --gas-adjustment 2.0 \
   --gas-prices 1ngonka \
   -y
 ```

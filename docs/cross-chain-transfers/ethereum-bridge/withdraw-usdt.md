@@ -22,7 +22,7 @@ Initiate the withdrawal transaction using CLI:
   '{"withdraw":{"amount":"<amount>","destination_address":"0xYourEthereumAddr","destination_bridge_address":"0x972a7a92d92796a98801a8818bcf91f1648f2f68"}}' \
   --from <your_key_name> \
   --chain-id gonka-mainnet \
-  --gas auto --gas-adjustment 1.5 \
+  --gas auto --gas-adjustment 2.0 \
   -y \
   --node http://node1.gonka.ai:8000/chain-rpc/
 ```

@@ -89,7 +89,7 @@ You can also send and receive GNK in [Tangem](https://tangem.com/){target=_blank
     inferenced tx bank send <sender-key-name> <recipient-address> <coins> \
       --chain-id gonka-mainnet \
       --gas auto \
-      --gas-adjustment 1.5 \
+      --gas-adjustment 2.0 \
       --gas-prices 1ngonka \
       [--node <node_rpc_url>] \
       [--keyring-backend test]
@@ -105,7 +105,7 @@ You can also send and receive GNK in [Tangem](https://tangem.com/){target=_blank
     inferenced tx bank send genesis gonka1a3jpdl4epdts64gns3a3fy9hjv2n9e3v7kxx0e 100ngonka \
       --chain-id gonka-mainnet \
       --gas auto \
-      --gas-adjustment 1.5 \
+      --gas-adjustment 2.0 \
       --gas-prices 1ngonka
     ```
 

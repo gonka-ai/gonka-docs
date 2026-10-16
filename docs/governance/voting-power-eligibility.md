@@ -129,7 +129,7 @@ This delegation only allows voting on governance proposals. The grantee can stil
       --home .inference \
       --keyring-backend file \
       --gas auto \
-      --gas-adjustment 1.5 \
+      --gas-adjustment 2.0 \
       --gas-prices 1ngonka
     ```
     

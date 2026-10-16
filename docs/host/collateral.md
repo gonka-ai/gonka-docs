@@ -106,7 +106,7 @@ Always use the `ngonka` denomination. The transaction is signed by the participa
   --node $NODE_URL/chain-rpc/ \
   --chain-id gonka-mainnet \
   --gas auto \
-  --gas-adjustment 1.5 \
+  --gas-adjustment 2.0 \
   --gas-prices 1ngonka
 ```
 
@@ -146,7 +146,7 @@ To withdraw collateral:
   --node $NODE_URL/chain-rpc/ \
   --chain-id gonka-mainnet \
   --gas auto \
-  --gas-adjustment 1.5 \
+  --gas-adjustment 2.0 \
   --gas-prices 1ngonka
 ```
 

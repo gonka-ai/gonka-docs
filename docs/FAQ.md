@@ -338,7 +338,7 @@ This delegation only allows voting on governance proposals. The grantee can stil
       --home .inference \
       --keyring-backend file \
       --gas auto \
-      --gas-adjustment 1.5 \
+      --gas-adjustment 2.0 \
       --gas-prices 1ngonka
     ```
     
@@ -494,7 +494,7 @@ Voting options:
       --home .inference \
       --keyring-backend file \
       --gas auto \
-      --gas-adjustment 1.6 \
+      --gas-adjustment 2.0 \
       --gas-prices 1ngonka
     ```
 === "Example response"
@@ -614,7 +614,7 @@ export NODE_URL=http://<NODE_URL>:<port>
     --keyring-backend file \
     --chain-id gonka-mainnet \
     --gas auto \
-    --gas-adjustment 1.5 \
+    --gas-adjustment 2.0 \
     --gas-prices 1ngonka \
     --node $NODE_URL/chain-rpc/
 ```

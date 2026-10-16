@@ -71,7 +71,7 @@ export WUSDT_CONTRACT="gonka1CW20WrappedUSDTAddress"
   '{"transfer":{"recipient":"gonka1xxxxxxxx...","amount":"123456"}}' \
   --from <your_key_name> \
   --chain-id gonka-mainnet \
-  --gas auto --gas-adjustment 1.5 \
+  --gas auto --gas-adjustment 2.0 \
   -y \
   --node http://node1.gonka.ai:8000/chain-rpc/
 ```

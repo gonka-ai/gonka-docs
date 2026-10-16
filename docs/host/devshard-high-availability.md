@@ -343,16 +343,16 @@ source ./config.env
 
 All commands must succeed; readiness and public health endpoints must return HTTP 200. Keep the supplied `/readyz` Docker healthcheck.
 
-On the public proxy host, `docker port proxy` must list `9443`. Each router slot has two listeners, JSON on `8080` and peer RPC over HTTP/2 on `8081`. `verify-admission`, `/readyz` and `update-devshard.sh --check` do not exercise the HTTP/2 path: the proxy probes a slot's admin port over HTTP/1.1, and a peer's TCP connection on `9443` does not show that its requests reach `versiond`. After a wrapping update, send one peer RPC through the public endpoint for each protocol in `VERSIOND_VERSIONS`:
+On the public proxy host, `docker port proxy` must list `9443`. Each router slot has two listeners, JSON on `8080` and peer RPC over HTTP/2 on `8081`. `verify-admission`, `/readyz` and `update-devshard.sh --check` do not exercise the HTTP/2 path: the proxy probes a slot's admin port over HTTP/1.1, and a peer's TCP connection on `9443` does not show that its requests reach `versiond`. After a wrapping update, send one peer RPC through the public endpoint for each protocol in `VERSIOND_VERSIONS` from `v6` on. Earlier protocols (`v4`, `v4.1`, `v4.2`, `v5`) have no peer RPC over HTTP/2 and keep the JSON path; for them this probe answers HTTP 503 on a healthy host, and the JSON checks above are the whole test.
 
 ```bash
-version='<protocol from VERSIOND_VERSIONS>'
+version='<protocol v6 or later from VERSIOND_VERSIONS>'
 curl -sS --http2-prior-knowledge -X POST -H 'content-type: application/json' -d '{}' \
   -w '\nHTTP %{http_code}\n' \
   "http://<public host>:9443/$version/sessions/_/rpc/devshard.transport.v1.PeerAuthService/Attach"
 ```
 
-Use `https://` for an HTTPS `PUBLIC_URL`. An HTTP 400 or 401 with a JSON `code` (`invalid_argument`, `unauthenticated`) comes from the protocol's child and proves the path through the proxy, the router fleet and `versiond`. HTTP 503, HTTP 404 or a refused connection means the HTTP/2 path is not serving. Peer connections then appear in `docker exec proxy netstat -tn | grep ':9443'`.
+Use `https://` for an HTTPS `PUBLIC_URL`. An HTTP 400 or 401 with a JSON `code` (`invalid_argument`, `unauthenticated`) comes from the protocol's child and proves the path through the proxy, the router fleet and `versiond`. For such a protocol, HTTP 503, HTTP 404 or a refused connection means the HTTP/2 path is not serving. Peer connections then appear in `docker exec proxy netstat -tn | grep ':9443'`.
 
 New or replaced remote member: pass the [database check](#check-the-remote-database) before pool admission.
 

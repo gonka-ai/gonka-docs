@@ -39,17 +39,17 @@ The reverse direction works the other way around: bridging **back to Ethereum**,
 
 ## The seed-phrase pitfall (read this!)
 
-Most users never see their raw private key — they only have a **seed phrase** (mnemonic) and let their wallet derive keys for them. This is convenient, but it creates a trap for bridging:
+Most users never see their raw private key — they only have a **seed phrase** (mnemonic) and let their wallet derive keys for them. This is convenient, but it creates a trap for bridging. Both 12-word and 24-word phrases can derive many private keys; the phrase length does not determine the bridge recipient.
 
-A seed phrase does not map to a single key. Wallets derive keys from it using **BIP-44 derivation paths**, and each blockchain uses a **different path**:
+A seed phrase does not map to a single key. Wallets derive account keys using **BIP-44 derivation paths**. For example:
 
-* Ethereum wallets use coin type **60** → path `m/44'/60'/0'/0/0`
-* Cosmos/Gonka wallets use coin type **1200** → path `m/44'/1200'/0'/0/0`
+* A common Ethereum account uses coin type **60** → path `m/44'/60'/0'/0/0`.
+* The current [Keplr Gonka chain configuration](https://github.com/chainapsis/keplr-chain-registry/blob/main/cosmos/gonka-mainnet.json) specifies coin type **1200** → path `m/44'/1200'/0'/0/0`. Other wallet setups may use another path, such as one based on the generic Cosmos coin type **118**.
 
-Because the paths differ, the **same seed phrase produces two completely different private keys** for Ethereum and Gonka — and therefore two unrelated addresses. If you deposit from a seed-derived Ethereum account and then look at the seed-derived Gonka account in your wallet, **they are not the same key**, so the bridged tokens will land on a `gonka1…` address your wallet is not currently showing you. You still control that address (you can derive the Ethereum key from the same mnemonic using coin type `60` and use it on Gonka), but your wallet won't display it without a manual derivation step.
+These are examples, not universal wallet settings. When the paths differ, the **same seed phrase produces different private keys** for Ethereum and Gonka — and therefore unrelated addresses. If you deposit from a seed-derived Ethereum account and then look at a Gonka account derived from the same phrase along another path, **they are not the same key**. The bridged tokens will land on the `gonka1…` address controlled by the Ethereum account's key, which your Gonka wallet may not be showing.
 
 !!! danger
-    Do **not** assume "same seed phrase = same account on both chains." For the bridge you need the **same private key** on both chains, not the same seed phrase. Using the standard, different derivation paths will send your funds to an address derived from your Ethereum key — which your Gonka wallet, derived on a different path, does not control. This is not a loss, you can still derive your Ethereum private key from the same seed phrase, and that key controls the receiving account on the Gonka chain. 
+    Do **not** assume "same seed phrase = same account on both chains." For the bridge you need the **same private key** on both chains, not the same seed phrase. If your wallets derive different keys, the bridge sends your funds to the Gonka address controlled by your Ethereum key, even if your current Gonka wallet does not show it.
 
 ## How to get the matching Gonka address
 
@@ -80,6 +80,15 @@ The address printed here is exactly the `gonka1…` address that will receive yo
 
 !!! warning
     Importing a raw private key exposes it to the machine and keyring you import it on. Prefer a file-based keyring (`--keyring-backend file`) on a secure machine, and never paste a private key that also guards significant Ethereum funds onto an untrusted host. When in doubt, use the dashboard.
+
+## Already bridged, but cannot see the assets?
+
+If the bridge transfer is complete but the assets are not in your usual Gonka wallet, and you have the **12-word or 24-word recovery phrase** for the Ethereum wallet (but not its account private key), you can use MetaMask to derive and export that key. The original Ethereum wallet does not need to be MetaMask; this method works only if MetaMask shows the same sending `0x…` address.
+
+1. Find the Ethereum transaction's **From** address. In the [Gonka bridge transaction record](tracker-integration.md#bridge-transactions), confirm `BRIDGE_COMPLETED` and note the full `ownerAddress` (`gonka1…`). If it matches your usual Gonka address, check the balance or token display. If the record is still pending, this procedure will not complete the transfer.
+2. [Import the recovery phrase into MetaMask](https://support.metamask.io/start/use-an-existing-wallet). MetaMask may show several Ethereum accounts from the same phrase. Find the account whose full `0x…` address matches **From**; if it is not listed, follow MetaMask's [missing-account guide](https://support.metamask.io/configure/accounts/how-to-add-missing-accounts-after-restoring-with-secret-recovery-phrase). If no account matches, the phrase imported into MetaMask has not recovered the sending account, so do not export a key from a different account.
+3. From the matching MetaMask account, [export its private key](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/). The recovery phrase itself is not the account's private key.
+4. [Import that private key into Keplr](https://help.keplr.app/extension/5R3bMyjtr2FwnBvJQuJwJu/connect-additional-keplr-accounts/5R3bMyjtr1SYb5DKnjbGVy), add or select Gonka, and compare the full Gonka address with `ownerAddress`. When they match, this is the account that can access the bridged assets.
 
 ## Quick checklist
 

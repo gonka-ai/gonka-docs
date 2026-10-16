@@ -1,10 +1,10 @@
 # 高可用 devshard 主机设置
 
-由多个 `versiond` 实例支持的始终可用的 Devshard 推理服务。
+由多个 `versiond` 实例支持的持续可用的 devshard 推理服务。
 
 ## 目录
 
-- [为什么这很重要](#why-this-matters)
+- [为何重要](#why-this-matters)
 - [发布与镜像](#release-and-images)
 - [前提条件](#prerequisites)
 - [安装新主机](#install-a-new-host)
@@ -14,11 +14,11 @@
 - [操作部署](#operate-the-deployment)
 - [故障排除](#troubleshooting)
 
-## 为什么这很重要
+## 为何重要
 
 单个 `versiond` 进程是一个单点故障（SPOF）：如果该机器或容器宕机，网关将无法通过该协议版本访问您的主机。
 
-在路由器集群后运行多个 `versiond` 实例，并共享 PostgreSQL。如果一个实例失败，路由器会将请求发送到其余实例。
+在路由器集群后运行多个 `versiond` 实例，并共享 PostgreSQL。如果一个实例失败，路由器会将请求发送到剩余的实例。
 
 ```text
 Public proxy (/devshard/...)
@@ -55,14 +55,14 @@ export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
 3. 每个 HA `versiond` 副本使用相同的参与者身份：
    - 相同的 `KEY_NAME` 和密钥环。
    - 相同的 `ACCOUNT_PUBKEY`。
-4. 共享 PostgreSQL；每个副本使用独立的数据目录。不要用相同的密钥启动第二个 dapi。
-5. Docker Compose **2.24.4+**、Bash、Python 3、Git、`tar`、`curl`、`jq`、`flock`、`sha256sum`、`timeout`、`xargs`。远程主机还需 `ssh`、`psql` 以及来自**主主机**到**副本主机**的 SSH 访问权限。
+4. 共享 PostgreSQL；每个副本使用独立的数据目录。不要用相同密钥启动第二个 dapi。
+5. Docker Compose **2.24.4+**、Bash、Python 3、Git、`tar`、`curl`、`jq`、`flock`、`sha256sum`、`timeout`、`xargs`。远程主机还需 `ssh`、`psql`，并需从**主主机**到**副本主机**的 SSH 访问权限。
 
-本地 HA 要求协议 v4 或更高版本。滚动更新和远程副本要求所有服务协议为 v5 或更高版本。此处不涵盖从 v4 之前协议的迁移。
+本地 HA 需要协议 v4 或更高版本。滚动更新和远程副本要求每个服务的协议为 v5 或更高版本。此处不涵盖从 v4 之前协议的迁移。
 
 ## 安装新主机
 
-### 步骤 1：安装 PostgreSQL（最好本身也具备高可用性）
+### 步骤 1：安装 PostgreSQL（最好本身也是高可用的）
 
 HA `versiond` 消除了对单个**应用**服务器的依赖，但如果 PostgreSQL 是单个虚拟机，**PostgreSQL 将成为您的新 SPOF**。建议使用托管或复制的数据库。
 
@@ -70,11 +70,15 @@ HA `versiond` 消除了对单个**应用**服务器的依赖，但如果 Postgre
 
 **托管 PostgreSQL（推荐）。** 选择高可用配置并创建数据库和用户。
 
-**自托管 PostgreSQL。** 在专用主机或集群上安装 PostgreSQL，创建角色/数据库，并配置数据库高可用的复制和故障转移。
+**自管理 PostgreSQL。** 在专用主机或集群上安装 PostgreSQL，创建角色/数据库，并配置复制和故障转移以实现数据库高可用。
 
-对于托管或自托管 PostgreSQL，请获取主端点、端口、数据库、用户和密码。允许来自每个副本的连接，并配置 [§2.2](#22-external-or-managed-postgresql)。
+对于托管或自管理的 PostgreSQL，获取主端点、端口、数据库、用户和密码。允许每个副本连接，并配置 [§2.2](#22-external-or-managed-postgresql)。
 
 **本地 Compose PostgreSQL。** `docker-compose.versiond.yml` 在加入主机上启动 `devshard-postgres`。如果机器宕机，数据库也随之宕机。
+
+#### 调整 `max_connections` 大小
+
+devshardd v4 至 v5.0.1 版本根据主机 CPU 数量设置 PostgreSQL 连接池大小，因此 PostgreSQL 默认的 100 个连接对于这些版本的 HA 来说太小。将 `max_connections` 设置为 250；这可覆盖最多 16 个 CPU 的主机上两个副本和三个协议。如有更多 CPU、副本或协议，请按比例增加。对于托管或自管理的 PostgreSQL，请在服务器或提供商设置中配置。对于本地 Compose PostgreSQL，[§2.1](#21-same-machine-two-replicas) 中的覆盖设置会应用该值。该值仅在 PostgreSQL 重启后生效。
 
 #### 配置 PostgreSQL 凭据
 
@@ -105,7 +109,7 @@ PYTHON
 
 #### 准备 PostgreSQL 目录
 
-仅本地 Compose PostgreSQL。在首次启动或迁移前，在 `deploy/join` 中运行，以通过 Docker 创建数据目录。PostgreSQL 入口脚本在启动时设置其所有者：
+仅本地 Compose PostgreSQL。在首次启动或迁移前，在 `deploy/join` 中运行，通过 Docker 创建数据目录。PostgreSQL 入口点在启动时设置其所有者：
 
 ```bash
 source ./config.env
@@ -124,7 +128,7 @@ docker run --rm --network none --read-only \
 ls -ld -- "$(dirname "$pg_dir")" "$pg_dir"
 ```
 
-请勿手动更改数据库所有者。
+不要手动更改数据库所有者。
 
 ### 步骤 2：运行多个 `versiond` 实例 + 路由器集群
 
@@ -149,7 +153,7 @@ ls -ld -- "$(dirname "$pg_dir")" "$pg_dir"
 curl -fsS http://127.0.0.1:9100/versions | jq -er '.versions[].name'
 ```
 
-对于此版本，请在 `VERSIOND_VERSIONS` 中使用列出的名称 `v4`、`v4.1`，以及一旦可用的 `v5`。排除预 HA 版本，如 `v3`。更新时保留现有列表；添加时使用 [添加协议](#add-a-protocol)。
+对于此版本，请在 `VERSIOND_VERSIONS` 中使用列出的名称 `v4`、`v4.1`，以及一旦可用时的 `v5`。排除预 HA 版本，例如 `v3`。更新时保留现有列表；使用 [添加协议](#add-a-protocol) 进行添加。
 
 在 `config.env` 中编辑这些变量。保留现有的身份和数据库设置。
 
@@ -164,7 +168,7 @@ export COMPOSE_FILE=docker-compose.yml:docker-compose.versiond.yml:docker-compos
 # Append every additional override used by this deployment, in the same order.
 ```
 
-保持 `VERSIOND_NON_HA_VERSIONS` 为空。在每次运行时，将所有覆盖项包含在 `COMPOSE_FILE` 中，并保持相同顺序。
+保持 `VERSIOND_NON_HA_VERSIONS` 为空。在每次运行时，将所有覆盖项包含在 `COMPOSE_FILE` 中，顺序保持一致。
 
 **2. 在 `deploy/join` 中创建 `docker-compose.devshard-v5.override.yml`。**
 
@@ -212,6 +216,10 @@ services:
       versiond-router-back: {}
     restart: always
 
+  # Local Compose PostgreSQL: size for every replica and protocol; see Step 1.
+  devshard-postgres:
+    command: ["postgres", "-c", "max_connections=250"]
+
   versiond:
     environment:
       - VERSIOND_ORACLE_URL=http://oracle-filter:9100/versions
@@ -246,9 +254,9 @@ EOF
 
 如果使用本地 Compose PostgreSQL，请跳过本节，前往 [步骤 3](#step-3-start-the-deployment)。
 
-直接连接到 PostgreSQL。如果使用连接池（如 PgBouncer），请配置会话池；事务池不受支持。
+直接连接到 PostgreSQL。如果使用连接池（如 PgBouncer），请配置会话池；事务池不被支持。
 
-此部署不支持通过 `PGSSL*` 变量配置 PostgreSQL TLS；仅接受 `PGSSLMODE=disable`。如果您的提供商要求显式 TLS 设置，则本流程不适用。请勿禁用必需的 TLS。
+此部署不支持通过 `PGSSL*` 变量配置 PostgreSQL TLS；仅接受 `PGSSLMODE=disable`。如果您的提供商要求显式 TLS 设置，则此流程不适用。不要禁用必需的 TLS。
 
 通过提供商创建数据库和角色，或运行：
 
@@ -306,7 +314,7 @@ export COMPOSE_FILE=docker-compose.yml:docker-compose.versiond.yml:docker-compos
 
 ### 步骤 4：验证是否正常工作
 
-#### 4.1 检查正在运行的服务
+#### 4.1 检查运行中的服务
 
 在安装或更新后，在加入主机上运行。列出 `replicas` 中的每个本地副本；在远程主机上重复副本检查。
 
@@ -334,7 +342,7 @@ source ./config.env
 
 所有命令必须成功；就绪和公共健康端点必须返回 HTTP 200。保留提供的 `/readyz` Docker 健康检查。
 
-新的或替换的远程成员：在加入池之前，请通过 [远程数据库检查](#check-the-remote-database)。
+新或替换的远程成员：在池准入前通过 [数据库检查](#check-the-remote-database)。
 
 #### 4.2 检查路由故障转移
 
@@ -349,13 +357,13 @@ source ./config.env
    curl -sS -D - -o /dev/null "$url"
    ```
 
-   预期返回 HTTP 200。将 `X-Upstream-Addr` 与本地容器或远程端点匹配。包含每个本地副本：
+   预期返回 HTTP 200。将 `X-Upstream-Addr` 匹配到本地容器或远程端点。包含每个本地副本：
 
    ```bash
    docker inspect -f '{{.Name}} {{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' versiond versiond2
    ```
 
-2. 在主机上停止 `X-Upstream-Addr` 中显示的副本：
+2. 停止 `X-Upstream-Addr` 中显示的副本，位于其主机上：
 
    ```bash
    replica='<serving-container>'
@@ -376,19 +384,19 @@ source ./config.env
    docker start "$replica"
    ```
 
-   在停止另一个副本之前，先通过[服务检查](#41-check-the-running-services)。
+   在停止另一个副本之前，先通过 [服务检查](#41-check-the-running-services)。
 
-对于常规更新，仅运行第 4.1 节中的服务检查。
+对于常规更新，仅运行 §4.1 中的服务检查。
 
 ## 升级现有主机
 
-滚动更新要求每个服务协议的版本为 v5 或更高。服务较早协议的主机必须使用[带停机时间的更新](#update-with-downtime)。
+滚动更新要求每个被服务的协议版本为 v5 或更高。服务较早协议的主机必须使用 [带停机时间的更新](#update-with-downtime)。
 
-此升级程序支持使用 PostgreSQL 后端、服务 v4 或更高版本、站点设置在 `config.env` 中、且在 Git 检出中使用独立 Compose 覆盖的主机。v4 之前的协议需要单独的迁移程序。
+此升级流程支持使用 PostgreSQL 作为后端、版本为 v4 或更高、站点设置在 `config.env` 中、且 Compose 覆盖文件位于 Git 检出目录中的主机。版本早于 v4 的协议需要单独的迁移流程。
 
 ### 备份 PostgreSQL 和部署文件
 
-在替换发布文件之前，在现有主机的 `deploy/join` 中运行。保持 `versiond` 运行，并保存打印的备份目录。
+在替换发布文件之前，在现有主机的 `deploy/join` 中运行。保留 `versiond` 运行，并保存打印出的备份目录。
 
 ```bash
 (
@@ -458,7 +466,7 @@ PYTHON
 
 ### 准备发布版本
 
-完成[备份](#back-up-postgresql-and-deployment-files)。在 `deploy/join` 中，输入其打印的目录。保留站点设置在 `config.env` 中，并单独保留未跟踪的 Compose 覆盖。
+完成 [备份](#back-up-postgresql-and-deployment-files)。在 `deploy/join` 中，进入其打印出的目录。保留站点设置在 `config.env` 中，并保持独立的、未跟踪的 Compose 覆盖文件。
 
 ```bash
 (
@@ -485,11 +493,11 @@ PYTHON
 )
 ```
 
-如果跟踪的文件有本地修改，此步骤将停止。不涵盖自动合并；保留保存的补丁，不要运行 `git reset --hard`。
+如果受跟踪的文件有本地修改，此步骤将停止。不涵盖自动合并；请保留保存的补丁，不要运行 `git reset --hard`。
 
-应用[发布和镜像](#release-and-images)。站点覆盖必须使用这些镜像变量，而不是硬编码的应用程序镜像。
+应用 [发布和镜像](#release-and-images)。站点覆盖必须使用这些镜像变量，而非硬编码的应用镜像。
 
-不要用新安装示例替换 `config.env`。先更新，之后再添加协议。不要将此更新与数据库迁移、PostgreSQL 主版本升级或集群重新配置结合。
+不要用新安装示例替换 `config.env`。先更新，再添加协议。不要将此更新与数据库迁移、PostgreSQL 主版本升级或集群重新配置合并。
 
 <details>
 <summary><strong>如果旧的 config.env 没有 VERSIOND_VERSIONS</strong></summary>
@@ -514,11 +522,13 @@ PYTHON
 )
 ```
 
-如果任何协议未运行或列表中包含 HA 之前的版本，则停止。
+如果任何协议未运行或列表中包含非 HA 版本，则停止。
 
 </details>
 
-首次 HA 设置：完成[§2.1](#21-same-machine-two-replicas) 以设置 HA 变量并创建过滤器覆盖；保留当前协议列表。对于外部数据库，还请使用现有数据库完成[§2.2](#22-external-or-managed-postgresql)。然后继续下面步骤；不要运行安装步骤 3–4。
+首次 HA 设置：完成 [§2.1](#21-same-machine-two-replicas) 以设置 HA 变量并创建过滤器覆盖；保留当前协议列表。对于外部数据库，还需使用现有数据库完成 [§2.2](#22-external-or-managed-postgresql)。然后继续以下步骤；不要运行安装步骤 3–4。
+
+现有 HA 主机：检查 [`max_connections`](#size-max_connections)。对于本地 Compose PostgreSQL，将 [§2.1](#21-same-machine-two-replicas) 中的 `devshard-postgres` 条目添加到现有覆盖中。带停机时间的更新会重启 PostgreSQL 并应用它；滚动更新不会。
 
 重新加载并验证：
 
@@ -536,7 +546,7 @@ PYTHON
 
 ### 检查数据库布局
 
-外部 PostgreSQL：保持其运行并前往[更新部署](#3-update-the-deployment)。对于本地 PostgreSQL，检查数据目录和挂载：
+外部 PostgreSQL：保持其运行，并前往 [更新部署](#3-update-the-deployment)。对于本地 PostgreSQL，检查数据目录和挂载：
 
 ```bash
 docker inspect devshard-postgres --format '{{json .Mounts}}'
@@ -544,12 +554,12 @@ docker inspect devshard-postgres --format '{{json .Config.Env}}' |
   jq -r '.[] | select(startswith("PGDATA="))'
 ```
 
-现有的持久路径 `${DEVSHARD_POSTGRES_DATA_DIR:-./devshards/postgres}/data` 无需复制。位于 `/var/lib/postgresql/data` 的 Docker 卷需要以下过程。
+现有的持久路径 `${DEVSHARD_POSTGRES_DATA_DIR:-./devshards/postgres}/data` 无需复制。位于 `/var/lib/postgresql/data` 的 Docker 卷需要以下流程。
 
 <details>
 <summary><strong>一次性从旧 PostgreSQL 卷复制</strong></summary>
 
-适用于一个加入主机，且所有写入者均列在 `replicas` 中。使用发布提供的 PostgreSQL 镜像，针对现有的 PostgreSQL 16 Alpine 集群。先完成[目录准备](#prepare-the-postgresql-directory)。
+适用于一个加入主机，且所有写入者均列在 `replicas` 中。使用发布提供的 PostgreSQL 镜像，针对现有的 PostgreSQL 16 Alpine 集群。首先完成 [目录准备](#prepare-the-postgresql-directory)。
 
 在 `deploy/join` 中运行：
 
@@ -585,15 +595,15 @@ docker inspect devshard-postgres --format '{{json .Config.Env}}' |
 )
 ```
 
-失败时，保持副本停止并检查 `docker compose logs --tail=100 devshard-postgres`。保留源卷和备份：不要 `down -v`、`rm -v`、修剪或 `--renew-anon-volumes`。
+失败时，保持副本停止并检查 `docker compose logs --tail=100 devshard-postgres`。保留源卷和备份：不要执行 `down -v`、`rm -v`、清理或 `--renew-anon-volumes`。
 
-如果 Compose 在复制继续时停止等待，保持 PostgreSQL 运行。等待此命令报告 `healthy`：
+如果 Compose 在复制继续时停止等待，请保持 PostgreSQL 运行。等待直到此命令报告 `healthy`：
 
 ```bash
 docker inspect --format '{{.State.Health.Status}}' devshard-postgres
 ```
 
-然后使用上述打印的备份目录重复标识符检查：
+然后使用上面打印的备份目录重复标识符检查：
 
 ```bash
 (
@@ -608,7 +618,7 @@ docker inspect --format '{{.State.Health.Status}}' devshard-postgres
 )
 ```
 
-成功后，继续[带停机时间的更新](#update-with-downtime)。保持旧副本停止。
+成功后，继续执行[带停机时间的更新](#update-with-downtime)。保持旧副本停止。
 
 <details>
 <summary><strong>如果旧卷已分离</strong></summary>
@@ -643,7 +653,7 @@ docker inspect --format '{{.State.Health.Status}}' devshard-postgres
 )
 ```
 
-在 `System identifiers match.` 后，使用正常的 `COMPOSE_FILE` 继续[带停机时间的更新](#update-with-downtime)，不使用恢复叠加层。保持副本停止；保留源卷和备份。不要启用 `DEVSHARD_POSTGRES_ALLOW_EMPTY_INIT`。
+在 `System identifiers match.` 之后，使用正常的 `COMPOSE_FILE`（不带恢复覆盖层）继续执行[带停机时间的更新](#update-with-downtime)。保持副本停止；保留源卷和备份。不要启用 `DEVSHARD_POSTGRES_ALLOW_EMPTY_INIT`。
 
 </details>
 
@@ -651,15 +661,15 @@ docker inspect --format '{{.State.Health.Status}}' devshard-postgres
 
 ### 更新部署
 
-安排维护：替换公共代理可能会中断连接。
+安排维护：更换公共代理可能会中断连接。
 
-滚动更新要求每个服务协议的版本为 v5 或更高。如果任何服务协议早于 v5，请使用下面的停机程序。保持 `UPDATE_SKIP_POSTGRES_PROBE` 和 `UPDATE_ACCEPT_DATABASE_CHANGE` 禁用。
+滚动更新要求每个服务协议版本为 v5 或更高。如果任何服务协议版本早于 v5，请使用下面的停机时间流程。保持 `UPDATE_SKIP_POSTGRES_PROBE` 和 `UPDATE_ACCEPT_DATABASE_CHANGE` 禁用。
 
-#### 更新带停机时间
+#### 带停机时间的更新
 
-对于**一个加入主机**，使用相同的外部数据库或持久路径上的本地 PostgreSQL。如有需要，先复制[旧的本地卷](#2-check-the-database-layout)。保持数据库设置、参与者身份、副本数据挂载和协议不变。此过程不涉及数据库迁移或多主机更新。
+对于**一个加入主机**，使用相同的外部数据库或持久路径上的本地 PostgreSQL。如有必要，先复制[旧本地卷](#2-check-the-database-layout)。保持数据库设置、参与者身份、副本数据挂载和协议不变。此流程不涵盖数据库迁移或多主机更新。
 
-在 `deploy/join` 中运行；将每个本地副本包含在 `replicas` 中。备份包含凭据；请保持其目录私密。
+在 `deploy/join` 中运行；将每个本地副本包含在 `replicas` 中。备份包含凭证；请保持其目录私密。
 
 ```bash
 (
@@ -736,13 +746,13 @@ PYTHON
 )
 ```
 
-预检检查数据库访问和容量，而非数据库身份。如果镜像下载失败，请仅在未发生数据库副本、容器停止或替换的情况下[取消准备](#cancel-before-maintenance)。
+预检检查数据库访问和容量，而非数据库身份。如果镜像下载失败，仅在未发生数据库复制、容器停止或替换的情况下[取消准备](#cancel-before-maintenance)。
 
 运行[服务检查](#41-check-the-running-services)，然后在此处停止。
 
 #### 滚动更新
 
-每个服务协议均需 v5 或更高版本。保持 PostgreSQL、过滤器、副本和路由器集群运行。
+要求每个服务协议版本为 v5 或更高。保持 PostgreSQL、过滤器、副本和路由器集群运行。
 
 在首次滚动更新前准备过滤器：
 
@@ -752,7 +762,7 @@ source ./config.env
 docker compose up -d --no-deps oracle-filter
 ```
 
-滚动更新要求每个服务协议均为 v5 或更高版本。如果任何服务协议低于 v5，请使用[带停机时间的更新](#update-with-downtime)。如果检查超时、返回 HTTP 503 或无法确认副本使用相同的数据库，请勿继续。
+滚动更新要求每个服务协议版本为 v5 或更高。如果任何服务协议版本早于 v5，请使用[带停机时间的更新](#update-with-downtime)。如果检查超时、返回 HTTP 503 或未能确认副本使用相同数据库，请勿继续。
 
 检查每个副本上的每个协议：
 
@@ -781,50 +791,50 @@ docker compose up -d --no-deps oracle-filter
 )
 ```
 
-每个检查都应返回 HTTP 200。一次更新一个副本；在更新过程中，另一个副本必须持续服务每个协议。
+每个检查都应返回 HTTP 200。一次更新一个副本；在更新过程中，必须有另一个副本为每个协议提供服务。
 
-运行预检并预览替换操作。预检会写入数据库探测，但不会替换服务：
+运行预检并预览替换内容。预检写入数据库探测，但不替换服务：
 
 ```bash
 ./update-devshard.sh --dry-run
 ```
 
-审查建议的镜像和变更。若出现目录创建错误，请运行[目录准备](#prepare-the-postgresql-directory)后重试。预检失败时请勿继续。然后运行：
+审查建议的镜像和更改。如果出现目录创建错误，请运行[目录准备](#prepare-the-postgresql-directory)并重试。预检失败时请勿继续。然后运行：
 
 ```bash
 ./update-devshard.sh
 ```
 
-[逐个替换远程成员](#replace-a-member)，在最终验证前完成。
+在最终验证前，一次替换[一个远程成员](#replace-a-member)。
 
-运行[服务检查](#41-check-the-running-services)。如需启用新协议，请遵循[添加协议](#add-a-protocol)。
+运行[服务检查](#41-check-the-running-services)。要启用新协议，请遵循[添加协议](#add-a-protocol)。
 
 ## 添加远程副本
 
-此过程要求主机上的每个 `devshardd` 进程均运行 v5 或更高版本的协议。早期协议不支持本过程所需的共享数据库检查。
+此流程要求主机上的每个 `devshardd` 进程运行 v5 或更高版本的协议。较早的协议不支持此流程所需的共享数据库检查。
 
-在机器间使用私有网络。不要使用相同密钥启动第二个 dapi。
+在机器间使用私有网络。不要用相同的密钥启动第二个 dapi。
 
-新部署：请先在**主主机**上完成[启动](#step-3-start-the-deployment)和[验证](#step-4-verify-it-works)。
+新部署：首先在**主主机**上完成[启动](#step-3-start-the-deployment)和[验证](#step-4-verify-it-works)。
 
 | 机器 | 运行 |
 | --- | --- |
 | **主主机** | 本地 `versiond` 副本 + node/api/proxy + 路由器集群 |
 | **副本主机** | 仅 `versiond` |
-| 共享 | PostgreSQL 可被每个 `versiond` 实例访问 |
+| 共享 | 每个 `versiond` 实例均可访问的 PostgreSQL |
 
 在副本检查通过前，将其排除在路由器池外。
 
 ### 准备主主机
 
-在**主主机**上，为**副本主机**在私有网络上发布以下端口：
+在**主主机**上，为**副本主机**在私有网络上发布这些端口：
 
 - PostgreSQL `5432`，或外部数据库端口。
-- Node-manager `9400`。
-- Chain RPC/gRPC `26657`，`9090`。
-- 过滤目录 `19100`。
+- 节点管理器 `9400`。
+- 链 RPC/gRPC `26657`，`9090`。
+- 过滤的目录 `19100`。
 
-确认 `PGPASSWORD` 和 `KEYRING_PASSWORD` 与正在运行的本地 `versiond` 容器匹配。
+确认 `PGPASSWORD` 和 `KEYRING_PASSWORD` 与运行的本地 `versiond` 容器匹配。
 
 在**主主机**的 `config.env` 中设置 `export GONKA_PRIVATE_BIND_IP=<primary-host-private-ip>`。在 `deploy/join` 中运行：
 
@@ -847,11 +857,11 @@ services:
 EOF
 ```
 
-外部 PostgreSQL：删除 `devshard-postgres` 条目；**副本主机**使用真实端点。将此覆盖追加到**主主机**的 `COMPOSE_FILE`。
+外部 PostgreSQL：删除 `devshard-postgres` 条目；**副本主机**使用真实端点。将此覆盖添加到**主主机**的 `COMPOSE_FILE`。
 
-新主机：在[启动](#step-3-start-the-deployment)前包含此覆盖。现有主机：
+新主机：在 [启动](#step-3-start-the-deployment) 前包含此覆盖。现有主机：
 
-为端口变更安排维护。在**主主机**和每个现有**副本主机**上，在 `deploy/join` 中运行以停止副本：
+为端口更改安排维护。在**主主机**和每个现有**副本主机**上，在 `deploy/join` 中运行以停止副本：
 
 ```bash
 source ./config.env &&
@@ -860,7 +870,7 @@ mapfile -t replicas < <(docker compose ps --services | grep -E '^versiond[0-9]*$
 docker compose stop "${replicas[@]}"
 ```
 
-在**主主机**上应用端口变更：
+在**主主机**上应用端口更改：
 
 ```bash
 (
@@ -874,7 +884,7 @@ docker compose stop "${replicas[@]}"
 )
 ```
 
-在每台主机上，使用停止副本时相同的 shell 重启副本：
+在每个主机上，使用停止副本时相同的 shell 重启副本：
 
 ```bash
 docker compose up -d --no-deps --wait --wait-timeout 2100 "${replicas[@]}"
@@ -888,7 +898,7 @@ docker compose up -d --no-deps --wait --wait-timeout 2100 "${replicas[@]}"
 
 ### 配置并启动副本主机
 
-对于新的**副本主机**，在`deploy/join`中的**主主机**上运行。将**副本主机**的SSH登录信息输入为`user@host`。**副本主机**上的检出目录将创建在`~/gonka`，并使用**主主机**的提交版本。
+对于新的**副本主机**，在**主主机**的 `deploy/join` 中运行。将**副本主机**的 SSH 登录信息输入为 `user@host`。**副本主机**上的检出将创建在 `~/gonka`，使用**主主机**的提交。
 
 ```bash
 (
@@ -924,9 +934,9 @@ PYTHON
 )
 ```
 
-在**副本主机**上运行`cd ~/gonka/deploy/join`。对于现有的**副本主机**，请使用[替换成员](#replace-a-member)。
+在**副本主机**上运行 `cd ~/gonka/deploy/join`。对于现有的**副本主机**，请使用[替换成员](#replace-a-member)。
 
-将以下内容添加到**副本主机**的`config.env`中，并使用真实的私有地址：
+在**副本主机**的 `config.env` 中添加真实私有地址：
 
 ```bash
 export NETWORK_NODE_PRIVATE_IP='<primary-host-private-ip>'
@@ -934,9 +944,9 @@ export VERSIOND_BIND_IP='<replica-host-private-ip>'
 export COMPOSE_FILE=docker-compose.versiond-remote.yml:docker-compose.versiond-remote-filter.yml
 ```
 
-外部PostgreSQL：还需设置`DEVSHARD_POSTGRES_HOST`和`DEVSHARD_POSTGRES_PORT`。将**副本主机**的8080端口限制为仅允许路由器访问。
+外部 PostgreSQL：同时设置 `DEVSHARD_POSTGRES_HOST` 和 `DEVSHARD_POSTGRES_PORT`。将**副本主机**的 8080 端口限制为仅允许路由器访问。
 
-在**副本主机**的`deploy/join`中创建过滤器覆盖：
+在**副本主机**的 `deploy/join` 中创建过滤覆盖：
 
 ```bash
 cat > docker-compose.versiond-remote-filter.yml <<'EOF'
@@ -961,11 +971,11 @@ docker compose up -d --wait --wait-timeout 2100
 )
 ```
 
-当容器健康且所有检查均返回HTTP 200时，继续。
+当容器健康且所有检查均返回 HTTP 200 时继续。
 
 ### 检查远程数据库
 
-在将副本添加到路由器池之前，检查**副本主机**的数据库。在**副本主机**上运行以下两个模块；将`/path/to/gonka`替换为其检出目录（对于上述创建的主机，使用`~/gonka`）：
+在将副本添加到路由器池之前检查**副本主机**的数据库。在**副本主机**上运行以下两个代码块；将 `/path/to/gonka` 替换为其检出目录（上面创建的主机为 `~/gonka`）：
 
 ```bash
 (
@@ -978,7 +988,7 @@ docker compose up -d --wait --wait-timeout 2100
 )
 ```
 
-使用**主主机**的数据库设置或数据库管理员提供的值，填写检出目录中`deploy/join/pool-postgres.env`的`PGHOST`、`PGPORT`、`PGDATABASE`、`PGUSER`和`PGPASSWORD`。运行：
+使用**主主机**的数据库设置或数据库管理员提供的值，填写检出目录中的 `deploy/join/pool-postgres.env` 中的 `PGHOST`、`PGPORT`、`PGDATABASE`、`PGUSER` 和 `PGPASSWORD`。运行：
 
 ```bash
 (
@@ -988,11 +998,11 @@ docker compose up -d --wait --wait-timeout 2100
 )
 ```
 
-预期`Storage check passed`和退出码0。该检查会向数据库写入测试数据；请将其与其他检查和更新分开运行。对于其他容器，请重复`--container NAME`。
+预期 `Storage check passed` 和退出码 0。该检查会向数据库写入测试数据；请将其与其他检查和更新分开运行。对于其他容器，请重复 `--container NAME`。
 
 ### 将副本添加到路由器池
 
-在**主主机**上，在`deploy/join`中创建`versiond-endpoints.json`。将`10.0.0.12`替换为**副本主机**的私有IP，并包含所有副本。所有路由器都必须能够连接到这些地址：
+在**主主机**的 `deploy/join` 中创建 `versiond-endpoints.json`。将 `10.0.0.12` 替换为**副本主机**的私有 IP，并包含所有副本。所有路由器都必须能够连接到这些地址：
 
 ```bash
 cat > versiond-endpoints.json <<'EOF'
@@ -1004,7 +1014,7 @@ cat > versiond-endpoints.json <<'EOF'
 EOF
 ```
 
-在**主主机**的`config.env`中设置`export VERSIOND_POOL_ENDPOINTS_FILE=./versiond-endpoints.json`；`source ./config.env`。新集群：运行`./versiond-router-fleet.sh apply`。现有集群：在维护期间运行：
+在**主主机**的 `config.env` 中设置 `export VERSIOND_POOL_ENDPOINTS_FILE=./versiond-endpoints.json`；`source ./config.env`。新集群：运行 `./versiond-router-fleet.sh apply`。现有集群：在维护期间运行：
 
 ```bash
 VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
@@ -1012,15 +1022,15 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
 ./versiond-router-fleet.sh verify-admission
 ```
 
-滚动更新会中断新请求。在相同端点上替换主机时，请保留成员ID。端点文件的更改仅通过滚动更新生效。
+滚动更新会中断新请求。在相同端点上替换主机时，请保留成员 ID。端点文件的编辑仅通过滚动更新生效。
 
 添加副本后，运行[服务检查](#41-check-the-running-services)和[路由故障转移检查](#42-check-routing-failover)。
 
 ## 添加本地副本
 
-在[启动和验证](#step-3-start-the-deployment)之后，添加`versiond3`：
+在[启动和验证](#step-3-start-the-deployment)后，添加 `versiond3`：
 
-1. 在`config.env`中，将`docker-compose.versiond3.yml`插入`COMPOSE_FILE`中`docker-compose.versiond.yml`之后。在其后保留过滤器、数据库和站点覆盖：
+1. 在 `config.env` 中，将 `docker-compose.versiond3.yml` 立即插入 `COMPOSE_FILE` 中 `docker-compose.versiond.yml` 之后。保留其后的过滤器、数据库和站点覆盖：
 
    ```bash
    export COMPOSE_FILE=docker-compose.yml:docker-compose.versiond.yml:docker-compose.versiond3.yml:docker-compose.devshard-v5.override.yml
@@ -1028,7 +1038,7 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
    # Retain every other site override after these files.
    ```
 
-2. 在`docker-compose.devshard-v5.override.yml`的`services`下添加：
+2. 在 `docker-compose.devshard-v5.override.yml` 的 `services` 下添加：
 
    ```yaml
    versiond3:
@@ -1042,15 +1052,15 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
          condition: service_healthy
    ```
 
-   外部PostgreSQL：还在`docker-compose.devshard-pg-external.override.yml`的`services`下，现有锚点下方添加：
+   外部 PostgreSQL：也在 `docker-compose.devshard-pg-external.override.yml` 的 `services` 下添加，位于现有锚点下方：
 
    ```yaml
    versiond3:
      <<: *external-postgres
    ```
 
-3. 本地PostgreSQL：为现有副本运行[带停机时间的更新](#update-with-downtime)以应用新的PostgreSQL挂载。外部数据库跳过此步骤。
-4. 启动新的副本：
+3. 本地 PostgreSQL：对现有副本运行[带停机时间的更新](#update-with-downtime)以应用新的 PostgreSQL 挂载。外部数据库跳过此步骤。
+4. 启动新副本：
 
    ```bash
    source ./config.env
@@ -1059,37 +1069,37 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
    docker compose up -d --no-deps --wait --wait-timeout 2100 versiond3
    ```
 
-5. 如果使用`versiond-endpoints.json`，请添加`versiond3`并[应用更新后的列表](#3-add-the-replica-to-the-router-pool)。默认的Docker发现会自动识别它。运行[服务检查](#41-check-the-running-services)，包括`versiond3`。
+5. 如果使用 `versiond-endpoints.json`，添加 `versiond3` 并[应用更新的列表](#3-add-the-replica-to-the-router-pool)。默认 Docker 发现会自动找到它。运行[服务检查](#41-check-the-running-services)，包括 `versiond3`。
 
-对于第四个副本，复制`docker-compose.versiond3.yml`，将`3`替换为`4`，并重复上述覆盖设置。
+对于第四个副本，复制 `docker-compose.versiond3.yml`，将 `3` 替换为 `4`，并重复上述覆盖。
 
 ## 操作部署
 
-每个`versiond`副本都是路由器池的成员。
+每个 `versiond` 副本都是路由器池的成员。
 
-从`deploy/join`运行以下命令。在公共代理主机上管理路由器，在运行副本的主机上管理`versiond`副本。
+从 `deploy/join` 运行以下命令。在公共代理主机上管理路由器，并在运行副本的主机上管理 `versiond` 副本。
 
 ### 管理路由器
 
-使用`versiond-router-fleet.sh`管理路由器。该脚本读取`config.env`并在单独的Docker Compose项目中运行每个路由器。因此，为主要联合部署运行`docker compose down`会保持路由器运行。
+使用 `versiond-router-fleet.sh` 管理路由器。该脚本读取 `config.env` 并在单独的 Docker Compose 项目中运行每个路由器。因此，为主要加入部署运行 `docker compose down` 会保持路由器运行。
 
-要停止所有路由器，请运行`./versiond-router-fleet.sh stop-all --maintenance`。默认关闭超时时间为每个路由器30分钟（`VERSIOND_ROUTER_DRAIN_TIMEOUT_SECONDS`）。
+要停止所有路由器，请运行 `./versiond-router-fleet.sh stop-all --maintenance`。默认关闭超时时间为每个路由器 30 分钟（`VERSIOND_ROUTER_DRAIN_TIMEOUT_SECONDS`）。
 
 每个路由器实例占用一个编号的**插槽**。当其容器被替换时，插槽编号保持不变。在集群命令中使用此编号：
 
 | 任务 | 命令 |
 | --- | --- |
 | 查看路由器状态和插槽编号 | `./versiond-router-fleet.sh status` |
-| 停止插槽0中的路由器 | `./versiond-router-fleet.sh stop 0` |
-| 启动插槽0中的路由器 | `./versiond-router-fleet.sh start 0` |
+| 停止插槽 0 中的路由器 | `./versiond-router-fleet.sh stop 0` |
+| 启动插槽 0 中的路由器 | `./versiond-router-fleet.sh start 0` |
 | 更改后验证路由 | `./versiond-router-fleet.sh verify-admission` |
 | 应用路由器镜像和配置更改 | `./versiond-router-fleet.sh apply` |
 
 完整发布更新：请遵循[更新部署](#3-update-the-deployment)。
 
-操作中断后，保留之前已停止的容器和目录卷；使用相同的镜像和配置重新运行。对于池、解析器或传统路由的更改，请遵循[成员维护](#3-add-the-replica-to-the-router-pool)。
+在操作中断后，保留先前停止的容器和目录卷；使用相同的镜像和配置重新运行。对于池、解析器或传统路由更改，请遵循[成员维护](#3-add-the-replica-to-the-router-pool)。
 
-在机器维护前，优雅地停止路由器，然后停止主栈：
+在机器维护前，请优雅地停止路由器，然后停止主堆栈：
 
 ```bash
 (
@@ -1104,9 +1114,9 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
 )
 ```
 
-### 重启一个成员
+### 重启成员
 
-一次重启一个副本。其余副本必须服务所有协议并处理负载。在 `COMPOSE_FILE` 中包含每个活动的覆盖项：
+一次重启一个副本。其余副本必须服务所有协议并处理负载。在 `COMPOSE_FILE` 中包含所有活动覆盖：
 
 ```bash
 (
@@ -1132,11 +1142,11 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
 )
 ```
 
-在重启另一个副本前，先运行上述就绪检查。
+在重启另一个副本前，运行上述就绪检查。
 
-### 替换一个成员
+### 替换成员
 
-要更新副本的镜像，请使用以下流程替换其容器。
+要更新副本的镜像，请使用以下过程替换其容器。
 
 保留相同的数据库、参与者身份、协议列表和数据挂载。一次替换一个副本；另一个副本必须服务每个协议。
 
@@ -1152,8 +1162,8 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
    )
    ```
 
-   如果 Git 报告本地更改或冲突文件，请停止；不要强制检出。将 `config.env` 和站点覆盖项保存在独立的未跟踪文件中。检出成功后，应用 [发布和镜像](#release-and-images) 中的变量。
-2. 对于远程成员，请在**主主机**上从 `versiond-endpoints.json` 中删除其条目，并运行 [成员维护](#3-add-the-replica-to-the-router-pool)。在成员机器上，在 `deploy/join` 中运行以选择并替换副本：
+   如果 Git 报告本地更改或冲突文件，请停止；不要强制检出。将 `config.env` 和站点覆盖保存在独立的未跟踪文件中。检出成功后，应用[发布和镜像](#release-and-images)中的变量。
+2. 对于远程成员，请在**主主机**上从 `versiond-endpoints.json` 中删除其条目，并运行[成员维护](#3-add-the-replica-to-the-router-pool)。在成员的机器上，在 `deploy/join` 中运行以选择并替换副本：
 
    ```bash
    (
@@ -1168,10 +1178,10 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
    )
    ```
 
-   对于远程成员，在恢复其在**主主机**端点文件中的条目并应用成员维护前，请先通过[数据库检查](#check-the-remote-database)。
+   对于远程成员，在将条目恢复到**主主机**的端点文件并应用成员维护前，请先通过[数据库检查](#check-the-remote-database)。
 3. 在替换下一个成员前，请通过[服务检查](#41-check-the-running-services)。如果检查失败，请在替换另一个成员前停止。回滚镜像不会回滚数据库更改；任何回滚版本都必须支持当前数据库。
 
-### 移除一个成员
+### 移除成员
 
 在副本的主机上，在 `deploy/join` 中运行：
 
@@ -1192,23 +1202,23 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
 export VERSIOND2_REPLICAS=0
 ```
 
-对于额外的副本，从 `COMPOSE_FILE` 中删除其 Compose 文件名，并从过滤器/数据库覆盖中删除其服务块。保留其数据目录。如果使用 `versiond-endpoints.json`，请在**主主机**上删除其条目并运行 [成员维护](#3-add-the-replica-to-the-router-pool)。对剩余副本运行[服务检查](#41-check-the-running-services)。
+为增加一个副本，将其 Compose 文件名从 `COMPOSE_FILE` 中移除，并从过滤器/数据库覆盖中删除其服务块。保留其数据目录。如果使用 `versiond-endpoints.json`，请在**主主机**上删除其条目，然后运行[成员维护](#3-add-the-replica-to-the-router-pool)。对剩余副本运行[服务检查](#41-check-the-running-services)。
 
 ### 添加协议
 
-1. 检查主机/网关版本的[发布二进制兼容性要求](https://github.com/gonka-ai/gonka/blob/devshard/v5.0.1/devshard/docs/release-0.2.15-v5.md#binary-upgrade-compatibility)。一旦其出现在节点的[批准协议列表](#21-same-machine-two-replicas)中，请在每个主机的 `config.env` 中的 `VERSIOND_VERSIONS` 中添加它。保留现有协议。
-2. 在**主主机**上：`source ./config.env`，然后使用完整的 `COMPOSE_FILE` 运行 `docker compose up -d --no-deps oracle-filter`。
+1. 检查主机/网关版本的[发布二进制兼容性要求](https://github.com/gonka-ai/gonka/blob/devshard/v5.0.1/devshard/docs/release-0.2.15-v5.md#binary-upgrade-compatibility)。一旦它出现在节点的[批准协议列表](#21-same-machine-two-replicas)中，请在每台主机的 `config.env` 中将它添加到 `VERSIOND_VERSIONS`。保留现有协议。
+2. 在**主主机**上：`source ./config.env`，然后使用完整的 `COMPOSE_FILE` 执行 `docker compose up -d --no-deps oracle-filter`。
 3. `./versiond-router-fleet.sh wait-version <new-protocol>`，然后使用更新后的列表运行[服务检查](#41-check-the-running-services)。
 
-无需重启路由器。下一次主机更新会将保存的协议列表应用到路由器集群和公共代理；将其安排为维护任务。
+无需重启路由器。下一次主机更新会将保存的协议列表应用到路由器集群和公共代理；请将其安排为维护任务。
 
-为每个路由器插槽保留 `proxy-router-state` 和 `router-state` 卷。仅在维护期间、且其会话不再需要时才移除协议：过滤器更改可停止子进程，而接受的路由器路由默认保持不变。
+为每个路由器插槽保留 `proxy-router-state` 和 `router-state` 卷。仅在维护期间、且其会话不再需要时才移除协议：过滤器更改可停止子进程，而默认情况下已接受的路由器路由仍会保留。
 
 ## 故障排除
 
 ### 维护前取消
 
-仅在准备失败**且未执行任何数据库复制、容器停止或容器替换**时使用。数据库复制流程在 `Starting maintenance` 之前运行，因此仅凭缺少该消息是不够的。此操作仅恢复文件。在 `deploy/join` 中运行；使用预更新备份打印的 `Backup directory`：
+仅在准备失败**且未执行任何数据库复制、容器停止或容器替换**时使用。数据库复制过程在 `Starting maintenance` 之前运行，因此仅缺少该消息是不够的。此操作仅恢复文件。在 `deploy/join` 中运行；使用预更新备份打印的 `Backup directory`：
 
 ```bash
 read -r -p 'Pre-update backup directory: ' BACKUP_DIR
@@ -1232,18 +1242,18 @@ PYTHON
 
 如果 `git switch` 因本地更改而拒绝，请停止并保留这些更改；不要强制检出或运行 `git reset --hard`。
 
-成功恢复后，打开一个新的终端或 SSH 登录会话，返回 `deploy/join` 并运行：
+成功恢复后，打开新的终端或 SSH 会话，返回 `deploy/join` 并运行：
 
 ```bash
 source ./config.env
 ```
 
-不要重复使用更新 shell：它可能保留了还原文件中不存在的导出设置。在该 shell 中启动另一个 Bash 也会继承这些设置。保留备份。在镜像下载期间对 `denied` 或 `manifest unknown`，请等待对发布镜像的访问；不要替换为其他标签。
+不要重复使用更新 shell：它可能保留了已从恢复文件中缺失的导出设置。在该 shell 中启动另一个 Bash 也会继承这些设置。保留备份。在镜像下载期间遇到 `denied` 或 `manifest unknown` 时，请等待对发布镜像的访问；不要替换为其他标签。
 
 
 ### 恢复中断的滚动更新
 
-如果更新程序报告待处理的恢复，请在 `deploy/join` 中重新运行它。使用相同的 OS 用户、发布版本和配置，包括任何 `UPDATE_STATE_DIR` 或 `XDG_STATE_HOME` 设置。不要在 sudo 和非 sudo 运行之间切换。保留更新程序打印的恢复目录。不使用 `--check` 或 `--dry-run` 来恢复并继续更新：
+如果更新器报告待处理的恢复，请在 `deploy/join` 中重新运行它。使用相同的 OS 用户、发布版本和配置，包括任何 `UPDATE_STATE_DIR` 或 `XDG_STATE_HOME` 设置。不要在 sudo 和非 sudo 运行之间切换。保留更新器打印的恢复目录。不使用 `--check` 或 `--dry-run` 来恢复并继续更新：
 
 ```bash
 source ./config.env
@@ -1252,14 +1262,14 @@ source ./config.env
 
 ### 解决缺失的数据库
 
-在针对空数据库启动副本之前停止。对于本地数据库，请检查容器及其挂载：
+在针对空数据库启动副本之前先停止。对于本地数据库，请检查容器及其挂载：
 
 ```bash
 docker compose logs --tail=100 devshard-postgres
 docker inspect devshard-postgres --format '{{json .Mounts}}' | jq .
 ```
 
-如果容器已被删除，请从更新前的备份中检查其保存的挂载：
+如果容器已被删除，请从预更新备份中检查其保存的挂载：
 
 ```bash
 (
@@ -1270,4 +1280,4 @@ docker inspect devshard-postgres --format '{{json .Mounts}}' | jq .
 )
 ```
 
-如果旧的 Docker 卷已分离，请使用 [检查数据库布局](#2-check-the-database-layout) 中的恢复块配合更新前的备份。缺少存储且没有保留源卷，以及外部数据库灾难恢复，不在本指南范围内。不要使用 `DEVSHARD_POSTGRES_ALLOW_EMPTY_INIT` 绕过恢复。
+如果旧的 Docker 卷已分离，请使用[检查数据库布局](#2-check-the-database-layout)中的恢复块配合预更新备份。没有保留源卷的缺失存储，以及外部数据库灾难恢复，不在本指南范围内。不要使用 `DEVSHARD_POSTGRES_ALLOW_EMPTY_INIT` 绕过恢复。

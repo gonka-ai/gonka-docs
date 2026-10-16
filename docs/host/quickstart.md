@@ -33,7 +33,7 @@ The protocol supports **governance-approved** models for inference and Proof of 
 |----------|------|
 | `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — base model (since proposal 78 / epoch 308) |
 | `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — PoC model (since proposal 94 / epoch 360). Coefficient is in `poc_params`. |
-| `zai-org/GLM-5.3-Flash` | **GLM-5.3-Flash** — PoC model (since [proposal 101](../network-updates.md#proposal-101) / `penalty_start_epoch` 394). Coefficient is in `poc_params`. |
+| `zai-org/GLM-5.3-Flash` | **GLM-5.3-Flash** — active PoC model since epoch 395 ([proposal 101](../network-updates.md#proposal-101)). `penalty_start_epoch` 394. Coefficient 0.62 is in `poc_params`. |
 
 !!! tip "Authoritative model list (governance API)"
     Approved models can change between releases or epochs. **Before you edit `node-config.json`,** call the governance API and use each returned object’s `"id"` as the key under `"models"`:
@@ -44,9 +44,9 @@ The protocol supports **governance-approved** models for inference and Proof of 
 
 You typically run **one model per ML Node** in `node-config.json`.
 
-Governance listing (`GET /v1/governance/models`, `poc_params.models`) is the approved catalog for every model. A model's `weight_scale_factor` only produces consensus weight if that group is eligible: voting power that meets `v_min` and `w_threshold`. Miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate on the next PoC — switching `node-config` alone does not restore consensus weight. Check `poc_params` and the epoch’s `confirmation_weight_scales`. See [Multi-Model PoC](./multi_model_poc.md).
+Governance listing (`GET /v1/governance/models`, `poc_params.models`) is the approved catalog for every model. A model's coefficient only produces consensus weight if that group is eligible: voting power that meets `v_min` and `w_threshold`. Miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate on the next PoC — switching `node-config` alone does not restore consensus weight. Check `poc_params` and the epoch’s `confirmation_weight_scales`. From **v0.2.16**, `weight_scale_factor` on `poc_params.models` is empty. The coefficient already included in reward weight is `effective_coefficient` on that epoch's `confirmation_weight_scales`. See [Multi-Model PoC](./multi_model_poc.md).
 
-Live serving is a separate check: `/v1/epochs/current/participants`. `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` remain in the governance catalog but were removed from `poc_params` by [proposal 101](../network-updates.md#proposal-101) — they are not PoC models. GLM-5.3-Flash is in bootstrap from epoch 394; see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
+Live serving is a separate check: `/v1/epochs/current/participants`. `moonshotai/Kimi-K2.6` and `zai-org/GLM-5.2-FP8` remain in the governance catalog but were removed from `poc_params` by [proposal 101](../network-updates.md#proposal-101) — they are not PoC models. GLM-5.3-Flash has been an active PoC group since epoch 395 (`penalty_start_epoch` 394); see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
 
 !!! note "If you will not run every approved model"
     Multi-model PoC tracks participation **per model**. For an **eligible** model you do not run, use on-chain **delegation** or **refusal**. Regular miss/refuse penalties apply only to eligible groups. A listed model with no voting power is a bootstrap candidate; `refuse` is not required and is not a bootstrap participation mode. Delegation/refusal is **not** required to bring a node online—you use the same **Account (cold) key** as in [Grant Permissions to ML Operational Key](#33-local-machine-grant-permissions-to-ml-operational-key), **after** registration and verification. Copy-paste commands are at the end: [Optional: PoC delegation and refusal](#optional-poc-delegation-and-refusal). For strategy and penalties, read [Multi-Model PoC — Host Operations Guide](./multi_model_poc.md). For GLM-5.3-Flash (penalties from epoch 394), see [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md).
@@ -67,7 +67,7 @@ To run a valid node, you need machines with [supported GPU(s)](/host/hardware-sp
 
 This is a reference architecture. You may adjust node count or hardware allocation, but we recommend following the core principle: each node should support multiple ML Nodes across all model tiers.
 
-Per-model `weight_scale_factor` values are set by governance — read them from `poc_params`. A coefficient only produces consensus weight if that model group is eligible (has voting power). See [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md), [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md), and the [coefficient table](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0). Example vLLM arguments are in the `node-config.json` examples below.
+From **v0.2.16**, read the epoch's reward coefficient from `effective_coefficient`, not from `poc_params.models[].weight_scale_factor` (that field is empty). The same value is at `GET /chain-api/productscience/inference/inference/dynamic_coefficients/{epoch_index}`. `epoch_index = 0` is the current epoch. Decode each `Decimal` as `value × 10^exponent`. Bounds for the next PoC are `poc_params.models[].dynamic_coefficient`. Epochs formed before v0.2.16 still use `weight_scale_factor`. A coefficient only produces consensus weight if that model group is eligible (has voting power). See [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md), [GLM-5.3-Flash Bootstrap](./glm-bootstrap.md), and the [coefficient table](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0). Example vLLM arguments are in the `node-config.json` examples below.
 
 More details about the optimal deployment configuration can be found [here](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
@@ -1251,7 +1251,7 @@ exit
 #### 3.3. [Local machine] Grant Permissions to ML Operational Key
 **IMPORTANT: Perform this step on your secure local machine where you created the Account Key**
 
-Grant permissions from your Account Key to the ML Operational Key. This also creates a **feegrant** (cold → warm) with a default spend limit of **10 GNK**, so the API can pay fee-bearing txs from the cold account. If that allowance is later depleted, you cannot top it up in place — revoke and re-grant; see [Refresh the feegrant](#refresh-the-feegrant-when-the-10-gnk-allowance-is-used-up).
+Grant permissions from your Account Key to the ML Operational Key. This also creates a **feegrant** (cold → warm) with a default spend limit of **10 GNK**, so the API can pay fee-bearing txs from the cold account. If that allowance is later depleted, you cannot top it up in place — revoke and re-grant; see [Refresh the feegrant](#refresh-the-feegrant-when-the-10-gnk-allowance-is-used-up). From **v0.2.16** this grant includes `MsgDeclarePoCIntent`, and the upgrade adds it to grants that already exist. Do not re-run this command for the upgrade. Delegation and refusal stay separate. See [How do I declare a PoC intent from a warm key?](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key).
 ```bash
 ./inferenced tx inference grant-ml-ops-permissions \
     gonka-account-key \
@@ -1432,7 +1432,9 @@ Fees currently apply to the following message types:
 | `MsgDepositCollateral` | Depositing collateral (this section’s follow-up step) |
 | `MsgWithdrawCollateral` | Withdrawing collateral after the unbonding period |
 
-Other protocol-duty traffic (for example routine inference and validation paths that the network treats as duty) is outside this fee set. Always use the `ngonka` denomination for balances and fees.
+Other protocol-duty traffic (for example routine inference, PoC validation, seed submission, reward claims, and BLS) stays free. Bank sends, authz grants, and feegrant revoke/grant are in the `cosmos` group and cost 1 ngonka per gas. Governance votes stay free. Always use the `ngonka` denomination for balances and fees.
+
+The chain withdraws `gas limit × price` for a paid transaction. `--gas 2000000` at 1 ngonka per gas is 0.002 GNK. Keep a manual limit in that range. A limit of billions of gas withdraws billions of ngonka from the account, even when the transaction uses little gas. The chain rejects a fee above **100 GNK**. Any fee under that cap is still charged in full.
 
 Get your cold account address on your **local machine**:
 

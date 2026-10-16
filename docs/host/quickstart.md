@@ -1641,7 +1641,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
-  --gas-adjustment 1.3 \
+  --gas-adjustment 1.5 \
   --gas-prices 1ngonka \
   -y
 ```
@@ -1658,7 +1658,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
-  --gas-adjustment 1.3 \
+  --gas-adjustment 1.5 \
   --gas-prices 1ngonka \
   -y
 ```
@@ -1674,7 +1674,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
-  --gas-adjustment 1.3 \
+  --gas-adjustment 1.5 \
   --gas-prices 1ngonka \
   -y
 ```
@@ -1690,7 +1690,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   --chain-id "$CHAIN_ID" \
   --keyring-backend "$KEYRING_BACKEND" \
   --gas auto \
-  --gas-adjustment 1.3 \
+  --gas-adjustment 1.5 \
   --gas-prices 1ngonka \
   -y
 ```

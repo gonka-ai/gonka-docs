@@ -116,7 +116,7 @@ export NODE=https://node3.gonka.ai/chain-rpc/
   --chain-id gonka-mainnet \
   --keyring-backend file \
   --gas auto \
-  --gas-adjustment 1.3 \
+  --gas-adjustment 1.5 \
   -y
 ```
 
@@ -324,7 +324,7 @@ export NODE=https://node3.gonka.ai/chain-rpc/
   --chain-id gonka-mainnet \
   --keyring-backend file \
   --gas auto \
-  --gas-adjustment 1.3 \
+  --gas-adjustment 1.5 \
   -y
 ```
 
@@ -338,6 +338,6 @@ export NODE=https://node3.gonka.ai/chain-rpc/
   --chain-id gonka-mainnet \
   --keyring-backend file \
   --gas auto \
-  --gas-adjustment 1.3 \
+  --gas-adjustment 1.5 \
   -y
 ```

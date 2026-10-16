@@ -8,6 +8,158 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## October 15, 2026
+
+A new governance proposal #115 is open for voting. 
+It proposes expanding the dynamic PoC coefficient ranges for GLM-5.3-Flash and DeepSeek-V4-Flash.
+
+**`zai-org/GLM-5.3-Flash`**
+- `coeff_max`: 0.682 → 1.556470588235
+- `relative_difficulty`: 2.668169014084 → 2.9
+- `coeff_min`: 0.558 (unchanged)
+
+**`deepseek-ai/DeepSeek-V4-Flash-0731`**
+- `coeff_max`: 0.2706 → 1.2403125
+- `relative_difficulty`: 1.541666666666 → 1.705882352941
+- `coeff_min`: 0.2214 (unchanged)
+
+**MiniMax M2.7 remains unchanged**, with a fixed coefficient of 0.3024.
+
+[Calculations and simulations](https://github.com/gonka-ai/gonka/blob/559e6fe376764acdf4c03246db7326a978e7431f/proposals/multi-model-poc/dynamic-coeff-init.md).
+
+Please [review the proposal](https://gonkascan.com/?page=governance&proposal_id=115) and cast your vote by **October 17, 2026, at 00:19 UTC**.
+
+## October 14, 2026
+
+PROPOSAL PASSED: DevShard v4.2
+
+The on-chain governance vote for [proposal #114](https://gonka.gg/network/proposals/114) has concluded. The proposal was **APPROVED**.
+
+DevShard v4.2 brings production fixes and performance improvements to the v4 runtime. The approved DevShard versions on chain are now:
+
+```text
+v4.1   release/devshard/v4.1.0
+v4.2   devshard/v4.2.0
+```
+
+`v5` has been removed from the approved list.
+
+### What is required from hosts
+
+Nothing. `versiond` automatically downloads the approved binary, verifies its SHA-256 against the on-chain value, and serves it under `/devshard/v4.2`. No full chain software upgrade is required.
+
+### Gateway operators
+
+Continue using v4.1 and migrate to v4.2 when applicable.
+
+### Main fixes and performance improvements
+
+- Fixes for streamed-token validation, timeouts, validation recovery, and gateway routing.
+- Improved refusal handling and executor receipt verification.
+- Lower CPU and memory usage, faster state updates, less repeated validation work, and more efficient gateway history catch-up.
+
+Full technical scope: [DevShard v4.2 governance specification](https://github.com/gonka-ai/gonka/blob/b88062c9529389a61d4ba15b8b5603716a50909e/proposals/governance-artifacts/devshard/v4.2/README.md).
+
+## October 11, 2026
+
+**Proposal #114 is open for voting: DevShard v4.2**
+
+This proposal stabilizes the v4 line with v4.2, removes v5 from the approved DevShard versions, and keeps v4.1 unchanged. The planned next step is to move from v4.* to a stable v6 release.
+
+Voting ends October 14 at 04:46 UTC.
+
+[https://gonka.gg/network/proposals/114](https://gonka.gg/network/proposals/114)
+
+Please review the proposal and cast your vote before the deadline.
+
+## October 7, 2026
+
+**UPGRADE EXECUTED: v0.2.16 is now live on mainnet**
+
+The on-chain governance vote for [Upgrade Proposal v0.2.16](https://github.com/gonka-ai/gonka/blob/136041c81ea8ff38e7620d76af66a7c7fe7eec50/proposals/governance-artifacts/update-v0.2.16/README.md) (proposal id 112) has concluded.
+
+The proposal was APPROVED, and the upgrade was successfully executed on the mainnet at block 6449400.
+
+**What changed**
+
+**1. Trusted Weight.** Before v0.2.16, a sudden increase in claimed compute immediately increased a participant's power in governance, BLS, and PoC validation. This gave unconfirmed capacity influence over consensus and over validation of other participants. The upgrade limits that power to compute confirmed in the previous epoch. New or returning participants start at 0, and a failed confirmation sets the next baseline to 0. New compute still earns rewards immediately. Only trust-sensitive power waits one confirmed epoch.
+
+**2. Dynamic Coefficients v1.** The network needs predictable throughput for each model so users can rely on its availability. The target throughput for each model should follow expected demand. With fixed coefficients, an entire hardware class tends to switch to the same model. This makes capacity per model difficult to balance and predict. This upgrade lets governance set a target percentage of network compute and a coefficient range for each model. The protocol dynamically adjusts the coefficient inside that range to move compute toward the target. Compute above the target is scored at the minimum coefficient, which discourages oversupply. Governance initially sets targets from demand estimates and data sources such as OpenRouter. Later versions can aggregate host estimates and eventually use on-chain model usage. This version changes incentives only. It does not automatically switch the models deployed by a host. At upgrade, the minimum and maximum both equal the current scale, so coefficients and rewards stay unchanged until governance opens the ranges.
+
+**3. Fee.** Historically, the protocol has charged no transaction fees. An attacker can therefore submit high-volume messages at little cost while every validator pays the processing and storage cost. The upgrade groups transaction types and adds per-message gas rules so each group can be priced separately. All groups are disabled by default and charge nothing. Governance can enable and price them later. The upgrade proposal info can also enable groups at upgrade height.
+
+**4. PoC Challenge.** PoC and random Confirmation PoC prove a host's claimed capacity. During the rest of the epoch, inference statistics check that this hardware is used for work assigned by the protocol. A high rate of missed or invalid inferences can remove a host. This provides a strong ongoing check, but its sensitivity depends on inference volume and may not reveal every gap between claimed and available capacity. PoC Challenge adds an additional security layer for these cases. An approved challenger can require one active host to leave inference and run PoC at full capacity until the next regular PoC. To open the challenge, the challenger locks a payment equal to a fraction of the target's remaining epoch reward. If the target passes, it receives the payment. If it fails, the challenger is refunded, and the target receives the same penalty as for a failed Confirmation PoC. Inference missed during the challenge does not count against the target. Only allowlisted devshard escrow creators can open a challenge. If the allowlist is empty, anyone can open one. More details and other changes are here: [https://github.com/gonka-ai/gonka/pull/1535](https://github.com/gonka-ai/gonka/pull/1535)
+
+**Action items**
+
+**Hosts**
+
+1. Check fees before the next PoC. The cold account must hold spendable GNK, and the cold-to-warm feegrant must be valid. On the server:
+```
+curl -s http://127.0.0.1:9200/admin/v1/epoch-fee-budget | jq
+```
+`spendable_covers_budget` must be `true`. Vesting coins do not pay fees. A balance on the warm key does not pay fees while the node uses the cold account as `fee_granter`. If the cold spendable balance is 0, send liquid GNK to the cold account. If the feegrant allowance is used up or expired, revoke it and run `grant-ml-ops-permissions` again. Sending GNK does not raise that allowance cap. The v0.2.12 grant was 100 GNK. `grant-ml-ops-permissions` grants 10 GNK. See [Fund your Account Key.](https://gonka.ai/host/quickstart/#fund-account-fees)
+
+2. Do not re-grant ML-ops permissions. The upgrade adds `MsgDeclarePoCIntent` to existing cold-to-warm grants. New grants from `grant-ml-ops-permissions` include it. `MsgSetPoCDelegation` and `MsgRefusePoCDelegation` are still separate. A warm key submits intent with `authz exec`, not with `--from` set to the warm key. See [How do I declare a PoC intent from a warm key?.](https://gonka.ai/FAQ/#how-do-i-declare-a-poc-intent-from-a-warm-key)
+
+3. Read the reward coefficient from `effective_coefficient`. `poc_params.models[].weight_scale_factor` is empty. The same value is at `GET /chain-api/productscience/inference/inference/dynamic_coefficients/0` (`0` is the current epoch). Epochs formed before this upgrade still use `weight_scale_factor`. See [Multi-Model PoC.](https://gonka.ai/host/multi_model_poc/)
+   
+**Dashboard maintainers**
+
+1. H100 equivalent stays on reward weight. Keep using `validation_weights[].weight`. Do not read `poc_params.models[].weight_scale_factor`. From this upgrade, chart `effective_coefficient`. The upgrade epoch already has it set to the old scale. The epoch after the upgrade is the first one on the new ranges. See the [H100 memo](https://gonka.ai/dashboard-maintainer-memo-v0.2.16-h100/).
+   
+2. Voting power and rewards are different fields. Rewards use `weight`. Governance, BLS, and PoC validation use `cap_weight` on epochs where `cap_weight_applied` is true. On earlier epochs, `cap_weight` is absent and voting power still follows `weight`. See [Voting Power](https://gonka.ai/governance/voting-power-eligibility/) and [What is the weight cap?](https://gonka.ai/FAQ/#what-is-the-weight-cap).
+   
+3. `/v1` integers are JSON numbers again on `/v1/epochs/latest`, `/v1/epochs/{epoch}/participants`, and `/v1/bls/*`. Enums are names. Keep accepting the v0.2.15 string shape until every host you query is on v0.2.16. `/v1/versions` is unchanged. See the [v0.2.15 memo](https://gonka.ai/dashboard-maintainer-memo-v0.2.15/).
+   
+4. Fee health is cold spendable balance and the remaining cold-to-warm allowance, not vesting and not the warm balance. The recurring paid messages are `MsgPoCV2StoreCommit` and `MsgSubmitHardwareDiff`. See [the fee memo.](https://gonka.ai/dashboard-maintainer-memo-v0.2.16-fee/)
+
+## October 7, 2026
+
+**Upgrade v0.2.16: Pre-download binaries**
+
+The on-chain governance process for the v0.2.16 upgrade proposal is nearing its conclusion.
+
+- Voting ends: October 8, 2026 at 02:40 AM UTC
+- Proposed upgrade height: 6449400
+- Estimated upgrade time: October 8, 2026 at ~ 05:48 AM UTC
+
+Hosts are encouraged to review the proposal on [GitHub](https://github.com/gonka-ai/gonka/blob/136041c81ea8ff38e7620d76af66a7c7fe7eec50/proposals/governance-artifacts/update-v0.2.16/README.md) and participate in the vote.
+
+Pre-downloading binaries in advance may help avoid relying on GitHub availability during the upgrade window.
+
+**Before the upgrade, hosts must check that their cold-to-warm feegrant is valid. The cold account [must have](https://gonka.ai/docs/host/quickstart/#fund-account-fees) enough spendable GNK to cover fees.**
+
+Run from the directory that already contains `.dapi` and `.inference`.
+```
+# 1. Create Directories
+sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.16/bin \
+              .inference/cosmovisor/upgrades/v0.2.16/bin && \
+
+# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.16-post1/decentralized-api-amd64.zip" && \
+echo "f64b9433cd27d9ee433f1aede89d6be910f6deb8df644d55e2dfe30b8f873802 decentralized-api.zip" | sha256sum --check && \
+sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.16/bin/ && \
+sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.16/bin/decentralized-api && \
+echo "DAPI Installed and Verified" && \
+
+# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.16/bin/ && \
+wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.16-post1/inferenced-amd64.zip" && \
+echo "d2ef13374fb15518a02ae5fac83d139d66fb79a8c93d97f4e78b43ce30e14f98 inferenced.zip" | sha256sum --check && \
+sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.16/bin/ && \
+sudo chmod +x .inference/cosmovisor/upgrades/v0.2.16/bin/inferenced && \
+echo "Inference Installed and Verified" && \
+
+# 4. Cleanup and Final Check
+rm decentralized-api.zip inferenced.zip && \
+echo "--- Final Verification ---" && \
+sudo ls -l .dapi/cosmovisor/upgrades/v0.2.16/bin/decentralized-api && \
+sudo ls -l .inference/cosmovisor/upgrades/v0.2.16/bin/inferenced && \
+echo "332699b4ec760569f5670c6e1feb9d579c2a0c4ec6e0cc5095bf74ea1a37007f .dapi/cosmovisor/upgrades/v0.2.16/bin/decentralized-api" | sudo sha256sum --check && \
+echo "2f6a31c3ecda063a84fcfd80782fe5b00908f9b678da9204d6c7acba602260de .inference/cosmovisor/upgrades/v0.2.16/bin/inferenced" | sudo sha256sum --check
+```
+
 ## October 6, 2026
 
 Two proposals are open for voting. From this release the upgrade and the bounty payments go as two separate proposals and are voted on separately.

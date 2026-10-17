@@ -8,6 +8,26 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## October 17, 2026
+
+**PROPOSAL PASSED: wider ranges for dynamic PoC coefficients**
+
+The on-chain vote for [proposal #115](https://gonka.gg/network/proposals/115) has passed. The new allowed coefficient ranges are now recorded in the network parameters:
+
+- `MiniMaxAI/MiniMax-M2.7`: fixed at **0.3024**
+- `zai-org/GLM-5.3-Flash`: **0.558–1.556470588235**
+- `deepseek-ai/DeepSeek-V4-Flash-0731`: **0.2214–1.2403125**
+
+The new configuration applies from the first PoC start after the proposal executes. These are allowed limits; they do not set each model's active coefficient to the new maximum.
+
+Base coefficients adjust once per epoch using the previous epoch's difficulty-normalized compute shares. The target shares remain **33.34% MiniMax, 33.33% GLM, and 33.33% DeepSeek**. Adjustments normally move a base coefficient by 0.5–5% of its current value per epoch; the protocol permits a larger bootstrap step when a model's share is very low.
+
+When a model exceeds its target share, excess PoC weight is scored at its minimum coefficient. This reduces its effective coefficient and the incentive for further deployment to that model.
+
+Hosts remain free to choose which models they deploy. [Monitor coefficients](./host/multi_model_poc.md) and [model allocation](https://gonka.gg/network) each epoch when planning changes.
+
+[Specification and transition simulation](https://github.com/gonka-ai/gonka/blob/559e6fe376764acdf4c03246db7326a978e7431f/proposals/multi-model-poc/dynamic-coeff-init.md).
+
 ## October 15, 2026
 
 A new governance proposal #115 is open for voting. 

@@ -35,15 +35,15 @@ Public proxy (/devshard/...)
 
 ## Release and images
 
-This guide covers [Devshard v5.0.1](https://github.com/gonka-ai/gonka/releases/tag/devshard%2Fv5.0.1).
+This guide covers Devshard v6.0.0 (`release/devshard/v6.0.0`). From this release, hosts exchange peer RPC over HTTP/2 on the public proxy's existing port (the `PUBLIC_URL` port); no new port is opened. See [Prerequisites](#prerequisites).
 
 Edit `deploy/join/config.env`. Set the variables below to the shown values.
 
 ```bash
-export VERSIOND_IMAGE=ghcr.io/gonka-ai/versiond:0.2.15-devshard-v5
-export VERSIOND_ROUTER_IMAGE=ghcr.io/gonka-ai/versiond-router:0.2.15-devshard-v5
-export PROXY_ROUTER_IMAGE=ghcr.io/gonka-ai/proxy-router:0.2.15-devshard-v5
-export PROXY_POLICY_IMAGE=ghcr.io/gonka-ai/proxy:0.2.15-devshard-v5
+export VERSIOND_IMAGE=ghcr.io/gonka-ai/versiond:0.2.16-devshard-v6
+export VERSIOND_ROUTER_IMAGE=ghcr.io/gonka-ai/versiond-router:0.2.16-devshard-v6
+export PROXY_ROUTER_IMAGE=ghcr.io/gonka-ai/proxy-router:0.2.16-devshard-v6
+export PROXY_POLICY_IMAGE=ghcr.io/gonka-ai/proxy:0.2.16-devshard-v6
 export ORACLE_FILTER_IMAGE=python:3.12-alpine
 export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
 ```
@@ -56,7 +56,8 @@ export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
    - Same `KEY_NAME` and keyring.
    - Same `ACCOUNT_PUBKEY`.
 4. Shared PostgreSQL; a separate data directory for each replica. Do not start a second dapi with the same keys.
-5. Docker Compose **2.24.4+**, Bash, Python 3, Git, `tar`, `curl`, `jq`, `flock`, `sha256sum`, `timeout`, `xargs`. Remote hosts also need `ssh`, `psql` and SSH access from the **primary host** to the **replica host**.
+5. Peer RPC uses the port of `PUBLIC_URL` (`API_PORT` or `API_SSL_PORT` on the host that runs the public `proxy`), the same port the JSON API already uses. The proxy recognises a peer connection by its first bytes and carries it over HTTP/2 inside its own process; every other connection on that port still goes to nginx. Every host that runs a `versiond` replica, the **replica host** included, needs outbound access to every peer's `PUBLIC_URL`, which a replica already has for the JSON API. Nothing new is opened and nothing is set in `config.env`.
+6. Docker Compose **2.24.4+**, Bash, Python 3, Git, `tar`, `curl`, `jq`, `flock`, `sha256sum`, `timeout`, `xargs`. Remote hosts also need `ssh`, `psql` and SSH access from the **primary host** to the **replica host**.
 
 Local HA requires protocol v4 or later. Rolling updates and remote replicas require v5 or later for every served protocol. Migration from protocols earlier than v4 is not covered here.
 
@@ -153,7 +154,7 @@ List approved protocol names on the node:
 curl -fsS http://127.0.0.1:9100/versions | jq -er '.versions[].name'
 ```
 
-For this release, use the listed names `v4`, `v4.1` and, once available, `v5` in `VERSIOND_VERSIONS`. Exclude pre-HA versions such as `v3`. When updating, keep the existing list; use [Add a protocol](#add-a-protocol) for additions.
+For this release, use the listed names `v4`, `v4.1`, `v4.2`, `v5` and, once available, `v6` in `VERSIOND_VERSIONS`. Exclude pre-HA versions such as `v3`. When updating, keep the existing list; use [Add a protocol](#add-a-protocol) for additions.
 
 Edit these variables in `config.env`. Keep the existing identity and database settings.
 
@@ -342,6 +343,17 @@ source ./config.env
 
 All commands must succeed; readiness and public health endpoints must return HTTP 200. Keep the supplied `/readyz` Docker healthcheck.
 
+Peer RPC over HTTP/2 shares the public port with the JSON API: the proxy hands a connection that opens with the HTTP/2 preface (HTTP) or offers the ALPN token `gonka-rpc/1` (HTTPS) to its peer-RPC frontend, and each router slot takes that HTTP/2 on the same `8080` that serves JSON. `verify-admission`, `/readyz` and `update-devshard.sh --check` do not exercise the HTTP/2 path: the proxy probes a slot's admin port over HTTP/1.1. After a wrapping update, send one peer RPC over HTTP/2 through the public endpoint for each protocol in `VERSIOND_VERSIONS` from `v6` on. Earlier protocols (`v4`, `v4.1`, `v4.2`, `v5`) have no peer RPC over HTTP/2 and keep the JSON path; for them this probe answers HTTP 503 on a healthy host, and the JSON checks above are the whole test.
+
+```bash
+version='<protocol v6 or later from VERSIOND_VERSIONS>'
+curl -sS --http2-prior-knowledge -X POST -H 'content-type: application/json' -d '{}' \
+  -w '\nHTTP %{http_code}\n' \
+  "http://<public host>:${API_PORT:-8000}/devshard/$version/sessions/_/rpc/devshard.transport.v1.PeerAuthService/Attach"
+```
+
+For an HTTPS `PUBLIC_URL`, `curl` cannot offer the peer-RPC ALPN token; probe the HTTP port if `NGINX_MODE=both`, otherwise rely on a peer's `versiond` log, which reports `peer rpc origin does not speak HTTP/2; using HTTP/1.1` once per host when the probe misses. An HTTP 400 or 401 with a JSON `code` (`invalid_argument`, `unauthenticated`) comes from the protocol's child and proves the HTTP/2 path through the proxy, the router fleet and `versiond`. For such a protocol, HTTP 503 or a connection reset means the HTTP/2 path is not serving; peers then continue over HTTP/1.1 through nginx and retry HTTP/2 about every 30 minutes, so the host works but without one connection per peer. Peer HTTP/2 sessions appear in `docker exec proxy sh -c 'echo "show sess" | socat - /var/run/haproxy/haproxy.sock' | grep rpc_h2`.
+
 New or replaced remote member: pass the [database check](#check-the-remote-database) before pool admission.
 
 #### 4.2 Check routing failover
@@ -479,7 +491,7 @@ Complete the [backup](#back-up-postgresql-and-deployment-files). In `deploy/join
   git diff --cached --binary > "$BACKUP_DIR/staged.patch"
   git diff --exit-code
   git diff --cached --exit-code
-  git fetch https://github.com/gonka-ai/gonka.git refs/tags/devshard/v5.0.1
+  git fetch https://github.com/gonka-ai/gonka.git refs/tags/devshard/v6.0.0
   git switch --detach FETCH_HEAD
   # Confirm that config.env and the separate site overrides survived unchanged.
   python3 - "$BACKUP_DIR" <<'PYTHON'
@@ -497,7 +509,7 @@ If tracked files have local edits, this step stops. Automatic merging is not cov
 
 Apply [Release and images](#release-and-images). Site overrides must use those image variables rather than hard-coded application images.
 
-Do not replace `config.env` with the new-installation example. Update first; add protocols afterwards. Do not combine this update with a database move, PostgreSQL major upgrade or fleet reconfiguration.
+Do not replace `config.env` with the new-installation example. Update first; add protocols afterwards. The v6 `config.env.template` adds the `EDGE_API_*` shutdown settings; the Compose files carry the same defaults, so an existing `config.env` needs no new entry. Do not combine this update with a database move, PostgreSQL major upgrade or fleet reconfiguration.
 
 <details>
 <summary><strong>If the old config.env has no VERSIOND_VERSIONS</strong></summary>
@@ -508,7 +520,7 @@ Read the protocols running on the existing `versiond`:
 (
   set -euo pipefail
   versions=$(docker exec versiond /bin/busybox wget -qO- http://127.0.0.1:8080/healthz |
-    jq -er 'if length > 0 and all(.[]; .status == "running" and (.name == "v4" or .name == "v4.1" or .name == "v5")) then map(.name) | join(" ") else error("Expected running HA protocols only; stop") end')
+    jq -er 'if length > 0 and all(.[]; .status == "running" and (.name == "v4" or .name == "v4.1" or .name == "v4.2" or .name == "v5" or .name == "v6")) then map(.name) | join(" ") else error("Expected running HA protocols only; stop") end')
   VERSIOND_VERSIONS="$versions" python3 <<'PYTHON'
 import os, pathlib, re, shlex
 path = pathlib.Path("config.env")
@@ -663,6 +675,8 @@ After `System identifiers match.`, continue with [Update with downtime](#update-
 
 Schedule maintenance: replacing the public proxy can interrupt connections.
 
+The v6 wrapping needs no new port: peer RPC over HTTP/2 rides the `PUBLIC_URL` port (see [Prerequisites](#prerequisites)).
+
 Rolling updates require v5 or later for every served protocol. If any served protocol is earlier than v5, use the downtime procedure below. Leave `UPDATE_SKIP_POSTGRES_PROBE` and `UPDATE_ACCEPT_DATABASE_CHANGE` disabled.
 
 #### Update with downtime
@@ -799,7 +813,9 @@ Run preflight and preview the replacements. Preflight writes database probes; it
 ./update-devshard.sh --dry-run
 ```
 
-Review the proposed images and changes. On a directory creation error, run [directory preparation](#prepare-the-postgresql-directory) and retry. Do not proceed while preflight fails. Then run:
+Review the proposed images and changes. On a directory creation error, run [directory preparation](#prepare-the-postgresql-directory) and retry. Do not proceed while preflight fails.
+
+A move onto or off the v6 wrapping applies the router fleet, then the public proxy, then the `versiond` replicas. No order is unsafe for peer RPC: a proxy or router generation without HTTP/2 still carries it as HTTP/1.1 on the same ports, and peers switch between the two in band. Between the fleet step and the `versiond` step the peer-RPC pools are empty and this host's peers see errors on `/rpc/`; keep the run uninterrupted. `--dry-run` and `--check` do not test the HTTP/2 path; the [service checks](#41-check-the-running-services) after the update do. Then run:
 
 ```bash
 ./update-devshard.sh
@@ -833,6 +849,8 @@ On the **primary host**, publish these ports for the **replica host** on the pri
 - Node-manager `9400`.
 - Chain RPC/gRPC `26657`, `9090`.
 - Filtered catalog `19100`.
+
+The **replica host** also needs outbound access to every peer's `PUBLIC_URL`: its `versiond` dials peers there, over HTTP/2 where the peer's wrapping speaks it and HTTP/1.1 otherwise. Its port `8080` receives HTTP/2 from the routers; keep it restricted to them as described below.
 
 Confirm `PGPASSWORD` and `KEYRING_PASSWORD` match the running local `versiond` containers.
 
@@ -1085,7 +1103,7 @@ Use `versiond-router-fleet.sh` to manage routers. The script reads `config.env` 
 
 To stop all routers, run `./versiond-router-fleet.sh stop-all --maintenance`. The default shutdown timeout is 30 minutes per router (`VERSIOND_ROUTER_DRAIN_TIMEOUT_SECONDS`).
 
-Each router instance occupies a numbered **slot**. The slot number stays the same when its container is replaced. Use this number in fleet commands:
+Each router instance occupies a numbered **slot**. The slot number stays the same when its container is replaced. A slot listens for JSON, health and peer RPC over HTTP/2 on one port, `8080`; `status` and `verify-admission` report the JSON pool and the peer-RPC pool. Use this number in fleet commands:
 
 | Task | Command |
 | --- | --- |
@@ -1157,7 +1175,7 @@ Keep the same database, participant identity, protocol list and data mounts. Rep
      set -euo pipefail
      git diff --exit-code
      git diff --cached --exit-code
-     git fetch https://github.com/gonka-ai/gonka.git refs/tags/devshard/v5.0.1
+     git fetch https://github.com/gonka-ai/gonka.git refs/tags/devshard/v6.0.0
      git switch --detach FETCH_HEAD
    )
    ```
@@ -1206,7 +1224,7 @@ For an extra replica, remove its Compose filename from `COMPOSE_FILE` and its se
 
 ### Add a protocol
 
-1. Check the [release's binary compatibility requirements](https://github.com/gonka-ai/gonka/blob/devshard/v5.0.1/devshard/docs/release-0.2.15-v5.md#binary-upgrade-compatibility) for the host/gateway versions. Once it appears in the node's [approved protocol list](#21-same-machine-two-replicas), add it to `VERSIOND_VERSIONS` in `config.env` on every host. Keep existing protocols.
+1. Check the [release guide](https://github.com/gonka-ai/gonka/blob/devshard/v6.0.0/devshard/docs/release-0.2.16-v6.md#what-this-release-is) for the host/gateway versions the protocol requires. Once it appears in the node's [approved protocol list](#21-same-machine-two-replicas), add it to `VERSIOND_VERSIONS` in `config.env` on every host. Keep existing protocols.
 2. On the **primary host**: `source ./config.env`, then `docker compose up -d --no-deps oracle-filter` with the complete `COMPOSE_FILE`.
 3. `./versiond-router-fleet.sh wait-version <new-protocol>`, then run the [service checks](#41-check-the-running-services) with the updated list.
 

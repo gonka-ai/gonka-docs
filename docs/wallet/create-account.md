@@ -7,7 +7,7 @@ There are several ways to do this:
 - Via `inferenced` CLI tool
 
 !!! note "Bridge compatibility and seed (mnemonic) phrases"
-    If you create your Gonka account using a **mnemonic (seed) phrase** — as Cosmostation and Fox Wallet do by default — the account **is compatible** with the Ethereum bridge, but the bridge will deliver tokens to a different `gonka1…` address than the one your wallet displays. This happens because Ethereum and Gonka use different BIP-44 derivation paths (coin type `60` vs `118`), so the same seed phrase produces different private keys on each chain. You still control those funds and can access them with an extra derivation step. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for a full explanation.
+    If you create your Gonka account using a **mnemonic (seed) phrase** — as Cosmostation and Fox Wallet do by default — the account **is compatible** with the Ethereum bridge, but the bridge may deliver tokens to a different `gonka1…` address than the one your wallet displays. This can happen because the Ethereum and Gonka wallets derive different private keys from the same phrase. You still control those funds and can access them with an extra derivation step. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for a full explanation.
 
     For the simplest bridge experience — where your wallet automatically shows the address the bridge uses and no extra derivation step is needed — create your Gonka account in one of the following ways:
 
@@ -152,7 +152,7 @@ Step-by-step instructions are provided below for **Keplr** and **Cosmostation**.
                 Paste your private key.
 
                 !!! note "Bridge compatibility"
-                    If your Keplr wallet was created from a **mnemonic (seed) phrase**, the account is still compatible with the Ethereum bridge, but the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. This happens because Ethereum and Gonka use different BIP-44 derivation paths (coin type `60` vs `118`). You still control those funds and can access them with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
+                    If your Keplr wallet was created from a **mnemonic (seed) phrase**, the account is still compatible with the Ethereum bridge, but the bridge may deliver tokens to a different `gonka1…` address than the one your wallet shows. This can happen because the Ethereum and Gonka wallets derive different private keys from the same phrase. You still control those funds and can access them with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
 
             
                 <a href="/images/dashboard_ping_pub_3_5_4.png" target="_blank"><img src="/images/dashboard_keplr_step_3_5_5_private_key.png" style="width:450px; height:auto;"></a>
@@ -172,7 +172,7 @@ Step-by-step instructions are provided below for **Keplr** and **Cosmostation**.
         === "Cosmostation browser extension"
 
             !!! note "Bridge compatibility"
-                This option creates your account from a **mnemonic (seed) phrase**, so the account is compatible with the Ethereum bridge, but the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. This happens because Ethereum and Gonka use different BIP-44 derivation paths (coin type `60` vs `118`). You still control that address and can access it with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow instead. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
+                This option creates your account from a **mnemonic (seed) phrase**, so the account is compatible with the Ethereum bridge, but the bridge may deliver tokens to a different `gonka1…` address than the one your wallet shows. This can happen because the Ethereum and Gonka wallets derive different private keys from the same phrase. You still control that address and can access it with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow instead. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
                 
             Get [Cosmostation Wallet browser extension](https://cosmostation.io/products/application). 
             
@@ -231,7 +231,7 @@ Step-by-step instructions are provided below for **Keplr** and **Cosmostation**.
         === "Keplr mobile app"
 
             !!! note "Bridge compatibility"
-                If your Keplr wallet was created from a **mnemonic (seed) phrase**, the account is still compatible with the Ethereum bridge, but the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. This happens because Ethereum and Gonka use different BIP-44 derivation paths (coin type `60` vs `118`). You still control those funds and can access them with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
+                If your Keplr wallet was created from a **mnemonic (seed) phrase**, the account is still compatible with the Ethereum bridge, but the bridge may deliver tokens to a different `gonka1…` address than the one your wallet shows. This can happen because the Ethereum and Gonka wallets derive different private keys from the same phrase. You still control those funds and can access them with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
 
 
             Open Keplr mobile app and log in to your wallet. Select the menu in the top left corner.
@@ -259,7 +259,7 @@ Step-by-step instructions are provided below for **Keplr** and **Cosmostation**.
         === "Keplr browser extension"
 
             !!! note "Bridge compatibility"
-                If your Keplr wallet was created from a **mnemonic (seed) phrase**, the account is still compatible with the Ethereum bridge, but the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. This happens because Ethereum and Gonka use different BIP-44 derivation paths (coin type `60` vs `118`). You still control those funds and can access them with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
+                If your Keplr wallet was created from a **mnemonic (seed) phrase**, the account is still compatible with the Ethereum bridge, but the bridge may deliver tokens to a different `gonka1…` address than the one your wallet shows. This can happen because the Ethereum and Gonka wallets derive different private keys from the same phrase. You still control those funds and can access them with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
 
 
             Install an extension for your browser (if you have the extension installed, go to the step [“Add Gonka network to your Keplr wallet”](#add-gonka-network-to-your-keplr-wallet)).
@@ -318,7 +318,7 @@ Step-by-step instructions are provided below for **Keplr** and **Cosmostation**.
         === "Cosmostation browser extension"
 
             !!! note "Bridge compatibility"
-                This option creates your account from a **mnemonic (seed) phrase**, so the account is compatible with the Ethereum bridge, but the bridge will deliver tokens to a different `gonka1…` address than the one your wallet shows. This happens because Ethereum and Gonka use different BIP-44 derivation paths (coin type `60` vs `118`). You still control that address and can access it with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow instead. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
+                This option creates your account from a **mnemonic (seed) phrase**, so the account is compatible with the Ethereum bridge, but the bridge may deliver tokens to a different `gonka1…` address than the one your wallet shows. This can happen because the Ethereum and Gonka wallets derive different private keys from the same phrase. You still control that address and can access it with an extra derivation step. For the simplest bridge experience, create your Gonka account with the `inferenced` CLI tool or the Keplr “Connect with Google” flow instead. See [Addresses and keys](../cross-chain-transfers/ethereum-bridge/addresses-and-keys.md) for details.
 
             Install the [Cosmostation Wallet browser extension](https://cosmostation.io/products/application) if you haven't already (if you have the extension installed, go to the step ["Add Gonka network to your Cosmostation wallet"](#add-gonka-network-to-your-cosmostation-wallet)).
             

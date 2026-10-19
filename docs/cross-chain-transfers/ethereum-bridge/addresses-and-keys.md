@@ -44,7 +44,7 @@ Most users never see their raw private key — they only have a **seed phrase** 
 A seed phrase does not map to a single key. Wallets derive account keys using **BIP-44 derivation paths**. For example:
 
 * A common Ethereum account uses coin type **60** → path `m/44'/60'/0'/0/0`.
-* The current [Keplr Gonka chain configuration](https://github.com/chainapsis/keplr-chain-registry/blob/main/cosmos/gonka-mainnet.json) specifies coin type **1200** → path `m/44'/1200'/0'/0/0`. Other wallet setups may use another path, such as one based on the generic Cosmos coin type **118**.
+* Gonka uses coin type **1200** → path `m/44'/1200'/0'/0/0` (this is the chain's default, used by the `inferenced` CLI).
 
 These are examples, not universal wallet settings. When the paths differ, the **same seed phrase produces different private keys** for Ethereum and Gonka — and therefore unrelated addresses. If you deposit from a seed-derived Ethereum account and then look at a Gonka account derived from the same phrase along another path, **they are not the same key**. The bridged tokens will land on the `gonka1…` address controlled by the Ethereum account's key, which your Gonka wallet may not be showing.
 

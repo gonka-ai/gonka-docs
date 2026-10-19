@@ -343,7 +343,9 @@ source ./config.env
 
 All commands must succeed; readiness and public health endpoints must return HTTP 200. Keep the supplied `/readyz` Docker healthcheck.
 
-Peer RPC over HTTP/2 shares the public port with the JSON API: the proxy hands a connection that opens with the HTTP/2 preface (HTTP) or offers the ALPN token `gonka-rpc/1` (HTTPS) to its peer-RPC frontend, and each router slot takes that HTTP/2 on the same `8080` that serves JSON. `verify-admission`, `/readyz` and `update-devshard.sh --check` do not exercise the HTTP/2 path: the proxy probes a slot's admin port over HTTP/1.1. After a wrapping update, send one peer RPC over HTTP/2 through the public endpoint for each protocol in `VERSIOND_VERSIONS` from `v6` on. Earlier protocols (`v4`, `v4.1`, `v4.2`, `v5`) have no peer RPC over HTTP/2 and keep the JSON path; for them this probe answers HTTP 503 on a healthy host, and the JSON checks above are the whole test.
+Peer RPC over HTTP/2 shares the public port with the JSON API. The proxy recognises the HTTP/2 preface (HTTP) or ALPN token `gonka-rpc/1` (HTTPS) and dials each router slot's private `8081`. Port `8080` serves JSON and Connect/HTTP/1.1 compatibility traffic; neither router port is published. RPC pool admission requires both admin readiness and HTTP 200 from the RPC data health endpoint on `8081`. A router with an empty RPC pool does not pass that data check.
+
+`verify-admission`, public `/readyz` and `update-devshard.sh --check` do not perform an authenticated peer RPC. After updating, check every served protocol that supports peer RPC (v6 and later). The following request is a diagnostic for the HTTP ingress and Attach handler; it does not authenticate a session:
 
 ```bash
 version='<protocol v6 or later from VERSIOND_VERSIONS>'
@@ -352,7 +354,13 @@ curl -sS --http2-prior-knowledge -X POST -H 'content-type: application/json' -d 
   "http://<public host>:${API_PORT:-8000}/devshard/$version/sessions/_/rpc/devshard.transport.v1.PeerAuthService/Attach"
 ```
 
-For an HTTPS `PUBLIC_URL`, `curl` cannot offer the peer-RPC ALPN token; probe the HTTP port if `NGINX_MODE=both`, otherwise rely on a peer's `versiond` log, which reports `peer rpc origin does not speak HTTP/2; using HTTP/1.1` once per host when the probe misses. An HTTP 400 or 401 with a JSON `code` (`invalid_argument`, `unauthenticated`) comes from the protocol's child and proves the HTTP/2 path through the proxy, the router fleet and `versiond`. For such a protocol, HTTP 503 or a connection reset means the HTTP/2 path is not serving; peers then continue over HTTP/1.1 through nginx and retry HTTP/2 about every 30 minutes, so the host works but without one connection per peer. Peer HTTP/2 sessions appear in `docker exec proxy sh -c 'echo "show sess" | socat - /var/run/haproxy/haproxy.sock' | grep rpc_h2`.
+For an HTTPS `PUBLIC_URL`, this curl command does not offer the custom peer-RPC ALPN token. Use the HTTP port only when `NGINX_MODE=both`; do not open another public port for this check. For HTTPS-only hosts, use a peer configured with the HTTPS InferenceUrl to perform the authenticated check below.
+
+An HTTP 400 or 401 with a JSON `code` (`invalid_argument`, `unauthenticated`) confirms that the Attach handler is reachable. It does **not** prove HTTP/2 on every hop: an updated router can forward Connect over HTTP/1.1 while an older versiond is still running. HTTP 503 is a failed request, not evidence that the client will retry it over H1. Check pool readiness and capacity before continuing.
+
+Before replacing another member, verify a successful authenticated Attach, an active Watch and a subsequent RPC from an existing peer for each served RPC-capable protocol. Confirm renewal succeeds after the change. Inspect peer/versiond logs and the proxy's RPC pool state; `docker exec proxy sh -c 'echo "show sess" | socat - /var/run/haproxy/haproxy.sock' | grep rpc_h2` can confirm a direct H2 ingress connection but cannot prove the downstream transport or session health by itself. Keep the JSON checks for all served protocols, including older ones without peer RPC.
+
+Transport discovery is scoped to scheme, hostname and port. Explicit protocol/ALPN mismatch is cached for 30 minutes ± 10%. Ambiguous connection closure uses backoff starting at 30 seconds, doubling up to 30 minutes; successful H2 Attach clears that history. Application errors such as 429/503, stream errors and request deadlines do not mark an origin H1-only. Existing peers may therefore continue on H1 after the wrapping changes; allow discovery to recover and verify session health rather than repeatedly restarting the fleet.
 
 New or replaced remote member: pass the [database check](#check-the-remote-database) before pool admission.
 
@@ -815,7 +823,11 @@ Run preflight and preview the replacements. Preflight writes database probes; it
 
 Review the proposed images and changes. On a directory creation error, run [directory preparation](#prepare-the-postgresql-directory) and retry. Do not proceed while preflight fails.
 
-A move onto or off the v6 wrapping applies the router fleet, then the public proxy, then the `versiond` replicas. No order is unsafe for peer RPC: a proxy or router generation without HTTP/2 still carries it as HTTP/1.1 on the same ports, and peers switch between the two in band. Between the fleet step and the `versiond` step the peer-RPC pools are empty and this host's peers see errors on `/rpc/`; keep the run uninterrupted. `--dry-run` and `--check` do not test the HTTP/2 path; the [service checks](#41-check-the-running-services) after the update do. Then run:
+Use the updater's order: router fleet, public proxy and policy workers, then `versiond` replicas. Keep the proxy/policy pair on the matching release so Connect through nginx and direct H2 share the same procedure limits. Do not manually reorder components based on transport compatibility alone.
+
+While versiond is still on an older image, updated routers forward Connect through a bounded H1 compatibility path using the existing version and session placement. This avoids rejecting all RPC solely because an H2 pool is empty. Native gRPC cannot use the H1 path. Each public/inner router defaults to 512 active fallback requests across versions, a queue admission threshold of 64 and a 200 ms queue wait; Watch and Chat hold active slots for their lifetime. Concurrent arrivals can overshoot the queue threshold, and overload returns 503. JSON has independent capacity. These are capacity limits, not a guarantee of uninterrupted service: restarting the single public proxy closes its connections.
+
+If the update fails, stop before replacing another member and follow the updater's rollback result. Do not treat image rollback as database rollback. `--dry-run` and `--check` do not authenticate peer RPC; complete the [service checks](#41-check-the-running-services), including a real peer session, after the update or rollback. Then run:
 
 ```bash
 ./update-devshard.sh
@@ -1103,7 +1115,7 @@ Use `versiond-router-fleet.sh` to manage routers. The script reads `config.env` 
 
 To stop all routers, run `./versiond-router-fleet.sh stop-all --maintenance`. The default shutdown timeout is 30 minutes per router (`VERSIOND_ROUTER_DRAIN_TIMEOUT_SECONDS`).
 
-Each router instance occupies a numbered **slot**. The slot number stays the same when its container is replaced. A slot listens for JSON, health and peer RPC over HTTP/2 on one port, `8080`; `status` and `verify-admission` report the JSON pool and the peer-RPC pool. Use this number in fleet commands:
+Each router instance occupies a numbered **slot**. The slot number stays the same when its container is replaced. A slot listens for JSON and health on `8080` and for the proxy's peer RPC over HTTP/2 on `8081` (both route by path; neither is published); `status` and `verify-admission` report the JSON pool and the peer-RPC pool. Use this number in fleet commands:
 
 | Task | Command |
 | --- | --- |

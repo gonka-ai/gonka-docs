@@ -827,6 +827,8 @@ Use the updater's order: router fleet, public proxy and policy workers, then `ve
 
 While versiond is still on an older image, updated routers forward Connect through a bounded H1 compatibility path using the existing version and session placement. This avoids rejecting all RPC solely because an H2 pool is empty. Native gRPC cannot use the H1 path. If a child changes from H2 to H1 before the next health check, versiond rejects H2 RPC with 503 until ingress selects the bounded H1 path; it does not silently expand an existing H2 connection into H1 connections. Each public/inner router defaults to 512 active fallback requests across versions, a queue admission threshold of 64 and a 200 ms queue wait; Watch and Chat hold active slots for their lifetime. Concurrent arrivals can overshoot the queue threshold, and overload returns 503. JSON has independent capacity. These are capacity limits, not a guarantee of uninterrupted service: restarting the single public proxy closes its connections.
 
+Keep this compatibility window short without skipping the required checks. Do not start load tests on a live host while components are on mixed releases. Complete the supported replacement sequence, including remote members, and the post-update checks below before starting a load test.
+
 Transport compatibility has two exceptions to account for when updating older or testnet deployments:
 
 | Client and host combination | Expected behavior |
@@ -849,7 +851,9 @@ If the update fails, stop before replacing another member and follow the updater
 
 [Replace remote members](#replace-a-member) one at a time before final verification.
 
-Run the [service checks](#41-check-the-running-services). To enable a new protocol, follow [Add a protocol](#add-a-protocol).
+After all replacements, allow version discovery and RPC pool health checks to complete, then run the [service checks](#41-check-the-running-services). For every served RPC-capable protocol, verify a real peer session through the public port: authenticated Attach, an active Watch, a subsequent RPC and renewal. Check the relevant H2 pools and the session's transport before starting a load test; admin readiness or H2 on the client-facing connection alone does not prove the downstream H2 path. Existing peers may remain on H1 until their discovery backoff expires, as explained in the service checks.
+
+To enable a new protocol, follow [Add a protocol](#add-a-protocol).
 
 ## Add a remote replica
 

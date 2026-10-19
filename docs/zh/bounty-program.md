@@ -11,6 +11,8 @@ Gonka 运行两个计划：
 
 本页面为实用指南，**不构成付款承诺**。关于漏洞，以 HackerOne 计划条款为准；关于协议工作，主机在链上批准金额。两个流程均可演进。
 
+过往发放记录是公开的。请参阅[付给谁、对应什么工作、以及何时发放](#where-payouts-are-recorded)。
+
 ---
 
 ## 漏洞赏金
@@ -140,12 +142,20 @@ HackerOne 需要一个法律实体作为计费合作伙伴。**Bitfury** 目前�
 
 ---
 
-## 奖励记录位置
+## 奖励记录位置 {#where-payouts-are-recorded}
 
-| 项目 | 权威来源 | 也有用 |
-|---|---|---|
-| **漏洞赏金** | HackerOne 上的 **Gonka 项目** | — |
-| **贡献者奖励** | 该**链**（ payouts 在链上执行，通常在一次网络升级中） | 在 [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/) 中匹配记录。Discord `#bounty-awards` 稍后会发布部分内容，但可能不完整——非权威来源。 |
+可以查看真实发放记录：付给谁、对应什么工作、以及何时发放。
+
+**漏洞赏金。** HackerOne 的发放以摘要形式发布在 [Gonka Discord](https://discord.gg/REcpeYc7P7) 的 `#bounty-awards` 频道。
+
+**贡献者奖励。** 这类报酬随网络升级一起发放。**链**是唯一的权威来源：付给谁、金额、以及由哪一次升级执行。
+
+为方便浏览，也可以看：
+
+- 同一个 [Gonka Discord](https://discord.gg/REcpeYc7P7) 频道 `#bounty-awards`
+- [Gonkascan 赏金页面](https://gonkascan.com/?page=bounty) — **Reward Records** 按升级列出每次发放；**Rank** 按累计发放列出贡献者排名
+
+Discord 帖子和 Gonkascan 页面由社区编写，可能不准确。金额、地址和升级详情请始终以链上记录为准。相关 Issue 和 Pull Request 在 [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/)。
 
 ---
 

@@ -1753,7 +1753,11 @@ Risk = Impact × Likelihood
 
 ### 我在哪里可以看到谁获得了奖励、奖励内容及时间？
 
-对于安全奖励，记录保存在 **HackerOne** 上的 Gonka 项目中。对于协议贡献，**链上**是权威来源：支付在链上执行。您也可以在 [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/) GitHub 仓库中检查相应记录。Discord 的 `#bounty-awards` 频道会稍后发布部分信息，但可能不完整且非权威。
+HackerOne 的发放以摘要形式发布在 [Gonka Discord](https://discord.gg/REcpeYc7P7) 的 `#bounty-awards` 频道。
+
+贡献者奖励随网络升级一起发放。**链**是唯一的权威来源。为方便浏览，可以使用同一个 Discord 频道，或 [Gonkascan 赏金页面](https://gonkascan.com/?page=bounty)：**Reward Records** 按升级列出每次发放，**Rank** 按累计发放列出贡献者排名。两者均由社区发布，可能不准确。金额、地址和升级详情请始终以链上记录为准。
+
+完整说明：[奖励记录位置](bounty-program.md#where-payouts-are-recorded)。
 
 ## 错误
 

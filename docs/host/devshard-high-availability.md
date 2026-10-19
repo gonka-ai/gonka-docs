@@ -827,6 +827,20 @@ Use the updater's order: router fleet, public proxy and policy workers, then `ve
 
 While versiond is still on an older image, updated routers forward Connect through a bounded H1 compatibility path using the existing version and session placement. This avoids rejecting all RPC solely because an H2 pool is empty. Native gRPC cannot use the H1 path. If a child changes from H2 to H1 before the next health check, versiond rejects H2 RPC with 503 until ingress selects the bounded H1 path; it does not silently expand an existing H2 connection into H1 connections. Each public/inner router defaults to 512 active fallback requests across versions, a queue admission threshold of 64 and a 200 ms queue wait; Watch and Chat hold active slots for their lifetime. Concurrent arrivals can overshoot the queue threshold, and overload returns 503. JSON has independent capacity. These are capacity limits, not a guarantee of uninterrupted service: restarting the single public proxy closes its connections.
 
+Transport compatibility has two exceptions to account for when updating older or testnet deployments:
+
+| Client and host combination | Expected behavior |
+| --- | --- |
+| Current client → v4/v5 wrapping, HTTP-only nginx | Connect falls back to HTTP/1.1 on the public port. |
+| Current client → v4/v5 wrapping with nginx `NGINX_MODE=both`, HTTP URL | nginx may accept prior-knowledge HTTP/2, so the client can keep H2 to nginx. nginx still forwards over H1; this is not end-to-end multiplexing and does not activate the new public RPC connection policy. |
+| Current client → v4/v5 wrapping, HTTPS URL | nginx does not negotiate `gonka-rpc/1`; Connect falls back to HTTP/1.1. |
+| Current client/proxy → intermediate, separate-port v6 HA wrapping | Its router rejects `/rpc/` on `8080` with 404, so H1 fallback is unavailable. A shared `8081` listener alone does not establish compatibility. |
+| Intermediate, separate-port v6 client → current wrapping | It still dials its former separate RPC port (default `9443`), which the current wrapping does not publish. |
+
+For old nginx wrappings, leave `DEVSHARD_RPC_GRPC` unset (the default is Connect). A successful H2 connection to nginx does not establish end-to-end native gRPC support.
+
+The intermediate v6 layout was a testnet design, not a released v4/v5 upgrade target. Move such test deployments to a matching client and wrapping generation in a planned maintenance window. Do not use them as evidence that proxy and fleet replacements work in either order. The updater order above remains the supported procedure.
+
 If the update fails, stop before replacing another member and follow the updater's rollback result. Do not treat image rollback as database rollback. `--dry-run` and `--check` do not authenticate peer RPC; complete the [service checks](#41-check-the-running-services), including a real peer session, after the update or rollback. Then run:
 
 ```bash

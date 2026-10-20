@@ -2,9 +2,6 @@
 
 由多个 `versiond` 实例支持的持续可用的 devshard 推理服务。
 
-!!! warning "版本说明"
-    本页仍适用于 v5.0.1，尚未同步 v6 的升级步骤。升级到 v6 时，请参阅[英文指南](../../host/devshard-high-availability.md)，并先确认其中要求的发布标签和镜像已可用。请勿将本页的 v5 镜像与 v6 的部署文件混用。
-
 ## 目录
 
 - [为何重要](#why-this-matters)
@@ -16,8 +13,6 @@
 - [添加本地副本](#add-a-local-replica)
 - [操作部署](#operate-the-deployment)
 - [故障排除](#troubleshooting)
-
-<a id="why-this-matters"></a>
 
 ## 为何重要
 
@@ -38,8 +33,6 @@ Public proxy (/devshard/...)
         └── versiondN ──► devshardd ──┘
 ```
 
-<a id="release-and-images"></a>
-
 ## 发布与镜像
 
 本指南涵盖 [Devshard v5.0.1](https://github.com/gonka-ai/gonka/releases/tag/devshard%2Fv5.0.1)。
@@ -55,8 +48,6 @@ export ORACLE_FILTER_IMAGE=python:3.12-alpine
 export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
 ```
 
-<a id="prerequisites"></a>
-
 ## 前提条件
 
 1. 主机上已正常运行的 `node` + `api` (dapi) + `proxy`（标准加入部署）。
@@ -68,8 +59,6 @@ export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
 5. Docker Compose **2.24.4+**、Bash、Python 3、Git、`tar`、`curl`、`jq`、`flock`、`sha256sum`、`timeout`、`xargs`。远程主机还需 `ssh`、`psql`，并需从**主主机**到**副本主机**的 SSH 访问权限。
 
 本地 HA 需要协议 v4 或更高版本。滚动更新和远程副本要求每个服务的协议为 v5 或更高版本。此处不涵盖从 v4 之前协议的迁移。
-
-<a id="install-a-new-host"></a>
 
 ## 安装新主机
 
@@ -87,13 +76,9 @@ HA `versiond` 消除了对单个**应用**服务器的依赖，但如果 Postgre
 
 **本地 Compose PostgreSQL。** `docker-compose.versiond.yml` 在加入主机上启动 `devshard-postgres`。如果机器宕机，数据库也随之宕机。
 
-<a id="size-max_connections"></a>
-
 #### 调整 `max_connections` 大小
 
 devshardd v4 至 v5.0.1 版本根据主机 CPU 数量设置 PostgreSQL 连接池大小，因此 PostgreSQL 默认的 100 个连接对于这些版本的 HA 来说太小。将 `max_connections` 设置为 250；这可覆盖最多 16 个 CPU 的主机上两个副本和三个协议。如有更多 CPU、副本或协议，请按比例增加。对于托管或自管理的 PostgreSQL，请在服务器或提供商设置中配置。对于本地 Compose PostgreSQL，[§2.1](#21-same-machine-two-replicas) 中的覆盖设置会应用该值。该值仅在 PostgreSQL 重启后生效。
-
-<a id="configure-postgresql-credentials"></a>
 
 #### 配置 PostgreSQL 凭据
 
@@ -121,8 +106,6 @@ PYTHON
 数据库和用户默认为 `devshardd`；可通过 `DEVSHARD_POSTGRES_DB` 和 `DEVSHARD_POSTGRES_USER` 覆盖。
 
 本地数据路径：`${DEVSHARD_POSTGRES_DATA_DIR:-./devshards/postgres}/data`。对于外部 PostgreSQL，请完成 [§2.2](#22-external-or-managed-postgresql)。
-
-<a id="prepare-the-postgresql-directory"></a>
 
 #### 准备 PostgreSQL 目录
 
@@ -157,8 +140,6 @@ ls -ld -- "$(dirname "$pg_dir")" "$pg_dir"
 | `docker-compose.versiond.yml` | 共享 PostgreSQL 和 HA 副本设置，随发布版本提供 |
 | `docker-compose.devshard-v5.override.yml` | 目录过滤器；在下方创建 |
 | `docker-compose.devshard-pg-external.override.yml` | 外部数据库设置；仅在 §2.2 中创建 |
-
-<a id="21-same-machine-two-replicas"></a>
 
 #### 2.1 同一台机器，两个副本
 
@@ -269,8 +250,6 @@ services:
 EOF
 ```
 
-<a id="22-external-or-managed-postgresql"></a>
-
 #### 2.2 外部或托管 PostgreSQL
 
 如果使用本地 Compose PostgreSQL，请跳过本节，前往 [步骤 3](#step-3-start-the-deployment)。
@@ -315,8 +294,6 @@ services:
 export COMPOSE_FILE=docker-compose.yml:docker-compose.versiond.yml:docker-compose.devshard-v5.override.yml:docker-compose.devshard-pg-external.override.yml
 ```
 
-<a id="step-3-start-the-deployment"></a>
-
 ### 步骤 3：启动部署
 
 在加入主机上运行。首次失败时停止：
@@ -335,11 +312,7 @@ export COMPOSE_FILE=docker-compose.yml:docker-compose.versiond.yml:docker-compos
 )
 ```
 
-<a id="step-4-verify-it-works"></a>
-
 ### 步骤 4：验证是否正常工作
-
-<a id="41-check-the-running-services"></a>
 
 #### 4.1 检查运行中的服务
 
@@ -370,8 +343,6 @@ source ./config.env
 所有命令必须成功；就绪和公共健康端点必须返回 HTTP 200。保留提供的 `/readyz` Docker 健康检查。
 
 新或替换的远程成员：在池准入前通过 [数据库检查](#check-the-remote-database)。
-
-<a id="42-check-routing-failover"></a>
 
 #### 4.2 检查路由故障转移
 
@@ -417,15 +388,11 @@ source ./config.env
 
 对于常规更新，仅运行 §4.1 中的服务检查。
 
-<a id="upgrade-an-existing-host"></a>
-
 ## 升级现有主机
 
 滚动更新要求每个被服务的协议版本为 v5 或更高。服务较早协议的主机必须使用 [带停机时间的更新](#update-with-downtime)。
 
 此升级流程支持使用 PostgreSQL 作为后端、版本为 v4 或更高、站点设置在 `config.env` 中、且 Compose 覆盖文件位于 Git 检出目录中的主机。版本早于 v4 的协议需要单独的迁移流程。
-
-<a id="back-up-postgresql-and-deployment-files"></a>
 
 ### 备份 PostgreSQL 和部署文件
 
@@ -577,8 +544,6 @@ PYTHON
 )
 ```
 
-<a id="2-check-the-database-layout"></a>
-
 ### 检查数据库布局
 
 外部 PostgreSQL：保持其运行，并前往 [更新部署](#3-update-the-deployment)。对于本地 PostgreSQL，检查数据目录和挂载：
@@ -694,15 +659,11 @@ docker inspect --format '{{.State.Health.Status}}' devshard-postgres
 
 </details>
 
-<a id="3-update-the-deployment"></a>
-
 ### 更新部署
 
 安排维护：更换公共代理可能会中断连接。
 
 滚动更新要求每个服务协议版本为 v5 或更高。如果任何服务协议版本早于 v5，请使用下面的停机时间流程。保持 `UPDATE_SKIP_POSTGRES_PROBE` 和 `UPDATE_ACCEPT_DATABASE_CHANGE` 禁用。
-
-<a id="update-with-downtime"></a>
 
 #### 带停机时间的更新
 
@@ -847,8 +808,6 @@ docker compose up -d --no-deps oracle-filter
 在最终验证前，一次替换[一个远程成员](#replace-a-member)。
 
 运行[服务检查](#41-check-the-running-services)。要启用新协议，请遵循[添加协议](#add-a-protocol)。
-
-<a id="add-a-remote-replica"></a>
 
 ## 添加远程副本
 
@@ -1014,8 +973,6 @@ docker compose up -d --wait --wait-timeout 2100
 
 当容器健康且所有检查均返回 HTTP 200 时继续。
 
-<a id="check-the-remote-database"></a>
-
 ### 检查远程数据库
 
 在将副本添加到路由器池之前检查**副本主机**的数据库。在**副本主机**上运行以下两个代码块；将 `/path/to/gonka` 替换为其检出目录（上面创建的主机为 `~/gonka`）：
@@ -1043,8 +1000,6 @@ docker compose up -d --wait --wait-timeout 2100
 
 预期 `Storage check passed` 和退出码 0。该检查会向数据库写入测试数据；请将其与其他检查和更新分开运行。对于其他容器，请重复 `--container NAME`。
 
-<a id="3-add-the-replica-to-the-router-pool"></a>
-
 ### 将副本添加到路由器池
 
 在**主主机**的 `deploy/join` 中创建 `versiond-endpoints.json`。将 `10.0.0.12` 替换为**副本主机**的私有 IP，并包含所有副本。所有路由器都必须能够连接到这些地址：
@@ -1070,8 +1025,6 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
 滚动更新会中断新请求。在相同端点上替换主机时，请保留成员 ID。端点文件的编辑仅通过滚动更新生效。
 
 添加副本后，运行[服务检查](#41-check-the-running-services)和[路由故障转移检查](#42-check-routing-failover)。
-
-<a id="add-a-local-replica"></a>
 
 ## 添加本地副本
 
@@ -1119,8 +1072,6 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
 5. 如果使用 `versiond-endpoints.json`，添加 `versiond3` 并[应用更新的列表](#3-add-the-replica-to-the-router-pool)。默认 Docker 发现会自动找到它。运行[服务检查](#41-check-the-running-services)，包括 `versiond3`。
 
 对于第四个副本，复制 `docker-compose.versiond3.yml`，将 `3` 替换为 `4`，并重复上述覆盖。
-
-<a id="operate-the-deployment"></a>
 
 ## 操作部署
 
@@ -1193,8 +1144,6 @@ VERSIOND_ROUTER_ALLOW_MAINTENANCE_OUTAGE=true \
 
 在重启另一个副本前，运行上述就绪检查。
 
-<a id="replace-a-member"></a>
-
 ### 替换成员
 
 要更新副本的镜像，请使用以下过程替换其容器。
@@ -1255,8 +1204,6 @@ export VERSIOND2_REPLICAS=0
 
 为增加一个副本，将其 Compose 文件名从 `COMPOSE_FILE` 中移除，并从过滤器/数据库覆盖中删除其服务块。保留其数据目录。如果使用 `versiond-endpoints.json`，请在**主主机**上删除其条目，然后运行[成员维护](#3-add-the-replica-to-the-router-pool)。对剩余副本运行[服务检查](#41-check-the-running-services)。
 
-<a id="add-a-protocol"></a>
-
 ### 添加协议
 
 1. 检查主机/网关版本的[发布二进制兼容性要求](https://github.com/gonka-ai/gonka/blob/devshard/v5.0.1/devshard/docs/release-0.2.15-v5.md#binary-upgrade-compatibility)。一旦它出现在节点的[批准协议列表](#21-same-machine-two-replicas)中，请在每台主机的 `config.env` 中将它添加到 `VERSIOND_VERSIONS`。保留现有协议。
@@ -1267,11 +1214,7 @@ export VERSIOND2_REPLICAS=0
 
 为每个路由器插槽保留 `proxy-router-state` 和 `router-state` 卷。仅在维护期间、且其会话不再需要时才移除协议：过滤器更改可停止子进程，而默认情况下已接受的路由器路由仍会保留。
 
-<a id="troubleshooting"></a>
-
 ## 故障排除
-
-<a id="cancel-before-maintenance"></a>
 
 ### 维护前取消
 

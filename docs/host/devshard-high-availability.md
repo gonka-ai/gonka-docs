@@ -37,9 +37,6 @@ Public proxy (/devshard/...)
 
 This guide covers installing and upgrading HA hosts to Devshard v6.0.0 (`release/devshard/v6.0.0`).
 
-!!! warning "v6 release preparation"
-    This guide is being prepared for v6. Start the installation or upgrade only after the `devshard/v6.0.0` Git tag and all four application images below have been published.
-
 Edit `deploy/join/config.env`. Set the variables below to the shown values.
 
 ```bash

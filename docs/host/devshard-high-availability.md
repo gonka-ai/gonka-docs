@@ -35,7 +35,7 @@ Public proxy (/devshard/...)
 
 ## Release and images
 
-This guide covers Devshard v6.0.0 (`release/devshard/v6.0.0`). It is the operator procedure for installing and upgrading HA hosts. From this release, hosts exchange peer RPC over HTTP/2 on the public proxy's existing port (the `PUBLIC_URL` port); no new port is opened. See [Prerequisites](#prerequisites).
+This guide covers installing and upgrading HA hosts to Devshard v6.0.0 (`release/devshard/v6.0.0`).
 
 !!! warning "v6 release preparation"
     This is a pre-release guide. The `devshard/v6.0.0` Git tag and the four v6 application images below were not available when this guide was checked on 20 October 2026. Do not start an installation or upgrade until the release tag and all four images are published. A development branch or an image with a similar tag is not a substitute.
@@ -61,7 +61,7 @@ Replace previous assignments of these variables in `config.env`; an old pin ther
    - Same `KEY_NAME` and keyring.
    - Same `ACCOUNT_PUBKEY`.
 4. Shared PostgreSQL; a separate data directory for each replica. Do not start a second dapi with the same keys.
-5. Peer RPC uses the port of `PUBLIC_URL` (`API_PORT` or `API_SSL_PORT` on the host that runs the public `proxy`), the same port the JSON API already uses. The proxy recognises a peer connection by its first bytes and carries it over HTTP/2 inside its own process; every other connection on that port still goes to nginx. Every host that runs a `versiond` replica, the **replica host** included, needs outbound access to every peer's `PUBLIC_URL`, which a replica already has for the JSON API. Nothing new is opened and nothing is set in `config.env`.
+5. Every host running a `versiond` replica, including remote replica hosts, needs outbound access to each peer's public address and port (`PUBLIC_URL`). This update requires no additional public ports.
 6. Docker Compose **2.24.4+**, Bash, Python 3, Git, `tar`, `curl`, `jq`, `flock`, `sha256sum`, `timeout`, `xargs`. Remote hosts also need `ssh`, `psql` and SSH access from the **primary host** to the **replica host**.
 
 Local HA requires protocol v4 or later. Rolling updates and remote replicas require v5 or later for every served protocol. Migration from protocols earlier than v4 is not covered here.

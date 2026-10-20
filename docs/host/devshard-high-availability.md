@@ -35,7 +35,10 @@ Public proxy (/devshard/...)
 
 ## Release and images
 
-This guide covers Devshard v6.0.0 (`release/devshard/v6.0.0`). From this release, hosts exchange peer RPC over HTTP/2 on the public proxy's existing port (the `PUBLIC_URL` port); no new port is opened. See [Prerequisites](#prerequisites).
+This guide covers Devshard v6.0.0 (`release/devshard/v6.0.0`). It is the operator procedure for installing and upgrading HA hosts. From this release, hosts exchange peer RPC over HTTP/2 on the public proxy's existing port (the `PUBLIC_URL` port); no new port is opened. See [Prerequisites](#prerequisites).
+
+!!! warning "v6 release preparation"
+    This is a pre-release guide. The `devshard/v6.0.0` Git tag and the four v6 application images below were not available when this guide was checked on 20 October 2026. Do not start an installation or upgrade until the release tag and all four images are published. A development branch or an image with a similar tag is not a substitute.
 
 Edit `deploy/join/config.env`. Set the variables below to the shown values.
 
@@ -47,6 +50,8 @@ export PROXY_POLICY_IMAGE=ghcr.io/gonka-ai/proxy:0.2.16-devshard-v6
 export ORACLE_FILTER_IMAGE=python:3.12-alpine
 export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
 ```
+
+Replace previous assignments of these variables in `config.env`; an old pin there overrides the checkout's defaults. `PROXY_ROUTER_IMAGE` runs the public Compose service named `proxy`; `PROXY_POLICY_IMAGE` runs its nginx workers, `proxy-policy` and `proxy-policy2`. Use the complete image set from one release.
 
 ## Prerequisites
 
@@ -321,10 +326,11 @@ Run on the join host after installation or an update. List every local replica i
 
 ```bash
 cd /path/to/gonka/deploy/join
-source ./config.env
 (
   set -euo pipefail
+  source ./config.env
   : "${VERSIOND_VERSIONS:?set the approved HA protocol list}"
+  : "${PUBLIC_URL:?set the public HTTP or HTTPS URL advertised by this host}"
   replicas=(versiond versiond2)
 
   ./versiond-router-fleet.sh verify-admission
@@ -336,14 +342,61 @@ source ./config.env
   done
   for version in $VERSIOND_VERSIONS; do
     ./versiond-router-fleet.sh wait-version "$version"
-    curl -fsS "http://127.0.0.1:${API_PORT:-8000}/devshard/$version/healthz"
+    curl --fail --show-error --silent --connect-timeout 10 --max-time 30 \
+      "${PUBLIC_URL%/}/devshard/$version/healthz"
   done
 )
 ```
 
-All commands must succeed; readiness and public health endpoints must return HTTP 200. Keep the supplied `/readyz` Docker healthcheck.
+All commands must succeed; readiness and public health endpoints must return HTTP 200. Keep the supplied `/readyz` Docker healthcheck. Use the scheme, hostname and port in `PUBLIC_URL`, including normal TLS certificate verification for HTTPS. An HTTPS-only host rejects requests to its public HTTP port. If the host cannot reach its own public address, run the public URL checks from another machine that can.
 
-Peer RPC over HTTP/2 shares the public port with the JSON API. The proxy recognises the HTTP/2 preface (HTTP) or ALPN token `gonka-rpc/1` (HTTPS) and dials each router slot's private `8081`. Port `8080` serves JSON and Connect/HTTP/1.1 compatibility traffic; neither router port is published. RPC pool admission requires both admin readiness and HTTP 200 from the RPC data health endpoint on `8081`. A router with an empty RPC pool does not pass that data check.
+Peer RPC over HTTP/2 shares the public port with the JSON API. The proxy recognises the HTTP/2 preface (HTTP) or ALPN token `gonka-rpc/1` (HTTPS) and dials each router slot's private `8081`. Port `8080` serves JSON and Connect/HTTP/1.1 compatibility traffic; neither router port is published. Admission to a version's `_rpc` pool requires both admin readiness and HTTP 200 from that version's RPC data health endpoint on `8081`. A router with an empty RPC pool does not pass that data check.
+
+The auxiliary `rpc_h2_routers` pool has a different purpose: it finds routers that can receive H2, even when their downstream RPC pool is unavailable. It accepts HTTP 200 or 503 from the RPC health endpoint. An `UP` entry in this pool therefore does not prove that a protocol can serve RPC; the router may return 503.
+
+`status` and `verify-admission` check the fleet and JSON route admission. They do not establish RPC readiness. Inspect the RPC pools separately on the public proxy and each router slot:
+
+```bash
+(
+  set -euo pipefail
+  source ./config.env
+  containers=(proxy)
+  mapfile -t routers < <(docker ps --filter label=ai.gonka.component=versiond-router \
+    --filter "label=ai.gonka.fleet=${VERSIOND_ROUTER_FLEET_ID:-gonka-versiond-router}" \
+    --format '{{.Names}}')
+  ((${#routers[@]} > 0)) || { echo "No running router slots found" >&2; exit 1; }
+  containers+=("${routers[@]}")
+  for container in "${containers[@]}"; do
+    printf '\n%s\n' "$container"
+    if [[ "$container" == proxy ]]; then
+      maps=(/etc/haproxy/version-router.map)
+    else
+      maps=(/etc/haproxy/versions.map /etc/haproxy/non_ha.map)
+    fi
+    for map in "${maps[@]}"; do
+      printf 'Live map: %s\n' "$map"
+      docker exec "$container" sh -c \
+        'printf "show map %s\n" "$1" | socat - /var/run/haproxy/haproxy.sock' sh "$map"
+    done
+    docker exec "$container" sh -c \
+      'printf "show stat\n" | socat - /var/run/haproxy/haproxy.sock' |
+      awk -F, '
+        NR == 1 {
+          for (i = 1; i <= NF; i++) field[$i] = i
+          print "POOL SERVER STATUS ACTIVE QUEUED CHECK CODE"
+          next
+        }
+        $1 ~ /_rpc$/ || $1 ~ /^(rpc_h2_upstream|rpc_h2_routers|rpc_h1_only|versiond_h1_only|rpc_h1_fallback|rpc_legacy_admission)$/ {
+          print $1, $2, $(field["status"]), $(field["scur"]),
+            $(field["qcur"]), $(field["check_status"]), $(field["check_code"])
+        }'
+  done
+)
+```
+
+Use the live version maps printed above to identify the corresponding pools; dynamically allocated pool names need not contain the protocol name. Read maps through the Runtime API: files on disk may not reflect routes added since startup. The RPC pool uses the JSON pool's name with `_rpc` appended. For each served RPC-capable protocol, require an `UP` server in its pool on the public proxy and on each router admitted for that protocol. Check individual server rows, not only the `BACKEND` summary. Do not require RPC readiness for older protocols that only serve JSON.
+
+After all infrastructure is updated, no server should be `UP` in the inner routers' `versiond_h1_only` pool. A down H1 detection pool is expected then; it means the compatibility path is closed. During a mixed rollout, an `UP` server can indicate an older `versiond` still using H1. These checks are observations, not an authenticated RPC test.
 
 `verify-admission`, public `/readyz` and `update-devshard.sh --check` do not perform an authenticated peer RPC. After updating, check every served protocol that supports peer RPC (v6 and later). The following request is a diagnostic for the HTTP ingress and Attach handler; it does not authenticate a session:
 
@@ -373,8 +426,9 @@ Run after installation or a pool change, for each protocol in `VERSIOND_VERSIONS
    ```bash
    source ./config.env
    version='<protocol from VERSIOND_VERSIONS>'
-   url="http://127.0.0.1:${API_PORT:-8000}/devshard/$version/healthz"
-   curl -sS -D - -o /dev/null "$url"
+   : "${PUBLIC_URL:?set the public HTTP or HTTPS URL advertised by this host}"
+   url="${PUBLIC_URL%/}/devshard/$version/healthz"
+   curl --fail --show-error --silent --connect-timeout 10 --max-time 30 -D - -o /dev/null "$url"
    ```
 
    Expect HTTP 200. Match `X-Upstream-Addr` to a local container or a remote endpoint. Include every local replica:
@@ -516,6 +570,24 @@ PYTHON
 If tracked files have local edits, this step stops. Automatic merging is not covered; keep the saved patches and do not run `git reset --hard`.
 
 Apply [Release and images](#release-and-images). Site overrides must use those image variables rather than hard-coded application images.
+
+Before replacing services, download the application images on the machines that will run them. From `deploy/join` on the primary host, pull all four:
+
+```bash
+(
+  set -euo pipefail
+  source ./config.env
+  : "${VERSIOND_IMAGE:?set the release image}"
+  : "${VERSIOND_ROUTER_IMAGE:?set the release image}"
+  : "${PROXY_ROUTER_IMAGE:?set the release image}"
+  : "${PROXY_POLICY_IMAGE:?set the release image}"
+  for image in "$VERSIOND_IMAGE" "$VERSIOND_ROUTER_IMAGE" "$PROXY_ROUTER_IMAGE" "$PROXY_POLICY_IMAGE"; do
+    docker pull "$image"
+  done
+)
+```
+
+On a remote replica host, pull its configured `VERSIOND_IMAGE` before replacing that member. Stop if a required image cannot be downloaded. The updater may use an already cached image if its own pull fails; a successful update alone does not prove that the registry supplied the intended release.
 
 Do not replace `config.env` with the new-installation example. Update first; add protocols afterwards. The v6 `config.env.template` adds the `EDGE_API_*` shutdown settings; the Compose files carry the same defaults, so an existing `config.env` needs no new entry. Do not combine this update with a database move, PostgreSQL major upgrade or fleet reconfiguration.
 
@@ -681,7 +753,7 @@ After `System identifiers match.`, continue with [Update with downtime](#update-
 
 ### 3. Update the deployment
 
-Schedule maintenance: replacing the public proxy can interrupt connections.
+Update one host at a time, outside PoC/cPoC. Schedule maintenance: replacing the public proxy can interrupt connections.
 
 The v6 wrapping needs no new port: peer RPC over HTTP/2 rides the `PUBLIC_URL` port (see [Prerequisites](#prerequisites)).
 
@@ -823,9 +895,13 @@ Run preflight and preview the replacements. Preflight writes database probes; it
 
 Review the proposed images and changes. On a directory creation error, run [directory preparation](#prepare-the-postgresql-directory) and retry. Do not proceed while preflight fails.
 
-Use the updater's order: router fleet, public proxy and policy workers, then `versiond` replicas. Keep the proxy/policy pair on the matching release so Connect through nginx and direct H2 share the same procedure limits. Do not manually reorder components based on transport compatibility alone.
+Use the updater's order: router fleet, public proxy and policy workers, then `versiond` replicas, with the member selected by `VERSIOND_LEGACY_HOST` last. Keep the proxy/policy pair on the matching release so Connect through nginx and direct H2 share the same procedure limits. Do not manually reorder components based on transport compatibility alone. This replaces the infrastructure containers; governance publishes the protocol binaries separately. For an existing v6 deployment, confirm that the approved v6 child is running before expecting v6 RPC checks to pass.
 
-While versiond is still on an older image, updated routers forward Connect through a bounded H1 compatibility path using the existing version and session placement. This avoids rejecting all RPC solely because an H2 pool is empty. Native gRPC cannot use the H1 path. If a child changes from H2 to H1 before the next health check, versiond rejects H2 RPC with 503 until ingress selects the bounded H1 path; it does not silently expand an existing H2 connection into H1 connections. Each public/inner router defaults to 512 active fallback requests across versions, a queue admission threshold of 64 and a 200 ms queue wait; Watch and Chat hold active slots for their lifetime. Concurrent arrivals can overshoot the queue threshold, and overload returns 503. JSON has independent capacity. These are capacity limits, not a guarantee of uninterrupted service: restarting the single public proxy closes its connections.
+During the infrastructure rollout, Connect can use a bounded H1 compatibility path while older infrastructure still requires it. Updated inner routers open this path only while they detect an H1-only `versiond`; an empty H2 pool alone does not open it. The public proxy forwards over H2 to an updated router, which applies this decision. Native gRPC cannot use H1.
+
+Once every `versiond` supports H2, an unavailable RPC pool returns 503 instead of falling back to H1. If an updated `versiond` receives H2 RPC for an H1-only child, it also returns 503; a later health check does not guarantee an H1 retry. Check the requested protocol, child readiness and RPC pools. Older children without peer RPC continue to use their JSON routes.
+
+Each public/inner router defaults to 512 active fallback requests across versions, a queue admission threshold of 64 and a 200 ms queue wait; Watch and Chat hold active slots for their lifetime. Concurrent arrivals can overshoot the queue threshold, and overload returns 503. JSON has independent capacity. These are capacity limits, not a guarantee of uninterrupted service: restarting the single public proxy closes its connections.
 
 Keep this compatibility window short without skipping the required checks. Do not start load tests on a live host while components are on mixed releases. Complete the supported replacement sequence, including remote members, and the post-update checks below before starting a load test.
 
@@ -1133,7 +1209,7 @@ Use `versiond-router-fleet.sh` to manage routers. The script reads `config.env` 
 
 To stop all routers, run `./versiond-router-fleet.sh stop-all --maintenance`. The default shutdown timeout is 30 minutes per router (`VERSIOND_ROUTER_DRAIN_TIMEOUT_SECONDS`).
 
-Each router instance occupies a numbered **slot**. The slot number stays the same when its container is replaced. A slot listens for JSON and health on `8080` and for the proxy's peer RPC over HTTP/2 on `8081` (both route by path; neither is published); `status` and `verify-admission` report the JSON pool and the peer-RPC pool. Use this number in fleet commands:
+Each router instance occupies a numbered **slot**. The slot number stays the same when its container is replaced. A slot listens for JSON and health on `8080` and for the proxy's peer RPC over HTTP/2 on `8081` (both route by path; neither is published). `status` reports fleet state and JSON admission; `verify-admission` checks JSON admission. Neither proves peer-RPC readiness. Use the separate [RPC pool and session checks](#41-check-the-running-services) before proceeding with the rollout. Use the slot number in fleet commands:
 
 | Task | Command |
 | --- | --- |

@@ -1755,7 +1755,11 @@ The community-aligned **[Gonka Network Development Roadmap](https://github.com/g
 
 ### Where can I see who was paid bounties, for what, and when?
 
-For security bounties, the record lives in the Gonka program on **HackerOne**. For protocol contributions, the **chain** is the source of truth: payouts execute on-chain. You can also inspect the corresponding records in the [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/) GitHub repository. Discord’s `#bounty-awards` channel posts some of this later, but it can be incomplete and is not authoritative.
+HackerOne payouts are published as summaries in the [Gonka Discord](https://discord.gg/REcpeYc7P7), channel `#bounty-awards`.
+
+Contributor rewards are paid with network upgrades. The **chain** is the single source of truth. For a quicker look, use that same Discord channel, or the [Gonkascan bounty page](https://gonkascan.com/?page=bounty): **Reward Records** groups payouts by upgrade, and **Rank** lists the top contributors by total paid. Both are community publications and can be inaccurate. Always confirm the amount, address, and upgrade on-chain.
+
+Full notes: [Where payouts are recorded](bounty-program.md#where-payouts-are-recorded).
 
 ## Errors
 

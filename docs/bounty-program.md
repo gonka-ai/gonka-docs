@@ -11,6 +11,8 @@ You do not need to be a Host.
 
 This page is a practical guide. It is **not a promise of payout**. For vulnerabilities, the HackerOne program terms are authoritative. For protocol work, Hosts approve amounts on-chain. Both processes can evolve.
 
+Past payouts are public. See [who was paid, for what, and when](#where-payouts-are-recorded).
+
 ---
 
 ## Bug bounty
@@ -140,12 +142,20 @@ Collaboration and voluntary reward-sharing among contributors are welcome.
 
 ---
 
-## Where payouts are recorded
+## Where payouts are recorded {#where-payouts-are-recorded}
 
-| Program | Source of truth | Also useful |
-|---|---|---|
-| **Bug bounty** | Gonka program on **HackerOne** | — |
-| **Contributor rewards** | The **chain** (payouts execute on-chain, typically in a network upgrade) | Matching records in [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/). Discord `#bounty-awards` posts some of this later and can be incomplete — not authoritative. |
+You can see real payouts: who was paid, for what, and when.
+
+**Bug bounty.** HackerOne payouts are published as summaries in the [Gonka Discord](https://discord.gg/REcpeYc7P7), in the `#bounty-awards` channel.
+
+**Contributor rewards.** These payments go out with network upgrades. The **chain** is the single source of truth for who was paid, the amount, and which upgrade carried the payment.
+
+The same payouts are easier to browse here:
+
+- [Gonka Discord](https://discord.gg/REcpeYc7P7), channel `#bounty-awards`
+- [Gonkascan bounty page](https://gonkascan.com/?page=bounty) — **Reward Records** lists each payout with its upgrade; **Rank** lists the top contributors by total paid
+
+The Discord posts and the Gonkascan page are written by the community and can be inaccurate. Always confirm the amount, address, and upgrade on-chain. Related issues and pull requests are in [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/).
 
 ---
 

@@ -64,15 +64,15 @@ v4.2   devshard/v4.2.0
 
 `v5` has been removed from the approved list.
 
-### What is required from hosts
+**What is required from hosts**
 
 Nothing. `versiond` automatically downloads the approved binary, verifies its SHA-256 against the on-chain value, and serves it under `/devshard/v4.2`. No full chain software upgrade is required.
 
-### Gateway operators
+**Gateway operators**
 
 Continue using v4.1 and migrate to v4.2 when applicable.
 
-### Main fixes and performance improvements
+**Main fixes and performance improvements**
 
 - Fixes for streamed-token validation, timeouts, validation recovery, and gateway routing.
 - Improved refusal handling and executor receipt verification.

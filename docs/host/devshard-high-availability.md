@@ -7,7 +7,7 @@ Devshard inference that stays available, backed by multiple `versiond` instances
 - [Why this matters](#why-this-matters)
 - [Release and images](#release-and-images)
 - [Prerequisites](#prerequisites)
-- [Install a new host](#install-a-new-host)
+- [Install HA](#install-a-new-host)
 - [Upgrade an existing host](#upgrade-an-existing-host)
 - [Add a remote replica](#add-a-remote-replica)
 - [Add a local replica](#add-a-local-replica)
@@ -19,6 +19,8 @@ Devshard inference that stays available, backed by multiple `versiond` instances
 A single `versiond` process is a single point of failure (SPOF): if that machine or container dies, gateways cannot reach your host for that protocol version.
 
 Run multiple `versiond` instances behind the router fleet, with shared PostgreSQL. If one instance fails, the routers send requests to the remaining instances.
+
+Local replicas cover container failure, not machine failure. The primary host's public proxy remains a single point of failure, even with remote replicas.
 
 ```text
 Public proxy (/devshard/...)
@@ -45,8 +47,9 @@ export VERSIOND_ROUTER_IMAGE=ghcr.io/gonka-ai/versiond-router:0.2.16-devshard-v6
 export PROXY_ROUTER_IMAGE=ghcr.io/gonka-ai/proxy-router:0.2.16-devshard-v6
 export PROXY_POLICY_IMAGE=ghcr.io/gonka-ai/proxy:0.2.16-devshard-v6
 export ORACLE_FILTER_IMAGE=python:3.12-alpine
-export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
 ```
+
+For new installations, leave `DEVSHARD_POSTGRES_IMAGE` unset to use the PostgreSQL image pinned in Compose.
 
 ## Prerequisites
 
@@ -61,11 +64,13 @@ export DEVSHARD_POSTGRES_IMAGE=postgres:16-alpine
 
 Local HA requires protocol v4 or later. Rolling updates and remote replicas require v5 or later for every served protocol. Migration from protocols earlier than v4 is not covered here.
 
-## Install a new host
+## Install HA {#install-a-new-host}
+
+Use this procedure for a new deployment or the first HA setup on a single `versiond` host using SQLite. For an existing PostgreSQL-backed deployment, use [Upgrade an existing host](#upgrade-an-existing-host).
 
 ### Step 1: Install PostgreSQL (preferably HA itself)
 
-HA `versiond` removes dependence on one **app** server, but if PostgreSQL is a single VM, **PostgreSQL becomes your new SPOF**. Prefer a managed or replicated database.
+Shared PostgreSQL must also remain available. Prefer a managed or replicated database.
 
 #### Choose a database
 
@@ -116,11 +121,13 @@ Local Compose PostgreSQL only. Run in `deploy/join` before first startup or migr
 source ./config.env
 pg_dir="${DEVSHARD_POSTGRES_DATA_DIR:-./devshards/postgres}"
 [[ "$pg_dir" = /* ]] || pg_dir="$PWD/$pg_dir"
+pg_image=$(docker compose -f docker-compose.yml -f docker-compose.versiond.yml \
+  config --format json | jq -er '.services["devshard-postgres"].image') &&
 docker run --rm --network none --read-only \
   --security-opt label=disable \
   --volume "$pg_dir:/target:ro" \
   --entrypoint /bin/true \
-  "$DEVSHARD_POSTGRES_IMAGE"
+  "$pg_image"
 ```
 
 If the command fails, stop and inspect the directory permissions:
@@ -297,6 +304,36 @@ export COMPOSE_FILE=docker-compose.yml:docker-compose.versiond.yml:docker-compos
 
 ### Step 3: Start the deployment
 
+#### First HA setup on an existing SQLite host
+
+Skip this block on a fresh host. Use it only for a single `versiond` that has never used PostgreSQL. Schedule downtime, keep its existing data mount, and run in `deploy/join` after Steps 1–2:
+
+```bash
+(
+  set -euo pipefail
+  source ./config.env
+  ./versiond-router-fleet.sh prepare-networks
+  mkdir -p backups
+  backup_dir=$(mktemp -d "$PWD/backups/pre-ha.XXXXXXXX")
+  docker inspect versiond > "$backup_dir/versiond.json"
+  docker compose stop versiond
+  docker cp versiond:/opt/versiond/data "$backup_dir/data"
+  echo "SQLite backup: $backup_dir"
+
+  # Local PostgreSQL only: explicitly allow its first initialization.
+  if docker compose config --services | grep -qx devshard-postgres; then
+    DEVSHARD_POSTGRES_ALLOW_EMPTY_INIT=true \
+      docker compose up -d --no-deps --wait --wait-timeout 2100 devshard-postgres
+  fi
+)
+```
+
+Downloaded `versiond` binaries make empty PostgreSQL initialization fail closed. The one-time flag above confirms first HA enablement; do not save it in `config.env`. If PostgreSQL was used before, or a `.pg-bound` marker exists, use [database recovery](#resolve-a-missing-database) instead. See the release's [PostgreSQL storage procedure](https://github.com/gonka-ai/gonka/blob/devshard/v6.0.0/devshard/docs/postgres-persistence-migration.md).
+
+Continue below with `versiond` stopped. Each child imports its existing SQLite sessions into PostgreSQL at startup and renames the old SQLite files to `*.migrated.*`. Keep the backup; the readiness checks in Step 4 must pass before the installation is complete.
+
+#### Start HA
+
 Run on the join host. Stop at the first failure:
 
 ```bash
@@ -346,9 +383,7 @@ All commands must succeed; readiness and public health endpoints must return HTT
 
 Use `PUBLIC_URL` for public checks, including on HTTPS-only hosts. If the host cannot reach its own public address, run these checks from another machine.
 
-`status`, `verify-admission`, `/readyz` and `update-devshard.sh --check` do not test authenticated communication between peers. For each served protocol that supports peer RPC (v6 and later), confirm that an existing peer can authenticate (`Attach`), keep its session open (`Watch`), complete a subsequent RPC and renew the session. Check peer and `versiond` logs before replacing another member. Keep the JSON checks above for older protocols.
-
-Existing peer connections may remain on HTTP/1.1 for about 30 minutes after the update before probing HTTP/2 again. Confirm that sessions keep working during this period.
+For inference and authenticated peer checks, see [Health checks pass, but inference fails](#health-checks-pass-but-inference-fails).
 
 New or replaced remote member: pass the [database check](#check-the-remote-database) before pool admission.
 
@@ -555,7 +590,7 @@ Stop if any protocol is not running or the list includes pre-HA versions.
 
 First HA setup: complete [§2.1](#21-same-machine-two-replicas) to set the HA variables and create the filter override; retain the current protocol list. For an external database, also complete [§2.2](#22-external-or-managed-postgresql) using the existing database. Then continue below; do not run installation Steps 3–4.
 
-Existing HA host: check [`max_connections`](#size-max_connections). For local Compose PostgreSQL, add the `devshard-postgres` entry from [§2.1](#21-same-machine-two-replicas) to the existing override. Both update procedures recreate local PostgreSQL when this entry or its image changed (the updater pulls `DEVSHARD_POSTGRES_IMAGE`); every replica then loses its database connection at once. Make such a change with the [update with downtime](#update-with-downtime).
+Existing HA host: check [`max_connections`](#size-max_connections). For local Compose PostgreSQL, add the `devshard-postgres` entry from [§2.1](#21-same-machine-two-replicas) to the existing override. Both update procedures recreate local PostgreSQL when this entry or its image changed (the updater pulls the configured image); every replica then loses its database connection at once. Make such a change with the [update with downtime](#update-with-downtime).
 
 Reload and validate:
 
@@ -1253,6 +1288,16 @@ No router restart is needed. The next host update applies the saved protocol lis
 Keep `proxy-router-state` and the `router-state` volume for every router slot. Remove a protocol only during maintenance, after its sessions are no longer needed: a filter change can stop children, while accepted router routes persist by default.
 
 ## Troubleshooting
+
+### Health checks pass, but inference fails
+
+`/healthz`, `/readyz`, `verify-admission` and `update-devshard.sh --check` do not send inference requests or authenticate a peer.
+
+1. Send a [gateway test request](../developer/gateway-developer-quickstart.md#5-send-a-test-request) through an escrow containing this host. Use a different message each time, such as one containing the current timestamp, to avoid the gateway response cache. Confirm in the host's logs that it served the request.
+2. Repeat with one replica stopped, following the [routing failover check](#42-check-routing-failover), then restore the replica even if the request failed. Expect a model response and requests reaching the remaining replica.
+3. For v6 and later, confirm that an existing peer completes `Attach`, keeps `Watch` open, completes a subsequent RPC and renews its session. On the peer, `devshard_peer_attach_total{result="ok"}` should increase and `devshard_peer_session_state{state="ready"}` should stay at 1 for this host and version. Inspect peer and `versiond` logs for authentication or session errors; see the release's [peer RPC checks](https://github.com/gonka-ai/gonka/blob/devshard/v6.0.0/devshard/docs/release-0.2.16-v6.md#switching-the-wrapping).
+
+After an explicit HTTP/2 protocol mismatch, a peer retries discovery in about 30 minutes; an ambiguous connection closure starts a 30-second exponential backoff. Working HTTP/1.1 sessions during discovery are expected.
 
 ### Cancel before maintenance
 

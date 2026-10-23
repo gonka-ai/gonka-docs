@@ -7,7 +7,7 @@ Devshard inference that stays available, backed by multiple `versiond` instances
 - [Why this matters](#why-this-matters)
 - [Release and images](#release-and-images)
 - [Prerequisites](#prerequisites)
-- [Install HA](#install-a-new-host)
+- [Install HA](#install-ha)
 - [Upgrade an existing host](#upgrade-an-existing-host)
 - [Add a remote replica](#add-a-remote-replica)
 - [Add a local replica](#add-a-local-replica)
@@ -64,9 +64,9 @@ For new installations, leave `DEVSHARD_POSTGRES_IMAGE` unset to use the PostgreS
 
 Local HA requires protocol v4 or later. Rolling updates and remote replicas require v5 or later for every served protocol. Migration from protocols earlier than v4 is not covered here.
 
-## Install HA {#install-a-new-host}
+## Install HA
 
-Use this procedure for a new deployment or the first HA setup on a single `versiond` host using SQLite. For an existing PostgreSQL-backed deployment, use [Upgrade an existing host](#upgrade-an-existing-host).
+Use this procedure for a new deployment or the first HA setup on a single `versiond` host using SQLite. To update an existing PostgreSQL-backed deployment, use [Upgrade an existing host](#upgrade-an-existing-host). To add another machine to an existing HA deployment, use [Add a remote replica](#add-a-remote-replica).
 
 ### Step 1: Install PostgreSQL (preferably HA itself)
 

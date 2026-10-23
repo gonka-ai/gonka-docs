@@ -160,7 +160,7 @@ Edit these variables in `config.env`. Keep the existing identity and database se
 
 ```bash
 # Protocol list for a new host on this release; keep the existing list when updating.
-export VERSIOND_VERSIONS="v4 v4.1"
+export VERSIOND_VERSIONS="v4 v4.1 v4.2 v5"
 # Deployment settings (retain these across component updates)
 export VERSIOND_NON_HA_VERSIONS=""
 # Use the same filtered catalog for replicas and both routing tiers.
@@ -555,7 +555,7 @@ Stop if any protocol is not running or the list includes pre-HA versions.
 
 First HA setup: complete [§2.1](#21-same-machine-two-replicas) to set the HA variables and create the filter override; retain the current protocol list. For an external database, also complete [§2.2](#22-external-or-managed-postgresql) using the existing database. Then continue below; do not run installation Steps 3–4.
 
-Existing HA host: check [`max_connections`](#size-max_connections). For local Compose PostgreSQL, add the `devshard-postgres` entry from [§2.1](#21-same-machine-two-replicas) to the existing override. The update with downtime restarts PostgreSQL and applies it; a rolling update does not.
+Existing HA host: check [`max_connections`](#size-max_connections). For local Compose PostgreSQL, add the `devshard-postgres` entry from [§2.1](#21-same-machine-two-replicas) to the existing override. Both update procedures recreate local PostgreSQL when this entry or its image changed (the updater pulls `DEVSHARD_POSTGRES_IMAGE`); every replica then loses its database connection at once. Make such a change with the [update with downtime](#update-with-downtime).
 
 Reload and validate:
 
@@ -581,7 +581,7 @@ docker inspect devshard-postgres --format '{{json .Config.Env}}' |
   jq -r '.[] | select(startswith("PGDATA="))'
 ```
 
-An existing persistent path `${DEVSHARD_POSTGRES_DATA_DIR:-./devshards/postgres}/data` needs no copy. A Docker volume at `/var/lib/postgresql/data` requires the procedure below.
+If `PGDATA` is `/var/lib/postgresql/gonka/data`, the persistent path `${DEVSHARD_POSTGRES_DATA_DIR:-./devshards/postgres}/data` is in use and needs no copy, even though a Docker volume is still mounted at `/var/lib/postgresql/data`. If `PGDATA` is on the Docker volume at `/var/lib/postgresql/data`, use the procedure below.
 
 <details>
 <summary><strong>One-time copy from the old PostgreSQL volume</strong></summary>
@@ -688,7 +688,9 @@ After `System identifiers match.`, continue with [Update with downtime](#update-
 
 ### 3. Update the deployment
 
-Update one host at a time, outside PoC/cPoC. Schedule maintenance: replacing the public proxy can interrupt connections.
+Update one host at a time, outside PoC/cPoC. Schedule maintenance: replacing the public proxy refuses and drops connections for several seconds, and a gateway that gets a refused connection can stop sending requests to this host for up to 30 minutes.
+
+If the host still runs `versiond-router` images earlier than v6, each old router stops only after the full `VERSIOND_ROUTER_DRAIN_TIMEOUT_SECONDS` (30 minutes by default), even without open connections. In a rolling update, the router step then takes about 30 minutes per router slot while the remaining routers serve requests. In the update with downtime, `stop-all --maintenance` waits that long while devshard requests fail, and the final `apply` replaces the old routers one at a time, about 30 minutes each. Do not interrupt the commands.
 
 Rolling updates require v5 or later for every served protocol. If any served protocol is earlier than v5, use the downtime procedure below. Leave `UPDATE_SKIP_POSTGRES_PROBE` and `UPDATE_ACCEPT_DATABASE_CHANGE` disabled.
 
@@ -751,12 +753,13 @@ PYTHON
   docker compose stop "${replicas[@]}"
   docker run "${pg_args[@]}" "$pg_client" pg_dump -w -Fc > "$backup_dir/database.dump"
   docker run -i --rm "$pg_client" pg_restore --list < "$backup_dir/database.dump" >/dev/null
-  ./update-devshard.sh --check
 
   ./versiond-router-fleet.sh prepare-networks
   if [[ $(jq -r '.services.versiond.environment.PGHOST' "$backup_dir/compose.json") == devshard-postgres ]]; then
     docker compose up -d --no-deps --wait --wait-timeout 2100 devshard-postgres
   fi
+  # Check capacity against the restarted PostgreSQL and its new settings.
+  ./update-devshard.sh --check
   docker compose up -d --no-deps oracle-filter
   docker compose up -d --no-deps --wait --wait-timeout 2100 "${replicas[@]}"
   docker compose up -d --no-deps proxy
@@ -957,7 +960,7 @@ for name in names:
         raise SystemExit(f"Missing {name}")
     print(f"export {name}={shlex.quote(value)}")
 for name, default in [("KEYRING_BACKEND", "file"), ("DEVSHARD_POSTGRES_DB", "devshardd"),
-                      ("DEVSHARD_POSTGRES_USER", "devshardd")]:
+                      ("DEVSHARD_POSTGRES_USER", "devshardd"), ("NODE_MANAGER_GRPC_PORT", "9400")]:
     print(f"export {name}={shlex.quote(os.environ.get(name, default))}")
 print('export VERSIOND_NON_HA_VERSIONS=""')
 if os.environ.get("VERSIOND_IMAGE"):

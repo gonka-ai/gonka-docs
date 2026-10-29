@@ -1417,7 +1417,7 @@ Once your node is visible in the Dashboard, you may also want to update your pub
 
 **IMPORTANT: Fees are paid from your cold wallet. Perform transfers and fee-bearing transactions on your secure local machine.**
 
-Starting with upgrade **v0.2.16**, Gonka charges on-chain fees for a defined set of host transactions. Registration alone is not enough to join Proof of Compute or an epoch: your cold account must hold a liquid GNK balance so those messages can be included on-chain.
+Starting with upgrade **v0.2.16**, Gonka charges on-chain fees for a defined set of host transactions; **v0.2.17** extends this to CosmWasm contract calls (the `wasm` group). Registration alone is not enough to join Proof of Compute or an epoch: your cold account must hold a liquid GNK balance so those messages can be included on-chain.
 
 Fund your Account Key address before the next PoC window. Keep this balance separate from collateral you will lock in [§5 Deposit Collateral](#5-local-machine-deposit-collateral) — fees are spent from the free balance; collateral is deposited into the collateral module.
 
@@ -1433,7 +1433,9 @@ Fees currently apply to the following message types:
 | `MsgDepositCollateral` | Depositing collateral (this section’s follow-up step) |
 | `MsgWithdrawCollateral` | Withdrawing collateral after the unbonding period |
 
-Other protocol-duty traffic (for example routine inference, PoC validation, seed submission, reward claims, and BLS) stays free. Bank sends, authz grants, and feegrant revoke/grant are in the `cosmos` group and cost 1 ngonka per gas. Governance votes stay free. Always use the `ngonka` denomination for balances and fees.
+Contract calls (`MsgExecuteContract`, `MsgStoreCode`, `MsgInstantiateContract`, `MsgMigrateContract`) are charged through the `wasm` group from **v0.2.17**. They are not host duties and are not part of the epoch fee budget below.
+
+Other protocol-duty traffic (for example routine inference, PoC validation, seed submission, reward claims, and BLS) stays free. Bank sends, authz grants, and feegrant revoke/grant are in the `cosmos` group and cost 1 ngonka per gas. CosmWasm transactions — bridge wrap/unwrap, community-sale purchases, any `tx wasm execute/store/instantiate` — are in the `wasm` group and also cost 1 ngonka per gas. The only fee-free contract call is buying GNK from the liquidity pool (`purchase_with_native` paid with an approved IBC token, or a cw20 `send` from a bridge-wrapped token into the pool) with a gas limit of at most `500000`; any other message sent to the pool pays. Governance votes stay free. Always use the `ngonka` denomination for balances and fees.
 
 The chain withdraws `gas limit × price` for a paid transaction. `--gas 2000000` at 1 ngonka per gas is 0.002 GNK. Keep a manual limit in that range. A limit of billions of gas withdraws billions of ngonka from the account, even when the transaction uses little gas. The chain rejects a fee above **100 GNK**. Any fee under that cap is still charged in full.
 
@@ -1446,7 +1448,7 @@ curl -s http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/
   | jq '.params.fee_params | {enabled_fee_groups, groups: [.groups[] | {name, min_gas_price}]}'
 ```
 
-On mainnet, `enabled_fee_groups` is `epoch` and `cosmos`, each at 1 ngonka per gas. A group that is absent from that list stays free.
+On mainnet, `enabled_fee_groups` is `epoch` and `cosmos` up to v0.2.16; from **v0.2.17** it is `epoch`, `cosmos` and `wasm`, each at 1 ngonka per gas. A group that is absent from that list stays free.
 
 Get your cold account address on your **local machine**:
 
@@ -1498,7 +1500,7 @@ Example response:
 curl -s "http://127.0.0.1:9200/admin/v1/epoch-fee-budget?count=100" | jq
 ```
 
-This check does **not** include collateral or one-time setup messages from the table above — only recurring PoC/hardware traffic for the current epoch.
+This check does **not** include collateral or one-time setup messages from the table above — only recurring PoC/hardware traffic (the `epoch` group) for the current epoch. Transactions you sign from cold in the `cosmos` or `wasm` groups (bank sends, grants, bridge or other contract calls) come on top of this estimate.
 
 ### Planning for many epochs
 

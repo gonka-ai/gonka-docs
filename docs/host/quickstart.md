@@ -255,6 +255,8 @@ pyramid sweet dumb critic lamp various remove token talent drink announce tiny l
 
 **CRITICAL**: Write this mnemonic phrase down and store it in a secure, offline location. This phrase is the **only** way to recover your Account Key.
 
+Keep the `gonka1…` address at hand: from **v0.2.17** you must fund it before registering your Host ([step 3.0](#30-local-machine-fund-your-account-key)).
+
 !!! info "Hardware Wallet Support"
     **Current Status**: Hardware wallets are not yet supported at network launch.
     
@@ -1122,13 +1124,29 @@ We start these specific containers first because:
     - Block validation and network consensus participation
     - Can be rotated by Account Key or authorized delegates
     
-    During the registration command on [step 3.2.](https://gonka.ai/host/quickstart/#32-server-register-host) (`inferenced register-new-participant`), the Consensus Key is linked to your Account Key (Cold Key) on-chain, establishing your node as a valid participant in the network.
+    During the registration transaction on [step 3.2.](https://gonka.ai/host/quickstart/#32-register-host-on-chain-account-key) (`inferenced tx inference submit-new-participant`), the Consensus Key is linked to your Account Key (Cold Key) on-chain, establishing your node as a valid participant in the network.
     
     If you delete or overwrite the `.tmkms` folder, your Consensus Key will be lost. This key is what links your node to the blockchain’s validator set. Once `.tmkms` is gone, you must start the entire setup from scratch, including generating a new Consensus Key (via `tmkms`) (see “[I Cleared or Overwrote My Consensus Key](https://gonka.ai/FAQ/#i-cleared-or-overwrote-my-consensus-key)” on the FAQ page). 
 
 ### 3. Complete Key Setup and Host Registration
 
-Now we need to complete the key management setup by creating the warm key, registering the Host, and granting permissions:
+Now we need to complete the key management setup by funding the Account Key, creating the warm key, registering the Host on-chain, and granting permissions:
+
+#### 3.0. [Local machine] Fund your Account Key
+
+From **v0.2.17**, Host registration (3.2) is a transaction signed by your Account Key. The chain only knows accounts that have received coins, so an unfunded Account Key cannot sign anything (`account … not found`). Fund it before continuing — the same balance later pays your operational fees (see [Fund your Account Key](#fund-account-fees) for sizing).
+
+Get the address on your **local machine**:
+
+```bash
+./inferenced keys show gonka-account-key -a --keyring-backend file
+```
+
+Send at least **10 GNK** to that address (any wallet or exchange withdrawal; `tx bank send` from another account needs `--gas-prices 1ngonka`). Confirm it arrived:
+
+```bash
+curl -s "http://node2.gonka.ai:8000/v2/accounts/<your-gonka-cold-address>" | jq '.balance, .denom'
+```
 
 #### 3.1. [Server] Create ML Operational Key
 
@@ -1172,80 +1190,60 @@ again plastic athlete arrow first measure danger drastic wolf coyote work memory
 ```
 
 
-#### 3.2. [Server] Register Host
+#### 3.2. Register Host on-chain (Account Key)
 
-From the same container, register the Host — this links your URL, Account Key, and Consensus Key (fetched automatically) on-chain:
+From **v0.2.17**, registering a Host is an on-chain transaction signed by your **Account Key**. The previous API-side route (`inferenced register-new-participant`, `POST /v1/participants`) is removed and responds with:
 
-```
-inferenced register-new-participant \
-    $DAPI_API__PUBLIC_URL \
-    $ACCOUNT_PUBKEY \
-    --node-address $DAPI_CHAIN_NODE__SEED_API_URL
+```text
+server returned status 410: {"error":"deprecated","message":"POST /v1/participants is deprecated; fund your account and register on-chain with MsgSubmitNewParticipant"}
 ```
 
-**Expected output:**
+Registration links your public URL, Account Key, and Consensus Key on-chain.
+
+**Step 1. [Server]** While still in the `api` container from step 3.1, read the values you will need and note them down:
+
+```bash
+echo "$DAPI_API__PUBLIC_URL"
+curl -s $DAPI_CHAIN_NODE__URL/status | jq -r '.result.validator_info.pub_key.value'
 ```
-...
-Found participant: gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm (url: http://36.189.234.237:19250, status: ACTIVE)
-Participant is now available at http://36.189.234.237:19250/v2/participants/gonka1rk52j24xj9ej87jas4zqpvjuhrgpnd7h3feqmm
-Account balance: 0
-```
 
-!!! warning "Account already has GNK but has not sent any transactions"
-    
-    In most cases, `inferenced register-new-participant` can register your Host directly from inside the `api` container.
+The second line is your Consensus Key (base64). Then exit the container:
 
-    However, there is a known edge case: if your Account Key address has already received GNK but has never sent a transaction itself, registration from inside the container may fail with an error similar to:
-
-    ```text
-    rpc error: code = Unknown desc = runtime error: invalid memory address or nil pointer dereference: panic
-    ```
-
-    This can happen when the account has a balance, but its on-chain transaction sequence is still `0`.
-
-    If the command above fails with this error, you can check the account balance and sequence from your **local machine**:
-
-    ```bash
-    ./inferenced query auth account <YOUR_COLD_ADDRESS> \
-      --node <node-url>/chain-rpc/ \
-      --output json | jq -r '.account.value.sequence // .sequence // "0"'
-    ```
-
-    If the account has a non-zero `ngonka` balance and the sequence command returns `0`, use the manual registration flow below.
-
-    **Step 1.** While still in the container from step 3.1, get your Consensus Key and note it down:
-    ```bash
-    curl -s $DAPI_CHAIN_NODE__URL/status | jq -r '.result.validator_info.pub_key.value'
-    ```
-
-    **Step 2.** Exit the container, then run this command on your **local machine** (where your Account Key is stored):
-    ```bash
-    ./inferenced tx inference submit-new-participant \
-        <PUBLIC_URL> \
-        --validator-key <CONSENSUS_KEY> \
-        --keyring-backend file \
-        --from <COLD_KEY_NAME> \
-        --timeout-duration 1m \
-        --unordered \
-        --node <node-url>/chain-rpc/ \
-        --chain-id gonka-mainnet
-    ```
-
-    `<node-url>` — any already-running node on the network (e.g. `http://node2.gonka.ai:8000`). Do not use your own node's URL — it is not fully started yet at this step.
-
-    If you created your Account Key with a custom `--keyring-dir`, add `--keyring-dir <path>` to the command.
-
-    The command will prompt `confirm transaction before signing and broadcasting [y/N]:` — type `y` to proceed.
-
-    Registration stays free on mainnet. The onboarding fee group is disabled, so this command does not spend GNK on gas.
-
-!!! note "Per-Node Account Key Configuration"
-    Always generate a unique `ACCOUNT_PUBKEY` for each Network Node to ensure proper separation of Hosts.
-
-Then we can exit the container:
 ```bash
 exit
 ```
+
+**Step 2. [Local machine]** On the machine where your Account Key is stored, submit the registration:
+
+```bash
+./inferenced tx inference submit-new-participant \
+    <PUBLIC_URL> \
+    --validator-key <CONSENSUS_KEY> \
+    --keyring-backend file \
+    --from gonka-account-key \
+    --timeout-duration 1m \
+    --unordered \
+    --gas 400000 \
+    --gas-prices 1ngonka \
+    --node <node-url>/chain-rpc/ \
+    --chain-id gonka-mainnet
+```
+
+- `<PUBLIC_URL>` — the value printed in Step 1 (your `DAPI_API__PUBLIC_URL`).
+- `<node-url>` — any already-running node on the network (e.g. `http://node2.gonka.ai:8000`). Do not use your own node's URL — it is not fully started yet at this step.
+- If you created your Account Key with a custom `--keyring-dir`, add `--keyring-dir <path>` to the command.
+- The command will prompt `confirm transaction before signing and broadcasting [y/N]:` — type `y` to proceed.
+
+Registration itself stays free on mainnet: `MsgSubmitNewParticipant` is in the `onboarding` fee group, which is disabled, so the `--gas-prices` flag costs nothing today and only keeps the command valid if that group is ever enabled. Free does **not** mean unfunded — the Account Key must already hold GNK ([step 3.0](#30-local-machine-fund-your-account-key)) or the transaction fails with `account … not found`.
+
+**Step 3.** Confirm the participant exists:
+
+```bash
+curl -s "http://node2.gonka.ai:8000/v2/participants/<your-gonka-cold-address>" | jq '.participant | {address, inferenceUrl, status}'
+```
+
+!!! note "Per-Node Account Key Configuration"
+    Always generate a unique `ACCOUNT_PUBKEY` for each Network Node to ensure proper separation of Hosts.
 
 
 #### 3.3. [Local machine] Grant Permissions to ML Operational Key
@@ -1417,9 +1415,9 @@ Once your node is visible in the Dashboard, you may also want to update your pub
 
 **IMPORTANT: Fees are paid from your cold wallet. Perform transfers and fee-bearing transactions on your secure local machine.**
 
-Starting with upgrade **v0.2.16**, Gonka charges on-chain fees for a defined set of host transactions. Registration alone is not enough to join Proof of Compute or an epoch: your cold account must hold a liquid GNK balance so those messages can be included on-chain.
+Starting with upgrade **v0.2.16**, Gonka charges on-chain fees for a defined set of host transactions; **v0.2.17** extends this to CosmWasm contract calls (the `wasm` group). Registration alone is not enough to join Proof of Compute or an epoch: your cold account must hold a liquid GNK balance so those messages can be included on-chain.
 
-Fund your Account Key address before the next PoC window. Keep this balance separate from collateral you will lock in [§5 Deposit Collateral](#5-local-machine-deposit-collateral) — fees are spent from the free balance; collateral is deposited into the collateral module.
+You already funded the Account Key in [step 3.0](#30-local-machine-fund-your-account-key) (from v0.2.17 that is required before registration). This section explains what the balance pays for and how to size it; top it up before the next PoC window. Keep this balance separate from collateral you will lock in [§5 Deposit Collateral](#5-local-machine-deposit-collateral) — fees are spent from the free balance; collateral is deposited into the collateral module.
 
 Fees currently apply to the following message types:
 
@@ -1433,7 +1431,9 @@ Fees currently apply to the following message types:
 | `MsgDepositCollateral` | Depositing collateral (this section’s follow-up step) |
 | `MsgWithdrawCollateral` | Withdrawing collateral after the unbonding period |
 
-Other protocol-duty traffic (for example routine inference, PoC validation, seed submission, reward claims, and BLS) stays free. Bank sends, authz grants, and feegrant revoke/grant are in the `cosmos` group and cost 1 ngonka per gas. Governance votes stay free. Always use the `ngonka` denomination for balances and fees.
+Contract calls (`MsgExecuteContract`, `MsgStoreCode`, `MsgInstantiateContract`, `MsgMigrateContract`) are charged through the `wasm` group from **v0.2.17**. They are not host duties and are not part of the epoch fee budget below.
+
+Other protocol-duty traffic (for example routine inference, PoC validation, seed submission, reward claims, and BLS) stays free. Bank sends, authz grants, and feegrant revoke/grant are in the `cosmos` group and cost 1 ngonka per gas. CosmWasm transactions — bridge wrap/unwrap, community-sale purchases, any `tx wasm execute/store/instantiate` — are in the `wasm` group and also cost 1 ngonka per gas. The only fee-free contract call is buying GNK from the liquidity pool (`purchase_with_native` paid with an approved IBC token, or a cw20 `send` from a bridge-wrapped token into the pool) with a gas limit of at most `500000`; any other message sent to the pool pays. Governance votes stay free. Always use the `ngonka` denomination for balances and fees.
 
 The chain withdraws `gas limit × price` for a paid transaction. `--gas 2000000` at 1 ngonka per gas is 0.002 GNK. Keep a manual limit in that range. A limit of billions of gas withdraws billions of ngonka from the account, even when the transaction uses little gas. The chain rejects a fee above **100 GNK**. Any fee under that cap is still charged in full.
 
@@ -1446,7 +1446,7 @@ curl -s http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/
   | jq '.params.fee_params | {enabled_fee_groups, groups: [.groups[] | {name, min_gas_price}]}'
 ```
 
-On mainnet, `enabled_fee_groups` is `epoch` and `cosmos`, each at 1 ngonka per gas. A group that is absent from that list stays free.
+On mainnet, `enabled_fee_groups` is `epoch` and `cosmos` up to v0.2.16; from **v0.2.17** it is `epoch`, `cosmos` and `wasm`, each at 1 ngonka per gas. A group that is absent from that list stays free.
 
 Get your cold account address on your **local machine**:
 
@@ -1498,7 +1498,7 @@ Example response:
 curl -s "http://127.0.0.1:9200/admin/v1/epoch-fee-budget?count=100" | jq
 ```
 
-This check does **not** include collateral or one-time setup messages from the table above — only recurring PoC/hardware traffic for the current epoch.
+This check does **not** include collateral or one-time setup messages from the table above — only recurring PoC/hardware traffic (the `epoch` group) for the current epoch. Transactions you sign from cold in the `cosmos` or `wasm` groups (bank sends, grants, bridge or other contract calls) come on top of this estimate.
 
 ### Planning for many epochs
 

@@ -21,10 +21,10 @@ If a command fails with `connection` or `parse`, check that every RPC command us
 
 | Task | Variable |
 |---|---|
-| `inferenced query / tx` | `<NODE_URL>/chain-rpc/` (must include `/chain-rpc/`) |
-| `create-client` (HTTP `.../v1/participants` on the seed) | `<NODE_URL>` (no `/chain-rpc/`) |
+| `inferenced query / tx` (including participant registration from **v0.2.17**, see step 4) | `<NODE_URL>/chain-rpc/` (must include `/chain-rpc/`) |
+| HTTP API calls (`curl <NODE_URL>/v2/participants/...`, `create-client` on chain **before v0.2.17**) | `<NODE_URL>` (no `/chain-rpc/`) |
 
-Using `<NODE_URL>/chain-rpc/` for `--node-address` in `create-client` is incorrect and will fail or hit the wrong service.
+Using `<NODE_URL>/chain-rpc/` for an HTTP API call (or `<NODE_URL>` without `/chain-rpc/` for `query`/`tx`) is incorrect and will fail or hit the wrong service.
 
 ---
 
@@ -119,18 +119,49 @@ Use that address as `authority` where the message type requires it.
 
 If the `jq` line prints nothing, run the same query without `jq` once and locate the gov module entry manually. The output shape can differ slightly by SDK version.
 
-### 4. Optional: new key + register participant (`create-client`)
+### 4. Optional: new key + register participant
 
-This creates a key and calls the seed HTTP API (participant registration).
-Use `<NODE_URL>` only:
+If you already have a funded, registered key for governance, skip this step and avoid double registration.
+
+From **v0.2.17**, participant registration is an on-chain transaction signed by your own key. The seed HTTP route used by `inferenced create-client` (`POST /v1/participants`) is removed and returns `410 … POST /v1/participants is deprecated; fund your account and register on-chain with MsgSubmitNewParticipant`.
+
+**4.1 Create the key** (store the mnemonic safely):
 
 ```bash
-./inferenced create-client "<COLD_KEY_NAME>" \
-  --node-address "<NODE_URL>"
+./inferenced keys add "<COLD_KEY_NAME>" --keyring-backend file
+./inferenced keys show "<COLD_KEY_NAME>" -a --keyring-backend file   # your gonka1... address
 ```
 
-Store the mnemonic safely.
-If you already have a funded key for governance, skip this and avoid double registration.
+**4.2 Fund the address.** The chain only knows accounts that have received coins; an unfunded key cannot sign (`account … not found`). Send GNK to the address (enough for the proposal deposit plus fees), then confirm:
+
+```bash
+./inferenced query bank balances "<YOUR_ADDRESS>" \
+  --node "<NODE_URL>/chain-rpc/" --chain-id "<CHAIN_ID>"
+```
+
+**4.3 Register on-chain.** A governance-only participant has no inference URL or validator key, so pass an empty URL:
+
+```bash
+./inferenced tx inference submit-new-participant "" \
+  --from "<COLD_KEY_NAME>" \
+  --keyring-backend file \
+  --chain-id "<CHAIN_ID>" \
+  --node "<NODE_URL>/chain-rpc/" \
+  --gas 400000 --gas-prices 1ngonka \
+  --unordered --timeout-duration 1m
+```
+
+`MsgSubmitNewParticipant` is in the `onboarding` fee group, which is disabled on mainnet, so the message itself is free; `--gas-prices` only keeps the command valid if that group is ever enabled. Confirm:
+
+```bash
+curl -s "<NODE_URL>/v2/participants/<YOUR_ADDRESS>" | jq '.participant | {address, status}'
+```
+
+On chains **before v0.2.17** the old one-step command still works and uses `<NODE_URL>` without `/chain-rpc/`:
+
+```bash
+./inferenced create-client "<COLD_KEY_NAME>" --node-address "<NODE_URL>"
+```
 
 Use the same `--keyring-backend` everywhere (e.g. `file`) for `keys show`, `tx gov submit-proposal`, and `tx gov vote`.
 

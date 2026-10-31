@@ -64,7 +64,9 @@ For new installations, leave `DEVSHARD_POSTGRES_IMAGE` unset to use the PostgreS
 5. Every host running a `versiond` replica, including remote replica hosts, needs outbound access to each peer's public address and port (`PUBLIC_URL`). No additional public ports are required.
 6. Docker Compose **2.24.4+**, Bash, Python 3, Git, `tar`, `curl`, `jq`, `flock`, `sha256sum`, `timeout`, `xargs`. Remote hosts also need `ssh`, `psql` and SSH access from the **primary host** to the **replica host**.
 
-This guide supports local HA for protocols v4.1 and v4.2, and for v6 once it is approved on chain. Rolling updates and remote replicas require v6 for every served protocol; v4.1 and v4.2 do not support the shared-database check required by these procedures.
+This guide supports local HA for protocols v4.1, v4.2 and v6.
+
+The rolling container update and remote replica procedures below support only protocol v6. Every served protocol must be v6; protocols v4.1 and v4.2 do not provide the required shared-database check. Running v6 infrastructure images alone does not satisfy this requirement.
 
 ## Install HA
 
@@ -647,7 +649,7 @@ Run the [service checks](#41-check-the-running-services), then stop here.
 
 #### Rolling update
 
-Use this procedure when every served protocol is v6 and PostgreSQL needs no restart. If the host serves v4.1 or v4.2, or if local PostgreSQL must be recreated, use [Update with downtime](#update-with-downtime). Leave PostgreSQL, the filter, replicas and router fleet running.
+This procedure updates deployment containers through `update-devshard.sh` and supports only protocol v6. Every served protocol must be v6, and PostgreSQL must not need a restart. If the host serves v4.1 or v4.2, or if local PostgreSQL must be recreated, use [Update with downtime](#update-with-downtime). Leave PostgreSQL, the filter, replicas and router fleet running.
 
 Check every protocol on every replica:
 

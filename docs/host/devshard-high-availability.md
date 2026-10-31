@@ -44,10 +44,10 @@ The component images below run the host infrastructure. The protocols it serves 
 Edit `deploy/join/config.env`. Set the variables below to the shown values.
 
 ```bash
-export VERSIOND_IMAGE=ghcr.io/gonka-ai/versiond:0.2.16-devshard-v6
-export VERSIOND_ROUTER_IMAGE=ghcr.io/gonka-ai/versiond-router:0.2.16-devshard-v6
-export PROXY_ROUTER_IMAGE=ghcr.io/gonka-ai/proxy-router:0.2.16-devshard-v6
-export PROXY_POLICY_IMAGE=ghcr.io/gonka-ai/proxy:0.2.16-devshard-v6
+export VERSIOND_IMAGE=ghcr.io/product-science/versiond:0.2.16
+export VERSIOND_ROUTER_IMAGE=ghcr.io/product-science/versiond-router:0.2.16
+export PROXY_ROUTER_IMAGE=ghcr.io/product-science/proxy-router:0.2.16
+export PROXY_POLICY_IMAGE=ghcr.io/product-science/proxy:0.2.16
 export ORACLE_FILTER_IMAGE=python:3.12-alpine
 ```
 
@@ -494,7 +494,7 @@ Complete the [backup](#back-up-postgresql-and-deployment-files). In `deploy/join
   git diff --cached --binary > "$BACKUP_DIR/staged.patch"
   git diff --exit-code
   git diff --cached --exit-code
-  git fetch https://github.com/gonka-ai/gonka.git refs/tags/devshard/v6.0.0
+  git fetch https://github.com/gonka-ai/gonka.git refs/tags/release/devshard/v6.0.0
   git switch --detach FETCH_HEAD
   # Confirm that config.env and the separate site overrides survived unchanged.
   python3 - "$BACKUP_DIR" <<'PYTHON'
@@ -1041,7 +1041,7 @@ Keep the same database, participant identity, protocol list and data mounts. Rep
      set -euo pipefail
      git diff --exit-code
      git diff --cached --exit-code
-     git fetch https://github.com/gonka-ai/gonka.git refs/tags/devshard/v6.0.0
+     git fetch https://github.com/gonka-ai/gonka.git refs/tags/release/devshard/v6.0.0
      git switch --detach FETCH_HEAD
    )
    ```
@@ -1090,7 +1090,7 @@ For an extra replica, remove its Compose filename from `COMPOSE_FILE` and its se
 
 ### Add a protocol
 
-1. Check the [release guide](https://github.com/gonka-ai/gonka/blob/devshard/v6.0.0/devshard/docs/release-0.2.16-v6.md#what-this-release-is) for the host/gateway versions. Once it appears in the node's [approved protocol list](#21-same-machine-two-replicas), add it to `VERSIOND_VERSIONS` in `config.env` on every host. Keep existing protocols.
+1. Check the [release guide](https://github.com/gonka-ai/gonka/blob/release/devshard/v6.0.0/devshard/docs/release-0.2.16-v6.md#what-this-release-is) for the host/gateway versions. Once it appears in the node's [approved protocol list](#21-same-machine-two-replicas), add it to `VERSIOND_VERSIONS` in `config.env` on every host. Keep existing protocols.
 2. On the **primary host**: `source ./config.env`, then `docker compose up -d --no-deps oracle-filter` with the complete `COMPOSE_FILE`.
 3. `./versiond-router-fleet.sh wait-version <new-protocol>`, then run the [service checks](#41-check-the-running-services) with the updated list.
 
@@ -1106,7 +1106,7 @@ Keep `proxy-router-state` and the `router-state` volume for every router slot. R
 
 1. Send a [gateway test request](../developer/gateway-developer-quickstart.md#5-send-a-test-request) through an escrow containing this host. Use a different message each time, such as one containing the current timestamp, to avoid the gateway response cache. Confirm in the host's logs that it served the request.
 2. Repeat with one replica stopped, following the [routing failover check](#42-check-routing-failover), then restore the replica even if the request failed. Expect a model response and requests reaching the remaining replica.
-3. For v6 and later, confirm that an existing peer completes `Attach`, keeps `Watch` open, completes a subsequent RPC and renews its session. On the peer, `devshard_peer_attach_total{result="ok"}` should increase and `devshard_peer_session_state{state="ready"}` should stay at 1 for this host and version. Inspect peer and `versiond` logs for authentication or session errors; see the release's [peer RPC checks](https://github.com/gonka-ai/gonka/blob/devshard/v6.0.0/devshard/docs/release-0.2.16-v6.md#switching-the-wrapping).
+3. For v6 and later, confirm that an existing peer completes `Attach`, keeps `Watch` open, completes a subsequent RPC and renews its session. On the peer, `devshard_peer_attach_total{result="ok"}` should increase and `devshard_peer_session_state{state="ready"}` should stay at 1 for this host and version. Inspect peer and `versiond` logs for authentication or session errors; see the release's [peer RPC checks](https://github.com/gonka-ai/gonka/blob/release/devshard/v6.0.0/devshard/docs/release-0.2.16-v6.md#switching-the-wrapping).
 
 After an explicit HTTP/2 protocol mismatch, a peer retries discovery in about 30 minutes; an ambiguous connection closure starts a 30-second exponential backoff. Working HTTP/1.1 sessions during discovery are expected.
 

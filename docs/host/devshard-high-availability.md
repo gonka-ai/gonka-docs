@@ -37,7 +37,7 @@ Public proxy (/devshard/...)
 
 ## Release and images
 
-This guide covers new HA installations and operation of existing HA deployments on [Devshard v6.0.0](https://github.com/gonka-ai/gonka/releases/tag/devshard%2Fv6.0.0).
+This guide covers new HA installations, the first migration of a SQLite host to HA, and operation of HA deployments on [Devshard v6.0.0](https://github.com/gonka-ai/gonka/releases/tag/devshard%2Fv6.0.0).
 
 The component images below run the host infrastructure. The protocols it serves are selected separately in `VERSIOND_VERSIONS`.
 
@@ -70,7 +70,9 @@ The rolling container update and remote replica procedures below support only pr
 
 ## Install HA
 
-Use this procedure for a new HA deployment with empty `versiond` binary and data directories. Use the checkout and images from [Release and images](#release-and-images). To update an existing v6 HA deployment, use [Update a v6 deployment](#update-a-v6-deployment). To add another machine, use [Add a remote replica](#add-a-remote-replica).
+Use this procedure for a new HA deployment or the first HA setup of an existing SQLite host, including hosts serving v4.1 and v4.2. Use the checkout and images from [Release and images](#release-and-images). To update an existing v6 HA deployment, use [Update a v6 deployment](#update-a-v6-deployment). To add another machine, use [Add a remote replica](#add-a-remote-replica).
+
+For an existing SQLite host, keep a private backup of `config.env` and every active Compose file before replacing join files or editing settings. Keep the participant identity, supported protocol list and original `versiond` data mount. Complete [First HA setup on an existing SQLite host](#first-ha-setup-on-an-existing-sqlite-host) before starting the HA services. This migration requires downtime.
 
 ### Step 1: Install PostgreSQL (preferably HA itself)
 
@@ -308,6 +310,62 @@ export COMPOSE_FILE=docker-compose.yml:docker-compose.versiond.yml:docker-compos
 
 ### Step 3: Start the deployment
 
+#### First HA setup on an existing SQLite host
+
+Skip this block on a fresh host. Use it only for a single `versiond` that has never used PostgreSQL. Protocols v4.1 and v4.2 support this migration. Schedule maintenance outside PoC/cPoC, complete Steps 1–2, and run in `deploy/join` before replacing the existing container:
+
+```bash
+(
+  set -euo pipefail
+  umask 077
+  source ./config.env
+  : "${COMPOSE_FILE:?set the complete Compose file list in config.env}"
+  mkdir -p backups
+  backup_dir=$(mktemp -d "$PWD/backups/pre-ha.XXXXXXXX")
+  echo "SQLite backup directory: $backup_dir"
+  docker inspect versiond > "$backup_dir/versiond.json"
+  docker compose config --format json > "$backup_dir/compose.json"
+  python3 - "$backup_dir" <<'PYTHON'
+import json, pathlib, sys
+backup = pathlib.Path(sys.argv[1])
+old = json.loads((backup / "versiond.json").read_text())[0]
+new = json.loads((backup / "compose.json").read_text())["services"]["versiond"]
+env = dict(item.split("=", 1) for item in old["Config"]["Env"])
+if env.get("PGHOST"):
+    sys.exit("This procedure is for a SQLite host that has never used PostgreSQL")
+old_mounts = [(v["Type"], v["Source"]) for v in old["Mounts"]
+              if v["Destination"] == "/opt/versiond/data"]
+new_mounts = [(v["type"], v["source"]) for v in new["volumes"]
+              if v["target"] == "/opt/versiond/data"]
+if len(old_mounts) != 1 or old_mounts != new_mounts:
+    sys.exit("Keep the original versiond data mount before starting HA")
+PYTHON
+
+  docker stop -t 1800 versiond
+  docker cp versiond:/opt/versiond/data "$backup_dir/data"
+  test -d "$backup_dir/data"
+  pg_bound=$(find "$backup_dir/data" -type f -name .pg-bound -print -quit)
+  if [[ -n "$pg_bound" ]]; then
+    echo 'PostgreSQL-owned sessions exist; restore that database before continuing.' >&2
+    exit 1
+  fi
+
+  ./versiond-router-fleet.sh prepare-networks
+  # Local PostgreSQL only: explicitly allow its first initialization.
+  services=$(docker compose config --services)
+  if grep -qx devshard-postgres <<<"$services"; then
+    DEVSHARD_POSTGRES_ALLOW_EMPTY_INIT=true \
+      docker compose up -d --no-deps --wait --wait-timeout 2100 devshard-postgres
+  fi
+)
+```
+
+Downloaded `versiond` binaries make empty local PostgreSQL initialization fail closed. The one-time flag above confirms first HA enablement; do not save it in `config.env`. If PostgreSQL was used before, or a `.pg-bound` marker exists, preserve and recover that database instead of initializing an empty replacement. See the release's [PostgreSQL storage procedure](https://github.com/gonka-ai/gonka/blob/release/devshard/v6.0.0/devshard/docs/postgres-persistence-migration.md). With external PostgreSQL, use a new database dedicated to this host's replicas.
+
+Continue below with the original `versiond` stopped and its data mount unchanged. The HA configuration sets `DEVSHARD_STORAGE_MODE=postgres`: each child imports its local SQLite sessions before serving and renames the migrated SQLite database files to `*.migrated.<TS>`, where `<TS>` is a Unix timestamp. The first replica must become ready before starting the second. Keep the backup and migrated files until the checks in Step 4 pass. Once PostgreSQL has accepted new writes, the old SQLite backup alone is no longer a current rollback copy.
+
+#### Start HA
+
 Run on the join host. Stop at the first failure:
 
 ```bash
@@ -316,9 +374,24 @@ Run on the join host. Stop at the first failure:
   cd /path/to/gonka/deploy/join
   source ./config.env
   : "${COMPOSE_FILE:?set the complete Compose file list in config.env}"
+  : "${VERSIOND_VERSIONS:?set the approved HA protocol list}"
   ./versiond-router-fleet.sh prepare-networks
 
-  docker compose up -d --wait --wait-timeout 2100
+  # Settle the database configuration before starting either replica.
+  services=$(docker compose config --services)
+  if grep -qx devshard-postgres <<<"$services"; then
+    docker compose up -d --no-deps --wait --wait-timeout 2100 devshard-postgres
+  fi
+  docker compose up -d --no-deps oracle-filter
+  docker compose up -d --no-deps --wait --wait-timeout 2100 versiond
+  for version in $VERSIOND_VERSIONS; do
+    docker exec versiond wget -qO- "http://127.0.0.1:8080/readyz?version=$version"
+  done
+  docker compose up -d --no-deps --wait --wait-timeout 2100 versiond2
+
+  # Start the public listener before its private policy workers.
+  docker compose up -d --no-deps proxy
+  docker compose up -d --no-deps --wait --wait-timeout 2100 proxy-policy2 proxy-policy proxy
 
   ./versiond-router-fleet.sh apply
 )

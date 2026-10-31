@@ -44,10 +44,10 @@ The component images below run the host infrastructure. The protocols it serves 
 Edit `deploy/join/config.env`. Set the variables below to the shown values.
 
 ```bash
-export VERSIOND_IMAGE=ghcr.io/product-science/versiond:0.2.16
-export VERSIOND_ROUTER_IMAGE=ghcr.io/product-science/versiond-router:0.2.16
-export PROXY_ROUTER_IMAGE=ghcr.io/product-science/proxy-router:0.2.16
-export PROXY_POLICY_IMAGE=ghcr.io/product-science/proxy:0.2.16
+export VERSIOND_IMAGE=ghcr.io/gonka-ai/versiond:0.2.16-devshard-v6
+export VERSIOND_ROUTER_IMAGE=ghcr.io/gonka-ai/versiond-router:0.2.16-devshard-v6
+export PROXY_ROUTER_IMAGE=ghcr.io/gonka-ai/proxy-router:0.2.16-devshard-v6
+export PROXY_POLICY_IMAGE=ghcr.io/gonka-ai/proxy:0.2.16-devshard-v6
 export ORACLE_FILTER_IMAGE=python:3.12-alpine
 ```
 

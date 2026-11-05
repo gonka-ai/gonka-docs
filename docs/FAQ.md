@@ -1692,13 +1692,16 @@ There are two complementary tracks:
 
 ### How do I report a security vulnerability?
 
-Gonka runs its security program on **HackerOne**. Submit all vulnerability reports through the form at **[gonka.ai/docs/report-vulnerability](https://gonka.ai/docs/report-vulnerability/)** rather than disclosing them in public issues, pull requests, or chats.
+Submit every security vulnerability on **HackerOne** first, through the form at **[gonka.ai/docs/report-vulnerability](https://gonka.ai/docs/report-vulnerability/)**. That submission is the one that can be paid.
 
-How rewards work on HackerOne:
-
-- **Payment is made right after your report is triaged** on HackerOne — it does **not** require you to also submit a fix.
-- **A fix may be paid separately.** That amount is discussed individually; it is not an automatic extra on top of the report.
+- Do not open a public GitHub issue or pull request, and do not post the issue in Discord or other public channels.
+- A fix is optional, and it comes second. After the HackerOne report exists, open [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/). In the top menu, click **Security and quality**, then **Report vulnerability**. That opens a private page for this one vulnerability. It is not a public issue or pull request. The title must include your HackerOne report number. This copy is not paid.
+- A private fork is available only after you submit that report. Create the fork from the submitted report and open the fix there. The fork stays private.
+- A valid report is paid on HackerOne after triage. You do not need a fix to be paid for the report. If a fix is paid, that payment is discussed separately from the report payout, and it is not guaranteed.
+- If reviewers can confirm the vulnerability is already known — for example there was already a GitHub discussion, or a report already exists on HackerOne — your report may be marked as a duplicate and not paid.
 - The authoritative severity model, reward amounts, categories, scope, and eligibility rules are all defined by the program on HackerOne. **Always read the full program terms on HackerOne before submitting**, as they take precedence over any summary here.
+
+Full steps: [How to report](bounty-program.md#how-to-report).
 
 ### What is the vulnerability severity model?
 

@@ -25,7 +25,7 @@ Reports go through HackerOne: private coordinated disclosure, triage, then a pay
 
 The program is rolling out in phases. It is currently **private** — open to researchers invited by HackerOne, and to Gonka community members via the form above. A public program is planned.
 
-You do **not** need to attach a fix to be paid for a valid report. Payment is made after triage. A **fix can be paid separately**; that amount is discussed individually.
+You do **not** need a fix to be paid for a valid report. Payment is made on HackerOne after triage. A fix is optional, and it comes second. If a fix is paid, that payment is discussed separately from the report payout, and it is not guaranteed.
 
 ### Rewards
 
@@ -50,12 +50,15 @@ Guideline only — HackerOne is authoritative:
 - Attacks against a **particular Host’s own infrastructure**
 - Unverified AI-generated findings
 
-### How to report
+### How to report {#how-to-report}
 
-1. Use the [HackerOne report form](report-vulnerability.md). That is the only intake. Do not open a public GitHub issue or PR, and do not post the issue in Discord or other public channels.
-2. If reviewers can confirm the vulnerability is already known — for example there was already a GitHub discussion, or a report already exists on HackerOne — your report may be marked as a **duplicate** and not paid.
-3. Reviewers **triage** the report and assign severity.
-4. Valid reports are paid after triage. You can include a written report, a fix in a private fork, or both. A fix does not change the report payout; any extra payment for the fix is discussed individually.
+Submit every security vulnerability on HackerOne first, through the [report form](report-vulnerability.md). That submission is the one that can be paid.
+
+1. Use the [HackerOne report form](report-vulnerability.md). Do not open a public GitHub issue or pull request, and do not post the issue in Discord or other public channels.
+2. A fix is optional, and it comes second. After the HackerOne report exists, open [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/). In the top menu, click **Security and quality**, then **Report vulnerability**. That opens a private page for this one vulnerability. It is not a public issue or pull request. The title must include your HackerOne report number. This copy is not paid.
+3. A private fork is available only after you submit that report. Create the fork from the submitted report and open the fix there. The fork stays private.
+4. Reviewers triage the HackerOne report and assign severity. A valid report is paid on HackerOne after triage. You do not need a fix to be paid for the report. If a fix is paid, that payment is discussed separately from the report payout, and it is not guaranteed.
+5. If reviewers can confirm the vulnerability is already known — for example there was already a GitHub discussion, or a report already exists on HackerOne — your report may be marked as a **duplicate** and not paid.
 
 ### What a good report includes
 
@@ -131,6 +134,8 @@ Priorities: [Gonka Network Development Roadmap](https://github.com/gonka-ai/gonk
 Typical Discussion topics: protocol improvements; integrations, API clients, and tooling; open problems that need research.
 
 ### How to ship
+
+Public protocol work only. A security fix does not use this path. Submit the vulnerability on HackerOne first, then duplicate it under **Security and quality → Report vulnerability** and open the fix in the private fork. See [How to report](#how-to-report).
 
 - Branch and open a PR against [`gonka-ai/gonka`](https://github.com/gonka-ai/gonka/).
 - Keep progress visible (a short weekly update is enough).

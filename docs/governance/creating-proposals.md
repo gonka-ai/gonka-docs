@@ -147,14 +147,14 @@ From **v0.2.17**, participant registration is an on-chain transaction signed by 
   --keyring-backend file \
   --chain-id "<CHAIN_ID>" \
   --node "<NODE_URL>/chain-rpc/" \
-  --gas 400000 --gas-prices 1ngonka \
+  --gas auto --gas-adjustment 1.5 --gas-prices 1ngonka \
   --unordered --timeout-duration 1m
 ```
 
-`MsgSubmitNewParticipant` is in the `onboarding` fee group, which is disabled on mainnet, so the message itself is free; `--gas-prices` only keeps the command valid if that group is ever enabled. Confirm:
+`MsgSubmitNewParticipant` is in the `onboarding` fee group. Creating a participant charges a one-time **500,000 gas** fee (1 ngonka per gas when that group is enabled); use `--gas auto` or a limit of at least ~700,000 so the create does not fail with `out of gas`. Confirm:
 
 ```bash
-curl -s "<NODE_URL>/v2/participants/<YOUR_ADDRESS>" | jq '.participant | {address, status}'
+curl -s "<NODE_URL>/v2/participants/<YOUR_ADDRESS>" | jq '.participant | {address, inference_url, status}'
 ```
 
 On chains **before v0.2.17** the old one-step command still works and uses `<NODE_URL>` without `/chain-rpc/`:

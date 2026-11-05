@@ -1223,7 +1223,7 @@ exit
     --from gonka-account-key \
     --timeout-duration 1m \
     --unordered \
-    --gas 400000 \
+    --gas auto --gas-adjustment 1.5 \
     --gas-prices 1ngonka \
     --node <node-url>/chain-rpc/ \
     --chain-id gonka-mainnet
@@ -1234,12 +1234,12 @@ exit
 - If you created your Account Key with a custom `--keyring-dir`, add `--keyring-dir <path>` to the command.
 - The command will prompt `confirm transaction before signing and broadcasting [y/N]:` — type `y` to proceed.
 
-Registration itself stays free on mainnet: `MsgSubmitNewParticipant` is in the `onboarding` fee group, which is disabled, so the `--gas-prices` flag costs nothing today and only keeps the command valid if that group is ever enabled. Free does **not** mean unfunded — the Account Key must already hold GNK ([step 3.0](#30-local-machine-fund-your-account-key)) or the transaction fails with `account … not found`.
+Creating a participant charges a one-time **500,000 gas** fee from the `onboarding` fee group (1 ngonka per gas when that group is enabled in upgrade 2.17). Use `--gas auto` (or a limit of at least ~700,000) so the create does not fail with `out of gas`. Updating an existing participant's URL or keys does **not** charge that creation gas again. The Account Key must already hold GNK ([step 3.0](#30-local-machine-fund-your-account-key)) or the transaction fails with `account … not found`.
 
 **Step 3.** Confirm the participant exists:
 
 ```bash
-curl -s "http://node2.gonka.ai:8000/v2/participants/<your-gonka-cold-address>" | jq '.participant | {address, inferenceUrl, status}'
+curl -s "http://node2.gonka.ai:8000/v2/participants/<your-gonka-cold-address>" | jq '.participant | {address, inference_url, status}'
 ```
 
 !!! note "Per-Node Account Key Configuration"
@@ -1376,7 +1376,7 @@ Open this URL, replacing `<your-gonka-cold-address>` with your address:
 http://node2.gonka.ai:8000/v2/participants/<your-gonka-cold-address>
 ```
 
-You should see participant data in JSON (`participant.address`, `participant.inferenceUrl`, `participant.status`).
+You should see participant data in JSON (`participant.address`, `participant.inference_url`, `participant.status`).
 
 To check account data (`pubkey`, `balance`, `denom`), use:
 ```
@@ -1446,7 +1446,7 @@ curl -s http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/
   | jq '.params.fee_params | {enabled_fee_groups, groups: [.groups[] | {name, min_gas_price}]}'
 ```
 
-On mainnet, `enabled_fee_groups` is `epoch` and `cosmos` up to v0.2.16; from **v0.2.17** it is `epoch`, `cosmos` and `wasm`, each at 1 ngonka per gas. A group that is absent from that list stays free.
+On mainnet, `enabled_fee_groups` is `epoch` and `cosmos` up to v0.2.16; from **v0.2.17** it is `epoch`, `cosmos`, `wasm`, and `onboarding`, each at 1 ngonka per gas. `onboarding` covers `MsgSubmitNewParticipant` (one-time 500,000 gas on create). A group that is absent from that list stays free.
 
 Get your cold account address on your **local machine**:
 

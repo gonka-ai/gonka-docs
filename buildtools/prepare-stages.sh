@@ -76,6 +76,11 @@ rm -f "$STAGE/docs/CNAME"
 # strict docs build doesn't fail on "page not in nav".
 rm -f "$STAGE/docs/disclaimer.md" "$STAGE/docs/zh/disclaimer.md"
 
+# Architecture stays in the repo (docs/architecture.md, docs/zh/architecture.md)
+# but is no longer in the nav. Drop the staged copies so the strict docs build
+# doesn't fail on "page not in nav".
+rm -f "$STAGE/docs/architecture.md" "$STAGE/docs/zh/architecture.md"
+
 echo "Staged:"
 echo "  $STAGE/home -> landing"
 echo "  $STAGE/docs -> docs (introduction as index.md)"

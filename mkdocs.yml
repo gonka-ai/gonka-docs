@@ -11,7 +11,6 @@ nav:
   - Introduction: introduction.md
 
   - Learn:
-    - Architecture: architecture.md
     - Glossary: glossary.md
 
   - Developer:
@@ -187,7 +186,6 @@ plugins:
             Home: 首页
             Learn: 了解
             Introduction: 介绍
-            Architecture: 架构
             Glossary: 术语表
             Developer: 开发者
             Quickstart: 快速上手

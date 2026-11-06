@@ -28,6 +28,13 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS_SRC = ROOT / "docs"
 PUBLISH = ROOT / "_publish"
 
+# Kept in the repo, but omitted from the published docs build. Skip them so
+# legacy URLs do not redirect to pages that are no longer deployed.
+UNPUBLISHED = {
+    Path("architecture.md"),
+    Path("zh/architecture.md"),
+}
+
 
 def stub_html(target_url: str) -> str:
     """Return a static meta-refresh + JS redirect stub with a canonical link.
@@ -107,6 +114,8 @@ def main() -> int:
 
     for md in DOCS_SRC.rglob("*.md"):
         rel = md.relative_to(DOCS_SRC)
+        if rel in UNPUBLISHED:
+            continue
         target = target_for(rel)
         if target is None:
             continue

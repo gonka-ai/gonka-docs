@@ -10,6 +10,8 @@
 
 **Consensus** is the protocol by which the network agrees on a single, verifiable state of the blockchain, ensuring that all participants maintain a consistent and tamper-proof ledger. In Gonka, consensus is achieved through PoC.
 
+**Devshard** is a short-lived execution shard that exists for the duration of a single session between one source of demand and a small group of Hosts. Inside it, requests are executed, priced, and accounted for without touching the blockchain. The blockchain sees the session twice: once when it opens, and once when it closes (so that the number of requests the network can serve is limited by how many GPUs it has, rather than by how many transactions its blockchain can fit in a block).
+
 **Epoch** is the core operational cycle of the chain. During an Epoch, Hosts perform meaningful AI work, participate in validation, and accumulate rewards. An Epoch lasts 15391 blocks (~23 hours) and ends with the completion of a Sprint by determining Host weights for the next epoch. 
 
 **Gonka Blockchain** is the foundational ledger and coordination layer (L1) of the decentralized AI network. It records balances, transactions and cryptographic artifacts that prove Hosts have correctly performed AI work, while all actual computations (such as inference and training) happen off-chain. 

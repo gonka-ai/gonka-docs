@@ -8,6 +8,26 @@
    
     This page is not guaranteed to be exhaustive. For the latest information, including governance vote launches and their current status, refer to on-chain data or check available explorers and dashboards.
 
+## November 11, 2026
+
+**A new version of DevShard is now available, bringing** **improvements to network performance, stability, and security.**
+
+**What's new in v6**
+
+**• 30–50% higher throughput:** sustained requests per second (RPS) compared to the previous version, measured in testnet load tests.
+
+**• Memory usage:** lower steady-state memory, and catch-up no longer causes large memory spikes.
+
+**• Improved peer communication:** authenticated peer gRPC over HTTP/2 with connection multiplexing and gzip compression.
+
+**• Better security and reliability:** per-peer and per-connection rate limiting, security fixes, and expanded load-testing capabilities.
+
+**What hosts need to do**
+
+No immediate action is required. Following governance approval, versiond will automatically download and verify the new DevShard runtime.
+
+To take full advantage of HTTP/2 transport and the new connection-level protections, hosts are recommended to update their DevShard infrastructure components (proxy, proxy-router, versiond) separately, one host at a time and outside PoC/cPoC, following the official upgrade guide.
+
 ## October 17, 2026
 
 **PROPOSAL PASSED: wider ranges for dynamic PoC coefficients**

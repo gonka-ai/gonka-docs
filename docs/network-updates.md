@@ -12,7 +12,7 @@
 
 **A new version of DevShard is now available, bringing** **improvements to network performance, stability, and security.**
 
-**What's new in v6**
+**What's new in [v6](https://github.com/gonka-ai/gonka/releases/tag/devshard%2Fv6.0.0)**
 
 **• 30–50% higher throughput:** sustained requests per second (RPS) compared to the previous version, measured in testnet load tests.
 
@@ -24,9 +24,9 @@
 
 **What hosts need to do**
 
-No immediate action is required. Following governance approval, versiond will automatically download and verify the new DevShard runtime.
+No immediate action is required. Following [governance approval](https://node3.gonka.ai/dashboard/gonka/gov/116), versiond will automatically download and verify the new DevShard runtime.
 
-To take full advantage of HTTP/2 transport and the new connection-level protections, hosts are recommended to update their DevShard infrastructure components (proxy, proxy-router, versiond) separately, one host at a time and outside PoC/cPoC, following the official upgrade guide.
+To take full advantage of HTTP/2 transport and the new connection-level protections, hosts are recommended to update their DevShard infrastructure components (proxy, proxy-router, versiond) separately, one host at a time and outside PoC/cPoC, following the [official upgrade guide](https://github.com/gonka-ai/gonka/blob/devshard-0.2.x-v6/devshard/docs/release-0.2.16-v6.md#switching-the-wrapping).
 
 ## October 17, 2026
 

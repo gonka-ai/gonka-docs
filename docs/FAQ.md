@@ -1359,7 +1359,7 @@ The chain logic checks whether your Host (participant) already exists:
 
 All other fields are preserved automatically.
 
-This means updating `inference_url` is a safe, non-destructive operation.
+This means updating `inference_url` is a safe, non-destructive operation. Creating a participant charges a one-time **500,000 gas** onboarding fee; an update of URL or keys does **not** pay that creation fee again — only ordinary transaction gas (still pass `--gas-prices 1ngonka` when the `onboarding` group is enabled).
 
 !!! note
 
@@ -1374,6 +1374,8 @@ This means updating `inference_url` is a safe, non-destructive operation.
         --unordered \
         --from <COLD_KEY_NAME> \
         --timeout-duration 1m \
+        --gas auto --gas-adjustment 1.5 \
+        --gas-prices 1ngonka \
         --node http://<node-url>/chain-rpc/ \
         --chain-id gonka-mainnet
     ```

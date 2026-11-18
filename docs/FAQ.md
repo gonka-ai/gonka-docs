@@ -37,7 +37,7 @@ You can obtain GNK by mining as a Host. Contribute computational resources to th
 	- [CoinMarketCap](https://coinmarketcap.com/currencies/gonka/)
 
 !!! warning "Do not trade GNK"
-	There has been an incident. The Gonka–Ethereum bridge is stopped while a response team investigates. Do not use the bridge, and do not trade GNK on any DEX or elsewhere.
+	We are aware of an incident affecting the Gonka–Ethereum bridge. The bridge has been paused while we investigate. Do not use the bridge or trade GNK until further notice.
 
 	The **only** official Ethereum representation of GNK is **WGNK** at `0x972a7a92d92796a98801a8818bcf91f1648f2f68` — this address is both the bridge contract and the WGNK ERC-20 token.
 

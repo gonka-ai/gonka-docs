@@ -28,17 +28,13 @@ GNK is the native coin of the Gonka network. It is used to incentivize participa
 
 Native GNK is **not listed on any centralized exchange (CEX)** yet, so you cannot buy it on a CEX. Follow official announcements on [Twitter](https://x.com/gonka_ai) for any updates regarding listings.
 
-There are, however, two legitimate ways to obtain GNK today:
-
-- **Mine as a Host.** Contribute computational resources to the network and earn GNK directly. See [mine as a Host](https://gonka.ai/host/quickstart/).
-- **Buy WGNK on Ethereum and bridge it back to GNK.** GNK can be bridged to Ethereum as **WGNK** (wrapped GNK), which is a standard ERC-20 that trades on DEXs such as Uniswap. You can buy WGNK there and then [bridge it back to native GNK](cross-chain-transfers/ethereum-bridge/withdraw-gnk.md). See the [Ethereum bridge overview](cross-chain-transfers/ethereum-bridge/overview.md).
+You can obtain GNK by mining as a Host. Contribute computational resources to the network and earn GNK directly. See [mine as a Host](https://gonka.ai/host/quickstart/).
 
 !!! info "Track WGNK price and market data"
 	You can follow WGNK (wrapped GNK) price, market cap, and trading volume on:
 
 	- [CoinGecko](https://www.coingecko.com/en/coins/wrapped-gonka)
 	- [CoinMarketCap](https://coinmarketcap.com/currencies/gonka/)
-	- [Uniswap](https://app.uniswap.org/explore/tokens/ethereum/0x972a7a92d92796a98801a8818bcf91f1648f2f68)
 
 !!! warning "Verify the contract address before trading"
 	The **only** official Ethereum representation of GNK is **WGNK** at `0x972a7a92d92796a98801a8818bcf91f1648f2f68` — this address is both the bridge contract and the WGNK ERC-20 token. Always confirm any listing or trade resolves to this exact address.

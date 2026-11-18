@@ -237,9 +237,9 @@ inferenced query bank balances "$DEVSHARD_CREATOR" \
 
 发送足够的 **ngonka** 以覆盖托管存款（示例中为 `5000000000`，如果其 ≥ `min_amount`），以及创建/结算手续费和交易费用。如果你将启用自动托管轮换（[托管生命周期和轮换](#escrow-lifetime-and-rotation)），请为每个周期充值**多个**存款——而不仅限于 [§4](#4-create-an-escrow-and-open-api-access) 中的单个手动托管。
 
-!!! tip "如何获取 GNK"
+!!! warning "目前请不要使用跨链桥"
 
-    GNK 可作为以太坊上的 WGNK（封装的 GNK）获取。通过 DEX 或点对点转账获取 WGNK，然后使用 [仪表板桥接界面](https://gonka.ai/cross-chain-transfers/ethereum-bridge/dashboard/) 将其桥接到 Gonka。仪表板会从你的以太坊钱包推导出正确的 `gonka1…` 地址，并在无需 CLI 工具的情况下处理存款。
+    请不要使用跨链桥转移 GNK 或其他资产。
 
 ---
 

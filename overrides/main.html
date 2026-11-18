@@ -26,6 +26,15 @@
    (which is the "homepage" of the docs build) and fail to hide it on
    /zh/ (which i18n does not flag as the primary homepage). #}
 {% set is_landing = page and page.meta and page.meta.landing %}
+
+{% block announce %}
+  {% if config.theme.language == "zh" %}
+    警告：目前请不要使用跨链桥。
+  {% else %}
+    Warning: do not use the bridge right now.
+  {% endif %}
+{% endblock %}
+
 {% block header %}
 {% if not is_landing %}
 {{ super() }}

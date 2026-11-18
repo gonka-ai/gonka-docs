@@ -101,12 +101,7 @@ Transfer time depends on the direction:
 
 ## Bridge vs. exchange
 
-The bridge only **locks an asset on one chain and releases it on the other** — it does not swap one asset for another. Trading happens on **separate** contracts:
-
-* On Ethereum, e.g. swap **WGNK ↔ USDC** on a DEX such as Uniswap.
-* On Gonka, swap wrapped tokens via the on-chain liquidity pool.
-
-So a typical "sell GNK on Ethereum" flow is: bridge GNK → WGNK to Ethereum, then trade WGNK for another token on a DEX.
+The bridge only **locks an asset on one chain and releases it on the other** — it does not swap one asset for another. Trading happens on **separate** contracts. On Gonka, wrapped tokens can be swapped via the on-chain liquidity pool.
 
 ## Bridge vs. IBC
 

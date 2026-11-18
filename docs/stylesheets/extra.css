@@ -672,8 +672,10 @@ body[data-md-color-scheme="slate"]:has(.gonka-landing) {
   padding: 10px 16px;
   font-size: 15px;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.4;
   text-align: center;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 [data-md-color-scheme="slate"] .md-banner {

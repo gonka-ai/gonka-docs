@@ -237,9 +237,9 @@ inferenced query bank balances "$DEVSHARD_CREATOR" \
 
 Send enough **ngonka** to cover the escrow deposit (`5000000000` in the example if that is ≥ `min_amount`), plus create/settle gas and transaction fees. If you will enable automatic escrow rotation ([Escrow lifetime and rotation](#escrow-lifetime-and-rotation)), fund the creator for **several** deposits per epoch—not only the one manual escrow in [§4](#4-create-an-escrow-and-open-api-access).
 
-!!! warning "Do not use the bridge right now"
+!!! warning "Do not use the bridge or trade GNK"
 
-    Do not use the bridge to move GNK or other assets.
+    There has been an incident. The Gonka–Ethereum bridge is stopped while a response team investigates. Do not use the bridge, and do not trade GNK on any DEX or elsewhere.
 
 ---
 

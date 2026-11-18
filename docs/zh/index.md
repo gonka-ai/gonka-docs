@@ -59,19 +59,19 @@ landing: true
     </nav>
   </header>
 
-  <main class="gonka-main">
+<main class="gonka-main">
     <!-- Hero -->
     <section class="gonka-hero">
       <div class="gonka-inner">
         <h1>Gonka</h1>
-        <p class="tagline">AI 计算是新的货币</p>
+        <p class="tagline">AI计算是新的货币</p>
       </div>
     </section>
 
 <div class="gonka-carousel">
       <div class="carousel-track">
         <div class="partner-card">
-          <span class="partner-label">Auditor</span>
+          <span class="partner-label">审计方</span>
           <div class="partner-logos">
             <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/certik.svg" alt="CertiK" />
@@ -79,7 +79,7 @@ landing: true
           </div>
         </div>
         <div class="partner-card">
-          <span class="partner-label">Bug Bounty Program</span>
+          <span class="partner-label">漏洞赏金计划</span>
           <div class="partner-logos">
             <a href="https://hackerone.com" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/hackerone.svg" alt="HackerOne" />
@@ -87,7 +87,7 @@ landing: true
           </div>
         </div>
         <div class="partner-card">
-          <span class="partner-label">Community Partners</span>
+          <span class="partner-label">社区合作伙伴</span>
           <div class="partner-logos">
             <a href="https://web3.com/" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/web3.svg" alt="Web3.com Ventures" />
@@ -101,7 +101,7 @@ landing: true
           </div>
         </div>
         <div class="partner-card">
-          <span class="partner-label">Select Hosts</span>
+          <span class="partner-label">精选主机</span>
           <div class="partner-logos">
             <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/gcore.svg" alt="Gcore" />
@@ -115,7 +115,7 @@ landing: true
           </div>
         </div>
         <div class="partner-card">
-          <span class="partner-label">Select AI Developers</span>
+          <span class="partner-label">精选AI开发者</span>
           <div class="partner-logos">
             <a href="https://aidenai.io/" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/aiden.svg" alt="Aiden" />
@@ -123,12 +123,12 @@ landing: true
           </div>
         </div>
         <div class="partner-card">
-          <span class="partner-label">Protocol Creator</span>
+          <span class="partner-label">协议创建者</span>
           <div class="partner-logos">
             <a href="https://productscience.ai/" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/productscience.svg" alt="Product Science" />
             </a>
-            <span class="partner-label">backed by</span>
+            <span class="partner-label">支持方</span>
             <a href="https://www.coatue.com/" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/coatue.svg" alt="Coatue" />
             </a>
@@ -154,8 +154,8 @@ landing: true
 <!-- Card A: Developer (featured) -->
           <div class="role-card role-card--featured">
             <h2 class="role-title">我是开发者</h2>
-            <p class="role-value">通过OpenAI兼容的API运行推理。使用GNK支付。</p>
-            <a class="role-cta gonka-doc-cta" href="/docs/developer/quickstart/">开始构建 <span aria-hidden="true">&rarr;</span></a>
+            <p class="role-value">通过OpenAI兼容的API运行推理，使用GNK支付。</p>
+            <a class="role-cta gonka-doc-cta" href="/docs/developer/quickstart/">立即开始构建 <span aria-hidden="true">&rarr;</span></a>
             <ul class="role-links">
               <li>
                 <a class="gonka-doc-cta" href="/docs/developer/quickstart/">
@@ -184,7 +184,7 @@ landing: true
             </ul>
           </div>
 
-          <!-- Card B: GPU provider -->
+<!-- Card B: GPU provider -->
           <div class="role-card">
             <h2 class="role-title">我是GPU提供方</h2>
             <p class="role-value">托管模型、提供推理服务并赚取GNK。</p>
@@ -222,8 +222,8 @@ landing: true
 <!-- Contributor strip -->
         <div class="contributor-strip">
           <h2 class="role-title">我是贡献者</h2>
-          <p class="role-value">开发协议、推理或训练功能，并通过悬赏计划获得社区奖励。</p>
-          <a class="role-cta gonka-doc-cta" href="/docs/bounty-program/">加入悬赏计划 <span aria-hidden="true">&rarr;</span></a>
+          <p class="role-value">构建协议、推理或训练功能，并通过赏金计划获得社区奖励。</p>
+          <a class="role-cta gonka-doc-cta" href="/docs/bounty-program/">加入赏金计划 <span aria-hidden="true">&rarr;</span></a>
         </div>
 
 </div>

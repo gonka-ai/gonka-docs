@@ -36,7 +36,9 @@ GNK是Gonka网络的原生代币，用于激励参与者、为资源定价，并
 	- [CoinGecko](https://www.coingecko.com/en/coins/wrapped-gonka)
 	- [CoinMarketCap](https://coinmarketcap.com/currencies/gonka/)
 
-!!! warning 交易前验证合约地址
+!!! warning "请勿交易 GNK"
+	Gonka–以太坊跨链桥已因一起正在调查的事件暂停。在另行通知前，请勿使用跨链桥，也不要交易 GNK。
+
 	**唯一**官方的以太坊GNK表示形式是**WGNK**，地址为`0x972a7a92d92796a98801a8818bcf91f1648f2f68`——该地址既是桥接合约，也是WGNK ERC-20代币。请始终确认任何列表或交易都指向此确切地址。
 
 	其他追踪器和网络上仍存在假冒的GNK列表和页面：任何声称在Solana上或除上述WGNK地址外的其他合约上的GNK，**都不是**官方GNK资产。请始终通过官方渠道验证信息。

@@ -237,9 +237,9 @@ inferenced query bank balances "$DEVSHARD_CREATOR" \
 
 发送足够的 **ngonka** 以覆盖托管存款（示例中为 `5000000000`，如果该值 ≥ `min_amount`），以及创建/结算手续费和交易费。如果您将启用自动托管轮换（[托管生命周期和轮换](#escrow-lifetime-and-rotation)），请为创建者账户充值**多个**存款（每个周期），而不仅限于 [§4](#4-create-an-escrow-and-open-api-access) 中的手动托管。
 
-!!! warning "请勿现在使用桥接"
+!!! warning "跨链桥已暂停"
 
-    请勿使用桥接来转移 GNK 或其他资产。
+    Gonka–以太坊跨链桥已因一起正在调查的事件暂停。在另行通知前，请勿使用跨链桥，也不要交易 GNK。
 
 ---
 

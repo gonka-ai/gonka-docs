@@ -74,11 +74,14 @@ More details about the optimal deployment configuration can be found [here](http
 The server hosting the Network Node should have:
 
 - 16-core CPU (amd64)
-- 64+ GB RAM
+- minimum 64+ GB RAM (128 GB RAM preferred)
 - 1TB NVMe SSD
 - 100Mbps minimum network connection (1Gbps preferred)
 
 The final requirements will depend on the number of ML Nodes connected and their total throughput.
+
+!!! tip "Do not put all your hardware behind one account key"
+    Rewards and penalties apply per participant (account key). A participant that becomes INACTIVE gets no reward for that epoch, however much of its hardware actually failed, and its collateral is slashed for downtime. If you run a large fleet, split your ML Nodes across several participants, each with its own Network Node on a separate server, so one failure costs only that participant's share.
 
 Each server used to deploy an ML Node should have:
 

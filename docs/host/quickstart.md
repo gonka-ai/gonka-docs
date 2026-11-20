@@ -74,7 +74,7 @@ More details about the optimal deployment configuration can be found [here](http
 The server hosting the Network Node should have:
 
 - 16-core CPU (amd64)
-- 64 GB RAM minimum, 128 GB recommended
+- minimum 64+ GB RAM (128 GB RAM preferred)
 - 1TB NVMe SSD
 - 100Mbps minimum network connection (1Gbps preferred)
 

@@ -1,6 +1,6 @@
 # 多个节点
 
-在此设置中，您将在多台服务器上部署网络节点和一个或多个推理（ML）节点。要加入网络，您需要部署两个服务：
+在此设置中，您将网络节点和一个或多个推理（ML）节点部署在多台服务器上。要加入网络，您需要部署两个服务：
 
 - **网络节点** – 由两个节点组成的服务：一个**链节点**和一个**API节点**。此服务处理所有通信。**链节点**连接到区块链，而**API节点**管理用户请求。
 - **推理（ML）节点** – 一个在GPU上执行大语言模型（LLM）推理的服务。您至少需要一个**ML节点**才能加入网络。
@@ -14,11 +14,11 @@
 对于网络节点，大致的硬件要求为：
 
 - 16核CPU（amd64）
-- 64+ GB内存
+- 至少64+ GB内存（建议128 GB内存）
 - 1TB NVMe SSD
 - 最低100Mbps网络连接（建议1Gbps）
 
-最终要求将取决于连接的ML节点数量及其总吞吐量。
+最终要求将取决于连接的ML节点数量及其总吞吐量。如果您运行大规模集群，请参阅[快速入门](https://gonka.ai/host/quickstart/#proposed-hardware-configuration)以了解如何将其分布在多个账户密钥上。
 
 在继续之前，请完成[快速入门指南](https://gonka.ai/host/quickstart/)的第3.3步，包括：
 
@@ -34,17 +34,17 @@
 本节介绍如何部署包含网络节点和多个推理节点的分布式设置。
 
 !!! note 
-    在启动网络节点之前，请确保网络服务器上的 `config.env` 文件中的 `DAPI_API__POC_CALLBACK_URL` 变量设置正确。该值定义了API容器的回调URL，它将传递给所有ML节点，以便它们知道向何处发送Proof-of-Compute（PoC）随机数。
+    在启动网络节点之前，请确保网络服务器上的 `config.env` 文件中的 `DAPI_API__POC_CALLBACK_URL` 变量已正确设置。此值定义了API容器的回调URL，它将传递给所有ML节点，以便它们知道向何处发送计算证明（PoC）随机数。
 
-    对于多节点设置，此URL必须能被集群中的所有ML节点访问。请勿保留默认的内部Docker地址（http://api:9100），因为它无法从外部ML节点访问。请将其替换为网络节点服务器的私有网络地址（或DNS名称），例如：`DAPI_API__POC_CALLBACK_URL=http://<NETWORK_NODE_PRIVATE_IP>:9100`。如果API容器已使用错误的值启动，请更新 `config.env` 并重启api容器。
+    对于多节点设置，此URL必须可被集群中的所有ML节点访问。请勿保留默认的内部Docker地址（http://api:9100），因为它无法从外部ML节点访问。请将其替换为网络节点服务器的私有网络地址（或DNS名称），例如：`DAPI_API__POC_CALLBACK_URL=http://<NETWORK_NODE_PRIVATE_IP>:9100`。如果API容器已使用错误的值启动，请更新 `config.env` 并重启api容器。
 
-    请确保端口 `9100` 在您的网络中对所有推理（ML）节点开放且可访问。
+    确保端口 `9100` 在您的网络中对所有推理（ML）节点开放且可访问。
 
 ## 启动网络节点
 
 请确保您已提前完成[快速入门指南](https://gonka.ai/host/quickstart/)的第3.3步（密钥管理和主机注册）。
 
-此服务器将成为外部参与者的主入口点。必须将其暴露在公网上（建议使用静态IP或域名）。高网络可靠性和安全性至关重要。请将其部署在稳定、高带宽且具备强大安全性的服务器上。
+此服务器将成为外部参与者的主入口点。必须将其暴露在公共互联网上（建议使用静态IP或域名）。高网络可靠性和安全性至关重要。请将其部署在稳定、高带宽且具备强大安全性的服务器上。
 
 ### 单机部署：网络节点 + 推理节点
 如果您的网络节点服务器**具有GPU**，并且您希望在同一台机器上运行**网络节点**和**推理节点**，请在 `gonka/deploy/join` 目录中执行以下命令：
@@ -59,7 +59,7 @@ docker compose -f docker-compose.yml -f docker-compose.mlnode.yml logs -f
 
 ### 独立部署：仅网络节点
 
-如果您的网络节点服务器**没有GPU**，并且您希望服务器仅运行**网络节点**（不运行推理节点），请在 `gonka/deploy/join` 目录中执行以下命令：
+如果您的网络节点服务器**没有GPU**，并且您希望服务器仅运行**网络节点**（不运行推理节点），请在 `gonka/deploy/join` 目录中执行以下操作：
 
 ```
 source config.env && \ 
@@ -69,12 +69,12 @@ docker compose -f docker-compose.yml logs -f
 
 ### 网络节点状态
 
-一旦网络节点激活，它将开始参与即将进行的计算证明（PoC）。其权重将根据连接的推理节点所产生的工作量进行更新。如果没有连接任何推理节点，该节点将不参与PoC，也不会出现在列表中。在下一次PoC之后，网络节点将出现在活跃主机列表中（请允许1–3小时生效）：
+网络节点一旦激活，将开始参与即将进行的计算证明（PoC）。其权重将根据连接的推理节点所产生的工作量进行更新。如果没有连接任何推理节点，该节点将不参与PoC，也不会出现在列表中。在下一次PoC之后，网络节点将出现在活跃主机列表中（请允许1–3小时生效）：
 ```bash
 http://node2.gonka.ai:8000/v1/epochs/current/participants
 ```
 
-如果您添加了更多带有推理节点的服务器（按照以下说明操作），在下一次PoC后，更新的权重将反映在活跃主机列表中。
+如果您添加了更多带有推理节点的服务器（遵循以下说明），更新后的权重将在下一次PoC后反映在活跃主机列表中。
 
 ## 在独立服务器上运行推理节点
 在其他服务器上，我们仅运行推理节点，为此，请遵循以下说明。
@@ -88,18 +88,18 @@ http://node2.gonka.ai:8000/v1/epochs/current/participants
 git clone https://github.com/gonka-ai/gonka.git -b main
 ```
 
-要部署 DeepSeek V4 Flash（MLNode 3.0.16 和 DeepSeek `node-config-*.json` 文件），请克隆 [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) 而不是 `main`。要部署 GLM-5.3-Flash（MLNode 3.1.0 / vLLM 0.28），请克隆 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join)。
+要部署 DeepSeek V4 Flash（MLNode 3.0.16 及 DeepSeek `node-config-*.json` 文件），请克隆 [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) 而非 `main`。要部署 GLM-5.3-Flash（MLNode 3.1.0 / vLLM 0.28），请克隆 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join)。
 
 **1.2.（可选）预先下载模型权重到 Hugging Face 缓存（HF_HOME）**
 
-推理节点从 Hugging Face 下载模型权重。为确保模型权重在部署前就绪，我们建议在部署前预先下载。请选择以下选项之一。
+推理节点从 Hugging Face 下载模型权重。为确保模型权重在部署时已就绪，我们建议在部署前预先下载。请选择以下选项之一。
 
 ```
 export HF_HOME=/path/to/your/hf-cache
 ```
 
-创建一个可写目录（例如 `~/hf-cache`），并根据需要预先加载模型。
-下载您将要部署的模型。确认它位于 `GET /v1/governance/models`。治理列表不等于资格。`moonshotai/Kimi-K2.6` 和 `zai-org/GLM-5.2-FP8` 在 [提案 101](../network-updates.md#proposal-101) 之后不再是 PoC 模型——请确认在 `/v1/epochs/current/participants` 上的实时服务。
+创建一个可写目录（例如 `~/hf-cache`），并根据需要预加载模型。
+下载您将要部署的模型。确认其位于 `GET /v1/governance/models`。治理清单不等于资格。`moonshotai/Kimi-K2.6` 和 `zai-org/GLM-5.2-FP8` 在 [提案 101](../network-updates.md#proposal-101) 之后不再是 PoC 模型——请确认在 `/v1/epochs/current/participants` 上的实时服务。
 
 ```
 huggingface-cli download MiniMaxAI/MiniMax-M2.7
@@ -109,7 +109,7 @@ huggingface-cli download zai-org/GLM-5.3-Flash --revision 04c4e9e95c5da8862dced7
 
 模型许可证：参见 [模型许可证](../model-licenses.md)。DeepSeek V4 Flash 和 GLM-5.3-Flash 均为 MIT 许可。
 
-**1.3. 网络节点连接所需的端口**
+**1.3. 网络节点连接所需开放的端口**
 ```
 5050 - Inference requests (mapped to 5000 of MLNode)
 8080 - Management API Port (mapped to 8080 of MLNode)
@@ -125,11 +125,11 @@ huggingface-cli download zai-org/GLM-5.3-Flash --revision 04c4e9e95c5da8862dced7
 docker compose -f docker-compose.mlnode.yml up -d && docker compose -f docker-compose.mlnode.yml logs -f
 ```
 
-这将部署推理节点，并在注册到您的网络节点后立即开始处理推理和计算证明（PoC）任务（如下所述）。
+这将部署推理节点，并在注册到您的网络节点后立即开始处理推理和计算证明（PoC）任务（下方有说明）。
 ## 将推理节点添加（注册）到网络节点
 
-您必须将每个推理节点注册到网络节点才能使其正常运行。
-推荐的方法是通过管理 API 进行动态管理，该 API 可从您的网络节点服务器终端访问。
+您必须将每个推理节点注册到网络节点，才能使其正常运行。
+推荐方法是通过管理员 API 进行动态管理，该 API 可从您的网络节点服务器终端访问。
 ```
 curl -X POST http://localhost:9200/admin/v1/nodes \
      -H "Content-Type: application/json" \
@@ -153,18 +153,18 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 
 | 参数 | 描述 | 示例 |
 |-------------------|--------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
-| `id` | 您的推理节点的**唯一标识符**。 | `node1` |
-| `host` | 您的推理节点的**静态 IP**，或在相同 Docker 网络中运行时的**Docker 容器名称**。 | `http://<mlnode_ip>` |
-| `inference_port` | 推理节点**接受推理和训练任务**的端口。 | `5050`（端口映射到 MLNode 的 `5000` 的 `nginx`） |
+| `id` | 推理节点的**唯一标识符**。 | `node1` |
+| `host` | 推理节点的**静态 IP**，或在相同 Docker 网络中运行时的**Docker 容器名称**。 | `http://<mlnode_ip>` |
+| `inference_port` | 推理节点**接收推理和训练任务**的端口。 | `5050`（端口映射到 MLNode 的 `5000` 的 `nginx`） |
 | `poc_port` | 用于**MLNode 管理**的端口。 | `8080`（端口映射到 MLNode 的 `8080` 的 `nginx`） |
 | `max_concurrent` | 此节点可处理的**最大并发推理请求数**。 | `500` |
 | `models` | 推理节点可处理的**支持模型**。 | (见下文) |
 | `model_name` | 模型的名称。 | `MiniMaxAI/MiniMax-M2.7`、`deepseek-ai/DeepSeek-V4-Flash-0731`、`zai-org/GLM-5.3-Flash`（来自 `GET /v1/governance/models` 的 ID） |
 | `model_args` | 模型推理的 vLLM 参数。 | `"--tensor-parallel-size","4"` |
 
-请对照 `GET /v1/governance/models` 确认模型 ID。资格（`confirmation_weight_scales`）和实时服务（`/v1/epochs/current/participants`）与此目录无关。`moonshotai/Kimi-K2.6` 和 `zai-org/GLM-5.2-FP8` 在 [提案 101](../network-updates.md#proposal-101) 之后不再是 PoC 模型。
+请根据 `GET /v1/governance/models` 确认模型 ID。资格（`confirmation_weight_scales`）和实时服务（`/v1/epochs/current/participants`）与此目录无关。`moonshotai/Kimi-K2.6` 和 `zai-org/GLM-5.2-FP8` 在 [提案 101](../network-updates.md#proposal-101) 之后不再是 PoC 模型。
 
-为确保正确设置和最佳性能，请使用与您的模型和 GPU 架构最匹配的参数。完整的 `node-config.json` 示例请参见 [主机快速入门](./quickstart.md)。
+为确保正确设置和最优性能，请使用与您的模型和 GPU 架构最匹配的参数。完整的 `node-config.json` 示例请参见 [主机快速入门](./quickstart.md)。
 
 | 模型和 GPU 架构 | vLLM 参数 |
 |-----------------------------------------|---------------------------------------------------------------------------------------|
@@ -172,9 +172,9 @@ curl -X POST http://localhost:9200/admin/v1/nodes \
 | `deepseek-ai/DeepSeek-V4-Flash-0731` 在 4xH100 上 | `"--tensor-parallel-size","4"`（完整参数见 [主机快速入门](./quickstart.md)） |
 | `zai-org/GLM-5.3-Flash` 在 4xB200 上 | `"--tensor-parallel-size","4"`（完整参数见 [主机快速入门](./quickstart.md)） |
 
-有关根据您的 GPU 硬件选择最优部署配置和 vLLM 参数的详细指导，请参阅 [选择 LLM 最优部署配置的基准指南](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
+有关根据您的 GPU 硬件选择最优部署配置和 vLLM 参数的详细指导，请参阅 [选择 LLM 最优部署配置的基准测试指南](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
-如果节点成功添加，响应将返回新添加的推理节点的**配置**。
+如果节点添加成功，响应将返回新添加的推理节点的**配置**。
 
 ### 检索所有推理节点
 要获取网络节点中**所有已注册的推理节点**列表，请使用：
@@ -184,8 +184,8 @@ curl -X GET http://localhost:9200/admin/v1/nodes
 这将返回一个包含所有已配置推理节点的JSON数组。
 
 ### 移除推理节点
-连接到您的**网络节点**服务器后，使用以下管理API请求在不重启的情况下动态移除推理节点：
+连接到您的**网络节点**服务器后，使用以下管理API请求动态移除推理节点，无需重启：
 ```bash
 curl -X DELETE "http://localhost:9200/admin/v1/nodes/{id}" -H "Content-Type: application/json"
 ```
-其中 `id` 是注册推理节点时请求中指定的推理节点标识符。成功后，响应将为 **true**。
+其中 `id` 是注册推理节点时请求中指定的推理节点标识符。成功后，响应将为**true**。

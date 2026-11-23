@@ -71,7 +71,7 @@ landing: true
 <div class="gonka-carousel">
       <div class="carousel-track">
         <div class="partner-card">
-          <span class="partner-label">审计方</span>
+          <span class="partner-label">审计师</span>
           <div class="partner-logos">
             <a href="https://skynet.certik.com/projects/gonka" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/certik.svg" alt="CertiK" />
@@ -103,7 +103,7 @@ landing: true
         <div class="partner-card">
           <span class="partner-label">精选主机</span>
           <div class="partner-logos">
-            <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
+            <a href="https://gcore.com/" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/gcore.svg" alt="Gcore" />
             </a>
             <a href="https://hyperfusion.io/" target="_blank" rel="noopener noreferrer">
@@ -128,7 +128,7 @@ landing: true
             <a href="https://productscience.ai/" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/productscience.svg" alt="Product Science" />
             </a>
-            <span class="partner-label">支持方</span>
+            <span class="partner-label">由</span>
             <a href="https://www.coatue.com/" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/coatue.svg" alt="Coatue" />
             </a>
@@ -155,7 +155,7 @@ landing: true
           <div class="role-card role-card--featured">
             <h2 class="role-title">我是开发者</h2>
             <p class="role-value">通过OpenAI兼容的API运行推理，使用GNK支付。</p>
-            <a class="role-cta gonka-doc-cta" href="/docs/developer/quickstart/">立即开始构建 <span aria-hidden="true">&rarr;</span></a>
+            <a class="role-cta gonka-doc-cta" href="/docs/developer/quickstart/">开始构建 <span aria-hidden="true">&rarr;</span></a>
             <ul class="role-links">
               <li>
                 <a class="gonka-doc-cta" href="/docs/developer/quickstart/">
@@ -178,7 +178,7 @@ landing: true
                   <span class="role-link-icon" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="13" width="17" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M7 8h.01M7 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                   </span>
-                  <span>SDK与代理设置</span>
+                  <span>SDK与经纪人设置</span>
                 </a>
               </li>
             </ul>

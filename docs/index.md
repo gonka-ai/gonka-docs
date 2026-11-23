@@ -103,7 +103,7 @@ landing: true
         <div class="partner-card">
           <span class="partner-label">Select Hosts</span>
           <div class="partner-logos">
-            <a href="https://gcore.com/go/gonka" target="_blank" rel="noopener noreferrer">
+            <a href="https://gcore.com/" target="_blank" rel="noopener noreferrer">
               <img src="images/logos/gcore.svg" alt="Gcore" />
             </a>
             <a href="https://hyperfusion.io/" target="_blank" rel="noopener noreferrer">

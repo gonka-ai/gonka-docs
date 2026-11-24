@@ -26,7 +26,7 @@ Details from the proposal / announcement:
 - Voting ended **August 12, 2026 at 16:05 UTC** / August 12 at 09:05 PDT
 - First bootstrap attempt at **epoch 359**; the model group became active at **epoch 360**
 
-Declare `PoCIntent` **after voting ended** and before the epoch 359 snapshot at `start_poc − deploy_window`. The MLNode image is pinned to 3.0.16 in `deploy/join/docker-compose.mlnode.yml` on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) branch (`main` still pins 3.0.14-post2); use the shipped DeepSeek `node-config-*.json` files.
+Declare `PoCIntent` **after voting ended** and before the epoch 359 snapshot at `start_poc − deploy_window`. The MLNode image is pinned to 3.0.16 in `deploy/join/docker-compose.mlnode.yml` on `main`; use the shipped DeepSeek `node-config-*.json` files.
 
 
 ## Timeline
@@ -41,7 +41,7 @@ curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/par
 # Decimal fields use {value, exponent}: e.g. {"value":"1","exponent":-1} → 0.1 (10%).
 ```
 
-Confirm the live DeepSeek entry (including `penalty_start_epoch` and `weight_scale_factor`) after the proposal executes:
+Confirm the live DeepSeek entry (including `penalty_start_epoch` and the `coeff_min` / `coeff_max` range) from the chain. From v0.2.16, `weight_scale_factor` in this entry is empty; read the live coefficient from `effective_coefficient` (see [Multi-Model PoC](./multi_model_poc.md)):
 
 ```bash
 curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \
@@ -94,13 +94,13 @@ If DeepSeek passes both checks, punishment follows the usual scenarios described
 
 ## Hardware and consensus weight
 
-DeepSeek V4 Flash is registered with `v_ram = 280` (about **280 GB of total VRAM** per instance). The live `weight_scale_factor` is **0.246** ([proposal 98](../network-updates.md#august-29-2026); originally 0.214). Relative to an 8×H100 cluster running MiniMax M2.7, the original announcement (at 0.214) estimated:
+DeepSeek V4 Flash is registered with `v_ram = 280` (about **280 GB of total VRAM** per instance). Its `weight_scale_factor` was **0.246** after [proposal 98](../network-updates.md#august-29-2026) (originally 0.214). From v0.2.16 the coefficient is dynamic within the `coeff_min` / `coeff_max` range in `poc_params`; read the live value from `effective_coefficient` (see [Multi-Model PoC](./multi_model_poc.md)). Relative to an 8×H100 cluster running MiniMax M2.7, the original announcement (at 0.214) estimated:
 
 - 8×H200 optimally yields **1.46×** weight running MiniMax M2.7
 - 8×B200 optimally yields **2.96×** weight running Kimi K2.6
 - 8×B300 optimally yields **3.37×** weight running DeepSeek V4 Flash
 
-A model's `weight_scale_factor` only produces consensus weight if that model group is eligible (has voting power). Check `poc_params` and `confirmation_weight_scales`.
+A model's coefficient only produces consensus weight if that model group is eligible (has voting power). Check `poc_params` and `confirmation_weight_scales`.
 
 Practical implications:
 
@@ -218,7 +218,7 @@ Merge in the operator flags from the shipped config (tensor parallel size, exper
 
 #### 5. Validate your deployment
 
-Follow the posted MLNode setup notes and the committed golden reference for DeepSeek (`deepseek-ai-deepseek-v4-flash-0731.json` on the [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts) branch). The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates a deployed ML Node against pre-computed honest PoC vectors. See [Validate ML Node Deployment](./mlnode-validation.md) and [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/vllm-0.25.1-upgrade/skills/mlnode-validate/SKILL.md).
+Follow the posted MLNode setup notes and the committed golden reference for DeepSeek (`deepseek-ai-deepseek-v4-flash-0731.json` on [`main`](https://github.com/gonka-ai/gonka/tree/main/mlnode/packages/benchmarks/scripts/poc_validation/artifacts)). The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates a deployed ML Node against pre-computed honest PoC vectors. See [Validate ML Node Deployment](./mlnode-validation.md) and [`skills/mlnode-validate/SKILL.md`](https://github.com/gonka-ai/gonka/blob/main/skills/mlnode-validate/SKILL.md).
 
 
 ## Instructions for hosts who are NOT going to deploy DeepSeek V4 Flash

@@ -1,3 +1,6 @@
+!!! warning "Bridge temporarily unavailable"
+    The Gonka–Ethereum bridge has been paused following an incident that is under investigation. Do not use the bridge until further notice. Follow official announcements for updates.
+
 # Bridge epoch update
 
 Gonka &rarr; Ethereum transfers use a BLS signature from the current Gonka epoch. The Ethereum bridge contract must know the current epoch's group key before it can verify that signature and release funds on Ethereum.

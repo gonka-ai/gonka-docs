@@ -273,15 +273,8 @@ git clone https://github.com/gonka-ai/gonka.git -b main && \
 cd gonka/deploy/join
 ```
 
-!!! warning "DeepSeek V4 Flash and MLNode 3.0.16"
-    `main` still pins MLNode **3.0.14-post2** and does not ship DeepSeek `node-config-*.json` files. To serve `deepseek-ai/DeepSeek-V4-Flash-0731`, clone [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join) instead:
-
-    ```bash
-    git clone https://github.com/gonka-ai/gonka.git -b vllm-0.25.1-upgrade && \
-    cd gonka/deploy/join
-    ```
-
-    That branch pins `ghcr.io/gonka-ai/mlnode:3.0.16` (use the `3.0.16-cu129` tag if the host is still on CUDA 12.9).
+!!! note "MLNode image on `main`"
+    `main` pins MLNode `ghcr.io/gonka-ai/mlnode:3.0.16` in `docker-compose.mlnode.yml` and ships the MiniMax M2.7 and DeepSeek V4 Flash `node-config-*.json` files. If the host is still on CUDA 12.9, use the `3.0.16-cu129` tag (noted in the same compose file).
 
 !!! warning "GLM-5.3-Flash and MLNode 3.1.0"
     GLM-5.3-Flash requires **vLLM 0.28**, a **CUDA 13** driver (580+), and image `ghcr.io/gonka-ai/mlnode:3.1.0-vllm-0.28.0`. Do not use `3.0.17` for GLM. Clone [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join) for the shipped `node-config-glm53flash-*.json` files ([gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)):
@@ -1042,7 +1035,7 @@ source config.env
 For more details on the optimal deployment configuration, please refer to [this link](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/).
 
 !!! tip "Validate the deployment"
-    The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates an ML Node against pre-computed honest PoC vectors for a specific model. Use the golden reference that matches the model you deploy (MiniMax-M2.7, DeepSeek V4 Flash on [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts), or GLM-5.3-Flash on [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/mlnode/packages/benchmarks/scripts/poc_validation/artifacts)). Qwen3-0.6B / Qwen3-235B artifacts are historical and **not** mainnet models. See [Validate ML Node Deployment](./mlnode-validation.md).
+    The [`gonka` repo](https://github.com/gonka-ai/gonka) ships an agent skill, `mlnode-validate`, that validates an ML Node against pre-computed honest PoC vectors for a specific model. Use the golden reference that matches the model you deploy (MiniMax-M2.7, DeepSeek V4 Flash on [`main`](https://github.com/gonka-ai/gonka/tree/main/mlnode/packages/benchmarks/scripts/poc_validation/artifacts), or GLM-5.3-Flash on [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/mlnode/packages/benchmarks/scripts/poc_validation/artifacts)). Qwen3-0.6B / Qwen3-235B artifacts are historical and **not** mainnet models. See [Validate ML Node Deployment](./mlnode-validation.md).
 
 ### [Server] Pre-download Model Weights to Hugging Face Cache (HF_HOME)
 Inference nodes download model weights from Hugging Face.
@@ -1066,7 +1059,7 @@ To make sure the model weights are ready for inference, you should download them
     huggingface-cli download MiniMaxAI/MiniMax-M2.7
     ```
 
-    Model license: see [Model licenses](../model-licenses.md). MiniMax M2.7 requires **MLNode 3.0.14 or newer** (image `ghcr.io/gonka-ai/mlnode:3.0.14-cu129`, pinned in `deploy/join/docker-compose.mlnode.yml`). On A100 hardware also make sure the `VLLM_USE_FLASHINFER_MOE_FP8=0` environment variable is set for the `mlnode-308` service (pre-set in the shipped compose file).
+    Model license: see [Model licenses](../model-licenses.md). MiniMax M2.7 requires **MLNode 3.0.14 or newer**. `deploy/join/docker-compose.mlnode.yml` on `main` pins `ghcr.io/gonka-ai/mlnode:3.0.16` (`3.0.16-cu129` for CUDA 12.9). On A100 hardware also make sure the `VLLM_USE_FLASHINFER_MOE_FP8=0` environment variable is set for the `mlnode-308` service (pre-set in the shipped compose file).
 
 === "DeepSeek V4 Flash"
 
@@ -1075,7 +1068,7 @@ To make sure the model weights are ready for inference, you should download them
     huggingface-cli download deepseek-ai/DeepSeek-V4-Flash-0731 --revision 7872f01b1d1fe23eabc4c98b48bffcef5a386062
     ```
 
-    Model license: see [Model licenses](../model-licenses.md). DeepSeek V4 Flash requires **MLNode 3.0.16 or newer** (image `ghcr.io/gonka-ai/mlnode:3.0.16`, pinned in `deploy/join/docker-compose.mlnode.yml` on the `vllm-0.25.1-upgrade` branch; use the `3.0.16-cu129` tag if the host is still on CUDA 12.9). For operational notes and on-chain options (intent, delegation), see [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md). On Blackwell GPUs, the nvfp4 repack `MJPansa/DeepSeek-V4-Flash-0731-NVFP4` needs API `v0.2.15-post5` — see [Network updates](../network-updates.md).
+    Model license: see [Model licenses](../model-licenses.md). DeepSeek V4 Flash requires **MLNode 3.0.16 or newer** (image `ghcr.io/gonka-ai/mlnode:3.0.16`, pinned in `deploy/join/docker-compose.mlnode.yml` on `main`; use the `3.0.16-cu129` tag if the host is still on CUDA 12.9). For operational notes and on-chain options (intent, delegation), see [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md). On Blackwell GPUs, the nvfp4 repack `MJPansa/DeepSeek-V4-Flash-0731-NVFP4` needs API `v0.2.15-post5` — see [Network updates](../network-updates.md).
 
 === "GLM-5.3-Flash"
 
@@ -1786,4 +1779,4 @@ rm -rf $HF_HOME
 !!! note
     Deleting `$HF_HOME` will require re-downloading large model files from Hugging Face or re-mounting the NFS cache.
 
-**Need help?**  Find answers on [FAQ page](https://gonka.ai/FAQ/), or join [Discord server](https://discord.gg/REcpeYc7P7) for assistance with general inquiries, technical issues, or security concerns.  
+**Need help?**  Find answers on [FAQ page](https://gonka.ai/FAQ/), or join [Discord server](https://discord.gg/REcpeYc7P7) for assistance with general inquiries, technical issues, or security concerns.

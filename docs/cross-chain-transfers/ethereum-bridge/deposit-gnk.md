@@ -1,7 +1,4 @@
-!!! warning
-    Always start with a small test transaction. Bridge transfers are irreversible, so before moving large amounts, send a small amount first and confirm it arrives as expected.
-
-The dedicated Bridge smart contract, controlled by the Gonka consensus, is active on Ethereum at the address:
+The dedicated Bridge smart contract, controlled by the Gonka consensus, is deployed on Ethereum at the address:
 
 ```text
 0x972a7a92d92796a98801a8818bcf91f1648f2f68
@@ -12,82 +9,5 @@ The dedicated Bridge smart contract, controlled by the Gonka consensus, is activ
 
 Lock GNK on Gonka and receive wrapped GNK (**WGNK**) at your Ethereum address.
 
-### A) Request Minting WGNK on Ethereum
-
-Use CLI to submit a bridge minting request:
-
-```bash
-./inferenced tx inference request-bridge-mint \
-  <amount> \
-  "0xYourEthereumAddr" \
-  "ethereum" \
-  --destination-bridge-address 0x972a7a92d92796a98801a8818bcf91f1648f2f68 \
-  --from <your_key_name> \
-  --chain-id gonka-mainnet \
-  --gas auto --gas-adjustment 2.0 \
-  -y \
-  --node http://node1.gonka.ai:8000/chain-rpc/
-```
-
-!!! tip
-    If `--gas auto` produces an incorrect gas estimation, check the returned status for the required gas limit and explicitly pass it (e.g., `--gas 200000`).
-
-#### Expected Output
-```text
-...
-txhash: 12E8ABCA5A35D73042564FDF6D686424F742414EEC172450AB6EDA34BD1F0805
-```
-
-Allow a couple of blocks to be mined, then check the status:
-
-```bash
-./inferenced query tx 12E8ABCA5A35D73042564FDF6D686424F742414EEC172450AB6EDA34BD1F0805 --node http://node1.gonka.ai:8000/chain-rpc/
-```
-
-Verify that `"code": 0` and extract the base64 `request_id`:
-
-```json
-"request_id": "vSTWiN1pvooxcFoDLzePCEq3x/C5NQ+jFMvfcEozCm4="
-```
-
-Convert the base64 `request_id` to hexadecimal format:
-
-```bash
-echo "vSTWiN1pvooxcFoDLzePCEq3x/C5NQ+jFMvfcEozCm4=" | base64 -d | xxd -p -c 256
-```
-**Example Hex Output:**
-```text
-bd24d688dd69be8a31705a032f378f084ab7c7f0b9350fa314cbdf704a330a6e
-```
-
-### B) Get BLS Signature Status
-
-Query the BLS signature API with your request ID hex:
-
-```bash
-curl "https://node2.gonka.ai:8443/v1/bls/signatures/<REQUEST_ID_HEX>" \
-  | jq -r '
-    {
-      uncompressed_signature_128: .uncompressed_signature_128,
-      current_epoch_id: .signing_request.current_epoch_id,
-      request_id: .signing_request.request_id
-    }
-  '
-```
-
-!!! tip "Bridge epoch update"
-    Before submitting the Ethereum mint transaction, make sure the Ethereum bridge contract is synced to `current_epoch_id`. If the dashboard shows **A Bridge needs epoch update** or the Ethereum execution fails with `InvalidEpoch`, follow [Bridge epoch update](bridge-epoch-update.md).
-
-### C) Submit Mint Command on Ethereum
-
-Submit the mint command to the bridge contract on Ethereum using the [mint-wgnk.js](https://github.com/gonka-ai/gonka/blob/gm/contracts/proposals/ethereum-bridge-contact/mint-wgnk.js) script:
-
-```bash
-HARDHAT_NETWORK=mainnet node mint-wgnk.js \
-  0x972a7a92d92796a98801a8818bcf91f1648f2f68 \
-  <current_epoch_id> \
-  <request_id_base64> \
-  <0xYourEthereumAddr> \
-  <amount> \
-  <uncompressed_signature_128>
-```
+!!! warning "Instructions temporarily unavailable"
+    The Gonka–Ethereum bridge has been paused following an incident that is under investigation. The step-by-step instructions for this flow are temporarily unavailable. Do not use the bridge until further notice. Follow official announcements on [Network updates](../../network-updates.md) and [X](https://x.com/gonka_ai).

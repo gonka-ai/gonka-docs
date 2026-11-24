@@ -3,7 +3,7 @@
 !!! note "v0.2.16"
     The coefficients on this page are the scales at registration. From v0.2.16, `poc_params.models[].weight_scale_factor` is empty. The live reward coefficient is `effective_coefficient`. See [Multi-Model PoC](./multi_model_poc.md).
 
-`zai-org/GLM-5.3-Flash` has **passed bootstrap** and is **active** in Proof of Compute on Gonka mainnet as of chain epoch 395 ([proposal 101](../network-updates.md#proposal-101)). Its `penalty_start_epoch` is **394**. It is in `confirmation_weight_scales` with `weight_scale_factor` 0.62, so it produces consensus weight. The timeline and transaction examples below remain useful for understanding how activation worked and for operations such as delegation; for current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md).
+`zai-org/GLM-5.3-Flash` has **passed bootstrap** and is **active** in Proof of Compute on Gonka mainnet as of chain epoch 395 ([proposal 101](../network-updates.md#proposal-101)). Its `penalty_start_epoch` is **394**. It is in `confirmation_weight_scales`, so it produces consensus weight. Its registration `weight_scale_factor` was 0.62; the live coefficient is dynamic and is read from `effective_coefficient`. The timeline and transaction examples below remain useful for understanding how activation worked and for operations such as delegation; for current deployment defaults (including `node-config.json`), see the [Host Quickstart](./quickstart.md).
 
 For the wider context of multi-model PoC mechanics, see [Multi-Model PoC](./multi_model_poc.md). Other model bootstraps and their mechanics are documented in [MiniMax-M2.7 Bootstrap](./minimax-bootstrap.md), [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md), and [Kimi K2.6 Bootstrap](./kimi-bootstrap.md) (historical).
 
@@ -91,7 +91,7 @@ If GLM passes both checks, punishment follows the usual scenarios in [Multi-Mode
 
 ## Hardware and consensus weight
 
-GLM-5.3-Flash is registered with `v_ram = 560` (about **560 GB of total VRAM** per instance). The live `weight_scale_factor` is **0.62**. A model's coefficient only produces consensus weight if that group is eligible (has voting power). Check `poc_params` and `confirmation_weight_scales`.
+GLM-5.3-Flash is registered with `v_ram = 560` (about **560 GB of total VRAM** per instance). The registration `weight_scale_factor` was **0.62**. From v0.2.16 the coefficient is dynamic within the `coeff_min` / `coeff_max` range in `poc_params`; read the live value from `effective_coefficient` (see [Multi-Model PoC](./multi_model_poc.md)). A model's coefficient only produces consensus weight if that group is eligible (has voting power). Check `poc_params` and `confirmation_weight_scales`.
 
 Practical implications (from the proposal calibration; confirm live coefficients):
 

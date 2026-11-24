@@ -1,9 +1,12 @@
+!!! warning "Bridge temporarily unavailable"
+    The Gonka–Ethereum bridge has been paused following an incident that is under investigation. Do not use the bridge until further notice. Follow official announcements for updates.
+
 # Ethereum bridge overview
 
 !!! warning
     Always start with a small test transaction. Bridge transfers are irreversible, so before moving large amounts, send a small amount first and confirm it arrives as expected.
 
-The dedicated Bridge smart contract, controlled by the Gonka consensus, is active on Ethereum at the address:
+The dedicated Bridge smart contract, controlled by the Gonka consensus, is deployed on Ethereum at the address:
 
 ```text
 0x972a7a92d92796a98801a8818bcf91f1648f2f68

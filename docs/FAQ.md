@@ -989,9 +989,9 @@ Before PoC v2 activation, ensure that:
 
 ## Keys & security
 
-### Which CLI version should be used for warm keys created after the v0.2.9 upgrade?
+### Which `inferenced` CLI version should I use?
 
-For granting permissions to new warm keys created after the v0.2.9 upgrade, the CLI [version v0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) should be used.
+Use the build that matches the version the network runs. Check it with `curl -s https://node3.gonka.ai/chain-rpc/abci_info | jq -r .result.response.version` and download `inferenced` from the [GitHub release](https://github.com/gonka-ai/gonka/releases) with that tag. (Right after the v0.2.9 upgrade, granting permissions to new warm keys required CLI v0.2.9 or newer.)
 
 ### Where can I find information on key management?
 You can find a dedicated section on [Key Management](https://gonka.ai/host/key-management/) in the documentation. It outlines the procedures and best practices for securely managing your application's keys on the network.
@@ -1215,102 +1215,115 @@ To mitigate this risk, ensure that admin and management ports are not publicly a
 
 ## Performance & troubleshooting
 
-### How do I protect my node from DDoS attacks using the proxy pre-release (v0.2.8)?
+### How is my node protected from DDoS and excessive requests?
 
-A new proxy version is available with rate limiting and DDoS protection measures.
+The proxy shipped in `deploy/join/docker-compose.yml` already includes these protections, so no separate image is needed:
 
-What’s New:
+- per-route rate limits on the public API and chain endpoints, with a separate, higher limit for inference and devshard routes;
+- the internal `training` and `poc-batches` routes are blocked;
+- `/chain-api`, `/chain-rpc` and `/chain-grpc` are closed by default (`DISABLE_CHAIN_API`, `DISABLE_CHAIN_RPC`, `DISABLE_CHAIN_GRPC` default to `true`);
+- the node's RPC port 26657 is not published externally.
 
-- Rate limiting on API/RPC endpoints, as protection against excessive requests that have been affecting network nodes
-- Blocks resource-intensive internal routes like `training` and `poc-batches`
-- Optional disabling of `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints
+If you intentionally serve public chain endpoints, add `export DISABLE_CHAIN_API=false` (and/or `DISABLE_CHAIN_RPC`, `DISABLE_CHAIN_GRPC`) to `config.env`, then run `source config.env && docker compose up -d --force-recreate proxy-policy` from `deploy/join`. Consider serving them from a separate RPC-only node.
 
-**Update instructions**
+To check node status without an external RPC port: `docker exec node wget -qO- http://localhost:26657/status | jq`.
 
-**Step 1**: Update proxy image
-```
-sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f |' docker-compose.yml
-```
-!!! note "Important"
-	Step 2 disables `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints on this node. After applying it, this node will no longer serve public RPC traffic. If you operate public RPC endpoints, you must run separate RPC-only nodes (without these restrictions) and keep this node private.
+??? note "History: v0.2.8 proxy pre-release"
 
-**Step 2 (Optional)**: Disable `chain-api`, `chain-rpc`, and `chain-grpc`
+    A new proxy version is available with rate limiting and DDoS protection measures.
 
-If you want to completely disable `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints:
-```
-sed -i 's|DASHBOARD_PORT=5173|DASHBOARD_PORT=5173\n      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}\n      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}\n      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}\n|' docker-compose.yml
-```
-Disable the training URL that was used for recent attacks:
-```
-sed -i -E -e '/GONKA_API_(EXEMPT|BLOCKED)_ROUTES/d' -e 's|(- GONKA_API_PORT=9000)|\1\n      - GONKA_API_EXEMPT_ROUTES=chat inference\n      - GONKA_API_BLOCKED_ROUTES=poc-batches training|' docker-compose.yml
-```
-After this, your proxy configuration should look like:
-```
-proxy:
-    container_name: proxy
-    image: ghcr.io/product-science/proxy:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f
-    ports:
-      - "${API_PORT:-8000}:80"
-      - "${API_SSL_PORT:-8443}:443"
-    environment:
-      - NGINX_MODE=${NGINX_MODE:-http}
-      - SERVER_NAME=${SERVER_NAME:-}
-      - GONKA_API_PORT=9000
-      - GONKA_API_EXEMPT_ROUTES=chat inference
-      - GONKA_API_BLOCKED_ROUTES=poc-batches training
-      - CHAIN_RPC_PORT=26657
-      - CHAIN_API_PORT=1317
-      - CHAIN_GRPC_PORT=9090
-      - DASHBOARD_PORT=5173
-      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}
-      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}
-      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}
-```
-**Step 3:** Pull and restart proxy
-```
-docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull proxy
-source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps proxy
-```
-**Step 4:** Close External Port 26657
+    What’s New:
 
-You can close port 26657 as an external port.
+    - Rate limiting on API/RPC endpoints, as protection against excessive requests that have been affecting network nodes
+    - Blocks resource-intensive internal routes like `training` and `poc-batches`
+    - Optional disabling of `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints
 
-It is optional, but highly recommended:
-```
-sed -i 's|- "26657:26657"|#- "26657:26657"|g' docker-compose.yml
-```
-This will comment out the port mapping in your node container:
-```
-node:
-    container_name: node
-    ...
-    ports:
-      - "5000:26656" #p2p
-      #- "26657:26657" #rpc
-```
-**Step 5:** Restart the node:
-```
-source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps node
-```
-**Accessing Node Status After Closing Port 26657**
+    **Update instructions**
 
-If you previously accessed the node status using `curl -s http://localhost:26657/status`, you can now access it from within the containers:
+    **Step 1**: Update proxy image
+    ```
+    sed -i -E 's|(image:[[:space:]]*ghcr.io/product-science/proxy)(:.*)?$|\1:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f |' docker-compose.yml
+    ```
+    !!! note "Important"
+        Step 2 disables `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints on this node. After applying it, this node will no longer serve public RPC traffic. If you operate public RPC endpoints, you must run separate RPC-only nodes (without these restrictions) and keep this node private.
 
-=== "Option 1: From the proxy container (using `curl`)"
+    **Step 2 (Optional)**: Disable `chain-api`, `chain-rpc`, and `chain-grpc`
 
-	```
-	docker exec proxy curl -s node:26657/status | jq
-	```
-=== "Option 2: From the node container (using `wget`)"
+    If you want to completely disable `/chain-api`, `/chain-rpc`, and `/chain-grpc` endpoints:
+    ```
+    sed -i 's|DASHBOARD_PORT=5173|DASHBOARD_PORT=5173\n      - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}\n      - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}\n      - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}\n|' docker-compose.yml
+    ```
+    Disable the training URL that was used for recent attacks:
+    ```
+    sed -i -E -e '/GONKA_API_(EXEMPT|BLOCKED)_ROUTES/d' -e 's|(- GONKA_API_PORT=9000)|\1\n      - GONKA_API_EXEMPT_ROUTES=chat inference\n      - GONKA_API_BLOCKED_ROUTES=poc-batches training|' docker-compose.yml
+    ```
+    After this, your proxy configuration should look like:
+    ```
+    proxy:
+        container_name: proxy
+        image: ghcr.io/product-science/proxy:0.2.8-pre-release-proxy@sha256:6ccb8ac8885e03aab786298858cc763a99f99543b076f2a334b3c67d60fb295f
+        ports:
+          - "${API_PORT:-8000}:80"
+          - "${API_SSL_PORT:-8443}:443"
+        environment:
+          - NGINX_MODE=${NGINX_MODE:-http}
+          - SERVER_NAME=${SERVER_NAME:-}
+          - GONKA_API_PORT=9000
+          - GONKA_API_EXEMPT_ROUTES=chat inference
+          - GONKA_API_BLOCKED_ROUTES=poc-batches training
+          - CHAIN_RPC_PORT=26657
+          - CHAIN_API_PORT=1317
+          - CHAIN_GRPC_PORT=9090
+          - DASHBOARD_PORT=5173
+          - DISABLE_CHAIN_API=${DISABLE_CHAIN_API:-true}
+          - DISABLE_CHAIN_RPC=${DISABLE_CHAIN_RPC:-true}
+          - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}
+    ```
+    **Step 3:** Pull and restart proxy
+    ```
+    docker compose -f docker-compose.mlnode.yml -f docker-compose.yml pull proxy
+    source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps proxy
+    ```
+    **Step 4:** Close External Port 26657
 
-	```
-	docker exec node wget -qO- http://localhost:26657/status | jq
-	```
-	
-For continuous monitoring with `watch`:
-```
-watch -n 5 'docker exec node wget -qO- http://localhost:26657/status | jq -r ".result.sync_info | \"Block: \(.latest_block_height) | Time: \(.latest_block_time) | Syncing: \(.catching_up)\""'
-```
+    You can close port 26657 as an external port.
+
+    It is optional, but highly recommended:
+    ```
+    sed -i 's|- "26657:26657"|#- "26657:26657"|g' docker-compose.yml
+    ```
+    This will comment out the port mapping in your node container:
+    ```
+    node:
+        container_name: node
+        ...
+        ports:
+          - "5000:26656" #p2p
+          #- "26657:26657" #rpc
+    ```
+    **Step 5:** Restart the node:
+    ```
+    source ./config.env && docker compose -f docker-compose.mlnode.yml -f docker-compose.yml up -d --no-deps node
+    ```
+    **Accessing Node Status After Closing Port 26657**
+
+    If you previously accessed the node status using `curl -s http://localhost:26657/status`, you can now access it from within the containers:
+
+    === "Option 1: From the proxy container (using `curl`)"
+
+        ```
+        docker exec proxy curl -s node:26657/status | jq
+        ```
+    === "Option 2: From the node container (using `wget`)"
+
+        ```
+        docker exec node wget -qO- http://localhost:26657/status | jq
+        ```
+
+    For continuous monitoring with `watch`:
+    ```
+    watch -n 5 'docker exec node wget -qO- http://localhost:26657/status | jq -r ".result.sync_info | \"Block: \(.latest_block_height) | Time: \(.latest_block_time) | Syncing: \(.catching_up)\""'
+    ```
 
 ### How much free disk space is required for a Cosmovisor update, and how can I safely remove old backups from the `.inference` directory?
 Cosmovisor creates a full backup in the `.inference` state folder whenever it performs an update. For example, you can see a folder like `data-backup-<some_date>`.
@@ -1557,6 +1570,9 @@ curl http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/epo
 
 ### Upgrade v0.2.14: Pre-upgrade Bridge Update
 
+!!! warning "Historical"
+    This step was for the v0.2.14 upgrade, which has completed. The current `deploy/join/docker-compose.yml` ships a newer bridge image. Do not apply the pin below now.
+
 To help keep the Ethereum bridge stable during the mainnet upgrade, update the bridge image to `0.2.14-post3` in advance.
 If you have multiple network nodes, please update them one by one.
 Please make sure to perform this step outside of PoC or cPoC.
@@ -1577,103 +1593,114 @@ Run all commands from **deploy/join** (where `docker-compose.yml` and `.dapi/` a
 source config.env && docker compose up --force-recreate bridge
 ```
 
-### Upgrade v0.2.12: Pre-Upgrade Model Cleanup
+### My node config lists a model that is no longer approved. What happens?
 
-!!! note "Important"
-	This cleanup process **must be completed before the upgrade happens**. If you upgrade before cleaning up the models, your node will be rejected and go offline.
+When a node is registered, the API node drops models that are not in `GET /v1/governance/models` and rejects the node only if no approved model remains. Updating a node through `PUT /admin/v1/nodes/<id>` fails with HTTP 400 if any listed model is not approved. Compare `/admin/v1/config` with the governance list and remove retired models.
 
-Version 0.2.12 removes every governance model that is not on the post-upgrade approved list. On mainnet, only the previously enforced model and Kimi will remain.
+??? note "History: v0.2.12 pre-upgrade model cleanup"
 
-Each DAPI persists its MLNode configurations locally. On startup, it validates every configured model against the on-chain governance list. If a configuration includes at least one unsupported model, the entire node is rejected and the host goes offline. 
+    !!! note "Important"
+        This cleanup process **must be completed before the upgrade happens**. If you upgrade before cleaning up the models, your node will be rejected and go offline.
 
-Version 0.2.11 masked this problem by trimming the runtime view down to the enforced model, so `/admin/v1/nodes` appeared clean even when the persisted config still contained extra models. Version 0.2.12 stops this trimming, meaning the persisted config is loaded directly.
+    Version 0.2.12 removes every governance model that is not on the post-upgrade approved list. On mainnet, only the previously enforced model and Kimi will remain.
 
-To fix this, the script below finds each node with extra models in `/admin/v1/config` and sends a `PUT` request with a cleaned config to `/admin/v1/nodes/<id>`. These changes are persisted within 60 seconds. The remaining model's arguments, hardware, and ports are preserved exactly. Nodes that do not list the enforced model are skipped and will require manual fixing.
+    Each DAPI persists its MLNode configurations locally. On startup, it validates every configured model against the on-chain governance list. If a configuration includes at least one unsupported model, the entire node is rejected and the host goes offline.
 
-Paste the following script into the host's shell. By default, it will apply the changes. To preview the changes without applying them, set `APPLY=dry` (or any value other than `--apply`).
+    Version 0.2.11 masked this problem by trimming the runtime view down to the enforced model, so `/admin/v1/nodes` appeared clean even when the persisted config still contained extra models. Version 0.2.12 stops this trimming, meaning the persisted config is loaded directly.
 
-Script in the repository: 
+    To fix this, the script below finds each node with extra models in `/admin/v1/config` and sends a `PUT` request with a cleaned config to `/admin/v1/nodes/<id>`. These changes are persisted within 60 seconds. The remaining model's arguments, hardware, and ports are preserved exactly. Nodes that do not list the enforced model are skipped and will require manual fixing.
 
-- [Bash](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.sh)
-- [Python](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.py).
+    Paste the following script into the host's shell. By default, it will apply the changes. To preview the changes without applying them, set `APPLY=dry` (or any value other than `--apply`).
 
-```bash
-ADMIN=${ADMIN:-http://127.0.0.1:9200}
-KEEP=${KEEP:-Qwen/Qwen3-235B-A22B-Instruct-2507-FP8}
-APPLY=${APPLY:-"--apply"}
+    Script in the repository:
 
-curl -sS "$ADMIN/admin/v1/config" | jq -r --arg k "$KEEP" '
-  .nodes[] | "\(.id): " + (
-    if (.models | has($k) | not) then "skip (\(.models | keys))"
-    elif (.models | length) == 1 then "ok"
-    else "\(.models | keys) -> [\($k)]" end)'
+    - [Bash](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.sh)
+    - [Python](https://github.com/gonka-ai/gonka/blob/upgrade-v0.2.12/proposals/governance-artifacts/update-v0.2.12/cleanup/cleanup_models.py).
 
-if [[ "$APPLY" == "--apply" ]]; then
-  curl -sS "$ADMIN/admin/v1/config" \
-    | jq -c --arg k "$KEEP" \
-        '.nodes[] | select((.models | has($k)) and (.models | length > 1)) | .models = {($k): .models[$k]}' \
-    | while IFS= read -r p; do
-        id=$(jq -r .id <<<"$p")
-        curl -sS -f -X PUT -H 'Content-Type: application/json' -d "$p" \
-          "$ADMIN/admin/v1/nodes/$id" >/dev/null && echo "$id: updated"
-      done
-  echo "done; persisted within 60s"
-else
-  echo "preview only; rerun without APPLY=dry to commit"
-fi
-```
+    ```bash
+    ADMIN=${ADMIN:-http://127.0.0.1:9200}
+    KEEP=${KEEP:-Qwen/Qwen3-235B-A22B-Instruct-2507-FP8}
+    APPLY=${APPLY:-"--apply"}
 
+    curl -sS "$ADMIN/admin/v1/config" | jq -r --arg k "$KEEP" '
+      .nodes[] | "\(.id): " + (
+        if (.models | has($k) | not) then "skip (\(.models | keys))"
+        elif (.models | length) == 1 then "ok"
+        else "\(.models | keys) -> [\($k)]" end)'
 
-Wait 60 seconds after running the script to ensure the changes are persisted before triggering the upgrade. Then, verify the configuration:
-
-```bash
-curl -sS http://127.0.0.1:9200/admin/v1/config \
-  | jq '.nodes[] | {id, models: (.models | keys)}'
-```
-
-Expected output:
-```json
-{
-  "id": "<nodeId>",
-  "models": [
-    "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
-  ]
-}
-```
-*(Additional nodes will follow the same format)*
+    if [[ "$APPLY" == "--apply" ]]; then
+      curl -sS "$ADMIN/admin/v1/config" \
+        | jq -c --arg k "$KEEP" \
+            '.nodes[] | select((.models | has($k)) and (.models | length > 1)) | .models = {($k): .models[$k]}' \
+        | while IFS= read -r p; do
+            id=$(jq -r .id <<<"$p")
+            curl -sS -f -X PUT -H 'Content-Type: application/json' -d "$p" \
+              "$ADMIN/admin/v1/nodes/$id" >/dev/null && echo "$id: updated"
+          done
+      echo "done; persisted within 60s"
+    else
+      echo "preview only; rerun without APPLY=dry to commit"
+    fi
+    ```
 
 
+    Wait 60 seconds after running the script to ensure the changes are persisted before triggering the upgrade. Then, verify the configuration:
 
-### Upgrade v0.2.12: Pre-download binaries
+    ```bash
+    curl -sS http://127.0.0.1:9200/admin/v1/config \
+      | jq '.nodes[] | {id, models: (.models | keys)}'
+    ```
 
-```
-# 1. Create Directories
-sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.12/bin \
-              .inference/cosmovisor/upgrades/v0.2.12/bin && \
+    Expected output:
+    ```json
+    {
+      "id": "<nodeId>",
+      "models": [
+        "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8"
+      ]
+    }
+    ```
+    *(Additional nodes will follow the same format)*
 
-# 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
-wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/decentralized-api-amd64.zip" && \
-echo "d0143a95e12e1ada06cfea5e4d3deab13534c3523c967e9a6b87ac9f9bf3247d decentralized-api.zip" | sha256sum --check && \
-sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12/bin/ && \
-sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
-echo "DAPI Installed and Verified" && \
 
-# 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
-sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
-wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/inferenced-amd64.zip" && \
-echo "df7656503d39f6703767d32d5578d1291e32cb114844d8c1cd0f134d1bf4babd inferenced.zip" | sha256sum --check && \
-sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
-sudo chmod +x .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
-echo "Inference Installed and Verified" && \
 
-# 4. Cleanup and Final Check
-rm decentralized-api.zip inferenced.zip && \
-echo "--- Final Verification ---" && \
-sudo ls -l .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
-sudo ls -l .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
-echo "94ce943338d12844028e84fe770106c9d28d866cf0af99f27da30f56d69efa34 .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api" | sudo sha256sum --check && \
-echo "642eb9858cd77d182f3e1c4d44553f5379d615983430e1fd8e85f09632af4271 .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced" | sudo sha256sum --check
-```
+### How do I prepare for a network upgrade?
+
+Chain and API binaries are upgraded through an on-chain software upgrade proposal. Follow the announcement on [Network updates](./network-updates.md) and the GitHub release page for that version: they list any steps hosts need to take, file paths and checksums. Before an upgrade, make sure that:
+
+- your cold-to-warm feegrant is valid and the cold account holds enough GNK to cover fees;
+- you apply any manual steps outside PoC and cPoC.
+
+??? note "History: v0.2.12 pre-download binaries"
+
+    ```
+    # 1. Create Directories
+    sudo mkdir -p .dapi/cosmovisor/upgrades/v0.2.12/bin \
+                  .inference/cosmovisor/upgrades/v0.2.12/bin && \
+
+    # 2. DAPI: Download -> Verify -> Unzip directly to bin -> Make Executable
+    wget -q -O decentralized-api.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/decentralized-api-amd64.zip" && \
+    echo "d0143a95e12e1ada06cfea5e4d3deab13534c3523c967e9a6b87ac9f9bf3247d decentralized-api.zip" | sha256sum --check && \
+    sudo unzip -o -j decentralized-api.zip -d .dapi/cosmovisor/upgrades/v0.2.12/bin/ && \
+    sudo chmod +x .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
+    echo "DAPI Installed and Verified" && \
+
+    # 3. Inference: Download -> Verify -> Unzip directly to bin -> Make Executable
+    sudo rm -rf inferenced.zip .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+    wget -q -O inferenced.zip "https://github.com/gonka-ai/gonka/releases/download/release%2Fv0.2.12/inferenced-amd64.zip" && \
+    echo "df7656503d39f6703767d32d5578d1291e32cb114844d8c1cd0f134d1bf4babd inferenced.zip" | sha256sum --check && \
+    sudo unzip -o -j inferenced.zip -d .inference/cosmovisor/upgrades/v0.2.12/bin/ && \
+    sudo chmod +x .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
+    echo "Inference Installed and Verified" && \
+
+    # 4. Cleanup and Final Check
+    rm decentralized-api.zip inferenced.zip && \
+    echo "--- Final Verification ---" && \
+    sudo ls -l .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api && \
+    sudo ls -l .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced && \
+    echo "94ce943338d12844028e84fe770106c9d28d866cf0af99f27da30f56d69efa34 .dapi/cosmovisor/upgrades/v0.2.12/bin/decentralized-api" | sudo sha256sum --check && \
+    echo "642eb9858cd77d182f3e1c4d44553f5379d615983430e1fd8e85f09632af4271 .inference/cosmovisor/upgrades/v0.2.12/bin/inferenced" | sudo sha256sum --check
+    ```
 
 ## Bounty program
 

@@ -1,3 +1,6 @@
+!!! warning "Bridge temporarily unavailable"
+    The Gonka–Ethereum bridge has been paused following an incident that is under investigation. Do not use the bridge until further notice. Follow official announcements for updates.
+
 # Technical Integration Guide: Exchange & Bridge Widget
 
 This guide provides technical specifications, architectural designs, and implementation steps for community developers who want to recreate the Exchange & Bridge Widget within their own custom dashboards.

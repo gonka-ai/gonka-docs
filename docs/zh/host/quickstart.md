@@ -1,16 +1,16 @@
 # 设置您的链
 
-**主机**（**硬件提供商**或**节点**）向网络提供计算资源，并根据其提供的资源数量和质量获得奖励。
+**主机**（**硬件提供商**或**节点**）为网络提供计算资源，并根据其提供的资源数量和质量获得奖励。
 
 要加入网络，您需要部署两个服务：
 
-- **网络节点** – 由两个节点组成的服务：一个**链节点**和一个**API节点**。该服务处理所有通信。**链节点**连接到区块链，而**API节点**管理用户请求。
+- **网络节点** – 由两个节点组成的的服务：一个**链节点**和一个**API节点**。该服务处理所有通信。**链节点**连接到区块链，而**API节点**管理用户请求。
 - **推理（ML）节点** – 一个在GPU上执行大语言模型（LLM）推理的服务。您至少需要一个**ML节点**才能加入网络。
 
 本指南描述了在同台机器上部署这两个服务的场景，每个主机拥有一个ML节点。服务以Docker容器形式部署。
 
 ??? note "实时演示 — 如何启动节点（主机快速入门）"
-    通过快速入门启动节点的演示会话录像如下。录像中的某些步骤可能与下方说明不同，因为快速入门会根据社区反馈持续更新。请始终遵循书面快速入门指南 —— 它反映了当前正确的流程。
+    通过快速入门启动节点的演示会话录像如下。录像中的某些步骤可能与以下说明不同，因为快速入门会根据社区反馈持续更新。请始终遵循书面的快速入门指南 —— 它反映了当前正确的流程。
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
       <iframe
@@ -23,101 +23,101 @@
       </iframe>
     </div>
 
-## 先决条件
+## 前提条件
 本节提供有关配置硬件基础设施以参与Gonka网络启动的指导。目标是通过使您的部署符合网络预期来最大化协议奖励。
 
 ### 支持的模型
-该协议支持**治理批准**的模型用于推理和Proof of Compute（PoC v2）。在Gonka主网上，每个批准的模型都有其独立的PoC组和奖励追踪（自v0.2.12升级以来为多模型PoC）。
+该协议支持**治理批准**的模型用于推理和计算证明（PoC v2）。在Gonka主网上，每个批准的模型都有其独立的PoC组和奖励追踪（自v0.2.12升级后为多模型PoC）。
 
 | 模型ID | 角色 |
 |----------|------|
-| `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — 基础模型（自提案78 / 轮次308起） |
-| `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — PoC模型（自提案94 / 轮次360起）。系数位于`poc_params`中。 |
-| `zai-org/GLM-5.3-Flash` | **GLM-5.3-Flash** — 自轮次395起为活跃PoC模型（[提案101](../network-updates.md#proposal-101)）。`penalty_start_epoch` 394。系数0.62位于`poc_params`中。 |
+| `MiniMaxAI/MiniMax-M2.7` | **MiniMax M2.7** — 基础模型（自提案78 / 激活期308起） |
+| `deepseek-ai/DeepSeek-V4-Flash-0731` | **DeepSeek V4 Flash** — PoC模型（自提案94 / 激活期360起）。系数位于`poc_params`。 |
+| `zai-org/GLM-5.3-Flash` | **GLM-5.3-Flash** — 自激活期395起为活跃PoC模型（[提案101](../network-updates.md#proposal-101)）。`penalty_start_epoch` 394。系数0.62位于`poc_params`。 |
 
 !!! tip "权威模型列表（治理API）"
-    批准的模型可能在发布或轮次之间发生变化。**在您编辑`node-config.json`之前**，调用治理API，并将每个返回对象的`"id"`作为`"models"`下的键：
+    批准的模型可能在不同版本或激活期之间发生变化。**在编辑`node-config.json`之前**，调用治理API，并使用每个返回对象的`"id"`作为`"models"`下的键：
     ```bash
     curl -sS http://node2.gonka.ai:8000/v1/governance/models
     ```
-    要仅列出模型ID，请将响应管道化：`jq -r '.models[].id'`。如果`node2.gonka.ai`无法访问，请使用其他参与者的公共API基础URL（协议、主机和端口）。响应还包括网络参数，例如`model_args`；后面的`node-config.json`示例展示了常见硬件的典型`args`——请根据您的GPU和基准测试进行调整。
+    要仅列出模型ID，请管道输出响应：`jq -r '.models[].id'`。如果`node2.gonka.ai`无法访问，请使用其他参与者的公共API基础URL（协议、主机和端口）。响应还包含网络参数，例如`model_args`；后面的`node-config.json`示例展示了常见硬件的典型`args`——请根据您的GPU和基准测试进行调整。
 
 您通常在`node-config.json`中为每个ML节点运行**一个模型**。
 
-治理列表（`GET /v1/governance/models`，`poc_params.models`）是每个模型的批准目录。模型的系数仅在该组有资格时才产生共识权重：满足`v_min`和`w_threshold`的投票权。错过/拒绝惩罚仅适用于有资格的组。一个被列出但无投票权的模型是下一个PoC的启动候选者——仅切换`node-config`不会恢复共识权重。请检查`poc_params`和该轮次的`confirmation_weight_scales`。从**v0.2.16**起，`weight_scale_factor`在`poc_params.models`中为空。已包含在奖励权重中的系数是该轮次的`effective_coefficient`在`confirmation_weight_scales`上的值。参见[多模型PoC](./multi_model_poc.md)。
+治理列表（`GET /v1/governance/models`，`poc_params.models`）是每个模型的批准目录。模型的系数只有在该组有资格时才产生共识权重：满足`v_min`和`w_threshold`的投票权。缺席/拒绝处罚仅适用于有资格的组。一个被列出但无投票权的模型是下一个PoC的启动候选者——仅切换`node-config`无法恢复共识权重。请检查`poc_params`和该激活期的`confirmation_weight_scales`。从**v0.2.16**起，`weight_scale_factor`在`poc_params.models`上为空。已包含在奖励权重中的系数是该激活期`confirmation_weight_scales`上的`effective_coefficient`。参见[多模型PoC](./multi_model_poc.md)。
 
-实时服务是单独的检查：`/v1/epochs/current/participants`。`moonshotai/Kimi-K2.6`和`zai-org/GLM-5.2-FP8`仍保留在治理目录中，但已被[提案101](../network-updates.md#proposal-101)从`poc_params`中移除——它们不是PoC模型。GLM-5.3-Flash自轮次395（`penalty_start_epoch` 394）起已成为活跃PoC组；参见[GLM-5.3-Flash启动](./glm-bootstrap.md)。
+实时服务是独立检查：`/v1/epochs/current/participants`。`moonshotai/Kimi-K2.6`和`zai-org/GLM-5.2-FP8`仍保留在治理目录中，但已被[提案101](../network-updates.md#proposal-101)从`poc_params`中移除——它们不是PoC模型。GLM-5.3-Flash自激活期395（`penalty_start_epoch` 394）起为活跃PoC组；参见[GLM-5.3-Flash启动](./glm-bootstrap.md)。
 
-!!! note "如果您不运行所有批准的模型"
-    多模型PoC按**每个模型**跟踪参与情况。对于您未运行的**有资格**模型，请使用链上**委托**或**拒绝**。常规的错过/拒绝惩罚仅适用于有资格的组。一个被列出但无投票权的模型是启动候选者；`refuse`不是必需的，也不是启动参与模式。委托/拒绝**不是**上线节点的必要条件——您使用与[向ML操作密钥授予权限](#33-local-machine-grant-permissions-to-ml-operational-key)中相同的**账户（冷）密钥**，**在注册和验证之后**。复制粘贴命令在末尾：[可选：PoC委托和拒绝](#optional-poc-delegation-and-refusal)。有关策略和惩罚，请阅读[多模型PoC — 主机操作指南](./multi_model_poc.md)。对于GLM-5.3-Flash（自轮次394起的惩罚），请参见[GLM-5.3-Flash启动](./glm-bootstrap.md)。
+!!! note "如果您不运行每个批准的模型"
+    多模型PoC按**每个模型**追踪参与情况。对于您未运行的**有资格**模型，请使用链上**委托**或**拒绝**。常规的缺席/拒绝处罚仅适用于有资格的组。一个被列出但无投票权的模型是启动候选者；`refuse`不是必需的，也不是启动参与模式。委托/拒绝**不是**上线节点的必要条件——您使用与[向ML操作密钥授予权限](#33-local-machine-grant-permissions-to-ml-operational-key)中相同的**账户（冷）密钥**，**在注册和验证之后**。复制粘贴命令位于末尾：[可选：PoC委托和拒绝](#optional-poc-delegation-and-refusal)。有关策略和处罚，请阅读[多模型PoC — 主机操作指南](./multi_model_poc.md)。对于GLM-5.3-Flash（自激活期394起处罚），请参阅[GLM-5.3-Flash启动](./glm-bootstrap.md)。
 
 !!! note "治理与模型分类"
-    - 如果经治理批准，模型可被分类到某一类别中。
+    - 如果经治理批准，模型可被归入某一类别。
     - 关于添加或更改支持模型的决策由治理做出。
-    - 有关治理程序和如何提议新模型的详细信息，请参阅[交易与治理指南](https://gonka.ai/governance/transactions-and-governance/)。
+    - 有关治理流程及如何提议新模型的详细信息，请参阅[交易与治理指南](https://gonka.ai/governance/transactions-and-governance/)。
 
 ### 建议的硬件配置
-要运行有效的节点，您需要配备[支持的GPU](/host/hardware-specifications/)的机器。以下为参考布局：
+要运行有效节点，您需要配备[支持的GPU](/host/hardware-specifications/)的机器。以下为参考布局：
 
 | **模型名称** | **ML节点（最少）** | **示例硬件** | **每个ML节点的最小VRAM** |
 |------------------------------------------|-------------------|-------------------------------------------------|----------------|
 | `MiniMaxAI/MiniMax-M2.7` | ≥ 2 | 每个ML节点：4× A100 / 4× H100 / 2× H200 / 2× B200 | ~320 GB |
 | `deepseek-ai/DeepSeek-V4-Flash-0731` | ≥ 2 | 每个ML节点：4× H100 / 2× H200 / 2× B200 / 1× B300 | ~280 GB |
-| `zai-org/GLM-5.3-Flash` | ≥ 2 | 8× H100 / 4× H200 / 4× B200 / 2× B300 每个 MLNode | ~560 GB |
+| `zai-org/GLM-5.3-Flash` | ≥ 2 | 8× H100 / 4× H200 / 4× B200 / 2× B300 每个MLNode | ~560 GB |
 
-这是一个参考架构。您可以调整节点数量或硬件分配，但我们建议遵循核心原则：每个节点应支持所有模型层级的多个 ML 节点。
+这是一个参考架构。您可以调整节点数量或硬件分配，但我们建议遵循核心原则：每个节点应支持所有模型层级的多个ML节点。
 
-从 **v0.2.16** 开始，从 `effective_coefficient` 读取 epoch 的奖励系数，而不是 `poc_params.models[].weight_scale_factor`（该字段为空）。相同的值位于 `GET /chain-api/productscience/inference/inference/dynamic_coefficients/{epoch_index}`。`epoch_index = 0` 是当前 epoch。将每个 `Decimal` 解码为 `value × 10^exponent`。下一个 PoC 的界限是 `poc_params.models[].dynamic_coefficient`。在 v0.2.16 之前形成的 epoch 仍使用 `weight_scale_factor`。只有当模型组有资格（具有投票权）时，系数才会产生共识权重。参见 [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md)、[GLM-5.3-Flash Bootstrap](./glm-bootstrap.md) 和 [系数表](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)。vLLM 参数示例见下面的 `node-config.json` 示例。
+从 **v0.2.16** 开始，从 `effective_coefficient` 读取纪元的奖励系数，而不是从 `poc_params.models[].weight_scale_factor`（该字段为空）。相同值位于 `GET /chain-api/productscience/inference/inference/dynamic_coefficients/{epoch_index}`。`epoch_index = 0` 是当前纪元。将每个 `Decimal` 解码为 `value × 10^exponent`。下一个PoC的界限为 `poc_params.models[].dynamic_coefficient`。在 v0.2.16 之前形成的纪元仍使用 `weight_scale_factor`。只有当模型组有资格（具有投票权）时，系数才会产生共识权重。参见 [DeepSeek V4 Flash Bootstrap](./deepseek-bootstrap.md)、[GLM-5.3-Flash Bootstrap](./glm-bootstrap.md) 和 [系数表](https://docs.google.com/spreadsheets/d/1Tw4V7xEXR2p5MbCHqzqjS9vHXQ0eI1IHVXC6guEHnio/edit?gid=0#gid=0)。vLLM 参数示例见下方 `node-config.json` 示例。
 
 有关最优部署配置的更多详细信息，请参见 [此处](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
 托管网络节点的服务器应具备：
 
-- 16 核 CPU (amd64)
-- 至少 64+ GB 内存（推荐 128 GB 内存）
+- 16核CPU（amd64）
+- 最低64+ GB内存（推荐128 GB内存）
 - 1TB NVMe SSD
-- 最低 100Mbps 网络连接（推荐 1Gbps）
+- 最低100Mbps网络连接（推荐1Gbps）
 
-最终要求将取决于连接的 ML 节点数量及其总吞吐量。
+最终要求将取决于连接的ML节点数量及其总吞吐量。
 
 !!! tip "不要将所有硬件都置于一个账户密钥下"
-    奖励和惩罚按参与者（账户密钥）计算。一个变为 INACTIVE 的参与者，无论其硬件实际故障多少，都不会获得该 epoch 的奖励，其抵押品也将因停机而被罚没。如果您运行大规模集群，请将 ML 节点分散到多个参与者中，每个参与者使用独立服务器部署自己的网络节点，这样一次故障仅损失该参与者的份额。
+    奖励和惩罚按参与者（账户密钥）计算。如果参与者变为非活跃状态，则无论其硬件实际故障多少，该纪元均无奖励，且其抵押品将因停机被罚没。如果您运行大型集群，请将ML节点分散到多个参与者中，每个参与者使用独立服务器上的独立网络节点，这样一次故障仅损失该参与者的份额。
 
-    用于部署 ML 节点的每台服务器应具备：
+    用于部署ML节点的每台服务器应具备：
 
-- 至少为 GPU 显存 1.5 倍的内存
-- 16 核 CPU（网络节点和 ML 节点可部署在同一台服务器上）。
-- 已安装并配置 NVIDIA Container Toolkit，CUDA Toolkit 版本在 12.6 至 12.9 之间。您可通过 `nvidia-smi` 检查版本。
+- 至少为GPU显存1.5倍的内存
+- 16核CPU（网络节点和ML节点可部署在同一台服务器上）。
+- 已安装并配置NVIDIA Container Toolkit，CUDA Toolkit版本介于12.6至12.9之间。您可通过 `nvidia-smi` 检查版本。
 
 ### 网络访问、代理和端口（重要）
 
-Gonka 网络采用基于代理的架构，以保护节点免受滥用和 DDoS 攻击。所有公共 HTTP/HTTPS 流量必须通过代理容器。直接暴露网络节点或 ML 节点服务是不安全的。
+Gonka网络采用基于代理的架构，以保护节点免受滥用和DDoS攻击。所有公共HTTP/HTTPS流量必须通过代理容器。直接暴露网络节点或ML节点服务是不安全的。
 
 !!! note "公开暴露的端口"
 
-    以下端口可暴露于公共互联网：
+    以下端口可公开至互联网：
 
-    - 5000 - Tendermint P2P 通信
+    - 5000 - Tendermint P2P通信
     - 8000 / 8443 - 仅通过代理的应用服务
 
 !!! warning "警告：内部端口"
 
-    以下端口为仅内部使用，严禁公开访问：
+    以下端口为仅限内部使用，严禁公开访问：
 
     - 26657 - Tendermint RPC
-    - 9100, 9200 — 网络节点内部 API
-    - 5050 — ML 节点 / vLLM 推理 API
-    - 8080 — ML 节点 API
+    - 9100, 9200 — 网络节点内部API
+    - 5050 — ML节点/vLLM推理API
+    - 8080 — ML节点API
 
-如果这些端口中任何一个暴露于公共互联网，您的节点将面临风险。第三方可自由发送请求，使您的 ML 节点过载、干扰挖矿，或导致您的节点退出 epoch。
+如果这些端口中的任何一个暴露在公共互联网上，您的节点将面临风险。第三方可自由发送请求，超载您的ML节点，干扰挖矿，或导致您的节点退出纪元。
 
 **要求：**
 
-    - 仅允许从本地主机、私有网络或白名单访问这些端口
+    - 仅允许来自本地主机、私有网络或白名单的访问
     - 切勿公开暴露这些端口
-    - Docker 默认设置不安全
+    - Docker默认设置不安全
 
-!!! note "从升级 0.2.8 开始"
+!!! note "从升级0.2.8开始"
 
     为默认提升安全性和性能，除非显式覆盖，否则将自动应用以下路由控制和链服务限制。
     ```bash title="API Manual Routes Control"
@@ -133,10 +133,10 @@ Gonka 网络采用基于代理的架构，以保护节点免受滥用和 DDoS �
           - DISABLE_CHAIN_GRPC=${DISABLE_CHAIN_GRPC:-true}
     ```
 
-以下情况描述了网络节点和ML节点服务的内部端口隔离。这些规则在代理配置为唯一公共入口点后生效。它们不会替代代理，必须与代理一起使用。
+以下情况描述了网络节点和ML节点服务的内部端口隔离。这些规则在代理配置为唯一公共入口点后生效。它们不能替代代理，必须与代理一起使用。
 
 === "情况1：ML节点和网络节点在同一台机器上"
-    将端口绑定到仅本地主机。
+    将端口仅绑定到本地主机。
 
 **网络节点 (`docker-compose.yml`)**
 
@@ -163,22 +163,22 @@ Gonka 网络采用基于代理的架构，以保护节点免受滥用和 DDoS �
     - "8080:8080"
 
 === "情况2：ML节点和网络节点在不同机器上"
-    在此设置中，网络节点与ML节点之间的所有通信必须通过私有网络进行。绝对不得将公共IP或公共DNS名称用于：
+    在此设置中，网络节点与ML节点之间的所有通信必须通过私有网络进行。绝对不得使用公共IP地址或公共DNS名称进行：
 
     - ML节点API
     - `DAPI_API__POC_CALLBACK_URL`
 
-如果ML节点和网络节点容器位于不同机器上，情况1中描述的修复方法将无效，保护这些端口的具体方式取决于您的设置。您应通过使用相同的Docker网络，或在机器之间设置私有网络、在该网络中暴露端口并关闭公共端口，来建立ML节点与网络容器之间的连接。在此情况下，您还应正确配置配置中的 `DAPI_API__POC_CALLBACK_URL` 变量。此URL必须指向私有/内部地址，而非公共地址。
+如果ML节点和网络节点容器位于不同机器上，情况1中描述的修复方法将无效，保护这些端口的具体方式取决于您的设置。您应通过使用相同的Docker网络，或在机器之间设置私有网络、在该网络中暴露端口并关闭公共端口，来建立ML节点与网络容器之间的连接。在此情况下，您还应正确设置配置中的 `DAPI_API__POC_CALLBACK_URL` 变量。此URL必须指向私有/内部地址，而非公共地址。
 
 ## 设置您的节点
 
-快速入门指南旨在将网络节点和推理节点部署在同一台机器上（单服务器设置）。
+快速入门指南旨在将网络节点和推理节点部署在单台机器上（单服务器设置）。
 
 ??? note "多节点部署"
-    如果您要部署多个GPU节点，请参阅详细的[多节点部署指南](https://gonka.ai/host/multiple-nodes/)以进行正确设置和配置。无论您是在单台机器上还是在多台服务器上（包括跨地理区域）部署推理节点，所有推理节点都必须连接到同一个网络节点。
+    如果您要部署多个GPU节点，请参阅详细的[多节点部署指南](https://gonka.ai/host/multiple-nodes/)以进行正确设置和配置。无论您是在单台机器上还是在多台服务器（包括跨地理区域）上部署推理节点，所有推理节点都必须连接到同一个网络节点。
 
-### 密钥管理概述
-在配置您的网络节点之前，您需要设置加密密钥以实现安全操作。  
+### 密钥管理概览
+在配置您的网络节点之前，您需要为安全操作设置加密密钥。  
 **建议在启动生产节点前阅读[密钥管理指南](/host/key-management/)。**
 
 我们使用三密钥系统：
@@ -201,13 +201,13 @@ GitHub发布版本可能包含多个 `inferenced` 文件。
 - `inferenced-linux-amd64.zip`
 - `inferenced-linux-arm64.zip`
 
-请勿使用专为升级路径或容器/运行时环境设计的通用 `inferenced` 二进制文件。这些文件可能无法在您的本地机器上作为独立CLI正常工作。
+请勿使用专为升级路径或容器/运行时环境设计的通用 `inferenced` 二进制文件。这些文件在您的本地机器上作为独立CLI可能无法正常工作。
 
 **版本要求**
 
 请确保您使用的是`inferenced` CLI构建 [版本0.2.9](https://github.com/gonka-ai/gonka/releases/tag/release/v0.2.9) 或[更新版本](https://github.com/gonka-ai/gonka/releases)。旧版CLI不支持权限授予，可能导致意外行为。
 
-如果您计划提交治理提案，尤其是使用较新消息类型的提案，请使用最新发布的特定操作系统CLI构建。
+如果您计划提交治理提案，特别是使用较新消息类型的提案，请使用最新发布的特定操作系统CLI构建。
 
 **验证安装**
 
@@ -219,18 +219,18 @@ chmod +x inferenced
 !!! note "macOS用户"
     在macOS上，如果提示，您可能需要在 `System Settings` → `Privacy & Security` 中允许执行。向下滚动至关于 `inferenced` 的警告并点击 `Allow Anyway`。
 
-    如果二进制文件在Linux上以类似 `Error relocating ./inferenced: qsort_r: symbol not found` 的错误无法启动，您很可能下载了非CLI或升级专用的文件，而非特定操作系统的打包CLI构建。请重新下载适用于您操作系统和架构的正确归档文件。
+    如果在Linux上二进制文件启动失败并出现类似 `Error relocating ./inferenced: qsort_r: symbol not found` 的错误，您很可能下载了非CLI或仅用于升级的工件，而非特定操作系统的打包CLI构建。请重新下载适用于您的操作系统和架构的正确归档文件。
 
 ### [本地机器] 创建账户密钥
-**重要：请在安全的本地机器上执行此步骤（不要在您的服务器上执行）**
+**重要：请在安全的本地机器上执行此步骤（非您的服务器）**
 
 ??? note "关于账户密钥（冷密钥）"
     账户密钥是您的主要高权限密钥。它在本地创建，绝不会存储在您的服务器上。
 
     - 授予所有其他密钥权限的主密钥
-    - 必须离线存储在安全的空气隔离机器上
+    - 必须离线存储在安全的气隙机器上
     - 仅用于授予权限和验证者注册
-    - 受助记词保护——如果丢失，所有访问将永久失效
+    - 由助记词保护——如果丢失，所有访问将永久失效
 
 使用 `file` 密钥环后端创建您的账户密钥（在支持的系统上，您也可以使用 `os` 以获得更高安全性）：
 
@@ -238,7 +238,7 @@ chmod +x inferenced
 ./inferenced keys add gonka-account-key --keyring-backend file
 ```
 
-CLI 将要求您输入密码，并显示已创建密钥对的信息。
+CLI 将提示您输入密码，并显示已创建的密钥对信息。
 ```
 ❯ ./inferenced keys add gonka-account-key --keyring-backend file
 Enter keyring passphrase (attempt 1/3):
@@ -256,14 +256,14 @@ It is the only way to recover your account if you ever forget your password.
 pyramid sweet dumb critic lamp various remove token talent drink announce tiny lab follow blind awful expire wasp flavor very pair tell next cable
 ```
 
-**至关重要**：请将此助记词写下来并安全地离线存储。此助记词是**唯一**恢复您账户密钥的方法。
+**至关重要**：请将此助记词抄写下来，并安全地离线存储。此助记词是**唯一**恢复您账户密钥的方法。
 
 !!! info "硬件钱包支持"
     **当前状态**：在网络启动时，硬件钱包尚不支持。
 
-    **目前**：请将您的账户密钥存储在安全的专用机器上，该机器应尽量减少互联网暴露并使用强加密。
+    **目前**：请将您的账户密钥存储在安全的专用机器上，该机器应尽量减少互联网暴露并启用强加密。
 
-    **重要**：无论未来是否采用硬件钱包，都必须始终将助记词作为备份。
+    **重要**：无论未来是否采用硬件钱包，请始终将助记词作为备份。
 
 ### [服务器] 下载部署文件
 克隆包含基础部署脚本的仓库：
@@ -273,25 +273,18 @@ git clone https://github.com/gonka-ai/gonka.git -b main && \
 cd gonka/deploy/join
 ```
 
-!!! warning "DeepSeek V4 Flash 和 MLNode 3.0.16"
-    `main` 仍固定使用 MLNode **3.0.14-post2**，且不包含 DeepSeek `node-config-*.json` 文件。若要使用 `deepseek-ai/DeepSeek-V4-Flash-0731`，请改克隆 [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/deploy/join)：
-
-    ```bash
-    git clone https://github.com/gonka-ai/gonka.git -b vllm-0.25.1-upgrade && \
-    cd gonka/deploy/join
-    ```
-
-    该分支固定使用 `ghcr.io/gonka-ai/mlnode:3.0.16`（如果主机仍使用 CUDA 12.9，请使用 `3.0.16-cu129` 标签）。
+!!! note "MLNode 镜像在 `main` 上"
+    `main` 在 `docker-compose.mlnode.yml` 中锁定 MLNode `ghcr.io/gonka-ai/mlnode:3.0.16`，并分发 MiniMax M2.7 和 DeepSeek V4 Flash `node-config-*.json` 文件。如果主机仍使用 CUDA 12.9，请使用 `3.0.16-cu129` 标签（在相同的 compose 文件中注明）。
 
 !!! warning "GLM-5.3-Flash 和 MLNode 3.1.0"
-    GLM-5.3-Flash 需要 **vLLM 0.28**、**CUDA 13** 驱动（580+）和镜像 `ghcr.io/gonka-ai/mlnode:3.1.0-vllm-0.28.0`。请勿对 GLM 使用 `3.0.17`。请克隆 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join) 以获取内置的 `node-config-glm53flash-*.json` 文件（[gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)）：
+    GLM-5.3-Flash 需要 **vLLM 0.28**、**CUDA 13** 驱动（580+）和镜像 `ghcr.io/gonka-ai/mlnode:3.1.0-vllm-0.28.0`。请勿对 GLM 使用 `3.0.17`。克隆 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join) 以获取分发的 `node-config-glm53flash-*.json` 文件（[gonka-ai/gonka#1734](https://github.com/gonka-ai/gonka/pull/1734)）：
 
     ```bash
     git clone https://github.com/gonka-ai/gonka.git -b feat/glm-5-3-flash-release && \
     cd gonka/deploy/join
     ```
 
-    在 8×H100 上将 `POC_BATCH_SIZE_DEFAULT` 设为 8，在 H200 上设为 16，在 B200/B300 上设为 32。在 NVSwitch VM 上设置 `NCCL_NVLS_ENABLE=0`。参见 [GLM-5.3-Flash 启动](./glm-bootstrap.md)。
+    在 8×H100 上设置 `POC_BATCH_SIZE_DEFAULT` 为 8，在 H200 上设置为 16，在 B200/B300 上设置为 32。在 NVSwitch VM 上设置 `NCCL_NVLS_ENABLE=0`。参见 [GLM-5.3-Flash 引导](./glm-bootstrap.md)。
 
 并复制 `config` 文件模板：
 ```
@@ -310,20 +303,20 @@ cp config.env.template config.env
 ### [服务器] 设置环境变量
 
 <!-- CONDITION START: data-show-when='["non-finished"]' -->
-!!! note "需要配置"
+!!! note "配置必需"
     请完成问卷以生成您的 `config.env` 配置。环境变量取决于您的选择（HTTP/HTTPS、SSL 证书方法等）。
     <!-- CONDITION END -->
 
     <!-- CONDITION START: data-show-when='["domainNo"]' -->
 !!! warning "无域名时无法使用 HTTPS"
-    SSL/TLS 证书仅能为域名（例如 `example.com`）签发，不能为直接 IP 地址签发。由于您表示未配置域名，您的节点将仅配置为 **HTTP**（端口 8000）。
+    SSL/TLS 证书只能为域名（例如 `example.com`）签发，不能为直接 IP 地址签发。由于您表示未配置域名，您的节点将仅配置为 **HTTP**（端口 8000）。
 
-    如果您需要 HTTPS 安全性，请执行以下操作：
+    如果需要 HTTPS 安全性，您需要：
 
-    1. 获取一个域名，并配置 DNS 指向您的服务器 IP 地址
-    2. 点击上方的 **"重置"** 按钮，并在被问及是否有域名时选择 **"是"**
+    1. 获取域名并配置 DNS 以指向您的服务器 IP 地址
+    2. 按下上方的 **"重置"** 按钮，并在被问及是否有域名时选择 **"是"**
 
-对于生产部署，强烈建议使用 HTTPS 来加密 API 通信并保护敏感数据。
+对于生产部署，强烈建议使用 HTTPS 以加密 API 通信并保护敏感数据。
 <!-- CONDITION END -->
 
 <div id="quickstart-questionnaire" class="quickstart-questionnaire">
@@ -336,7 +329,7 @@ cp config.env.template config.env
         <pre><code></code></pre>
       </div>
     </div>
-    <p style="margin-top: 1rem; font-size: 0.7rem; color: var(--md-default-fg-color--light);">复制上述配置，并按照下面的说明编辑值。</p>
+    <p style="margin-top: 1rem; font-size: 0.7rem; color: var(--md-default-fg-color--light);">复制上述配置，并根据以下说明编辑值。</p>
     <button class="quickstart-copy-btn">复制到剪贴板</button>
     <button class="quickstart-reset-btn">重置</button>
   </div>
@@ -344,29 +337,29 @@ cp config.env.template config.env
 
 <!-- CONDITION START: data-show-when='["finished"]' -->
 
-如果您的节点无法连接到默认的种子节点，[请参阅常见问题解答获取详细信息。](https://gonka.ai/FAQ/#my-node-cannot-connect-to-the-default-seed-node-specified-in-the-configenv)
+如果您的节点无法连接到默认种子节点，请[参见常见问题解答获取详情。](https://gonka.ai/FAQ/#my-node-cannot-connect-to-the-default-seed-node-specified-in-the-configenv)
 ### [服务器] 编辑环境变量
 
 需要编辑的变量：
 
 <div id="quickstart-edit-table"></div>
 
-其他所有变量均可保持不变。
+其他所有变量可保持不变。
 
 <!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto"]' -->
 **如何从域名提供商获取变量：**
 
 <!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "cloudflare"]' -->
 ??? details "Cloudflare"
-    1) 打开 Cloudflare 控制面板。
+    1) 打开 Cloudflare 仪表板。
 
-2) 转到 Profile → API Tokens。
+2) 转到个人资料 → API 令牌。
 
-3) 点击 Create Token。
+3) 点击创建令牌。
 
-4) 使用 Edit zone DNS 模板，或设置权限：Zone:Read 和 DNS:Edit。
+4) 使用编辑区域 DNS 模板，或设置权限：区域：读取 和 DNS：编辑。
 
-5) 将令牌限制为您的 DNS 区域并创建它。
+5) 将令牌限制为您自己的 DNS 区域并创建它。
 
 6) 复制令牌并设置 `CF_DNS_API_TOKEN`。
 <!-- CONDITION END -->
@@ -418,9 +411,9 @@ cp config.env.template config.env
 
     **选项 B — 控制台**
 
-1) 创建一个仅限于您的托管区域的 IAM 策略（ChangeResourceRecordSets 和列出权限）。
+1) 创建仅限于您的托管区域的 IAM 策略（ChangeResourceRecordSets 和列表权限）。
 
-2) 创建一个具有编程访问权限的 IAM 用户。
+2) 创建具有编程访问权限的 IAM 用户。
 
 3) 将策略附加到该用户。
 
@@ -452,7 +445,7 @@ cp config.env.template config.env
     ```
     **选项 B — 控制台**
 
-1) IAM 和管理员 → 服务账号 → 创建服务账号（例如 acme-dns）。
+1) IAM 和管理员 → 服务账号 → 创建服务账号（例如：acme-dns）。
 
 2) 为服务账号授予角色：DNS 管理员（`roles/dns.admin`）。
 
@@ -496,13 +489,13 @@ cp config.env.template config.env
     ```
     **选项 B — 门户**
 
-1) 转到 Microsoft Entra ID → 应用注册 → 新注册。复制应用（客户端）ID 和目录（租户）ID。
+1) 转到 Microsoft Entra ID → 应用注册 → 新注册。复制应用程序（客户端）ID 和目录（租户）ID。
 
 2) 转到证书和密钥 → 新客户端密钥。复制密钥值并设置 `AZURE_CLIENT_SECRET`。
 
 3) 复制您的订阅 ID 并设置 `AZURE_SUBSCRIPTION_ID`。
 
-4) 在您的 DNS 区域中，打开访问控制（IAM）→ 添加角色分配 → DNS 区域贡献者 → 分配给已注册的应用。
+4) 在您的 DNS 区域中，打开访问控制（IAM）→ 添加角色分配 → DNS 区域参与者 → 分配给已注册的应用。
 <!-- CONDITION END -->
 
 <!-- CONDITION START: data-show-when='["protocolHttps", "certMethodAuto", "digitalocean"]' -->
@@ -530,7 +523,7 @@ source config.env
 ```
 
 !!! note "使用环境变量"
-    以下各节中的示例将引用这些环境变量（例如 `$PUBLIC_URL`、`$ACCOUNT_PUBKEY`、`$SEED_API_URL`），无论是在本地机器命令还是服务器命令中。请确保在每个将执行这些命令的终端会话中运行 `source config.env`。
+    以下各节中的示例将引用这些环境变量（例如 `$PUBLIC_URL`、`$ACCOUNT_PUBKEY`、`$SEED_API_URL`），适用于本地机器命令和服务器命令。请确保在每个将执行这些命令的终端会话中运行 `source config.env`。
     <!-- CONDITION END -->
 
 
@@ -538,16 +531,16 @@ source config.env
 ### [服务器] 编辑服务器的推理节点描述
 
 !!! note 
-    选择与您将要部署的模型和 GPU 类型匹配的标签页。确认模型位于 `GET /v1/governance/models` 中。资格（投票权，`confirmation_weight_scales`）和实时服务（`/v1/epochs/current/participants`）与此目录无关。`moonshotai/Kimi-K2.6` 和 `zai-org/GLM-5.2-FP8` 在 [提案 101](../network-updates.md#proposal-101) 之后不再是 PoC 模型。治理决策负责添加或修改支持的模型。有关模型治理的工作方式以及如何提出新模型的详细信息，请参阅 [交易与治理指南](https://gonka.ai/governance/transactions-and-governance/)。
+    选择与您将要部署的模型和 GPU 类型匹配的标签。确认模型在 `GET /v1/governance/models` 中。资格（投票权，`confirmation_weight_scales`）和实时服务（`/v1/epochs/current/participants`）与此目录分开。`moonshotai/Kimi-K2.6` 和 `zai-org/GLM-5.2-FP8` 在 [提案 101](../network-updates.md#proposal-101) 后不再是 PoC 模型。模型治理决定添加或修改支持的模型。有关模型治理工作方式及如何提出新模型的详细信息，请参阅 [交易与治理指南](https://gonka.ai/governance/transactions-and-governance/)。
 
     === "Kimi — 4×B200 / 8×B200（以及 8×H200 参考类别）"
 
     !!! warning "不是 PoC 模型（提案 101）"
-        `moonshotai/Kimi-K2.6` 已被 [提案 101](../network-updates.md#proposal-101) 从 `poc_params.models` 中移除。它仍保留在 `GET /v1/governance/models`（推理目录）中，但切换到它不会获得 PoC 共识权重。这些参数是最后已知的部署形态。
+        `moonshotai/Kimi-K2.6` 已被 [提案 101](../network-updates.md#proposal-101) 从 `poc_params.models` 中移除。它仍保留在 `GET /v1/governance/models`（推理目录）中，但切换到它不会获得 PoC 共识权重。这些参数是最后一个已知的部署形态。
 
-        有关当前 PoC 集（MiniMax、DeepSeek、GLM-5.3-Flash），请参阅其他标签页和 [GLM-5.3-Flash 启动](./glm-bootstrap.md)。原始 Kimi 启动记录位于 [Kimi K2.6 启动](./kimi-bootstrap.md)。
+        有关当前的 PoC 集（MiniMax、DeepSeek、GLM-5.3-Flash），请参阅其他标签和 [GLM-5.3-Flash 启动](./glm-bootstrap.md)。原始 Kimi 启动记录在 [Kimi K2.6 启动](./kimi-bootstrap.md) 中。
 
-        在 Blackwell **4×B200 或 8×B200** 上使用此 vLLM 参数集进行 **Kimi K2.6**，并作为 **8×H200** 在相同布局下的参考（`tensor_parallel_size` 4 个专家并行分布在八个 GPU 上）。仅在您的堆栈或基准测试需要时进行调整。
+        对于 **Kimi K2.6** 在 Blackwell **4×B200 或 8×B200** 上，使用此 vLLM 参数集，并作为 **8×H200** 在相同布局下的参考（`tensor_parallel_size` 4 个专家并行分布在八个 GPU 上）。仅当您的堆栈或基准测试需要时才进行调整。
 
         仓库中的参考部署配置：`deploy/join/node-config-kimik26-B200.json`。
 
@@ -581,11 +574,11 @@ source config.env
         ]
         ```
 
-    在通过 API 注册或更新节点时使用相同的 `"models"` 块；有关等效的 `curl` 示例，请参阅 [Kimi K2.6 启动](./kimi-bootstrap.md)。
+    在通过 API 注册或更新节点时，使用相同的 `"models"` 块；有关等效的 `curl` 示例，请参阅 [Kimi K2.6 启动](./kimi-bootstrap.md)。
 
 === "Kimi — 8×H200"
 
-仓库中的参考部署配置：`deploy/join/node-config-kimik26-H200.json`。在所有 GPU 上使用 `FLASHMLA` 注意力和 `tensor_parallel_size=8`，不使用专家并行。
+仓库中的参考部署配置：`deploy/join/node-config-kimik26-H200.json`。在所有 GPU 上使用 `FLASHMLA` 注意力和 `tensor_parallel_size=8`，无专家并行。
 
     !!! note "edit node-config.json"
         ```
@@ -617,7 +610,7 @@ source config.env
 
 === "MiniMax — 4×A100"
 
-在 **4×A100** 上使用此 vLLM 参数集进行 **MiniMax M2.7**。A100 无法使用 FP8 FlashInfer MoE 路径，因此此配置使用 `marlin` MoE 后端。您还需要为 `mlnode-308` 服务设置环境变量 `VLLM_USE_FLASHINFER_MOE_FP8=0`（MLNode 3.0.14 随附的 `deploy/join/docker-compose.mlnode.yml` 中已预先设置）。
+对于 **MiniMax M2.7** 在 **4×A100** 上，使用此 vLLM 参数集。A100 无法使用 FP8 FlashInfer MoE 路径，因此此配置使用 `marlin` MoE 后端。您还需要为 `mlnode-308` 服务设置环境变量 `VLLM_USE_FLASHINFER_MOE_FP8=0`（这在随 MLNode 3.0.14 一起提供的 `deploy/join/docker-compose.mlnode.yml` 中已预先设置）。
 
 仓库中的参考部署配置：`deploy/join/node-config-minimaxm27-A100.json`。
 
@@ -651,7 +644,7 @@ source config.env
 
 === "MiniMax — 4×H100"
 
-在 **4×H100** 上使用此 vLLM 参数集进行 **MiniMax M2.7**。使用 `FLASHINFER` 注意力后端和 FP8 kv-cache。
+对于 **MiniMax M2.7** 在 **4×H100** 上，使用此 vLLM 参数集。使用 `FLASHINFER` 注意力后端和 FP8 kv-cache。
 
 仓库中的参考部署配置：`deploy/join/node-config-minimaxm27-H100.json`。
 
@@ -825,7 +818,7 @@ source config.env
 
 === "DeepSeek — 2×B200"
 
-为 **DeepSeek V4 Flash** 在 **2×B200** 上使用此 vLLM 参数集。DeepSeek 需要 **MLNode 3.0.16**（vLLM 0.25.1）。为在 Blackwell 上获得更好性能，请使用 nvfp4 变体 `node-config-deepseekv4flash0731-B200-nvfp4.json`（`model_override` 到 `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`）；该格式需要 API `v0.2.15-post5` —— 请参见 [网络更新](../network-updates.md)。
+为 **DeepSeek V4 Flash** 在 **2×B200** 上使用此 vLLM 参数集。DeepSeek 需要 **MLNode 3.0.16**（vLLM 0.25.1）。为在 Blackwell 上获得更好性能，请使用 nvfp4 变体 `node-config-deepseekv4flash0731-B200-nvfp4.json`（`model_override` 至 `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`）；该格式需要 API `v0.2.15-post5` —— 请参阅 [网络更新](../network-updates.md)。
 
 仓库中的参考部署配置：`deploy/join/node-config-deepseekv4flash0731-B200.json`。
 
@@ -861,7 +854,7 @@ source config.env
 
 === "DeepSeek — 1×B300"
 
-为 **DeepSeek V4 Flash** 在 **1×B300** 上使用此 vLLM 参数集。DeepSeek 需要 **MLNode 3.0.16**（vLLM 0.25.1）。在 B300 上，这是当前系数（0.246）下权重最高的 PoC 选项。为获得更好性能，请使用 nvfp4 变体 `node-config-deepseekv4flash0731-B300-nvfp4.json`（`model_override` 到 `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`）；该格式需要 API `v0.2.15-post5` —— 请参见 [网络更新](../network-updates.md)。
+为 **DeepSeek V4 Flash** 在 **1×B300** 上使用此 vLLM 参数集。DeepSeek 需要 **MLNode 3.0.16**（vLLM 0.25.1）。在 B300 上，这是当前系数（0.246）下权重最高的 PoC 选项。为获得更好性能，请使用 nvfp4 变体 `node-config-deepseekv4flash0731-B300-nvfp4.json`（`model_override` 至 `MJPansa/DeepSeek-V4-Flash-0731-NVFP4`）；该格式需要 API `v0.2.15-post5` —— 请参阅 [网络更新](../network-updates.md)。
 
 仓库中的参考部署配置：`deploy/join/node-config-deepseekv4flash0731-B300.json`。
 
@@ -895,7 +888,7 @@ source config.env
 
 为 **GLM-5.3-Flash** 在 **8×H100** 上使用此 vLLM 参数集。GLM 需要 **MLNode 3.1.0**（vLLM 0.28，CUDA 13）。设置 `POC_BATCH_SIZE_DEFAULT=8`。
 
-仓库中的参考部署配置：`deploy/join/node-config-glm53flash-H100.json`，参见 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join)。
+仓库中的参考部署配置：`deploy/join/node-config-glm53flash-H100.json`，请参阅 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/deploy/join)。
 
     !!! note "edit node-config.json"
         ```
@@ -967,7 +960,7 @@ source config.env
 
 === "GLM — 4×B200"
 
-为 **GLM-5.3-Flash** 在 **4×B200** 上使用此 vLLM 参数集。GLM 需要 **MLNode 3.1.0**（vLLM 0.28，CUDA 13）。在 B200 上，这是当前系数（0.62）下预期的 PoC 切换点。设置 `POC_BATCH_SIZE_DEFAULT=32`。在 NVSwitch VM 上设置 `NCCL_NVLS_ENABLE=0`。
+为 **GLM-5.3-Flash** 在 **4×B200** 上使用此 vLLM 参数集。GLM 需要 **MLNode 3.1.0**（vLLM 0.28，CUDA 13）。在 B200 上，这是当前系数（0.62）下的预期 PoC 切换点。设置 `POC_BATCH_SIZE_DEFAULT=32`。在 NVSwitch VM 上设置 `NCCL_NVLS_ENABLE=0`。
 
 仓库中的参考部署配置：`deploy/join/node-config-glm53flash-B200.json`。
 
@@ -1042,11 +1035,11 @@ source config.env
 有关最优部署配置的更多详细信息，请参阅 [此链接](https://gonka.ai/host/benchmark-to-choose-optimal-deployment-config-for-llms/)。
 
 !!! tip "Validate the deployment"
-    [`gonka` 仓库](https://github.com/gonka-ai/gonka) 提供了一个代理技能 `mlnode-validate`，用于根据预计算的诚实 PoC 向量验证 ML Node。使用与您部署的模型匹配的黄金参考（MiniMax-M2.7、DeepSeek V4 Flash 在 [`vllm-0.25.1-upgrade`](https://github.com/gonka-ai/gonka/tree/vllm-0.25.1-upgrade/mlnode/packages/benchmarks/scripts/poc_validation/artifacts)，或 GLM-5.3-Flash 在 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/mlnode/packages/benchmarks/scripts/poc_validation/artifacts)）。Qwen3-0.6B / Qwen3-235B 的工件为历史版本，**不是**主网模型。参见 [验证 ML Node 部署](./mlnode-validation.md)。
+    [`gonka` 仓库](https://github.com/gonka-ai/gonka) 提供了一个代理技能 `mlnode-validate`，用于根据预计算的诚实 PoC 向量验证 ML Node。使用与您部署的模型匹配的黄金参考（MiniMax-M2.7、DeepSeek V4 Flash 在 [`main`](https://github.com/gonka-ai/gonka/tree/main/mlnode/packages/benchmarks/scripts/poc_validation/artifacts)，或 GLM-5.3-Flash 在 [`feat/glm-5-3-flash-release`](https://github.com/gonka-ai/gonka/tree/feat/glm-5-3-flash-release/mlnode/packages/benchmarks/scripts/poc_validation/artifacts)）。Qwen3-0.6B / Qwen3-235B 的工件为历史版本，**不是**主网模型。参见 [验证 ML Node 部署](./mlnode-validation.md)。
 
 ### [Server] 预下载模型权重到 Hugging Face 缓存 (HF_HOME)
 推理节点从 Hugging Face 下载模型权重。
-为确保模型权重在部署前就绪，您应在部署前下载它们。
+为确保模型权重在部署前就绪，您应在部署前预先下载。
 
 === "Kimi K2.6"
 
@@ -1066,7 +1059,7 @@ source config.env
     huggingface-cli download MiniMaxAI/MiniMax-M2.7
     ```
 
-    模型许可证：参见 [模型许可证](../model-licenses.md)。MiniMax M2.7 需要 **MLNode 3.0.14 或更高版本**（镜像 `ghcr.io/gonka-ai/mlnode:3.0.14-cu129`，锁定在 `deploy/join/docker-compose.mlnode.yml`）。在 A100 硬件上，还需确保为 `mlnode-308` 服务设置 `VLLM_USE_FLASHINFER_MOE_FP8=0` 环境变量（已预设在随附的 compose 文件中）。
+    模型许可证：参见 [模型许可证](../model-licenses.md)。MiniMax M2.7 需要 **MLNode 3.0.14 或更高版本**。在 `main` 上的 `deploy/join/docker-compose.mlnode.yml` 会锁定 `ghcr.io/gonka-ai/mlnode:3.0.16`（CUDA 12.9 对应 `3.0.16-cu129`）。在 A100 硬件上，还需确保为 `mlnode-308` 服务设置 `VLLM_USE_FLASHINFER_MOE_FP8=0` 环境变量（已预设在随附的 compose 文件中）。
 
 === "DeepSeek V4 Flash"
 
@@ -1075,7 +1068,7 @@ source config.env
     huggingface-cli download deepseek-ai/DeepSeek-V4-Flash-0731 --revision 7872f01b1d1fe23eabc4c98b48bffcef5a386062
     ```
 
-    模型许可证：参见 [模型许可证](../model-licenses.md)。DeepSeek V4 Flash 需要 **MLNode 3.0.16 或更高版本**（镜像 `ghcr.io/gonka-ai/mlnode:3.0.16`，锁定在 `deploy/join/docker-compose.mlnode.yml` 的 `vllm-0.25.1-upgrade` 分支上；如果主机仍使用 CUDA 12.9，请使用 `3.0.16-cu129` 标签）。有关操作说明和链上选项（意图、委托），请参阅 [DeepSeek V4 Flash 启动](./deepseek-bootstrap.md)。在 Blackwell GPU 上，nvfp4 重打包 `MJPansa/DeepSeek-V4-Flash-0731-NVFP4` 需要 API `v0.2.15-post5` —— 请参阅 [网络更新](../network-updates.md)。
+    模型许可证：参见 [模型许可证](../model-licenses.md)。DeepSeek V4 Flash 需要 **MLNode 3.0.16 或更高版本**（镜像 `ghcr.io/gonka-ai/mlnode:3.0.16`，在 `main` 上的 `deploy/join/docker-compose.mlnode.yml` 中锁定；若主机仍使用 CUDA 12.9，请使用 `3.0.16-cu129` 标签）。有关操作说明和链上选项（意图、委托），请参阅 [DeepSeek V4 Flash 启动](./deepseek-bootstrap.md)。在 Blackwell GPU 上，nvfp4 重打包 `MJPansa/DeepSeek-V4-Flash-0731-NVFP4` 需要 API `v0.2.15-post5` —— 请参阅 [网络更新](../network-updates.md)。
 
 === "GLM-5.3-Flash"
 
@@ -1084,20 +1077,20 @@ source config.env
     huggingface-cli download zai-org/GLM-5.3-Flash --revision 04c4e9e95c5da8862dced7e5056455116f83a7e0
     ```
 
-    模型许可证：参见 [模型许可证](../model-licenses.md)。GLM-5.3-Flash 需要 **MLNode 3.1.0**（镜像 `ghcr.io/gonka-ai/mlnode:3.1.0-vllm-0.28.0`）、vLLM 0.28 和 CUDA 13 驱动（580+）。不要使用 `3.0.17`。有关操作说明和链上选项（意图、委托），请参阅 [GLM-5.3-Flash 启动](./glm-bootstrap.md)。
+    模型许可证：参见 [模型许可证](../model-licenses.md)。GLM-5.3-Flash 需要 **MLNode 3.1.0**（镜像 `ghcr.io/gonka-ai/mlnode:3.1.0-vllm-0.28.0`）、vLLM 0.28 和 CUDA 13 驱动（580+）。请勿使用 `3.0.17`。有关操作说明和链上选项（意图、委托），请参阅 [GLM-5.3-Flash 启动](./glm-bootstrap.md)。
 
 ## 启动节点
 
 ### [Server] 拉取 Docker 镜像（容器）
 
-在运行以下命令前，请确保您位于 `gonka/deploy/join` 文件夹中。 
+运行以下命令前，请确保您位于 `gonka/deploy/join` 文件夹中。 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml pull
 ```
 
 ### [Server] 启动初始服务
 
-启动密钥设置所需的核心服务（不包括 API 服务）：
+启动密钥设置所需的必要服务（不包括 API 服务）：
 
 ```bash
 source config.env && \
@@ -1111,13 +1104,13 @@ docker compose up tmkms node -d --no-deps
 - **`api`** - 此阶段故意不启动，因为我们需要在下一步中在其内部创建 ML 操作密钥
 
 !!! note "建议"
-    您可以通过检查日志来验证初始服务是否成功启动：
+    您可以通过查看日志来验证初始服务是否成功启动：
 
     ```bash
     docker compose logs tmkms node -f
     ```
 
-    如果看到链节点持续处理区块事件，则说明设置正常工作。
+    如果您看到链节点持续处理区块事件，则说明设置正常运行。
 
 ??? note "关于共识密钥"
     - 由安全的 TMKMS 服务管理
@@ -1125,24 +1118,24 @@ docker compose up tmkms node -d --no-deps
     - 区块验证和网络共识参与
     - 可通过账户密钥或授权委托进行轮换
 
-在 [步骤 3.2.](https://gonka.ai/host/quickstart/#32-server-register-host)（`inferenced register-new-participant`）的注册命令期间，共识密钥将与您的账户密钥（冷密钥）链上关联，使您的节点成为网络的有效参与者。
+在 [步骤 3.2.](https://gonka.ai/host/quickstart/#32-server-register-host)（`inferenced register-new-participant`）的注册命令期间，共识密钥将与链上的账户密钥（冷密钥）关联，从而将您的节点确立为网络的有效参与者。
 
-如果您删除或覆盖 `.tmkms` 文件夹，您的共识密钥将丢失。此密钥是将您的节点与区块链验证者集合关联的关键。一旦 `.tmkms` 被删除，您必须从头开始整个设置，包括生成新的共识密钥（通过 `tmkms`）（参见 FAQ 页面上的 “[我清除了或覆盖了我的共识密钥](https://gonka.ai/FAQ/#i-cleared-or-overwrote-my-consensus-key)”）。
+如果您删除或覆盖 `.tmkms` 文件夹，您的共识密钥将丢失。此密钥是将您的节点链接到区块链验证者集合的关键。一旦 `.tmkms` 被删除，您必须从头开始整个设置，包括生成新的共识密钥（通过 `tmkms`）（参见 FAQ 页面上的 “[我清除了或覆盖了我的共识密钥](https://gonka.ai/FAQ/#i-cleared-or-overwrote-my-consensus-key)”）
 
 ### 完成密钥设置和主机注册
 
-现在我们需要通过创建温密钥、注册主机和授予权限来完成密钥管理设置：
+现在我们需要通过创建温密钥、注册主机并授予权限来完成密钥管理设置：
 
 #### 3.1. [Server] 创建 ML 操作密钥
 
 ??? note "关于ML操作密钥（热密钥）"
     - 由账户密钥授权用于ML特定交易
-    - 服务器上的加密文件，通过程序访问
+    - 服务器上的加密文件，通过程序方式访问
     - 自动化交易（推理请求、证明提交、奖励）
-    - 可随时由账户密钥进行轮换/吊销
+    - 可随时由账户密钥轮换/吊销
     - 需要持续可用，除非必要，否则不要移除或轮换它。
 
-使用 `file` 密钥环后端在 `api` 容器内创建热密钥（程序化访问所必需）。密钥将存储在映射到容器 `/root/.inference` 的持久卷中：
+使用 `file` 密钥环后端在 `api` 容器内创建热密钥（程序化访问所需）。密钥将存储在映射到容器 `/root/.inference` 的持久卷中：
 ```bash
 docker compose run --rm --no-deps -it api /bin/sh
 ```
@@ -1155,7 +1148,7 @@ printf '%s\n%s\n' "$KEYRING_PASSWORD" "$KEYRING_PASSWORD" | inferenced keys add 
     不要运行此命令两次。
     ML操作密钥（热密钥）每个服务器仅生成一次，必须在重启后保留。
 
-    - 如果您意外删除或重新初始化，请参阅FAQ中的恢复说明："[我删除了热密钥](https://gonka.ai/FAQ/#i-deleted-the-warm-key)"。
+    - 如果您意外删除或重新初始化，请遵循FAQ中的恢复说明："[我删除了热密钥](https://gonka.ai/FAQ/#i-deleted-the-warm-key)"。
     - 重启节点时，请完全跳过此步骤——密钥已生成并持久存储在API容器内。
 
 **示例输出：**
@@ -1177,7 +1170,7 @@ again plastic athlete arrow first measure danger drastic wolf coyote work memory
 
 #### 3.2. [服务器] 注册主机
 
-在同一容器中注册主机——这将在链上将您的URL、账户密钥和共识密钥（自动获取）关联起来：
+从同一容器中注册主机——这会将您的URL、账户密钥和共识密钥（自动获取）链上关联：
 
 ```
 inferenced register-new-participant \
@@ -1194,17 +1187,17 @@ Participant is now available at http://36.189.234.237:19250/v2/participants/gonk
 Account balance: 0
 ```
 
-!!! warning "账户已拥有GNK但尚未发送任何交易"
+!!! warning "账户已拥有GNK，但尚未发送任何交易"
 
     在大多数情况下，`inferenced register-new-participant` 可直接从 `api` 容器内注册您的主机。
 
-    但存在一个已知的边缘情况：如果您的账户密钥地址已接收GNK但从未自行发送过交易，则从容器内注册可能会失败，错误类似于：
+    但是存在一个已知的边缘情况：如果您的账户密钥地址已接收GNK，但从未自行发送过交易，则从容器内注册可能会失败，错误类似于：
 
     ```text
     rpc error: code = Unknown desc = runtime error: invalid memory address or nil pointer dereference: panic
     ```
 
-    当账户有余额但链上交易序列仍为 `0` 时，可能发生这种情况。
+    当账户有余额但链上交易序列仍为 `0` 时，可能会发生这种情况。
 
 如果上述命令因该错误失败，您可以在您的**本地机器**上检查账户余额和序列：
 
@@ -1216,12 +1209,12 @@ Account balance: 0
 
     如果账户具有非零 `ngonka` 余额且序列命令返回 `0`，请使用以下手动注册流程。
 
-**步骤1。** 仍处于步骤3.1的容器中，获取您的共识密钥并记录下来：
+**步骤1。** 仍在步骤3.1的容器中时，获取您的共识密钥并记录下来：
     ```bash
     curl -s $DAPI_CHAIN_NODE__URL/status | jq -r '.result.validator_info.pub_key.value'
     ```
 
-    **步骤2。** 退出容器，然后在您的**本地机器**（存储您的账户密钥的位置）运行以下命令：
+    **步骤2。** 退出容器，然后在您的**本地机器**（您的账户密钥存储位置）上运行此命令：
     ```bash
     ./inferenced tx inference submit-new-participant \
         <PUBLIC_URL> \
@@ -1238,12 +1231,12 @@ Account balance: 0
 
 如果您使用自定义 `--keyring-dir` 创建了账户密钥，请在命令中添加 `--keyring-dir <path>`。
 
-命令将提示 `confirm transaction before signing and broadcasting [y/N]:` —— 键入 `y` 继续。
+命令将提示 `confirm transaction before signing and broadcasting [y/N]:` —— 输入 `y` 继续。
 
-在主网上注册是免费的。注册费组已禁用，因此此命令不会消耗GNK作为燃料。
+在主网上注册是免费的。入网费用组已禁用，因此此命令不会消耗GNK作为Gas。
 
 !!! note "每节点账户密钥配置"
-    为每个网络节点生成唯一的 `ACCOUNT_PUBKEY`，以确保主机的正确分离。
+    为每个网络节点生成唯一的 `ACCOUNT_PUBKEY`，以确保主机之间的正确隔离。
 
     然后我们可以退出容器：
 ```bash
@@ -1251,10 +1244,10 @@ exit
 ```
 
 
-#### 3.3. [本地机器] 为ML操作密钥授予权限
+#### 3.3. [本地机器] 授予ML操作密钥权限
 **重要：请在您创建账户密钥的安全本地机器上执行此步骤**
 
-从您的账户密钥向ML操作密钥授予权限。这还将创建一个**费用授权**（冷→热），默认支出限额为**10 GNK**，以便API可从冷账户支付需付费的交易。如果该额度后来耗尽，您无法直接补充——必须吊销并重新授权；请参阅[刷新费用授权](#refresh-the-feegrant-when-the-10-gnk-allowance-is-used-up)。从 **v0.2.16** 起，此授权包含 `MsgDeclarePoCIntent`，升级会将其添加到已存在的授权中。无需为升级重新运行此命令。委托和拒绝保持独立。请参阅[如何从热密钥声明PoC意图？](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key)。
+从您的账户密钥向ML操作密钥授予权限。这还会创建一个**费用授权**（冷→热），默认消费限额为**10 GNK**，以便API可从冷账户支付费用交易。如果该授权后来耗尽，您无法直接补充——必须吊销并重新授予；参见[刷新费用授权](#refresh-the-feegrant-when-the-10-gnk-allowance-is-used-up)。从 **v0.2.16** 开始，此授权包含 `MsgDeclarePoCIntent`，升级会将其添加到已存在的授权中。升级时请勿重新运行此命令。委托和拒绝保持独立。参见[如何从热密钥声明PoC意图？](../FAQ.md#how-do-i-declare-a-poc-intent-from-a-warm-key)。
 ```bash
 ./inferenced tx inference grant-ml-ops-permissions \
     gonka-account-key \
@@ -1304,7 +1297,7 @@ docker run --rm -it \
 ```
 
 !!! note "DNS 挑战"
-    Certbot 将暂停并显示在您的提供商处添加的 **TXT DNS** 记录。验证后，`cert.pem` 和 `private.key` 将出现在 `./secrets/nginx-ssl/` 中。
+    Certbot 将暂停并显示您在提供商处需要添加的 **TXT DNS** 记录。验证后，`cert.pem` 和 `private.key` 将出现在 `./secrets/nginx-ssl/` 中。
 
 ##### 验证证书文件
 
@@ -1315,7 +1308,7 @@ ls -la secrets/nginx-ssl/
 ```
 
 您应该看到：
-- `cert.pem`（完整链证书）
+- `cert.pem`（完整证书链）
 - `private.key`（权限为 0600 的私钥）
 
 问卷生成的 `config.env` 文件已包含必要的 SSL 配置变量：
@@ -1326,13 +1319,13 @@ ls -la secrets/nginx-ssl/
 
 <!-- CONDITION END -->
 
-## [服务器] 启动完整节点
+## [服务器] 启动全节点
 
 最后，启动所有容器，包括 API：
 
 <!-- CONDITION START: data-show-when='["non-finished"]' -->
 !!! note "需要配置"
-    请先完成[上面的问卷](#quickstart-questionnaire)以生成启动命令。
+    请完成上方的[问卷](#quickstart-questionnaire)以生成启动命令。
     <!-- CONDITION END -->
 
     <!-- CONDITION START: data-show-when='["protocolHttp"]' -->
@@ -1354,7 +1347,7 @@ docker compose --profile "ssl" \
   up -d
 ```
 
-`--profile "ssl"` 标志启用了 `proxy-ssl` 容器，该容器自动管理 SSL 证书。
+`--profile "ssl"` 标志启用了 `proxy-ssl` 容器，该容器会自动管理 SSL 证书。
 <!-- CONDITION END -->
 
 <!-- CONDITION START: data-show-when='["protocolHttps", "certMethodManual", "domainYes"]' -->
@@ -1396,16 +1389,16 @@ http://node2.gonka.ai:8000/v1/epochs/current/participants
 您可以[在 MLNode 上自行模拟计算证明](https://gonka.ai/FAQ/#how-to-simulate-proof-of-compute-poc)，以确保在链上开始 PoC 阶段时一切正常。
 
 您可以在该阶段前关闭服务器，并在下一次计算证明开始前重新启动。
-要跟踪下一次计算证明会话何时开始，请查看[仪表板](https://gonka.ai/wallet/dashboard/)：
+要跟踪下一次计算证明会话何时开始，请查看以下仪表板：
 ```
 http://node2.gonka.ai:8000/dashboard/gonka/validator
 ```
 
-节点启动后，通过代理检查您的节点状态。
+节点运行后，请通过代理检查节点状态。
 ```bash
 curl http://<PUBLIC_IP>:8000/chain-rpc/status
 ```
-在服务器上，您可以使用私有端点（从容器内部访问，或若 26657 绑定到 localhost）。
+在服务器上，您可以使用私有端点（从容器内部访问，或如果 26657 绑定到 localhost）。
 ```bash
 curl http://0.0.0.0:26657/status
 ```
@@ -1414,15 +1407,15 @@ curl http://0.0.0.0:26657/status
 curl http://node2.gonka.ai:8000/chain-rpc/status
 ```
 
-一旦您的节点在仪表板中可见，您可能还想更新您的公共资料（主机名、网站、头像）。这有助于其他参与者在网络中识别您的节点。您可以在[此处找到说明](https://gonka.ai/host/validator_info/)。
+一旦您的节点在仪表板中可见，您可能还想更新您的公开资料（主机名、网站、头像）。这有助于其他参与者在网络中识别您的节点。您可以在[此处找到说明](https://gonka.ai/host/validator_info/)。
 
 ## 为您的账户密钥充值（交易费用）{#fund-account-fees}
 
-**重要：费用由您的冷钱包支付。请在安全的本地机器上执行转账和付费交易。**
+**重要：费用由您的冷钱包支付。请在安全的本地机器上执行转账和收费交易。**
 
-从升级 **v0.2.16** 开始，Gonka 对一组指定的主机交易收取链上费用。仅注册不足以加入计算证明或一个纪元：您的冷账户必须持有足够的 GNK 余额，以便这些消息能被包含在链上。
+从升级 **v0.2.16** 开始，Gonka 对一组预定义的主机交易收取链上费用。仅注册不足以加入计算证明或一个周期：您的冷账户必须持有足够的 GNK 余额，以便这些消息能被包含在链上。
 
-在下一个 PoC 窗口前为您的账户密钥地址充值。请将此余额与[第 5 节：本地机器质押抵押品](#5-local-machine-deposit-collateral)中锁定的抵押品分开——费用从自由余额中扣除；抵押品则存入抵押模块。
+在下一个 PoC 窗口前为您的账户密钥地址充值。请将此余额与 [§5 存入抵押品](#5-local-machine-deposit-collateral) 中锁定的抵押品分开——费用从自由余额中扣除；抵押品则存入抵押品模块。
 
 当前费用适用于以下消息类型：
 
@@ -1436,11 +1429,11 @@ curl http://node2.gonka.ai:8000/chain-rpc/status
 | `MsgDepositCollateral` | 存入抵押品（本节的后续步骤） |
 | `MsgWithdrawCollateral` | 在解绑期后提取抵押品 |
 
-其他协议职责流量（例如常规推理、PoC验证、种子提交、奖励申领和BLS）免费。银行转账、authz授权和feegrant撤销/授予属于`cosmos`组，每gas收费1 ngonka。治理投票免费。始终使用`ngonka`作为余额和费用的面额。
+其他协议职责流量（例如常规推理、PoC验证、种子提交、奖励申领和BLS）免费。银行转账、authz授权和feegrant撤销/授予属于`cosmos`组，每gas收费1 ngonka。治理投票免费。始终使用`ngonka`代币进行余额和费用计算。
 
-链会为付费交易提取`gas limit × price`。`--gas 2000000`按1 ngonka每gas计算为0.002 GNK。请将手动限额保持在该范围内。十亿gas的限额会从账户中提取十亿ngonka，即使交易仅使用少量gas。链拒绝超过**100 GNK**的费用。低于该上限的任何费用仍全额收取。
+链会为付费交易提取`gas limit × price`。以1 ngonka每gas计算，`--gas 2000000`等于0.002 GNK。请将手动限额保持在此范围内。十亿gas的限额会从账户中提取十亿ngonka，即使交易实际使用的gas很少。链会拒绝超过**100 GNK**的费用。低于该上限的任何费用仍全额收取。
 
-`--gas auto`仅设置gas限额。请同时传递`--gas-prices 1ngonka`，或显式设置`--fees`金额。费用为空的付费交易会因`insufficient fee`而被拒绝。
+`--gas auto`仅设置gas限额。请同时传递`--gas-prices 1ngonka`，或明确指定`--fees`金额。费用为空的付费交易将因`insufficient fee`被拒绝。
 
 收费组如下：
 
@@ -1449,7 +1442,7 @@ curl -s http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/
   | jq '.params.fee_params | {enabled_fee_groups, groups: [.groups[] | {name, min_gas_price}]}'
 ```
 
-在主网上，`enabled_fee_groups`为`epoch`和`cosmos`，均为每gas 1 ngonka。未列在此列表中的组免费。
+在主网上，`enabled_fee_groups`为`epoch`和`cosmos`，每gas均为1 ngonka。未列在此列表中的组免费。
 
 在您的**本地机器**上获取您的冷账户地址：
 
@@ -1457,7 +1450,7 @@ curl -s http://node2.gonka.ai:8000/chain-api/productscience/inference/inference/
 ./inferenced keys show gonka-account-key -a --keyring-backend file
 ```
 
-向该地址发送GNK。冷账户的实际起始充值建议为**10 GNK**——足以覆盖数个周期的操作费用以及您从冷账户签署的一次性设置交易（权限授予、委托、抵押品存入）。此外，[§3.3 授予权限](#33-local-machine-grant-permissions-to-ml-operational-key) 创建了一个**feegrant**，允许ML操作密钥从冷账户支付费用，默认**消费限额为10 GNK**。该限额是feegrant消费的上限；发送更多GNK不会自动补充该限额。抵押品是独立的；请参阅[§5 存入抵押品](#5-local-machine-deposit-collateral)。
+向该地址发送GNK。冷账户的实际起始充值建议为**10 GNK**——足以覆盖数个周期的操作费用以及您从冷账户签署的一次性设置交易（权限授权、委托、抵押品存入）。另外，[§3.3 授予权限](#33-local-machine-grant-permissions-to-ml-operational-key)会创建一个**feegrant**，使ML操作密钥可以从冷账户支出费用，默认**支出限额为10 GNK**。该限额是feegrant支出的上限，通过发送更多GNK不会自动补充。抵押品是独立的；请参阅[§5 存入抵押品](#5-local-machine-deposit-collateral)。
 
 确认转账已到账（替换`<your-gonka-cold-address>`）：
 
@@ -1467,7 +1460,7 @@ curl -s "http://node2.gonka.ai:8000/v2/accounts/<your-gonka-cold-address>" | jq 
 
 ### 检查一个周期的费用预算
 
-在您的节点运行且**API**容器启动后（[§4 启动完整节点](#4-server-launch-full-node)），在**服务器**上运行此命令。管理API仅监听localhost——未通过公共代理暴露。
+在您的节点运行且**API**容器启动后（[§4 启动完整节点](#4-server-launch-full-node)），在**服务器**上运行此命令。管理API仅监听localhost——不会通过公共代理暴露。
 
 ```bash
 curl -s http://127.0.0.1:9200/admin/v1/epoch-fee-budget | jq
@@ -1489,31 +1482,31 @@ curl -s http://127.0.0.1:9200/admin/v1/epoch-fee-budget | jq
 
 **如何阅读：**
 
-- **`budget_balance`** — 仅针对**本周期**估算所需的**ngonka**（主要PoC、可能的确认PoC和硬件差异费用）。这是一个包含余量的上限值，而非精确账单。
+- **`budget_balance`** — 仅针对**此周期**估算所需的**ngonka**数量（主要PoC、可能的确认PoC和硬件差异费用）。这是一个包含余量的上限值，而非精确账单。
 - **`spendable_balance`** — 节点当前实际可用于支付费用的金额：冷账户的流动余额，**受ML操作密钥剩余feegrant授权额度的限制**。
 - **`spendable_covers_budget: true`** — 该受限金额足以覆盖本周期的估算。
 - **`spendable_covers_budget: false`** — 费用余量不足。请检查两方面：
   - 如果冷账户余额较低 → 向冷账户发送更多GNK。
-  - 如果冷账户仍有资金但feegrant消费限额已耗尽 → 撤销并重新授权（见下文）。仅发送GNK不会**提高**feegrant限额。
-- **`count_source: "top_participant"`** — 该估算基于上一PoC阶段中最繁忙参与者的存储提交量。如需保守的手动估算，请传入您自己的提交次数：
+  - 如果冷账户仍有资金但feegrant支出限额已用尽 → 撤销并重新授予（见下文）。仅发送GNK**不会**提高feegrant限额。
+- **`count_source: "top_participant"`** — 估算值根据上一个PoC阶段中最繁忙参与者的提交次数进行缩放。为保守估算，请传入您自己的提交次数：
 
 ```bash
 curl -s "http://127.0.0.1:9200/admin/v1/epoch-fee-budget?count=100" | jq
 ```
 
-此检查**不包括**上述表格中的抵押品或一次性设置消息——仅涵盖当前周期的重复性PoC/硬件流量。
+此检查**不包括**上述表格中的抵押品或一次性设置消息——仅针对当前周期的持续性PoC/硬件流量。
 
 ### 为多个周期做规划
 
-该端点一次仅估算**一个周期**。费用随交易落地而消耗；未使用的GNK保留在您的冷账户中，未使用的feegrant余量保留在授权额度中，直至耗尽。
+该端点每次仅估算**一个周期**。费用在交易落地时消耗；未使用的GNK保留在您的冷账户中，未使用的feegrant余量也保留在授权额度中，直至耗尽。
 
-- **每个周期重新检查** — 在PoC前后或网络活动变化时再次运行此命令。
-- **提前规划** — 将`budget_balance`乘以您希望覆盖的周期数（例如，`budget_balance × 90`约为在主网上三个月，每个周期约24小时）。确保冷账户中保留如此多的流动GNK，且feegrant限额（默认**每个授权10 GNK**）足够。
-- **当`spendable_covers_budget`为false时** — 若余额不足则补充冷账户；若feegrant限额已用完，则刷新授权（下一节）。没有“补充feegrant”的交易。
+- **每个周期重新检查** — 在PoC之前或之后再次运行此命令，若网络活动发生变化。
+- **提前规划** — 将`budget_balance`乘以您希望覆盖的周期数（例如，`budget_balance × 90`约为在主网上三个月，每个周期约24小时）。在冷账户中保持相应数量的流动GNK**和**足够的剩余feegrant限额（每个授权默认**10 GNK**）。
+- **当`spendable_covers_budget`为false时** — 若余额不足则补充冷账户；若feegrant限额已耗尽，则刷新授权（下一节）。不存在“补充feegrant”的交易。
 
-### 当10 GNK授权额度耗尽时刷新feegrant
+### 当10 GNK授权额度用尽时刷新feegrant
 
-`grant-ml-ops-permissions`创建了一个**feegrant**，允许ML操作密钥（热）从您的账户密钥（冷）支付费用，默认消费限额为**10 GNK**。Cosmos feegrant没有更新/补充消息：当该授权额度耗尽（或过期）时，即使冷账户仍有余额，API也无法提交付费交易。您必须**撤销**旧授权，然后**重新授权**以创建新的10 GNK限额。
+`grant-ml-ops-permissions`创建一个**feegrant**，使ML操作密钥（热）可以从您的账户密钥（冷）支付费用，默认支出限额为**10 GNK**。Cosmos feegrant没有更新/补充消息：当该授权额度耗尽（或过期）时，即使冷账户仍有余额，API也无法提交带费用的交易。您必须**撤销**旧授权，然后**重新授予**以创建新的10 GNK限额。
 
 1. 确保冷账户仍持有足够的流动GNK（如需则发送更多）。
 2. 在您的**本地机器**上撤销旧授权（`[granter] [grantee]` — 冷账户，然后热账户）。在运行授权前，请等待撤销交易被确认上链。
@@ -1529,7 +1522,7 @@ curl -s "http://127.0.0.1:9200/admin/v1/epoch-fee-budget?count=100" | jq
   --gas-prices 1ngonka
 ```
 
-3. 撤销确认后，重新授权：
+3. 撤销确认后，重新授予：
 
 ```bash
 ./inferenced tx inference grant-ml-ops-permissions \
@@ -1543,19 +1536,19 @@ curl -s "http://127.0.0.1:9200/admin/v1/epoch-fee-budget?count=100" | jq
   --chain-id gonka-mainnet
 ```
 
-如果已有授权，`grant-ml-ops-permissions`将跳过创建新的feegrant并提示您先撤销。成功重新授权后，请使用`epoch-fee-budget`重新检查，直到`spendable_covers_budget`为`true`。
+如果已存在授权，`grant-ml-ops-permissions`将跳过创建新的feegrant并提示您撤销。成功重新授予后，请使用`epoch-fee-budget`重新检查，直到`spendable_covers_budget`为`true`。
 
 ## [本地机器] 存入抵押品
 
 **重要：请在您创建账户密钥的安全本地机器上执行此步骤。**
 
-抵押品是锁定的GNK，用于激活您PoC权重中符合抵押资格的部分。没有它，主机仅能获得Proof of Compute所获权重的**基础权重**（默认20%）。宽限期已结束，因此必须执行此步骤才能以完整权重运行。
+抵押品是锁定的GNK，用于激活您PoC权重中符合抵押条件的部分。若无抵押品，主机仅能获得Proof of Compute收益的**基础权重**（默认20%）。宽限期已结束，因此此步骤是实现满额权重运行的必要条件。
 
-> **关于时间的说明：** 验证节点状态仅确认您的容器正在运行且您的参与者已注册，并**不**意味着计算证明（PoC）已成功——PoC 每约 24 小时运行一次，只有在它完成后，您才能在 `$NODE_URL/v1/epochs/current/participants` 上看到您的实际权重。下面两个选项允许您要么现在使用估算值存入，要么等待首次 PoC 完成后再使用精确数据存入。
+> **关于时间的说明：** 验证节点状态仅确认您的容器正在运行且您的参与者已注册，并**不**意味着计算证明（PoC）已成功——PoC 每约 24 小时运行一次，只有在其完成后，您才能在 `$NODE_URL/v1/epochs/current/participants` 查看实际权重。以下两个选项允许您要么现在使用估算值存入，要么等待首次 PoC 完成后再使用精确数据存入。
 
-您无法提前知道您的 PoC 权重——它由您的硬件、网络当前规模和每个模型的系数决定。
+您无法提前知道您的 PoC 权重——它由您的硬件、网络当前规模以及每个模型的系数决定。
 
-**选项 A — 现在存入（从第 1 个周期起获得全额权重）。** 查看网络中的当前权重分布，并存入足以覆盖上限的金额。您的节点在首次 PoC 时已有抵押品就位。
+**选项 A — 现在存入（从第 1 个周期起获得完整权重）。** 查看网络中当前的权重分布，并存入足以覆盖上限的金额。您的节点在首次 PoC 时已有抵押品到位。
 
 ```bash
 export NODE_URL="<seed_api_url from server's config.env>"   # e.g. http://node2.gonka.ai:8000
@@ -1574,11 +1567,11 @@ DEPOSIT=$(printf "%.0f" "$(echo "$MAX_WEIGHT * (1 - $BASE_WEIGHT_RATIO) * $COLLA
 echo "Recommended deposit (covers network max with 2x buffer): ${DEPOSIT} ngonka"
 ```
 
-公式为 `MAX_WEIGHT × (1 − BASE_WEIGHT_RATIO) × COLLATERAL_PER_UNIT × 2`：仅需为有权重资格的部分提供抵押（其余部分作为基础权重授予），而 `× 2` 是建议的安全缓冲。所有参数均从链上读取，因此即使治理更新了参数，脚本仍保持正确。
+公式为 `MAX_WEIGHT × (1 − BASE_WEIGHT_RATIO) × COLLATERAL_PER_UNIT × 2`：仅需为权重中符合抵押资格的部分提供抵押（其余部分作为基础权重授予），而 `× 2` 是建议的安全缓冲。所有参数均从链上读取，因此即使治理更新了参数，脚本仍保持正确。
 
-> **为何使用 2 倍缓冲？** PoC 权重在各周期间会波动（网络归一化、模型系数、上限、惩罚）。协议**不会**自动补充：如果您的抵押品在下一个周期边界时低于实际权重，您将无声地获得较少权重，直到您补充更多抵押品——至少损失一个周期的全部奖励。超额抵押不会丢失：它将存留在模块中，稍后可通过 `withdraw-collateral` 提取。
+> **为何使用 2 倍缓冲？** PoC 权重在各周期间波动（网络归一化、模型系数、上限、惩罚）。协议**不会**自动补充抵押品：如果在下一个周期边界时您的抵押品低于实际权重，您将无声地获得较少权重，直至您补充更多抵押品——至少损失一个周期的全部奖励。超额抵押品不会丢失：它将存留在模块中，之后可通过 `withdraw-collateral` 提取。
 
-**选项 B — 等待首次 PoC 完成后再精确存入（损失一个周期 20% 的权重）。** 现在跳过此步骤，等待您的首次 PoC 阶段完成（每约 24 小时），然后在 `$NODE_URL/v1/epochs/current/participants` 上检查您的实际权重，并使用您的实际权重替换 `MAX_WEIGHT` 后重新运行上述脚本。从第二个周期开始，您的节点将以全额权重运行。
+**选项 B — 等待首次 PoC 完成后再精确存入（损失一个周期 20% 的权重）。** 现在跳过此步骤，等待您的首次 PoC 阶段完成（每约 24 小时），然后在 `$NODE_URL/v1/epochs/current/participants` 查看您的实际权重，并使用您的实际权重替换上述脚本中的 `MAX_WEIGHT` 后重新运行。从第二个周期开始，您的节点将运行在完整权重下。
 
 从您的账户密钥存入抵押品（始终使用 `ngonka`）：
 
@@ -1600,17 +1593,17 @@ MY_ADDR=$(./inferenced keys show gonka-account-key -a --keyring-backend file)
 curl -s "$NODE_URL/chain-api/productscience/inference/collateral/collateral/$MY_ADDR" | jq
 ```
 
-存款是累积的——如果您的权重增加，可以稍后使用另一个 `deposit-collateral` 补充。要释放未使用的抵押品，请使用 `withdraw-collateral`（需经历解绑期，默认为1个纪元）。
+存款是累积的——如果您的权重增加，稍后可以使用另一个 `deposit-collateral` 补充。要释放未使用的抵押品，请使用 `withdraw-collateral`（需经历解绑期，默认为1个周期）。
 
 有关 slashing、提款和参数调优的详细信息，请参阅 [抵押品文档](https://gonka.ai/host/collateral/)。
 
 ## 可选：PoC 委托与拒绝 {#optional-poc-delegation-and-refusal}
 
-请在您的主机注册、ML 运营密钥授权，并且您能够 [验证](#verify-node-status) 参与情况后使用本节——通常在您的**本地机器**上使用**账户（冷）密钥**（`gonka-account-key`）操作。此处内容并非启动容器所必需；仅当您**不**在自己的 GPU 上运行所有治理批准的模型，而必须**委托** PoC 投票给其他参与者、**拒绝**委托或与 `params` 比较时间时才适用。
+请在您的 Host 注册完成、ML 运营密钥已授权，并且您能够 [验证](#verify-node-status) 参与状态后使用本节——通常需在您的**本地机器**上使用**账户（冷）密钥**（`gonka-account-key`）操作。此处内容并非启动容器所必需；仅当您**不**在自己的 GPU 上运行所有治理批准的模型，而必须**委托** PoC 投票给其他参与者、**拒绝**委托或与 `params` 比较时间时才适用。
 
-对于每个 `model_id`，您要么运行模型（PoC 来自您的堆栈），要么在链上发出信号。**委托**是当您信任运行该模型的主机时的常见选择；**拒绝**是明确的退出选项。背景：[多模型 PoC — 主机操作指南](./multi_model_poc.md)。
+对于每个 `model_id`，您要么运行模型（PoC 由您的系统提交），要么在链上发出信号。**委托**是当您信任运行该模型的 Host 时的常见选择；**拒绝**是明确的退出选项。背景：[多模型 PoC — Host 操作指南](./multi_model_poc.md)。
 
-将 `NODE` 设置为任意同步的链 RPC（模式与 `grant-ml-ops-permissions` 相同：从 `config.env` 获取种子 API URL 并附加 `/chain-rpc/`）。
+将 `NODE` 设置为任意同步的链 RPC（模式与 `grant-ml-ops-permissions` 相同：从 `config.env` 获取种子 API URL，并附加 `/chain-rpc/`）。
 
 ```bash
 export NODE="<PUBLIC_CHAIN_RPC>"   # e.g. http://node2.gonka.ai:8000/chain-rpc/
@@ -1619,20 +1612,20 @@ export KEY="gonka-account-key"
 export KEYRING_BACKEND="file"
 ```
 
-检查治理参数（惩罚、`penalty_start_epoch` 等）：
+检查治理参数（罚金、`penalty_start_epoch` 等）：
 
 ```bash
 ./inferenced query inference params --node "$NODE" -o json
 ```
 
-**检查您的 PoC 委托/拒绝/意向状态**（所有模型）：
+**检查您的 PoC 委托/拒绝/意图状态**（所有模型）：
 
 ```bash
 MY_ADDR="$(./inferenced keys show "$KEY" -a --keyring-backend "$KEYRING_BACKEND")"
 ./inferenced query inference poc-delegation "$MY_ADDR" --node "$NODE" -o json
 ```
 
-**委托**——将您对该模型 PoC 验证的权重附加到 `DELEGATEE`（他们的 `gonka1…` 地址）。MiniMax 示例：
+**委托**——将您对该模型 PoC 验证的权重附加到 `DELEGATEE`（其 `gonka1…` 地址）。以 MiniMax 为例：
 
 ```bash
 MODEL="MiniMaxAI/MiniMax-M2.7"
@@ -1649,7 +1642,7 @@ DELEGATEE="gonka1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   -y
 ```
 
-DeepSeek 示例（例如，您仅在 GPU 上运行 MiniMax）：
+以 DeepSeek 为例（例如，您仅在 GPU 上运行 MiniMax）：
 
 ```bash
 MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
@@ -1682,7 +1675,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   -y
 ```
 
-**拒绝**单个模型的委托（链上明确的“否”）。对于您不运行的**合格**模型，请使用此选项（例如 GLM-5.3-Flash 或 DeepSeek，若您仅提供 MiniMax）。常规拒绝/错过惩罚仅适用于合格组。
+**拒绝**单个模型的委托（链上明确的“否”）。对于您未运行的**合格**模型，请使用此选项（例如 GLM-5.3-Flash 或 DeepSeek，若您仅提供 MiniMax）。常规拒绝/遗漏罚金仅适用于合格组。
 
 ```bash
 MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
@@ -1698,13 +1691,13 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   -y
 ```
 
-`declare-poc-intent` 主要适用于**新模型启动**窗口；请参阅 [GLM-5.3-Flash 启动](./glm-bootstrap.md) 和 [DeepSeek V4 Flash 启动](./deepseek-bootstrap.md)。更多命令和边缘情况：[多模型 PoC — 主机操作指南](./multi_model_poc.md#copy-paste-setup-commands)。
+`declare-poc-intent` 主要适用于**新模型启动**窗口；请参阅 [GLM-5.3-Flash 启动](./glm-bootstrap.md) 和 [DeepSeek V4 Flash 启动](./deepseek-bootstrap.md)。更多命令和边缘情况：[多模型 PoC — Host 操作指南](./multi_model_poc.md#copy-paste-setup-commands)。
 
 ## 停止并清理您的节点
 
 ### 如何停止您的节点
 
-检查您当前所处的纪元。打开 URL：[http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest)（您也可以使用其他任何活跃参与者的 URL）。
+检查您当前所处的周期。打开以下 URL：[http://node1.gonka.ai:8000/api/v1/epochs/latest](http://node1.gonka.ai:8000/api/v1/epochs/latest)（您也可以使用任何其他活跃参与者的 URL）。
 
 在响应中查找：
 ```
@@ -1714,7 +1707,7 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
 }
 ```
 
-记住您的节点最后工作的纪元索引。
+记下您的节点最后参与的周期索引。
 
 在同一 JSON 响应中查找：
 ```
@@ -1723,17 +1716,17 @@ MODEL="deepseek-ai/DeepSeek-V4-Flash-0731"
   "claim_money": <block_number>
 }
 ```
-此区块编号表示您可领取奖励的区块之后。但请注意，您现在应立即禁用每个 ML 节点（无需等待此区块再禁用您的 ML 节点）。
+该区块号表示您可领取奖励的区块之后的区块。但请注意，您现在应立即禁用每个 ML 节点（无需等待该区块到来再禁用 ML 节点）。
 
 禁用每个 ML 节点。
 
 ```
 curl -X POST http://<api_node_static_ip>:<admin_port>/admin/v1/nodes/<id>/disable
 ```
-等待下一个纪元。请勿停止网络节点或 ML 节点。禁用标志仅在下一个纪元开始后生效。
+等待下一个周期开始。请勿立即停止网络节点或 ML 节点。禁用标志仅在下一个周期开始后生效。
 
 保持网络节点在线并同步，它应自动处理奖励领取。
-要检查您的最新奖励是否已被领取，在 `claim_money` 区块后运行以下命令（将 `<YOUR_ADDRESS>` 和 `<EPOCH>` 替换为您的实际值）：
+要检查您的最新奖励是否已被领取，请在 `claim_money` 区块之后运行以下命令（请将 `<YOUR_ADDRESS>` 和 `<EPOCH>` 替换为您的实际值）：
 ```
 inferenced query inference show-epoch-performance-summary <EPOCH> <YOUR_ADDRESS> --node http://node1.gonka.ai:8000/chain-rpc/ --output json
 ```
@@ -1750,10 +1743,10 @@ Output:
   }
 }
 ```
-如果结果显示 `claimed = true`，则您的奖励已被领取。
-如果显示 `false`，请继续手动领取步骤。
+如果结果为 `claimed = true`，则您的奖励已被领取。
+如果结果为 `false`，请继续手动领取步骤。
 
-!!! note "手动领取奖励（如需要）"
+!!! note "手动领取奖励（如需）"
     运行：
     ```
     curl -X POST http://localhost:9200/admin/v1/claim-reward/recover \
@@ -1761,9 +1754,9 @@ Output:
      -d '{"force_claim": true}'
     ```
 
-验证移除和权重。如果您禁用了所有节点，则您的参与者应不再出现在活跃参与者列表中。如果您仍能看到您的参与者，说明网络仍期望您参与该纪元，若此时禁用节点，您可能会错过推理，从而影响您的声誉。
+验证移除和权重。如果您禁用了所有节点，则您的参与者应不再出现在活跃参与者列表中。若您仍能看到自己的参与者，则表示网络仍期望您参与当前周期，若此时您继续禁用节点，可能会错过推理，从而影响您的声誉。
 
-确保您位于 `gonka/deploy/join` 文件夹中。要停止所有运行的容器：
+确保您位于 `gonka/deploy/join` 文件夹中。要停止所有正在运行的容器：
 ```
 docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
 ```
@@ -1773,17 +1766,17 @@ docker compose -f docker-compose.yml -f docker-compose.mlnode.yml down
 
 如果您想完全重置节点并删除所有数据（用于重新部署或迁移），请使用以下清理步骤。
 
-1. 要清理缓存并从头开始，请删除本地 `.inference` 和 `.dapi` 文件夹（推理运行时缓存和身份）：
+1. 为清除缓存并从头开始，请删除本地 `.inference` 和 `.dapi` 文件夹（推理运行时缓存和身份）：
 ```bash
 rm -rf .inference .dapi .tmkms
 ```
 
-2. (可选) 清理模型权重缓存：
+2. (可选) 清除模型权重缓存：
 ```bash
 rm -rf $HF_HOME
 ```
 
 !!! note 
-    删除 `$HF_HOME` 将需要从 Hugging Face 重新下载大型模型文件或重新挂载 NFS 缓存。
+    删除 `$HF_HOME` 将需要从 Hugging Face 重新下载大型模型文件，或重新挂载 NFS 缓存。
 
-    **需要帮助？** 请访问 [常见问题页面](https://gonka.ai/FAQ/) 获取答案，或加入 [Discord 服务器](https://discord.gg/REcpeYc7P7) 获取一般咨询、技术问题或安全问题的支持。  
+    **需要帮助？** 请访问 [常见问题页面](https://gonka.ai/FAQ/) 寻找答案，或加入 [Discord 服务器](https://discord.gg/REcpeYc7P7) 获取关于一般问题、技术问题或安全问题的帮助。

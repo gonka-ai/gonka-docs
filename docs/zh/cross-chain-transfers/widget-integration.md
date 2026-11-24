@@ -1,68 +1,71 @@
-# 技术集成指南：兑换与跨链桥组件
+!!! warning "桥暂时不可用"
+    由于正在调查的事件，Gonka–Ethereum 桥已暂停。请勿在进一步通知前使用该桥。请关注官方公告获取更新。
 
-本指南为希望在其自定义仪表盘中重建兑换与跨链桥组件的社区开发者提供技术规范、架构设计和实现步骤。
+# 技术集成指南：交易所与桥接小部件
+
+本指南为希望在自己的自定义仪表板中重新创建交易所与桥接小部件的社区开发者提供技术规范、架构设计和实施步骤。
 
 ---
 
-## 1. 架构概述
+## 架构概述
 
-为避免结构性混淆，充值与提现的资产流被拆分为两个独立的过程。
+为防止结构混乱，存款和取款的资产流程被拆分为两个独立的流程。
 
-### A. 充值流程（EVM 至 Gonka）与地址派生
-在充值过程中，代币会被锁定在以太坊上，并根据发送方 EVM 公钥派生的 Cosmos 地址，在 Gonka 上铸造等值的包装代币。这就是可能发生地址派生不匹配的地方：
+### A. 存款流程（EVM 到 Gonka）及地址推导
+在存款过程中，代币将在以太坊上被锁定，并根据发送方 EVM 公钥推导出的 Cosmos 地址在 Gonka 上铸造等值的封装代币。这是可能出现地址推导不匹配的地方：
 
 ```mermaid
 %%{init: { 'themeVariables': { 'signalColor': 'var(--md-default-fg-color)', 'signalTextColor': 'var(--md-default-fg-color)' } } }%%
 sequenceDiagram
     autonumber
-    actor User as 用户 (EVM 钱包)
-    participant EthBridge as 以太坊跨链桥合约
-    participant Orch as 验证节点 / 协调器
-    participant Gonka as Gonka 链
+    actor User as User (EVM Wallet)
+    participant EthBridge as Ethereum Bridge Contract
+    participant Orch as Validators / Orchestrator
+    participant Gonka as Gonka Chain
 
-    User->>EthBridge: 发送 ERC-20（转账至跨链桥地址）
-    Note over EthBridge: 代币锁定在合约中
-    EthBridge-->>Orch: 触发充值事件
-    Note over Orch: 提取发送方的 EVM 公钥
-    Note over Orch: 将公钥转换为 Cosmos 地址（前缀 'gonka'）
-    Orch->>Gonka: 向派生的 Cosmos 地址铸造包装代币
+    User->>EthBridge: Send ERC-20 (transfer to Bridge Address)
+    Note over EthBridge: Tokens Locked in Contract
+    EthBridge-->>Orch: Emit Deposit Event
+    Note over Orch: Extracts Sender's EVM Public Key
+    Note over Orch: Converts Public Key to Cosmos Address (prefix 'gonka')
+    Orch->>Gonka: Mint wrapped tokens to Derived Cosmos Address
 ```
 
-### B. 提现 / 解包装流程（Gonka 至 EVM）
-在提现过程中，代币在 Cosmos 侧被销毁，轮询验证节点的 BLS 签名，然后在以太坊侧进行领回（铸造）：
+### B. 取款/解封装流程（Gonka 到 EVM）
+在取款过程中，代币将在 Cosmos 端被销毁，验证者 BLS 签名将被轮询，然后在以太坊端被申领（铸造）：
 
 ```mermaid
 %%{init: { 'themeVariables': { 'signalColor': 'var(--md-default-fg-color)', 'signalTextColor': 'var(--md-default-fg-color)' } } }%%
 sequenceDiagram
     autonumber
-    actor User as 用户钱包
-    participant Gonka as Gonka 链
-    participant Orch as BLS 协调器
-    participant EthBridge as 以太坊跨链桥合约
+    actor User as User Wallet
+    participant Gonka as Gonka Chain
+    participant Orch as BLS Orchestrator
+    participant EthBridge as Ethereum Bridge Contract
 
-    User->>Gonka: 销毁/包装代币（Cosmos 交易）
-    Gonka-->>Orch: 触发销毁事件（Request ID）
-    Note over Orch: 将 Base64 格式的 Request ID 解码为十六进制
-    Note over Orch: 验证节点签名并生成 BLS 签名
+    User->>Gonka: Burn/Wrap tokens (Cosmos Tx)
+    Gonka-->>Orch: Emit Burn Event (Request ID)
+    Note over Orch: Decodes Base64 Request ID into Hex
+    Note over Orch: Validators sign & generate BLS Signature
     
-    loop 轮询
-        User->>Orch: 通过十六进制 Request ID 轮询签名状态
+    loop Polling
+        User->>Orch: Poll Signature status by Hex Request ID
     end
-    Orch-->>User: 返回验证节点的 BLS 签名
+    Orch-->>User: Return Validator BLS Signature
     
-    User->>EthBridge: 提交 mintWithSignature(signature)
-    Note over EthBridge: 验证签名并铸造代币
-    EthBridge-->>User: EVM 账户收到代币
+    User->>EthBridge: Submit mintWithSignature(signature)
+    Note over EthBridge: Verify Signature & Mint Tokens
+    EthBridge-->>User: Tokens Received in EVM Account
 ```
 
 ---
 
-## 2. 充值功能
+## 存款功能
 
-### A. IBC 充值（Cosmos 至 Gonka）
-IBC 充值将资产直接从 Cosmos 源链（例如 Osmosis、Cosmos Hub、Injective）转移到 Gonka。
+### A. IBC 存款（Cosmos 到 Gonka）
+IBC 存款直接将资产从 Cosmos 源链（例如 Osmosis、Cosmos Hub、Injective）传输到 Gonka。
 
-1. **启用并连接源链**：向 Keplr 查询源链凭证。
+1. **启用并连接源链**：查询 Keplr 获取源链凭证。
     ```typescript
     async function connectSourceChain(chainId: string) {
       const walletProvider = (window as any).keplr;
@@ -75,7 +78,7 @@ IBC 充值将资产直接从 Cosmos 源链（例如 Osmosis、Cosmos Hub、Injec
     }
     ```
 
-2. **解析通道路由**：查询 Gonka RPC 通道元数据（`/ibc/core/channel/v1/channels`）以解析交易对手路径。
+2. **解析通道路由**：查询 Gonka RPC 通道元数据（`/ibc/core/channel/v1/channels`）以解析对等路径。
     ```typescript
     async function resolveIbcChannel(nodeUrl: string, targetChainId: string): Promise<string | null> {
       const response = await fetch(`${nodeUrl}/ibc/core/channel/v1/channels`).then(r => r.json());
@@ -99,7 +102,7 @@ IBC 充值将资产直接从 Cosmos 源链（例如 Osmosis、Cosmos Hub、Injec
     }
     ```
 
-3. **执行 IBC 转账**：从源链发送标准的 CosmJS `MsgTransfer`。
+3. **执行 IBC 转账**：从源链发起标准 CosmJS `MsgTransfer`。
     ```typescript
     import { SigningStargateClient } from '@cosmjs/stargate';
 
@@ -133,19 +136,19 @@ IBC 充值将资产直接从 Cosmos 源链（例如 Osmosis、Cosmos Hub、Injec
     }
     ```
 
-### B. EVM 跨链桥充值（EVM 至 Gonka）
-EVM 充值涉及在 EVM 源链上锁定 ERC-20 资产，以在 Gonka 上铸造相应的代币。交易流程包含以下步骤：
+### B. EVM 桥接存款（EVM 到 Gonka）
+EVM 存款涉及在 EVM 源链上锁定 ERC-20 资产，以在 Gonka 上铸造相应的代币。交易流程需要以下步骤：
 
-1. **验证 EVM 地址密钥不匹配**：验证当前活动的 EVM 地址所派生的 Cosmos 地址是否与已连接的 Keplr 公钥相匹配。
-   
-    > **警告：EVM 地址密钥不匹配**  
-    > 当用户通过标准的软件助记词连接时，其 EVM 钱包（MetaMask）会使用币种类型 `60` 来派生地址，而其 Cosmos 钱包（Keplr）会使用币种类型 `118` 或 `1200` 来派生地址。
-    > * 由于这些派生路径不同，其 EVM 公钥和 Cosmos 公钥并**不**一致。
-    > * 以太坊跨链桥合约会捕获充值 EVM 地址的公钥，并基于**直接从该 EVM 公钥派生**的 Bech32 地址在 Gonka 上铸造代币。
-    > * 如果发生因助记词派生引起的不匹配，代币将被铸造到与当前活跃的 Keplr 钱包完全**不同**的 Cosmos 地址。资金并非永久丢失——用户仍可以从其助记词（币种类型 `60`）派生出以太坊私钥并使用它来访问接收代币的 Gonka 账户——但这需要手动的密钥派生步骤，大多数用户可能无法预料到。
+1. **验证 EVM 地址密钥不匹配**：验证活动的 EVM 地址推导出的 Cosmos 地址是否与连接的 Keplr 公钥匹配。
 
-    **解决方案：密钥验证清单**  
-    在允许用户充值之前，请执行以下验证：
+> **警告：EVM 地址密钥不匹配**  
+    > 当用户通过标准软件助记词种子连接时，其 EVM 钱包（MetaMask）使用币种类型 `60` 推导地址，而其 Cosmos 钱包（Keplr）使用币种类型 `118` 或 `1200` 推导地址。 
+    > * 由于这些推导路径不同，其 EVM 公钥和 Cosmos 公钥**不匹配**。
+    > * 以太坊桥接合约捕获存款 EVM 地址的公钥，并将代币铸造到**直接从该 EVM 公钥推导出的 Bech32 地址**上。
+    > * 如果发生助记词推导不匹配，代币将被铸造到与用户活动 Keplr 钱包**完全不同**的 Cosmos 地址上。资金并非永久丢失——用户仍可从助记词（币种类型 `60`）推导出以太坊私钥，并用其访问接收的 Gonka 账户——但这需要大多数用户不会预期的手动密钥推导步骤。
+
+**解决方案：密钥验证清单**  
+    在允许用户存款前，请执行以下验证：
 
     ```typescript
     import { toBech32 } from '@cosmjs/encoding';
@@ -197,7 +200,7 @@ EVM 充值涉及在 EVM 源链上锁定 ERC-20 资产，以在 Gonka 上铸造�
     }
     ```
 
-2. **解析跨链桥合约地址**：从注册表 API 获取目标代币已获批的跨链桥合约地址。
+2. **解析桥接合约地址**：从注册表 API 获取目标代币的批准桥接合约地址。
     ```typescript
     async function resolveBridgeAddress(nodeUrl: string, chainId: string): Promise<string> {
       const response = await fetch(
@@ -230,10 +233,10 @@ EVM 充值涉及在 EVM 源链上锁定 ERC-20 资产，以在 Gonka 上铸造�
     }
     ```
 
-4. **执行 ERC-20 转账**：生成 ERC-20 `transfer(bridgeAddress, amount)` ABI 调用数据，并通过 EVM 提供商将其发送到 ERC-20 代币合约地址。
+4. **执行 ERC-20 转账**：生成 ERC-20 `transfer(bridgeAddress, amount)` ABI 调用负载，并通过 EVM 提供商将其发送到 ERC-20 代币合约地址。
 
-    > **警告：**  
-    > 充值 ERC-20 代币时，**请勿**直接向跨链桥合约地址发送原始交易。相反，您必须将 **ERC-20 代币合约地址**作为接收方（`to`），并传递表示 `transfer(bridgeContractAddress, amount)` 函数调用的编码数据载荷。
+> **警告：**  
+    > 存款 ERC-20 代币时，**不要**直接向桥接合约地址发送原始交易。相反，您必须将**ERC-20 代币合约地址**作为接收方（`to`），并传递代表 `transfer(bridgeContractAddress, amount)` 函数调用的编码数据负载。
 
     ```typescript
     // 1. Manually encode the ERC-20 transfer(address to, uint256 value) function call
@@ -260,13 +263,13 @@ EVM 充值涉及在 EVM 源链上锁定 ERC-20 资产，以在 Gonka 上铸造�
 
 ---
 
-## 3. 提现功能
+## 取款功能
 
-### A. IBC 提现（Gonka 至 Cosmos）
-IBC 提现将资产直接从 Gonka 转移回 Cosmos 目的链（例如 Osmosis、Cosmos Hub、Injective）。
+### A. IBC 取款（Gonka 到 Cosmos）
+IBC 取款将资产直接从 Gonka 传输回 Cosmos 目标链（例如 Osmosis、Cosmos Hub、Injective）。
 
-1. **解析本地通道**：查询 Gonka RPC 通道列表元数据（`/ibc/core/channel/v1/channels`）以解析指向目的链的通道。
-2. **执行 IBC 转账**：在 Gonka 链上发送标准的 CosmJS `MsgTransfer`。
+1. **解析本地通道**：查询 Gonka RPC 通道列表元数据（`/ibc/core/channel/v1/channels`）以解析目标链的通道。
+2. **执行 IBC 转账**：在 Gonka 链上发起标准 CosmJS `MsgTransfer`。
 
     ```typescript
     import { SigningStargateClient } from '@cosmjs/stargate';
@@ -302,11 +305,11 @@ IBC 提现将资产直接从 Gonka 转移回 Cosmos 目的链（例如 Osmosis�
 
 ---
 
-### B. EVM 跨链桥提现（多阶段解包装）
-将代币从 Gonka 解包装回以太坊是一个异步过程，由三个不同的步骤组成，并且在开始前必须先进行一项关键的验证检查：
+### B. EVM 桥接取款（多阶段解封装）
+将代币从 Gonka 解封装回以太坊是一个异步过程，包含三个独立步骤，且必须在执行前进行关键验证：
 
-#### 前提条件：跨链桥纪元同步验证
-为了保证提现成功处理，在启动解包装交易流程*之前*，请验证以太坊跨链桥合约的纪元（Epoch）是否与当前的 Gonka 链纪元保持同步。如果跨链桥落后，您必须提示用户在跨链桥合约上注册缺失的纪元。
+#### 前提条件：桥接纪元同步验证
+为确保取款成功处理，请在启动解封装交易流程前，验证以太坊桥接合约纪元是否与当前 Gonka 链纪元同步。如果桥接落后，您必须提示用户在桥接合约上注册缺失的纪元。
 
 ```typescript
 import { ethers } from 'ethers';
@@ -383,16 +386,16 @@ async function syncMissingEpochs(
 }
 ```
 
-如果跨链桥落后（`chainEpoch > bridgeEpoch`），应提示用户触发按顺序执行的纪元同步（`syncMissingEpochs`），然后才允许他们继续进行第 1 阶段（销毁资产）。
+如果桥接落后（`chainEpoch > bridgeEpoch`），用户应被提示触发顺序纪元同步（`syncMissingEpochs`），然后才能继续执行第 1 阶段（销毁资产）。
 
 ---
 
-#### 第 1 阶段：在 Gonka 上销毁/包装代币
-执行 Cosmos SDK 交易以请求跨链桥解包装。这可以是标准的 CW-20 合约执行消息（销毁/解包装包装代币），也可以是自定义的原生跨链桥解包装交易类型（将原生 GNK 解包装为 WGNK）。
+#### 第 1 阶段：在 Gonka 上销毁/封装代币
+执行 Cosmos SDK 交易以请求桥接解封装。这可以是标准 CW-20 合约执行消息（销毁/解封装封装代币）或自定义原生桥接解封装交易类型（将原生 GNK 解封装为 WGNK）。
 
 ##### **A. 自定义注册表设置**
 
-如果您使用自定义注册表来签署自定义消息类型（如 `MsgRequestBridgeMint`），您**必须**同时注册标准的 CosmWasm 类型（如包含 `/cosmwasm.wasm.v1.MsgExecuteContract` 的 `wasmTypes`）。否则会导致 CW-20 交易中出现 "Unregistered type URL" 错误。
+如果您使用自定义注册表来签署自定义消息类型（如 `MsgRequestBridgeMint`），您**必须**同时注册标准 CosmWasm 类型（如包含 `/cosmwasm.wasm.v1.MsgExecuteContract` 的 `wasmTypes`）。未注册会导致 CW-20 交易期间出现“未注册类型 URL”错误。
 
 ```typescript
 import { Registry } from '@cosmjs/proto-signing';
@@ -418,8 +421,8 @@ const customRegistry = new Registry([
 ]);
 ```
 
-##### **B. 消息构建**
-根据要解包装的资产类型，构建原生解包装消息或 CW-20 执行消息：
+##### **B. 消息构造**
+根据待拆封的资产，构建原生拆封消息或CW-20执行消息：
 
 ```typescript
 // 1. For Native GNK -> WGNK:
@@ -455,9 +458,9 @@ const msg = {
 ```
 
 ##### **C. 本地交易哈希计算与索引器回退**
-在禁用了交易索引（`tx_index = "off"`）的 Cosmos 节点上，通过 `client.broadcastTx()` 广播交易可能会抛出 `transaction indexing is disabled` 错误，即使交易已成功提交。
+在交易索引被禁用的Cosmos节点上（`tx_index = "off"`），通过 `client.broadcastTx()` 广播交易可能会抛出 `transaction indexing is disabled` 错误，即使交易已成功提交。
 
-为了支持这些节点，请手动签署交易，通过对签名后的 `TxRaw` 字节进行 SHA-256 预计算交易哈希，并捕获索引器错误：
+为支持这些节点，请手动签署交易，本地预生成交易哈希（通过对签署的 `TxRaw` 字节进行SHA-256计算），并捕获索引器错误：
 
 ```typescript
 import { toHex } from '@cosmjs/encoding';
@@ -491,11 +494,11 @@ async function signAndBroadcastWithIndexerFallback(
 
 ---
 
-#### 第 2 阶段：解析 Request ID 与 BLS 签名轮询
-当销毁交易在 Gonka 上完成时，您需要提取 `request_id` 和 `epoch_id` 以轮询验证者的签名。
+#### 阶段2：请求ID解析与BLS签名轮询
+当Gonka上的燃烧交易完成后，您需要提取 `request_id` 和 `epoch_id` 来轮询验证者的签名。
 
-##### **A. 获取请求详情（基于事件 vs. 历史查询回退）**
-如果 RPC 节点启用了交易索引，您可以直接从交易事件中读取 `request_id`。否则，您必须查询协调器的状态历史端点来查找请求。
+##### **A. 获取请求详情（基于事件 vs. 历史回退）**
+如果RPC节点启用了交易索引，您可以直接从交易事件中读取 `request_id`。否则，您必须查询编排器的状态历史端点以查找请求。
 
 ```typescript
 // 1. Event-based Resolution (Indexing Enabled)
@@ -565,10 +568,10 @@ async function resolveRequestFromHistory(
 }
 ```
 
-##### **B. BLS 签名轮询**
-> **重要提示：**  
-> **Base64 转换为 Hex**：  
-> 如果您通过事件属性解析了 `request_id`（Base64 编码，例如 `YIDIsA...`），您**必须**将 Base64 字符串直接解码为字节，然后将其表示为 **32 字节的十六进制字符串**（例如 `0x6080c8...`）。**请勿**对 Base64 字符串应用 Keccak256 或 SHA-256 等哈希函数。
+##### **B. BLS签名轮询**
+> **重要：**  
+> **Base64转十六进制**：  
+> 如果您通过事件属性（Base64编码，例如 `YIDIsA...`）解析了 `request_id`，您**必须**直接将Base64字符串解码为字节，然后将其表示为**32字节的十六进制字符串**（例如 `0x6080c8...`）。请**不要**对Base64字符串应用Keccak256或SHA-256等哈希函数。
 
 ```typescript
 function base64ToHex(base64Str: string): string {
@@ -581,9 +584,9 @@ function base64ToHex(base64Str: string): string {
 }
 ```
 
-轮询 BLS 签名端点（`{orchestratorUrl}/bls/signatures/{hexRequestId}`），直到验证节点生成有效的签名。
+轮询BLS签名端点（`{orchestratorUrl}/bls/signatures/{hexRequestId}`），直到验证者生成有效签名。
 
-**响应示例**：
+**示例响应**：
 ```json
 {
   "signing_request": {
@@ -629,8 +632,8 @@ async function pollBlsSignature(orchestratorUrl: string, hexRequestId: string): 
 }
 ```
 
-#### 第 3 阶段：在以太坊合约上铸造
-调用以太坊跨链桥合约上的 `mintWithSignature`，提交验证节点的签名数据。
+#### 阶段3：在以太坊合约上铸造
+调用以太坊桥接合约上的 `mintWithSignature`，提交验证者的签名数据。
 
 ```typescript
 import { ethers } from 'ethers';
@@ -689,11 +692,11 @@ async function mintOnEthereum(
 
 ---
 
-## 4. 弹性恢复系统（恢复/缓存）（推荐 / 可选）
+## 弹性恢复系统（恢复/缓存）（推荐/可选）
 
-为了防止用户在浏览器崩溃、网络断开或标签页关闭时丢失交易状态，强烈建议（虽然是可选的）实现**弹性缓存模式**：
+为防止用户在浏览器崩溃、网络断开或标签页关闭时丢失交易状态，强烈建议（但非必需）实现**弹性缓存模式**：
 
-1. **在广播第 1 阶段之前立即写入缓存**：
+1. **写入缓存**：在广播阶段1之前立即执行：
     ```typescript
     const cacheKey = `pending_unwrap_${userCosmosAddress}`;
     localStorage.setItem(cacheKey, JSON.stringify({
@@ -704,25 +707,25 @@ async function mintOnEthereum(
       step: 1
     }));
     ```
-2. **在 Gonka 交易广播中及 `request_id` 被解析时更新缓存**。
-3. **在组件挂载（Mount）时**：检查 `localStorage.getItem(cacheKey)` 是否存在。如果存在，显示一个**"检测到待处理交易"**卡片，允许用户选择：
-    * **恢复交易**：恢复状态并直接跳转到第 2 阶段（轮询 BLS 签名）或第 3 阶段（EVM 铸造）。
+2. **更新缓存**：当Gonka交易广播时，以及当 `request_id` 解析时。
+3. **挂载时**：检查 `localStorage.getItem(cacheKey)` 是否存在。如果找到，显示一个**"检测到待处理交易"**卡片，允许用户选择：
+    * **恢复交易**：恢复状态并直接跳转至阶段2（轮询BLS签名）或阶段3（EVM铸造）。
     * **放弃**：清除 `localStorage` 键。
 
 ---
-## 5. 代币列表解析与元数据收集
+## 代币列表解析与元数据收集
 
-为了提供无缝的用户体验，该组件从 Cosmos 和以太坊链中动态查询并解析可用资产及其元数据（符号、小数位数）。
+为确保无缝的用户体验，小工具会动态查询并解析来自Cosmos和以太坊链的可用资产及其元数据（符号、小数位）。
 
-### A. 充值代币列表（`allDepositTokens`）
+### A. 存款代币列表（`allDepositTokens`）
 
-充值下拉菜单显示用户可以跨链*到* Gonka 的资产列表。该列表通过合并和解析已获批代币和 WGNK 的元数据来构建：
+存款下拉菜单显示用户可以桥接到Gonka的资产列表。此列表通过合并和解析已批准代币及WGNK的元数据构建：
 
-* **已获批代币注册表**：从后端注册表获取可交易/可跨链的代币列表：`GET {nodeUrl}/productscience/inference/inference/approved_tokens_for_trade`。
-* **动态注入 WGNK**：获取当前跨链桥合约地址（`GET {nodeUrl}/productscience/inference/inference/bridge_addresses/ethereum`）。如果解析出的跨链桥合约地址（WGNK）不在已获批的代币列表中，则动态追加 `WGNK`（9 位小数），以允许用户包装原生 GNK。
-* **符号和精度解析**：
-    * **Cosmos (IBC)**：将资产与离线元数据映射匹配，或查询 Cosmos 链银行元数据：`GET {nodeUrl}/cosmos/bank/v1beta1/denoms_metadata/{denom}`。
-    * **以太坊（跨链桥）**：通过原始 `eth_call` 操作查询公共 EVM RPC 节点（`0x95d89b41` 调用 `symbol()`，`0x313ce567` 调用 `decimals()`）。
+* **已批准代币注册表**：从后端注册表获取可交易/可桥接代币列表：`GET {nodeUrl}/productscience/inference/inference/approved_tokens_for_trade`。
+* **动态WGNK注入**：获取当前桥接合约地址（`GET {nodeUrl}/productscience/inference/inference/bridge_addresses/ethereum`）。如果解析的桥接合约地址（WGNK）不在已批准代币列表中，请动态追加 `WGNK`（带9位小数），以允许用户包装原生GNK。
+* **符号与小数位解析**：
+    * **Cosmos（IBC）**：将资产与离线元数据映射匹配，或查询Cosmos链的银行元数据：`GET {nodeUrl}/cosmos/bank/v1beta1/denoms_metadata/{denom}`。
+    * **以太坊（桥接）**：通过原始 `eth_call` 操作（`0x95d89b41` 用于 `symbol()`，`0x313ce567` 用于 `decimals()`）查询公共EVM RPC节点。
 
 #### 实现示例
 ```typescript
@@ -791,11 +794,11 @@ function parseBytes32OrString(hex: string): string {
 
 ### B. 提现代币列表（`withdrawableTokens`）
 
-提现下拉菜单显示用户钱包中可以跨链*出* Gonka 的资产列表。构建该列表需要合并三个子操作来整合不同的代币来源：
+提现下拉菜单显示用户钱包中可从Gonka桥出的资产列表。构建此列表需要结合三个子操作以合并不同的代币来源：
 
-* **Cosmos 包装代币余额（CW-20）**：通过 REST API 端点查询用户在 Gonka 链上的 CW-20 包装代币余额：`GET {nodeUrl}/productscience/inference/inference/wrapped_token_balances/{walletAddress}`。
-  
-  **响应示例**：
+* **Cosmos包装余额（CW-20）**：通过REST API端点 `GET {nodeUrl}/productscience/inference/inference/wrapped_token_balances/{walletAddress}` 查询用户在Gonka链上的CW-20包装代币余额。
+
+**示例响应**：
   ```json
   {
     "balances": [
@@ -815,11 +818,11 @@ function parseBytes32OrString(hex: string): string {
   ```
 
 !!! tip "可选建议：动态合约发现与缓存"
-    如果您想动态发现 Gonka 链上部署的所有包装代币合约，可以查询在包装代币 code ID `105` 下部署的所有合约地址：
-    
+    如果您希望动态发现Gonka链上部署的所有包装代币合约，可以查询所有在包装代币代码ID `105` 下部署的合约地址：
+
     `GET {nodeUrl}/cosmwasm/wasm/v1/code/105/contracts`
-    
-    **响应示例**：
+
+    **示例响应**：
     ```json
     {
       "contracts": [
@@ -829,13 +832,11 @@ function parseBytes32OrString(hex: string): string {
       "pagination": { "next_key": null, "total": "0" }
     }
     ```
-    
-    要获取每个合约地址的元数据（符号、名称、精度），请执行 `token_info` 的智能合约查询：
-    
-    `GET {nodeUrl}/cosmwasm/wasm/v1/contract/{contractAddress}/smart/eyJ0b2tlbl9pbmZvIjp7fX0=`
-    *（其中 `eyJ0b2tlbl9pbmZvIjp7fX0=` 是 `{"token_info":{}}` 的 Base64 编码）*
-    
-    **响应示例**：
+
+    为每个合约地址获取元数据（符号、名称、小数位），请对 `token_info` 执行智能合约查询：
+
+`GET {nodeUrl}/cosmwasm/wasm/v1/contract/{contractAddress}/smart/eyJ0b2tlbl9pbmZvIjp7fX0=`
+    *(其中 `eyJ0b2tlbl9pbmZvIjp7fX0=` 是 `{"token_info":{}}` 的 Base64 编码)***示例响应**：
     ```json
     {
       "data": {
@@ -846,11 +847,11 @@ function parseBytes32OrString(hex: string): string {
       }
     }
     ```
-    
-    为了优化组件性能并避免重复的链上智能查询，我们强烈建议在本地缓存此合约元数据。
+
+    为了优化小部件性能并避免重复的链上智能查询，我们强烈建议在本地缓存此合约元数据。
 * **Cosmos 原生 IBC 余额**：使用银行模块 REST API 查询标准银行余额：`GET {nodeUrl}/cosmos/bank/v1beta1/balances/{address}`。
-  
-  **响应示例**：
+
+**示例响应**：
   ```json
   {
     "balances": [
@@ -866,10 +867,10 @@ function parseBytes32OrString(hex: string): string {
     "pagination": { "next_key": null, "total": "2" }
   }
   ```
-* **动态注入 GNK**：获取用户的原生 GNK（质押代币）余额。如果存在，将其动态注入到可提现代币列表中（映射为到以太坊跨链桥的解包装操作），以便他们可以将 GNK 解包装回 WGNK。
+* **动态GNK注入**：获取用户的原生GNK（质押代币）余额。如果存在，则将其动态注入可提现代币列表中（映射为以太坊桥接的解包装操作），以便用户将GNK解包装为WGNK。
 
 #### 实现示例
-要构建最终的可提现代币列表，请获取余额并合并：
+要构建最终的可提现代币列表，请获取余额并将其合并：
 
 ```typescript
 async function getWrappedTokenBalances(nodeUrl: string, walletAddress: string) {

@@ -23,7 +23,7 @@ curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/par
 # {value, exponent} encodes a decimal: e.g. {"value":"1","exponent":-1} → 0.1 (10%).
 ```
 
-Confirm the live MiniMax entry (including `penalty_start_epoch` and `weight_scale_factor`) from the chain:
+Confirm the live MiniMax entry (including `penalty_start_epoch` and the `coeff_min` / `coeff_max` range) from the chain. From v0.2.16, `weight_scale_factor` in this entry is empty; read the live coefficient from `effective_coefficient` (see [Multi-Model PoC](./multi_model_poc.md)):
 
 ```bash
 curl -s "https://node3.gonka.ai/chain-api/productscience/inference/inference/params" \

@@ -85,9 +85,6 @@ Your `gonka1…` address won't look related to the other two, because Gonka deri
 <a href="/images/usdc_injective_02_cctp_connect_wallet.png" target="_blank"><img src="/images/usdc_injective_02_cctp_connect_wallet.png" alt="Connect a wallet" style="height:320px; width:auto;"></a>
 </div>
 
-!!! note
-    Use **MetaMask** for this step. Connecting Keplr on the CCTP page currently fails.
-
 ### 2. Set the route and send
 
 - **From:** Ethereum
@@ -161,10 +158,6 @@ USDC shows as `erc20:0xa00C59fF5a080D2b954d0c75e46E22a0c371235a`, with 6 decimal
 You can also get there from **Settings → Chains and Assets → Add / Remove Chains**.
 
 Then **close Keplr and open it again**. Until you do, Gonka doesn't appear as a destination chain in the IBC channel dialog.
-
-<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
-<a href="/images/usdc_injective_11_keplr_close_and_reopen.png" target="_blank"><img src="/images/usdc_injective_11_keplr_close_and_reopen.png" alt="Keplr asks to close and reopen" style="height:320px; width:auto;"></a>
-</div>
 
 ### 2. Turn on manual IBC in Keplr
 
@@ -311,7 +304,6 @@ Ethereum gas is the main cost of this route. The IBC legs cost fractions of a ce
 | Symptom | Cause | What to do |
 |---|---|---|
 | The CCTP bridge shows `Balance: 0 USDC` | The wallet holds ETH, but no USDC | Swap ETH to USDC on Ethereum first. Check that MetaMask is on **Ethereum Mainnet** and the right account is connected |
-| Keplr fails on the CCTP page | Known issue with the bridge UI | Use MetaMask for legs 1 and 4 |
 | **Mint on destination** shows `Nonce already used` | A relayer has already minted your USDC | Check your balance on Injective. Don't retry |
 | The IBC transfer fails for insufficient fees | No native INJ (leg 2) or no GNK (leg 3) | Add a small amount of the gas token to that address |
 | Gonka is missing from **Destination Chain** in **Add IBC channel** | Gonka is not added in Keplr, or Keplr hasn't reloaded | Add Gonka in **Add/Remove Chains**, then close and reopen Keplr |

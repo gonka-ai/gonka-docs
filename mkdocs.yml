@@ -60,6 +60,7 @@ nav:
         - Withdraw GNK (Ethereum → Gonka): cross-chain-transfers/ethereum-bridge/withdraw-gnk.md
       - IBC:
         - Withdraw USDT via Kava (Gonka → Ethereum): cross-chain-transfers/ibc/withdraw-usdt-via-kava.md
+        - Transfer USDC via Injective (Ethereum ↔ Gonka): cross-chain-transfers/ibc/usdc-via-injective.md
       - Developer integration:
         - Widget integration: cross-chain-transfers/widget-integration.md
         - Dashboard & tracker integration: cross-chain-transfers/ethereum-bridge/tracker-integration.md

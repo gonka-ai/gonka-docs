@@ -6,6 +6,9 @@ The route can stop after any completed leg. USDC can stay on **Injective**, stay
 
 **Disclaimer:** This guide is **not financial advice**. Route parameters, supported assets, fees, and wallet and bridge UIs can change. Always verify the current route, addresses, and amounts before sending funds.
 
+!!! note "One of several routes"
+    This guide covers one way to move USDC between Ethereum and Gonka: Circle's CCTP bridge to Injective, then IBC to Gonka. Other bridges and routes for USDC exist, with different fees, speed, and supported assets.
+
 !!! warning
     Always start with a small test transaction. Send a small amount first and confirm it arrives before moving larger amounts.
 

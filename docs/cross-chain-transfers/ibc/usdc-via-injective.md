@@ -71,7 +71,7 @@ Your `gonka1…` address won't look related to the other two, because Gonka deri
 
 ---
 
-## Step 1 — Ethereum → Injective (CCTP) {#step-1-ethereum-injective-cctp}
+## Step 1 — Ethereum → Injective (CCTP)
 
 ### 1. Connect MetaMask
 
@@ -115,7 +115,7 @@ You might see a “Nonce already used” message on the “Mint on destination�
 
 <a href="/images/usdc_injective_09_nonce_already_used.png" target="_blank"><img src="/images/usdc_injective_09_nonce_already_used.png" alt="Nonce already used on Mint on destination" style="width:500px; height:auto;"></a>
 
-### 4. Check that USDC arrived on Injective {#check-usdc-on-injective}
+### 4. Check that USDC arrived on Injective
 
 - In **Keplr**, look for **USDC.inj** on **Injective**.
 - Or open your `0x…` address on [blockscout.injective.network](https://blockscout.injective.network) and look under **Tokens**.
@@ -129,7 +129,7 @@ USDC shows as `erc20:0xa00C59fF5a080D2b954d0c75e46E22a0c371235a`, with 6 decimal
 
 ---
 
-## Step 2 — Injective → Gonka {#step-2-injective-gonka}
+## Step 2 — Injective → Gonka
 
 ### 1. Add Gonka in Keplr
 
@@ -208,7 +208,7 @@ The API returns the amount in base units: **1000000 = 1 USDC**.
 
 ---
 
-## Step 3 — Gonka → Injective {#step-3-gonka-injective}
+## Step 3 — Gonka → Injective
 
 1. On the Keplr home screen, open **Advanced IBC Transfer → Transfer**.
 2. In **Select Asset**, choose **USDC.inj on Gonka (IBC)**.
@@ -227,11 +227,11 @@ The API returns the amount in base units: **1000000 = 1 USDC**.
 <a href="/images/usdc_injective_24_keplr_recipient_inj1.png" target="_blank"><img src="/images/usdc_injective_24_keplr_recipient_inj1.png" alt="Recipient inj1 address" style="width:300px; height:auto;"></a>
 <a href="/images/usdc_injective_25_keplr_confirm_channel_8.png" target="_blank"><img src="/images/usdc_injective_25_keplr_confirm_channel_8.png" alt="Confirm transaction via channel-8" style="width:300px; height:auto;"></a>
 
-USDC should appear back on **Injective** within a minute or two. Check it as in [Step 1](#check-usdc-on-injective).
+USDC should appear back on **Injective** within a minute or two. Check it as in [Step 1](#4-check-that-usdc-arrived-on-injective).
 
 ---
 
-## Step 4 — Injective → Ethereum (CCTP) {#step-4-injective-ethereum-cctp}
+## Step 4 — Injective → Ethereum (CCTP)
 
 1. Open [bridge.injective.network/cctp](https://bridge.injective.network/cctp/) and connect **MetaMask**.
 2. Click the **⇄** arrow so the route is **From: Injective → To: Ethereum**.

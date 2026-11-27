@@ -39,13 +39,15 @@ Requirements:
 - **Keplr set up for Gonka**: Gonka added in Keplr and Manual IBC Transfer turned on. See [Step 2](#step-2-injective-gonka), items 1 and 2.
 - **USDC on Ethereum** that you plan to transfer to Gonka. Holding ETH alone is not enough: the CCTP bridge only shows your USDC balance. If needed, swap a small amount of ETH to USDC in MetaMask first (**Swap**, ETH → USDC).
 
-    <a href="/images/usdc_injective_01_metamask_swap_eth_usdc.png" target="_blank"><img src="/images/usdc_injective_01_metamask_swap_eth_usdc.png" alt="MetaMask swap ETH to USDC" style="width:300px; height:auto;"></a>
+    <a href="/images/usdc_injective_00_metamask_swap_eth_usdc.png" target="_blank"><img src="/images/usdc_injective_00_metamask_swap_eth_usdc.png" alt="MetaMask swap ETH to USDC" style="height:320px; width:auto;"></a>
 
 - **ETH** for Ethereum gas. Leg 1 takes two transactions (approve and burn). Leg 4 takes one (mint).
 - **Native INJ** on your Injective address, for gas on legs 2 and 4. About **0.01 INJ** is plenty.
 - **`GNK`** on your Gonka address, for gas on leg 3. A fraction of a GNK is enough. Get it before you send USDC to Gonka: without GNK you cannot send the USDC back.
 
 **How to get native INJ:** Withdraw INJ from an exchange to your `inj1…` address and choose the **Injective** network. Leave **Memo** empty. Don't choose ERC20 or BEP20.
+
+<a href="/images/usdc_injective_00_exchange_withdraw_inj.png" target="_blank"><img src="/images/usdc_injective_00_exchange_withdraw_inj.png" alt="Exchange withdrawal of INJ on the Injective network" style="height:320px; width:auto;"></a>
 
 Swapping ETH to INJ in MetaMask on Ethereum gives you **ERC-20 INJ** on Ethereum. That token can't pay gas on Injective until it's bridged there.
 
@@ -78,8 +80,10 @@ Your `gonka1…` address won't look related to the other two, because Gonka deri
 1. Open [bridge.injective.network/cctp](https://bridge.injective.network/cctp/).
 2. Click **Connect wallet** and choose **MetaMask**. MetaMask should be on **Ethereum Mainnet**.
 
-<a href="/images/usdc_injective_02_cctp_bridge.png" target="_blank"><img src="/images/usdc_injective_02_cctp_bridge.png" alt="Injective CCTP bridge" style="width:500px; height:auto;"></a>
-<a href="/images/usdc_injective_03_connect_wallet.png" target="_blank"><img src="/images/usdc_injective_03_connect_wallet.png" alt="Connect a wallet" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_01_cctp_bridge_page.png" target="_blank"><img src="/images/usdc_injective_01_cctp_bridge_page.png" alt="Injective CCTP bridge" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_02_cctp_connect_wallet.png" target="_blank"><img src="/images/usdc_injective_02_cctp_connect_wallet.png" alt="Connect a wallet" style="height:320px; width:auto;"></a>
+</div>
 
 ### 2. Set the route and send
 
@@ -91,29 +95,31 @@ Your `gonka1…` address won't look related to the other two, because Gonka deri
     - **Standard**: up to 20 minutes, no bridge fee.
 - **Recipient on Injective:** filled in with your `0x…` address. Leave it.
 
-<a href="/images/usdc_injective_04_cctp_eth_to_inj.png" target="_blank"><img src="/images/usdc_injective_04_cctp_eth_to_inj.png" alt="CCTP route Ethereum to Injective" style="width:500px; height:auto;"></a>
+<a href="/images/usdc_injective_03_cctp_route_ethereum_injective.png" target="_blank"><img src="/images/usdc_injective_03_cctp_route_ethereum_injective.png" alt="CCTP route Ethereum to Injective" style="height:320px; width:auto;"></a>
 
 Click **Bridge USDC** and confirm in MetaMask:
 
 1. **Spending cap request** (**Approve USDC**): lets Circle CCTP spend your USDC.
 2. **Transaction request** (**Burn on source**): burns USDC on Ethereum and starts the transfer.
 
-<a href="/images/usdc_injective_05_metamask_spending_cap.png" target="_blank"><img src="/images/usdc_injective_05_metamask_spending_cap.png" alt="MetaMask spending cap request" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_06_metamask_burn.png" target="_blank"><img src="/images/usdc_injective_06_metamask_burn.png" alt="MetaMask burn transaction" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_04_metamask_approve_usdc.png" target="_blank"><img src="/images/usdc_injective_04_metamask_approve_usdc.png" alt="MetaMask spending cap request" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_05_metamask_burn_usdc.png" target="_blank"><img src="/images/usdc_injective_05_metamask_burn_usdc.png" alt="MetaMask burn transaction" style="height:320px; width:auto;"></a>
+</div>
 
 The bridge then shows **Wait for attestation** and **Mint on destination**.
 
-<a href="/images/usdc_injective_07_wait_attestation.png" target="_blank"><img src="/images/usdc_injective_07_wait_attestation.png" alt="Wait for attestation" style="width:500px; height:auto;"></a>
+<a href="/images/usdc_injective_06_cctp_wait_attestation.png" target="_blank"><img src="/images/usdc_injective_06_cctp_wait_attestation.png" alt="Wait for attestation" style="height:320px; width:auto;"></a>
 
 ### 3. Mint on Injective
 
 MetaMask may ask to **Add Injective** as a network. Confirm it.
 
-<a href="/images/usdc_injective_08_metamask_add_injective.png" target="_blank"><img src="/images/usdc_injective_08_metamask_add_injective.png" alt="MetaMask Add Injective network" style="width:300px; height:auto;"></a>
+<a href="/images/usdc_injective_07_metamask_add_injective.png" target="_blank"><img src="/images/usdc_injective_07_metamask_add_injective.png" alt="MetaMask Add Injective network" style="height:320px; width:auto;"></a>
 
 You might see a “Nonce already used” message on the “Mint on destination” step. This means a relayer has already minted your USDC on Injective. Don't retry. Check your balance as in the next step.
 
-<a href="/images/usdc_injective_09_nonce_already_used.png" target="_blank"><img src="/images/usdc_injective_09_nonce_already_used.png" alt="Nonce already used on Mint on destination" style="width:500px; height:auto;"></a>
+<a href="/images/usdc_injective_08_cctp_nonce_already_used.png" target="_blank"><img src="/images/usdc_injective_08_cctp_nonce_already_used.png" alt="Nonce already used on Mint on destination" style="height:320px; width:auto;"></a>
 
 ### 4. Check that USDC arrived on Injective
 
@@ -135,8 +141,10 @@ USDC shows as `erc20:0xa00C59fF5a080D2b954d0c75e46E22a0c371235a`, with 6 decimal
 
 **Keplr → ☰ Menu → Add/Remove Chains → search *Gonka* → turn it on.**
 
-<a href="/images/usdc_injective_10_keplr_add_remove_chains.png" target="_blank"><img src="/images/usdc_injective_10_keplr_add_remove_chains.png" alt="Keplr menu Add/Remove Chains" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_11_keplr_enable_gonka.png" target="_blank"><img src="/images/usdc_injective_11_keplr_enable_gonka.png" alt="Enable Gonka in Keplr" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_09_keplr_menu_add_remove_chains.png" target="_blank"><img src="/images/usdc_injective_09_keplr_menu_add_remove_chains.png" alt="Keplr menu Add/Remove Chains" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_10_keplr_enable_gonka.png" target="_blank"><img src="/images/usdc_injective_10_keplr_enable_gonka.png" alt="Enable Gonka in Keplr" style="height:320px; width:auto;"></a>
+</div>
 
 You can also get there from **Settings → Chains and Assets → Add / Remove Chains**.
 
@@ -146,8 +154,10 @@ Then **close Keplr and open it again**. Until you do, Gonka doesn't appear as a 
 
 **Settings → Advanced → Manual IBC Transfer → ON**
 
-<a href="/images/usdc_injective_12_keplr_settings_advanced.png" target="_blank"><img src="/images/usdc_injective_12_keplr_settings_advanced.png" alt="Keplr Settings Advanced" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_13_keplr_manual_ibc_on.png" target="_blank"><img src="/images/usdc_injective_13_keplr_manual_ibc_on.png" alt="Manual IBC Transfer on" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_12_keplr_settings_advanced.png" target="_blank"><img src="/images/usdc_injective_12_keplr_settings_advanced.png" alt="Keplr Settings Advanced" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_13_keplr_manual_ibc_on.png" target="_blank"><img src="/images/usdc_injective_13_keplr_manual_ibc_on.png" alt="Manual IBC Transfer on" style="height:320px; width:auto;"></a>
+</div>
 
 ### 3. Copy your Gonka address
 
@@ -158,8 +168,10 @@ Find **GNK (Gonka)** on the Keplr home screen and copy your **`gonka1…`** addr
 1. On the Keplr home screen, scroll to the bottom. On the **Advanced IBC Transfer** card, click **Transfer**.
 2. In **Select Asset**, choose **USDC.inj (Injective)**.
 
-<a href="/images/usdc_injective_14_keplr_advanced_ibc_card.png" target="_blank"><img src="/images/usdc_injective_14_keplr_advanced_ibc_card.png" alt="Advanced IBC Transfer card" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_15_keplr_select_usdc_inj.png" target="_blank"><img src="/images/usdc_injective_15_keplr_select_usdc_inj.png" alt="Select USDC.inj on Injective" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_14_keplr_advanced_ibc_card.png" target="_blank"><img src="/images/usdc_injective_14_keplr_advanced_ibc_card.png" alt="Advanced IBC Transfer card" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_15_keplr_select_usdc_injective.png" target="_blank"><img src="/images/usdc_injective_15_keplr_select_usdc_injective.png" alt="Select USDC.inj on Injective" style="height:320px; width:auto;"></a>
+</div>
 
 ### 5. Add the channel (first time only)
 
@@ -169,8 +181,10 @@ Find **GNK (Gonka)** on the Keplr home screen and copy your **`gonka1…`** addr
     - **Source Channel Id:** **`channel-509`**
 3. Click **Save**.
 
-<a href="/images/usdc_injective_16_keplr_new_ibc_channel.png" target="_blank"><img src="/images/usdc_injective_16_keplr_new_ibc_channel.png" alt="New IBC Transfer Channel" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_17_keplr_add_channel_gonka.png" target="_blank"><img src="/images/usdc_injective_17_keplr_add_channel_gonka.png" alt="Add IBC channel to Gonka" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_16_keplr_new_ibc_channel.png" target="_blank"><img src="/images/usdc_injective_16_keplr_new_ibc_channel.png" alt="New IBC Transfer Channel" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_17_keplr_add_channel_gonka.png" target="_blank"><img src="/images/usdc_injective_17_keplr_add_channel_gonka.png" alt="Add IBC channel to Gonka" style="height:320px; width:auto;"></a>
+</div>
 
 Next time, **Gonka (channel-509)** appears directly in the dropdown.
 
@@ -184,9 +198,11 @@ Next time, **Gonka (channel-509)** appears directly in the dropdown.
 4. Click **Next** and review **Confirm Transaction**. It should read *IBC Transfer … via channel-509*. The **Tx Fee** is paid in **INJ**.
 5. Click **Approve**.
 
-<a href="/images/usdc_injective_18_keplr_gonka_channel_509.png" target="_blank"><img src="/images/usdc_injective_18_keplr_gonka_channel_509.png" alt="Gonka channel-509 selected" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_19_keplr_amount_fee_inj.png" target="_blank"><img src="/images/usdc_injective_19_keplr_amount_fee_inj.png" alt="Amount and fee in INJ" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_20_keplr_confirm_channel_509.png" target="_blank"><img src="/images/usdc_injective_20_keplr_confirm_channel_509.png" alt="Confirm transaction via channel-509" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_18_keplr_gonka_channel_509.png" target="_blank"><img src="/images/usdc_injective_18_keplr_gonka_channel_509.png" alt="Gonka channel-509 selected" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_19_keplr_amount_fee_inj.png" target="_blank"><img src="/images/usdc_injective_19_keplr_amount_fee_inj.png" alt="Amount and fee in INJ" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_20_keplr_confirm_channel_509.png" target="_blank"><img src="/images/usdc_injective_20_keplr_confirm_channel_509.png" alt="Confirm transaction via channel-509" style="height:320px; width:auto;"></a>
+</div>
 
 The transfer usually arrives within a minute or two.
 
@@ -204,7 +220,7 @@ Look for this denom:
 
 The API returns the amount in base units: **1000000 = 1 USDC**.
 
-<a href="/images/usdc_injective_21_keplr_usdc_on_gonka.png" target="_blank"><img src="/images/usdc_injective_21_keplr_usdc_on_gonka.png" alt="USDC.inj on Gonka in Keplr" style="width:300px; height:auto;"></a>
+<a href="/images/usdc_injective_21_keplr_usdc_on_gonka.png" target="_blank"><img src="/images/usdc_injective_21_keplr_usdc_on_gonka.png" alt="USDC.inj on Gonka in Keplr" style="height:320px; width:auto;"></a>
 
 ---
 
@@ -221,11 +237,15 @@ The API returns the amount in base units: **1000000 = 1 USDC**.
 7. Review **Confirm Transaction**. It should read *IBC Transfer … via channel-8*. The **Tx Fee** is paid in **GNK**.
 8. Click **Approve**.
 
-<a href="/images/usdc_injective_22_keplr_select_usdc_gonka.png" target="_blank"><img src="/images/usdc_injective_22_keplr_select_usdc_gonka.png" alt="Select USDC.inj on Gonka" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_23_keplr_injective_channel_8.png" target="_blank"><img src="/images/usdc_injective_23_keplr_injective_channel_8.png" alt="Injective channel-8" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_22_keplr_select_usdc_gonka.png" target="_blank"><img src="/images/usdc_injective_22_keplr_select_usdc_gonka.png" alt="Select USDC.inj on Gonka" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_23_keplr_injective_channel_8.png" target="_blank"><img src="/images/usdc_injective_23_keplr_injective_channel_8.png" alt="Injective channel-8" style="height:320px; width:auto;"></a>
+</div>
 
-<a href="/images/usdc_injective_24_keplr_recipient_inj1.png" target="_blank"><img src="/images/usdc_injective_24_keplr_recipient_inj1.png" alt="Recipient inj1 address" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_25_keplr_confirm_channel_8.png" target="_blank"><img src="/images/usdc_injective_25_keplr_confirm_channel_8.png" alt="Confirm transaction via channel-8" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_24_keplr_recipient_inj.png" target="_blank"><img src="/images/usdc_injective_24_keplr_recipient_inj.png" alt="Recipient inj1 address" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_25_keplr_confirm_channel_8.png" target="_blank"><img src="/images/usdc_injective_25_keplr_confirm_channel_8.png" alt="Confirm transaction via channel-8" style="height:320px; width:auto;"></a>
+</div>
 
 USDC should appear back on **Injective** within a minute or two. Check it as in [Step 1](#4-check-that-usdc-arrived-on-injective).
 
@@ -242,13 +262,15 @@ USDC should appear back on **Injective** within a minute or two. Check it as in 
     3. After **Wait for attestation**, a **Transaction request** on **Ethereum** (**Mint on destination**). It shows *You receive + … USDC*.
 5. The bridge shows **Bridge complete**. In MetaMask, switch to **Ethereum Mainnet** and check your **USDC** balance.
 
-<a href="/images/usdc_injective_26_cctp_inj_to_eth.png" target="_blank"><img src="/images/usdc_injective_26_cctp_inj_to_eth.png" alt="CCTP route Injective to Ethereum" style="width:500px; height:auto;"></a>
+<a href="/images/usdc_injective_26_cctp_route_injective_ethereum.png" target="_blank"><img src="/images/usdc_injective_26_cctp_route_injective_ethereum.png" alt="CCTP route Injective to Ethereum" style="height:320px; width:auto;"></a>
 
-<a href="/images/usdc_injective_27_metamask_approve_on_inj.png" target="_blank"><img src="/images/usdc_injective_27_metamask_approve_on_inj.png" alt="Approve USDC on Injective" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_28_metamask_burn_on_inj.png" target="_blank"><img src="/images/usdc_injective_28_metamask_burn_on_inj.png" alt="Burn USDC on Injective" style="width:300px; height:auto;"></a>
-<a href="/images/usdc_injective_29_metamask_mint_on_eth.png" target="_blank"><img src="/images/usdc_injective_29_metamask_mint_on_eth.png" alt="Mint USDC on Ethereum" style="width:300px; height:auto;"></a>
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
+<a href="/images/usdc_injective_27_metamask_approve_usdc_injective.png" target="_blank"><img src="/images/usdc_injective_27_metamask_approve_usdc_injective.png" alt="Approve USDC on Injective" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_28_metamask_burn_usdc_injective.png" target="_blank"><img src="/images/usdc_injective_28_metamask_burn_usdc_injective.png" alt="Burn USDC on Injective" style="height:320px; width:auto;"></a>
+<a href="/images/usdc_injective_29_metamask_mint_ethereum.png" target="_blank"><img src="/images/usdc_injective_29_metamask_mint_ethereum.png" alt="Mint USDC on Ethereum" style="height:320px; width:auto;"></a>
+</div>
 
-<a href="/images/usdc_injective_30_cctp_bridge_complete.png" target="_blank"><img src="/images/usdc_injective_30_cctp_bridge_complete.png" alt="Bridge complete" style="width:500px; height:auto;"></a>
+<a href="/images/usdc_injective_30_cctp_bridge_complete.png" target="_blank"><img src="/images/usdc_injective_30_cctp_bridge_complete.png" alt="Bridge complete" style="height:320px; width:auto;"></a>
 
 Gas for the approval and burn is paid in **INJ**. Gas for the mint on Ethereum is paid in **ETH**.
 

@@ -1,0 +1,3968 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn to configure and use Gonka network">
+      
+      
+      
+        <link rel="canonical" href="https://gonka.ai/docs/zh/cross-chain-transfers/ethereum-bridge/dashboard/">
+      
+      
+        <link rel="prev" href="../../../wallet/pricing/">
+      
+      
+        <link rel="next" href="../overview/">
+      
+      
+        
+          <link rel="alternate" href="../../../../cross-chain-transfers/ethereum-bridge/dashboard/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../../images/01-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>通过看板桥接（UI 指南） - </title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CInter:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Inter"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../../stylesheets/nft-landing.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-JWVG5X6CY5"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-JWVG5X6CY5",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-JWVG5X6CY5",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+    
+      
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content=" - 通过看板桥接（UI 指南）">
+    <meta property="og:description" content="Learn to configure and use Gonka network">
+    <meta property="og:url" content="https://gonka.ai/docs/zh/cross-chain-transfers/ethereum-bridge/dashboard/">
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1080">
+    <meta property="og:image:height" content="568">
+  
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ui" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    Gonka–以太坊跨链桥已因一起正在调查的事件暂停。在另行通知前，请勿使用跨链桥，也不要交易 GNK。
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+
+
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="https://gonka.ai/" title="" class="md-header__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              通过看板桥接（UI 指南）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../../cross-chain-transfers/ethereum-bridge/dashboard/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+
+
+    <div class="md-container" data-md-component="container">
+      
+      
+
+
+        
+          
+        
+      
+
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://gonka.ai/" title="" class="md-nav__button md-logo" aria-label="" data-md-component="logo">
+      
+  <img src="../../../../images/logos/gonka.svg" alt="logo">
+
+    </a>
+    
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    了解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    了解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer/gateway-developer-quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署自己的网关
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主机
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主机
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速上手
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/hardware-specifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    硬件规格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    密钥管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/collateral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    抵押
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/genesis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创世
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    运维
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/mlnode-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML 节点管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/mlnode-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    验证 ML 节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/multiple-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/host_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编辑主机公开信息
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/network-node-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络节点 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/devshard-high-availability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    High-availability devshard host
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型与基准测试
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型与基准测试
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/multi_model_poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模型 PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/minimax-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MiniMax-M2.7 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/deepseek-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeepSeek V4 Flash 引导
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/glm-bootstrap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GLM-5.3-Flash bootstrap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../host/benchmark-to-choose-optimal-deployment-config-for-llms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署基准测试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贡献者
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    贡献者
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bounty-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    悬赏计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../report-vulnerability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    报告漏洞
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    钱包
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wallet/create-account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建 Gonka 账户
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wallet/wallet-and-transfer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    钱包与转账指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wallet/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../wallet/pricing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    价格
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链转账
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    跨链转账
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过看板桥接（UI 指南）
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过看板桥接（UI 指南）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仪表板为您做的事情
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        支持的流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="支持的流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        处理时间与费用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gonka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将代币存入 Gonka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="将代币存入 Gonka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eth-gnk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ETH / GNK 桥接存款的工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ibc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IBC 存款的工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        打开仪表板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keplr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连接您的 Keplr 钱包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择代币和金额
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        确认交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        存款完成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证您的存款
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keplr_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将包装代币添加到 Keplr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gonka_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 Gonka 提现代币
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="从 Gonka 提现代币">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eth-gnk_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ETH / GNK 桥接提现的工作方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ibc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IBC 提现的工作方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        打开仪表板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keplr_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连接您的 Keplr 钱包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择代币和金额
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gonka_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 Gonka 上确认交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eth-gnk_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在以太坊上确认释放交易（仅限 ETH / GNK 桥接）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        提现完成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证您的提现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_2" id="__nav_6_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    以太坊跨链桥
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    以太坊跨链桥
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    概述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../addresses-and-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    地址和密钥
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bridge-epoch-update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    跨链桥 Epoch 更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../register-token/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    注册代币
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deposit-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 USDT（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../withdraw-usdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deposit-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存入 GNK（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../withdraw-gnk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提取 GNK（以太坊 → Gonka）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_3" id="__nav_6_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBC
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    IBC
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ibc/withdraw-usdt-via-kava/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通过 Kava 提取 USDT（Gonka → 以太坊）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5_4" id="__nav_6_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者集成
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    开发者集成
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widget-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组件集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracker-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘与跟踪器集成
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    治理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    治理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../governance/transactions-and-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交易与治理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../governance/voting-on-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    提案投票
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../governance/creating-proposals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创建提案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../governance/voting-power-eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Voting Power, Eligibility, Delegation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../model-licenses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型许可
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dashboard-maintainer-memo-v0.2.16-fee/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.16 fee balance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dashboard-maintainer-memo-v0.2.16-h100/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘维护者备忘录 v0.2.16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dashboard-maintainer-memo-v0.2.15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dashboard-maintainer-memo-v0.2.14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard maintainer memo v0.2.14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dashboard-maintainer-memo-v0.2.13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    仪表盘维护者备忘录 v0.2.13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../network-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络更新
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    获取支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bounty-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    悬赏计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        仪表板为您做的事情
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        支持的流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="支持的流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        处理时间与费用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gonka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将代币存入 Gonka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="将代币存入 Gonka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eth-gnk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ETH / GNK 桥接存款的工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ibc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IBC 存款的工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        打开仪表板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keplr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连接您的 Keplr 钱包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择代币和金额
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        确认交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        存款完成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证您的存款
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keplr_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将包装代币添加到 Keplr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gonka_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 Gonka 提现代币
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="从 Gonka 提现代币">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eth-gnk_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ETH / GNK 桥接提现的工作方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ibc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IBC 提现的工作方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        打开仪表板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keplr_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        连接您的 Keplr 钱包
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择代币和金额
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gonka_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在 Gonka 上确认交易
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eth-gnk_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        在以太坊上确认释放交易（仅限 ETH / GNK 桥接）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        提现完成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        验证您的提现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><p>!!! warning “桥暂时不可用”
+    由于正在调查的事件，Gonka–Ethereum 桥已暂停使用。在进一步通知前，请勿使用该桥。请关注官方公告获取最新信息。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>始终先进行小额测试交易。桥接转账不可逆，因此在转移大额资金前，请先发送小额资金并确认其正常到账。</p>
+<p>由 Gonka 共识控制的专用桥智能合约已部署在以太坊上的地址：</p>
+</div>
+<div class="highlight"><pre><span></span><code>0x972a7a92d92796a98801a8818bcf91f1648f2f68
+</code></pre></div>
+<hr>
+<h1 id="ui">通过仪表板桥接（UI 指南）</h1>
+<p>仪表板是桥接最简单的方式。它会为您处理密钥推导（参见 <a href="../addresses-and-keys/">Addresses and keys</a>），因此您无需手动导入私钥或计算地址。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>如果您不熟悉 CLI 或处理原始私钥，建议使用仪表板。如果您更倾向于手动操作，详细的 CLI 流程文档请参见 <a href="../deposit-usdt/">Deposit USDT</a>、<a href="../withdraw-usdt/">Withdraw USDT</a>、<a href="../deposit-gnk/">Deposit GNK</a> 和 <a href="../withdraw-gnk/">Withdraw GNK</a>。</p>
+</div>
+<h2 id="_1">仪表板为您做的事情</h2>
+<ul>
+<li><strong>推导正确的地址。</strong> 连接您用于桥接的以太坊钱包，仪表板会显示桥接将代币发送到的匹配 <code>gonka1…</code> 地址——因此您始终知道封装代币的接收地址。</li>
+<li><strong>警告种子短语账户。</strong> 如果您使用的钱包的以太坊和 Gonka 密钥来自同一个 <strong>助记词</strong>，仪表板会检测到这一点并发出警告，因为种子推导的账户在每条链上使用不同的密钥——因此您的 Gonka 钱包默认不会显示桥接的代币。您仍然控制接收地址（您可以从同一助记词推导出匹配的密钥），但这需要额外的手动步骤。完整说明请参阅 <a href="../addresses-and-keys/">Addresses and keys</a>。</li>
+<li><strong>显示您的桥接余额</strong>，在“桥接资产”部分中，以便确认存款已到账。</li>
+<li><strong>报告链状态</strong>，以便在发起转账前了解链是否处于降级状态。</li>
+<li><strong>提示桥接纪元更新</strong>，当以太坊桥接落后于 Gonka 链时。如果您看到 <strong>A Bridge needs epoch update</strong>，请点击 <strong>Update bridge</strong> 提交缺失的纪元密钥。这是一个正常的以太坊交易，因此连接的钱包将支付 Gas 费用。参见 <a href="../bridge-epoch-update/">Bridge epoch update</a>。</li>
+</ul>
+<h2 id="_2">支持的流程</h2>
+<p>仪表板支持无需使用 CLI 的完整转账流程：</p>
+<ul>
+<li><strong>ETH 桥接</strong> —— 将任何 ERC-20 代币（USDT、USDC、WETH 等）从以太坊存入 Gonka，或反向提现回以太坊。</li>
+<li><strong>GNK 桥接</strong> —— 将原生 GNK 桥接到以太坊作为 WGNK，或反向操作。</li>
+<li><strong>IBC 桥接</strong> —— 在 Gonka 和连接的 Cosmos 链（如 Kava）之间转移 IBC 原生代币（如 USDT）。</li>
+</ul>
+<h3 id="_3">处理时间与费用</h3>
+<table>
+<thead>
+<tr>
+<th>桥接类型</th>
+<th>方向</th>
+<th>处理时间</th>
+<th>支付的 Gas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ETH 桥接（ERC-20）</td>
+<td>以太坊 → Gonka</td>
+<td>~15–20 分钟（等待以太坊最终确认）</td>
+<td>ETH</td>
+</tr>
+<tr>
+<td>ETH 桥接（ERC-20）</td>
+<td>Gonka → 以太坊</td>
+<td>~1–5 分钟</td>
+<td>ETH</td>
+</tr>
+<tr>
+<td>GNK 桥接</td>
+<td>Gonka → 以太坊（铸造 WGNK）</td>
+<td>~1–5 分钟</td>
+<td>ETH</td>
+</tr>
+<tr>
+<td>GNK 桥接</td>
+<td>以太坊 → Gonka（销毁 WGNK）</td>
+<td>~15–20 分钟</td>
+<td>ETH</td>
+</tr>
+<tr>
+<td>IBC</td>
+<td>Kava → Gonka</td>
+<td>~1–3 分钟</td>
+<td>KAVA</td>
+</tr>
+<tr>
+<td>IBC</td>
+<td>Gonka → Kava</td>
+<td>~1–3 min</td>
+<td>GNK（0 费用）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="gonka">将代币存入 Gonka</h2>
+<p>本部分将引导您使用桥接小工具将代币存入 Gonka。从 <strong>代币</strong> 下拉菜单中选择代币——小工具会自动检测桥接类型：</p>
+<ul>
+<li><strong>ERC-20 代币</strong>（USDC、USDT、WETH 等）和 <strong>GNK</strong>（作为 WGNK）通过 <strong>以太坊桥</strong> 进行传输。</li>
+<li><strong>IBC 代币</strong>（USDT <span class="md-tag">IBC</span> 等）通过 <strong>IBC</strong> 转移到连接的 Cosmos 链。</li>
+</ul>
+<h3 id="eth-gnk">ETH / GNK 桥接存款的工作原理</h3>
+<ol>
+<li><strong>在以太坊上锁定代币</strong>——您的代币将发送至桥接合约并被锁定。</li>
+<li><strong>验证者签名</strong>——Gonka 验证者监控已完成的以太坊存款并收集 BLS 签名。</li>
+<li><strong>在 Gonka 上铸造</strong>——封装代币将在 Gonka 上铸造并发送至您的派生 <code>gonka1…</code> 地址。</li>
+</ol>
+<h3 id="ibc">IBC 存款的工作原理</h3>
+<ol>
+<li><strong>在钱包中批准转账</strong>——您签署来自源链（例如 Kava）的 IBC 转账。</li>
+<li><strong>IBC 数据包中继</strong>——数据包被中继至 Gonka。</li>
+<li><strong>代币到达 Gonka</strong>——IBC 代币将显示在您的 Gonka 钱包中。</li>
+</ol>
+<h3 id="_4">打开仪表板</h3>
+<p>在浏览器中打开其中一个创世节点：</p>
+<ul>
+<li><a href="https://node1.gonka.ai:8443">https://node1.gonka.ai:8443</a></li>
+<li><a href="https://node2.gonka.ai:8443">https://node2.gonka.ai:8443</a></li>
+</ul>
+<p>在左侧边栏中导航至 <strong>开发者</strong> 部分。您将在页面底部看到桥接小工具，包含 <strong>提币</strong> / <strong>存入</strong> 切换按钮。</p>
+<p><a href="/images/bridge_widget_2.png" target="_blank"><img src="/images/bridge_widget_2.png" style="width:500px; height:auto;"></a></p>
+<h3 id="keplr">连接您的 Keplr 钱包</h3>
+<p>确保选择 <strong>存入</strong> 切换按钮。点击 <strong>连接钱包</strong>。</p>
+<p>将弹出一个包含可用钱包选项的对话框。选择 <strong>KEPLR</strong>。</p>
+<p><a href="/images/bridge_widget_3.png" target="_blank"><img src="/images/bridge_widget_3.png" style="width:500px; height:auto;"></a></p>
+<div class="admonition note">
+<p class="admonition-title">Keplr 显示“未安装”？</p>
+<p>如果您看到“未安装”消息，您需要先安装 Keplr 浏览器扩展程序。请按照 <a href="../../../wallet/create-account/">创建 Gonka 账户 → Keplr 浏览器扩展程序</a> 中的说明进行设置，然后返回此处。</p>
+<p>如提示，请输入您的 Keplr 密码。连接成功后，小工具将显示 <strong>Keplr 已连接</strong>，并显示您的缩短 Gonka 地址和 GNK 余额。点击 <strong>继续</strong> 以继续。</p>
+<p><a href="/images/bridge_widget_4.png" target="_blank"><img src="/images/bridge_widget_4.png" style="width:500px; height:auto;"></a></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">助记词（种子短语）账户</p>
+<p>如果您的 Gonka 账户是通过 <strong>助记词</strong>（种子短语）而非原始私钥创建的，桥接小工具将检测到地址不匹配并发出警告。这是因为以太坊和 Gonka 从同一助记词派生出 <strong>不同的密钥</strong>，因此代币将被发送到与您钱包当前显示不同的 <code>gonka1…</code> 地址。资金并未丢失——您可以从同一助记词中派生出匹配的密钥，但需要手动执行派生步骤。如果您看到此警告，请停止操作并阅读 <a href="../addresses-and-keys/">地址与密钥</a> 后再继续。</p>
+</div>
+<h3 id="_5">选择代币和金额</h3>
+<p>在第 2 步中，从 <strong>代币</strong> 下拉菜单中选择您要存入的代币，并输入 <strong>金额</strong>。小工具将显示您当前的余额，<strong>Gonka 上的接收地址</strong> 将自动从您的已连接钱包填充。</p>
+<p>小工具将显示预计的 <strong>处理时间</strong> 和 <strong>近似费用</strong>（费用货币取决于桥接类型——参见上表）。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">ERC-20 (USDC)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_widget_5.png" target="_blank"><img src="/images/bridge_widget_5.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked id="__tabbed_2_1" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">GNK</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_widget_20.png" target="_blank"><img src="/images/bridge_widget_20.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked id="__tabbed_3_1" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_ibc_deposit_1.png" target="_blank"><img src="/images/bridge_ibc_deposit_1.png" style="width:500px; height:auto;"></a></p>
+<p>点击 <strong>审查并桥接</strong>。</p>
+<h3 id="_6">确认交易</h3>
+<p>您的钱包将打开一个<strong>确认交易</strong>屏幕。请仔细审查以下信息后再批准：</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked id="__tabbed_4_1" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">ERC-20 (USDC)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><strong>代币和金额</strong> — 确认正确的代币和金额。</li>
+<li><strong>发送方</strong> — 您的以太坊地址（发送者）。</li>
+<li><strong>接收方</strong> — 桥接合约地址（<code>0x972a7A92…648f2F68</code>）。这是预期的 — 您正在将代币发送至桥接合约，桥接合约随后将在 Gonka 上铸造包装代币。</li>
+<li><strong>交易费用</strong> — 您将支付的以太坊 Gas 费用。</li>
+</ul>
+</div>
+</div>
+</div>
+<p><a href="/images/bridge_widget_6.png" target="_blank"><img src="/images/bridge_widget_6.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked id="__tabbed_5_1" name="__tabbed_5" type="radio"><div class="tabbed-labels"><label for="__tabbed_5_1">GNK</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><strong>代币和金额</strong> — 确认正确的代币和金额。</li>
+<li><strong>接收方</strong> — 桥接合约地址。</li>
+<li><strong>交易费用</strong> — 以太坊 Gas 费用。</li>
+</ul>
+</div>
+</div>
+</div>
+<p><a href="/images/bridge_widget_21.png" target="_blank"><img src="/images/bridge_widget_21.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked id="__tabbed_6_1" name="__tabbed_6" type="radio"><div class="tabbed-labels"><label for="__tabbed_6_1">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><strong>消息类型</strong> — <code>IBC Transfer</code>。</li>
+<li><strong>金额和目标</strong> — 例如：“通过 channel-161 发送 0.1 USDt 到 gonka1…”。</li>
+<li><strong>交易费用</strong> — 以 KAVA 支付（例如 0.05 KAVA）。</li>
+</ul>
+</div>
+</div>
+</div>
+<p><a href="/images/bridge_ibc_deposit_2.png" target="_blank"><img src="/images/bridge_ibc_deposit_2.png" style="width:500px; height:auto;"></a></p>
+<p>点击 <strong>批准</strong> 提交交易。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>确认前请仔细核对信息。桥接转账是<strong>不可逆</strong>的。如果发现任何错误，请点击 <strong>✕</strong> 取消并重新开始。</p>
+</div>
+<h3 id="_7">存款完成</h3>
+<p>小部件将显示一个<strong>存款完成</strong>屏幕，总结操作详情。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked id="__tabbed_7_1" name="__tabbed_7" type="radio"><div class="tabbed-labels"><label for="__tabbed_7_1">ERC-20 (USDC)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_widget_7.png" target="_blank"><img src="/images/bridge_widget_7.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked id="__tabbed_8_1" name="__tabbed_8" type="radio"><div class="tabbed-labels"><label for="__tabbed_8_1">GNK</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_widget_22.png" target="_blank"><img src="/images/bridge_widget_22.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked id="__tabbed_9_1" name="__tabbed_9" type="radio"><div class="tabbed-labels"><label for="__tabbed_9_1">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>进度跟踪器显示：</p>
+<div class="highlight"><pre><span></span><code>- **在钱包中批准转账** — 已完成
+- **IBC 数据包中继转账** — 已完成
+</code></pre></div>
+<p><a href="/images/bridge_ibc_deposit_3.png" target="_blank"><img src="/images/bridge_ibc_deposit_3.png" style="width:500px; height:auto;"></a></p>
+<p>从该屏幕您可以：</p>
+<ul>
+<li>点击 <strong>在浏览器中查看</strong> 查看交易详情。</li>
+<li>点击 <strong>转移更多代币</strong> 进行另一次存款。</li>
+<li>点击 <strong>断开连接</strong> 断开您的钱包。</li>
+</ul>
+<h3 id="_8">验证您的存款</h3>
+<p>您可以通过多种方式确认您的包装代币已到账：</p>
+<ul>
+<li><strong>在仪表板中</strong>：打开 <code>https://node2.gonka.ai:8443/dashboard/gonka/account/&lt;your_gonka_address&gt;</code> 并检查您的余额。</li>
+<li><strong>通过存款完成页面上显示的交易链接</strong>。</li>
+<li><strong>在 Keplr 中</strong>：包装代币（CW-20）不会自动显示在 Keplr 中 — 请按照以下步骤手动添加。</li>
+</ul>
+<hr>
+<h3 id="keplr_1">将包装代币添加到 Keplr</h3>
+<p>包装的 ERC-20 代币（如 wUSDC 和 wUSDT）在 Gonka 链上是 CW-20 代币。Keplr 不会自动检测 CW-20 代币，因此您需要将其作为自定义代币添加。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>IBC 代币（通过 IBC 转移，而非以太坊桥）会自动显示在 Keplr 中。以下手动步骤仅适用于桥接包装的 CW-20 代币。</p>
+<p><strong>步骤 1</strong>：打开您的 Keplr 钱包，点击右上角的菜单图标（三条水平线），然后选择 <strong>管理资产列表</strong>。</p>
+<p><a href="/images/bridge_widget_12.png" target="_blank"><img src="/images/bridge_widget_12.png" style="width:auto; height:337.5px;"></a></p>
+<p><strong>步骤 2</strong>：点击右上角的 <strong>+</strong> 按钮以添加自定义代币。</p>
+<p><a href="/images/bridge_widget_13.png" target="_blank"><img src="/images/bridge_widget_13.png" style="width:auto; height:337.5px;"></a></p>
+<p><strong>步骤 3</strong>：在 <strong>添加自定义代币</strong> 页面中，从链下拉菜单中选择 <strong>Gonka</strong>。将 CW-20 合约地址粘贴到 <strong>合约地址</strong> 字段中。代币元数据（名称、符号、小数位）将自动填充。点击 <strong>确认</strong>。</p>
+<p>已知合约地址：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>代币</th>
+<th>Gonka 上的 CW-20 合约地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USDC</td>
+<td><code>gonka1fa83z7np903k9vh63guy82qthtv373d7vjeq0y7xeqh50rzn8vtssffkre</code></td>
+</tr>
+<tr>
+<td>USDT</td>
+<td><code>gonka15ggwj9un6qrmu4nj5ev6l7kpdcr00td03ff2mmj4cyhl8u8vjd2qnl3hgk</code></td>
+</tr>
+</tbody>
+</table>
+<p><a href="/images/bridge_widget_14.png" target="_blank"><img src="/images/bridge_widget_14.png" style="width:auto; height:337.5px;"></a></p>
+<p><strong>步骤 4</strong>：完成 — 该代币现在将作为 <strong>Gonka CW20</strong> 代币显示在您的 Keplr 钱包中。</p>
+<p><a href="/images/bridge_widget_15.png" target="_blank"><img src="/images/bridge_widget_15.png" style="width:auto; height:337.5px;"></a></p>
+<hr>
+<h2 id="gonka_1">从 Gonka 提现代币</h2>
+<p>本节将引导您使用桥接小工具从 Gonka 提现代币。从 <strong>代币</strong> 下拉菜单中选择代币 — 小工具将自动检测桥接类型：</p>
+<ul>
+<li><strong>ERC-20 代币</strong> 和 <strong>GNK</strong> 通过 <strong>以太坊桥</strong> 进行。</li>
+<li><strong>IBC 代币</strong>（USDT <span class="md-tag">IBC</span>，…）通过 <strong>IBC</strong> 转移到连接的 Cosmos 链。</li>
+</ul>
+<h3 id="eth-gnk_1">ETH / GNK 桥接提现的工作方式</h3>
+<ol>
+<li><strong>在 Gonka 上燃烧代币</strong> — 包装代币在 Gonka 链上被燃烧（或原生 GNK 被锁定）。</li>
+<li><strong>验证者签名</strong> — Gonka 验证者生成 BLS 聚合签名以授权释放。</li>
+<li><strong>在以太坊上释放</strong> — 原始代币从以太坊上的桥接合约中释放（或 WGNK 被铸造）。</li>
+</ol>
+<h3 id="ibc_1">IBC 提现的工作方式</h3>
+<ol>
+<li><strong>在钱包中批准转账</strong> — 您在 Gonka 上签署一个 IBC 转账。</li>
+<li><strong>IBC 数据包中继</strong> — 数据包被中继到目标链。</li>
+<li><strong>代币到账</strong> — IBC 代币出现在目标链上的您的钱包中（例如 Kava）。</li>
+</ol>
+<h3 id="_9">打开仪表板</h3>
+<p>在浏览器中打开一个创世节点：</p>
+<ul>
+<li><a href="https://node1.gonka.ai:8443">https://node1.gonka.ai:8443</a></li>
+<li><a href="https://node2.gonka.ai:8443">https://node2.gonka.ai:8443</a></li>
+</ul>
+<p>在左侧边栏中导航到 <strong>开发者</strong> 部分。在桥接小工具中选择 <strong>提现</strong> 切换开关。</p>
+<p><a href="/images/bridge_withdraw_1.png" target="_blank"><img src="/images/bridge_withdraw_1.png" style="width:500px; height:auto;"></a></p>
+<h3 id="keplr_2">连接您的 Keplr 钱包</h3>
+<p>确保选择了 <strong>提现</strong> 切换开关。点击 <strong>连接钱包</strong>。</p>
+<p>将显示可用的钱包选项对话框。选择 <strong>KEPLR</strong>。</p>
+<p><a href="/images/bridge_withdraw_2.png" target="_blank"><img src="/images/bridge_withdraw_2.png" style="width:500px; height:auto;"></a></p>
+<p>!!! note Keplr 显示“未安装”？
+    如果看到“未安装”消息，您需要先安装 Keplr 浏览器扩展程序。请按照 <a href="../../../wallet/create-account/">创建 Gonka 账户 → Keplr 浏览器扩展程序</a> 中的说明进行设置，然后返回此处。</p>
+<div class="highlight"><pre><span></span><code>如果提示，请输入您的 Keplr 密码。连接成功后，小部件将显示 **Keplr 已连接**，并显示您的缩短的 Gonka 地址和 GNK 余额。点击 **继续** 以继续。
+
+&lt;a href="/images/bridge_withdraw_3.png" target="_blank"&gt;&lt;img src="/images/bridge_withdraw_3.png" style="width:500px; height:auto;"&gt;&lt;/a&gt;
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">助记词（种子短语）账户</p>
+<p>如果您的 Gonka 账户是通过 <strong>助记词</strong>（mnemonic）而非原始私钥创建的，桥接小部件将检测到地址不匹配并发出警告。这是因为以太坊和 Gonka 从相同的助记词派生出 <strong>不同的密钥</strong>，因此代币将被释放到与您钱包当前显示不同的以太坊地址。资金并未丢失——您可以从同一助记词派生出匹配的密钥，但这需要手动派生步骤。如果您看到此警告，请停止操作并阅读 <a href="../addresses-and-keys/">地址和密钥</a> 再继续。</p>
+</div>
+<h3 id="_10">选择代币和金额</h3>
+<p>在第 2 步中，从 <strong>代币</strong> 下拉菜单中选择您要提取的代币，并输入 <strong>金额</strong>。小部件会显示您在 Gonka 上该代币的当前余额。<strong>目标地址</strong> 会自动从您的已连接钱包填充。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>与存款不同，您可以编辑目标字段以提取到其他地址。请确保这是您控制的地址，并且输入正确。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked id="__tabbed_10_1" name="__tabbed_10" type="radio"><div class="tabbed-labels"><label for="__tabbed_10_1">GNK</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_withdraw_4.png" target="_blank"><img src="/images/bridge_withdraw_4.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked id="__tabbed_11_1" name="__tabbed_11" type="radio"><div class="tabbed-labels"><label for="__tabbed_11_1">ERC-20 (USDC)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_withdraw_8.png" target="_blank"><img src="/images/bridge_withdraw_8.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:1"><input checked id="__tabbed_12_1" name="__tabbed_12" type="radio"><div class="tabbed-labels"><label for="__tabbed_12_1">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>目标地址是 Kava 链上的 <code>kava1…</code> 地址。处理时间约为 1–3 分钟。</p>
+<p><a href="/images/bridge_ibc_withdraw_1.png" target="_blank"><img src="/images/bridge_ibc_withdraw_1.png" style="width:500px; height:auto;"></a></p>
+<p>点击 <strong>查看并桥接</strong>。</p>
+</div>
+<h3 id="gonka_2">在 Gonka 上确认交易</h3>
+<p>Keplr 将为 Gonka 链打开一个 <strong>确认交易</strong> 弹窗。检查详情后点击 <strong>批准</strong>。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:1"><input checked id="__tabbed_13_1" name="__tabbed_13" type="radio"><div class="tabbed-labels"><label for="__tabbed_13_1">GNK</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><strong>消息类型</strong> — <code>MsgRequestBridgeMint</code>，用于在 Gonka 上锁定您的 GNK 并请求在以太坊上铸造 WGNK。</li>
+<li><strong>交易费用</strong> — 0 GNK。</li>
+</ul>
+</div>
+</div>
+</div>
+<p><a href="/images/bridge_withdraw_5.png" target="_blank"><img src="/images/bridge_withdraw_5.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:1"><input checked id="__tabbed_14_1" name="__tabbed_14" type="radio"><div class="tabbed-labels"><label for="__tabbed_14_1">ERC-20 (USDC)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><strong>消息类型</strong> — 对包装代币的 CW-20 合约执行 <code>Execute Wasm Contract</code> 调用，负载为 <code>withdraw</code>。</li>
+<li><strong>交易费用</strong> — 0 GNK。</li>
+</ul>
+</div>
+</div>
+</div>
+<p><a href="/images/bridge_withdraw_9.png" target="_blank"><img src="/images/bridge_withdraw_9.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="15:1"><input checked id="__tabbed_15_1" name="__tabbed_15" type="radio"><div class="tabbed-labels"><label for="__tabbed_15_1">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li><strong>消息类型</strong> — <code>IBC Transfer</code>。</li>
+<li><strong>金额和目标</strong> — 例如：“通过 channel-5 向 kava1… 发送 0.1 USDt (Kava/channel-5)”</li>
+<li><strong>交易费用</strong> — 0 GNK。</li>
+</ul>
+</div>
+</div>
+</div>
+<p><a href="/images/bridge_ibc_withdraw_2.png" target="_blank"><img src="/images/bridge_ibc_withdraw_2.png" style="width:500px; height:auto;"></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>确认前请仔细核对详情。桥接转账是 <strong>不可逆</strong> 的。如果发现任何错误，请点击 <strong>✕</strong> 取消并重新开始。</p>
+<p>对于 <strong>ETH / GNK 桥接</strong>：批准后，进度追踪器将标记 <strong>在 Gonka 上燃烧代币</strong> 为完成。Gonka 验证者随后自动收集并聚合其 BLS 签名（<strong>验证者签名</strong> 步骤）——此阶段您无需任何操作。</p>
+</div>
+<h3 id="eth-gnk_2">在以太坊上确认释放交易（仅限 ETH / GNK 桥接）</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>此步骤仅适用于 <strong>ETH 桥接</strong> 和 <strong>GNK 桥接</strong> 的提现。对于 <strong>IBC</strong> 提现，第 4 步后转账自动完成——跳至第 6 步。</p>
+<p>当验证者生成 BLS 聚合签名（<strong>验证者签名</strong> — 已完成）后，Keplr 将打开第二个弹窗——这次是针对 <strong>以太坊链</strong>。此交易将执行桥接合约（<code>0x972a7a92…648f2f68</code>）以在以太坊上释放代币。</p>
+</div>
+<ul>
+<li><strong>到</strong> — Ethereum 上的桥接合约地址。</li>
+<li><strong>交易费</strong> — Ethereum 燃料费（以 ETH 支付）。具体金额取决于当前的燃料价格。</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="16:1"><input checked id="__tabbed_16_1" name="__tabbed_16" type="radio"><div class="tabbed-labels"><label for="__tabbed_16_1">GNK</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_withdraw_6.png" target="_blank"><img src="/images/bridge_withdraw_6.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="17:1"><input checked id="__tabbed_17_1" name="__tabbed_17" type="radio"><div class="tabbed-labels"><label for="__tabbed_17_1">ERC-20 (USDC)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_withdraw_10.png" target="_blank"><img src="/images/bridge_withdraw_10.png" style="width:500px; height:auto;"></a></p>
+<p>点击 <strong>批准</strong> 以提交释放交易。</p>
+<h3 id="_11">提现完成</h3>
+<p>小部件显示一个<strong>提现完成</strong>屏幕，所有阶段均已标记为完成。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="18:1"><input checked id="__tabbed_18_1" name="__tabbed_18" type="radio"><div class="tabbed-labels"><label for="__tabbed_18_1">GNK</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_withdraw_7.png" target="_blank"><img src="/images/bridge_withdraw_7.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="19:1"><input checked id="__tabbed_19_1" name="__tabbed_19" type="radio"><div class="tabbed-labels"><label for="__tabbed_19_1">ERC-20 (USDC)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p><a href="/images/bridge_withdraw_11.png" target="_blank"><img src="/images/bridge_withdraw_11.png" style="width:500px; height:auto;"></a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="20:1"><input checked id="__tabbed_20_1" name="__tabbed_20" type="radio"><div class="tabbed-labels"><label for="__tabbed_20_1">IBC (USDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>进度追踪器显示：</p>
+<div class="highlight"><pre><span></span><code>- **在钱包中批准转账** — 已完成
+- **IBC 数据包中继转账** — 已完成
+</code></pre></div>
+<p><a href="/images/bridge_ibc_withdraw_3.png" target="_blank"><img src="/images/bridge_ibc_withdraw_3.png" style="width:500px; height:auto;"></a></p>
+<p>从该屏幕您可以：</p>
+<ul>
+<li>点击 <strong>在浏览器中查看</strong> 以查看交易详情。</li>
+<li>点击 <strong>转移更多代币</strong> 以进行另一次提现。</li>
+<li>点击 <strong>断开连接</strong> 以断开您的钱包。</li>
+</ul>
+<h3 id="_12">验证您的提现</h3>
+<p>您可以通过多种方式确认您的代币已到账：</p>
+<ul>
+<li><strong>ETH 桥 / GNK</strong>：检查您的 Ethereum 钱包中的已释放 ERC-20 代币或 WGNK。WGNK 会自动显示在 Keplr 中。</li>
+<li><strong>IBC</strong>：检查目标链上的代币余额（例如 Keplr 中的 Kava 上的 USDT）。</li>
+<li><strong>浏览器链接</strong>：使用提现完成屏幕上的 <strong>在浏览器中查看</strong> 链接。</li>
+</ul>
+<p><a href="/images/bridge_withdraw_12.png" target="_blank"><img src="/images/bridge_withdraw_12.png" style="width:auto; height:337.5px;"></a></p></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.tracking", "search.suggest"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../../assets/javascripts/links.js"></script>
+      
+        <script src="../../../../assets/javascripts/quickstart-configurator.js"></script>
+      
+    
+  </body>
+</html>
